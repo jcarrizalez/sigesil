@@ -1,6 +1,6 @@
 <?
-    $menuRegistro = array('Programa'=>'pais/index',
-                            'Silos'=>'estado/index',
+    $menuRegistro = array('Programa'=>'programa/index',
+                            'Silos'=>'silos/index',
                             'Productor'=>'productor/index',
                             'Cultivo'=>'cultivo/index'
     );
