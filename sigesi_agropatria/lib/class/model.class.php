@@ -8,7 +8,7 @@ class Model extends cls_dbtools {
     
     function find($condition, $limit=null,$fields='*',$type = '',$order = '')
     {
-            $queryCondition = '1 ';
+            $queryCondition = "'1'";
             $query = 'SELECT '; 
             foreach($condition as $field=>$value)
                     $queryCondition.= 'AND '.get_class($this).".".$field."='".$value."' ";
@@ -61,8 +61,9 @@ class Model extends cls_dbtools {
                     $values.= ", ";
                 else
                     $sw = true;
-                    
-                $values.= $field."='".$value."'";
+                
+                $values.= (!empty($value)) ? $field." = '".$value."'" : $field.' = null';
+                //$values.= $field."='".$value."'";
             }
             
             $values.=", modificado=now()";
@@ -83,9 +84,9 @@ class Model extends cls_dbtools {
                     $sw = true;
                 }        
                 $fields.= $field;
-                $values.= "'".$value."'";
+                $values.= (!empty($value)) ? "'".$value."'" : 'null';
             }
-            $fields.=",creado,modificado)";
+            $fields.=", creado, modificado)";
             $values .=",now(),now())";
             
             $query.=" " . $fields." VALUES ".$values;

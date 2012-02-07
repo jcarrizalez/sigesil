@@ -163,3 +163,22 @@ body{
     font-weight: bold;
     font-size: 16px;
 }
+
+#botones{
+    text-align: right;
+    margin-bottom: 15px;
+}
+
+#mensajes{
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.msj_verde{
+    color: darkgreen;
+}
+
+.msj_rojo{
+    color: #F00;
+}

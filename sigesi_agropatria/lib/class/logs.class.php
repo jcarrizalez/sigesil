@@ -18,7 +18,7 @@ class cls_logs {
 	private $log_navegador='';
 	private $data_old='No data';
 	private $data_new='No data';
-	private $table_name='No data';
+	public $table_name='No data';
 	private $data_old_del = array();
 	
 

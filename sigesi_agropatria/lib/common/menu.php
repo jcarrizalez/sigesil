@@ -1,5 +1,6 @@
 <?
-    $menuRegistro = array('Programa'=> DOMAIN_ROOT.'admin/programa.php',
+    $menuRegistro = array('Centros de Acopio' => DOMAIN_ROOT.'admin/centros_acopio_listado.php',
+                            'Programa'=> DOMAIN_ROOT.'admin/programa.php',
                             'Silos'=>'estado/index',
                             'Productor'=>'productor/index',
                             'Cultivo'=>'cultivo/index'

@@ -2,7 +2,30 @@
     require_once('../lib/core.lib.php');
     require('../lib/common/header.php');
 ?>
-
+<form name="form_programa" id="form_programa" method="POST" action="?ac=access">
+    <table>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+</form>
 <?
     require('../lib/common/footer.php');
 ?>

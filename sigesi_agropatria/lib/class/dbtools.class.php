@@ -128,7 +128,7 @@
                     set_time_limit(0);
                     ini_set('memory_limit',-1);
                     //if($calcrows){ $query = substr($query,0,6)." SQL_CALC_FOUND_ROWS ".substr($query,6); }
-                    if($calcrows){ $query = "SELECT Count(*) FROM ($query) as foo"; }
+                    //if($calcrows){ $query = "SELECT Count(*) FROM ($query) as foo"; }
                     $inicio = microtime();
                     $result = pg_query($query);
                     $fin = microtime();
@@ -187,7 +187,7 @@
                                 if($result){
                                     $return_value = true;
                                     if($tipo=='INSERT'){ 
-                                        $result = pg_query('SELECT last_value FROM si_'.$this->table_name.'_id_seq');
+                                        $result = pg_query('SELECT last_value FROM '.$this->table_name.'_id_seq');
                                         $seq_array=pg_fetch_row($result, 0);
                                         $this->return_id = $seq_array[0];
                                         //$this->return_id = mysql_insert_id(); 
