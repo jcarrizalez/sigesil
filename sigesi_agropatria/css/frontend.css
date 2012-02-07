@@ -1,0 +1,165 @@
+/* 
+    Document   : frontend
+    Created on : 25/01/2012, 01:58:41 PM
+    Author     : jrodriguez
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+body{
+    color: #000000;
+    font-family: arial;
+    font-size: 12px;
+    text-align: justify;
+    background-color: #E9E8E8;
+}
+
+#cabecera{
+    background-image: url('../images/logo_mat.png');
+    background-repeat: no-repeat;
+    margin: auto;
+    padding: 0;
+    height: 77px;
+    width: 800px;
+}
+
+#global{
+    width: 800px;
+    margin: auto;
+}
+
+#global_sep{
+    padding-top: 12px;
+}
+
+#menu{
+    width: 200px;
+    float: left;
+    padding: 0 0 20px 0;
+}
+
+#boton_inicio img{
+    border: none;
+    width: 32px;
+    height: 37px;
+}
+
+#lista_accordion{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+}
+
+#lista_accordion a{
+    color: #000000;
+    text-decoration: none;
+}
+
+#lista_accordion a:hover{
+    color: #CC0000;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#contenido{
+    padding: 0 0 0 5px;
+    width: 595px;
+    float: left;
+}
+
+#contenido_externo{
+    width: 800px;
+    float: left;
+}
+
+#pie_pagina{
+    clear: both;
+    margin: auto;
+    width: 800px;
+    text-align: center;
+    padding-top: 15px;
+}
+
+#izq_pie_pagina{
+    background-image: url('../images/esquina_izquierda.png');
+    width: 40px;
+    height: 65px;
+    background-repeat: no-repeat;
+    float: left;
+}
+
+#pie_pagina_central{
+    background-image: url('../images/centro.png');
+    background-repeat: repeat-x;
+    color: #FFFFFF;
+    font-weight: bold;
+    width: 720px;
+    height: 65px;
+    float: left;
+}
+
+#pie_pagina_central span{
+    font-size: 10px;
+}
+
+#der_pie_pagina{
+    background-image: url('../images/esquina_derecha.png');
+    width: 40px;
+    height: 65px;
+    background-repeat: no-repeat;
+    float: left;
+}
+
+#div_fecha{
+    text-align: right;
+}
+
+#titulos_tabla{
+    width: 100%;
+}
+
+#titulos_tabla th{
+    text-align: left;
+    font-size: 16px;
+    color: #CC0000;
+    width: 170px;
+}
+
+#titulos_tabla td{
+    text-align: left;
+    padding-left: 5px;
+    font-size: 16px;
+    color: #000000;
+}
+
+#titulo_modulo{
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: #73B65A;
+    padding-bottom: 10px;
+}
+
+#modulo{
+    padding: 15px;
+    background-color: #FFFFFF;
+    border.radius: 15px;
+    -moz-border-radius:15px;
+    -webkit-border-radius:15px;
+}
+
+#modulo_externo{
+    padding: 15px;
+    /*background-color: #FFFFFF;*/
+    background-image: url('../images/fondo_externo.png');
+    background-repeat: no-repeat;
+    border.radius: 15px;
+    -moz-border-radius:15px;
+    -webkit-border-radius:15px;
+}
+
+#table_login{
+    font-weight: bold;
+    font-size: 16px;
+}
