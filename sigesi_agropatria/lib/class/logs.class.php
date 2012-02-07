@@ -1,12 +1,7 @@
 <?php
 /**
  * Manejo de logs de eventos
- * 
  * Los Id de eventos pueden ser visto en la tabla si_log_codigos
- * 
- * @author Domingo Oropeza <dioh_@hotmail.com>
- * @version 1.5 2009/09/10
- *
  */
 class cls_logs {
 	private $saltodelinea = array ("\t","\n","\r","\0","\x0B");

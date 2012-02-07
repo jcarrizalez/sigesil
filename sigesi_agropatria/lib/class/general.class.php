@@ -2,9 +2,6 @@
 
 /**
  * Clase general de funciones mas utilizadas o utiles
- *
- * @author Domingo Oropeza <dioh_@hotmail.com>
- * @version v1.0 2008/02/08
  */
 class General {
 

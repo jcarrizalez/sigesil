@@ -1,11 +1,6 @@
 <?php
 /*
- * OPTIME Consulting, Inc.
- *
  * Description: Clase para autocargar las clases del sistema
- *
- * @author Javier Mijares
- * @version 1.0  2010/10/21
  */
 class Autoloader
 {

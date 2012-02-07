@@ -3,9 +3,6 @@
 /*
  * @name			Javascript Validator Class
  * @description		Currently using JQuery as backend framework
- * @version         v 1.0
- * @modifiedby    	$LastChangedBy: clizarraga
- * @lastmodified  	2010-07-30
  */
 
 class Validator extends Javascript {
