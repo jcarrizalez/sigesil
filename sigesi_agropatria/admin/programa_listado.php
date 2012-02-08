@@ -2,7 +2,6 @@
     require_once('../lib/core.lib.php');
     
     $programa = new Programa();
-    $obj_general = new General();
     
     $id = (!empty($GPC['id_programa'])) ? $GPC['id_programa'] : null;
     
@@ -58,7 +57,7 @@
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
             <th>Centro de Acopio</th>
-            <th>&numero; Programa</th>
+            <th>Programa Nro</th>
             <th>Programa</th>
             <th>Creado</th>
             <th>Acci&oacute;n</th>
@@ -66,7 +65,7 @@
         <?
             $i=0;
             foreach($listadoProgramas as $dataPrograma){
-            $clase = $obj_general->obtenerClaseFila($i);
+            $clase = $general->obtenerClaseFila($i);
         ?>
         <tr class="<?=$clase?>">
             <td><?=$dataPrograma['ca_nombre']?></td>

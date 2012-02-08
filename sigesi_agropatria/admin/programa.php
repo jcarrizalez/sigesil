@@ -9,7 +9,7 @@
     
     switch($GPC['ac']){
         case 'guardar':
-            /*if(!empty($GPC['Programa']['nombre'])){
+            if(!empty($GPC['Programa']['nombre'])){
                 $GPC['Programa']['id_centro_acopio'] = $_SESSION['s_ca_id'];
                 $cantProgramas = $programa->cantidadProgramasCA($_SESSION['s_ca_id']);
                 $GPC['Programa']['numero'] = ++$cantProgramas[0]['total'];
@@ -22,7 +22,7 @@
                     header("location: programa_listado.php?msg=error");
                     die();
                 }
-            }*/
+            }
         break;
         case 'editar':
             $infoCA = $programa->find(array('id' => $GPC['id']));

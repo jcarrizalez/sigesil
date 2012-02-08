@@ -42,7 +42,7 @@ $validator->printScript();
     <table align="center">
         <tr>
             <td><span class="msj_rojo">* </span>Nombre: </td>
-            <td><? echo $html->input('nombre', $infoCA[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><? echo $html->input('CA.nombre', $infoCA[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>RIF: </td>

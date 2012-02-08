@@ -2,6 +2,7 @@
 require_once('../lib/core.lib.php');
 require('../lib/common/header.php');
 
+$nombreCA = $_SESSION['s_ca_nombre'];
 $usuario = $_SESSION['s_cedula'];
 $nombre_completo = $_SESSION['s_nombre'] . " " . $_SESSION['s_apellido'];
 $perfil_usuario = $_SESSION['s_perfil_id'];
@@ -35,7 +36,11 @@ $sexo = ($_SESSION['s_sexo'] == "F") ? "Bienvenida " : "Bienvenido ";
 <table id="principal" align="center">
     <tr><td colspan="2">&nbsp;</td></tr>
     <tr>
-        <th width="1">Usuario: </th>
+        <th width="1">Centro de Acopio: </th>
+        <td><?=$nombreCA;?></td>
+    </tr>
+    <tr>
+        <th width="150">Usuario: </th>
         <td><?=$usuario;?></td>
     </tr>
     <tr>

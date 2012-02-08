@@ -35,7 +35,7 @@ class Model extends cls_dbtools {
             {
             	$list = array();
             	$key = (count($fields) > 1) ? $fields[0] : 'id';
-            	$value =  (count($fields) > 1) ? $fields[1] : 'name';
+            	$value =  (count($fields) > 1) ? $fields[1] : 'nombre';
 				if (count($result)>0)
 					foreach ($result as $element)	$list[$element[$key]] = $element[$value];
             	$result = $list; 
