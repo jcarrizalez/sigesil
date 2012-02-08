@@ -45,7 +45,7 @@
             }
         ?>
     </div>
-    <? if($_SESSION['s_perfil_id'] == GERENTE){ ?>
+    <? if($_SESSION['s_perfil_id'] == ADMINISTRADOR){ ?>
     <div id="botones">
         <? echo $html->input('Nuevo', 'Nuevo', array('type' => 'button')); ?>
     </div>
@@ -56,7 +56,7 @@
             <th>Coordenadas</th>
             <th>N&uacute;mero</th>
             <th>Capacidad (Kg)</th>
-            <? if($_SESSION['s_perfil_id'] == GERENTE){ ?>
+            <? if($_SESSION['s_perfil_id'] == ADMINISTRADOR){ ?>
             <th>Acci&oacute;n</th>
             <? } ?>
         </tr>
@@ -70,7 +70,7 @@
             <td><?=$dataSilo['coordenada']?></td>
             <td align="center"><?=$dataSilo['numero']?></td>
             <td align="center"><?=$dataSilo['capacidad']?></td>
-            <? if($_SESSION['s_perfil_id'] == GERENTE){ ?>
+            <? if($_SESSION['s_perfil_id'] == ADMINISTRADOR){ ?>
             <td align="center">
                 <?
                     echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'silos.php?ac=editar&id='.$dataSilo['id']);

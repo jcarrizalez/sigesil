@@ -11,7 +11,7 @@ class Model extends cls_dbtools {
             $queryCondition = "'1'";
             $query = 'SELECT '; 
             foreach($condition as $field=>$value)
-                    $queryCondition.= 'AND '.get_class($this).".".$field."='".$value."' ";
+                    $queryCondition.= ' AND '.get_class($this).".".$field."='".$value."' ";
 
             if(is_array($fields))	
             	foreach($fields as $i => $value)
