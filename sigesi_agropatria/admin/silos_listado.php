@@ -4,7 +4,7 @@
     $silos = new Silos();
     
     $id = (!empty($GPC['id'])) ? $GPC['id'] : null;
-    $idCA = (!empty($_SESSION['s_ca_id'])) ? $_SESSION['s_ca_id'] : null;
+    $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : $_SESSION['s_ca_id'];
     
     $listadoSilos = $silos->listadoSilos($id, $idCA);
     
@@ -52,6 +52,9 @@
     <? } ?>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
+            <? if($_SESSION['s_perfil_id'] == GERENTE){ ?>
+            <th>Centro de Acopio</th>
+            <? } ?>
             <th>Nombre</th>
             <th>Coordenadas</th>
             <th>N&uacute;mero</th>
@@ -66,6 +69,9 @@
                 $clase = $general->obtenerClaseFila($i);
         ?>
         <tr class="<?=$clase?>">
+            <? if($_SESSION['s_perfil_id'] == GERENTE){ ?>
+            <td><?=$dataSilo['nombre_ca']?></td>
+            <? } ?>
             <td><?=$dataSilo['nombre']?></td>
             <td><?=$dataSilo['coordenada']?></td>
             <td align="center"><?=$dataSilo['numero']?></td>

@@ -24,7 +24,8 @@
     
 $validator = new Validator('form1');
 $validator->printIncludes();
-$validator->setRules('nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('CA.codigo', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('CA.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('CA.rif', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('CA.ubicacion', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->printScript();
@@ -40,6 +41,10 @@ $validator->printScript();
         NUEVO CENTRO DE ACOPIO<br/><hr/>
     </div>
     <table align="center">
+        <tr>
+            <td><span class="msj_rojo">* </span>Codigo: </td>
+            <td><? echo $html->input('CA.codigo', $infoCA[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+        </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Nombre: </td>
             <td><? echo $html->input('CA.nombre', $infoCA[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
@@ -59,10 +64,6 @@ $validator->printScript();
         <tr>
             <td><span class="msj_rojo">* </span>Ubicaci&oacute;n: </td>
             <td><? echo $html->input('CA.ubicacion', $infoCA[0]['ubicacion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-        </tr>
-        <tr>
-            <td>ID SAP: </td>
-            <td><? echo $html->input('CA.id_sap', $infoCA[0]['id_sap'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td>Coordenadas: </td>

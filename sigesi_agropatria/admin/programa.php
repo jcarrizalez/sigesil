@@ -58,7 +58,7 @@ $validator->printScript();
             </tr>
             <tr>
                 <td>Observaci&oacute;n: </td>
-                <td><textarea name="Programa[obser]" cols="20" rows="2" id="Programa[obser]"></textarea></td>
+                <td><textarea name="Programa[observacion]" cols="20" rows="2" id="Programa[observacion]"></textarea></td>
             </tr>
         </table>
     </fieldset>
@@ -79,7 +79,7 @@ $validator->printScript();
             </tr>
             <tr>
                 <td>Observaci&oacute;n: </td>
-                <td><textarea name="Cosecha[obser]" cols="20" rows="2" id="Cosecha[obser]"><?=$infoPrograma[0]['observacion']?></textarea></td>
+                <td><textarea name="Cosecha[observacion]" cols="20" rows="2" id="Cosecha[observacion]"><?=$infoPrograma[0]['observacion']?></textarea></td>
             </tr>
         </table>
     </fieldset>

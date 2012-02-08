@@ -2,8 +2,10 @@
     require_once('../lib/core.lib.php');
     
     $centro_acopio = new CentroAcopio();
-    $obj_general = new General();
-    $listadoCA = $centro_acopio->find('', null, array('id','nombre','rif','telefono','email','ubicacion'), null, 'id ASC');
+    $silos = new Silos();
+    
+    $listadoCA = $centro_acopio->find('', null, array('id','nombre','rif','telefono','email','codigo'), null, 'id ASC');
+    unset($listadoCA[0]);
     
     if($GPC['ac'] == 'eliminar'){
         $id = $GPC['id'];
@@ -49,24 +51,35 @@
     <? } ?>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
+            <th>Codigo</th>
             <th>Nombre</th>
             <th>RIF</th>
             <th>Tel&eacute;fono</th>
             <th>Email</th>
-            <th>Ubicaci&oacute;n</th>
+            <th>Silos</th>
             <th>Acci&oacute;n</th>
         </tr>
         <?
             $i=0;
             foreach($listadoCA as $dataCA){
-            $clase = $obj_general->obtenerClaseFila($i);
+            $clase = $general->obtenerClaseFila($i);
         ?>
         <tr class="<?=$clase?>">
+            <td align="center"><?=$dataCA['codigo']?></td>
             <td><?=$dataCA['nombre']?></td>
             <td align="center"><?=$dataCA['rif']?></td>
             <td align="center"><?=$dataCA['telefono']?></td>
             <td align="center"><?=$dataCA['email']?></td>
-            <td><?=$dataCA['ubicacion']?></td>
+            <?
+                $cant = $silos->cantidadSilosCA($dataCA['id']);
+                if($cant[0]['totalsilos'] == 0){
+            ?>
+            <td align="center">0</td>
+            <? }else{ ?>
+            <td align="center">
+                <? echo $html->link($cant[0]['totalsilos'], 'silos_listado.php?id_ca='.$dataCA['id']); ?>
+            </td>
+            <? } ?>
             <td align="center">
                 <?
                     echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'centros_acopio.php?ac=editar&id='.$dataCA['id']);

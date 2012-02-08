@@ -17,5 +17,12 @@ class Silos extends Model {
         $query = "DELETE FROM si_silos WHERE id = " . $id;
         $result = $this->_SQL_tool("DELETE", __METHOD__, $query);
     }
+    
+    function cantidadSilosCA($idCA){
+        $query = "SELECT COUNT(*) totalSilos
+                    FROM si_silos
+                    WHERE id_centro_acopio = '$idCA'";
+        return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
+    }
 }
 ?>
