@@ -27,6 +27,7 @@ $validator->printIncludes();
 $validator->setRules('CA.codigo', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('CA.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('CA.rif', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('CA.email', array('email' => array('value' => true, 'message' => 'Correo Invalido')));
 $validator->setRules('CA.ubicacion', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->printScript();
 ?>

@@ -35,7 +35,7 @@ $validator->printIncludes();
 $validator->setRules('Programa.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Cosecha.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Cosecha.estado', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('Cosecha.proyectado', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Cosecha.proyectado', array('required' => array('value' => true, 'message' => 'Requerido'), 'number' => array('value' => true, 'message' => 'Invalido')));
 $validator->setRules('Cultivo.id', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->printScript();
 ?>
