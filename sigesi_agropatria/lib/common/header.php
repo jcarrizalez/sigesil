@@ -15,6 +15,7 @@ else
         <?
             $javascript->includeFile('jquery/jquery-1.7.1.min.js');
             $javascript->includeFile('jquery/jquery-ui-1.8.17.custom.min.js');
+            $javascript->includeFile('jquery/jquery.validate.js');
             $javascript->includeFile('general.js');
         ?>
         <script type="text/javascript">
@@ -34,7 +35,7 @@ else
             <div id="global_sep"></div>
             <div id="menu">
                 <div id="boton_inicio">
-                    <a href="principal"><img alt="Inicio" title="Inicio" src="../images/inicio.png" /></a>
+                    <a href="<?=DOMAIN_ROOT?>pages/principal.php"><img alt="Inicio" title="Inicio" src="../images/inicio.png" /></a>
                     <a href="<?=DOMAIN_ROOT?>pages/cerrar_sesion.php"><img alt="Salir" title="Salir" src="../images/salir.png" /></a>
                 </div>
                 <?php require(APPROOT.'/lib/common/menu.php'); ?>

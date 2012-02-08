@@ -2,6 +2,7 @@
     require_once('../lib/core.lib.php');
     
     $centro_acopio = new CentroAcopio();
+    $obj_general = new General();
     $listadoCA = $centro_acopio->find('', null, array('id','nombre','rif','telefono','email','ubicacion'), null, 'id ASC');
     
     if($GPC['ac'] == 'eliminar'){
@@ -45,7 +46,7 @@
         <? echo $html->input('Nuevo', 'Nuevo', array('type' => 'button', 'onClick'=>'agregar()')); ?>
     </div>
     <table align="center" width="100%">
-        <tr align="center" style="background-color: #666;">
+        <tr align="center" class="titulos_tabla">
             <th>Nombre: </th>
             <th>RIF: </th>
             <th>Tel&eacute;fono: </th>
@@ -53,8 +54,12 @@
             <th>Ubicaci&oacute;n: </th>
             <th>Acci&oacute;n</th>
         </tr>
-        <? foreach($listadoCA as $dataCA){ ?>
-        <tr>
+        <?
+            $i=0;
+            foreach($listadoCA as $dataCA){
+            $clase = $obj_general->obtenerClaseFila($i);
+        ?>
+        <tr class="<?=$clase?>">
             <td><?=$dataCA['nombre']?></td>
             <td align="center"><?=$dataCA['rif']?></td>
             <td align="center"><?=$dataCA['telefono']?></td>
@@ -62,13 +67,12 @@
             <td><?=$dataCA['ubicacion']?></td>
             <td align="center">
                 <?
-                    echo $html->link('Edit', 'centros_acopio.php?ac=editar&id='.$dataCA['id']);
-                    echo "/";
-                    echo $html->link('Elim', 'centros_acopio_listado.php?ac=eliminar&id='.$dataCA['id'], array('onclick' => 'return eliminar();'));
+                    echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'centros_acopio.php?ac=editar&id='.$dataCA['id']);
+                    echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'centros_acopio_listado.php?ac=eliminar&id='.$dataCA['id'], array('onclick' => 'return eliminar();'));
                 ?>
             </td>
         </tr>
-        <? } ?>
+        <? $i++; } ?>
         <tr>
             
             <td colspan="6">&nbsp;</td>

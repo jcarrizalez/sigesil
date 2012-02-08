@@ -7,8 +7,8 @@ else
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
-        <!--title><?=SYSTEM_NAME?></title-->
-        <title>SIGESI</title>
+        <title><?=SYSTEM_NAME?></title>
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link href="<?=DOMAIN_ROOT?>css/frontend.css" rel="stylesheet" type="text/css" />
         <link href="<?=DOMAIN_ROOT?>css/jquery-ui-1.8.17.custom.css" rel="stylesheet" type="text/css" />

@@ -1,5 +1,4 @@
 <?php
-    //error_reporting(E_ALL);
     error_reporting(E_ALL & ~E_NOTICE);
     //PREVENT ATTACK FROM OTHER SITES
     if (preg_match( "/core.lib.php/", $_SERVER ["PHP_SELF"] ) || preg_match( "/core.lib.php/", $HTTP_SERVER_VARS ["PHP_SELF"] ))

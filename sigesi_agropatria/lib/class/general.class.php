@@ -413,11 +413,11 @@ class General {
         }
     }
 
-    function get_classfila($fila) {
+    function obtenerClaseFila($fila) {
         if ($fila % 2 != 0) {
-            $class = "firstalt";
+            $class = "primeraclase";
         } else {
-            $class = "secondalt";
+            $class = "segundaclase";
         }
         return $class;
     }

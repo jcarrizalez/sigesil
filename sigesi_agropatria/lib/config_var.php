@@ -17,4 +17,11 @@ define ( "SERVER", "localhost" );
 define ( "DB", "sigesi" );
 
 define ( "DEBUG", "1" );
+
+define('ADMINISTRADOR',1);
+define('GERENTE',2);
+define('CALIDAD',3);
+define('ROMANERO',4);
+define('RECEPCION',5);
+define('DESPACHO',6);
 ?>

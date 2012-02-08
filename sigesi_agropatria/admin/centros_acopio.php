@@ -4,14 +4,16 @@
     $centro_acopio = new CentroAcopio();
     switch($GPC['ac']){
         case 'guardar':
-            $centro_acopio->save($GPC['CA']);
-            $id = $centro_acopio->id;
-            if(!empty($id)){
-                header("location: centros_acopio_listado.php?msg=exitoso");
-                die();
-            }else{
-                header("location: centros_acopio_listado.php?msg=error");
-                die();
+            if(!empty($GPC['CA']['nombre']) && !empty($GPC['CA']['ubicacion'])){
+                $centro_acopio->save($GPC['CA']);
+                $id = $centro_acopio->id;
+                if(!empty($id)){
+                    header("location: centros_acopio_listado.php?msg=exitoso");
+                    die();
+                }else{
+                    header("location: centros_acopio_listado.php?msg=error");
+                    die();
+                }
             }
         break;
         case 'editar':
@@ -19,24 +21,31 @@
         break;
     }
     require('../lib/common/header.php');
+    
+$validator = new Validator('form1');
+$validator->printIncludes();
+$validator->setRules('nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('CA.rif', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('CA.ubicacion', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->printScript();
 ?>
 <script type="text/javascript">
     function cancelar(){
         window.location = 'centros_acopio_listado.php';
     }
 </script>
-<form name="form_programa" id="form_programa" method="POST" action="?ac=guardar">
+<form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
     <? echo $html->input('CA.id', $infoCA[0]['id'], array('type' => 'hidden'));?>
     <div id="titulo_modulo">
-        CENTROS DE ACOPIO<br/><hr/>
+        NUEVO CENTRO DE ACOPIO<br/><hr/>
     </div>
     <table align="center">
         <tr>
-            <td>Nombre: </td>
-            <td><? echo $html->input('CA.nombre', $infoCA[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><span class="msj_rojo">* </span>Nombre: </td>
+            <td><? echo $html->input('nombre', $infoCA[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td>RIF: </td>
+            <td><span class="msj_rojo">* </span>RIF: </td>
             <td><? echo $html->input('CA.rif', $infoCA[0]['rif'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
@@ -48,7 +57,7 @@
             <td><? echo $html->input('CA.email', $infoCA[0]['email'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td>Ubicaci&oacute;n: </td>
+            <td><span class="msj_rojo">* </span>Ubicaci&oacute;n: </td>
             <td><? echo $html->input('CA.ubicacion', $infoCA[0]['ubicacion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
