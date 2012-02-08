@@ -1,6 +1,7 @@
 <?
     $menuRegistro = array('Centros de Acopio' => DOMAIN_ROOT . 'admin/centros_acopio_listado.php',
                             'Cultivo' => DOMAIN_ROOT . 'admin/cultivo_listado.php',
+                            'Tipos de Cultivo' => DOMAIN_ROOT . 'admin/tipo_cultivo_listado.php',
                             'Programa' => DOMAIN_ROOT . 'admin/programa_listado.php',
                             'Silos' => DOMAIN_ROOT.'admin/silos_listado.php',
                             'Productor' => DOMAIN_ROOT.'admin/productor_listado.php'

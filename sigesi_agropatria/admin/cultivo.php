@@ -50,9 +50,9 @@ $validator->printScript();
             <td><? echo $html->input('Cultivo.nombre', $infoCultivo[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-                <td><span class="msj_rojo">* </span>Tipo de Cultivo: </td>
-                <td><? echo $html->select('Cultivo.id_tipo_cultivo',array('options'=>$listadoTipoCultivo, 'selected' => $infoCultivo[0]['id_tipo_cultivo'], 'default' => 'Seleccione'))?></td>
-            </tr>
+            <td><span class="msj_rojo">* </span>Tipo de Cultivo: </td>
+            <td><? echo $html->select('Cultivo.id_tipo_cultivo',array('options'=>$listadoTipoCultivo, 'selected' => $infoCultivo[0]['id_tipo_cultivo'], 'default' => 'Seleccione'))?></td>
+        </tr>
         <tr>
             <td>&nbsp;</td>
         </tr>

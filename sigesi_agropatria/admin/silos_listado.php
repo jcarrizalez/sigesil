@@ -1,25 +1,24 @@
 <?
     require_once('../lib/core.lib.php');
     
-    $cultivo = new Cultivo();
+    $silos = new Silos();
     
     $id = (!empty($GPC['id'])) ? $GPC['id'] : null;
-    $nombre = (!empty($GPC['nombre'])) ? $GPC['nombre'] : null;
-    $tipo = (!empty($GPC['tipo'])) ? $GPC['tipo'] : null;
+    $idCA = (!empty($_SESSION['s_ca_id'])) ? $_SESSION['s_ca_id'] : null;
     
-    $listadoCultivos = $cultivo->buscarCultivo($id, $nombre, $tipo);
+    $listadoSilos = $silos->listadoSilos($id, $idCA);
     
     if($GPC['ac'] == 'eliminar'){
         $id = $GPC['id'];
-        $cultivo->eliminarCultivo($id);
-        header('location: cultivo_listado.php');
+        $silos->eliminarSilo($id);
+        header('location: silos_listado.php');
         die();
     }
     require('../lib/common/header.php');
 ?>
 <script type="text/javascript">
     function eliminar(){
-        if(confirm('¿Desea Eliminar este Cultivo?'))
+        if(confirm('¿Desea Eliminar este Silo?'))
             return true;
         else
             return false;
@@ -27,12 +26,12 @@
     
     $(document).ready(function(){
         $('#Nuevo').click(function(){
-           window.location = 'cultivo.php';
+           window.location = 'silos.php';
         });
     });
 </script>
     <div id="titulo_modulo">
-        LISTADO DE CULTIVOS<br/><hr/>
+        LISTADO DE SILOS<br/><hr/>
     </div>
     <div id="mensajes">
         <?
@@ -46,31 +45,39 @@
             }
         ?>
     </div>
-    <? if($_SESSION['s_perfil_id'] == ADMINISTRADOR){ ?>
+    <? if($_SESSION['s_perfil_id'] == GERENTE){ ?>
     <div id="botones">
         <? echo $html->input('Nuevo', 'Nuevo', array('type' => 'button')); ?>
     </div>
     <? } ?>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
-            <th width="40%">Nombre</th>
-            <th width="40%">Tipo de Cultivo</th>
+            <th>Nombre</th>
+            <th>Coordenadas</th>
+            <th>N&uacute;mero</th>
+            <th>Capacidad (Kg)</th>
+            <? if($_SESSION['s_perfil_id'] == GERENTE){ ?>
             <th>Acci&oacute;n</th>
+            <? } ?>
         </tr>
         <?
             $i=0;
-            foreach($listadoCultivos as $dataCultivo){
+            foreach($listadoSilos as $dataSilo){
                 $clase = $general->obtenerClaseFila($i);
         ?>
         <tr class="<?=$clase?>">
-            <td><?=$dataCultivo['nombre']?></td>
-            <td><?=$dataCultivo['nombre_tipo']?></td>
+            <td><?=$dataSilo['nombre']?></td>
+            <td><?=$dataSilo['coordenada']?></td>
+            <td align="center"><?=$dataSilo['numero']?></td>
+            <td align="center"><?=$dataSilo['capacidad']?></td>
+            <? if($_SESSION['s_perfil_id'] == GERENTE){ ?>
             <td align="center">
                 <?
-                    echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'cultivo.php?ac=editar&id='.$dataCultivo['id']);
-                    echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'cultivo_listado.php?ac=eliminar&id='.$dataCultivo['id'], array('onclick' => 'return eliminar();'));
+                    echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'silos.php?ac=editar&id='.$dataSilo['id']);
+                    echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'silos_listado.php?ac=eliminar&id='.$dataSilo['id'], array('onclick' => 'return eliminar();'));
                 ?>
             </td>
+            <? } ?>
         </tr>
         <? $i++; } ?>
         <tr>

@@ -79,7 +79,7 @@ $validator->printScript();
             </tr>
             <tr>
                 <td>Observaci&oacute;n: </td>
-                <td><textarea name="Cosecha[obser]" cols="20" rows="2" id="Cosecha[obser]"></textarea></td>
+                <td><textarea name="Cosecha[obser]" cols="20" rows="2" id="Cosecha[obser]"><?=$infoPrograma[0]['observacion']?></textarea></td>
             </tr>
         </table>
     </fieldset>

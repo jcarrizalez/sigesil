@@ -42,9 +42,11 @@
             }
         ?>
     </div>
+    <? if($_SESSION['s_perfil_id'] == ADMINISTRADOR){ ?>
     <div id="botones">
         <? echo $html->input('Nuevo', 'Nuevo', array('type' => 'button')); ?>
     </div>
+    <? } ?>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
             <th>Nombre</th>

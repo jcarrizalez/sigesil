@@ -1,25 +1,24 @@
 <?
     require_once('../lib/core.lib.php');
     
-    $cultivo = new Cultivo();
+    $tipocultivo = new TipoCultivo();
     
-    $id = (!empty($GPC['id'])) ? $GPC['id'] : null;
-    $nombre = (!empty($GPC['nombre'])) ? $GPC['nombre'] : null;
-    $tipo = (!empty($GPC['tipo'])) ? $GPC['tipo'] : null;
+    /*$id = (!empty($GPC['id'])) ? $GPC['id'] : null;
+    $nombre = (!empty($GPC['nombre'])) ? $GPC['nombre'] : null;*/
     
-    $listadoCultivos = $cultivo->buscarCultivo($id, $nombre, $tipo);
+    $listadoTipoCultivo = $tipocultivo->find('', null, '*', null, 'id ASC');
     
     if($GPC['ac'] == 'eliminar'){
         $id = $GPC['id'];
-        $cultivo->eliminarCultivo($id);
-        header('location: cultivo_listado.php');
+        $tipocultivo->eliminarTipoCultivo($id);
+        header('location: tipo_cultivo_listado.php');
         die();
     }
     require('../lib/common/header.php');
 ?>
 <script type="text/javascript">
     function eliminar(){
-        if(confirm('¿Desea Eliminar este Cultivo?'))
+        if(confirm('¿Desea Eliminar este Tipo de Cultivo?'))
             return true;
         else
             return false;
@@ -27,12 +26,12 @@
     
     $(document).ready(function(){
         $('#Nuevo').click(function(){
-           window.location = 'cultivo.php';
+           window.location = 'tipo_cultivo.php';
         });
     });
 </script>
     <div id="titulo_modulo">
-        LISTADO DE CULTIVOS<br/><hr/>
+        LISTADO TIPOS DE CULTIVOS<br/><hr/>
     </div>
     <div id="mensajes">
         <?
@@ -54,21 +53,19 @@
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
             <th width="40%">Nombre</th>
-            <th width="40%">Tipo de Cultivo</th>
             <th>Acci&oacute;n</th>
         </tr>
         <?
             $i=0;
-            foreach($listadoCultivos as $dataCultivo){
+            foreach($listadoTipoCultivo as $dataTipoCultivo){
                 $clase = $general->obtenerClaseFila($i);
         ?>
         <tr class="<?=$clase?>">
-            <td><?=$dataCultivo['nombre']?></td>
-            <td><?=$dataCultivo['nombre_tipo']?></td>
+            <td><?=$dataTipoCultivo['nombre']?></td>
             <td align="center">
                 <?
-                    echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'cultivo.php?ac=editar&id='.$dataCultivo['id']);
-                    echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'cultivo_listado.php?ac=eliminar&id='.$dataCultivo['id'], array('onclick' => 'return eliminar();'));
+                    echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'tipo_cultivo.php?ac=editar&id='.$dataTipoCultivo['id']);
+                    echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'tipo_cultivo_listado.php?ac=eliminar&id='.$dataTipoCultivo['id'], array('onclick' => 'return eliminar();'));
                 ?>
             </td>
         </tr>
