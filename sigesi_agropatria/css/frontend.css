@@ -181,6 +181,10 @@ body{
     width: 100%;
 }
 
+#principal th{
+    text-align: left;
+}
+
 #modulo_externo{
     padding: 15px;
     background-image: url('../images/fondo_externo.jpg');
