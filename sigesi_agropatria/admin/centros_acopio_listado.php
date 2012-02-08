@@ -43,15 +43,15 @@
         ?>
     </div>
     <div id="botones">
-        <? echo $html->input('Nuevo', 'Nuevo', array('type' => 'button', 'onClick'=>'agregar()')); ?>
+        <? echo $html->input('Nuevo', 'Nuevo', array('type' => 'button')); ?>
     </div>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
-            <th>Nombre: </th>
-            <th>RIF: </th>
-            <th>Tel&eacute;fono: </th>
-            <th>Email: </th>
-            <th>Ubicaci&oacute;n: </th>
+            <th>Nombre</th>
+            <th>RIF</th>
+            <th>Tel&eacute;fono</th>
+            <th>Email</th>
+            <th>Ubicaci&oacute;n</th>
             <th>Acci&oacute;n</th>
         </tr>
         <?

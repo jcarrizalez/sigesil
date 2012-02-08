@@ -52,9 +52,10 @@ class User extends Model {
     }
 
     function obtenerDetalleUsuarios($id_usuario=null, $id_perfil=null, $cedula=null, $orden=null, $min='', $max='', $nombre=null, $sexo=null, $perfilLogin=0) {
-        $query = "SELECT DISTINCT (u.id), u.nombre, u.apellido, u.cedula, u.fecha_nacimiento, u.sexo, u.contrasena, u.creado, u.modificado, p.id id_perfil, p.nombre_perfil
+        $query = "SELECT DISTINCT (u.id), u.nombre, u.apellido, u.cedula, u.fecha_nacimiento, u.sexo, u.contrasena, u.creado, u.modificado, ca.id id_ca, ca.nombre nombre_ca, p.id id_perfil, p.nombre_perfil
                     FROM si_usuarios u
                     INNER JOIN si_usuarios_perfiles up ON up.id_usuario = u.id
+                    LEFT OUTER JOIN si_centro_acopio ca ON ca.id = up.id_centro_acopio
                     INNER JOIN si_perfiles p ON p.id = up.id_perfil
                     WHERE '1'
                     ";
@@ -109,11 +110,14 @@ class User extends Model {
 
             $arr_detail = array();
 
-            $arr_detail = $this->obtenerDetalleUsuarios($_SESSION['s_id'], null, null, null, null, null, null, null, PACIENTE);
+            $arr_detail = $this->obtenerDetalleUsuarios($_SESSION['s_id'], null, null, null, null, null, null, null);
             if (count($arr_detail) == 0)
                 return "usuario_inactivo";
 
-            $_SESSION['s_profile_id'] = $arr_detail[0]['id_perfil'];
+            $_SESSION['s_perfil_id'] = $arr_detail[0]['id_perfil'];
+            $_SESSION['s_ca_id'] = $arr_detail[0]['id_ca'];
+            $_SESSION['s_ca_nombre'] = $arr_detail[0]['nombre_ca'];
+            
             return "success";
         }else {
             $comentario = "Login Incorrect=" . $login;
