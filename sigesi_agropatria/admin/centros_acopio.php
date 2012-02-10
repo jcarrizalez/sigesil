@@ -2,11 +2,30 @@
     require_once('../lib/core.lib.php');
     
     $centro_acopio = new CentroAcopio();
+    $ocultarCantidad = 1;
+    
+    for($i=1;$i<=50;$i++){
+        $cantSilos[$i] = $i;
+    }
+    
     switch($GPC['ac']){
         case 'guardar':
+            $silos = new Silos();
             if(!empty($GPC['CA']['nombre']) && !empty($GPC['CA']['ubicacion'])){
                 $centro_acopio->save($GPC['CA']);
                 $id = $centro_acopio->id;
+                
+                $nuevoSilo = array();
+                $nuevoSilo['id_centro_acopio'] = $id;
+                for($i=1;$i<=$GPC['cant_silos'];$i++){
+                    $nuevoSilo['nombre'] = "Silo ".$i;
+                    $nuevoSilo['coordenada'] = "Norte";
+                    $nuevoSilo['numero'] = $i;
+                    $nuevoSilo['capacidad'] = 1000;
+                    $silos->save($nuevoSilo);
+                    $silos->id = null;
+                }
+                
                 if(!empty($id)){
                     header("location: centros_acopio_listado.php?msg=exitoso");
                     die();
@@ -18,8 +37,10 @@
         break;
         case 'editar':
             $infoCA = $centro_acopio->find(array('id' => $GPC['id']));
+            $ocultarCantidad = 0;
         break;
     }
+    
     require('../lib/common/header.php');
     
 $validator = new Validator('form1');
@@ -29,6 +50,7 @@ $validator->setRules('CA.nombre', array('required' => array('value' => true, 'me
 $validator->setRules('CA.rif', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('CA.email', array('email' => array('value' => true, 'message' => 'Correo Invalido')));
 $validator->setRules('CA.ubicacion', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('cant_silos', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->printScript();
 ?>
 <script type="text/javascript">
@@ -74,6 +96,12 @@ $validator->printScript();
             <td>Organizaci&oacute;n: </td>
             <td><? echo $html->input('CA.id_org', $infoCA[0]['id_org'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
+        <? if($ocultarCantidad){ ?>
+        <tr>
+            <td><span class="msj_rojo">* </span>Cantidad de Silos: </td>
+            <td><? echo $html->select('cant_silos',array('options'=>$cantSilos, 'selected' => $totalSilos[0]['totalsilos'], 'default' => 'Seleccione'))?></td>
+        </tr>
+        <? } ?>
         <tr>
             <td>&nbsp;</td>
         </tr>

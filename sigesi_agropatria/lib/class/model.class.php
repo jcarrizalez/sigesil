@@ -26,11 +26,14 @@ class Model extends cls_dbtools {
             $query .= " FROM ".$this->table." ".get_class($this)." where ".$queryCondition.$order;
 			//var_dump($query);
             $result = false;
-            if(!is_null($limit)){
+            /*if(!is_null($limit)){
                 $result = $this->_SQL_tool('SELECT_SINGLE', __METHOD__, $query);
             } else {
                 $result = $this->_SQL_tool('SELECT', __METHOD__, $query);
-            }
+            }*/
+            if(!is_null($limit)) $query .= " $limit ";
+            $result = $this->_SQL_tool('SELECT', __METHOD__, $query);
+            
             if(strcasecmp('list',$type) == 0)
             {
             	$list = array();

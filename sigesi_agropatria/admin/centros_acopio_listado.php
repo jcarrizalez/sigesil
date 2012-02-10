@@ -4,8 +4,14 @@
     $centro_acopio = new CentroAcopio();
     $silos = new Silos();
     
-    $listadoCA = $centro_acopio->find('', null, array('id','nombre','rif','telefono','email','codigo'), null, 'id ASC');
+    $page_size = MAX_RESULTS_PAG;
+    $start_record = ($GPC['pg']) ? (($GPC['pg'] * $page_size) - $page_size) : 0;
+    
+    $listadoCA = $centro_acopio->find('', "LIMIT $page_size OFFSET $start_record", array('id','nombre','rif','telefono','email','codigo'), null, 'id ASC');
     unset($listadoCA[0]);
+    
+    $total_registros = $centro_acopio->total_verdadero;
+    $objpaginator = new paginator($total_registros, $page_size);
     
     if($GPC['ac'] == 'eliminar'){
         $id = $GPC['id'];
@@ -49,6 +55,13 @@
         <? echo $html->input('Nuevo', 'Nuevo', array('type' => 'button')); ?>
     </div>
     <? } ?>
+    <div id="paginador">
+        <?
+            $objpaginator->print_page_counter('Pag', 'de');
+            echo "&nbsp;&nbsp;";
+            $objpaginator->print_paginator();
+        ?>
+    </div>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
             <th>Codigo</th>
@@ -93,6 +106,13 @@
             <td colspan="6">&nbsp;</td>
         </tr>
     </table>
+    <div id="paginador">
+        <?
+            $objpaginator->print_page_counter('Pag', 'de');
+            echo "&nbsp;&nbsp;";
+            $objpaginator->print_paginator();
+        ?>
+    </div>
 <?
     require('../lib/common/footer.php');
 ?>

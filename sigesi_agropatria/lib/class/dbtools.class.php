@@ -145,7 +145,7 @@
                         }
 
                         //Para retornar el total de registros si no existiera el limite
-                        $result = pg_query("SELECT Count(*) FROM ($query) as total");
+                        $result = pg_query("SELECT Count(*) total FROM ($query) as total");
                         if($row=pg_fetch_assoc($result)){
                             $this->total_verdadero = $row['total'];
                         } else {
@@ -305,7 +305,7 @@
             $this->_rollback_tool();
         }
             $id=substr(md5(microtime()),0,18);
-            $query="INSERT  si_app_error (apperror_id, apperror_time, apperror_text) VALUES 
+            $query="INSERT INTO si_app_error (apperror_id, apperror_time, apperror_text) VALUES 
                     ('$id',NOW(),'".pg_escape_string($apperror_text)."')";
             pg_query($query) or die("Error: ".pg_last_error()."<br /><br />Function: ".__METHOD__."<br /><br />Query: ".$query);
             return $id;
