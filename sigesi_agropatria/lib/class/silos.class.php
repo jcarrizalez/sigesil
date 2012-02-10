@@ -10,6 +10,7 @@ class Silos extends Model {
                     WHERE '1'";
         $query.=(!empty($id)) ? " AND s.id = $id" : '';
         $query.=(!empty($idCA)) ? " AND s.id_centro_acopio = $idCA" : '';
+        $query.= " ORDER BY s.id";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
