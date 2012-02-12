@@ -2,7 +2,7 @@
 $menu = array();
 
     switch ($_SESSION['s_perfil_id']){
-        case GERENTE:
+        case GERENTEG:
             $menu['Maestro'] = array('Centros de Acopio' => DOMAIN_ROOT . 'admin/centros_acopio_listado.php',
                                     'Cultivo' => DOMAIN_ROOT . 'admin/cultivo_listado.php',
                                     'Tipos de Cultivo' => DOMAIN_ROOT . 'admin/tipo_cultivo_listado.php',
@@ -29,7 +29,7 @@ $menu = array();
                                 'Salir' => DOMAIN_ROOT . 'pages/cerrar_sesion.php'
             );
         break;
-        case ADMINISTRADOR:
+        case GERENTES:
             $menu['Maestro'] = array('Programa' => DOMAIN_ROOT . 'admin/programa_listado.php',
                                     'Silos' => DOMAIN_ROOT.'admin/silos_listado.php',
                                     'Productor' => DOMAIN_ROOT.'admin/productor_listado.php'

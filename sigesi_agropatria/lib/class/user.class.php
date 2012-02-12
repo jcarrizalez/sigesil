@@ -65,7 +65,7 @@ class User extends Model {
         if (!empty($nombre)) $query .= " AND (u.nombre LIKE '%$nombre%' OR u.apellido LIKE '%$nombre%')";
         if (!empty($sexo)) $query .= " AND u.sexo = '$sexo'";
         if($perfilLogin != 0) $query .= " AND up.id_perfil NOT IN (".$perfilLogin.")";
-        (!empty($orden)) ? $query .= " ORDER BY $orden" : $query .= " ORDER BY p.id";
+        (!empty($orden)) ? $query .= " ORDER BY $orden" : $query .= " ORDER BY u.id, p.id";
         if (!empty($max)) $query.= " LIMIT $min,$max ";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
@@ -75,7 +75,7 @@ class User extends Model {
         if (!$login || !$password)
             return "loginerror";
 
-        $query = "SELECT * FROM si_usuarios WHERE cedula = '$login'";
+        $query = "SELECT * FROM si_usuarios WHERE usuario = '$login'";
         $arr_user = $this->_SQL_tool($this->SELECT_SINGLE, __METHOD__, $query);
 
         if ($arr_user) {
@@ -86,7 +86,7 @@ class User extends Model {
                 $_SESSION[$nombre_session] = $valor;
             }
 
-            $campos = array('contrasena', 'fecha_nacimiento');
+            $campos = array('contrasena', 'fecha_nacimiento', 'direccion', 'telefono', 'email', 'creado', 'modificado');
             foreach ($campos as $nombre) {
                 $nombre_session = 's_' . $nombre;
                 unset($_SESSION[$nombre_session]);

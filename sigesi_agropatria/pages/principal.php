@@ -3,28 +3,19 @@ require_once('../lib/core.lib.php');
 require('../lib/common/header.php');
 
 $nombreCA = $_SESSION['s_ca_nombre'];
-$usuario = $_SESSION['s_cedula'];
+$usuario = $_SESSION['s_usuario'];
 $nombre_completo = $_SESSION['s_nombre'] . " " . $_SESSION['s_apellido'];
 $perfil_usuario = $_SESSION['s_perfil_id'];
 
 switch ($perfil_usuario) {
+    case GERENTEG:
+        $perfil = " Gerente General";
+    break;
+    case GERENTES:
+        $perfil = " Gerente de Silo";
+    break;
     case ADMINISTRADOR:
         $perfil = " Administrador";
-    break;
-    case GERENTE:
-        $perfil = " Gerente";
-    break;
-    case CALIDAD:
-        $perfil = " Calidad";
-    break;
-    case ROMANA:
-        $perfil = " Romanero";
-    break;
-    case RECEPCION:
-        $perfil = " Recepcion";
-    break;
-    case DESPACHO:
-        $perfil = " Despacho";
     break;
 }
 
@@ -41,7 +32,7 @@ $sexo = ($_SESSION['s_sexo'] == "F") ? "Bienvenida " : "Bienvenido ";
     </tr>
     <tr>
         <th width="150">Usuario: </th>
-        <td><?=$usuario;?></td>
+        <td><?=strtoupper($usuario);?></td>
     </tr>
     <tr>
         <th>Nombre: </th>

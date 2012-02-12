@@ -31,25 +31,22 @@
     <div id="mostrar_error">
         <span>Usuario y/o Contrase&ntilde;a Inv&aacute;lidos</span>
     </div>
-    <!--tr id="mostrar_error2">
-        <td colspan="2" align="center">
-                <?php //echo $lang['txt_title_initial_information']?>
-                <span style="color: #f00; font-size: 14px; font-weight: bold;"><?php 
-                switch ($GPC['msg']){
-                    case 'loginerror':
-                        echo 'Usuario y/o Contrase&ntilde;a Inv&aacute;lidos';
-                    break;
-                    case 'auth_required':
-                        echo 'Usuario Conectado';
-                    break;
-                }
-                ?></span>
-        </td>
-    </tr-->
+    <div id="mostrar_error2">
+        <?php 
+            switch ($GPC['msg']){
+                case 'loginerror':
+                    echo 'Usuario y/o Contrase&ntilde;a Inv&aacute;lidos';
+                break;
+                case 'auth_required':
+                    echo 'Usuario Conectado';
+                break;
+            }
+        ?>
+    </div>
     <table id="table_login" align="center" border="0">
         <tr>
             <td class="labelText">Usuario:</td>
-            <td width="151px"><? echo $html->input('usuario', '', array('type' => 'text', 'length' => '8')); ?></td>
+            <td width="151px"><? echo $html->input('usuario', '', array('type' => 'text')); ?></td>
         </tr>
         <tr>
             <td class="labelText">Contrase&ntilde;a:&nbsp;</td>

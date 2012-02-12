@@ -45,21 +45,21 @@
             }
         ?>
     </div>
-    <? if($_SESSION['s_perfil_id'] == ADMINISTRADOR){ ?>
+    <? if($_SESSION['s_perfil_id'] == GERENTES){ ?>
     <div id="botones">
         <? echo $html->input('Nuevo', 'Nuevo', array('type' => 'button')); ?>
     </div>
     <? } ?>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
-            <? if($_SESSION['s_perfil_id'] == GERENTE){ ?>
+            <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
             <th>Centro de Acopio</th>
             <? } ?>
             <th>Nombre</th>
             <th>Coordenadas</th>
             <th>N&uacute;mero</th>
             <th>Capacidad (Kg)</th>
-            <? if($_SESSION['s_perfil_id'] == ADMINISTRADOR){ ?>
+            <? if($_SESSION['s_perfil_id'] == GERENTES){ ?>
             <th>Acci&oacute;n</th>
             <? } ?>
         </tr>
@@ -69,14 +69,14 @@
                 $clase = $general->obtenerClaseFila($i);
         ?>
         <tr class="<?=$clase?>">
-            <? if($_SESSION['s_perfil_id'] == GERENTE){ ?>
+            <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
             <td><?=$dataSilo['nombre_ca']?></td>
             <? } ?>
             <td><?=$dataSilo['nombre']?></td>
             <td><?=$dataSilo['coordenada']?></td>
             <td align="center"><?=$dataSilo['numero']?></td>
             <td align="center"><?=$dataSilo['capacidad']?></td>
-            <? if($_SESSION['s_perfil_id'] == ADMINISTRADOR){ ?>
+            <? if($_SESSION['s_perfil_id'] == GERENTES){ ?>
             <td align="center">
                 <?
                     echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'silos.php?ac=editar&id='.$dataSilo['id']);

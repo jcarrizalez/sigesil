@@ -27,6 +27,13 @@ img{
     font-weight: bold;
 }
 
+#mostrar_error2{
+    color: #f00;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
 #cabecera{
     background-image: url('../images/logo_mat.png');
     background-repeat: no-repeat;

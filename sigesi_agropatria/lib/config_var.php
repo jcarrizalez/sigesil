@@ -18,10 +18,7 @@ define ( "DB", "sigesi" );
 
 define ( "DEBUG", "1" );
 
-define('GERENTE',1);
-define('ADMINISTRADOR',2);
-define('CALIDAD',3);
-define('ROMANERO',4);
-define('RECEPCION',5);
-define('DESPACHO',6);
+define('GERENTEG',1);
+define('GERENTES',2);
+define('ADMINISTRADOR',3);
 ?>

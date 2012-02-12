@@ -49,7 +49,7 @@
             }
         ?>
     </div>
-    <? if($_SESSION['s_perfil_id'] == ADMINISTRADOR){ ?>
+    <? if($_SESSION['s_perfil_id'] == GERENTES){ ?>
     <div id="botones">
         <? echo $html->input('Nuevo', 'Nuevo', array('type' => 'button')); ?>
     </div>
