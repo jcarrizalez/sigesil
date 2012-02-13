@@ -3,6 +3,9 @@
     
     $organizacion = new Organizacion();
     $estatus = array('t' => 'Activa', 'f' => 'Inactiva');
+    $listaP = array(1 => 'Venezuela');
+    $listaE = array(1 => 'Guarico', 'Zulia');
+    $listaM = array(1 => 'Chaguaramas', 'Cabimas');
     
     switch($GPC['ac']){
         case 'guardar':
@@ -47,7 +50,7 @@ $validator->printScript();
     <table align="center">
         <tr>
             <td><span class="msj_rojo">* </span>Nombre: </td>
-            <td><? echo $html->input('Org.nombre', $infoOrg[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><? echo $html->input('Org.nombre', $infoOrg[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td>RIF: </td>
@@ -63,23 +66,23 @@ $validator->printScript();
         </tr>
         <tr>
             <td>Fax: </td>
-            <td><? echo $html->input('Org.fax', $infoOrg[0]['coordenadas'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><? echo $html->input('Org.fax', $infoOrg[0]['fax'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td>Direcci&oacute;n: </td>
-            <td><? echo $html->input('Org.direccion', $infoOrg[0]['ubicacion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Pa&iacute;s: </td>
-            <td><? echo $html->select('Org.id_pais',array('options'=>$cantSilos, 'selected' => $infoOrg[0]['id_pais'], 'default' => 'Seleccione'))?></td>
+            <td><? echo $html->select('Org.id_pais',array('options'=>$listaP, 'selected' => $infoOrg[0]['id_pais'], 'default' => 'Seleccione'))?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Estado: </td>
-            <td><? echo $html->select('Org.id_estado',array('options'=>$cantSilos, 'selected' => $infoOrg[0]['id_estado'], 'default' => 'Seleccione'))?></td>
+            <td><? echo $html->select('Org.id_estado',array('options'=>$listaE, 'selected' => $infoOrg[0]['id_estado'], 'default' => 'Seleccione'))?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Municipio: </td>
-            <td><? echo $html->select('Org.id_municipio',array('options'=>$cantSilos, 'selected' => $infoOrg[0]['id_municipio'], 'default' => 'Seleccione'))?></td>
+            <td><? echo $html->select('Org.id_municipio',array('options'=>$listaM, 'selected' => $infoOrg[0]['id_municipio'], 'default' => 'Seleccione'))?></td>
         </tr>
         <tr>
             <td>Estatus: </td>

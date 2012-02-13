@@ -15,9 +15,9 @@ class CentroAcopio extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
-    function eliminarCA($id) {
-        $query = "DELETE FROM si_centro_acopio where id = " . $id;
-        $result = $this->_SQL_tool("DELETE", __METHOD__, $query);
+    function desactivarCA($id, $status) {
+        $query = "UPDATE si_centro_acopio SET estatus = '$status' WHERE id = '$id'";
+        return $result = $this->_SQL_tool("UPDATE", __METHOD__, $query);
     }
 }
 ?>

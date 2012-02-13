@@ -9,19 +9,20 @@ class User extends Model {
         parent::save($data);
     }
 
-    function mostrarSexo($var) {
-        switch ($var) {
-            case 'F': return 'Femenino';
-                break;
-            case 'M': return 'Masculino';
-                break;
-        }
-    }
-
     function obtenerUsuarioCorreo($email) {
         $query = "SELECT * FROM si_usuarios WHERE TRIM(LCASE(email)) = '" . trim(strtolower($email)) . "'";
         $result = $this->_SQL_tool($this->SELECT, __METHOD__, $query);
         return $result;
+    }
+    
+    function desactivarUsuariosCA($idCA, $status) {
+        $result = $this->obtenerTodosUsuarios('',$idCA);
+        foreach($result as $valor){
+            $listaUsuarios .= $valor['id'].",";
+        }
+        $listaUsuarios = substr($listaUsuarios, 0, -1);
+        $query = "UPDATE si_usuarios SET estatus = '$status' WHERE id IN ($listaUsuarios)";
+        return $this->_SQL_tool("UPDATE", __METHOD__, $query);
     }
 
     function borrarUsuario($userId, $profileId, $companyId, $companyTypeId) {
@@ -135,12 +136,7 @@ class User extends Model {
         }
     }
 
-    /*
-     * Verifica si un usuario no esta logeado
-     */
-
     function isnot_logged() {
-        //print_r($_SESSION);
         if (count($_SESSION) == 0 || $_SESSION['s_connected'] != 1 || $this->user_not_connected($_SESSION['s_id'])) {
             return true;
         } elseif ($this->get_user_by_session($_SESSION['s_id'], $_SESSION['s_session'])) {
@@ -150,15 +146,10 @@ class User extends Model {
         }
     }
 
-    /*
-     * Busca si un usuario no esta conectado
-     */
-
     function user_not_connected($usuario_id) {
         if (!isset($_SESSION['s_pgen'])) {
             $query = "SELECT connected,session FROM si_usuarios
                     WHERE id='$usuario_id' AND connected='0' ";
-            //die("=".$query);
             $res_array = $this->_SQL_tool('SELECT', __METHOD__, $query);
             if ($res_array) {
                 session_unset();
@@ -168,10 +159,6 @@ class User extends Model {
         }
         return false;
     }
-
-    /*
-     * Lista los usuarios segun los filtros
-     */
 
     function listarUsuarios($compania_id='', $usuario_estatus='', $usuario_tipo_ids='', $otros_campos=array(), $order = '', $min = '', $max = '') {
         $query = "SELECT DISTINCT u.* FROM si_usuarios as u, companies_users_profiles as utr, companies AS c, profiles AS p
@@ -202,7 +189,6 @@ class User extends Model {
         if (!empty($max)) {
             $query .= " LIMIT $min,$max ";
         }
-        //die("$query");
         $this->usuarios = $this->_SQL_tool('SELECT', __METHOD__, $query);
     }
 
@@ -228,26 +214,6 @@ class User extends Model {
         return $newid;
     }
 
-    /*
-     * Actualiza los datos del usuario
-     */
-
-    function actualizarUsuario($usuario_id, $usuario_nombre, $usuario_apellido, $usuario_email='', $usuario_compania_id='', $usuario_cargo, $usuario_lenguaje='', $usuario_sales_id='', $usuario_sms='1', $birthday='', $bday='', $bmonth='') {
-        $usuario_nombre = ucwords(strtolower(trim($usuario_nombre)));
-        $usuario_apellido = ucwords(strtolower(trim($usuario_apellido)));
-        $usuario_email = strtolower(trim($usuario_email));
-
-        $query = "UPDATE usuarios SET first_name='$usuario_nombre', last_name='$usuario_apellido',
-                job_title='$usuario_cargo',	birth_day='$bday', birth_month='$bmonth', receive_sms='$usuario_sms' 
-                WHERE id='$usuario_id' ";
-        //die("=".$query);
-        $this->_SQL_tool('UPDATE', __METHOD__, $query);
-    }
-
-    /*
-     * Cambia el password del usuario
-     */
-
     function cambiarContrasena($usuario_id, $new_password) {
         //$usuario_clave = sha1($new_password);
         $query = "UPDATE usuarios SET password = '$new_password' WHERE id = '$usuario_id' ";
@@ -255,7 +221,6 @@ class User extends Model {
         $this->_SQL_tool('UPDATE', __METHOD__, $query);
         return true;
     }
-
 }
 
 ?>

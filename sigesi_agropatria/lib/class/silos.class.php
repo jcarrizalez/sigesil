@@ -28,5 +28,20 @@ class Silos extends Model {
                     WHERE id_centro_acopio = '$idCA'";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
+    
+    function desactivarSI($id=null, $idCA=null, $status) {
+        switch ($status){
+            case 't':
+                $status = 1;
+            break;
+            case 'f':
+                $status = 0;
+            break;
+        }
+        $query = "UPDATE si_silos SET estatus = '$status'";
+        $query .= (!empty($id)) ? " WHERE id = '$id'" : "";
+        $query .= (!empty($idCA)) ? " WHERE id_centro_acopio = '$idCA'" : "";
+        return $result = $this->_SQL_tool("UPDATE", __METHOD__, $query);
+    }
 }
 ?>

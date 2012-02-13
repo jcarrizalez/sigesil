@@ -10,7 +10,7 @@
     switch($GPC['ac']){
         case 'guardar':
             if(!empty($GPC['Usuario']['nombre']) && !empty($GPC['Usuario']['apellido']) && !empty($GPC['Usuario']['cedula']) && !empty($GPC['Usuario']['sexo']) && !empty($GPC['Usuario']['usuario']) && !empty($GPC['Usuario']['contrasena']) && !empty($GPC['centro_acopio']) && !empty($GPC['almacen']) && !empty($GPC['perfil'])){
-                sha1($GPC['Usuario']['contrasena']);
+                $GPC['Usuario']['contrasena'] = sha1($GPC['Usuario']['contrasena']);
                 $usuario->save($GPC['Usuario']);
                 $id = $usuario->id;
                 $usuario->guardarPerfilUsuario($id, $GPC['almacen'], $GPC['perfil']);
@@ -35,8 +35,9 @@ $validator = new Validator('form1');
 $validator->printIncludes();
 $validator->setRules('Usuario.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Usuario.apellido', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('Usuario.cedula', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Usuario.cedula', array('required' => array('value' => true, 'message' => 'Requerido'), 'number' => array('value' => true, 'message' => 'C&eacute;dula Inv&aacute;lida'), 'minlength' => array('value' => 6, 'message' => 'M&iacute;nimo 6 D&iacute;gitos'), 'maxlength' => array('value' => 8, 'message' => 'M&aacute;ximo 8 D&iacute;gitos')));
 $validator->setRules('Usuario.sexo', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Usuario.email', array('email' => array('value' => true, 'message' => 'Correo Inv&aacute;lido')));
 $validator->setRules('Usuario.usuario', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Usuario.contrasena', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('centro_acopio', array('required' => array('value' => true, 'message' => 'Requerido')));
@@ -102,7 +103,7 @@ $validator->printScript();
                 </tr>
                 <tr>
                     <td><span class="msj_rojo">* </span>Contrase&ntilde;a: </td>
-                    <td><? echo $html->input('Usuario.contrasena', $infoUsuario[0]['contrasena'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><? echo $html->input('Usuario.contrasena', $infoUsuario[0]['contrasena'], array('type' => 'password', 'class' => 'estilo_campos')); ?></td>
                 </tr>
             </table>
     </fieldset>

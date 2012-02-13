@@ -4,7 +4,7 @@
     $silos = new Silos();
     
     $id = (!empty($GPC['id'])) ? $GPC['id'] : null;
-    $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : $_SESSION['s_ca_id'];
+    $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : null;
     
     $listadoSilos = $silos->listadoSilos($id, $idCA);
     

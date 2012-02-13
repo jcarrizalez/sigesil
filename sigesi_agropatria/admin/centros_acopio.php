@@ -2,6 +2,14 @@
     require_once('../lib/core.lib.php');
     
     $centro_acopio = new CentroAcopio();
+    $org = new Organizacion();
+    
+    $listaOrg = $org->find('','', array('id', 'nombre'), 'list', 'id');
+    $estatus = array('t' => 'Activo', 'f' => 'Inactivo');
+    $listaP = array(1 => 'Venezuela');
+    $listaE = array(1 => 'Guarico', 'Zulia');
+    $listaM = array(1 => 'Chaguaramas', 'Cabimas');
+    
     $ocultarCantidad = 1;
     
     for($i=1;$i<=50;$i++){
@@ -11,22 +19,39 @@
     switch($GPC['ac']){
         case 'guardar':
             $silos = new Silos();
-            if(!empty($GPC['CA']['nombre']) && !empty($GPC['CA']['ubicacion'])){
+            $almacen = new Almacen();
+            if(!empty($GPC['CA']['codigo']) && !empty($GPC['CA']['nombre']) && !empty($GPC['CA']['rif'])){
                 $centro_acopio->save($GPC['CA']);
-                $id = $centro_acopio->id;
+                $idCA = $centro_acopio->id;
+                $dataAlmacen = array('id_centro_acopio' => $idCA, 
+                                    'nombre' => 'Almacen - Silos', 
+                                    'direccion' => '',
+                                    'id_pais' => 1,
+                                    'id_estado' => 1,
+                                    'id_municipio' => 1,
+                                    'telefono' => '',
+                                    'fax' => '',
+                                    'email' => '',
+                                    'estatus' => 1,
+                                    'coordenadas_utm' => '',
+                                    'id_tipo_almacen' => 1);
+                $almacen->save($dataAlmacen);
+                $idAl = $almacen->id;
                 
                 $nuevoSilo = array();
-                $nuevoSilo['id_centro_acopio'] = $id;
+                $nuevoSilo['id_centro_acopio'] = $idCA;
+                $nuevoSilo['id_almacen'] = $idAl;
                 for($i=1;$i<=$GPC['cant_silos'];$i++){
                     $nuevoSilo['nombre'] = "Silo ".$i;
                     $nuevoSilo['coordenada'] = "Norte";
                     $nuevoSilo['numero'] = $i;
                     $nuevoSilo['capacidad'] = 1000;
+                    $nuevoSilo['modulo'] = 'A';
                     $silos->save($nuevoSilo);
                     $silos->id = null;
                 }
                 
-                if(!empty($id)){
+                if(!empty($idCA)){
                     header("location: centros_acopio_listado.php?msg=exitoso");
                     die();
                 }else{
@@ -47,9 +72,12 @@ $validator = new Validator('form1');
 $validator->printIncludes();
 $validator->setRules('CA.codigo', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('CA.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('CA.rif', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('CA.id_pais', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('CA.id_estado', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('CA.id_municipio', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('CA.email', array('email' => array('value' => true, 'message' => 'Correo Invalido')));
-$validator->setRules('CA.ubicacion', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('CA.id_org', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('CA.estatus', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('cant_silos', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->printScript();
 ?>
@@ -65,6 +93,10 @@ $validator->printScript();
     </div>
     <table align="center">
         <tr>
+            <td><span class="msj_rojo">* </span>Organizaci&oacute;n: </td>
+            <td><? echo $html->select('CA.id_org',array('options'=>$listaOrg, 'selected' => $infoCA[0]['id_org'], 'default' => 'Seleccione'))?></td>
+        </tr>
+        <tr>
             <td><span class="msj_rojo">* </span>Codigo: </td>
             <td><? echo $html->input('CA.codigo', $infoCA[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
@@ -73,7 +105,7 @@ $validator->printScript();
             <td><? echo $html->input('CA.nombre', $infoCA[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>RIF: </td>
+            <td>RIF: </td>
             <td><? echo $html->input('CA.rif', $infoCA[0]['rif'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
@@ -81,25 +113,45 @@ $validator->printScript();
             <td><? echo $html->input('CA.telefono', $infoCA[0]['telefono'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
+            <td>Fax: </td>
+            <td><? echo $html->input('CA.fax', $infoCA[0]['fax'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+        </tr>
+        <tr>
             <td>Email: </td>
             <td><? echo $html->input('CA.email', $infoCA[0]['email'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>Ubicaci&oacute;n: </td>
-            <td><? echo $html->input('CA.ubicacion', $infoCA[0]['ubicacion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td>Direcci&oacute;n: </td>
+            <td><? echo $html->input('CA.direccion', $infoCA[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+        </tr>
+        <tr>
+            <td><span class="msj_rojo">* </span>Pa&iacute;s: </td>
+            <td><? echo $html->select('CA.id_pais',array('options'=>$listaP, 'selected' => $infoCA[0]['id_pais'], 'default' => 'Seleccione'))?></td>
+        </tr>
+        <tr>
+            <td><span class="msj_rojo">* </span>Estado: </td>
+            <td><? echo $html->select('CA.id_estado',array('options'=>$listaE, 'selected' => $infoCA[0]['id_estado'], 'default' => 'Seleccione'))?></td>
+        </tr>
+        <tr>
+            <td><span class="msj_rojo">* </span>Municipio: </td>
+            <td><? echo $html->select('CA.id_municipio',array('options'=>$listaM, 'selected' => $infoCA[0]['id_municipio'], 'default' => 'Seleccione'))?></td>
+        </tr>
+        <tr>
+            <td>C&oacute;digo Postal: </td>
+            <td><? echo $html->input('CA.id_codigo_postal', $infoCA[0]['id_codigo_postal'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td>Coordenadas: </td>
-            <td><? echo $html->input('CA.coordenadas', $infoCA[0]['coordenadas'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><? echo $html->input('CA.coordenadas_utm', $infoCA[0]['coordenadas_utm'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td>Organizaci&oacute;n: </td>
-            <td><? echo $html->input('CA.id_org', $infoCA[0]['id_org'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><span class="msj_rojo">* </span>Estatus: </td>
+            <td><? echo $html->select('CA.estatus',array('options'=>$estatus, 'selected' => $infoCA[0]['estatus'], 'default' => 'Seleccione'))?></td>
         </tr>
         <? if($ocultarCantidad){ ?>
         <tr>
             <td><span class="msj_rojo">* </span>Cantidad de Silos: </td>
-            <td><? echo $html->select('cant_silos',array('options'=>$cantSilos, 'selected' => $totalSilos[0]['totalsilos'], 'default' => 'Seleccione'))?></td>
+            <td><? echo $html->select('cant_silos',array('options'=>$cantSilos, 'default' => 'Seleccione'))?></td>
         </tr>
         <? } ?>
         <tr>

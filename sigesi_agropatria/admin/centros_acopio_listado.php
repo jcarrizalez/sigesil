@@ -4,21 +4,25 @@
     $centro_acopio = new CentroAcopio();
     $silos = new Silos();
     
-    //$listadoCA = $centro_acopio->find('', null, array('id','nombre','rif','telefono','email','codigo'), null, 'id ASC');
     $listadoCA = $centro_acopio->buscarCA();
     
-    if($GPC['ac'] == 'eliminar'){
-        $id = $GPC['id'];
-        $centro_acopio->eliminarCA($id);
-        $silos->eliminarSilo(2,$id);
+    if($GPC['ac'] == 'estatus'){
+        $almacen = new Almacen();
+        $usuarios = new User();
+        $idCA = $GPC['id'];
+        $status = $GPC['cambiar'];
+        $centro_acopio->desactivarCA($idCA, $status);
+        $almacen->desactivarAL('',$idCA, $status);
+        $silos->desactivarSI('',$idCA, $status);
+        $usuarios->desactivarUsuariosCA($idCA, $status);
         header('location: centros_acopio_listado.php');
         die();
     }
     require('../lib/common/header.php');
 ?>
 <script type="text/javascript">
-    function eliminar(){
-        if(confirm('¿Desea Eliminar este Centro de Acopio?'))
+    function cambiarStatus(){
+        if(confirm('¿Desea cambiar de estatus a este Centro de Acopio?'))
             return true;
         else
             return false;
@@ -55,10 +59,10 @@
             <th>Codigo</th>
             <th>Orgnanizaci&oacute;n</th>
             <th>Nombre</th>
-            <th>RIF</th>
             <th>Tel&eacute;fono</th>
             <th>Email</th>
             <th>Silos</th>
+            <th>Estatus</th>
             <th>Acci&oacute;n</th>
         </tr>
         <?
@@ -70,7 +74,6 @@
             <td align="center"><?=$dataCA['codigo']?></td>
             <td><?=$dataCA['nombre_org']?></td>
             <td><?=$dataCA['nombre']?></td>
-            <td align="center"><?=$dataCA['rif']?></td>
             <td align="center"><?=$dataCA['telefono']?></td>
             <td align="center"><?=$dataCA['email']?></td>
             <?
@@ -85,8 +88,17 @@
             <? } ?>
             <td align="center">
                 <?
+                    if($dataCA['estatus'] == 't'){
+                        echo $html->link('<img src="../images/habilitar.png" width="16" height="16" title=Activo>', 'centros_acopio_listado.php?ac=estatus&id='.$dataCA['id'].'&cambiar=f', array('onclick' => 'return cambiarStatus();'));
+                    }else{
+                        echo $html->link('<img src="../images/deshabilitar.png" width="16" height="16" title=Inactivo>', 'centros_acopio_listado.php?ac=estatus&id='.$dataCA['id'].'&cambiar=t', array('onclick' => 'return cambiarStatus();'));
+                    }
+                ?>
+            </td>
+            <td align="center">
+                <?
                     echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'centros_acopio.php?ac=editar&id='.$dataCA['id']);
-                    echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'centros_acopio_listado.php?ac=eliminar&id='.$dataCA['id'], array('onclick' => 'return eliminar();'));
+                    //echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'centros_acopio_listado.php?ac=eliminar&id='.$dataCA['id'], array('onclick' => 'return eliminar();'));
                 ?>
             </td>
         </tr>
