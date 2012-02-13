@@ -14,8 +14,11 @@ class Silos extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
-    function eliminarSilo($id){
-        $query = "DELETE FROM si_silos WHERE id = " . $id;
+    function eliminarSilo($borrarPor=1, $id){
+        if($borrarPor == 1)
+            $query = "DELETE FROM si_silos WHERE id = " . $id;
+        elseif($borrarPor == 2)
+            $query = "DELETE FROM si_silos WHERE id_centro_acopio = " . $id;
         $result = $this->_SQL_tool("DELETE", __METHOD__, $query);
     }
     

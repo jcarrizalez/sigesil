@@ -89,8 +89,8 @@ class Model extends cls_dbtools {
                 $fields.= $field;
                 $values.= (!empty($value)) ? "'".$value."'" : 'null';
             }
-            $fields.=", creado, modificado)";
-            $values .=",now(),now())";
+            $fields.=", creado)";
+            $values .=",now())";
             
             $query.=" " . $fields." VALUES ".$values;
             $result = $this->_SQL_tool('INSERT', __METHOD__, $query);

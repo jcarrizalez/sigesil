@@ -10,7 +10,7 @@
     
     if($GPC['ac'] == 'eliminar'){
         $id = $GPC['id'];
-        $silos->eliminarSilo($id);
+        $silos->eliminarSilo(1,$id);
         header('location: silos_listado.php');
         die();
     }

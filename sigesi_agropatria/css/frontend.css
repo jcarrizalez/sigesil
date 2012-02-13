@@ -232,6 +232,7 @@ img{
 
 .msj_rojo, .error{
     color: #F00;
+    font-weight: bold;
 }
 
 .titulos_tabla{

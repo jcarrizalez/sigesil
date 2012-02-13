@@ -1,11 +1,11 @@
 <?
-$menu = array();
+/*$menu = array();
 
     switch ($_SESSION['s_perfil_id']){
         case GERENTEG:
             $menu['Maestro'] = array('Centros de Acopio' => DOMAIN_ROOT . 'admin/centros_acopio_listado.php',
                                     'Cultivo' => DOMAIN_ROOT . 'admin/cultivo_listado.php',
-                                    'Tipos de Cultivo' => DOMAIN_ROOT . 'admin/tipo_cultivo_listado.php',
+                                    //'Tipos de Cultivo' => DOMAIN_ROOT . 'admin/tipo_cultivo_listado.php',
                                     'Programa' => DOMAIN_ROOT . 'admin/programa_listado.php',
                                     'Silos' => DOMAIN_ROOT.'admin/silos_listado.php',
                                     'Productor' => DOMAIN_ROOT.'admin/productor_listado.php'
@@ -58,15 +58,21 @@ $menu = array();
             );
         break;
     }
+*/
+$objMenu = new Menu();
+$armarMenuP = $objMenu->menuPorUsuario($_SESSION['s_id']);
 ?>
 <div id="accordion">
-    <? foreach($menu as $campoPadre => $menuPadre){ ?>
+    <?
+        foreach($armarMenuP as $valorPadre){
+            $armarMenuH = $objMenu->menuPorUsuario($_SESSION['s_id'], $valorPadre['id']);
+    ?>
     <div>
-        <h3><a href="<?=$menuPadre?>"><?=$campoPadre?></a></h3>
+        <h3><a href="#"><?=$valorPadre['nombre']?></a></h3>
         <div>
             <ul id="lista_accordion">
-                <? foreach($menuPadre as $campoHijo => $menuHijo){ ?>
-                <li><a href="<?=$menuHijo?>"><?=$campoHijo?></a></li>
+                <? foreach($armarMenuH as $valorHijo){ ?>
+                <li><a href="<?=DOMAIN_ROOT.$valorHijo['url']?>"><?=$valorHijo['nombre']?></a></li>
                 <? } ?>
             </ul>
         </div>

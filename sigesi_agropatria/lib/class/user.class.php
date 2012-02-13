@@ -38,33 +38,42 @@ class User extends Model {
         }
     }
 
-    function guardarPerfilUsuario($usuarioId, $perfilId) {
-        $query = "INSERT INTO si_usuarios_perfiles (id_usuario, id_perfil, creado) VALUES ('$usuarioId','$perfilId',now())";
+    function guardarPerfilUsuario($idUsuario, $idAlmacen, $idPerfil) {
+        $query = "INSERT INTO si_usuarios_perfiles (id_usuario, id_almacen, id_perfil, creado) VALUES ('$idUsuario','$idAlmacen', '$idPerfil', now())";
         $result = $this->_SQL_tool($this->INSERT, __METHOD__, $query);
         return $result;
     }
 
-    function obtenerTodosUsuarios() {
-        //$query = "SELECT User.id, User.first_name, User.last_name, User.email, UserInvitation.invitation_code, Company.name as company_name FROM users User INNER JOIN companies Company on Company.id=User.company_id LEFT JOIN user_invitations UserInvitation ON UserInvitation.user_id = User.id";
-        $query = "SELECT User.id, User.first_name, User.last_name, User.email, UserInvitation.invitation_code FROM si_usuarios User INNER JOIN user_invitations UserInvitation ON UserInvitation.user_id = User.id";
-        $result = $this->_SQL_tool($this->SELECT, __METHOD__, $query);
-        return $result;
+    function obtenerTodosUsuarios($idUsuario=null, $idCA=null, $idAlmacen=null, $idPerfil=null, $buscar=null, $orden=null) {
+        $query = "SELECT ca.id id_ca, ca.nombre nombre_ca, al.id id_al, al.nombre nombre_al, u.id, u.nombre, u.apellido, u.cedula, u.sexo, u.usuario, u.email, pe.nombre_perfil perfil
+                    FROM si_usuarios u
+                    LEFT JOIN si_usuarios_perfiles up ON up.id_usuario = u.id
+                    INNER JOIN si_perfiles pe ON pe.id = up.id_perfil
+                    INNER JOIN si_almacenes al ON al.id = up.id_almacen
+                    INNER JOIN si_centro_acopio ca ON ca.id = al.id_centro_acopio
+                    WHERE '1'";
+        if (!empty($idUsuario)) $query .= " AND u.id = '$idUsuario'";
+        if (!empty($idCA)) $query .= " AND ca.id = '$idCA'";
+        if (!empty($idAlmacen)) $query .= " AND al.id = '$idAlmacen'";
+        if (!empty($idPerfil)) $query .= " AND pe.id = '$idPerfil'";
+        if (!empty($buscar)) $query .= " AND u.nombre LIKE '%$buscar%' OR u.apellido LIKE '%$buscar%' u.email LIKE '%$buscar%'";
+        $query .= (!empty($orden)) ? " ORDER BY $orden" : " ORDER BY ca.nombre, al.id, u.nombre, u.apellido";
+        return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 
-    function obtenerDetalleUsuarios($id_usuario=null, $id_perfil=null, $cedula=null, $orden=null, $min='', $max='', $nombre=null, $sexo=null, $perfilLogin=0) {
+    function obtenerDetalleUsuarios($idUsuario=null, $idPerfil=null, $usuario=null, $orden=null, $min='', $max='', $nombre=null, $sexo=null) {
         $query = "SELECT DISTINCT (u.id), u.nombre, u.apellido, u.cedula, u.fecha_nacimiento, u.sexo, u.contrasena, u.creado, u.modificado, ca.id id_ca, ca.nombre nombre_ca, p.id id_perfil, p.nombre_perfil
                     FROM si_usuarios u
                     INNER JOIN si_usuarios_perfiles up ON up.id_usuario = u.id
-                    LEFT OUTER JOIN si_centro_acopio ca ON ca.id = up.id_centro_acopio
+                    LEFT OUTER JOIN si_almacenes al ON al.id = up.id_almacen
+                    LEFT OUTER JOIN si_centro_acopio ca ON ca.id = al.id_centro_acopio
                     INNER JOIN si_perfiles p ON p.id = up.id_perfil
-                    WHERE '1'
-                    ";
-        if (!empty($id_usuario)) $query .= " AND u.id = '$id_usuario'";
-        if (!empty($id_perfil)) $query .= " AND up.id_perfil = '$id_perfil'";
-        if (!empty($cedula)) $query .= " AND u.cedula = '$cedula'";
+                    WHERE '1'";
+        if (!empty($idUsuario)) $query .= " AND u.id = '$idUsuario'";
+        if (!empty($idPerfil)) $query .= " AND up.id_perfil = '$idPerfil'";
+        if (!empty($usuario)) $query .= " AND u.usuario = '$usuario'";
         if (!empty($nombre)) $query .= " AND (u.nombre LIKE '%$nombre%' OR u.apellido LIKE '%$nombre%')";
         if (!empty($sexo)) $query .= " AND u.sexo = '$sexo'";
-        if($perfilLogin != 0) $query .= " AND up.id_perfil NOT IN (".$perfilLogin.")";
         (!empty($orden)) ? $query .= " ORDER BY $orden" : $query .= " ORDER BY u.id, p.id";
         if (!empty($max)) $query.= " LIMIT $min,$max ";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);

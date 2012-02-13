@@ -4,13 +4,13 @@
     $centro_acopio = new CentroAcopio();
     $silos = new Silos();
     
-    $listadoCA = $centro_acopio->find('', null, array('id','nombre','rif','telefono','email','codigo'), null, 'id ASC');
-    unset($listadoCA[0]);
+    //$listadoCA = $centro_acopio->find('', null, array('id','nombre','rif','telefono','email','codigo'), null, 'id ASC');
+    $listadoCA = $centro_acopio->buscarCA();
     
     if($GPC['ac'] == 'eliminar'){
         $id = $GPC['id'];
         $centro_acopio->eliminarCA($id);
-        $silos->eliminarSilo($id);
+        $silos->eliminarSilo(2,$id);
         header('location: centros_acopio_listado.php');
         die();
     }
@@ -53,6 +53,7 @@
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
             <th>Codigo</th>
+            <th>Orgnanizaci&oacute;n</th>
             <th>Nombre</th>
             <th>RIF</th>
             <th>Tel&eacute;fono</th>
@@ -67,6 +68,7 @@
         ?>
         <tr class="<?=$clase?>">
             <td align="center"><?=$dataCA['codigo']?></td>
+            <td><?=$dataCA['nombre_org']?></td>
             <td><?=$dataCA['nombre']?></td>
             <td align="center"><?=$dataCA['rif']?></td>
             <td align="center"><?=$dataCA['telefono']?></td>
