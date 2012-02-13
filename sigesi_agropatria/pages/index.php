@@ -40,6 +40,9 @@
                 case 'auth_required':
                     echo 'Usuario Conectado';
                 break;
+                case 'usuario_inactivo':
+                    echo 'Usuario y/o Centro de Acopio Inactivo';
+                break;
             }
         ?>
     </div>

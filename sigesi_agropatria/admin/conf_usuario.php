@@ -2,7 +2,7 @@
     require_once('../lib/core.lib.php');
     require('../lib/common/header.php');
 
-    $user = new User();
+    $user = new Usuario();
     if ($_REQUEST['ac'] == 'save') {
         $user->id = $_SESSION['s_id'];
         $GPC['Usuario']['contrasena'] = sha1($GPC['Usuario']['contrasena']);

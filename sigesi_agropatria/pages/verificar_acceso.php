@@ -2,7 +2,7 @@
     require('../lib/core.lib.php');
 
     if($GPC['ac']=="access"){
-        $usuarios = New User();
+        $usuarios = new Usuario();
 
         $login = $GPC['usuario'];
         $pass = $GPC['pass'];

@@ -1,6 +1,6 @@
 <?php
 
-class User extends Model {
+class Usuario extends Model {
 
     var $table = 'si_usuarios';
     private $passgenerico = "s1g3s1";
@@ -13,6 +13,11 @@ class User extends Model {
         $query = "SELECT * FROM si_usuarios WHERE TRIM(LCASE(email)) = '" . trim(strtolower($email)) . "'";
         $result = $this->_SQL_tool($this->SELECT, __METHOD__, $query);
         return $result;
+    }
+    
+    function desactivarUsuario($id, $status) {
+        $query = "UPDATE si_usuarios SET estatus = '$status' WHERE id = '$id'";
+        return $this->_SQL_tool("UPDATE", __METHOD__, $query);
     }
     
     function desactivarUsuariosCA($idCA, $status) {
@@ -46,7 +51,7 @@ class User extends Model {
     }
 
     function obtenerTodosUsuarios($idUsuario=null, $idCA=null, $idAlmacen=null, $idPerfil=null, $buscar=null, $orden=null) {
-        $query = "SELECT ca.id id_ca, ca.nombre nombre_ca, al.id id_al, al.nombre nombre_al, u.id, u.nombre, u.apellido, u.cedula, u.sexo, u.usuario, u.email, pe.nombre_perfil perfil
+        $query = "SELECT ca.id id_ca, ca.nombre nombre_ca, al.id id_al, al.nombre nombre_al, u.id, u.nombre, u.apellido, u.cedula, u.sexo, u.usuario, u.email, u.estatus, pe.nombre_perfil perfil
                     FROM si_usuarios u
                     LEFT JOIN si_usuarios_perfiles up ON up.id_usuario = u.id
                     INNER JOIN si_perfiles pe ON pe.id = up.id_perfil
@@ -62,7 +67,7 @@ class User extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 
-    function obtenerDetalleUsuarios($idUsuario=null, $idPerfil=null, $usuario=null, $orden=null, $min='', $max='', $nombre=null, $sexo=null) {
+    function obtenerDetalleUsuarios($idUsuario=null, $idPerfil=null, $usuario=null, $orden=null, $min='', $max='', $nombre=null, $sexo=null, $status='t') {
         $query = "SELECT DISTINCT (u.id), u.nombre, u.apellido, u.cedula, u.fecha_nacimiento, u.sexo, u.contrasena, u.creado, u.modificado, ca.id id_ca, ca.nombre nombre_ca, p.id id_perfil, p.nombre_perfil
                     FROM si_usuarios u
                     INNER JOIN si_usuarios_perfiles up ON up.id_usuario = u.id
@@ -75,6 +80,7 @@ class User extends Model {
         if (!empty($usuario)) $query .= " AND u.usuario = '$usuario'";
         if (!empty($nombre)) $query .= " AND (u.nombre LIKE '%$nombre%' OR u.apellido LIKE '%$nombre%')";
         if (!empty($sexo)) $query .= " AND u.sexo = '$sexo'";
+        if (!empty($status)) $query .= " AND u.estatus = '$status'";
         (!empty($orden)) ? $query .= " ORDER BY $orden" : $query .= " ORDER BY u.id, p.id";
         if (!empty($max)) $query.= " LIMIT $min,$max ";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);

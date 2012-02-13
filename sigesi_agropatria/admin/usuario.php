@@ -1,7 +1,7 @@
 <?
     require_once('../lib/core.lib.php');
     
-    $usuario = new User();
+    $usuario = new Usuario();
     $centro_acopio = new CentroAcopio();
     
     $sexo = array('F' => 'Femenino', 'M' => 'Masculino');
@@ -103,7 +103,7 @@ $validator->printScript();
                 </tr>
                 <tr>
                     <td><span class="msj_rojo">* </span>Contrase&ntilde;a: </td>
-                    <td><? echo $html->input('Usuario.contrasena', $infoUsuario[0]['contrasena'], array('type' => 'password', 'class' => 'estilo_campos')); ?></td>
+                    <td><? echo $html->input('Usuario.contrasena', '', array('type' => 'password', 'class' => 'estilo_campos')); ?></td>
                 </tr>
             </table>
     </fieldset>

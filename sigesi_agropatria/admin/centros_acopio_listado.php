@@ -8,7 +8,7 @@
     
     if($GPC['ac'] == 'estatus'){
         $almacen = new Almacen();
-        $usuarios = new User();
+        $usuarios = new Usuario();
         $idCA = $GPC['id'];
         $status = $GPC['cambiar'];
         $centro_acopio->desactivarCA($idCA, $status);

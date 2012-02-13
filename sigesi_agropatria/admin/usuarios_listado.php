@@ -1,20 +1,21 @@
 <?
     require_once('../lib/core.lib.php');
     
-    $usuario = new User();
+    $usuario = new Usuario();
     $listadoUsuarios = $usuario->obtenerTodosUsuarios('', '', '', '', '', 'u.nombre');
     
-    if($GPC['ac'] == 'eliminar'){
+    if($GPC['ac'] == 'estatus'){
         $id = $GPC['id'];
-        $usuario->eliminarUsuario($id);
+        $status = $GPC['cambiar'];
+        $usuario->desactivarUsuario($id, $status);
         header('location: usuarios_listado.php');
         die();
     }
     require('../lib/common/header.php');
 ?>
 <script type="text/javascript">
-    function eliminar(){
-        if(confirm('¿Desea Eliminar este Usuario?'))
+    function cambiarStatus(){
+        if(confirm('¿Desea cambiar de estatus a este Usuario?'))
             return true;
         else
             return false;
@@ -52,6 +53,7 @@
             <th>Apellidos</th>
             <th>Usuario</th>
             <th>Email</th>
+            <th>Estatus</th>
             <th>Acci&oacute;n</th>
         </tr>
         <?
@@ -66,8 +68,17 @@
             <td align="center"><?=$dataUsuario['email']?></td>
             <td align="center">
                 <?
+                    if($dataUsuario['estatus'] == 't'){
+                        echo $html->link('<img src="../images/habilitar.png" width="16" height="16" title=Activo>', 'usuarios_listado.php?ac=estatus&id='.$dataUsuario['id'].'&cambiar=f', array('onclick' => 'return cambiarStatus();'));
+                    }else{
+                        echo $html->link('<img src="../images/deshabilitar.png" width="16" height="16" title=Inactivo>', 'usuarios_listado.php?ac=estatus&id='.$dataUsuario['id'].'&cambiar=t', array('onclick' => 'return cambiarStatus();'));
+                    }
+                ?>
+            </td>
+            <td align="center">
+                <?
                     echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'usuario.php?ac=editar&id='.$dataUsuario['id']);
-                    echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'usuarios_listado.php?ac=eliminar&id='.$dataUsuario['id'], array('onclick' => 'return eliminar();'));
+                    //echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'usuarios_listado.php?ac=eliminar&id='.$dataUsuario['id'], array('onclick' => 'return eliminar();'));
                 ?>
             </td>
         </tr>
