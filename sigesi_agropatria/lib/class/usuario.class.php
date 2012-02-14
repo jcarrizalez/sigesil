@@ -50,7 +50,7 @@ class Usuario extends Model {
         return $result;
     }
 
-    function obtenerTodosUsuarios($idUsuario=null, $idCA=null, $idAlmacen=null, $idPerfil=null, $buscar=null, $orden=null) {
+    function obtenerTodosUsuarios($idUsuario=null, $idCA=null, $idAlmacen=null, $idPerfil=null, $buscar=null, $orden=null, $estatus=null) {
         $query = "SELECT ca.id id_ca, ca.nombre nombre_ca, al.id id_al, al.nombre nombre_al, u.id, u.nombre, u.apellido, u.cedula, u.sexo, u.usuario, u.email, u.estatus, pe.nombre_perfil perfil
                     FROM si_usuarios u
                     LEFT JOIN si_usuarios_perfiles up ON up.id_usuario = u.id
@@ -63,12 +63,13 @@ class Usuario extends Model {
         if (!empty($idAlmacen)) $query .= " AND al.id = '$idAlmacen'";
         if (!empty($idPerfil)) $query .= " AND pe.id = '$idPerfil'";
         if (!empty($buscar)) $query .= " AND u.nombre LIKE '%$buscar%' OR u.apellido LIKE '%$buscar%' u.email LIKE '%$buscar%'";
+        if (!empty($estatus)) $query .= " AND u.estatus = '$estatus'";
         $query .= (!empty($orden)) ? " ORDER BY $orden" : " ORDER BY ca.nombre, al.id, u.nombre, u.apellido";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 
     function obtenerDetalleUsuarios($idUsuario=null, $idPerfil=null, $usuario=null, $orden=null, $min='', $max='', $nombre=null, $sexo=null, $status='t') {
-        $query = "SELECT DISTINCT (u.id), u.nombre, u.apellido, u.cedula, u.fecha_nacimiento, u.sexo, u.contrasena, u.creado, u.modificado, ca.id id_ca, ca.nombre nombre_ca, p.id id_perfil, p.nombre_perfil
+        $query = "SELECT DISTINCT (u.id), u.nombre, u.apellido, u.cedula, u.fecha_nacimiento, u.sexo, u.direccion, u.telefono, u.email, u.usuario, u.contrasena, u.creado, u.modificado, ca.id id_ca, ca.nombre nombre_ca, al.id id_al, p.id id_perfil, p.nombre_perfil
                     FROM si_usuarios u
                     INNER JOIN si_usuarios_perfiles up ON up.id_usuario = u.id
                     LEFT OUTER JOIN si_almacenes al ON al.id = up.id_almacen

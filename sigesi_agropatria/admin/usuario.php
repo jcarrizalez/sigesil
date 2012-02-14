@@ -2,6 +2,7 @@
     require_once('../lib/core.lib.php');
     
     $usuario = new Usuario();
+    $usuarioPerfil = new UsuarioPerfil();
     $centro_acopio = new CentroAcopio();
     
     $sexo = array('F' => 'Femenino', 'M' => 'Masculino');
@@ -13,7 +14,11 @@
                 $GPC['Usuario']['contrasena'] = sha1($GPC['Usuario']['contrasena']);
                 $usuario->save($GPC['Usuario']);
                 $id = $usuario->id;
-                $usuario->guardarPerfilUsuario($id, $GPC['almacen'], $GPC['perfil']);
+                $infoPerfil['Perfil']['id_usuario'] = $id;
+                $infoPerfil['Perfil']['id_almacen'] = $GPC['almacen'];
+                $infoPerfil['Perfil']['id_perfil'] = $GPC['perfil'];
+                $usuarioPerfil->save();
+                //$usuario->guardarPerfilUsuario($id, $GPC['almacen'], $GPC['perfil']);
                 
                 if(!empty($id)){
                     header("location: usuarios_listado.php?msg=exitoso");
@@ -25,7 +30,18 @@
             }
         break;
         case 'editar':
-            $infoUsuario = $usuario->find(array('id' => $GPC['id']));
+            $almacen = new Almacen();
+            $perfil = new Perfil();
+            
+            $infoUsuario = $usuario->obtenerDetalleUsuarios($GPC['id']);
+            $listaAlmacenes = $almacen->find(array('id_centro_acopio' => $infoUsuario[0]['id_ca']), '', array('id', 'nombre'), 'list', 'id');
+            if($infoUsuario[0]['id_ca'] == 1){
+                $listaPerfiles = array(1 => 'Gerente General');
+            }else{
+                $listaPerfiles = $perfil->find('', '', array('id', 'nombre_perfil'), 'list', 'id');
+                unset($listaPerfiles[1]);
+            }
+            echo "<pre>"; print_r($infoUsuario); echo "</pre>";
         break;
     }
     
@@ -58,7 +74,10 @@ $validator->printScript();
     });
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
-    <? echo $html->input('Usuario.id', $infoUsuario[0]['id'], array('type' => 'hidden'));?>
+    <?
+        echo $html->input('Usuario.id', $infoUsuario[0]['id'], array('type' => 'hidden'));
+        echo $html->input('Perfil.id', $infoUsuario[0]['id'], array('type' => 'hidden'));
+    ?>
     <div id="titulo_modulo">
         NUEVO USUARIO<br/><hr/>
     </div>
@@ -112,13 +131,13 @@ $validator->printScript();
             <table align="center">
                 <tr>
                     <td><span class="msj_rojo">* </span>Centro de Acopio: </td>
-                    <td><? echo $html->select('centro_acopio',array('options'=>$listaCA, 'selected' => $infoUsuario[0]['centro_acopio'], 'default' => 'Seleccione'))?></td>
+                    <td><? echo $html->select('centro_acopio',array('options'=>$listaCA, 'selected' => $infoUsuario[0]['id_ca'], 'default' => 'Seleccione'))?></td>
                 </tr>
                 <tr>
                     <td><span class="msj_rojo">* </span>Almacen: </td>
                     <td>
                         <div id="almacenes">
-                            <? echo $html->select('almacen',array('selected' => $infoUsuario[0]['almacen'], 'default' => 'Seleccione'))?>
+                            <? echo $html->select('almacen',array('options'=>$listaAlmacenes, 'selected' => $infoUsuario[0]['id_al'], 'default' => 'Seleccione'))?>
                         </div>
                     </td>
                 </tr>
@@ -126,7 +145,7 @@ $validator->printScript();
                     <td><span class="msj_rojo">* </span>Perfil: </td>
                     <td>
                         <div id="perfiles">
-                            <? echo $html->select('perfil',array('selected' => $infoUsuario[0]['perfil'], 'default' => 'Seleccione'))?>
+                            <? echo $html->select('perfil',array('options'=>$listaPerfiles, 'selected' => $infoUsuario[0]['id_perfil'], 'default' => 'Seleccione'))?>
                         </div>
                     </td>
                 </tr>
