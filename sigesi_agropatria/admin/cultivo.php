@@ -1,16 +1,17 @@
 <?
     require_once('../lib/core.lib.php');
     
-    $programa = new Programa();
-    $cosecha = new Cosecha();
     $cultivo = new Cultivo();
-    $cultivoTipo = new TipoCultivo();
+    $org = new Organizacion();
     
-    $listadoTipoCultivo = $cultivoTipo->find('',null,'*','list','id ASC');
+    $listaOrg = $org->find('','', array('id', 'nombre'), 'list', 'id');
+    $cultivoTip = array('t' => 'Si', 'f' => 'No');
+    $listadoCiclos = array(1 => 'Ciclo 1', 'Ciclo 2', 'Ciclo 3', 'Ciclo 4');
     
     switch($GPC['ac']){
         case 'guardar':
-            if(!empty($GPC['Cultivo']['nombre'])){
+            if(!empty($GPC['Cultivo']['id_org']) && !empty($GPC['Cultivo']['codigo']) && !empty($GPC['Cultivo']['nombre'])){
+                $GPC['Cultivo']['tipificado'] = (!empty($GPC['Cultivo']['tipificado'])) ? $GPC['Cultivo']['tipificado'] : 'f';
                 $cultivo->save($GPC['Cultivo']);
                 $id = $cultivo->id;
                 if(!empty($id)){
@@ -30,8 +31,9 @@
     
 $validator = new Validator('form1');
 $validator->printIncludes();
+$validator->setRules('Cultivo.id_org', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Cultivo.codigo', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Cultivo.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('Cultivo.id_tipo_cultivo', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->printScript();
 ?>
 <script type="text/javascript">
@@ -46,12 +48,24 @@ $validator->printScript();
     </div>
     <table align="center">
         <tr>
+            <td><span class="msj_rojo">* </span>Organizaci&oacute;n: </td>
+            <td><? echo $html->select('Cultivo.id_org',array('options'=>$listaOrg, 'selected' => $infoCultivo[0]['id_org'], 'default' => 'Seleccione'))?></td>
+        </tr>
+        <tr>
+            <td><span class="msj_rojo">* </span>C&oacute;digo: </td>
+            <td><? echo $html->input('Cultivo.codigo', $infoCultivo[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+        </tr>
+        <tr>
             <td><span class="msj_rojo">* </span>Nombre: </td>
             <td><? echo $html->input('Cultivo.nombre', $infoCultivo[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>Tipo de Cultivo: </td>
-            <td><? echo $html->select('Cultivo.id_tipo_cultivo',array('options'=>$listadoTipoCultivo, 'selected' => $infoCultivo[0]['id_tipo_cultivo'], 'default' => 'Seleccione'))?></td>
+            <td>¿Cultivo Tipificado? </td>
+            <td><? echo $html->select('Cultivo.tipificado',array('options'=>$cultivoTip, 'selected' => $infoCultivo[0]['tipificado'], 'default' => 'Seleccione'))?></td>
+        </tr>
+        <tr>
+            <td>Ciclo: </td>
+            <td><? echo $html->select('Cultivo.ciclo',array('options'=>$listadoCiclos, 'selected' => $infoCultivo[0]['ciclo'], 'default' => 'Seleccione'))?></td>
         </tr>
         <tr>
             <td>&nbsp;</td>

@@ -41,7 +41,6 @@
                 $listaPerfiles = $perfil->find('', '', array('id', 'nombre_perfil'), 'list', 'id');
                 unset($listaPerfiles[1]);
             }
-            echo "<pre>"; print_r($infoUsuario); echo "</pre>";
         break;
     }
     

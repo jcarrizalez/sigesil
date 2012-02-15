@@ -7,7 +7,7 @@
     $nombre = (!empty($GPC['nombre'])) ? $GPC['nombre'] : null;
     $tipo = (!empty($GPC['tipo'])) ? $GPC['tipo'] : null;
     
-    $listadoCultivos = $cultivo->buscarCultivo($id, $nombre, $tipo);
+    $listadoCultivos = $cultivo->find('', null, '*', '', 'id');
     
     if($GPC['ac'] == 'eliminar'){
         $id = $GPC['id'];
@@ -29,6 +29,10 @@
         $('#Nuevo').click(function(){
            window.location = 'cultivo.php';
         });
+        
+        $('#Regresar').click(function(){
+           history.back();
+        });
     });
 </script>
     <div id="titulo_modulo">
@@ -46,15 +50,17 @@
             }
         ?>
     </div>
-    <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
     <div id="botones">
+    <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
         <? echo $html->input('Nuevo', 'Nuevo', array('type' => 'button')); ?>
-    </div>
     <? } ?>
+        <? echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();')); ?>
+    </div>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
-            <th width="40%">Nombre</th>
-            <th width="40%">Tipo de Cultivo</th>
+            <th>C&oacute;digo</th>
+            <th>Nombre</th>
+            <th>Ciclo</th>
             <th>Acci&oacute;n</th>
         </tr>
         <?
@@ -63,8 +69,9 @@
                 $clase = $general->obtenerClaseFila($i);
         ?>
         <tr class="<?=$clase?>">
+            <td align="center"><?=$dataCultivo['codigo']?></td>
             <td><?=$dataCultivo['nombre']?></td>
-            <td><?=$dataCultivo['nombre_tipo']?></td>
+            <td><?=$dataCultivo['ciclo']?></td>
             <td align="center">
                 <?
                     echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'cultivo.php?ac=editar&id='.$dataCultivo['id']);

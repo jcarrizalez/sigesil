@@ -25,6 +25,10 @@
         $('#Nuevo').click(function(){
            window.location = 'organizacion.php';
         });
+        
+        $('#Regresar').click(function(){
+           history.back();
+        });
     });
 </script>
     <div id="titulo_modulo">
@@ -43,7 +47,10 @@
         ?>
     </div>
     <div id="botones">
-        <? echo $html->input('Nuevo', 'Nuevo', array('type' => 'button')); ?>
+        <?
+            echo $html->input('Nuevo', 'Nuevo', array('type' => 'button'));
+            echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
+        ?>
     </div>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">

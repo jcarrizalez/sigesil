@@ -32,6 +32,10 @@
         $('#Nuevo').click(function(){
            window.location = 'centros_acopio.php';
         });
+        
+        $('#Regresar').click(function(){
+           history.back();
+        });
     });
 </script>
     <div id="titulo_modulo">
@@ -49,11 +53,12 @@
             }
         ?>
     </div>
-    <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
     <div id="botones">
+    <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
         <? echo $html->input('Nuevo', 'Nuevo', array('type' => 'button')); ?>
-    </div>
     <? } ?>
+        <? echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();')); ?>
+    </div>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
             <th>Codigo</th>
