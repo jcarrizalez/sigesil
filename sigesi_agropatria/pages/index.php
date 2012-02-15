@@ -1,5 +1,4 @@
 <?
-    require_once('../lib/core.lib.php');
     require('../lib/common/header_externo.php');
 ?>
 <script type="text/javascript">
@@ -37,8 +36,8 @@
                 case 'loginerror':
                     echo 'Usuario y/o Contrase&ntilde;a Inv&aacute;lidos';
                 break;
-                case 'auth_required':
-                    echo 'Usuario Conectado';
+                case 'auth_requerida':
+                    echo 'Debe Iniciar Sesi&oacute;n';
                 break;
                 case 'usuario_inactivo':
                     echo 'Usuario y/o Centro de Acopio Inactivo';

@@ -34,11 +34,10 @@
     $javascript = new Javascript();
     $html = new Html();
 
-    if (file_exists(APPROOT.'lib/common/check_login.php')){
-        $objuser = new User();
-        $required = $objuser->get_required_pages($_SERVER['SCRIPT_NAME']);
-        if ($required[0]['pages_required']>0){
-            require_once(APPROOT.'lib/common/check_login.php');
+    if (file_exists(APPROOT.'lib/common/verificar_login.php')){
+        $archivo = explode("/", $_SERVER['PHP_SELF']);
+        if(!in_array($archivo[count($archivo)-1],array('index.php', 'verificar_acceso.php', 'cerrar_sesion.php'))){
+            require_once(APPROOT.'lib/common/verificar_login.php');
         }
     }
     //habilitamos el error handler

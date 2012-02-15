@@ -14,16 +14,16 @@ class Usuario extends Model {
         $result = $this->_SQL_tool($this->SELECT, __METHOD__, $query);
         return $result;
     }
-    
+
     function desactivarUsuario($id, $status) {
         $query = "UPDATE si_usuarios SET estatus = '$status' WHERE id = '$id'";
         return $this->_SQL_tool("UPDATE", __METHOD__, $query);
     }
-    
+
     function desactivarUsuariosCA($idCA, $status) {
-        $result = $this->obtenerTodosUsuarios('',$idCA);
-        foreach($result as $valor){
-            $listaUsuarios .= $valor['id'].",";
+        $result = $this->obtenerTodosUsuarios('', $idCA);
+        foreach ($result as $valor) {
+            $listaUsuarios .= $valor['id'] . ",";
         }
         $listaUsuarios = substr($listaUsuarios, 0, -1);
         $query = "UPDATE si_usuarios SET estatus = '$status' WHERE id IN ($listaUsuarios)";
@@ -50,7 +50,7 @@ class Usuario extends Model {
         return $result;
     }
 
-    function obtenerTodosUsuarios($idUsuario=null, $idCA=null, $idAlmacen=null, $idPerfil=null, $buscar=null, $orden=null, $estatus=null) {
+    function obtenerTodosUsuarios($idUsuario = null, $idCA = null, $idAlmacen = null, $idPerfil = null, $buscar = null, $orden = null, $estatus = null) {
         $query = "SELECT ca.id id_ca, ca.nombre nombre_ca, al.id id_al, al.nombre nombre_al, u.id, u.nombre, u.apellido, u.cedula, u.sexo, u.usuario, u.email, u.estatus, pe.nombre_perfil perfil
                     FROM si_usuarios u
                     LEFT JOIN si_usuarios_perfiles up ON up.id_usuario = u.id
@@ -58,17 +58,23 @@ class Usuario extends Model {
                     INNER JOIN si_almacenes al ON al.id = up.id_almacen
                     INNER JOIN si_centro_acopio ca ON ca.id = al.id_centro_acopio
                     WHERE '1'";
-        if (!empty($idUsuario)) $query .= " AND u.id = '$idUsuario'";
-        if (!empty($idCA)) $query .= " AND ca.id = '$idCA'";
-        if (!empty($idAlmacen)) $query .= " AND al.id = '$idAlmacen'";
-        if (!empty($idPerfil)) $query .= " AND pe.id = '$idPerfil'";
-        if (!empty($buscar)) $query .= " AND u.nombre LIKE '%$buscar%' OR u.apellido LIKE '%$buscar%' u.email LIKE '%$buscar%'";
-        if (!empty($estatus)) $query .= " AND u.estatus = '$estatus'";
+        if (!empty($idUsuario))
+            $query .= " AND u.id = '$idUsuario'";
+        if (!empty($idCA))
+            $query .= " AND ca.id = '$idCA'";
+        if (!empty($idAlmacen))
+            $query .= " AND al.id = '$idAlmacen'";
+        if (!empty($idPerfil))
+            $query .= " AND pe.id = '$idPerfil'";
+        if (!empty($buscar))
+            $query .= " AND u.nombre LIKE '%$buscar%' OR u.apellido LIKE '%$buscar%' u.email LIKE '%$buscar%'";
+        if (!empty($estatus))
+            $query .= " AND u.estatus = '$estatus'";
         $query .= (!empty($orden)) ? " ORDER BY $orden" : " ORDER BY ca.nombre, al.id, u.nombre, u.apellido";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 
-    function obtenerDetalleUsuarios($idUsuario=null, $idPerfil=null, $usuario=null, $orden=null, $min='', $max='', $nombre=null, $sexo=null, $status='t') {
+    function obtenerDetalleUsuarios($idUsuario = null, $idPerfil = null, $usuario = null, $orden = null, $min = '', $max = '', $nombre = null, $sexo = null, $status = 't') {
         $query = "SELECT DISTINCT (u.id), u.nombre, u.apellido, u.cedula, u.fecha_nacimiento, u.sexo, u.direccion, u.telefono, u.email, u.usuario, u.contrasena, u.creado, u.modificado, ca.id id_ca, ca.nombre nombre_ca, al.id id_al, up.id id_u_p, up.id_perfil, p.nombre_perfil
                     FROM si_usuarios u
                     INNER JOIN si_usuarios_perfiles up ON up.id_usuario = u.id
@@ -76,19 +82,26 @@ class Usuario extends Model {
                     LEFT OUTER JOIN si_centro_acopio ca ON ca.id = al.id_centro_acopio
                     INNER JOIN si_perfiles p ON p.id = up.id_perfil
                     WHERE '1'";
-        if (!empty($idUsuario)) $query .= " AND u.id = '$idUsuario'";
-        if (!empty($idPerfil)) $query .= " AND up.id_perfil = '$idPerfil'";
-        if (!empty($usuario)) $query .= " AND u.usuario = '$usuario'";
-        if (!empty($nombre)) $query .= " AND (u.nombre LIKE '%$nombre%' OR u.apellido LIKE '%$nombre%')";
-        if (!empty($sexo)) $query .= " AND u.sexo = '$sexo'";
-        if (!empty($status)) $query .= " AND u.estatus = '$status'";
+        if (!empty($idUsuario))
+            $query .= " AND u.id = '$idUsuario'";
+        if (!empty($idPerfil))
+            $query .= " AND up.id_perfil = '$idPerfil'";
+        if (!empty($usuario))
+            $query .= " AND u.usuario = '$usuario'";
+        if (!empty($nombre))
+            $query .= " AND (u.nombre LIKE '%$nombre%' OR u.apellido LIKE '%$nombre%')";
+        if (!empty($sexo))
+            $query .= " AND u.sexo = '$sexo'";
+        if (!empty($status))
+            $query .= " AND u.estatus = '$status'";
         (!empty($orden)) ? $query .= " ORDER BY $orden" : $query .= " ORDER BY u.id, up.id_perfil";
-        if (!empty($max)) $query.= " LIMIT $min,$max ";
+        if (!empty($max))
+            $query.= " LIMIT $min,$max ";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 
     function do_login($login, $password) {
-        //$this->auto_logoff();
+        $this->autoDesconectar();
         if (!$login || !$password)
             return "loginerror";
 
@@ -131,10 +144,12 @@ class Usuario extends Model {
             if (count($arr_detail) == 0)
                 return "usuario_inactivo";
 
+            $this->actualizarUsuarioConectado($arr_user['id']);
+
             $_SESSION['s_perfil_id'] = $arr_detail[0]['id_perfil'];
             $_SESSION['s_ca_id'] = $arr_detail[0]['id_ca'];
             $_SESSION['s_ca_nombre'] = $arr_detail[0]['nombre_ca'];
-            
+
             return "success";
         }else {
             $comentario = "Login Incorrect=" . $login;
@@ -143,20 +158,42 @@ class Usuario extends Model {
         }
     }
 
-    function isnot_logged() {
-        if (count($_SESSION) == 0 || $_SESSION['s_connected'] != 1 || $this->user_not_connected($_SESSION['s_id'])) {
+    function actualizarUsuarioConectado($idU) {
+        $query = "UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,
+                    sesion='" . session_id() . "' WHERE id='$idU' ";
+        //Cambiamos el codigo a user login
+        $LogCodigoNew = array('UPDATE' => 101);
+        $this->setCodigosLog($LogCodigoNew);
+        $this->_SQL_tool('UPDATE', __METHOD__, $query, 'User Login');
+
+        $_SESSION['s_conectado'] = 1;
+    }
+
+    function autoDesconectar() {
+        //Vamos a sacar automaticamente a los usuarios con mas de 12 horas logeados
+        $query = "UPDATE si_usuarios SET conectado = '0', sesion = NULL
+			WHERE conectado = '1' AND (ultimo_acceso < CURRENT_TIMESTAMP)";
+        $this->_SQL_tool('UPDATE', __METHOD__, $query);
+    }
+
+    function noLogeado() {
+        //print_r($_SESSION);
+        if (count($_SESSION) == 0 || $_SESSION['s_conectado'] != 1 || $this->usuarioNoConectado($_SESSION['s_id'])) {
+            //die("<br><br>1");
             return true;
-        } elseif ($this->get_user_by_session($_SESSION['s_id'], $_SESSION['s_session'])) {
+        } elseif ($this->obtenerUsuarioSesion($_SESSION['s_id'], $_SESSION['s_sesion'] )) {
+            //die("<br><br>2");
             return false;
         } else {
+            //die("<br><br>3");
             return true;
         }
     }
 
-    function user_not_connected($usuario_id) {
+    function usuarioNoConectado($idU) {
         if (!isset($_SESSION['s_pgen'])) {
-            $query = "SELECT connected,session FROM si_usuarios
-                    WHERE id='$usuario_id' AND connected='0' ";
+            $query = "SELECT conectado, sesion FROM si_usuarios
+				WHERE id='$idU' AND conectado = '0' ";
             $res_array = $this->_SQL_tool('SELECT', __METHOD__, $query);
             if ($res_array) {
                 session_unset();
@@ -167,7 +204,28 @@ class Usuario extends Model {
         return false;
     }
 
-    function listarUsuarios($compania_id='', $usuario_estatus='', $usuario_tipo_ids='', $otros_campos=array(), $order = '', $min = '', $max = '') {
+    function obtenerUsuarioSesion($idU, $uSesion = '') {
+        if (isset($_SESSION['s_pgen'])) {
+            $idS = null;
+        }
+        if ($this->obtenerUsuario($idU, $idS)) {
+            return true;
+        }
+        return false;
+    }
+    
+    function obtenerUsuario($idU, $idS = ''){
+        $query = "SELECT * FROM si_usuarios WHERE id = '$idU' ";
+        if(!empty($idS)){ $query .= " AND sesion='$idS' "; }
+        $this->data = $this->_SQL_tool('SELECT', __METHOD__, $query);
+        if ($this->data[0]['id'] != ''){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    function listarUsuarios($compania_id = '', $usuario_estatus = '', $usuario_tipo_ids = '', $otros_campos = array(), $order = '', $min = '', $max = '') {
         $query = "SELECT DISTINCT u.* FROM si_usuarios as u, companies_users_profiles as utr, companies AS c, profiles AS p
                     WHERE u.id = utr.user_id AND utr.company_id = c.id 
                     AND p.id = utr.profile_id AND p.company_type_id = utr.company_type_id ";
@@ -203,7 +261,7 @@ class Usuario extends Model {
      * Agrega un usuario nuevo a la bd
      */
 
-    function agregarUsuario($usuario_nombre, $usuario_apellido, $usuario_email, $usuario_login, $usuario_clave, $usuario_compania_id, $usuario_cargo, $usuario_estatus_id=4, $motoadmin=0, $usuario_sales_id='', $usuario_envia_mails=1, $usuario_lenguaje='en') {
+    function agregarUsuario($usuario_nombre, $usuario_apellido, $usuario_email, $usuario_login, $usuario_clave, $usuario_compania_id, $usuario_cargo, $usuario_estatus_id = 4, $motoadmin = 0, $usuario_sales_id = '', $usuario_envia_mails = 1, $usuario_lenguaje = 'en') {
         $usuario_nombre = ucwords(strtolower(trim($usuario_nombre)));
         $usuario_apellido = ucwords(strtolower(trim($usuario_apellido)));
         $usuario_email = strtolower(trim($usuario_email));
@@ -228,6 +286,7 @@ class Usuario extends Model {
         $this->_SQL_tool('UPDATE', __METHOD__, $query);
         return true;
     }
+
 }
 
 ?>

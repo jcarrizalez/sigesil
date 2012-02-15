@@ -13,6 +13,7 @@
         switch($acction){
                 case 'success':	header("location: principal.php");
                     exit();
+                break;
                 default:
                     $msg = ($acction)? '?msg='.$acction : '';
                     header("location: index.php".$msg);
