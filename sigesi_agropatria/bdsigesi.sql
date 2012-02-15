@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Started on 2012-02-13 16:35:03 VET
+-- Started on 2012-02-15 14:22:01 VET
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -61,7 +61,7 @@ CREATE SEQUENCE si_almacenes_id_seq
 ALTER TABLE public.si_almacenes_id_seq OWNER TO admin;
 
 --
--- TOC entry 2061 (class 0 OID 0)
+-- TOC entry 2084 (class 0 OID 0)
 -- Dependencies: 141
 -- Name: si_almacenes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -70,7 +70,7 @@ ALTER SEQUENCE si_almacenes_id_seq OWNED BY si_almacenes.id;
 
 
 --
--- TOC entry 2062 (class 0 OID 0)
+-- TOC entry 2085 (class 0 OID 0)
 -- Dependencies: 141
 -- Name: si_almacenes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -80,7 +80,7 @@ SELECT pg_catalog.setval('si_almacenes_id_seq', 6, true);
 
 --
 -- TOC entry 142 (class 1259 OID 20112)
--- Dependencies: 1922 1923 6
+-- Dependencies: 1936 1937 6
 -- Name: si_analisis; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -95,7 +95,7 @@ CREATE TABLE si_analisis (
 ALTER TABLE public.si_analisis OWNER TO admin;
 
 --
--- TOC entry 2063 (class 0 OID 0)
+-- TOC entry 2086 (class 0 OID 0)
 -- Dependencies: 142
 -- Name: TABLE si_analisis; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -119,7 +119,7 @@ CREATE TABLE si_analisis_centro_acopio (
 ALTER TABLE public.si_analisis_centro_acopio OWNER TO admin;
 
 --
--- TOC entry 2064 (class 0 OID 0)
+-- TOC entry 2087 (class 0 OID 0)
 -- Dependencies: 143
 -- Name: TABLE si_analisis_centro_acopio; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -129,7 +129,7 @@ COMMENT ON TABLE si_analisis_centro_acopio IS 'Tabla puente entre Analisis y Cen
 
 --
 -- TOC entry 144 (class 1259 OID 20120)
--- Dependencies: 1924 6
+-- Dependencies: 1938 6
 -- Name: si_analisis_resultado; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -147,7 +147,7 @@ CREATE TABLE si_analisis_resultado (
 ALTER TABLE public.si_analisis_resultado OWNER TO admin;
 
 --
--- TOC entry 2065 (class 0 OID 0)
+-- TOC entry 2088 (class 0 OID 0)
 -- Dependencies: 144
 -- Name: TABLE si_analisis_resultado; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -172,7 +172,7 @@ CREATE SEQUENCE si_app_error_apperror_id_seq
 ALTER TABLE public.si_app_error_apperror_id_seq OWNER TO admin;
 
 --
--- TOC entry 2066 (class 0 OID 0)
+-- TOC entry 2089 (class 0 OID 0)
 -- Dependencies: 145
 -- Name: si_app_error_apperror_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -182,7 +182,7 @@ SELECT pg_catalog.setval('si_app_error_apperror_id_seq', 1, false);
 
 --
 -- TOC entry 146 (class 1259 OID 20126)
--- Dependencies: 1925 6
+-- Dependencies: 1939 6
 -- Name: si_app_error; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -215,7 +215,7 @@ CREATE TABLE si_cargo (
 ALTER TABLE public.si_cargo OWNER TO admin;
 
 --
--- TOC entry 2067 (class 0 OID 0)
+-- TOC entry 2090 (class 0 OID 0)
 -- Dependencies: 147
 -- Name: TABLE si_cargo; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -225,7 +225,7 @@ COMMENT ON TABLE si_cargo IS 'Tabla de Cargos';
 
 --
 -- TOC entry 148 (class 1259 OID 20136)
--- Dependencies: 1926 6
+-- Dependencies: 1940 6
 -- Name: si_cargo_tipo; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -239,7 +239,7 @@ CREATE TABLE si_cargo_tipo (
 ALTER TABLE public.si_cargo_tipo OWNER TO admin;
 
 --
--- TOC entry 2068 (class 0 OID 0)
+-- TOC entry 2091 (class 0 OID 0)
 -- Dependencies: 148
 -- Name: TABLE si_cargo_tipo; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -249,7 +249,7 @@ COMMENT ON TABLE si_cargo_tipo IS 'Tablas de Cargo Tipo';
 
 --
 -- TOC entry 149 (class 1259 OID 20140)
--- Dependencies: 1927 1928 1929 1930 1931 1932 6
+-- Dependencies: 1941 1942 1943 1944 1945 1946 6
 -- Name: si_centro_acopio; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -293,7 +293,7 @@ CREATE SEQUENCE si_centro_acopio_id_seq
 ALTER TABLE public.si_centro_acopio_id_seq OWNER TO admin;
 
 --
--- TOC entry 2069 (class 0 OID 0)
+-- TOC entry 2092 (class 0 OID 0)
 -- Dependencies: 150
 -- Name: si_centro_acopio_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -302,7 +302,7 @@ ALTER SEQUENCE si_centro_acopio_id_seq OWNED BY si_centro_acopio.id;
 
 
 --
--- TOC entry 2070 (class 0 OID 0)
+-- TOC entry 2093 (class 0 OID 0)
 -- Dependencies: 150
 -- Name: si_centro_acopio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -329,7 +329,7 @@ CREATE TABLE si_cliente (
 ALTER TABLE public.si_cliente OWNER TO admin;
 
 --
--- TOC entry 2071 (class 0 OID 0)
+-- TOC entry 2094 (class 0 OID 0)
 -- Dependencies: 151
 -- Name: TABLE si_cliente; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -354,7 +354,7 @@ CREATE SEQUENCE si_cosecha_id_seq
 ALTER TABLE public.si_cosecha_id_seq OWNER TO admin;
 
 --
--- TOC entry 2072 (class 0 OID 0)
+-- TOC entry 2095 (class 0 OID 0)
 -- Dependencies: 152
 -- Name: si_cosecha_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -364,7 +364,7 @@ SELECT pg_catalog.setval('si_cosecha_id_seq', 1, false);
 
 --
 -- TOC entry 153 (class 1259 OID 20162)
--- Dependencies: 1934 1935 1936 1937 6
+-- Dependencies: 1948 1949 1950 1951 6
 -- Name: si_cosecha; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -383,7 +383,7 @@ CREATE TABLE si_cosecha (
 ALTER TABLE public.si_cosecha OWNER TO admin;
 
 --
--- TOC entry 2073 (class 0 OID 0)
+-- TOC entry 2096 (class 0 OID 0)
 -- Dependencies: 153
 -- Name: COLUMN si_cosecha.estado; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -393,8 +393,28 @@ True = Cerrado';
 
 
 --
--- TOC entry 154 (class 1259 OID 20172)
--- Dependencies: 6
+-- TOC entry 180 (class 1259 OID 20467)
+-- Dependencies: 1976 1977 6
+-- Name: si_cultivo; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
+--
+
+CREATE TABLE si_cultivo (
+    id bigint NOT NULL,
+    id_org bigint NOT NULL,
+    codigo bigint NOT NULL,
+    nombre character varying DEFAULT 255 NOT NULL,
+    tipificado boolean DEFAULT false,
+    ciclo bigint,
+    creado timestamp with time zone,
+    modificado timestamp with time zone
+);
+
+
+ALTER TABLE public.si_cultivo OWNER TO admin;
+
+--
+-- TOC entry 179 (class 1259 OID 20465)
+-- Dependencies: 6 180
 -- Name: si_cultivo_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -409,75 +429,87 @@ CREATE SEQUENCE si_cultivo_id_seq
 ALTER TABLE public.si_cultivo_id_seq OWNER TO admin;
 
 --
--- TOC entry 2074 (class 0 OID 0)
--- Dependencies: 154
+-- TOC entry 2097 (class 0 OID 0)
+-- Dependencies: 179
+-- Name: si_cultivo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE si_cultivo_id_seq OWNED BY si_cultivo.id;
+
+
+--
+-- TOC entry 2098 (class 0 OID 0)
+-- Dependencies: 179
 -- Name: si_cultivo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_cultivo_id_seq', 7, true);
+SELECT pg_catalog.setval('si_cultivo_id_seq', 3, true);
 
 
 --
--- TOC entry 155 (class 1259 OID 20174)
--- Dependencies: 1938 1939 6
--- Name: si_cultivo; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
+-- TOC entry 182 (class 1259 OID 20489)
+-- Dependencies: 6
+-- Name: si_denom_tip; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
-CREATE TABLE si_cultivo (
-    id bigint DEFAULT nextval('si_cultivo_id_seq'::regclass) NOT NULL,
-    id_tipo_cultivo bigint DEFAULT 0 NOT NULL,
-    nombre character varying(255) NOT NULL,
-    creado timestamp with time zone,
-    modificado timestamp with time zone
+CREATE TABLE si_denom_tip (
+    id bigint NOT NULL,
+    id_org bigint NOT NULL,
+    id_cultivo bigint NOT NULL,
+    nombre_tipo_clase character varying(255) NOT NULL,
+    valor integer NOT NULL,
+    estatus boolean
 );
 
 
-ALTER TABLE public.si_cultivo OWNER TO admin;
+ALTER TABLE public.si_denom_tip OWNER TO admin;
 
 --
--- TOC entry 156 (class 1259 OID 20179)
--- Dependencies: 6
--- Name: si_cultivo_tipo_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+-- TOC entry 2099 (class 0 OID 0)
+-- Dependencies: 182
+-- Name: COLUMN si_denom_tip.nombre_tipo_clase; Type: COMMENT; Schema: public; Owner: admin
 --
 
-CREATE SEQUENCE si_cultivo_tipo_id_seq
-    START WITH 0
+COMMENT ON COLUMN si_denom_tip.nombre_tipo_clase IS 'tipo o clase del cultivo';
+
+
+--
+-- TOC entry 181 (class 1259 OID 20487)
+-- Dependencies: 182 6
+-- Name: si_denom_tip_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE si_denom_tip_id_seq
+    START WITH 1
     INCREMENT BY 1
     NO MAXVALUE
-    MINVALUE 0
+    NO MINVALUE
     CACHE 1;
 
 
-ALTER TABLE public.si_cultivo_tipo_id_seq OWNER TO admin;
+ALTER TABLE public.si_denom_tip_id_seq OWNER TO admin;
 
 --
--- TOC entry 2075 (class 0 OID 0)
--- Dependencies: 156
--- Name: si_cultivo_tipo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+-- TOC entry 2100 (class 0 OID 0)
+-- Dependencies: 181
+-- Name: si_denom_tip_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_cultivo_tipo_id_seq', 4, true);
+ALTER SEQUENCE si_denom_tip_id_seq OWNED BY si_denom_tip.id;
 
 
 --
--- TOC entry 157 (class 1259 OID 20181)
--- Dependencies: 1940 6
--- Name: si_cultivo_tipo; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
+-- TOC entry 2101 (class 0 OID 0)
+-- Dependencies: 181
+-- Name: si_denom_tip_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-CREATE TABLE si_cultivo_tipo (
-    id bigint DEFAULT nextval('si_cultivo_tipo_id_seq'::regclass) NOT NULL,
-    nombre character varying(255) NOT NULL,
-    creado timestamp with time zone,
-    modificado timestamp with time zone
-);
+SELECT pg_catalog.setval('si_denom_tip_id_seq', 1, false);
 
-
-ALTER TABLE public.si_cultivo_tipo OWNER TO admin;
 
 --
--- TOC entry 158 (class 1259 OID 20185)
--- Dependencies: 1941 6
+-- TOC entry 154 (class 1259 OID 20185)
+-- Dependencies: 1952 6
 -- Name: si_ejes; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -491,8 +523,8 @@ CREATE TABLE si_ejes (
 ALTER TABLE public.si_ejes OWNER TO admin;
 
 --
--- TOC entry 2076 (class 0 OID 0)
--- Dependencies: 158
+-- TOC entry 2102 (class 0 OID 0)
+-- Dependencies: 154
 -- Name: TABLE si_ejes; Type: COMMENT; Schema: public; Owner: admin
 --
 
@@ -500,8 +532,8 @@ COMMENT ON TABLE si_ejes IS 'Tabla para el Control de Ejes en Calculo de Tonelad
 
 
 --
--- TOC entry 159 (class 1259 OID 20189)
--- Dependencies: 6 158
+-- TOC entry 155 (class 1259 OID 20189)
+-- Dependencies: 154 6
 -- Name: si_ejes_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -516,8 +548,8 @@ CREATE SEQUENCE si_ejes_id_seq
 ALTER TABLE public.si_ejes_id_seq OWNER TO admin;
 
 --
--- TOC entry 2077 (class 0 OID 0)
--- Dependencies: 159
+-- TOC entry 2103 (class 0 OID 0)
+-- Dependencies: 155
 -- Name: si_ejes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -525,8 +557,8 @@ ALTER SEQUENCE si_ejes_id_seq OWNED BY si_ejes.id;
 
 
 --
--- TOC entry 2078 (class 0 OID 0)
--- Dependencies: 159
+-- TOC entry 2104 (class 0 OID 0)
+-- Dependencies: 155
 -- Name: si_ejes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -534,7 +566,56 @@ SELECT pg_catalog.setval('si_ejes_id_seq', 1, false);
 
 
 --
--- TOC entry 160 (class 1259 OID 20191)
+-- TOC entry 186 (class 1259 OID 20528)
+-- Dependencies: 6
+-- Name: si_estado; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
+--
+
+CREATE TABLE si_estado (
+    id bigint NOT NULL,
+    id_pais bigint NOT NULL,
+    nombre character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.si_estado OWNER TO admin;
+
+--
+-- TOC entry 185 (class 1259 OID 20526)
+-- Dependencies: 186 6
+-- Name: si_estado_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE si_estado_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.si_estado_id_seq OWNER TO admin;
+
+--
+-- TOC entry 2105 (class 0 OID 0)
+-- Dependencies: 185
+-- Name: si_estado_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE si_estado_id_seq OWNED BY si_estado.id;
+
+
+--
+-- TOC entry 2106 (class 0 OID 0)
+-- Dependencies: 185
+-- Name: si_estado_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('si_estado_id_seq', 1, false);
+
+
+--
+-- TOC entry 156 (class 1259 OID 20191)
 -- Dependencies: 6
 -- Name: si_log_codigos_log_codigo_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
@@ -550,8 +631,8 @@ CREATE SEQUENCE si_log_codigos_log_codigo_id_seq
 ALTER TABLE public.si_log_codigos_log_codigo_id_seq OWNER TO admin;
 
 --
--- TOC entry 2079 (class 0 OID 0)
--- Dependencies: 160
+-- TOC entry 2107 (class 0 OID 0)
+-- Dependencies: 156
 -- Name: si_log_codigos_log_codigo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -559,8 +640,8 @@ SELECT pg_catalog.setval('si_log_codigos_log_codigo_id_seq', 1, false);
 
 
 --
--- TOC entry 161 (class 1259 OID 20193)
--- Dependencies: 1943 6
+-- TOC entry 157 (class 1259 OID 20193)
+-- Dependencies: 1954 6
 -- Name: si_log_codigos; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -575,7 +656,7 @@ CREATE TABLE si_log_codigos (
 ALTER TABLE public.si_log_codigos OWNER TO admin;
 
 --
--- TOC entry 162 (class 1259 OID 20197)
+-- TOC entry 158 (class 1259 OID 20197)
 -- Dependencies: 6
 -- Name: si_log_consultas_log_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
@@ -591,17 +672,17 @@ CREATE SEQUENCE si_log_consultas_log_id_seq
 ALTER TABLE public.si_log_consultas_log_id_seq OWNER TO admin;
 
 --
--- TOC entry 2080 (class 0 OID 0)
--- Dependencies: 162
+-- TOC entry 2108 (class 0 OID 0)
+-- Dependencies: 158
 -- Name: si_log_consultas_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_log_consultas_log_id_seq', 225, true);
+SELECT pg_catalog.setval('si_log_consultas_log_id_seq', 252, true);
 
 
 --
--- TOC entry 163 (class 1259 OID 20199)
--- Dependencies: 1944 6
+-- TOC entry 159 (class 1259 OID 20199)
+-- Dependencies: 1955 6
 -- Name: si_log_consultas; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -627,7 +708,7 @@ CREATE TABLE si_log_consultas (
 ALTER TABLE public.si_log_consultas OWNER TO admin;
 
 --
--- TOC entry 164 (class 1259 OID 20206)
+-- TOC entry 160 (class 1259 OID 20206)
 -- Dependencies: 6
 -- Name: si_menu; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
@@ -645,8 +726,8 @@ CREATE TABLE si_menu (
 ALTER TABLE public.si_menu OWNER TO admin;
 
 --
--- TOC entry 165 (class 1259 OID 20209)
--- Dependencies: 164 6
+-- TOC entry 161 (class 1259 OID 20209)
+-- Dependencies: 160 6
 -- Name: si_menu_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -661,8 +742,8 @@ CREATE SEQUENCE si_menu_id_seq
 ALTER TABLE public.si_menu_id_seq OWNER TO admin;
 
 --
--- TOC entry 2081 (class 0 OID 0)
--- Dependencies: 165
+-- TOC entry 2109 (class 0 OID 0)
+-- Dependencies: 161
 -- Name: si_menu_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -670,8 +751,8 @@ ALTER SEQUENCE si_menu_id_seq OWNED BY si_menu.id;
 
 
 --
--- TOC entry 2082 (class 0 OID 0)
--- Dependencies: 165
+-- TOC entry 2110 (class 0 OID 0)
+-- Dependencies: 161
 -- Name: si_menu_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -679,7 +760,7 @@ SELECT pg_catalog.setval('si_menu_id_seq', 24, true);
 
 
 --
--- TOC entry 166 (class 1259 OID 20211)
+-- TOC entry 178 (class 1259 OID 20452)
 -- Dependencies: 6
 -- Name: si_menu_usuario; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
@@ -693,8 +774,8 @@ CREATE TABLE si_menu_usuario (
 ALTER TABLE public.si_menu_usuario OWNER TO admin;
 
 --
--- TOC entry 167 (class 1259 OID 20214)
--- Dependencies: 1946 1947 1948 1949 1950 1951 6
+-- TOC entry 162 (class 1259 OID 20214)
+-- Dependencies: 1957 1958 1959 1960 1961 1962 6
 -- Name: si_movimiento; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -726,8 +807,8 @@ CREATE TABLE si_movimiento (
 ALTER TABLE public.si_movimiento OWNER TO admin;
 
 --
--- TOC entry 2083 (class 0 OID 0)
--- Dependencies: 167
+-- TOC entry 2111 (class 0 OID 0)
+-- Dependencies: 162
 -- Name: TABLE si_movimiento; Type: COMMENT; Schema: public; Owner: admin
 --
 
@@ -736,7 +817,56 @@ COMMENT ON TABLE si_movimiento IS 'Tabla de Movimiento de Recepción y Despacho,
 
 
 --
--- TOC entry 168 (class 1259 OID 20226)
+-- TOC entry 188 (class 1259 OID 20534)
+-- Dependencies: 6
+-- Name: si_municipio; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
+--
+
+CREATE TABLE si_municipio (
+    id bigint NOT NULL,
+    id_estado bigint NOT NULL,
+    nombre character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.si_municipio OWNER TO admin;
+
+--
+-- TOC entry 187 (class 1259 OID 20532)
+-- Dependencies: 188 6
+-- Name: si_municipio_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE si_municipio_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.si_municipio_id_seq OWNER TO admin;
+
+--
+-- TOC entry 2112 (class 0 OID 0)
+-- Dependencies: 187
+-- Name: si_municipio_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE si_municipio_id_seq OWNED BY si_municipio.id;
+
+
+--
+-- TOC entry 2113 (class 0 OID 0)
+-- Dependencies: 187
+-- Name: si_municipio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('si_municipio_id_seq', 1, false);
+
+
+--
+-- TOC entry 163 (class 1259 OID 20226)
 -- Dependencies: 6
 -- Name: si_organizacion; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
@@ -762,8 +892,8 @@ CREATE TABLE si_organizacion (
 ALTER TABLE public.si_organizacion OWNER TO admin;
 
 --
--- TOC entry 2084 (class 0 OID 0)
--- Dependencies: 168
+-- TOC entry 2114 (class 0 OID 0)
+-- Dependencies: 163
 -- Name: TABLE si_organizacion; Type: COMMENT; Schema: public; Owner: admin
 --
 
@@ -771,8 +901,8 @@ COMMENT ON TABLE si_organizacion IS 'Tabla de las Organizaciones';
 
 
 --
--- TOC entry 169 (class 1259 OID 20232)
--- Dependencies: 168 6
+-- TOC entry 164 (class 1259 OID 20232)
+-- Dependencies: 6 163
 -- Name: si_organizacion_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -787,8 +917,8 @@ CREATE SEQUENCE si_organizacion_id_seq
 ALTER TABLE public.si_organizacion_id_seq OWNER TO admin;
 
 --
--- TOC entry 2085 (class 0 OID 0)
--- Dependencies: 169
+-- TOC entry 2115 (class 0 OID 0)
+-- Dependencies: 164
 -- Name: si_organizacion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -796,8 +926,8 @@ ALTER SEQUENCE si_organizacion_id_seq OWNED BY si_organizacion.id;
 
 
 --
--- TOC entry 2086 (class 0 OID 0)
--- Dependencies: 169
+-- TOC entry 2116 (class 0 OID 0)
+-- Dependencies: 164
 -- Name: si_organizacion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -805,7 +935,55 @@ SELECT pg_catalog.setval('si_organizacion_id_seq', 1, true);
 
 
 --
--- TOC entry 170 (class 1259 OID 20234)
+-- TOC entry 184 (class 1259 OID 20520)
+-- Dependencies: 6
+-- Name: si_pais; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
+--
+
+CREATE TABLE si_pais (
+    id bigint NOT NULL,
+    nombre character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.si_pais OWNER TO admin;
+
+--
+-- TOC entry 183 (class 1259 OID 20518)
+-- Dependencies: 6 184
+-- Name: si_pais_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE si_pais_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.si_pais_id_seq OWNER TO admin;
+
+--
+-- TOC entry 2117 (class 0 OID 0)
+-- Dependencies: 183
+-- Name: si_pais_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE si_pais_id_seq OWNED BY si_pais.id;
+
+
+--
+-- TOC entry 2118 (class 0 OID 0)
+-- Dependencies: 183
+-- Name: si_pais_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('si_pais_id_seq', 1, false);
+
+
+--
+-- TOC entry 165 (class 1259 OID 20234)
 -- Dependencies: 6
 -- Name: si_parametros_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
@@ -821,8 +999,8 @@ CREATE SEQUENCE si_parametros_id_seq
 ALTER TABLE public.si_parametros_id_seq OWNER TO admin;
 
 --
--- TOC entry 2087 (class 0 OID 0)
--- Dependencies: 170
+-- TOC entry 2119 (class 0 OID 0)
+-- Dependencies: 165
 -- Name: si_parametros_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -830,8 +1008,8 @@ SELECT pg_catalog.setval('si_parametros_id_seq', 3, true);
 
 
 --
--- TOC entry 171 (class 1259 OID 20236)
--- Dependencies: 1953 6
+-- TOC entry 166 (class 1259 OID 20236)
+-- Dependencies: 1964 6
 -- Name: si_parametros; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -849,7 +1027,7 @@ CREATE TABLE si_parametros (
 ALTER TABLE public.si_parametros OWNER TO admin;
 
 --
--- TOC entry 172 (class 1259 OID 20243)
+-- TOC entry 167 (class 1259 OID 20243)
 -- Dependencies: 6
 -- Name: si_perfiles_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
@@ -865,8 +1043,8 @@ CREATE SEQUENCE si_perfiles_id_seq
 ALTER TABLE public.si_perfiles_id_seq OWNER TO admin;
 
 --
--- TOC entry 2088 (class 0 OID 0)
--- Dependencies: 172
+-- TOC entry 2120 (class 0 OID 0)
+-- Dependencies: 167
 -- Name: si_perfiles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -874,8 +1052,8 @@ SELECT pg_catalog.setval('si_perfiles_id_seq', 7, true);
 
 
 --
--- TOC entry 173 (class 1259 OID 20245)
--- Dependencies: 1954 6
+-- TOC entry 168 (class 1259 OID 20245)
+-- Dependencies: 1965 6
 -- Name: si_perfiles; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -890,36 +1068,7 @@ CREATE TABLE si_perfiles (
 ALTER TABLE public.si_perfiles OWNER TO admin;
 
 --
--- TOC entry 174 (class 1259 OID 20249)
--- Dependencies: 6
--- Name: si_productor; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
---
-
-CREATE TABLE si_productor (
-    id bigint NOT NULL,
-    nombre character varying(255) NOT NULL,
-    rif character varying(16) NOT NULL,
-    telefono character varying(32),
-    email character varying(255) NOT NULL,
-    direccion character varying(255),
-    sap_id character(32),
-    centro_acopio_id bigint NOT NULL
-);
-
-
-ALTER TABLE public.si_productor OWNER TO admin;
-
---
--- TOC entry 2089 (class 0 OID 0)
--- Dependencies: 174
--- Name: TABLE si_productor; Type: COMMENT; Schema: public; Owner: admin
---
-
-COMMENT ON TABLE si_productor IS 'Tabla de Productores';
-
-
---
--- TOC entry 175 (class 1259 OID 20255)
+-- TOC entry 169 (class 1259 OID 20255)
 -- Dependencies: 6
 -- Name: si_programa_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
@@ -935,8 +1084,8 @@ CREATE SEQUENCE si_programa_id_seq
 ALTER TABLE public.si_programa_id_seq OWNER TO admin;
 
 --
--- TOC entry 2090 (class 0 OID 0)
--- Dependencies: 175
+-- TOC entry 2121 (class 0 OID 0)
+-- Dependencies: 169
 -- Name: si_programa_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -944,8 +1093,8 @@ SELECT pg_catalog.setval('si_programa_id_seq', 1, false);
 
 
 --
--- TOC entry 176 (class 1259 OID 20257)
--- Dependencies: 1955 6
+-- TOC entry 170 (class 1259 OID 20257)
+-- Dependencies: 1966 6
 -- Name: si_programa; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -963,7 +1112,7 @@ CREATE TABLE si_programa (
 ALTER TABLE public.si_programa OWNER TO admin;
 
 --
--- TOC entry 177 (class 1259 OID 20264)
+-- TOC entry 171 (class 1259 OID 20264)
 -- Dependencies: 6
 -- Name: si_proveedor; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
@@ -980,8 +1129,8 @@ CREATE TABLE si_proveedor (
 ALTER TABLE public.si_proveedor OWNER TO admin;
 
 --
--- TOC entry 2091 (class 0 OID 0)
--- Dependencies: 177
+-- TOC entry 2122 (class 0 OID 0)
+-- Dependencies: 171
 -- Name: TABLE si_proveedor; Type: COMMENT; Schema: public; Owner: admin
 --
 
@@ -989,8 +1138,8 @@ COMMENT ON TABLE si_proveedor IS 'Tabla de los Proveedores';
 
 
 --
--- TOC entry 178 (class 1259 OID 20270)
--- Dependencies: 1956 1957 1959 6
+-- TOC entry 172 (class 1259 OID 20270)
+-- Dependencies: 1967 1968 1970 6
 -- Name: si_silos; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -1013,8 +1162,8 @@ CREATE TABLE si_silos (
 ALTER TABLE public.si_silos OWNER TO admin;
 
 --
--- TOC entry 2092 (class 0 OID 0)
--- Dependencies: 178
+-- TOC entry 2123 (class 0 OID 0)
+-- Dependencies: 172
 -- Name: TABLE si_silos; Type: COMMENT; Schema: public; Owner: admin
 --
 
@@ -1025,8 +1174,8 @@ COMMENT ON TABLE si_silos IS 'estatus
 
 
 --
--- TOC entry 179 (class 1259 OID 20278)
--- Dependencies: 6 178
+-- TOC entry 173 (class 1259 OID 20278)
+-- Dependencies: 6 172
 -- Name: si_silos_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -1041,8 +1190,8 @@ CREATE SEQUENCE si_silos_id_seq
 ALTER TABLE public.si_silos_id_seq OWNER TO admin;
 
 --
--- TOC entry 2093 (class 0 OID 0)
--- Dependencies: 179
+-- TOC entry 2124 (class 0 OID 0)
+-- Dependencies: 173
 -- Name: si_silos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -1050,8 +1199,8 @@ ALTER SEQUENCE si_silos_id_seq OWNED BY si_silos.id;
 
 
 --
--- TOC entry 2094 (class 0 OID 0)
--- Dependencies: 179
+-- TOC entry 2125 (class 0 OID 0)
+-- Dependencies: 173
 -- Name: si_silos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -1059,8 +1208,8 @@ SELECT pg_catalog.setval('si_silos_id_seq', 72, true);
 
 
 --
--- TOC entry 180 (class 1259 OID 20280)
--- Dependencies: 1961 6
+-- TOC entry 174 (class 1259 OID 20280)
+-- Dependencies: 1972 1973 6
 -- Name: si_usuarios; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -1078,15 +1227,18 @@ CREATE TABLE si_usuarios (
     email character varying(255),
     creado date,
     modificado date,
-    estatus boolean DEFAULT true NOT NULL
+    estatus boolean DEFAULT true NOT NULL,
+    conectado smallint DEFAULT 0 NOT NULL,
+    sesion character varying(255),
+    ultimo_acceso timestamp with time zone
 );
 
 
 ALTER TABLE public.si_usuarios OWNER TO admin;
 
 --
--- TOC entry 181 (class 1259 OID 20286)
--- Dependencies: 180 6
+-- TOC entry 175 (class 1259 OID 20286)
+-- Dependencies: 6 174
 -- Name: si_usuarios_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -1101,8 +1253,8 @@ CREATE SEQUENCE si_usuarios_id_seq
 ALTER TABLE public.si_usuarios_id_seq OWNER TO admin;
 
 --
--- TOC entry 2095 (class 0 OID 0)
--- Dependencies: 181
+-- TOC entry 2126 (class 0 OID 0)
+-- Dependencies: 175
 -- Name: si_usuarios_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -1110,8 +1262,8 @@ ALTER SEQUENCE si_usuarios_id_seq OWNED BY si_usuarios.id;
 
 
 --
--- TOC entry 2096 (class 0 OID 0)
--- Dependencies: 181
+-- TOC entry 2127 (class 0 OID 0)
+-- Dependencies: 175
 -- Name: si_usuarios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -1119,7 +1271,7 @@ SELECT pg_catalog.setval('si_usuarios_id_seq', 4, true);
 
 
 --
--- TOC entry 182 (class 1259 OID 20288)
+-- TOC entry 176 (class 1259 OID 20288)
 -- Dependencies: 6
 -- Name: si_usuarios_perfiles; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
@@ -1137,8 +1289,8 @@ CREATE TABLE si_usuarios_perfiles (
 ALTER TABLE public.si_usuarios_perfiles OWNER TO admin;
 
 --
--- TOC entry 183 (class 1259 OID 20291)
--- Dependencies: 6 182
+-- TOC entry 177 (class 1259 OID 20291)
+-- Dependencies: 6 176
 -- Name: si_usuarios_perfiles_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -1153,8 +1305,8 @@ CREATE SEQUENCE si_usuarios_perfiles_id_seq
 ALTER TABLE public.si_usuarios_perfiles_id_seq OWNER TO admin;
 
 --
--- TOC entry 2097 (class 0 OID 0)
--- Dependencies: 183
+-- TOC entry 2128 (class 0 OID 0)
+-- Dependencies: 177
 -- Name: si_usuarios_perfiles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -1162,8 +1314,8 @@ ALTER SEQUENCE si_usuarios_perfiles_id_seq OWNED BY si_usuarios_perfiles.id;
 
 
 --
--- TOC entry 2098 (class 0 OID 0)
--- Dependencies: 183
+-- TOC entry 2129 (class 0 OID 0)
+-- Dependencies: 177
 -- Name: si_usuarios_perfiles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -1171,7 +1323,7 @@ SELECT pg_catalog.setval('si_usuarios_perfiles_id_seq', 4, true);
 
 
 --
--- TOC entry 1921 (class 2604 OID 20293)
+-- TOC entry 1935 (class 2604 OID 20293)
 -- Dependencies: 141 140
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
@@ -1180,7 +1332,7 @@ ALTER TABLE si_almacenes ALTER COLUMN id SET DEFAULT nextval('si_almacenes_id_se
 
 
 --
--- TOC entry 1933 (class 2604 OID 20294)
+-- TOC entry 1947 (class 2604 OID 20294)
 -- Dependencies: 150 149
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
@@ -1189,8 +1341,26 @@ ALTER TABLE si_centro_acopio ALTER COLUMN id SET DEFAULT nextval('si_centro_acop
 
 
 --
--- TOC entry 1942 (class 2604 OID 20295)
--- Dependencies: 159 158
+-- TOC entry 1975 (class 2604 OID 20470)
+-- Dependencies: 180 179 180
+-- Name: id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE si_cultivo ALTER COLUMN id SET DEFAULT nextval('si_cultivo_id_seq'::regclass);
+
+
+--
+-- TOC entry 1978 (class 2604 OID 20492)
+-- Dependencies: 181 182 182
+-- Name: id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE si_denom_tip ALTER COLUMN id SET DEFAULT nextval('si_denom_tip_id_seq'::regclass);
+
+
+--
+-- TOC entry 1953 (class 2604 OID 20295)
+-- Dependencies: 155 154
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1198,8 +1368,17 @@ ALTER TABLE si_ejes ALTER COLUMN id SET DEFAULT nextval('si_ejes_id_seq'::regcla
 
 
 --
--- TOC entry 1945 (class 2604 OID 20296)
--- Dependencies: 165 164
+-- TOC entry 1980 (class 2604 OID 20531)
+-- Dependencies: 186 185 186
+-- Name: id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE si_estado ALTER COLUMN id SET DEFAULT nextval('si_estado_id_seq'::regclass);
+
+
+--
+-- TOC entry 1956 (class 2604 OID 20296)
+-- Dependencies: 161 160
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1207,8 +1386,17 @@ ALTER TABLE si_menu ALTER COLUMN id SET DEFAULT nextval('si_menu_id_seq'::regcla
 
 
 --
--- TOC entry 1952 (class 2604 OID 20297)
--- Dependencies: 169 168
+-- TOC entry 1981 (class 2604 OID 20537)
+-- Dependencies: 187 188 188
+-- Name: id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE si_municipio ALTER COLUMN id SET DEFAULT nextval('si_municipio_id_seq'::regclass);
+
+
+--
+-- TOC entry 1963 (class 2604 OID 20297)
+-- Dependencies: 164 163
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1216,8 +1404,17 @@ ALTER TABLE si_organizacion ALTER COLUMN id SET DEFAULT nextval('si_organizacion
 
 
 --
--- TOC entry 1958 (class 2604 OID 20298)
--- Dependencies: 179 178
+-- TOC entry 1979 (class 2604 OID 20523)
+-- Dependencies: 184 183 184
+-- Name: id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE si_pais ALTER COLUMN id SET DEFAULT nextval('si_pais_id_seq'::regclass);
+
+
+--
+-- TOC entry 1969 (class 2604 OID 20298)
+-- Dependencies: 173 172
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1225,8 +1422,8 @@ ALTER TABLE si_silos ALTER COLUMN id SET DEFAULT nextval('si_silos_id_seq'::regc
 
 
 --
--- TOC entry 1960 (class 2604 OID 20299)
--- Dependencies: 181 180
+-- TOC entry 1971 (class 2604 OID 20299)
+-- Dependencies: 175 174
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1234,8 +1431,8 @@ ALTER TABLE si_usuarios ALTER COLUMN id SET DEFAULT nextval('si_usuarios_id_seq'
 
 
 --
--- TOC entry 1962 (class 2604 OID 20300)
--- Dependencies: 183 182
+-- TOC entry 1974 (class 2604 OID 20300)
+-- Dependencies: 177 176
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -1243,7 +1440,7 @@ ALTER TABLE si_usuarios_perfiles ALTER COLUMN id SET DEFAULT nextval('si_usuario
 
 
 --
--- TOC entry 2029 (class 0 OID 20104)
+-- TOC entry 2050 (class 0 OID 20104)
 -- Dependencies: 140
 -- Data for Name: si_almacenes; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -1259,7 +1456,7 @@ COPY si_almacenes (id, id_centro_acopio, nombre, direccion, id_pais, id_estado, 
 
 
 --
--- TOC entry 2030 (class 0 OID 20112)
+-- TOC entry 2051 (class 0 OID 20112)
 -- Dependencies: 142
 -- Data for Name: si_analisis; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -1269,7 +1466,7 @@ COPY si_analisis (id, descrip, max, min) FROM stdin;
 
 
 --
--- TOC entry 2031 (class 0 OID 20117)
+-- TOC entry 2052 (class 0 OID 20117)
 -- Dependencies: 143
 -- Data for Name: si_analisis_centro_acopio; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -1279,7 +1476,7 @@ COPY si_analisis_centro_acopio (analisis_id, centro_acopio_id, id) FROM stdin;
 
 
 --
--- TOC entry 2032 (class 0 OID 20120)
+-- TOC entry 2053 (class 0 OID 20120)
 -- Dependencies: 144
 -- Data for Name: si_analisis_resultado; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -1289,7 +1486,7 @@ COPY si_analisis_resultado (movimiento_id, analisis_id, observacion, valor, usua
 
 
 --
--- TOC entry 2033 (class 0 OID 20126)
+-- TOC entry 2054 (class 0 OID 20126)
 -- Dependencies: 146
 -- Data for Name: si_app_error; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -1299,7 +1496,7 @@ COPY si_app_error (apperror_id, apperror_time, apperror_text) FROM stdin;
 
 
 --
--- TOC entry 2034 (class 0 OID 20133)
+-- TOC entry 2055 (class 0 OID 20133)
 -- Dependencies: 147
 -- Data for Name: si_cargo; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -1309,7 +1506,7 @@ COPY si_cargo (id, id_centro_acopio, id_almacen, id_usuario, id_cargo_tipo, crea
 
 
 --
--- TOC entry 2035 (class 0 OID 20136)
+-- TOC entry 2056 (class 0 OID 20136)
 -- Dependencies: 148
 -- Data for Name: si_cargo_tipo; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -1319,7 +1516,7 @@ COPY si_cargo_tipo (id, nombre, nivel) FROM stdin;
 
 
 --
--- TOC entry 2036 (class 0 OID 20140)
+-- TOC entry 2057 (class 0 OID 20140)
 -- Dependencies: 149
 -- Data for Name: si_centro_acopio; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -1335,7 +1532,7 @@ COPY si_centro_acopio (id, id_org, codigo, nombre, rif, telefono, fax, email, di
 
 
 --
--- TOC entry 2037 (class 0 OID 20154)
+-- TOC entry 2058 (class 0 OID 20154)
 -- Dependencies: 151
 -- Data for Name: si_cliente; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -1345,7 +1542,7 @@ COPY si_cliente (id, rif, nombre, telefono, email, ubicacion) FROM stdin;
 
 
 --
--- TOC entry 2038 (class 0 OID 20162)
+-- TOC entry 2059 (class 0 OID 20162)
 -- Dependencies: 153
 -- Data for Name: si_cosecha; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -1355,34 +1552,31 @@ COPY si_cosecha (id, id_programa, nombre, proyectado, observacion, fecha_inicio,
 
 
 --
--- TOC entry 2039 (class 0 OID 20174)
--- Dependencies: 155
+-- TOC entry 2074 (class 0 OID 20467)
+-- Dependencies: 180
 -- Data for Name: si_cultivo; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-COPY si_cultivo (id, id_tipo_cultivo, nombre, creado, modificado) FROM stdin;
-5	1	Arroz	\N	\N
-6	1	Trigo	\N	\N
+COPY si_cultivo (id, id_org, codigo, nombre, tipificado, ciclo, creado, modificado) FROM stdin;
+3	1	3	Sorgo Humedo	f	\N	2012-02-15 09:45:23.982014-04:30	2012-02-15 09:45:40.66984-04:30
+1	1	1	Maiz Blanco Húmedo	f	\N	2012-02-15 09:16:46.407175-04:30	2012-02-15 09:46:57.158351-04:30
+2	1	2	Arroz Blanco Húmedo	t	\N	2012-02-15 09:33:29.683096-04:30	2012-02-15 09:47:03.409316-04:30
 \.
 
 
 --
--- TOC entry 2040 (class 0 OID 20181)
--- Dependencies: 157
--- Data for Name: si_cultivo_tipo; Type: TABLE DATA; Schema: public; Owner: admin
+-- TOC entry 2075 (class 0 OID 20489)
+-- Dependencies: 182
+-- Data for Name: si_denom_tip; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-COPY si_cultivo_tipo (id, nombre, creado, modificado) FROM stdin;
-1	Ninguno	\N	\N
-2	Otro	\N	\N
-3	Arroz Tipo 1	2012-02-08 10:25:39.047912-04:30	2012-02-08 10:25:39.047912-04:30
-4	Arroz Tipo 2	2012-02-08 10:26:04.892642-04:30	2012-02-08 10:26:57.370103-04:30
+COPY si_denom_tip (id, id_org, id_cultivo, nombre_tipo_clase, valor, estatus) FROM stdin;
 \.
 
 
 --
--- TOC entry 2041 (class 0 OID 20185)
--- Dependencies: 158
+-- TOC entry 2060 (class 0 OID 20185)
+-- Dependencies: 154
 -- Data for Name: si_ejes; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -1391,8 +1585,42 @@ COPY si_ejes (id, nombre, capacidad) FROM stdin;
 
 
 --
--- TOC entry 2042 (class 0 OID 20193)
--- Dependencies: 161
+-- TOC entry 2077 (class 0 OID 20528)
+-- Dependencies: 186
+-- Data for Name: si_estado; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY si_estado (id, id_pais, nombre) FROM stdin;
+1	1	Distrito Capital
+2	1	Amazonas
+3	1	Anzoategui
+4	1	Apure
+5	1	Aragua
+6	1	Barinas
+7	1	Bolivar
+8	1	Carabobo
+9	1	Cojedes
+10	1	Delta Amacuro
+11	1	Falcon
+12	1	Guarico
+13	1	Lara
+14	1	Merida
+15	1	Miranda
+16	1	Monagas
+17	1	Nueva Esparta
+18	1	Portuguesa
+19	1	Sucre
+20	1	Tachira
+21	1	Trujillo
+22	1	Vargas
+23	1	Yaracuy
+24	1	Zulia
+\.
+
+
+--
+-- TOC entry 2061 (class 0 OID 20193)
+-- Dependencies: 157
 -- Data for Name: si_log_codigos; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -1407,8 +1635,8 @@ COPY si_log_codigos (log_codigo_id, log_codigo_nombre_es, log_codigo_critico, lo
 
 
 --
--- TOC entry 2043 (class 0 OID 20199)
--- Dependencies: 163
+-- TOC entry 2062 (class 0 OID 20199)
+-- Dependencies: 159
 -- Data for Name: si_log_consultas; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -1638,12 +1866,39 @@ COPY si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info
 223	2012-02-13	202	1	N/A	N/A	N/A	5d1ei3h1qlggk6ddb3n1jn7d70	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_usuarios	No data	estatus = 't'	UPDATE si_usuarios SET estatus = 't' WHERE id = '2'	
 224	2012-02-13	202	1	N/A	N/A	N/A	5d1ei3h1qlggk6ddb3n1jn7d70	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_usuarios	No data	id = '2', nombre = 'Jesus', apellido = 'Silva', cedula = '9668397', fecha_nacimiento = '1970-09-01', sexo = 'M', direccion = null, telefono = null, email = 'jesussilva@agropatria.co.ve', usuario = 'jsilva                          ', contrasena = '40bd001563085fc35165329ea1ff5c5ecbdbbeef', modificado=now()	UPDATE si_usuarios SET  id = '2', nombre = 'Jesus', apellido = 'Silva', cedula = '9668397', fecha_nacimiento = '1970-09-01', sexo = 'M', direccion = null, telefono = null, email = 'jesussilva@agropatria.co.ve', usuario = 'jsilva                          ', contrasena = '40bd001563085fc35165329ea1ff5c5ecbdbbeef', modificado=now() WHERE id=2	
 225	2012-02-13	201	1	N/A	N/A	N/A	5d1ei3h1qlggk6ddb3n1jn7d70	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_usuarios_perfiles	No data	id_usuario = '2'<br />id_almacen = '2'<br />id_perfil =  '2'<br />creado =  now()<br />	INSERT INTO si_usuarios_perfiles (id_usuario, id_almacen, id_perfil, creado) VALUES ('2','2', '2', now())	
+226	2012-02-14	202	1	N/A	N/A	N/A	j1lt85olskf5psta3vomkoh2h4	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_usuarios	No data	estatus = 'f'	UPDATE si_usuarios SET estatus = 'f' WHERE id = '2'	
+227	2012-02-14	202	1	N/A	N/A	N/A	j1lt85olskf5psta3vomkoh2h4	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_usuarios	No data	estatus = 't'	UPDATE si_usuarios SET estatus = 't' WHERE id = '2'	
+228	2012-02-15	202	1	N/A	N/A	N/A	uqv7butekhl0rj3flqcjvj2gj7	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_organizacion	No data	id = '1', nombre = 'Agropatriaaaa', rif = null, telefono = null, email = null, fax = null, direccion = null, id_pais = '1', id_estado = '1', id_municipio = '1', estatus = 't', modificado=now()	UPDATE si_organizacion SET  id = '1', nombre = 'Agropatriaaaa', rif = null, telefono = null, email = null, fax = null, direccion = null, id_pais = '1', id_estado = '1', id_municipio = '1', estatus = 't', modificado=now() WHERE id=1	
+229	2012-02-15	202	1	N/A	N/A	N/A	uqv7butekhl0rj3flqcjvj2gj7	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_organizacion	No data	id = '1', nombre = 'Agropatria', rif = null, telefono = null, email = null, fax = null, direccion = null, id_pais = '1', id_estado = '1', id_municipio = '1', estatus = 't', modificado=now()	UPDATE si_organizacion SET  id = '1', nombre = 'Agropatria', rif = null, telefono = null, email = null, fax = null, direccion = null, id_pais = '1', id_estado = '1', id_municipio = '1', estatus = 't', modificado=now() WHERE id=1	
+230	2012-02-15	201	1	N/A	N/A	N/A	uqv7butekhl0rj3flqcjvj2gj7	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_cultivo	No data	id_org = '1'<br />codigo =  '1'<br />nombre =  'Maiz'<br />tipificado =  null<br />ciclo =  null<br />creado = now()<br />	INSERT INTO si_cultivo  (id_org, codigo, nombre, tipificado, ciclo, creado) VALUES  ('1', '1', 'Maiz', null, null,now())	
+231	2012-02-15	201	1	N/A	N/A	N/A	uqv7butekhl0rj3flqcjvj2gj7	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_cultivo	No data	id_org = '1'<br />codigo =  '2'<br />nombre =  'Arroz Blanco'<br />tipificado =  'f'<br />ciclo =  null<br />creado = now()<br />	INSERT INTO si_cultivo  (id_org, codigo, nombre, tipificado, ciclo, creado) VALUES  ('1', '2', 'Arroz Blanco', 'f', null,now())	
+232	2012-02-15	202	1	N/A	N/A	N/A	uqv7butekhl0rj3flqcjvj2gj7	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_cultivo	No data	id = '2', id_org = '1', codigo = '2', nombre = 'Arroz Blancoooo', tipificado = 'f', ciclo = null, modificado=now()	UPDATE si_cultivo SET  id = '2', id_org = '1', codigo = '2', nombre = 'Arroz Blancoooo', tipificado = 'f', ciclo = null, modificado=now() WHERE id=2	
+233	2012-02-15	202	1	N/A	N/A	N/A	uqv7butekhl0rj3flqcjvj2gj7	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_cultivo	No data	id = '2', id_org = '1', codigo = '2', nombre = 'Arroz Blanco', tipificado = 'f', ciclo = null, modificado=now()	UPDATE si_cultivo SET  id = '2', id_org = '1', codigo = '2', nombre = 'Arroz Blanco', tipificado = 'f', ciclo = null, modificado=now() WHERE id=2	
+234	2012-02-15	202	1	N/A	N/A	N/A	uqv7butekhl0rj3flqcjvj2gj7	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_cultivo	No data	id = '2', id_org = '1', codigo = '2', nombre = 'Arroz Blanco', tipificado = 't', ciclo = null, modificado=now()	UPDATE si_cultivo SET  id = '2', id_org = '1', codigo = '2', nombre = 'Arroz Blanco', tipificado = 't', ciclo = null, modificado=now() WHERE id=2	
+235	2012-02-15	201	1	N/A	N/A	N/A	uqv7butekhl0rj3flqcjvj2gj7	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_cultivo	No data	id_org = '1'<br />codigo =  '3'<br />nombre =  'Sorgo Húmeño'<br />tipificado =  'f'<br />ciclo =  null<br />creado = now()<br />	INSERT INTO si_cultivo  (id_org, codigo, nombre, tipificado, ciclo, creado) VALUES  ('1', '3', 'Sorgo Húmeño', 'f', null,now())	
+236	2012-02-15	202	1	N/A	N/A	N/A	uqv7butekhl0rj3flqcjvj2gj7	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_cultivo	No data	id = '3', id_org = '1', codigo = '3', nombre = 'Sorgo Humedo', tipificado = 'f', ciclo = null, modificado=now()	UPDATE si_cultivo SET  id = '3', id_org = '1', codigo = '3', nombre = 'Sorgo Humedo', tipificado = 'f', ciclo = null, modificado=now() WHERE id=3	
+237	2012-02-15	202	1	N/A	N/A	N/A	uqv7butekhl0rj3flqcjvj2gj7	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_cultivo	No data	id = '1', id_org = '1', codigo = '1', nombre = 'Maiz Blanco Húmedo', tipificado = 'f', ciclo = null, modificado=now()	UPDATE si_cultivo SET  id = '1', id_org = '1', codigo = '1', nombre = 'Maiz Blanco Húmedo', tipificado = 'f', ciclo = null, modificado=now() WHERE id=1	
+238	2012-02-15	202	1	N/A	N/A	N/A	uqv7butekhl0rj3flqcjvj2gj7	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_cultivo	No data	id = '2', id_org = '1', codigo = '2', nombre = 'Arroz Blanco Húmedo', tipificado = 't', ciclo = null, modificado=now()	UPDATE si_cultivo SET  id = '2', id_org = '1', codigo = '2', nombre = 'Arroz Blanco Húmedo', tipificado = 't', ciclo = null, modificado=now() WHERE id=2	
+239	2012-02-15	202	1	N/A	N/A	N/A	uqv7butekhl0rj3flqcjvj2gj7	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_usuarios	No data	id = '3', nombre = 'Juan', apellido = 'Taborda', cedula = '13769341', fecha_nacimiento = null, sexo = 'M', direccion = null, telefono = null, email = 'juantaborda@agropatria.co.ve', usuario = 'jtaborda                        ', contrasena = '40bd001563085fc35165329ea1ff5c5ecbdbbeef', modificado=now()	UPDATE si_usuarios SET  id = '3', nombre = 'Juan', apellido = 'Taborda', cedula = '13769341', fecha_nacimiento = null, sexo = 'M', direccion = null, telefono = null, email = 'juantaborda@agropatria.co.ve', usuario = 'jtaborda                        ', contrasena = '40bd001563085fc35165329ea1ff5c5ecbdbbeef', modificado=now() WHERE id=3	
+240	2012-02-15	202	1	N/A	N/A	N/A	uqv7butekhl0rj3flqcjvj2gj7	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_usuarios	No data	id = '3', nombre = 'Juan', apellido = 'Taborda', cedula = '13769341', fecha_nacimiento = null, sexo = 'M', direccion = null, telefono = null, email = 'juantaborda@agropatria.co.ve', usuario = 'jtaborda                        ', contrasena = '40bd001563085fc35165329ea1ff5c5ecbdbbeef', modificado=now()	UPDATE si_usuarios SET  id = '3', nombre = 'Juan', apellido = 'Taborda', cedula = '13769341', fecha_nacimiento = null, sexo = 'M', direccion = null, telefono = null, email = 'juantaborda@agropatria.co.ve', usuario = 'jtaborda                        ', contrasena = '40bd001563085fc35165329ea1ff5c5ecbdbbeef', modificado=now() WHERE id=3	
+241	2012-02-15	202	1	N/A	N/A	N/A	uqv7butekhl0rj3flqcjvj2gj7	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_usuarios	No data	id = '3', nombre = 'Juan', apellido = 'Taborda', cedula = '13769341', fecha_nacimiento = null, sexo = 'M', direccion = null, telefono = null, email = 'juantaborda@agropatria.co.ve', usuario = 'jtaborda                        ', contrasena = '40bd001563085fc35165329ea1ff5c5ecbdbbeef', modificado=now()	UPDATE si_usuarios SET  id = '3', nombre = 'Juan', apellido = 'Taborda', cedula = '13769341', fecha_nacimiento = null, sexo = 'M', direccion = null, telefono = null, email = 'juantaborda@agropatria.co.ve', usuario = 'jtaborda                        ', contrasena = '40bd001563085fc35165329ea1ff5c5ecbdbbeef', modificado=now() WHERE id=3	
+242	2012-02-15	202	1	N/A	N/A	N/A	uqv7butekhl0rj3flqcjvj2gj7	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_usuarios	No data	id = '3', nombre = 'Juan', apellido = 'Taborda', cedula = '13769341', fecha_nacimiento = null, sexo = 'M', direccion = null, telefono = null, email = 'juantaborda@agropatria.co.ve', usuario = 'jtaborda                        ', contrasena = '40bd001563085fc35165329ea1ff5c5ecbdbbeef', modificado=now()	UPDATE si_usuarios SET  id = '3', nombre = 'Juan', apellido = 'Taborda', cedula = '13769341', fecha_nacimiento = null, sexo = 'M', direccion = null, telefono = null, email = 'juantaborda@agropatria.co.ve', usuario = 'jtaborda                        ', contrasena = '40bd001563085fc35165329ea1ff5c5ecbdbbeef', modificado=now() WHERE id=3	
+243	2012-02-15	201	1	N/A	N/A	N/A	uqv7butekhl0rj3flqcjvj2gj7	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_usuarios_perfiles	No data	id_usuario = '3'<br />id_almacen =  '2'<br />id_perfil =  '3'<br />creado = now()<br />	INSERT INTO si_usuarios_perfiles  (id_usuario, id_almacen, id_perfil, creado) VALUES  ('3', '2', '3',now())	
+244	2012-02-15	202	1	N/A	N/A	N/A	uqv7butekhl0rj3flqcjvj2gj7	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_usuarios	No data	id = '3', nombre = 'Juan', apellido = 'Taborda', cedula = '13769341', fecha_nacimiento = null, sexo = 'M', direccion = null, telefono = null, email = 'juantaborda@agropatria.co.ve', usuario = 'jtaborda                        ', contrasena = '40bd001563085fc35165329ea1ff5c5ecbdbbeef', modificado=now()	UPDATE si_usuarios SET  id = '3', nombre = 'Juan', apellido = 'Taborda', cedula = '13769341', fecha_nacimiento = null, sexo = 'M', direccion = null, telefono = null, email = 'juantaborda@agropatria.co.ve', usuario = 'jtaborda                        ', contrasena = '40bd001563085fc35165329ea1ff5c5ecbdbbeef', modificado=now() WHERE id=3	
+245	2012-02-15	202	1	N/A	N/A	N/A	uqv7butekhl0rj3flqcjvj2gj7	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_usuarios	No data	id = '3', nombre = 'Juan', apellido = 'Taborda', cedula = '13769341', fecha_nacimiento = null, sexo = 'M', direccion = null, telefono = null, email = 'juantaborda@agropatria.co.ve', usuario = 'jtaborda                        ', contrasena = '40bd001563085fc35165329ea1ff5c5ecbdbbeef', modificado=now()	UPDATE si_usuarios SET  id = '3', nombre = 'Juan', apellido = 'Taborda', cedula = '13769341', fecha_nacimiento = null, sexo = 'M', direccion = null, telefono = null, email = 'juantaborda@agropatria.co.ve', usuario = 'jtaborda                        ', contrasena = '40bd001563085fc35165329ea1ff5c5ecbdbbeef', modificado=now() WHERE id=3	
+246	2012-02-15	202	1	N/A	N/A	N/A	uqv7butekhl0rj3flqcjvj2gj7	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_usuarios	No data	id = '3', nombre = 'Juan', apellido = 'Taborda', cedula = '13769341', fecha_nacimiento = null, sexo = 'M', direccion = null, telefono = null, email = 'juantaborda@agropatria.co.ve', usuario = 'jtaborda                        ', contrasena = '40bd001563085fc35165329ea1ff5c5ecbdbbeef', modificado=now()	UPDATE si_usuarios SET  id = '3', nombre = 'Juan', apellido = 'Taborda', cedula = '13769341', fecha_nacimiento = null, sexo = 'M', direccion = null, telefono = null, email = 'juantaborda@agropatria.co.ve', usuario = 'jtaborda                        ', contrasena = '40bd001563085fc35165329ea1ff5c5ecbdbbeef', modificado=now() WHERE id=3	
+247	2012-02-15	202	1	N/A	N/A	N/A	uqv7butekhl0rj3flqcjvj2gj7	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_usuarios	No data	id = '3', nombre = 'Juan', apellido = 'Taborda', cedula = '13769341', fecha_nacimiento = null, sexo = 'M', direccion = null, telefono = null, email = 'juantaborda@agropatria.co.ve', usuario = 'jtaborda                        ', contrasena = '40bd001563085fc35165329ea1ff5c5ecbdbbeef', modificado=now()	UPDATE si_usuarios SET  id = '3', nombre = 'Juan', apellido = 'Taborda', cedula = '13769341', fecha_nacimiento = null, sexo = 'M', direccion = null, telefono = null, email = 'juantaborda@agropatria.co.ve', usuario = 'jtaborda                        ', contrasena = '40bd001563085fc35165329ea1ff5c5ecbdbbeef', modificado=now() WHERE id=3	
+248	2012-02-15	202	1	N/A	N/A	N/A	uqv7butekhl0rj3flqcjvj2gj7	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_usuarios_perfiles	No data	id = '3', id_usuario = '3', id_almacen = '2', id_perfil = '4', modificado=now()	UPDATE si_usuarios_perfiles SET  id = '3', id_usuario = '3', id_almacen = '2', id_perfil = '4', modificado=now() WHERE id=3	
+249	2012-02-15	202	1	N/A	N/A	N/A	uqv7butekhl0rj3flqcjvj2gj7	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_usuarios	No data	id = '3', nombre = 'Juan', apellido = 'Taborda', cedula = '13769341', fecha_nacimiento = null, sexo = 'M', direccion = null, telefono = null, email = 'juantaborda@agropatria.co.ve', usuario = 'jtaborda                        ', contrasena = '40bd001563085fc35165329ea1ff5c5ecbdbbeef', modificado=now()	UPDATE si_usuarios SET  id = '3', nombre = 'Juan', apellido = 'Taborda', cedula = '13769341', fecha_nacimiento = null, sexo = 'M', direccion = null, telefono = null, email = 'juantaborda@agropatria.co.ve', usuario = 'jtaborda                        ', contrasena = '40bd001563085fc35165329ea1ff5c5ecbdbbeef', modificado=now() WHERE id=3	
+250	2012-02-15	202	1	N/A	N/A	N/A	uqv7butekhl0rj3flqcjvj2gj7	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_usuarios_perfiles	No data	id = '3', id_usuario = '3', id_almacen = '2', id_perfil = '3', modificado=now()	UPDATE si_usuarios_perfiles SET  id = '3', id_usuario = '3', id_almacen = '2', id_perfil = '3', modificado=now() WHERE id=3	
+251	2012-02-15	202	1	N/A	N/A	N/A	uqv7butekhl0rj3flqcjvj2gj7	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_usuarios	No data	estatus = 'f'	UPDATE si_usuarios SET estatus = 'f' WHERE id = '3'	
+252	2012-02-15	202	1	N/A	N/A	N/A	uqv7butekhl0rj3flqcjvj2gj7	127.0.0.1	<div class="float-left-01">\r\n\t\t<h3 class="h-right-bar">User Computer</h3>\r\n\t\t\t<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 10.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 10.0</p>\t</div>\r\n	si_usuarios	No data	estatus = 't'	UPDATE si_usuarios SET estatus = 't' WHERE id = '3'	
 \.
 
 
 --
--- TOC entry 2044 (class 0 OID 20206)
--- Dependencies: 164
+-- TOC entry 2063 (class 0 OID 20206)
+-- Dependencies: 160
 -- Data for Name: si_menu; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -1676,8 +1931,8 @@ COPY si_menu (id, nombre, id_padre, url, creado, modificado) FROM stdin;
 
 
 --
--- TOC entry 2045 (class 0 OID 20211)
--- Dependencies: 166
+-- TOC entry 2073 (class 0 OID 20452)
+-- Dependencies: 178
 -- Data for Name: si_menu_usuario; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -1686,11 +1941,11 @@ COPY si_menu_usuario (id_menu, id_usuario) FROM stdin;
 3	1
 4	1
 5	1
+24	1
 6	1
 7	1
 8	1
 9	1
-10	1
 13	1
 14	1
 15	1
@@ -1702,13 +1957,12 @@ COPY si_menu_usuario (id_menu, id_usuario) FROM stdin;
 21	1
 22	1
 23	1
-24	1
 \.
 
 
 --
--- TOC entry 2046 (class 0 OID 20214)
--- Dependencies: 167
+-- TOC entry 2064 (class 0 OID 20214)
+-- Dependencies: 162
 -- Data for Name: si_movimiento; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -1717,19 +1971,379 @@ COPY si_movimiento (silo_id, cosecha_id, numero, fecha_inicio, fecha_fin, cantid
 
 
 --
--- TOC entry 2047 (class 0 OID 20226)
--- Dependencies: 168
--- Data for Name: si_organizacion; Type: TABLE DATA; Schema: public; Owner: admin
+-- TOC entry 2078 (class 0 OID 20534)
+-- Dependencies: 188
+-- Data for Name: si_municipio; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-COPY si_organizacion (id, nombre, descripcion, rif, telefono, email, direccion, fax, id_pais, id_estado, id_municipio, creado, modificado, estatus) FROM stdin;
-1	Agropatria	\N	\N	\N	\N	\N	\N	1	1	1	2012-02-12 00:00:00-04:30	\N	t
+COPY si_municipio (id, id_estado, nombre) FROM stdin;
+1	1	Libertador
+2	2	Alto Orinoco         
+3	2	Atabapo
+4	2	Atures
+5	2	Autana
+6	2	Manapiare
+7	2	Maroa
+8	2	Rio Negro
+9	3	Anaco
+10	3	Aragua
+11	3	Bolivar
+12	3	Bruzual
+13	3	Cajigal
+14	3	Carvajal
+15	3	Diego Bautista Urbaneja
+16	3	Freites
+17	3	Guanipa
+18	3	Guanta
+19	3	Independencia
+20	3	Libertad
+21	3	McGregor
+22	3	Miranda
+23	3	Monagas
+24	3	Penalver
+25	3	Piritu
+26	3	San Juan de Capistrano
+27	3	Santa Ana
+28	3	Simon Rodriguez
+29	3	Sotillo
+30	4	Achaguas
+31	4	Biruaca
+32	4	Munoz
+33	4	Paez
+34	4	Pedro Camejo
+35	4	Romulo Gallegos
+36	4	San Fernando
+37	5	Bolívar
+38	5	Camatagua
+39	5	Francisco Linares Alcántara
+40	5	Girardot
+41	5	José Angel Lamas
+42	5	José Félix Ribas
+43	5	José Rafael Revenga
+44	5	Libertador
+45	5	Mario Briceño Iragorry
+46	5	Ocumare de la Costa de Oro
+47	5	San Casimiro
+48	5	San Sebastián
+49	5	Santiago Mariño
+50	5	Santos Michelena
+51	5	Sucre
+52	5	Tovar
+53	5	Urdaneta
+54	5	Zamora
+55	6	Alberto Arvelo Torrealba
+56	6	Andrés Eloy Blanco
+57	6	Antonio José de Sucre
+58	6	Arismendi
+59	6	Barinas
+60	6	Bolívar
+61	6	Cruz Paredes
+62	6	Ezequiel Zamora
+63	6	Obispos
+64	6	Pedraza
+65	6	Rojas
+66	6	Sosa
+67	7	Caroní
+68	7	Cedeño
+69	7	El Callao
+70	7	Gran Sabana
+71	7	Heres
+72	7	Piar
+73	7	Raúl Leoni
+74	7	Roscio
+75	7	Sifontes
+76	7	Sucre
+77	7	Padre Pedro Chien
+78	8	Bejuma
+79	8	Carlos Arvelo
+80	8	Diego Ibarra
+81	8	Guacara
+82	8	Juan José Mora
+83	8	Libertador
+84	8	Los Guayos
+85	8	Miranda
+86	8	Montalbán
+87	8	Naguanagua
+88	8	Puerto Cabello
+89	8	San Diego
+90	8	San Joaquín
+91	8	Valencia
+92	9	Anzoátegui
+93	9	Falcón
+94	9	Girardot
+95	9	Lima Blanco
+96	9	Pao de San Juan Bautista
+97	9	Ricaurte
+98	9	Rómulo Gallegos
+99	9	San Carlos
+100	9	Tinaco
+101	10	Antonio Díaz
+102	10	Casacoima
+103	10	Pedernales
+104	10	Tucupita
+105	10	Antonio Diaz
+106	10	Casacoima
+107	10	Pedernales
+108	10	Tucupita
+109	11	Acosta
+110	11	Bolívar
+111	11	Buchivacoa
+112	11	Cacique Manaure
+113	11	Carirubana
+114	11	Colina
+115	11	Dabajuro
+116	11	Democracia
+117	11	Falcón
+118	11	Federación
+119	11	Jacura
+120	11	Los Taques
+121	11	Mauroa
+122	11	Miranda
+123	11	Monseñor Iturriza
+124	11	Palmasola
+125	11	Petit
+126	11	Píritu
+127	11	San Francisco
+128	11	Silva
+129	11	Sucre
+130	11	Tocópero
+131	11	Unión
+132	11	Urumaco
+133	11	Zamora
+134	12	Camaguán
+135	12	Chaguaramas
+136	12	El Socorro
+137	12	Sebastian Francisco de Miranda
+138	12	José Félix Ribas
+139	12	José Tadeo Monagas
+140	12	Juan Germán Roscio
+141	12	Julián Mellado
+142	12	Las Mercedes
+143	12	Leonardo Infante
+144	12	Pedro Zaraza
+145	12	Ortiz
+146	12	San Gerónimo de Guayabal
+147	12	San José de Guaribe
+148	12	Santa María de Ipire
+149	13	Andrés Eloy Blanco
+150	13	Crespo
+151	13	Iribarren
+152	13	Jiménez
+153	13	Morán
+154	13	Palavecino
+155	13	Simón Planas (Sarare)
+156	13	Torres (Carora)
+157	13	Urdaneta (Siquisique) 
+158	14	Alberto Adriani (El Vigía)
+159	14	Andrés Bello (La Azulita)
+160	14	Antonio Pinto Salinas (Santa Cruz de Mora)
+161	14	Aricagua (Aricagua)
+162	14	Arzobispo Chacón (Canaguá)
+163	14	Campo Elías (Ejido)
+164	14	Caracciolo Parra Olmedo (Tucaní)
+165	14	Cardenal Quintero (Santo Domingo)
+166	14	Guaraque (Guaraque)
+167	14	Julio César Salas (Arapuey)
+168	14	Justo Briceño (Torondoy)
+169	14	Libertador (Mérida)
+170	14	Miranda (Timotes)
+171	14	Obispo Ramos de Lora (Santa Elena de Arenales)
+172	14	Padre Noguera (Santa María de Caparo)
+173	14	Pueblo Llano (Pueblo Llano)
+174	14	Rangel (Mucuchíes)
+175	14	Rivas Dávila (Bailadores)
+176	14	Santos Marquina (Tabay)
+177	14	Sucre (Lagunillas)
+178	14	Tovar (Tovar)
+179	14	Tulio Febres Cordero (Nueva Bolivia)
+180	14	Zea (Zea) 
+181	15	Acevedo (Caucagua)
+182	15	Andrés Bello (San José de Barlovento)
+183	15	Baruta (Baruta)
+184	15	Brión (Higuerote)
+185	15	Buroz (Mamporal)
+186	15	Carrizal (Carrizal)
+187	15	Chacao (Chacao)
+188	15	Cristóbal Rojas (Charallave)
+189	15	El Hatillo (Santa Rosalía de Palermo)
+190	15	Guaicaipuro (Los Teques)
+191	15	Independencia (Santa Teresa del Tuy)
+192	15	Lander (Ocumare del Tuy)
+193	15	Los Salias (San Antonio de los Altos)
+194	15	Páez (Río Chico)
+195	15	Paz Castillo (Santa Lucía)
+196	15	Pedro Gual (Cúpira)
+197	15	Plaza (Guarenas)
+198	15	Simón Bolívar (San Francisco de Yare)
+199	15	Sucre (Petare)
+200	15	Urdaneta (Cúa)
+201	15	Zamora (Guatire) 
+202	16	Acosta (San Antonio de Capayacuar)
+203	16	Aguasay (Aguasay)
+204	16	Bolívar (Caripito)
+205	16	Caripe (Caripe)
+206	16	Cedeño (Caicara)
+207	16	Ezequiel Zamora (Punta de Mata)
+208	16	Libertador (Temblador)
+209	16	Maturín (Maturín)
+210	16	Piar (Aragua de Maturín)
+211	16	Punceres (Quiriquire)
+212	16	Santa Bárbara (Santa Bárbara)
+213	16	Sotillo
+214	16	Uracoa
+215	17	Antolín del Campo
+216	17	Arismendi 
+217	17	Díaz
+218	17	García
+219	17	Gómez
+220	17	Maneiro
+221	17	Marcano 
+222	17	Mariño 
+223	17	Península de Macanao 
+224	17	Tubores 
+225	17	Villalba
+226	18	Agua Blanca
+227	18	Araure 
+228	18	Esteller 
+229	18	Guanare 
+230	18	Guanarito
+231	18	Monseñor José Vicente de Unda 
+232	18	Ospino 
+233	18	Páez 
+234	18	Papelón 
+235	18	San Genaro de Boconoíto
+236	18	San Rafael de Onoto
+237	18	Santa Rosalía 
+238	18	Sucre
+239	18	Turén
+240	19	Andrés Eloy Blanco 
+241	19	Andrés Mata
+242	19	Arismendi 
+243	19	Benítez 
+244	19	Bermúdez
+245	19	Bolívar
+246	19	Cajigal 
+247	19	Cruz Salmerón Acosta
+248	19	Libertador
+249	19	Mariño 
+250	19	Mejía 
+251	19	Montes
+252	19	Ribero
+253	19	Sucre
+254	19	Valdez 
+255	20	Andrés Bello 
+256	20	Antonio Rómulo Costa
+257	20	Ayacucho 
+258	20	Bolívar
+259	20	Cárdenas 
+260	20	Córdoba (Santa Ana de Táchira)
+261	20	Fernández Feo
+262	20	Francisco de Miranda
+263	20	García de Hevia
+264	20	Guásimos
+265	20	Independencia
+266	20	Jáuregui 
+267	20	José María Vargas
+268	20	Junín 
+269	20	Libertad (Capacho Viejo)
+270	20	Libertador
+271	20	Lobatera 
+272	20	Michelena
+273	20	Panamericano
+274	20	Pedro María Ureña
+275	20	Rafael Urdaneta
+276	20	Samuel Darío Maldonado
+277	20	San Cristóbal
+278	20	Seboruco
+279	20	Simón Rodríguez
+280	20	Sucre
+281	20	Torbes 
+282	20	Uribante
+283	20	San Judas Tadeo
+284	21	Andrés Bello
+285	21	Boconó
+286	21	Bolívar
+287	21	Candelaria
+288	21	Carache
+289	21	Escuque
+290	21	José Felipe Márquez Cañizalez 
+291	21	Juan Vicente Campos Elías
+292	21	La Ceiba
+293	21	Miranda
+294	21	Monte Carmelo 
+295	21	Motatán 
+296	21	Pampán
+297	21	Pampanito 
+298	21	Rafael Rangel
+299	21	San Rafael de Carvajal
+300	21	Sucre
+301	21	Trujillo
+302	21	Urdaneta
+303	21	Valera
+304	22	Vargas
+305	23	Arístides Bastidas
+306	23	Bolívar
+307	23	Bruzual
+308	23	Cocorote
+309	23	Independencia
+310	23	José Antonio Páez 
+311	23	La Trinidad
+312	23	Manuel Monge
+313	23	Nirgua
+314	23	Peña
+315	23	San Felipe
+316	23	Sucre
+317	23	Urachiche
+318	23	Veroes
+319	24	Almirante Padilla
+320	24	Baralt
+321	24	Cabimas
+322	24	Catatumbo
+323	24	Colón
+324	24	Francisco Javier Pulgar
+325	24	Jesús Enrique Losada 
+326	24	Jesús María Semprún 
+327	24	Cañada de Urdaneta
+328	24	Lagunillas
+329	24	Machiques de Perijá
+330	24	Mara
+331	24	Maracaibo
+332	24	Miranda
+333	24	Páez
+334	24	Rosario de Perijá
+335	24	San Francisco 
+336	24	Santa Rita 
+337	24	Simón Bolívar 
+338	24	Sucre 
+339	24	Valmore Rodríguez 
 \.
 
 
 --
--- TOC entry 2048 (class 0 OID 20236)
--- Dependencies: 171
+-- TOC entry 2065 (class 0 OID 20226)
+-- Dependencies: 163
+-- Data for Name: si_organizacion; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY si_organizacion (id, nombre, descripcion, rif, telefono, email, direccion, fax, id_pais, id_estado, id_municipio, creado, modificado, estatus) FROM stdin;
+1	Agropatria	\N	\N	\N	\N	\N	\N	1	1	1	2012-02-12 00:00:00-04:30	2012-02-15 08:31:14.425802-04:30	t
+\.
+
+
+--
+-- TOC entry 2076 (class 0 OID 20520)
+-- Dependencies: 184
+-- Data for Name: si_pais; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY si_pais (id, nombre) FROM stdin;
+1	Venezuela
+\.
+
+
+--
+-- TOC entry 2066 (class 0 OID 20236)
+-- Dependencies: 166
 -- Data for Name: si_parametros; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -1740,8 +2354,8 @@ COPY si_parametros (id, parametro_llave, parametro_valor, descripcion, parametro
 
 
 --
--- TOC entry 2049 (class 0 OID 20245)
--- Dependencies: 173
+-- TOC entry 2067 (class 0 OID 20245)
+-- Dependencies: 168
 -- Data for Name: si_perfiles; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -1757,18 +2371,8 @@ COPY si_perfiles (id, nombre_perfil, creado, modificado) FROM stdin;
 
 
 --
--- TOC entry 2050 (class 0 OID 20249)
--- Dependencies: 174
--- Data for Name: si_productor; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-COPY si_productor (id, nombre, rif, telefono, email, direccion, sap_id, centro_acopio_id) FROM stdin;
-\.
-
-
---
--- TOC entry 2051 (class 0 OID 20257)
--- Dependencies: 176
+-- TOC entry 2068 (class 0 OID 20257)
+-- Dependencies: 170
 -- Data for Name: si_programa; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -1777,8 +2381,8 @@ COPY si_programa (id, id_centro_acopio, numero, nombre, observacion, creado, mod
 
 
 --
--- TOC entry 2052 (class 0 OID 20264)
--- Dependencies: 177
+-- TOC entry 2069 (class 0 OID 20264)
+-- Dependencies: 171
 -- Data for Name: si_proveedor; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -1787,8 +2391,8 @@ COPY si_proveedor (id, nombre, telefono, email, ubicacion) FROM stdin;
 
 
 --
--- TOC entry 2053 (class 0 OID 20270)
--- Dependencies: 178
+-- TOC entry 2070 (class 0 OID 20270)
+-- Dependencies: 172
 -- Data for Name: si_silos; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -1868,35 +2472,35 @@ COPY si_silos (id, id_centro_acopio, id_almacen, nombre, coordenada, numero, cap
 
 
 --
--- TOC entry 2054 (class 0 OID 20280)
--- Dependencies: 180
+-- TOC entry 2071 (class 0 OID 20280)
+-- Dependencies: 174
 -- Data for Name: si_usuarios; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-COPY si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus) FROM stdin;
-1	Jose	Peluzzo	1234567	2012-02-12	M	jpeluzzo                        	40bd001563085fc35165329ea1ff5c5ecbdbbeef	Maracay	\N	josepeluzzo@agropatria.co.ve	2012-02-12	\N	t
-3	Juan	Taborda	13769341	\N	M	jtaborda                        	40bd001563085fc35165329ea1ff5c5ecbdbbeef	\N	\N	\N	2012-02-13	\N	t
-4	Jesus	Rodriguez	18264065	\N	M	jrodriguez                      	40bd001563085fc35165329ea1ff5c5ecbdbbeef	\N	\N	jesusrodriguez@agropatria.co.ve	2012-02-13	2012-02-13	t
-2	Jesus	Silva	9668397	1970-09-01	M	jsilva                          	40bd001563085fc35165329ea1ff5c5ecbdbbeef	\N	\N	jesussilva@agropatria.co.ve	2012-02-13	2012-02-13	t
+COPY si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) FROM stdin;
+1	Jose	Peluzzo	1234567	2012-02-12	M	jpeluzzo                        	40bd001563085fc35165329ea1ff5c5ecbdbbeef	Maracay	\N	josepeluzzo@agropatria.co.ve	2012-02-12	\N	t	0	\N	\N
+4	Jesus	Rodriguez	18264065	\N	M	jrodriguez                      	40bd001563085fc35165329ea1ff5c5ecbdbbeef	\N	\N	jesusrodriguez@agropatria.co.ve	2012-02-13	2012-02-13	t	0	\N	\N
+2	Jesus	Silva	9668397	1970-09-01	M	jsilva                          	40bd001563085fc35165329ea1ff5c5ecbdbbeef	\N	\N	jesussilva@agropatria.co.ve	2012-02-13	2012-02-13	t	0	\N	\N
+3	Juan	Taborda	13769341	\N	M	jtaborda                        	40bd001563085fc35165329ea1ff5c5ecbdbbeef	\N	\N	juantaborda@agropatria.co.ve	2012-02-13	2012-02-15	t	0	\N	\N
 \.
 
 
 --
--- TOC entry 2055 (class 0 OID 20288)
--- Dependencies: 182
+-- TOC entry 2072 (class 0 OID 20288)
+-- Dependencies: 176
 -- Data for Name: si_usuarios_perfiles; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 COPY si_usuarios_perfiles (id, id_usuario, id_almacen, id_perfil, creado, modificado) FROM stdin;
 1	1	1	1	2012-02-13 00:00:00-04:30	\N
 2	2	2	2	2012-02-13 11:34:56.142546-04:30	\N
-3	3	2	3	2012-02-13 15:00:02.192211-04:30	\N
 4	4	4	2	2012-02-13 16:15:23.105604-04:30	\N
+3	3	2	3	2012-02-13 15:00:02.192211-04:30	\N
 \.
 
 
 --
--- TOC entry 1972 (class 2606 OID 20302)
+-- TOC entry 1991 (class 2606 OID 20302)
 -- Dependencies: 146 146
 -- Name: app_error_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -1906,8 +2510,8 @@ ALTER TABLE ONLY si_app_error
 
 
 --
--- TOC entry 1990 (class 2606 OID 20304)
--- Dependencies: 161 161
+-- TOC entry 2005 (class 2606 OID 20304)
+-- Dependencies: 157 157
 -- Name: log_codigos_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -1916,7 +2520,7 @@ ALTER TABLE ONLY si_log_codigos
 
 
 --
--- TOC entry 1964 (class 2606 OID 20306)
+-- TOC entry 1983 (class 2606 OID 20306)
 -- Dependencies: 140 140
 -- Name: si_alamacenes_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -1926,7 +2530,7 @@ ALTER TABLE ONLY si_almacenes
 
 
 --
--- TOC entry 1968 (class 2606 OID 20308)
+-- TOC entry 1987 (class 2606 OID 20308)
 -- Dependencies: 143 143
 -- Name: si_analisis_centro_acopio_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -1936,7 +2540,7 @@ ALTER TABLE ONLY si_analisis_centro_acopio
 
 
 --
--- TOC entry 1966 (class 2606 OID 20310)
+-- TOC entry 1985 (class 2606 OID 20310)
 -- Dependencies: 142 142
 -- Name: si_analisis_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -1946,7 +2550,7 @@ ALTER TABLE ONLY si_analisis
 
 
 --
--- TOC entry 1970 (class 2606 OID 20312)
+-- TOC entry 1989 (class 2606 OID 20312)
 -- Dependencies: 144 144
 -- Name: si_analisis_resultado_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -1956,7 +2560,7 @@ ALTER TABLE ONLY si_analisis_resultado
 
 
 --
--- TOC entry 1974 (class 2606 OID 20314)
+-- TOC entry 1993 (class 2606 OID 20314)
 -- Dependencies: 147 147
 -- Name: si_cargo_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -1966,7 +2570,7 @@ ALTER TABLE ONLY si_cargo
 
 
 --
--- TOC entry 1976 (class 2606 OID 20316)
+-- TOC entry 1995 (class 2606 OID 20316)
 -- Dependencies: 148 148
 -- Name: si_cargo_tipo_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -1976,7 +2580,7 @@ ALTER TABLE ONLY si_cargo_tipo
 
 
 --
--- TOC entry 1978 (class 2606 OID 20318)
+-- TOC entry 1997 (class 2606 OID 20318)
 -- Dependencies: 149 149
 -- Name: si_centro_acopio_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -1986,7 +2590,7 @@ ALTER TABLE ONLY si_centro_acopio
 
 
 --
--- TOC entry 1980 (class 2606 OID 20320)
+-- TOC entry 1999 (class 2606 OID 20320)
 -- Dependencies: 151 151
 -- Name: si_cliente_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -1996,7 +2600,7 @@ ALTER TABLE ONLY si_cliente
 
 
 --
--- TOC entry 1982 (class 2606 OID 20322)
+-- TOC entry 2001 (class 2606 OID 20322)
 -- Dependencies: 153 153
 -- Name: si_cosecha_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -2006,8 +2610,8 @@ ALTER TABLE ONLY si_cosecha
 
 
 --
--- TOC entry 1984 (class 2606 OID 20324)
--- Dependencies: 155 155
+-- TOC entry 2031 (class 2606 OID 20476)
+-- Dependencies: 180 180
 -- Name: si_cultivo_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2016,18 +2620,18 @@ ALTER TABLE ONLY si_cultivo
 
 
 --
--- TOC entry 1986 (class 2606 OID 20326)
--- Dependencies: 157 157
--- Name: si_cultivo_tipo_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
+-- TOC entry 2033 (class 2606 OID 20494)
+-- Dependencies: 182 182
+-- Name: si_denom_tip_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
-ALTER TABLE ONLY si_cultivo_tipo
-    ADD CONSTRAINT si_cultivo_tipo_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY si_denom_tip
+    ADD CONSTRAINT si_denom_tip_pkey PRIMARY KEY (id);
 
 
 --
--- TOC entry 1988 (class 2606 OID 20328)
--- Dependencies: 158 158
+-- TOC entry 2003 (class 2606 OID 20328)
+-- Dependencies: 154 154
 -- Name: si_ejes_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2036,8 +2640,8 @@ ALTER TABLE ONLY si_ejes
 
 
 --
--- TOC entry 1992 (class 2606 OID 20330)
--- Dependencies: 163 163
+-- TOC entry 2007 (class 2606 OID 20330)
+-- Dependencies: 159 159
 -- Name: si_log_consultas_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2046,8 +2650,8 @@ ALTER TABLE ONLY si_log_consultas
 
 
 --
--- TOC entry 1994 (class 2606 OID 20332)
--- Dependencies: 164 164
+-- TOC entry 2009 (class 2606 OID 20332)
+-- Dependencies: 160 160
 -- Name: si_menu_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2056,8 +2660,8 @@ ALTER TABLE ONLY si_menu
 
 
 --
--- TOC entry 1998 (class 2606 OID 20334)
--- Dependencies: 168 168
+-- TOC entry 2013 (class 2606 OID 20334)
+-- Dependencies: 163 163
 -- Name: si_org_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2066,8 +2670,18 @@ ALTER TABLE ONLY si_organizacion
 
 
 --
--- TOC entry 2000 (class 2606 OID 20336)
--- Dependencies: 171 171
+-- TOC entry 2035 (class 2606 OID 20525)
+-- Dependencies: 184 184
+-- Name: si_pais_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
+--
+
+ALTER TABLE ONLY si_pais
+    ADD CONSTRAINT si_pais_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2015 (class 2606 OID 20336)
+-- Dependencies: 166 166
 -- Name: si_parametros_pkey1; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2076,8 +2690,8 @@ ALTER TABLE ONLY si_parametros
 
 
 --
--- TOC entry 2002 (class 2606 OID 20338)
--- Dependencies: 173 173
+-- TOC entry 2017 (class 2606 OID 20338)
+-- Dependencies: 168 168
 -- Name: si_perfiles_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2086,18 +2700,8 @@ ALTER TABLE ONLY si_perfiles
 
 
 --
--- TOC entry 2004 (class 2606 OID 20340)
--- Dependencies: 174 174
--- Name: si_productor_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
---
-
-ALTER TABLE ONLY si_productor
-    ADD CONSTRAINT si_productor_pkey PRIMARY KEY (id);
-
-
---
--- TOC entry 2006 (class 2606 OID 20342)
--- Dependencies: 176 176
+-- TOC entry 2019 (class 2606 OID 20342)
+-- Dependencies: 170 170
 -- Name: si_programa_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2106,8 +2710,8 @@ ALTER TABLE ONLY si_programa
 
 
 --
--- TOC entry 2008 (class 2606 OID 20344)
--- Dependencies: 177 177
+-- TOC entry 2021 (class 2606 OID 20344)
+-- Dependencies: 171 171
 -- Name: si_proveedor_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2116,8 +2720,8 @@ ALTER TABLE ONLY si_proveedor
 
 
 --
--- TOC entry 1996 (class 2606 OID 20346)
--- Dependencies: 167 167
+-- TOC entry 2011 (class 2606 OID 20346)
+-- Dependencies: 162 162
 -- Name: si_recepcion_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2126,8 +2730,8 @@ ALTER TABLE ONLY si_movimiento
 
 
 --
--- TOC entry 2010 (class 2606 OID 20348)
--- Dependencies: 178 178
+-- TOC entry 2023 (class 2606 OID 20348)
+-- Dependencies: 172 172
 -- Name: si_silos_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2136,8 +2740,8 @@ ALTER TABLE ONLY si_silos
 
 
 --
--- TOC entry 2016 (class 2606 OID 20350)
--- Dependencies: 182 182
+-- TOC entry 2029 (class 2606 OID 20350)
+-- Dependencies: 176 176
 -- Name: si_usuarios_perfiles_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2146,8 +2750,8 @@ ALTER TABLE ONLY si_usuarios_perfiles
 
 
 --
--- TOC entry 2012 (class 2606 OID 20352)
--- Dependencies: 180 180
+-- TOC entry 2025 (class 2606 OID 20352)
+-- Dependencies: 174 174
 -- Name: si_usuarios_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2156,8 +2760,8 @@ ALTER TABLE ONLY si_usuarios
 
 
 --
--- TOC entry 2014 (class 2606 OID 20354)
--- Dependencies: 180 180
+-- TOC entry 2027 (class 2606 OID 20354)
+-- Dependencies: 174 174
 -- Name: si_usuarios_usuario_key; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2166,8 +2770,8 @@ ALTER TABLE ONLY si_usuarios
 
 
 --
--- TOC entry 2017 (class 2606 OID 20355)
--- Dependencies: 149 140 1977
+-- TOC entry 2036 (class 2606 OID 20355)
+-- Dependencies: 140 1996 149
 -- Name: si_almacenes_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2176,8 +2780,8 @@ ALTER TABLE ONLY si_almacenes
 
 
 --
--- TOC entry 2018 (class 2606 OID 20360)
--- Dependencies: 176 2005 153
+-- TOC entry 2037 (class 2606 OID 20360)
+-- Dependencies: 153 170 2018
 -- Name: si_cosecha_id_programa_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2186,18 +2790,38 @@ ALTER TABLE ONLY si_cosecha
 
 
 --
--- TOC entry 2019 (class 2606 OID 20365)
--- Dependencies: 155 1985 157
--- Name: si_cultivo_id_tipo_cultivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
+-- TOC entry 2047 (class 2606 OID 20477)
+-- Dependencies: 163 2012 180
+-- Name: si_cultivo_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
 ALTER TABLE ONLY si_cultivo
-    ADD CONSTRAINT si_cultivo_id_tipo_cultivo_fkey FOREIGN KEY (id_tipo_cultivo) REFERENCES si_cultivo_tipo(id);
+    ADD CONSTRAINT si_cultivo_id_org_fkey FOREIGN KEY (id_org) REFERENCES si_organizacion(id);
 
 
 --
--- TOC entry 2020 (class 2606 OID 20370)
--- Dependencies: 1989 161 163
+-- TOC entry 2049 (class 2606 OID 20500)
+-- Dependencies: 2030 182 180
+-- Name: si_denom_tip_id_cultivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY si_denom_tip
+    ADD CONSTRAINT si_denom_tip_id_cultivo_fkey FOREIGN KEY (id_cultivo) REFERENCES si_cultivo(id);
+
+
+--
+-- TOC entry 2048 (class 2606 OID 20495)
+-- Dependencies: 182 2012 163
+-- Name: si_denom_tip_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY si_denom_tip
+    ADD CONSTRAINT si_denom_tip_id_org_fkey FOREIGN KEY (id_org) REFERENCES si_organizacion(id);
+
+
+--
+-- TOC entry 2038 (class 2606 OID 20370)
+-- Dependencies: 157 2004 159
 -- Name: si_log_consultas_log_codigo_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2206,8 +2830,8 @@ ALTER TABLE ONLY si_log_consultas
 
 
 --
--- TOC entry 2021 (class 2606 OID 20375)
--- Dependencies: 166 164 1993
+-- TOC entry 2045 (class 2606 OID 20455)
+-- Dependencies: 178 2008 160
 -- Name: si_menu_usuario_id_menu_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2216,8 +2840,8 @@ ALTER TABLE ONLY si_menu_usuario
 
 
 --
--- TOC entry 2022 (class 2606 OID 20380)
--- Dependencies: 180 2011 166
+-- TOC entry 2046 (class 2606 OID 20460)
+-- Dependencies: 2024 178 174
 -- Name: si_menu_usuario_id_usuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2226,8 +2850,8 @@ ALTER TABLE ONLY si_menu_usuario
 
 
 --
--- TOC entry 2023 (class 2606 OID 20385)
--- Dependencies: 149 1977 176
+-- TOC entry 2039 (class 2606 OID 20385)
+-- Dependencies: 149 170 1996
 -- Name: si_programa_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2236,8 +2860,8 @@ ALTER TABLE ONLY si_programa
 
 
 --
--- TOC entry 2024 (class 2606 OID 20390)
--- Dependencies: 140 1963 178
+-- TOC entry 2040 (class 2606 OID 20390)
+-- Dependencies: 172 1982 140
 -- Name: si_silos_id_almacen_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2246,8 +2870,8 @@ ALTER TABLE ONLY si_silos
 
 
 --
--- TOC entry 2025 (class 2606 OID 20395)
--- Dependencies: 149 178 1977
+-- TOC entry 2041 (class 2606 OID 20395)
+-- Dependencies: 149 172 1996
 -- Name: si_silos_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2256,8 +2880,8 @@ ALTER TABLE ONLY si_silos
 
 
 --
--- TOC entry 2026 (class 2606 OID 20400)
--- Dependencies: 1963 140 182
+-- TOC entry 2042 (class 2606 OID 20400)
+-- Dependencies: 140 176 1982
 -- Name: si_usuarios_perfiles_id_almacen_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2266,8 +2890,8 @@ ALTER TABLE ONLY si_usuarios_perfiles
 
 
 --
--- TOC entry 2027 (class 2606 OID 20405)
--- Dependencies: 2001 182 173
+-- TOC entry 2043 (class 2606 OID 20405)
+-- Dependencies: 176 168 2016
 -- Name: si_usuarios_perfiles_id_perfil_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2276,8 +2900,8 @@ ALTER TABLE ONLY si_usuarios_perfiles
 
 
 --
--- TOC entry 2028 (class 2606 OID 20410)
--- Dependencies: 182 180 2011
+-- TOC entry 2044 (class 2606 OID 20410)
+-- Dependencies: 176 174 2024
 -- Name: si_usuarios_perfiles_id_usuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -2286,7 +2910,7 @@ ALTER TABLE ONLY si_usuarios_perfiles
 
 
 --
--- TOC entry 2060 (class 0 OID 0)
+-- TOC entry 2083 (class 0 OID 0)
 -- Dependencies: 6
 -- Name: public; Type: ACL; Schema: -; Owner: postgres
 --
@@ -2297,7 +2921,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2012-02-13 16:35:04 VET
+-- Completed on 2012-02-15 14:22:01 VET
 
 --
 -- PostgreSQL database dump complete
