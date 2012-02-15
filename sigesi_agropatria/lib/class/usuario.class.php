@@ -69,7 +69,7 @@ class Usuario extends Model {
     }
 
     function obtenerDetalleUsuarios($idUsuario=null, $idPerfil=null, $usuario=null, $orden=null, $min='', $max='', $nombre=null, $sexo=null, $status='t') {
-        $query = "SELECT DISTINCT (u.id), u.nombre, u.apellido, u.cedula, u.fecha_nacimiento, u.sexo, u.direccion, u.telefono, u.email, u.usuario, u.contrasena, u.creado, u.modificado, ca.id id_ca, ca.nombre nombre_ca, al.id id_al, p.id id_perfil, p.nombre_perfil
+        $query = "SELECT DISTINCT (u.id), u.nombre, u.apellido, u.cedula, u.fecha_nacimiento, u.sexo, u.direccion, u.telefono, u.email, u.usuario, u.contrasena, u.creado, u.modificado, ca.id id_ca, ca.nombre nombre_ca, al.id id_al, up.id id_u_p, up.id_perfil, p.nombre_perfil
                     FROM si_usuarios u
                     INNER JOIN si_usuarios_perfiles up ON up.id_usuario = u.id
                     LEFT OUTER JOIN si_almacenes al ON al.id = up.id_almacen
@@ -82,7 +82,7 @@ class Usuario extends Model {
         if (!empty($nombre)) $query .= " AND (u.nombre LIKE '%$nombre%' OR u.apellido LIKE '%$nombre%')";
         if (!empty($sexo)) $query .= " AND u.sexo = '$sexo'";
         if (!empty($status)) $query .= " AND u.estatus = '$status'";
-        (!empty($orden)) ? $query .= " ORDER BY $orden" : $query .= " ORDER BY u.id, p.id";
+        (!empty($orden)) ? $query .= " ORDER BY $orden" : $query .= " ORDER BY u.id, up.id_perfil";
         if (!empty($max)) $query.= " LIMIT $min,$max ";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }

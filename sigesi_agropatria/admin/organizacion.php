@@ -2,10 +2,20 @@
     require_once('../lib/core.lib.php');
     
     $organizacion = new Organizacion();
+    $div_pol = new DivPol();
+    
+    $paises = $div_pol->obtenerPais();
+    foreach($paises as $campo => $valor){
+        $listaP[$valor['id']] = $valor['nombre'];
+    }
+    $estados = $div_pol->obtenerEstado();
+    foreach($estados as $campo => $valor){
+        $listaE[$valor['id']] = $valor['nombre'];
+    }
     $estatus = array('t' => 'Activa', 'f' => 'Inactiva');
-    $listaP = array(1 => 'Venezuela');
+    /*$listaP = array(1 => 'Venezuela');
     $listaE = array(1 => 'Guarico', 'Zulia');
-    $listaM = array(1 => 'Chaguaramas', 'Cabimas');
+    $listaM = array(1 => 'Chaguaramas', 'Cabimas');*/
     
     switch($GPC['ac']){
         case 'guardar':
@@ -41,6 +51,12 @@ $validator->printScript();
     function cancelar(){
         window.location = 'organizacion_listado.php';
     }
+    
+    $(document).ready(function(){
+        $('#Org\\[id_estado\\]').change(function(){
+            $('#Org\\[id_municipio\\]').load('../ajax/division_pol.php?ac=mcpos&idE=' + $(this).val());
+        });
+    });
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
     <? echo $html->input('Org.id', $infoOrg[0]['id'], array('type' => 'hidden'));?>
@@ -82,7 +98,11 @@ $validator->printScript();
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Municipio: </td>
-            <td><? echo $html->select('Org.id_municipio',array('options'=>$listaM, 'selected' => $infoOrg[0]['id_municipio'], 'default' => 'Seleccione'))?></td>
+            <td>
+                <div id="mcpo">
+                    <? echo $html->select('Org.id_municipio',array('options'=>$listaM, 'selected' => $infoOrg[0]['id_municipio'], 'default' => 'Seleccione'))?>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>Estatus: </td>

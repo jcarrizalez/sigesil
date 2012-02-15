@@ -59,6 +59,7 @@
             <th>Nombres</th>
             <th>Apellidos</th>
             <th>Usuario</th>
+            <th>Perfil</th>
             <th>Email</th>
             <th>Estatus</th>
             <th>Acci&oacute;n</th>
@@ -72,6 +73,7 @@
             <td align="center"><?=$dataUsuario['nombre']?></td>
             <td align="center"><?=$dataUsuario['apellido']?></td>
             <td align="center"><?=$dataUsuario['usuario']?></td>
+            <td align="center"><?=$dataUsuario['perfil']?></td>
             <td align="center"><?=$dataUsuario['email']?></td>
             <td align="center">
                 <?

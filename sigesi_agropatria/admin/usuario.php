@@ -14,10 +14,10 @@
                 $GPC['Usuario']['contrasena'] = sha1($GPC['Usuario']['contrasena']);
                 $usuario->save($GPC['Usuario']);
                 $id = $usuario->id;
-                $infoPerfil['Perfil']['id_usuario'] = $id;
-                $infoPerfil['Perfil']['id_almacen'] = $GPC['almacen'];
-                $infoPerfil['Perfil']['id_perfil'] = $GPC['perfil'];
-                $usuarioPerfil->save();
+                $GPC['Perfil']['id_usuario'] = $id;
+                $GPC['Perfil']['id_almacen'] = $GPC['almacen'];
+                $GPC['Perfil']['id_perfil'] = $GPC['perfil'];
+                $usuarioPerfil->save($GPC['Perfil']);
                 //$usuario->guardarPerfilUsuario($id, $GPC['almacen'], $GPC['perfil']);
                 
                 if(!empty($id)){
@@ -41,6 +41,7 @@
                 $listaPerfiles = $perfil->find('', '', array('id', 'nombre_perfil'), 'list', 'id');
                 unset($listaPerfiles[1]);
             }
+            //echo "<pre>"; print_r($infoUsuario); echo "</pre>";
         break;
     }
     
@@ -75,7 +76,7 @@ $validator->printScript();
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
     <?
         echo $html->input('Usuario.id', $infoUsuario[0]['id'], array('type' => 'hidden'));
-        echo $html->input('Perfil.id', $infoUsuario[0]['id'], array('type' => 'hidden'));
+        echo $html->input('Perfil.id', $infoUsuario[0]['id_u_p'], array('type' => 'hidden'));
     ?>
     <div id="titulo_modulo">
         NUEVO USUARIO<br/><hr/>
