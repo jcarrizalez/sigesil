@@ -3,12 +3,19 @@
     
     $centro_acopio = new CentroAcopio();
     $org = new Organizacion();
+    $div_pol = new DivPol();
+    
+    $paises = $div_pol->obtenerPais();
+    foreach($paises as $campo => $valor){
+        $listaP[$valor['id']] = $valor['nombre'];
+    }
+    $estados = $div_pol->obtenerEstado();
+    foreach($estados as $campo => $valor){
+        $listaE[$valor['id']] = $valor['nombre'];
+    }
     
     $listaOrg = $org->find('','', array('id', 'nombre'), 'list', 'id');
     $estatus = array('t' => 'Activo', 'f' => 'Inactivo');
-    $listaP = array(1 => 'Venezuela');
-    $listaE = array(1 => 'Guarico', 'Zulia');
-    $listaM = array(1 => 'Chaguaramas', 'Cabimas');
     
     $ocultarCantidad = 1;
     
@@ -21,14 +28,16 @@
             $silos = new Silos();
             $almacen = new Almacen();
             if(!empty($GPC['CA']['codigo']) && !empty($GPC['CA']['nombre']) && !empty($GPC['CA']['rif'])){
+                $GPC['CA']['id_estado'] = $GPC['id_estado'];
+                $GPC['CA']['id_municipio'] = $GPC['id_municipio'];
                 $centro_acopio->save($GPC['CA']);
                 $idCA = $centro_acopio->id;
                 $dataAlmacen = array('id_centro_acopio' => $idCA, 
                                     'nombre' => 'Almacen - Silos', 
                                     'direccion' => '',
-                                    'id_pais' => 1,
-                                    'id_estado' => 1,
-                                    'id_municipio' => 1,
+                                    'id_pais' => $GPC['CA']['id_pais'],
+                                    'id_estado' => $GPC['id_estado'],
+                                    'id_municipio' => $GPC['id_municipio'],
                                     'telefono' => '',
                                     'fax' => '',
                                     'email' => '',
@@ -73,8 +82,8 @@ $validator->printIncludes();
 $validator->setRules('CA.codigo', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('CA.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('CA.id_pais', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('CA.id_estado', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('CA.id_municipio', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('id_estado', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('id_municipio', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('CA.email', array('email' => array('value' => true, 'message' => 'Correo Invalido')));
 $validator->setRules('CA.id_org', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('CA.estatus', array('required' => array('value' => true, 'message' => 'Requerido')));
@@ -85,6 +94,12 @@ $validator->printScript();
     function cancelar(){
         window.location = 'centros_acopio_listado.php';
     }
+    
+    $(document).ready(function(){
+        $('#id_estado').change(function(){
+            $('#id_municipio').load('../ajax/division_pol.php?ac=mcpos&idE=' + $(this).val());
+        });
+    });
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
     <? echo $html->input('CA.id', $infoCA[0]['id'], array('type' => 'hidden'));?>
@@ -126,15 +141,19 @@ $validator->printScript();
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Pa&iacute;s: </td>
-            <td><? echo $html->select('CA.id_pais',array('options'=>$listaP, 'selected' => $infoCA[0]['id_pais'], 'default' => 'Seleccione'))?></td>
+            <td><? echo $html->select('Org.id_pais',array('options'=>$listaP, 'selected' => $infoCA[0]['id_pais'], 'default' => 'Seleccione'))?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Estado: </td>
-            <td><? echo $html->select('CA.id_estado',array('options'=>$listaE, 'selected' => $infoCA[0]['id_estado'], 'default' => 'Seleccione'))?></td>
+            <td><? echo $html->select('id_estado',array('options'=>$listaE, 'selected' => $infoCA[0]['id_estado'], 'default' => 'Seleccione'))?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Municipio: </td>
-            <td><? echo $html->select('CA.id_municipio',array('options'=>$listaM, 'selected' => $infoCA[0]['id_municipio'], 'default' => 'Seleccione'))?></td>
+            <td>
+                <div id="mcpo">
+                    <? echo $html->select('id_municipio',array('options'=>$listaM, 'selected' => $infoCA[0]['id_municipio'], 'default' => 'Seleccione'))?>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>C&oacute;digo Postal: </td>

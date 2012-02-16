@@ -13,13 +13,12 @@
         $listaE[$valor['id']] = $valor['nombre'];
     }
     $estatus = array('t' => 'Activa', 'f' => 'Inactiva');
-    /*$listaP = array(1 => 'Venezuela');
-    $listaE = array(1 => 'Guarico', 'Zulia');
-    $listaM = array(1 => 'Chaguaramas', 'Cabimas');*/
     
     switch($GPC['ac']){
         case 'guardar':
             if(!empty($GPC['Org']['nombre'])){
+                $GPC['Org']['id_estado'] = $GPC['id_estado'];
+                $GPC['Org']['id_municipio'] = $GPC['id_municipio'];
                 $organizacion->save($GPC['Org']);
                 $id = $organizacion->id;
                 
@@ -43,8 +42,8 @@ $validator = new Validator('form1');
 $validator->printIncludes();
 $validator->setRules('Org.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Org.id_pais', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('Org.id_estado', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('Org.id_municipio', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('id_estado', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('id_municipio', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->printScript();
 ?>
 <script type="text/javascript">
@@ -53,8 +52,8 @@ $validator->printScript();
     }
     
     $(document).ready(function(){
-        $('#Org\\[id_estado\\]').change(function(){
-            $('#Org\\[id_municipio\\]').load('../ajax/division_pol.php?ac=mcpos&idE=' + $(this).val());
+        $('#id_estado').change(function(){
+            $('#id_municipio').load('../ajax/division_pol.php?ac=mcpos&idE=' + $(this).val());
         });
     });
 </script>
@@ -94,13 +93,13 @@ $validator->printScript();
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Estado: </td>
-            <td><? echo $html->select('Org.id_estado',array('options'=>$listaE, 'selected' => $infoOrg[0]['id_estado'], 'default' => 'Seleccione'))?></td>
+            <td><? echo $html->select('id_estado',array('options'=>$listaE, 'selected' => $infoOrg[0]['id_estado'], 'default' => 'Seleccione'))?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Municipio: </td>
             <td>
                 <div id="mcpo">
-                    <? echo $html->select('Org.id_municipio',array('options'=>$listaM, 'selected' => $infoOrg[0]['id_municipio'], 'default' => 'Seleccione'))?>
+                    <? echo $html->select('id_municipio',array('options'=>$listaM, 'selected' => $infoOrg[0]['id_municipio'], 'default' => 'Seleccione'))?>
                 </div>
             </td>
         </tr>

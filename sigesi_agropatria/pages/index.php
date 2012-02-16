@@ -1,4 +1,5 @@
 <?
+    require_once('../lib/core.lib.php');
     require('../lib/common/header_externo.php');
 ?>
 <script type="text/javascript">

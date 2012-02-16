@@ -53,12 +53,22 @@
             }
         ?>
     </div>
-    <div id="botones">
-    <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
-        <? echo $html->input('Nuevo', 'Nuevo', array('type' => 'button')); ?>
-    <? } ?>
-        <? echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();')); ?>
-    </div>
+    <div id="filtro">
+        <!--form name="form1" id="form1" method="POST" action="" enctype="multipart/form-data"-->
+            <table width="100%">
+                <tr id="botones">
+                    <td colspan="3">
+                        <?
+                            if($_SESSION['s_perfil_id'] == GERENTEG){
+                                echo $html->input('Nuevo', 'Nuevo', array('type' => 'button'));
+                            }
+                            echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
+                        ?>
+                    </td>
+                </tr>
+            </table>
+        <!--/form-->
+    </div><hr/>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
             <th>Codigo</th>
@@ -102,7 +112,7 @@
             </td>
             <td align="center">
                 <?
-                    echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'centros_acopio.php?ac=editar&id='.$dataCA['id']);
+                    echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'centros_acopio.php?ac=editar&id_ca='.$dataCA['id']);
                     //echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'centros_acopio_listado.php?ac=eliminar&id='.$dataCA['id'], array('onclick' => 'return eliminar();'));
                 ?>
             </td>

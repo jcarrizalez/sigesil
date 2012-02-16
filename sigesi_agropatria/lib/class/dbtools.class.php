@@ -145,6 +145,10 @@
                         }
 
                         //Para retornar el total de registros si no existiera el limite
+                        $eliminar = "LIMIT";
+                        $posicionsubcadena = strpos ($query, $eliminar); 
+                        $query = (!empty($posicionsubcadena)) ? substr ($query, 0, ($posicionsubcadena)) : $query;
+                        
                         $result = pg_query("SELECT Count(*) total FROM ($query) as total");
                         if($row=pg_fetch_assoc($result)){
                             $this->total_verdadero = $row['total'];

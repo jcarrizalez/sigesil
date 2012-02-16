@@ -50,12 +50,22 @@
             }
         ?>
     </div>
-    <div id="botones">
-    <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
-        <? echo $html->input('Nuevo', 'Nuevo', array('type' => 'button')); ?>
-    <? } ?>
-        <? echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();')); ?>
-    </div>
+    <div id="filtro">
+        <!--form name="form1" id="form1" method="POST" action="" enctype="multipart/form-data"-->
+            <table width="100%">
+                <tr id="botones">
+                    <td colspan="3">
+                        <?
+                            if($_SESSION['s_perfil_id'] == GERENTEG){
+                                echo $html->input('Nuevo', 'Nuevo', array('type' => 'button'));
+                            }
+                            echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
+                        ?>
+                    </td>
+                </tr>
+            </table>
+        <!--/form-->
+    </div><hr/>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
             <th>C&oacute;digo</th>
