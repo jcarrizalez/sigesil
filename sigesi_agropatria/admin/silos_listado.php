@@ -58,7 +58,7 @@
         ?>
     </div>
     <div id="filtro">
-        <form name="form1" id="form1" method="POST" action="" enctype="multipart/form-data">
+        <form name="form1" id="form1" method="GET" action="" enctype="multipart/form-data">
             <table width="100%">
                 <tr>
                     <td width="110">Centro de Acopio:</td>
