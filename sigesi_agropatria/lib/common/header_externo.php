@@ -29,7 +29,7 @@ else
         </script>
     </head>
     <body>
-        <div id="cabecera"></div>
+        <div id="cabecera"></div><hr class="hr_cabecera"/>
         <div id="global">
             <div id="global_sep"></div>
             <div id="contenido_externo">

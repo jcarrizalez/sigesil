@@ -51,6 +51,14 @@ img{
     width: 800px;
 }
 
+.hr_cabecera{
+    background-color: #ed1c2a;
+    border: 0 none;
+    color: #ed1c2a;
+    height: 5px;
+    width: 800px;
+}
+
 #global{
     width: 800px;
     margin: auto;
@@ -80,12 +88,13 @@ img{
 }
 
 #lista_accordion a{
-    color: #000000;
+    color: #FFFFFF;
     text-decoration: none;
+    font-weight: bold;
 }
 
 #lista_accordion a:hover{
-    color: #CC0000;
+    color: #FFA500;
     text-decoration: none;
     font-weight: bold;
 }
