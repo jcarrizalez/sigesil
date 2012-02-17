@@ -12,6 +12,11 @@ body{
     font-size: 12px;
     text-align: justify;
     background-color: #E9E8E8;
+    background-image: url('../images/old_paper.jpg');
+}
+
+input, textarea, select{
+    text-transform: uppercase;
 }
 
 hr{
@@ -43,15 +48,21 @@ img{
 }
 
 #cabecera{
+    background-color: #FFFFFF;
     background-image: url('../images/logo_mat.png');
     background-repeat: no-repeat;
     margin: auto;
     padding: 0;
     height: 40px;
     width: 800px;
+    border.radius: 15px 15px 0 0;
+    -moz-border-radius:15px 15px 0 0;
+    -webkit-border-radius:15px 15px 0 0;
 }
 
 .hr_cabecera{
+    margin: auto;
+    padding: 0;
     background-color: #ed1c2a;
     border: 0 none;
     color: #ed1c2a;
@@ -88,7 +99,7 @@ img{
 }
 
 #lista_accordion a{
-    color: #FFFFFF;
+    color: #000000;
     text-decoration: none;
     font-weight: bold;
 }
@@ -191,7 +202,8 @@ img{
     text-align: center;
     font-size: 30px;
     font-weight: bold;
-    color: #73B65A;
+    color: #285c00;
+    /*color: #73B65A;*/
     padding-bottom: 10px;
 }
 
@@ -231,7 +243,7 @@ img{
 }
 
 .labelText{
-    color: #FFFFFF;
+    color: #000000;
 }
 
 .inputLogin{
@@ -239,12 +251,13 @@ img{
 }
 
 .btnLogin{
+    background-color: #FFFFFF;
     font-weight: bold;
     font-size: 16px;
 }
 
 #table_login{
-    margin: 40px auto;
+    margin: auto;
     font-weight: bold;
     font-size: 16px;
     padding: 10px;

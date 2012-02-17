@@ -2,11 +2,11 @@
         </div>
         </div>
         <div id="pie_pagina"><hr/>
-            <span>
-                SIGESI<br/>
-                &copy; 2012 Todos los Derechos Reservados.<br/><br/>
-            </span>
-            <a href="http://www.agropatria.co.ve" target="_blank"><img alt="Agropatria" title="Agropatria" src="../images/logo_agropatria.png" width="70" height="20"/></a>
+                <a href="http://www.agropatria.co.ve" target="_blank"><img alt="Agropatria" title="Agropatria" src="../images/logo_agropatria.png" width="140" height="40"/></a><br/><br/>
+                <span>
+                    SIGESI<br/>
+                    &copy; 2012 Todos los Derechos Reservados.<br/><br/>
+                </span>
         </div>
     </body>
 </html>

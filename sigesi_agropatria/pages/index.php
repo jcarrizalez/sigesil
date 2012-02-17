@@ -75,6 +75,9 @@
         </tr>
     </table>
     <table align="center" border="0">
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
         <tr align="center">
             <td colspan="2">
                 <? echo $html->input('Entrar', 'Entrar', array('type' => 'submit', 'class' => 'btnLogin')); ?>
