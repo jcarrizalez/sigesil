@@ -1,0 +1,23 @@
+Domain Name: localhost 
+This is a global key. It will work across all domains.
+
+Public Key: 6LcExc0SAAAAAJQg0dDLm-g8_ckox0vYbS0l5xTD 
+Use this in the JavaScript code that is served to your users
+
+Private Key: 6LcExc0SAAAAAMz3zsKrd6QqHIqhh53z_U5kHdeF 
+Use this when communicating between your server and our server. Be sure to keep it a secret.
+
+Delete these keys: https://www.google.com/recaptcha/admin/delete?siteid=315475204
+
+Resources: 
+reCAPTCHA plugins and libraries:
+  http://code.google.com/apis/recaptcha
+
+reCAPTCHA API Documentation:
+  http://code.google.com/apis/recaptcha/intro.html
+
+DOCUMENTACION
+http://code.google.com/intl/es-ES/apis/recaptcha/intro.html
+
+IMPLEMENTACION:
+http://www.zarpele.com.ar/2009/10/php-implementar-recaptcha-facilmente-parte-2/

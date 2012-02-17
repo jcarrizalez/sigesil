@@ -47,7 +47,7 @@ img{
     background-repeat: no-repeat;
     margin: auto;
     padding: 0;
-    height: 77px;
+    height: 40px;
     width: 800px;
 }
 
@@ -107,6 +107,14 @@ img{
     width: 800px;
     text-align: center;
     padding-top: 15px;
+}
+
+#pie_pagina hr{
+    background-color: #000000;
+    border: 0 none;
+    color: #000000;
+    height: 1px;
+    width: 100%;
 }
 
 #izq_pie_pagina{
@@ -174,7 +182,7 @@ img{
     text-align: center;
     font-size: 30px;
     font-weight: bold;
-    color: #FFFFFF;
+    color: #73B65A;
     padding-bottom: 10px;
 }
 
@@ -214,13 +222,27 @@ img{
 }
 
 .labelText{
-    
+    color: #FFFFFF;
+}
+
+.inputLogin{
+    width: 90%;
+}
+
+.btnLogin{
+    font-weight: bold;
+    font-size: 16px;
 }
 
 #table_login{
     margin: 40px auto;
     font-weight: bold;
     font-size: 16px;
+    padding: 10px;
+    border: 3px #000000 solid;
+    border.radius: 15px;
+    -moz-border-radius:15px;
+    -webkit-border-radius:15px;
 }
 
 #botones{

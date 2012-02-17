@@ -43,25 +43,42 @@
                 case 'usuario_inactivo':
                     echo 'Usuario y/o Centro de Acopio Inactivo';
                 break;
+                case 'captcha_invalido':
+                    echo 'Captcha Inv&aacute;lido';
+                break;
+                case 'captcha_vacio':
+                    echo 'Debe introducir el Captcha';
+                break;
             }
         ?>
     </div>
     <table id="table_login" align="center" border="0">
         <tr>
-            <td class="labelText">Usuario:</td>
-            <td width="151px"><? echo $html->input('usuario', '', array('type' => 'text')); ?></td>
+            <td class="labelText" width="1">Usuario:</td>
+            <td align="right"><? echo $html->input('usuario', '', array('type' => 'text', 'class' => 'inputLogin')); ?></td>
         </tr>
         <tr>
             <td class="labelText">Contrase&ntilde;a:&nbsp;</td>
-            <td><? echo $html->input('pass', '', array('type' => 'password')); ?></td>
+            <td align="right"><? echo $html->input('pass', '', array('type' => 'password', 'class' => 'inputLogin')); ?></td>
         </tr>
         <tr>
-            <td colspan="2"><br/><br/></td>
+            <td colspan="2"><br/></td>
         </tr>
+        <tr>
+            <td class="labelText" colspan="2">
+                <?
+                    require('../lib/common/recaptchalib.php');
+                    $publickey = LLAVE_PUBLICA;
+                    echo recaptcha_get_html($publickey);
+                ?>
+            </td>
+        </tr>
+    </table>
+    <table align="center" border="0">
         <tr align="center">
             <td colspan="2">
-                <? echo $html->input('Entrar', 'Entrar', array('type' => 'submit')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick'=>'cancelar()')); ?>
+                <? echo $html->input('Entrar', 'Entrar', array('type' => 'submit', 'class' => 'btnLogin')); ?>
+                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'class' => 'btnLogin', 'onClick'=>'cancelar()')); ?>
             </td>
         </tr>
     </table>
