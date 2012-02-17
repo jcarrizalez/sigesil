@@ -2,7 +2,12 @@
     require_once('../lib/core.lib.php');
     
     $usuario = new Usuario();
-    $listadoUsuarios = $usuario->obtenerTodosUsuarios('', '', '', '', '', 'u.nombre');
+    
+    if($_SESSION['s_perfil_id'] == GERENTES)
+        $idCA = $_SESSION['s_ca_id'];
+    else
+        $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : null;
+    $listadoUsuarios = $usuario->obtenerTodosUsuarios('', $idCA, '', '', '', 'u.nombre');
     
     if($GPC['ac'] == 'estatus'){
         $id = $GPC['id'];

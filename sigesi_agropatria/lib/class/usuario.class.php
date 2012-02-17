@@ -74,7 +74,7 @@ class Usuario extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 
-    function obtenerDetalleUsuarios($idUsuario = null, $idPerfil = null, $usuario = null, $orden = null, $min = '', $max = '', $nombre = null, $sexo = null, $status = 't') {
+    function obtenerDetalleUsuarios($idUsuario = null, $idPerfil = null, $usuario = null, $orden = null, $min = '', $max = '', $nombre = null, $sexo = null, $statusU = 't', $statusCA = 't') {
         $query = "SELECT DISTINCT (u.id), u.nombre, u.apellido, u.cedula, u.fecha_nacimiento, u.sexo, u.direccion, u.telefono, u.email, u.usuario, u.contrasena, u.creado, u.modificado, ca.id id_ca, ca.nombre nombre_ca, al.id id_al, up.id id_u_p, up.id_perfil, p.nombre_perfil
                     FROM si_usuarios u
                     INNER JOIN si_usuarios_perfiles up ON up.id_usuario = u.id
@@ -92,8 +92,10 @@ class Usuario extends Model {
             $query .= " AND (u.nombre LIKE '%$nombre%' OR u.apellido LIKE '%$nombre%')";
         if (!empty($sexo))
             $query .= " AND u.sexo = '$sexo'";
-        if (!empty($status))
-            $query .= " AND u.estatus = '$status'";
+        if (!empty($statusCA))
+            $query .= " AND ca.estatus = '$statusCA'";
+        if (!empty($statusU))
+            $query .= " AND u.estatus = '$statusU'";
         (!empty($orden)) ? $query .= " ORDER BY $orden" : $query .= " ORDER BY u.id, up.id_perfil";
         if (!empty($max))
             $query.= " LIMIT $min,$max ";
@@ -101,7 +103,7 @@ class Usuario extends Model {
     }
 
     function do_login($login, $password) {
-        $this->autoDesconectar();
+        //$this->autoDesconectar();
         if (!$login || !$password)
             return "loginerror";
 
@@ -140,7 +142,7 @@ class Usuario extends Model {
 
             $arr_detail = array();
 
-            $arr_detail = $this->obtenerDetalleUsuarios($_SESSION['s_id'], null, null, null, null, null, null, null);
+            $arr_detail = $this->obtenerDetalleUsuarios($_SESSION['s_id'], null, null, null, null, null, null);
             if (count($arr_detail) == 0)
                 return "usuario_inactivo";
 
@@ -170,6 +172,10 @@ class Usuario extends Model {
     }
 
     function autoDesconectar() {
+        /* QUERY PARA AUTO DESLOGEAR A LOS USUARIOS EN UN TIEMPO ESPECIFICO
+         * $query = "select ultimo_acceso, now(), ultimo_acceso - now() as tiempo_conectado
+                    from si_usuarios";*/
+        
         //Vamos a sacar automaticamente a los usuarios con mas de 12 horas logeados
         $query = "UPDATE si_usuarios SET conectado = '0', sesion = NULL
 			WHERE conectado = '1' AND (ultimo_acceso < CURRENT_TIMESTAMP)";
