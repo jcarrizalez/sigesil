@@ -26,7 +26,7 @@ class DivPol extends Model {
     }
     
     function obtenerMcpoEdoPais($idP=null, $idE=null, $idM=null){
-        $query = "SELECT p.id id_pais, p.nombre nombre_pais, e.id id_edo, e.nombre nombre_edo, m.id id_mcpo, m.nombre nombre_mcpo
+        $query = "SELECT p.id AS id_pais, p.nombre AS nombre_pais, e.id AS id_edo, e.nombre AS nombre_edo, m.id AS id_mcpo, m.nombre AS nombre_mcpo
                     FROM si_pais p
                     INNER JOIN si_estado e ON e.id_pais = p.id
                     INNER JOIN si_municipio m ON m.id_estado = e.id WHERE '1'";

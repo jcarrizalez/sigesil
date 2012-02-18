@@ -4,7 +4,7 @@ class CentroAcopio extends Model {
     var $table = 'si_centro_acopio';
     
     function buscarCA($id=null, $nombre=null, $rif=null, $idOrg=null){
-        $query = "SELECT ca.*, o.nombre nombre_org
+        $query = "SELECT ca.*, o.nombre AS nombre_org
                     FROM si_centro_acopio ca
                     INNER JOIN si_organizacion o ON o.id = ca.id_org WHERE '1'";
         $query .= (!empty($id)) ? " AND ca.id = '$id'" : "";

@@ -9,7 +9,7 @@ class Programa extends Model {
     }
     
     function buscarProgramaCA($id=null, $idCA=null){
-        $query = "SELECT ca.nombre ca_nombre, pro.*
+        $query = "SELECT ca.nombre AS ca_nombre, pro.*
                     FROM si_programa pro
                     INNER JOIN si_centro_acopio ca ON ca.id = pro.id_centro_acopio
                     WHERE '1'";
@@ -19,7 +19,7 @@ class Programa extends Model {
     }
     
     function cantidadProgramasCA($idCA){
-        $query = "SELECT Count(*) total FROM si_programa WHERE id_centro_acopio = $idCA";
+        $query = "SELECT Count(*) AS total FROM si_programa WHERE id_centro_acopio = $idCA";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 }
