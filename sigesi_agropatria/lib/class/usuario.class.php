@@ -44,12 +44,6 @@ class Usuario extends Model {
         }
     }
 
-    function guardarPerfilUsuario($idUsuario, $idAlmacen, $idPerfil) {
-        $query = "INSERT INTO si_usuarios_perfiles (id_usuario, id_almacen, id_perfil, creado) VALUES ('$idUsuario','$idAlmacen', '$idPerfil', now())";
-        $result = $this->_SQL_tool($this->INSERT, __METHOD__, $query);
-        return $result;
-    }
-
     function obtenerTodosUsuarios($idUsuario = null, $idCA = null, $idAlmacen = null, $idPerfil = null, $buscar = null, $orden = null, $estatus = null) {
         $query = "SELECT ca.id AS id_ca, ca.nombre AS nombre_ca, al.id AS id_al, al.nombre AS nombre_al, u.id, u.nombre, u.apellido, u.cedula, u.sexo, u.usuario, u.email, u.estatus, pe.nombre_perfil AS perfil
                     FROM si_usuarios u

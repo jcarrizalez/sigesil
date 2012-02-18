@@ -39,7 +39,7 @@
     });
 </script>
     <div id="titulo_modulo">
-        LISTADO DE PROGRAMAS<br/><hr/>
+        PROGRAMAS<br/><hr/>
     </div>
     <div id="mensajes">
         <?
@@ -71,7 +71,9 @@
     </div><hr/>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
-            <th>Centro de Acopio</th>
+            <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+                <th>Centro de Acopio</th>
+            <? } ?>
             <th>Programa Nro</th>
             <th>Programa</th>
             <th>Creado</th>
@@ -83,9 +85,11 @@
             $clase = $general->obtenerClaseFila($i);
         ?>
         <tr class="<?=$clase?>">
-            <td><?=$dataPrograma['ca_nombre']?></td>
+            <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+                <td><?=$dataPrograma['ca_nombre']?></td>
+            <? } ?>
             <td align="center"><?=$dataPrograma['numero']?></td>
-            <td align="center"><?=$dataPrograma['nombre']?></td>
+            <td><?=$dataPrograma['nombre']?></td>
             <td align="center"><?=$dataPrograma['creado']?></td>
             <td align="center">
                 <?

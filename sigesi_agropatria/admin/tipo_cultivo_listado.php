@@ -31,7 +31,7 @@
     });
 </script>
     <div id="titulo_modulo">
-        LISTADO TIPOS DE CULTIVOS<br/><hr/>
+        TIPOS DE CULTIVOS<br/><hr/>
     </div>
     <div id="mensajes">
         <?

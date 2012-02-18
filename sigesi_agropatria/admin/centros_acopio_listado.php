@@ -39,7 +39,7 @@
     });
 </script>
     <div id="titulo_modulo">
-        LISTADO DE CENTROS DE ACOPIO<br/><hr/>
+        CENTROS DE ACOPIO<br/><hr/>
     </div>
     <div id="mensajes">
         <?

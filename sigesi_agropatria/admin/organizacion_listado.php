@@ -32,7 +32,7 @@
     });
 </script>
     <div id="titulo_modulo">
-        LISTADO DE ORGANIZACIONES<br/><hr/>
+        ORGANIZACIONES<br/><hr/>
     </div>
     <div id="mensajes">
         <?
@@ -62,6 +62,7 @@
     </div><hr/>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
+            <th>C&oacute;digo</th>
             <th>Nombre</th>
             <th>RIF</th>
             <th>Tel&eacute;fono</th>
@@ -77,6 +78,7 @@
             $clase = $general->obtenerClaseFila($i);
         ?>
         <tr class="<?=$clase?>">
+            <td align="center"><?=$dataOrg['codigo']?></td>
             <td align="center"><?=$dataOrg['nombre']?></td>
             <td><?=$dataOrg['rif']?></td>
             <td><?=$dataOrg['telefono']?></td>

@@ -64,6 +64,10 @@ $validator->printScript();
     </div>
     <table align="center">
         <tr>
+            <td><span class="msj_rojo">* </span>C&oacute;digo: </td>
+            <td><? echo $html->input('Org.codigo', $infoOrg[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+        </tr>
+        <tr>
             <td><span class="msj_rojo">* </span>Nombre: </td>
             <td><? echo $html->input('Org.nombre', $infoOrg[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>

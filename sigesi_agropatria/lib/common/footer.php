@@ -2,9 +2,8 @@
         </div>
         </div>
         <div id="pie_pagina"><hr/>
-                <a href="http://www.agropatria.co.ve" target="_blank"><img alt="Agropatria" title="Agropatria" src="../images/logo_agropatria.png" width="140" height="40"/></a><br/><br/>
                 <span>
-                    SIGESI<br/>
+                    <?=SYSTEM_NAME?><br/>
                     &copy; 2012 Todos los Derechos Reservados.<br/><br/>
                 </span>
         </div>

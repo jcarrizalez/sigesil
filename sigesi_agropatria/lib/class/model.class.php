@@ -65,7 +65,7 @@ class Model extends cls_dbtools {
                 else
                     $sw = true;
                 
-                $values.= (!empty($value)) ? $field." = '".$value."'" : $field.' = null';
+                $values.= (!empty($value)) ? $field." = '".strtoupper($value)."'" : $field.' = null';
                 //$values.= $field."='".$value."'";
             }
             
@@ -87,7 +87,7 @@ class Model extends cls_dbtools {
                     $sw = true;
                 }        
                 $fields.= $field;
-                $values.= (!empty($value)) ? "'".$value."'" : 'null';
+                $values.= (!empty($value)) ? "'".strtoupper($value)."'" : 'null';
             }
             $fields.=", creado)";
             $values .=",now())";

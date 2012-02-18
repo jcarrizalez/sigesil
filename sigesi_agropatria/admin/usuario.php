@@ -18,7 +18,6 @@
                 $GPC['Perfil']['id_almacen'] = $GPC['almacen'];
                 $GPC['Perfil']['id_perfil'] = $GPC['perfil'];
                 $usuarioPerfil->save($GPC['Perfil']);
-                //$usuario->guardarPerfilUsuario($id, $GPC['almacen'], $GPC['perfil']);
                 
                 if(!empty($id)){
                     header("location: usuarios_listado.php?msg=exitoso");

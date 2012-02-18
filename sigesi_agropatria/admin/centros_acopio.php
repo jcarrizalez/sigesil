@@ -70,7 +70,7 @@
             }
         break;
         case 'editar':
-            $infoCA = $centro_acopio->find(array('id' => $GPC['id']));
+            $infoCA = $centro_acopio->find(array('id' => $GPC['id_ca']));
             $ocultarCantidad = 0;
         break;
     }
@@ -160,12 +160,8 @@ $validator->printScript();
             <td><? echo $html->input('CA.id_codigo_postal', $infoCA[0]['id_codigo_postal'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td>Coordenadas: </td>
+            <td>Coordenadas UTM: </td>
             <td><? echo $html->input('CA.coordenadas_utm', $infoCA[0]['coordenadas_utm'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-        </tr>
-        <tr>
-            <td><span class="msj_rojo">* </span>Estatus: </td>
-            <td><? echo $html->select('CA.estatus',array('options'=>$estatus, 'selected' => $infoCA[0]['estatus'], 'default' => 'Seleccione'))?></td>
         </tr>
         <? if($ocultarCantidad){ ?>
         <tr>
@@ -173,6 +169,10 @@ $validator->printScript();
             <td><? echo $html->select('cant_silos',array('options'=>$cantSilos, 'default' => 'Seleccione'))?></td>
         </tr>
         <? } ?>
+        <tr>
+            <td><span class="msj_rojo">* </span>Estatus: </td>
+            <td><? echo $html->select('CA.estatus',array('options'=>$estatus, 'selected' => $infoCA[0]['estatus'], 'default' => 'Seleccione'))?></td>
+        </tr>
         <tr>
             <td>&nbsp;</td>
         </tr>

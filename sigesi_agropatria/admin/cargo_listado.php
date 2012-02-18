@@ -1,25 +1,21 @@
 <?
     require_once('../lib/core.lib.php');
     
-    $cultivo = new Cultivo();
+    $cargo = new Cargo();
     
-    $id = (!empty($GPC['id'])) ? $GPC['id'] : null;
-    $nombre = (!empty($GPC['nombre'])) ? $GPC['nombre'] : null;
-    $tipo = (!empty($GPC['tipo'])) ? $GPC['tipo'] : null;
-    
-    $listadoCultivos = $cultivo->find('', null, '*', '', 'id');
+    $listaCargos = $cargo->find('', '', array('id', 'nombre'), 'list', 'nivel');
     
     if($GPC['ac'] == 'eliminar'){
         $id = $GPC['id'];
-        $cultivo->eliminarCultivo($id);
-        header('location: cultivo_listado.php');
+        $silos->eliminarSilo(1,$id);
+        header('location: cargo_listado.php');
         die();
     }
     require('../lib/common/header.php');
 ?>
 <script type="text/javascript">
     function eliminar(){
-        if(confirm('¿Desea Eliminar este Cultivo?'))
+        if(confirm('¿Desea Eliminar este Silo?'))
             return true;
         else
             return false;
@@ -27,7 +23,7 @@
     
     $(document).ready(function(){
         $('#Nuevo').click(function(){
-           window.location = 'cultivo.php';
+           window.location = 'cargos.php';
         });
         
         $('#Regresar').click(function(){
@@ -36,7 +32,7 @@
     });
 </script>
     <div id="titulo_modulo">
-        CULTIVOS<br/><hr/>
+        CARGOS<br/><hr/>
     </div>
     <div id="mensajes">
         <?
@@ -51,7 +47,7 @@
         ?>
     </div>
     <div id="filtro">
-        <!--form name="form1" id="form1" method="POST" action="" enctype="multipart/form-data"-->
+        <form name="form1" id="form1" method="GET" action="" enctype="multipart/form-data">
             <table width="100%">
                 <tr id="botones">
                     <td colspan="3">
@@ -64,30 +60,32 @@
                     </td>
                 </tr>
             </table>
-        <!--/form-->
+        </form>
     </div><hr/>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
-            <th>C&oacute;digo</th>
             <th>Nombre</th>
-            <th>Ciclo</th>
+            <th>Nivel</th>
+            <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
             <th>Acci&oacute;n</th>
+            <? } ?>
         </tr>
         <?
             $i=0;
-            foreach($listadoCultivos as $dataCultivo){
+            foreach($listaCargos as $dataCargo){
                 $clase = $general->obtenerClaseFila($i);
         ?>
         <tr class="<?=$clase?>">
-            <td align="center"><?=$dataCultivo['codigo']?></td>
-            <td><?=$dataCultivo['nombre']?></td>
-            <td align="center"><?=$dataCultivo['ciclo']?></td>
+            <td><?=$dataCargo['nombre']?></td>
+            <td><?=$dataCargo['nivel']?></td>
+            <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
             <td align="center">
                 <?
-                    echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'cultivo.php?ac=editar&id='.$dataCultivo['id']);
-                    echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'cultivo_listado.php?ac=eliminar&id='.$dataCultivo['id'], array('onclick' => 'return eliminar();'));
+                    echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'silos.php?ac=editar&id='.$dataCargo['id']);
+                    echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'silos_listado.php?ac=eliminar&id='.$dataCargo['id'], array('onclick' => 'return eliminar();'));
                 ?>
             </td>
+            <? } ?>
         </tr>
         <? $i++; } ?>
         <tr>

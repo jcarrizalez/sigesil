@@ -37,7 +37,7 @@
     });
 </script>
     <div id="titulo_modulo">
-        LISTADO DE USUARIOS<br/><hr/>
+        USUARIOS<br/><hr/>
     </div>
     <div id="mensajes">
         <?

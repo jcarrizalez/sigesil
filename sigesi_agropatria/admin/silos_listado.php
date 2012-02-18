@@ -43,7 +43,7 @@
     });
 </script>
     <div id="titulo_modulo">
-        LISTADO DE SILOS<br/><hr/>
+        SILOS<br/><hr/>
     </div>
     <div id="mensajes">
         <?
