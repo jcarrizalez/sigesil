@@ -3,7 +3,7 @@
         </div>
         <div id="pie_pagina"><hr/>
                 <span>
-                    <?=SYSTEM_NAME?><br/>
+                    Sistema de Gesti&oacute;n de Silos - <?=SYSTEM_NAME?><br/>
                     &copy; 2012 Todos los Derechos Reservados.<br/><br/>
                 </span>
         </div>

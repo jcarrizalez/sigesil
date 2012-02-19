@@ -60,13 +60,13 @@ img{
     -webkit-border-radius:15px 15px 0 0;
 }
 
-.hr_cabecera{
+#cabecera2{
+    background-color: #FFFFFF;
+    background-image: url('../images/logo_agro.png');
+    background-repeat: no-repeat;
     margin: auto;
     padding: 0;
-    background-color: #ed1c2a;
-    border: 0 none;
-    color: #ed1c2a;
-    height: 5px;
+    height: 70px;
     width: 800px;
 }
 
@@ -203,7 +203,6 @@ img{
     font-size: 30px;
     font-weight: bold;
     color: #285c00;
-    /*color: #73B65A;*/
     padding-bottom: 10px;
 }
 
@@ -234,6 +233,7 @@ img{
 }
 
 #modulo_externo{
+    height: 500px;
     padding: 15px;
     background-image: url('../images/fondo_externo.jpg');
     background-repeat: no-repeat;
@@ -244,6 +244,10 @@ img{
 
 .labelText{
     color: #000000;
+}
+
+.labelText2 input{
+    text-transform: none !important;
 }
 
 .inputLogin{
@@ -257,6 +261,7 @@ img{
 }
 
 #table_login{
+    background-image: url('../images/fondo_login.png');
     margin: auto;
     font-weight: bold;
     font-size: 16px;

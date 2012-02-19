@@ -30,7 +30,7 @@ else
     </head>
     <body>
         <div id="cabecera"></div>
-        <div class="hr_cabecera"></div>
+        <div id="cabecera2"></div>
         <div id="global">
             <div id="global_sep"></div>
             <div id="menu">

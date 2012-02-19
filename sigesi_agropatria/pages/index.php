@@ -3,7 +3,7 @@
     require('../lib/common/header_externo.php');
 ?>
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(function(){
         $('#usuario').focus();
     });
     
@@ -26,7 +26,7 @@
 </script>
 <form name="form_login" id="form_login" method="POST" action="verificar_acceso.php?ac=access" onsubmit="return validar_Formulario();">
     <div id="titulo_index">
-        INICIO DE SESI&Oacute;N
+        <img src="../images/bienvenido.png" width="100%" height="100%" />
     </div>
     <div id="mostrar_error">
         <span>Usuario y/o Contrase&ntilde;a Inv&aacute;lidos</span>
@@ -65,7 +65,7 @@
             <td colspan="2"><br/></td>
         </tr>
         <tr>
-            <td class="labelText" colspan="2">
+            <td class="labelText2" colspan="2">
                 <?
                     require('../lib/common/recaptchalib.php');
                     $publickey = LLAVE_PUBLICA;

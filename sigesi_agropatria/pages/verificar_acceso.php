@@ -18,7 +18,8 @@
 
                 $acction = $usuarios->do_login($login,sha1($pass));
                 switch($acction){
-                    case 'success':	header("location: principal.php");
+                    case 'success':
+                        header("location: principal.php");
                         exit();
                     break;
                     default:
