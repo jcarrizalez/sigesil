@@ -3,7 +3,7 @@
     
     $org = new Organizacion();
     
-    $listadoOrg = $org->find('', null, '*', '', 'id');
+    $listadoOrg = $org->detalleOrganizacion();
     
     if($GPC['ac'] == 'eliminar'){
         $id = $GPC['id'];

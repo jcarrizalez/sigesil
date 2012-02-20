@@ -5,7 +5,12 @@
     $centro_acopio = new CentroAcopio();
     
     $id = (!empty($GPC['id'])) ? $GPC['id'] : null;
-    $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : null;
+    
+    if($_SESSION['s_perfil_id'] == GERENTEG)
+        $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : null;
+    else
+        $idCA = $_SESSION['s_ca_id'];
+    
     $porPagina = MAX_RESULTS_PAG;
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
     
@@ -60,6 +65,7 @@
     <div id="filtro">
         <form name="form1" id="form1" method="GET" action="" enctype="multipart/form-data">
             <table width="100%">
+                <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
                 <tr>
                     <td width="110">Centro de Acopio:</td>
                     <td colspan="2">
@@ -69,6 +75,7 @@
                         ?>
                     </td>
                 </tr>
+                <? } ?>
                 <tr id="botones">
                     <td colspan="3">
                         <?

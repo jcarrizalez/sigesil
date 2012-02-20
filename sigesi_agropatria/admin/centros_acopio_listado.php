@@ -12,9 +12,10 @@
         $idCA = $GPC['id'];
         $status = $GPC['cambiar'];
         $centro_acopio->desactivarCA($idCA, $status);
-        $almacen->desactivarAL('',$idCA, $status);
+        /* EN EL CASO DE QUE SE QUIERA DESACTIVAR LOS ALMACENES, SILOS Y USUARIOS, DESCOMENTAR ESTAS LINEAS
+         * $almacen->desactivarAL('',$idCA, $status);
         $silos->desactivarSI('',$idCA, $status);
-        $usuarios->desactivarUsuariosCA($idCA, $status);
+        $usuarios->desactivarUsuariosCA($idCA, $status);*/
         header('location: centros_acopio_listado.php');
         die();
     }

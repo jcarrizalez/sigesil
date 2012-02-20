@@ -9,6 +9,7 @@ else
     <head>
         <title><?=SYSTEM_NAME?></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="<?=DOMAIN_ROOT?>images/favicon.ico" rel="shortcut icon" />
         <link href="<?=DOMAIN_ROOT?>css/frontend.css" rel="stylesheet" type="text/css" />
         <link href="<?=DOMAIN_ROOT?>css/jquery-ui-1.8.17.custom.css" rel="stylesheet" type="text/css" />
         <?

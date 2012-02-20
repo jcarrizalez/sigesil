@@ -33,6 +33,10 @@
         break;
         case 'editar':
             $infoOrg = $organizacion->find(array('id' => $GPC['id']));
+            $listaMcpos = $div_pol->obtenerMcpo('', $infoOrg[0]['id_estado']);
+            foreach($listaMcpos as $dataMcpo){
+                $listaM[$dataMcpo['id']] = $dataMcpo['nombre'];
+            }
         break;
     }
     

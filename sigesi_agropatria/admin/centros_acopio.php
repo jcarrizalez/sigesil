@@ -15,6 +15,7 @@
     }
     
     $listaOrg = $org->find('','', array('id', 'nombre'), 'list', 'id');
+    unset($listaOrg[1]);
     $estatus = array('t' => 'Activo', 'f' => 'Inactivo');
     
     $ocultarCantidad = 1;
@@ -27,37 +28,42 @@
         case 'guardar':
             $silos = new Silos();
             $almacen = new Almacen();
-            if(!empty($GPC['CA']['codigo']) && !empty($GPC['CA']['nombre']) && !empty($GPC['CA']['rif'])){
+            if(!empty($GPC['CA']['id_org']) && !empty($GPC['CA']['codigo']) && !empty($GPC['CA']['nombre'])){
                 $GPC['CA']['id_estado'] = $GPC['id_estado'];
                 $GPC['CA']['id_municipio'] = $GPC['id_municipio'];
                 $centro_acopio->save($GPC['CA']);
                 $idCA = $centro_acopio->id;
-                $dataAlmacen = array('id_centro_acopio' => $idCA, 
-                                    'nombre' => 'Almacen - Silos', 
-                                    'direccion' => '',
-                                    'id_pais' => $GPC['CA']['id_pais'],
-                                    'id_estado' => $GPC['id_estado'],
-                                    'id_municipio' => $GPC['id_municipio'],
-                                    'telefono' => '',
-                                    'fax' => '',
-                                    'email' => '',
-                                    'estatus' => 1,
-                                    'coordenadas_utm' => '',
-                                    'id_tipo_almacen' => 1);
-                $almacen->save($dataAlmacen);
-                $idAl = $almacen->id;
                 
-                $nuevoSilo = array();
-                $nuevoSilo['id_centro_acopio'] = $idCA;
-                $nuevoSilo['id_almacen'] = $idAl;
-                for($i=1;$i<=$GPC['cant_silos'];$i++){
-                    $nuevoSilo['nombre'] = "Silo ".$i;
-                    $nuevoSilo['coordenada'] = "Norte";
-                    $nuevoSilo['numero'] = $i;
-                    $nuevoSilo['capacidad'] = 1000;
-                    $nuevoSilo['modulo'] = 'A';
-                    $silos->save($nuevoSilo);
-                    $silos->id = null;
+                if(empty($GPC['AL']['id'])){
+                    $GPC['AL']['id_centro_acopio'] = $idCA;
+                    $GPC['AL']['nombre'] = 'Almacen - Silos';
+                    $GPC['AL']['direccion'] = '';
+                    $GPC['AL']['id_pais'] = $GPC['CA']['id_pais'];
+                    $GPC['AL']['id_estado'] = $GPC['id_estado'];
+                    $GPC['AL']['id_municipio'] = $GPC['id_municipio'];
+                    $GPC['AL']['telefono'] = '';
+                    $GPC['AL']['fax'] = '';
+                    $GPC['AL']['email'] = '';
+                    $GPC['AL']['estatus'] = 1;
+                    $GPC['AL']['coordenadas_utm'] = '';
+                    $GPC['AL']['id_tipo_almacen'] = 1;
+
+                    $almacen->save($GPC['AL']);
+                    $idAl = $almacen->id;
+                
+                    $nuevoSilo = array();
+                    $nuevoSilo['id_centro_acopio'] = $idCA;
+                    $nuevoSilo['id_almacen'] = $idAl;
+                    for($i=1;$i<=$GPC['cant_silos'];$i++){
+                        $nuevoSilo['nombre'] = "Silo ".$i;
+                        $nuevoSilo['coordenada'] = "Norte";
+                        $nuevoSilo['numero'] = $i;
+                        $nuevoSilo['capacidad'] = 1000;
+                        $nuevoSilo['modulo'] = 'A';
+                        $silos->save($nuevoSilo);
+                        $silos->id = null;
+                    }
+                
                 }
                 
                 if(!empty($idCA)){
@@ -71,6 +77,13 @@
         break;
         case 'editar':
             $infoCA = $centro_acopio->find(array('id' => $GPC['id_ca']));
+            $almacen = new Almacen();
+            $infoAL = $almacen->find(array('id_centro_acopio' => $infoCA[0]['id']), '', '*', '', 'id');
+            
+            $listaMcpos = $div_pol->obtenerMcpo('', $infoCA[0]['id_estado']);
+            foreach($listaMcpos as $dataMcpo){
+                $listaM[$dataMcpo['id']] = $dataMcpo['nombre'];
+            }
             $ocultarCantidad = 0;
         break;
     }
@@ -79,14 +92,14 @@
     
 $validator = new Validator('form1');
 $validator->printIncludes();
+$validator->setRules('CA.id_org', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('CA.codigo', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('CA.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('CA.estatus', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('CA.email', array('email' => array('value' => true, 'message' => 'Correo Invalido')));
 $validator->setRules('CA.id_pais', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('id_estado', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('id_municipio', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('CA.email', array('email' => array('value' => true, 'message' => 'Correo Invalido')));
-$validator->setRules('CA.id_org', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('CA.estatus', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('cant_silos', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->printScript();
 ?>
@@ -103,6 +116,7 @@ $validator->printScript();
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
     <? echo $html->input('CA.id', $infoCA[0]['id'], array('type' => 'hidden'));?>
+    <? echo $html->input('AL.id', $infoAL[0]['id'], array('type' => 'hidden'));?>
     <div id="titulo_modulo">
         NUEVO CENTRO DE ACOPIO<br/><hr/>
     </div>
@@ -141,7 +155,7 @@ $validator->printScript();
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Pa&iacute;s: </td>
-            <td><? echo $html->select('Org.id_pais',array('options'=>$listaP, 'selected' => $infoCA[0]['id_pais'], 'default' => 'Seleccione'))?></td>
+            <td><? echo $html->select('CA.id_pais',array('options'=>$listaP, 'selected' => $infoCA[0]['id_pais'], 'default' => 'Seleccione'))?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Estado: </td>
