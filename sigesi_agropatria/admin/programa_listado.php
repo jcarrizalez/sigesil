@@ -76,7 +76,8 @@
             <? } ?>
             <th>Programa Nro</th>
             <th>Programa</th>
-            <th>Creado</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
             <th>Acci&oacute;n</th>
         </tr>
         <?
@@ -90,7 +91,8 @@
             <? } ?>
             <td align="center"><?=$dataPrograma['numero']?></td>
             <td><?=$dataPrograma['nombre']?></td>
-            <td align="center"><?=$dataPrograma['creado']?></td>
+            <td align="center"><?=$dataPrograma['fecha_inicio']?></td>
+            <td align="center"><?=$dataPrograma['fecha_fin']?></td>
             <td align="center">
                 <?
                     echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'programa.php?ac=editar&id='.$dataPrograma['id']);

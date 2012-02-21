@@ -10,16 +10,16 @@
     else
         $idCA = $_SESSION['s_ca_id'];
     
-    $listadoAlmacenes = $almacen->buscarAL('', '', $idCA);
-    $listaCA = $centro_acopio->find('', '', array('id', 'nombre'), 'list', 'id');
+    $centrosA = $centro_acopio->buscarCA($idCA);
+    $listaCA = $centro_acopio->find('', '', array('id', 'nombre'), 'list', 'nombre');
     unset($listaCA[1]);
     
-    if($GPC['ac'] == 'eliminar'){
+    /*if($GPC['ac'] == 'eliminar'){
         $id = $GPC['id'];
-        $silos->eliminarSilo(1,$id);
-        header('location: silos_listado.php');
+        $almacen->eliminarSilo(1,$id);
+        header('location: almacen_listado.php');
         die();
-    }
+    }*/
     require('../lib/common/header.php');
 ?>
 <script type="text/javascript">
@@ -112,15 +112,16 @@
         </tr>
         <?
             $i=0;
-            foreach($listadoAlmacenes as $dataAlmacen){
+            foreach($centrosA as $ca){
                 $clase = $general->obtenerClaseFila($i);
+                $listadoAlmacenes = $almacen->buscarAL('', '', $ca['id']);
         ?>
         <tr class="<?=$clase?>">
             <td align="right" width="1">
                 <a href="javascript:muestraAL('<?php echo $i?>')"><img src="../images/mas.png" width="16" height="16" id="imgmes_<?php echo $i?>" /></a>
             </td>
             <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
-            <td><?=$dataAlmacen['nombre_ca']?></td>
+            <td><?=$ca['nombre']?></td>
             <? } ?>
             <td align="center">-</td>
             <td align="center">-</td>
@@ -131,6 +132,7 @@
             <? } ?>
         </tr>
         <tbody id="tbodyPN_<?php echo $i?>" style="display:none">
+            <? foreach($listadoAlmacenes as $dataAlmacen) { ?>
             <tr>
                 <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
                 <td colspan="2">&nbsp;</td>
@@ -144,14 +146,18 @@
                 <? if($_SESSION['s_perfil_id'] == GERENTES){ ?>
                 <td align="center">
                     <?
-                        echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'silos.php?ac=editar&id='.$dataAlmacen['id']);
-                        echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'silos_listado.php?ac=eliminar&id='.$dataAlmacen['id'], array('onclick' => 'return eliminar();'));
+                        echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'almacen.php?ac=editar&id='.$dataAlmacen['id']);
+                        //echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'almacen_listado.php?ac=eliminar&id='.$dataAlmacen['id'], array('onclick' => 'return eliminar();'));
                     ?>
                 </td>
                 <? } ?>
             </tr>
+            <? } ?>
         </tbody>
-        <? $i++; } ?>
+        <?
+            $i++;
+            }
+        ?>
         <tr>
             
             <td colspan="5">&nbsp;</td>

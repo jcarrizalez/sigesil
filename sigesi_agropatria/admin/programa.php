@@ -6,37 +6,40 @@
     $cultivo = new Cultivo();
     
     $estatus = array('t' => 'Activo', 'f' => 'Inactivo');
-    $listaEstados = array(0 => 'Abierta', 1 => 'Cerrada');
+    $listaCultivos = $cultivo->find('', '', 'id, nombre', 'list', 'codigo');
+    $cantProgramas = $programa->cantidadProgramasCA($_SESSION['s_ca_id']);
+    ++$cantProgramas[0]['total'];
     
     switch($GPC['ac']){
         case 'guardar':
-            /*echo "<pre>"; print_r($GPC['cosechaNombre']); echo "</pre>";
-            echo "<pre>"; print_r($GPC['cosechaCultivo']); echo "</pre>";
-            echo "<pre>"; print_r($GPC['cosechaProyectado']); echo "</pre>";
-            echo "<pre>"; print_r($GPC['cosechaArea']); echo "</pre>";
-            echo "<pre>"; print_r($GPC['cosechaFechaI']); echo "</pre>";
-            echo "<pre>"; print_r($GPC['cosechaFechaF']); echo "</pre>";die();
-            
-            if(!empty($GPC['Programa']['nombre'])){
+            if(!empty($GPC['Programa']['nombre']) && !empty($GPC['Programa']['estatus']) && !empty($GPC['Cosecha1']['nombre']) && !empty($GPC['Cosecha1']['id_cultivo'])){
                 $GPC['Programa']['id_centro_acopio'] = $_SESSION['s_ca_id'];
-                $cantProgramas = $programa->cantidadProgramasCA($_SESSION['s_ca_id']);
-                $GPC['Programa']['numero'] = ++$cantProgramas[0]['total'];
                 $programa->save($GPC['Programa']);
-                $id = $programa->id;
-                if(!empty($id)){
+                $programaID = $programa->id;
+                
+                for($i=1;$i<=$GPC['numeroCosecha'];$i++){
+                    $total = "Cosecha".$i;
+                    $GPC[$total]['id_programa'] = $programaID;
+                    $GPC[$total]['estatus'] = 't';
+                    $cosecha->save($GPC[$total]);
+                    $cosecha->id = null;
+                }
+                
+                if(!empty($programaID)){
                     header("location: programa_listado.php?msg=exitoso");
                     die();
                 }else{
                     header("location: programa_listado.php?msg=error");
                     die();
                 }
-            }*/
+            }
         break;
         case 'editar':
             $infoCA = $programa->find(array('id' => $GPC['id']));
         break;
     }
     require('../lib/common/header.php');
+    require('../lib/common/init_calendar.php');
     
 $validator = new Validator('form1');
 $validator->printIncludes();
@@ -45,7 +48,6 @@ $validator->setRules('Programa.nombre', array('required' => array('value' => tru
 $validator->setRules('Programa.estatus', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Cosecha1.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Cosecha1.id_cultivo', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('Cultivo.id', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->printScript();
 ?>
 <script type="text/javascript">
@@ -58,17 +60,55 @@ $validator->printScript();
         $('#Agregar').click(function(){
             $('#numeroCosecha').val(parseInt($('#numeroCosecha').val())+1);
             filaId = $('#numeroCosecha').val();
-            var tds = "<tr id='cosecha_"+filaId+"'>";
-            
-            tds += "<td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+".nombre' id='Cosecha"+filaId+".nombre'></td>";
-            tds += "<td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+".id_cultivo' id='Cosecha"+filaId+".id_cultivo'></td>";
-            tds += "<td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+".proyectado' id='Cosecha"+filaId+".proyectado'></td>";
-            tds += "<td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+".area_siembra' id='Cosecha"+filaId+".area_siembra'></td>";
-            tds += "<td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+".fecha_inicio' id='Cosecha"+filaId+".fecha_inicio'></td>";
-            tds += "<td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+".fecha_fin' id='Cosecha"+filaId+".fecha_fin'></td>";
-            tds += "<td><img src='../images/eliminar2.png' width='16' height='16' title='Eliminar' style='cursor: pointer;' onclick='eliminarFila("+filaId+");'></td>";
-            tds += "</tr>";
-            $("#nuevaCosecha").append(tds);
+            if(filaId<= <?=COSECHAS_PROGRAMA?>){
+                var infoCosecha = "<fieldset id='cosecha_"+filaId+"'><legend class='titulo_leyenda'>Datos de la Cosecha #"+filaId+" <img src='../images/eliminar2.png' width='16' height='16' title='Eliminar' style='cursor: pointer;' onclick='eliminarFila("+filaId+");'></legend><table align='center' width='100%'><tr><td><table align='center' cellpadding='0' cellspacing='0'>";
+                infoCosecha +="<tr><td><span class='msj_rojo'>* </span>Nombre: </td><td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+"[nombre]' id='Cosecha"+filaId+"[nombre]'></td></tr>";
+                infoCosecha +="<tr><td><span class='msj_rojo'>* </span>Cultivo: </td><td><select class='inputGrilla' name='Cosecha"+filaId+"[id_cultivo]' id='Cosecha"+filaId+"[id_cultivo]'><option value=''> Seleccione </option>";
+                var array_js = new Array();
+	        <?php
+                    foreach($listaCultivos as $indice=>$valor){
+                        echo "array_js[$indice] = '$valor';\n";
+                    }
+	        ?>
+                for(var i in array_js)
+                {
+                    infoCosecha +="<option value="+i+">"+array_js[i]+"</option>";
+                }
+                infoCosecha +="</select></td></tr>";
+                infoCosecha +="<tr><td>Proyectado: </td><td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+"[proyectado]' id='Cosecha"+filaId+"[proyectado]'></td></tr>";
+                infoCosecha +="<tr><td>Area Siembra: </td><td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+"[area_siembra]' id='Cosecha"+filaId+"[area_siembra]'></td></tr>";
+                infoCosecha +="<tr><td>Fecha Inicio: </td><td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+"[fecha_inicio]' id='Cosecha"+filaId+"[fecha_inicio]'>&nbsp;&nbsp;<img src='../images/calendario.png' id='finicio"+filaId+"' width='16' height='16' style='cursor:pointer' />";
+                infoCosecha +="<script>Calendar.setup({trigger    : 'finicio"+filaId+"',inputField : 'Cosecha"+filaId+"[fecha_inicio]',dateFormat: '%d-%m-%Y',onSelect   : function() { this.hide() }});<\/script>";
+                infoCosecha +="</td></tr>";
+                infoCosecha +="<tr><td>Fecha Fin: </td><td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+"[fecha_fin]' id='Cosecha"+filaId+"[fecha_fin]'>&nbsp;&nbsp;<img src='../images/calendario.png' id='ffin"+filaId+"' width='16' height='16' style='cursor:pointer' />";
+                infoCosecha +="<script>Calendar.setup({trigger    : 'ffin"+filaId+"',inputField : 'Cosecha"+filaId+"[fecha_fin]',dateFormat: '%d-%m-%Y',onSelect   : function() { this.hide() }});<\/script>";
+                infoCosecha +="</td></tr>";
+                infoCosecha += "</table></td></tr></table></fieldset>";
+                $("#nuevaCosecha").append(infoCosecha);
+            }else{
+                $('#numeroCosecha').val(parseInt($('#numeroCosecha').val())-1);
+                alert('Solo se admiten ('+<?=COSECHAS_PROGRAMA?>+') Cosechas por Programa');
+            }
+        });
+
+        $('#Guardar').click(function(){
+            fechaActual = "<? echo date("d-m-Y"); ?>";
+            for(j=1;j<=$('#numeroCosecha').val();j++){
+                if(j > 1 && ($('#Cosecha'+j+'\\[nombre\\]').val() == '') && ($('#Cosecha'+j+'\\[id_cultivo\\]').val() == '')){
+                    alert('Complete la Informacion de la Cosecha #'+j+' o Eliminela');
+                    return false;
+                }
+                
+                if($('#Cosecha'+j+'\\[fecha_inicio\\]').val() != '' || $('#Cosecha'+j+'\\[fecha_fin\\]').val() != ''){
+                    if($('#Cosecha'+j+'\\[fecha_inicio\\]').val() < fechaActual){
+                        alert('La Fecha de Inicio no puede ser menor a la Actual');
+                        return false;
+                    }else if($('#Cosecha'+j+'\\[fecha_fin\\]').val() <= $('#Cosecha'+j+'\\[fecha_inicio\\]').val()){
+                        alert('La Fecha Fin no puede ser menor o igual a la Fecha de Inicio');
+                        return false;
+                    }
+                }
+            }
         });
     });
     
@@ -80,16 +120,16 @@ $validator->printScript();
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
     <? echo $html->input('Programa.id', $infoCA[0]['id'], array('type' => 'hidden'));?>
-    <? echo $html->input('numeroCosecha', 1, array('type' => 'hidden'));?>
+    <? echo $html->input('numeroCosecha', 1, array('type' => 'text'));?>
     <div id="titulo_modulo">
         NUEVO PROGRAMA<br/><hr/>
     </div>
     <fieldset>
-        <legend>Datos del Programa</legend>
+        <legend class="titulo_leyenda">Datos del Programa</legend>
         <table align="center">
             <tr>
-                <td><span class="msj_rojo">* </span>N&uacute;mero: </td>
-                <td><? echo $html->input('Programa.numero', $infoPrograma[0]['numero'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td>N&uacute;mero: </td>
+                <td><? echo $html->input('Programa.numero', $cantProgramas[0]['total'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => 'readOnly')); ?></td>
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>Nombre: </td>
@@ -105,50 +145,69 @@ $validator->printScript();
             </tr>
         </table>
     </fieldset>
+    <div id="botones">
+        <? echo $html->input('Agregar', 'Agregar Cosecha', array('type' => 'button')); ?>
+    </div>
     <fieldset>
-        <legend>Datos de la Cosecha</legend>
+        <legend class="titulo_leyenda">Datos de la Cosecha #1</legend>
         <table align="center" border="0" width="100%">
-            <tr align="right">
-                <td colspan="2"><? echo $html->input('Agregar', 'Agregar', array('type' => 'button')); ?></td>
-            </tr>
-            <tr><td>&nbsp;</td></tr>
-            <tr><td>
-                <table id="nuevaCosecha" align="center" width="100%" border="0" cellpadding="0" cellspacing="0">
-                        <tr align="center">
-                            <th><span class="msj_rojo">* </span>Nombre</th>
-                            <th><span class="msj_rojo">* </span>Cultivo</th>
-                            <th>Proyectado</th>
-                            <th>Area Siembra</th>
-                            <th>Fecha Inicio</th>
-                            <th>Fecha Fin</th>
-                            <th></th>
+            <tr>
+                <td>
+                <table align="center" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td><span class="msj_rojo">* </span>Nombre: </td>
+                            <td><?=$html->input('Cosecha1.nombre', '', array('type' => 'text', 'class' => 'inputGrilla'));?></td>
                         </tr>
                         <tr>
-                            <td><?=$html->input('Cosecha1.nombre', '', array('type' => 'text', 'class' => 'inputGrilla'));?></td>
-                            <td><?=$html->input('Cosecha1.id_cultivo', '', array('type' => 'text', 'class' => 'inputGrilla'));?></td>
-                            <td><?=$html->input('Cosecha1.proyectado', '', array('type' => 'text', 'class' => 'inputGrilla'));?></td>
-                            <td><?=$html->input('Cosecha1.area_siembra', '', array('type' => 'text', 'class' => 'inputGrilla'));?></td>
-                            <td><?=$html->input('Cosecha1.fecha_inicio', '', array('type' => 'text', 'class' => 'inputGrilla'));?></td>
-                            <td><?=$html->input('Cosecha1.fecha_fin', '', array('type' => 'text', 'class' => 'inputGrilla'));?></td>
-                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td><span class="msj_rojo">* </span>Cultivo: </td>
+                            <td><? echo $html->select('Cosecha1.id_cultivo',array('options'=>$listaCultivos, 'default'=>' Seleccione ', 'class' => 'inputGrilla'))?></td>
                         </tr>
-                        <tbody id="nuevoCampo"></tbody>
+                        <tr>
+                            <td>Proyectado: </td>
+                            <td><?=$html->input('Cosecha1.proyectado', '', array('type' => 'text', 'class' => 'inputGrilla'));?></td>
+                        </tr>
+                        <tr>
+                            <td>Area Siembra: </td>
+                            <td><?=$html->input('Cosecha1.area_siembra', '', array('type' => 'text', 'class' => 'inputGrilla'));?></td>
+                        </tr>
+                        <tr>
+                            <td>Fecha Inicio: </td>
+                            <td>
+                                <?=$html->input('Cosecha1.fecha_inicio', '', array('type' => 'text', 'class' => 'inputGrilla', 'readOnly' => 'readOnly'));?>
+                                <img src="../images/calendario.png" id="finicio1" width="16" height="16" style="cursor:pointer" />
+                                <script>
+                                    Calendar.setup({
+                                        trigger    : "finicio1",
+                                        inputField : "Cosecha1[fecha_inicio]",
+                                        dateFormat: "%d-%m-%Y",
+                                        selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($fecha_fact_optime));?>),
+                                        onSelect   : function() { this.hide() }
+                                    });
+                                </script>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Fecha Fin: </td>
+                            <td>
+                                <?=$html->input('Cosecha1.fecha_fin', '', array('type' => 'text', 'class' => 'inputGrilla', 'readOnly' => 'readOnly'));?>
+                                <img src="../images/calendario.png" id="ffin1" width="16" height="16" style="cursor:pointer" />
+                                <script>
+                                    Calendar.setup({
+                                        trigger    : "ffin1",
+                                        inputField : "Cosecha1[fecha_fin]",
+                                        dateFormat: "%d-%m-%Y",
+                                        selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($fecha_fact_optime));?>),
+                                        onSelect   : function() { this.hide() }
+                                    });
+                                </script>
+                            </td>
+                        </tr>
                 </table>
-                <!--table align="center" width="100%" border="1" cellpadding="0" cellspacing="0">
-                    <div id="nuevaCosecha"></div>
-                </table-->
-            </td></tr>
-        </table>
-    </fieldset>
-    <!--fieldset>
-        <legend>Datos del Cultivo</legend>
-        <table align="center">
-            <tr>
-                <td><span class="msj_rojo">* </span>Nombre: </td>
-                <td><? echo $html->select('Cultivo.id',array('options'=>$listaCultivos, 'selected' => $infoPrograma[0]['estado'], 'default'=>' Seleccione '))?></td>
+                </td>
             </tr>
         </table>
-    </fieldset-->
+    </fieldset>
+    <div id="nuevaCosecha"></div>
     <table align="center">
         <tr>
             <td>&nbsp;</td>
