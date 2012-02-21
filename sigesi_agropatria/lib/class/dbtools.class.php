@@ -271,8 +271,8 @@
                     $arr_tree[$i][$value]=$back_trace[$i][$value];
                 }
             }
-            $arr_tree[0]['mysql_errno']=pg_last_error();
-            $arr_tree[0]['mysql_errno']=str_replace('\'','"',pg_last_error());
+            //$arr_tree[0]['mysql_errno']=pg_last_oid();
+            $arr_tree[0]['mysql_error']=str_replace('\'','"',pg_last_error());
             $arr_tree[0]['query']=nl2br($query);
             $arr_tree[0]['user_name']=$_SESSION['s_first_name']." ".$_SESSION['s_last_name'];
             $arr_tree[0]['date'] = date("Y-m-d h:i:s");

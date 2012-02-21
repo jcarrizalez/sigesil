@@ -1,5 +1,10 @@
 <?php
     error_reporting(E_ALL & ~E_NOTICE);
+    
+    //CONFIGURACION DE LA ZONA HORARIA PARA VENEZUELA
+    setlocale(LC_TIME, 'es_VE', 'es_VE.utf-8', 'es_VE.utf8'); # Asi es mucho mas seguro que funciones, ya que no todos los sistemas llaman igual al locale ;)
+    date_default_timezone_set('America/Caracas');
+    
     //PREVENT ATTACK FROM OTHER SITES
     if (preg_match( "/core.lib.php/", $_SERVER ["PHP_SELF"] ) || preg_match( "/core.lib.php/", $HTTP_SERVER_VARS ["PHP_SELF"] ))
         die("Access denied!");
@@ -36,7 +41,7 @@
 
     if (file_exists(APPROOT.'lib/common/verificar_login.php')){
         $archivo = explode("/", $_SERVER['PHP_SELF']);
-        if(!in_array($archivo[count($archivo)-1],array('index.php', 'verificar_acceso.php', 'cerrar_sesion.php'))){
+        if(!in_array($archivo[count($archivo)-1],array('index.php', 'app_error.php', 'verificar_acceso.php', 'cerrar_sesion.php'))){
             require_once(APPROOT.'lib/common/verificar_login.php');
         }
     }

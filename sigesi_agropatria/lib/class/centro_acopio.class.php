@@ -11,7 +11,7 @@ class CentroAcopio extends Model {
         $query .= (!empty($nombre)) ? " AND ca.nombre LIKE '%$nombre%'" : "";
         $query .= (!empty($rif)) ? " AND ca.rif LIKE '%$rif%'" : "";
         $query .= (!empty($idOrg)) ? " AND ca.id_org = '$idOrg'" : "";
-        $query .= " ORDER BY ca.id";
+        $query .= " ORDER BY ca.nombre";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     

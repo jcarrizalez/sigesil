@@ -19,7 +19,7 @@ class Programa extends Model {
     }
     
     function cantidadProgramasCA($idCA){
-        $query = "SELECT Count(*) AS total FROM si_programa WHERE id_centro_acopio = $idCA";
+        $query = "SELECT Count(*) AS total FROM si_programa WHERE id_centro_acopio = '$idCA'";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 }
