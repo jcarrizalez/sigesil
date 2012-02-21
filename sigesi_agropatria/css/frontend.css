@@ -31,6 +31,62 @@ img{
     border: none;
 }
 
+/* Comienzo del estilo para la pagina de errores*/
+#div_error{
+    width: 700px;
+    height: 395px;
+    margin: 50px auto;
+    background-color: #FFFFFF;
+    border: 1px #000000 solid;
+    border.radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    opacity: 0.8;
+    display:table;
+}
+
+#text_error{
+    display:table-cell;
+    vertical-align:middle;
+    text-align: center;
+    font-size:18px
+}
+
+#div_error2{
+    width: 700px;
+    height: 350px;
+    margin: 50px auto;
+    background-color: #FFFFFF;
+    border: 1px #000000 solid;
+    border.radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    opacity: 0.8;
+    padding-top: 40px;
+}
+
+#text_error2{
+    text-align: center;
+    font-size:18px
+}
+
+.detalle_error{
+    height:200px;
+    overflow:auto;
+    display: none;
+    text-align:left;
+}
+
+.err_child{
+    margin: 0 10px;
+    border: solid 1px #666;
+}
+
+#info_query{
+    margin: 0 30px;
+}
+/* Fin del estilo para la pagina de errores*/
+
 #mostrar_error{
     color: #F00;
     position: relative;
@@ -336,6 +392,10 @@ img{
     padding:2px;
 }
 
+.titulo_leyenda{
+    font-weight: bold;
+}
+
 .inputGrilla{
-    width: 75px;
+    width: 200px;
 }
