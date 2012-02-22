@@ -1,4 +1,4 @@
-Domain Name: localhost 
+Domain Name: localhost
 This is a global key. It will work across all domains.
 
 Public Key: 6LcExc0SAAAAAJQg0dDLm-g8_ckox0vYbS0l5xTD 
