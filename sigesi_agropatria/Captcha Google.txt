@@ -1,3 +1,6 @@
+GENERAR DOCUMENTACION DEL SISTEMA POR CONSOLA Y EXPORTARLO EN PDF
+phpdoc -o PDF:default:default -d sigesi_agropatria -t docs -ti SIGESIL
+
 Domain Name: localhost 
 This is a global key. It will work across all domains.
 
