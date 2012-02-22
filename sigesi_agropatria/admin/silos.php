@@ -6,7 +6,7 @@
     switch($GPC['ac']){
         case 'guardar':
             $GPC['Silo']['id_centro_acopio'] = $_SESSION['s_ca_id'];
-            if(!empty($GPC['Silo']['nombre']) && !empty($GPC['Silo']['numero']) && !empty($GPC['Silo']['capacidad'])){
+            if(!empty($GPC['Silo']['nombre']) && !empty($GPC['Silo']['codigo']) && !empty($GPC['Silo']['capacidad'])){
                 $silo->save($GPC['Silo']);
                 $id = $silo->id;
                 if(!empty($id)){
@@ -26,9 +26,9 @@
     
 $validator = new Validator('form1');
 $validator->printIncludes();
+$validator->setRules('Silo.codigo', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Silo.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Silo.coordenada', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('Silo.numero', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Silo.capacidad', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->printScript();
 ?>
@@ -44,16 +44,16 @@ $validator->printScript();
     </div>
     <table align="center">
         <tr>
+            <td><span class="msj_rojo">* </span>C&oacute;digo: </td>
+            <td><? echo $html->input('Silo.codigo', $infoSilo[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+        </tr>
+        <tr>
             <td><span class="msj_rojo">* </span>Nombre: </td>
             <td><? echo $html->input('Silo.nombre', $infoSilo[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Coordenada: </td>
             <td><? echo $html->input('Silo.coordenada', $infoSilo[0]['coordenada'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-        </tr>
-        <tr>
-            <td><span class="msj_rojo">* </span>N&uacute;mero: </td>
-            <td><? echo $html->input('Silo.numero', $infoSilo[0]['numero'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Capacidad: </td>

@@ -21,4 +21,8 @@ define ( "DEBUG", "1" );
 define('GERENTEG',1);
 define('GERENTES',2);
 define('ADMINISTRADOR',3);
+define('CALIDAD',4);
+define('ROMANERO',5);
+define('RECEPCION',6);
+define('DESPACHO',7);
 ?>

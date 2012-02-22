@@ -17,7 +17,7 @@
     switch($GPC['ac']){
         case 'guardar':
             $GPC['Almacen']['id_centro_acopio'] = $_SESSION['s_ca_id'];
-            if(!empty($GPC['Almacen']['nombre']) && !empty($GPC['Almacen']['estatus'])){
+            if(!empty($GPC['Almacen']['codigo']) && !empty($GPC['Almacen']['nombre']) && !empty($GPC['Almacen']['estatus'])){
                 $GPC['Almacen']['id_estado'] = $GPC['id_estado'];
                 $GPC['Almacen']['id_municipio'] = $GPC['id_municipio'];
                 $GPC['Almacen']['id_tipo_almacen'] = 2;
@@ -44,6 +44,7 @@
     
 $validator = new Validator('form1');
 $validator->printIncludes();
+$validator->setRules('Almacen.codigo', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Almacen.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Almacen.id_pais', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('id_estado', array('required' => array('value' => true, 'message' => 'Requerido')));
@@ -54,7 +55,7 @@ $validator->printScript();
 ?>
 <script type="text/javascript">
     function cancelar(){
-        window.location = 'silos_listado.php';
+        window.location = 'almacen_listado.php';
     }
     
     $(document).ready(function(){
@@ -69,6 +70,10 @@ $validator->printScript();
         NUEVO ALMACEN<br/><hr/>
     </div>
     <table align="center">
+        <tr>
+            <td><span class="msj_rojo">* </span>C&oacute;digo: </td>
+            <td><? echo $html->input('Almacen.codigo', $infoAlmacen[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+        </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Nombre: </td>
             <td><? echo $html->input('Almacen.nombre', $infoAlmacen[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>

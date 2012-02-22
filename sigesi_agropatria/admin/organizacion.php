@@ -16,7 +16,7 @@
     
     switch($GPC['ac']){
         case 'guardar':
-            if(!empty($GPC['Org']['nombre'])){
+            if(!empty($GPC['Org']['nombre']) && !empty($GPC['Org']['Codigo']) && !empty($GPC['Org']['rif'])){
                 $GPC['Org']['id_estado'] = $GPC['id_estado'];
                 $GPC['Org']['id_municipio'] = $GPC['id_municipio'];
                 $organizacion->save($GPC['Org']);
@@ -44,7 +44,9 @@
     
 $validator = new Validator('form1');
 $validator->printIncludes();
+$validator->setRules('Org.codigo', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Org.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Org.rif', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Org.id_pais', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('id_estado', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('id_municipio', array('required' => array('value' => true, 'message' => 'Requerido')));
@@ -76,7 +78,7 @@ $validator->printScript();
             <td><? echo $html->input('Org.nombre', $infoOrg[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td>RIF: </td>
+            <td><span class="msj_rojo">* </span>RIF: </td>
             <td><? echo $html->input('Org.rif', $infoOrg[0]['rif'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>

@@ -83,7 +83,7 @@
             <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
                 <th>Centro de Acopio</th>
             <? } ?>
-            <th>Nro</th>
+            <th>C&oacute;digo</th>
             <th>Nombre</th>
             <th>Proyectado</th>
             <th>Area Siembra</th>
@@ -104,7 +104,7 @@
             <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
                 <td><?=$dataPrograma['ca_nombre']?></td>
             <? } ?>
-            <td align="center"><?=$dataPrograma['numero']?></td>
+            <td align="center"><?=$dataPrograma['codigo']?></td>
             <td><?=$dataPrograma['nombre']?></td>
             <td align="center">-</td>
             <td align="center">-</td>
@@ -121,14 +121,14 @@
             <?
                 $j=0;
                 foreach($listadoCosechas as $dataCosecha){
-                    $clase = $general->obtenerSubClaseFila($j);
             ?>
             <tr class="terceraclase">
                 <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
-                <td colspan="3">&nbsp;</td>
-                <? }else{ ?>
                 <td colspan="2">&nbsp;</td>
+                <? }else{ ?>
+                <td>&nbsp;</td>
                 <? } ?>
+                <td align="center"><?=$dataCosecha['codigo']?></td>
                 <td><?=$dataCosecha['nombre_cosecha']?></td>
                 <td><?=$dataCosecha['proyectado']?></td>
                 <td><?=$dataCosecha['area_siembra']?></td>

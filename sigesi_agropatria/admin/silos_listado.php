@@ -101,9 +101,9 @@
             <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
             <th>Centro de Acopio</th>
             <? } ?>
+            <th>C&oacute;digo</th>
             <th>Nombre</th>
             <th>Coordenadas</th>
-            <th>N&uacute;mero</th>
             <th>Capacidad (Kg)</th>
             <? if($_SESSION['s_perfil_id'] == GERENTES){ ?>
             <th>Acci&oacute;n</th>
@@ -118,9 +118,9 @@
             <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
             <td><?=$dataSilo['nombre_ca']?></td>
             <? } ?>
+            <td align="center"><?=$dataSilo['codigo']?></td>
             <td><?=$dataSilo['nombre']?></td>
             <td><?=$dataSilo['coordenada']?></td>
-            <td align="center"><?=$dataSilo['numero']?></td>
             <td align="center"><?=$dataSilo['capacidad']?></td>
             <? if($_SESSION['s_perfil_id'] == GERENTES){ ?>
             <td align="center">

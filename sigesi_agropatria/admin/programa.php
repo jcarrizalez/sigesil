@@ -7,12 +7,10 @@
     
     $estatus = array('t' => 'Activo', 'f' => 'Inactivo');
     $listaCultivos = $cultivo->find('', '', 'id, nombre', 'list', 'codigo');
-    $cantProgramas = $programa->cantidadProgramasCA($_SESSION['s_ca_id']);
-    ++$cantProgramas[0]['total'];
     
     switch($GPC['ac']){
         case 'guardar':
-            if(!empty($GPC['Programa']['nombre']) && !empty($GPC['Programa']['estatus']) && !empty($GPC['Cosecha1']['nombre']) && !empty($GPC['Cosecha1']['id_cultivo'])){
+            if(!empty($GPC['Programa']['codigo']) && !empty($GPC['Programa']['nombre']) && !empty($GPC['Programa']['estatus']) && !empty($GPC['Cosecha1']['nombre']) && !empty($GPC['Cosecha1']['id_cultivo'])){
                 $GPC['Programa']['id_centro_acopio'] = $_SESSION['s_ca_id'];
                 $programa->_begin_tool();
                 
@@ -53,10 +51,10 @@
     
 $validator = new Validator('form1');
 $validator->printIncludes();
-$validator->setRules('Programa.numero', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Programa.codigo', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Programa.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Programa.estatus', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('Cosecha1.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Cosecha1.codigo', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Cosecha1.id_cultivo', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->printScript();
 ?>
@@ -72,7 +70,8 @@ $validator->printScript();
             filaId = $('#numeroCosecha').val();
             if(filaId<= <?=COSECHAS_PROGRAMA?>){
                 var infoCosecha = "<fieldset id='cosecha_"+filaId+"'><legend class='titulo_leyenda'>Datos de la Cosecha #"+filaId+" <img src='../images/eliminar2.png' width='16' height='16' title='Eliminar' style='cursor: pointer;' onclick='eliminarFila("+filaId+");'></legend><table align='center' width='100%'><tr><td><table align='center' cellpadding='0' cellspacing='0'>";
-                infoCosecha +="<tr><td><span class='msj_rojo'>* </span>Nombre: </td><td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+"[nombre]' id='Cosecha"+filaId+"[nombre]'></td></tr>";
+                infoCosecha +="<tr><td><span class='msj_rojo'>* </span>C&oacute;digo: </td><td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+"[codigo]' id='Cosecha"+filaId+"[codigo]'></td></tr>";
+                infoCosecha +="<tr><td>Nombre: </td><td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+"[nombre]' id='Cosecha"+filaId+"[nombre]'></td></tr>";
                 infoCosecha +="<tr><td><span class='msj_rojo'>* </span>Cultivo: </td><td><select class='inputGrilla' name='Cosecha"+filaId+"[id_cultivo]' id='Cosecha"+filaId+"[id_cultivo]'><option value=''> Seleccione </option>";
                 var array_js = new Array();
 	        <?php
@@ -104,7 +103,7 @@ $validator->printScript();
         $('#Guardar').click(function(){
             fechaActual = "<? echo date("d-m-Y"); ?>";
             for(j=1;j<=$('#numeroCosecha').val();j++){
-                if(j > 1 && ($('#Cosecha'+j+'\\[nombre\\]').val() == '') && ($('#Cosecha'+j+'\\[id_cultivo\\]').val() == '')){
+                if(j > 1 && ($('#Cosecha'+j+'\\[codigo\\]').val() == '') && ($('#Cosecha'+j+'\\[id_cultivo\\]').val() == '')){
                     alert('Complete la Informacion de la Cosecha #'+j+' o Eliminela');
                     return false;
                 }
@@ -138,8 +137,8 @@ $validator->printScript();
         <legend class="titulo_leyenda">Datos del Programa</legend>
         <table align="center">
             <tr>
-                <td>N&uacute;mero: </td>
-                <td><? echo $html->input('Programa.numero', $cantProgramas[0]['total'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => 'readOnly')); ?></td>
+                <td><span class="msj_rojo">* </span>C&oacute;digo: </td>
+                <td><? echo $html->input('Programa.codigo', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>Nombre: </td>
@@ -165,7 +164,11 @@ $validator->printScript();
                 <td>
                 <table align="center" border="0" cellpadding="0" cellspacing="0">
                         <tr>
-                            <td><span class="msj_rojo">* </span>Nombre: </td>
+                            <td><span class="msj_rojo">* </span>C&oacute;digo: </td>
+                            <td><?=$html->input('Cosecha1.codigo', '', array('type' => 'text', 'class' => 'inputGrilla'));?></td>
+                        </tr>
+                        <tr>
+                            <td>Nombre: </td>
                             <td><?=$html->input('Cosecha1.nombre', '', array('type' => 'text', 'class' => 'inputGrilla'));?></td>
                         </tr>
                         <tr>

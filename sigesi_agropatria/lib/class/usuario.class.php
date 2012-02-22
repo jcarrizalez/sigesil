@@ -69,7 +69,7 @@ class Usuario extends Model {
     }
 
     function obtenerDetalleUsuarios($idUsuario = null, $idPerfil = null, $usuario = null, $orden = null, $min = '', $max = '', $nombre = null, $sexo = null, $statusU = 't', $statusCA = 't') {
-        $query = "SELECT DISTINCT (u.id), u.nombre, u.apellido, u.cedula, u.fecha_nacimiento, u.sexo, u.direccion, u.telefono, u.email, u.usuario, u.contrasena, u.creado, u.modificado, ca.id id_ca, ca.nombre nombre_ca, al.id id_al, up.id id_u_p, up.id_perfil, p.nombre_perfil
+        $query = "SELECT DISTINCT (u.id), u.nombre, u.apellido, u.cedula, u.fecha_nacimiento, u.sexo, u.direccion, u.telefono, u.email, u.usuario, u.contrasena, u.creado, u.modificado, ca.id AS id_ca, ca.codigo AS codigo_ca, ca.nombre AS nombre_ca, al.id AS id_al, up.id AS id_u_p, up.id_perfil, p.nombre_perfil
                     FROM si_usuarios u
                     INNER JOIN si_usuarios_perfiles up ON up.id_usuario = u.id
                     LEFT OUTER JOIN si_almacenes al ON al.id = up.id_almacen
@@ -144,6 +144,7 @@ class Usuario extends Model {
 
             $_SESSION['s_perfil_id'] = $arr_detail[0]['id_perfil'];
             $_SESSION['s_ca_id'] = $arr_detail[0]['id_ca'];
+            $_SESSION['s_ca_codigo'] = $arr_detail[0]['codigo_ca'];
             $_SESSION['s_ca_nombre'] = $arr_detail[0]['nombre_ca'];
 
             return "success";

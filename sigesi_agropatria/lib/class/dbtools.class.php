@@ -284,7 +284,8 @@ class cls_dbtools extends cls_logs {
         //$arr_tree[0]['mysql_errno']=pg_last_oid();
         $arr_tree[0]['mysql_error'] = str_replace('\'', '"', pg_last_error());
         $arr_tree[0]['query'] = nl2br($query);
-        $arr_tree[0]['user_name'] = $_SESSION['s_first_name'] . " " . $_SESSION['s_last_name'];
+        //$arr_tree[0]['user_name'] = $_SESSION['s_first_name'] . " " . $_SESSION['s_last_name'];
+        $arr_tree[0]['user_name'] = $_SESSION['s_usuario'];
         $arr_tree[0]['date'] = date("Y-m-d h:i:s");
         $id_error = $this->register_SQL_error(serialize($arr_tree));
         $arr_tree[0]['id_error'] = $id_error;

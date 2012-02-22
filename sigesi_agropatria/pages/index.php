@@ -64,7 +64,7 @@
         <tr>
             <td colspan="2"><br/></td>
         </tr>
-        <tr>
+        <!--tr>
             <td class="labelText2" colspan="2">
                 <?
                     require('../lib/common/recaptchalib.php');
@@ -72,7 +72,7 @@
                     echo recaptcha_get_html($publickey);
                 ?>
             </td>
-        </tr>
+        </tr-->
     </table>
     <table align="center" border="0">
         <tr>

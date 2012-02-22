@@ -9,7 +9,7 @@ $arr_tree = unserialize($obj_dbtools->SQL_error['apperror_text']);
 
 require('../lib/common/header_externo.php');
 ?>
-<? if($_SESSION['s_perfil_id'] != GERENTEG){ ?>
+<? if($_SESSION['s_perfil_id'] != GERENTEG && $_SESSION['s_perfil_id'] != GERENTES){ ?>
 <div id="div_error">
     <p id="text_error">
         Una condicion inesperada a ocurrido. Nuestro equipo de soporte t&eacute;cnico ha sido notificado. Por favor regrese luego e intente nuevamente.
@@ -22,7 +22,7 @@ require('../lib/common/header_externo.php');
     <p id="text_error2">
         Una condicion inesperada a ocurrido. Nuestro equipo de soporte t&eacute;cnico ha sido notificado. Por favor regrese luego e intente nuevamente.
         <?
-        if (($_SESSION['s_perfil_id'] == GERENTEG) && (DEBUG && DEBUG != 0)) {
+        if (($_SESSION['s_perfil_id'] == GERENTEG || $_SESSION['s_perfil_id'] == GERENTES) && (DEBUG && DEBUG != 0)) {
             echo "<br /><br /><a href=\"#\" onClick=\"document.getElementById('detalle_error').style.display='block';\"  ><strong>Mostrar Error</strong></a>";
         }
         ?>
@@ -30,7 +30,7 @@ require('../lib/common/header_externo.php');
     <div class="detalle_error" id="detalle_error">
         <div id="info_query">
             <?
-            if (($_SESSION['s_perfil_id'] == GERENTEG) && (DEBUG && DEBUG != 0)) {
+            if (($_SESSION['s_perfil_id'] == GERENTEG || $_SESSION['s_perfil_id'] == GERENTES) && (DEBUG && DEBUG != 0)) {
                 for ($i = 0, $max = count($arr_tree); $i < $max; $i++) {
                     ?>
                     <div class="err_child">

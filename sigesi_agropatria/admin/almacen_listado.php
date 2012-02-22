@@ -102,6 +102,7 @@
             <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
             <th>Centro de Acopio</th>
             <? } ?>
+            <th>C&oacute;digo</th>
             <th>Nombre</th>
             <th>Pa&iacute;s</th>
             <th>Estado</th>
@@ -127,6 +128,7 @@
             <td align="center">-</td>
             <td align="center">-</td>
             <td align="center">-</td>
+            <td align="center">-</td>
             <? if($_SESSION['s_perfil_id'] == GERENTES){ ?>
             <td align="center">-</td>
             <? } ?>
@@ -139,6 +141,7 @@
                 <? }else{ ?>
                 <td>&nbsp;</td>
                 <? } ?>
+                <td align="center"><?=$dataAlmacen['codigo']?></td>
                 <td><?=$dataAlmacen['nombre']?></td>
                 <td align="center"><?=$dataAlmacen['pais']?></td>
                 <td align="center"><?=$dataAlmacen['estado']?></td>
@@ -166,6 +169,3 @@
 <?
     require('../lib/common/footer.php');
 ?>
-<script type="text/javascript">
-    
-</script>
