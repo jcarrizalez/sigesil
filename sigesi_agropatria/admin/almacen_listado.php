@@ -133,7 +133,7 @@
         </tr>
         <tbody id="tbodyPN_<?php echo $i?>" style="display:none">
             <? foreach($listadoAlmacenes as $dataAlmacen) { ?>
-            <tr>
+            <tr class="terceraclase">
                 <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
                 <td colspan="2">&nbsp;</td>
                 <? }else{ ?>

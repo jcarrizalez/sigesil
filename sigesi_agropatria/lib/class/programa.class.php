@@ -13,9 +13,9 @@ class Programa extends Model {
                     FROM si_programa pro
                     INNER JOIN si_centro_acopio ca ON ca.id = pro.id_centro_acopio
                     WHERE '1'";
-        $query.=(!empty($id)) ? " AND pro.id = $id" : '';
-        $query.=(!empty($idCA)) ? " AND pro.id_centro_acopio = $idCA" : '';
-        $query.= " ORDER BY pro.numero";
+        $query.=(!empty($id)) ? " AND pro.id = '$id'" : '';
+        $query.=(!empty($idCA)) ? " AND pro.id_centro_acopio = '$idCA'" : '';
+        $query.= " ORDER BY ca.id, pro.numero";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
