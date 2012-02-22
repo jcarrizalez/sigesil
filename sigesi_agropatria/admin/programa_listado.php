@@ -75,7 +75,7 @@
                 <th>Centro de Acopio</th>
             <? } ?>
             <th>Programa Nro</th>
-            <th>Programa</th>
+            <th>Nombre</th>
             <th>Fecha Inicio</th>
             <th>Fecha Fin</th>
             <th>Acci&oacute;n</th>

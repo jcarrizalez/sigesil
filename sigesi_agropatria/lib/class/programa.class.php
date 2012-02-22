@@ -15,6 +15,7 @@ class Programa extends Model {
                     WHERE '1'";
         $query.=(!empty($id)) ? " AND pro.id = $id" : '';
         $query.=(!empty($idCA)) ? " AND pro.id_centro_acopio = $idCA" : '';
+        $query.= " ORDER BY pro.numero";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     

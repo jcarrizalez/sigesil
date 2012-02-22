@@ -14,21 +14,31 @@
         case 'guardar':
             if(!empty($GPC['Programa']['nombre']) && !empty($GPC['Programa']['estatus']) && !empty($GPC['Cosecha1']['nombre']) && !empty($GPC['Cosecha1']['id_cultivo'])){
                 $GPC['Programa']['id_centro_acopio'] = $_SESSION['s_ca_id'];
+                $programa->_begin_tool();
+                
                 $programa->save($GPC['Programa']);
                 $programaID = $programa->id;
                 
-                for($i=1;$i<=$GPC['numeroCosecha'];$i++){
-                    $total = "Cosecha".$i;
-                    $GPC[$total]['id_programa'] = $programaID;
-                    $GPC[$total]['estatus'] = 't';
-                    $cosecha->save($GPC[$total]);
-                    $cosecha->id = null;
+                if(!empty($programaID)){
+                    for($i=1;$i<=$GPC['numeroCosecha'];$i++){
+                        $total = "Cosecha".$i;
+                        $GPC[$total]['id_programa'] = $programaID;
+                        $GPC[$total]['estatus'] = 't';
+                        $cosecha->save($GPC[$total]);
+                        if(empty($cosecha->id))
+                            break;
+                        $idCosecha[] = $cosecha->id;
+                        $cosecha->id = null;
+                    }
                 }
                 
-                if(!empty($programaID)){
+                if(!empty($programaID) && ($GPC['numeroCosecha'] == count($idCosecha))){
+                    //SI TODO BIEN GUARDO
+                    $programa->_commit_tool();
                     header("location: programa_listado.php?msg=exitoso");
                     die();
                 }else{
+                    //SI ALGO SALIO MAL, DEVUELVO TODAS LAS TRANSACCIONES
                     header("location: programa_listado.php?msg=error");
                     die();
                 }
@@ -120,7 +130,7 @@ $validator->printScript();
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
     <? echo $html->input('Programa.id', $infoCA[0]['id'], array('type' => 'hidden'));?>
-    <? echo $html->input('numeroCosecha', 1, array('type' => 'text'));?>
+    <? echo $html->input('numeroCosecha', 1, array('type' => 'hidden'));?>
     <div id="titulo_modulo">
         NUEVO PROGRAMA<br/><hr/>
     </div>
