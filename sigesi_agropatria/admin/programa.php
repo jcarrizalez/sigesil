@@ -10,10 +10,9 @@
     
     switch($GPC['ac']){
         case 'guardar':
-            if(!empty($GPC['Programa']['codigo']) && !empty($GPC['Programa']['nombre']) && !empty($GPC['Programa']['estatus']) && !empty($GPC['Cosecha1']['nombre']) && !empty($GPC['Cosecha1']['id_cultivo'])){
+            if(!empty($GPC['Programa']['codigo']) && !empty($GPC['Programa']['nombre']) && !empty($GPC['Programa']['estatus']) && !empty($GPC['Cosecha1']['codigo']) && !empty($GPC['Cosecha1']['id_cultivo'])){
                 $GPC['Programa']['id_centro_acopio'] = $_SESSION['s_ca_id'];
                 $programa->_begin_tool();
-                
                 $programa->save($GPC['Programa']);
                 $programaID = $programa->id;
                 
@@ -31,12 +30,10 @@
                 }
                 
                 if(!empty($programaID) && ($GPC['numeroCosecha'] == count($idCosecha))){
-                    //SI TODO BIEN GUARDO
                     $programa->_commit_tool();
                     header("location: programa_listado.php?msg=exitoso");
                     die();
                 }else{
-                    //SI ALGO SALIO MAL, DEVUELVO TODAS LAS TRANSACCIONES
                     header("location: programa_listado.php?msg=error");
                     die();
                 }
@@ -70,9 +67,9 @@ $validator->printScript();
             filaId = $('#numeroCosecha').val();
             if(filaId<= <?=COSECHAS_PROGRAMA?>){
                 var infoCosecha = "<fieldset id='cosecha_"+filaId+"'><legend class='titulo_leyenda'>Datos de la Cosecha #"+filaId+" <img src='../images/eliminar2.png' width='16' height='16' title='Eliminar' style='cursor: pointer;' onclick='eliminarFila("+filaId+");'></legend><table align='center' width='100%'><tr><td><table align='center' cellpadding='0' cellspacing='0'>";
-                infoCosecha +="<tr><td><span class='msj_rojo'>* </span>C&oacute;digo: </td><td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+"[codigo]' id='Cosecha"+filaId+"[codigo]'></td></tr>";
+                infoCosecha +="<tr><td><span class='msj_rojo'>* </span>C&oacute;digo: </td><td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+"[codigo]' id='Cosecha"+filaId+"[codigo]' readOnly=''></td></tr>";
                 infoCosecha +="<tr><td>Nombre: </td><td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+"[nombre]' id='Cosecha"+filaId+"[nombre]'></td></tr>";
-                infoCosecha +="<tr><td><span class='msj_rojo'>* </span>Cultivo: </td><td><select class='inputGrilla' name='Cosecha"+filaId+"[id_cultivo]' id='Cosecha"+filaId+"[id_cultivo]'><option value=''> Seleccione </option>";
+                infoCosecha +="<tr><td><span class='msj_rojo'>* </span>Cultivo: </td><td><select class='inputGrilla' name='Cosecha"+filaId+"[id_cultivo]' id='Cosecha"+filaId+"[id_cultivo]' onChange='generarCodigo("+filaId+");'><option value=''> Seleccione </option>";
                 var array_js = new Array();
 	        <?php
                     foreach($listaCultivos as $indice=>$valor){
@@ -121,6 +118,13 @@ $validator->printScript();
         });
     });
     
+    function generarCodigo(id){
+        var cultivo = parseInt(document.getElementById('Cosecha'+id+'[id_cultivo]').value);
+        if(cultivo < 10)
+            cultivo = '0'+cultivo;
+        document.getElementById('Cosecha'+id+'[codigo]').value = <?=date('Y')?>+cultivo;
+    }
+    
     function eliminarFila(fila){
         $("#cosecha_"+fila).remove();	
         $('#numeroCosecha').val(parseInt($('#numeroCosecha').val())-1);
@@ -165,7 +169,7 @@ $validator->printScript();
                 <table align="center" border="0" cellpadding="0" cellspacing="0">
                         <tr>
                             <td><span class="msj_rojo">* </span>C&oacute;digo: </td>
-                            <td><?=$html->input('Cosecha1.codigo', '', array('type' => 'text', 'class' => 'inputGrilla'));?></td>
+                            <td><?=$html->input('Cosecha1.codigo', '', array('type' => 'text', 'class' => 'inputGrilla', 'readOnly' => true));?></td>
                         </tr>
                         <tr>
                             <td>Nombre: </td>
@@ -173,7 +177,7 @@ $validator->printScript();
                         </tr>
                         <tr>
                             <td><span class="msj_rojo">* </span>Cultivo: </td>
-                            <td><? echo $html->select('Cosecha1.id_cultivo',array('options'=>$listaCultivos, 'default'=>' Seleccione ', 'class' => 'inputGrilla'))?></td>
+                            <td><? echo $html->select('Cosecha1.id_cultivo',array('options'=>$listaCultivos, 'default'=>' Seleccione ', 'class' => 'inputGrilla', 'onChange' => "generarCodigo(1);"))?></td>
                         </tr>
                         <tr>
                             <td>Proyectado: </td>

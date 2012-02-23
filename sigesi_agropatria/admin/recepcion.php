@@ -1,39 +1,36 @@
 <?
     require_once('../lib/core.lib.php');
     
-    $organizacion = new Organizacion();
-    $div_pol = new DivPol();
+    $cosecha = new Cosecha();
     
-    $paises = $div_pol->obtenerPais();
-    foreach($paises as $campo => $valor){
-        $listaP[$valor['id']] = $valor['nombre'];
+    $idCA = $_SESSION['s_ca_id'];
+    
+    $listadoCosechas = $cosecha->infoCosechaCultivo($idCA, null, null, null, null, null, null);
+    
+    foreach($listadoCosechas as $valor){
+        $listadoC[$valor['cosecha_id']] = "(".$valor['cosecha_codigo'].") ".$valor['cultivo_nombre'];
     }
-    $estados = $div_pol->obtenerEstado();
-    foreach($estados as $campo => $valor){
-        $listaE[$valor['id']] = $valor['nombre'];
-    }
-    $estatus = array('t' => 'Activa', 'f' => 'Inactiva');
     
     switch($GPC['ac']){
         case 'guardar':
             if(!empty($GPC['Org']['nombre'])){
-                $GPC['Org']['id_estado'] = $GPC['id_estado'];
-                $GPC['Org']['id_municipio'] = $GPC['id_municipio'];
-                $organizacion->save($GPC['Org']);
+                $GPC['Recepcion']['id_estado'] = $GPC['id_estado'];
+                $GPC['Recepcion']['id_municipio'] = $GPC['id_municipio'];
+                $organizacion->save($GPC['Recepcion']);
                 $id = $organizacion->id;
                 
                 if(!empty($id)){
-                    header("location: organizacion_listado.php?msg=exitoso");
+                    header("location: recepcion_listado.php?msg=exitoso");
                     die();
                 }else{
-                    header("location: organizacion_listado.php?msg=error");
+                    header("location: recepcion_listado.php?msg=error");
                     die();
                 }
             }
         break;
         case 'editar':
-            $infoOrg = $organizacion->find(array('id' => $GPC['id']));
-            $listaMcpos = $div_pol->obtenerMcpo('', $infoOrg[0]['id_estado']);
+            $infoRec = $organizacion->find(array('id' => $GPC['id']));
+            $listaMcpos = $div_pol->obtenerMcpo('', $infoRec[0]['id_estado']);
             foreach($listaMcpos as $dataMcpo){
                 $listaM[$dataMcpo['id']] = $dataMcpo['nombre'];
             }
@@ -44,66 +41,75 @@
     
 $validator = new Validator('form1');
 $validator->printIncludes();
-$validator->setRules('Org.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('Org.id_pais', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Recepcion.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Recepcion.id_pais', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('id_estado', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('id_municipio', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->printScript();
 ?>
 <script type="text/javascript">
     function cancelar(){
-        window.location = 'organizacion_listado.php';
+        window.location = 'recepcion_listado.php';
     }
     
     $(document).ready(function(){
-        $('#id_estado').change(function(){
-            $('#id_municipio').load('../ajax/division_pol.php?ac=mcpos&idE=' + $(this).val());
+        $('#Recepcion\\[id_cosecha\\]').change(function(){
+            $('#nrocosecha').load('../ajax/cosecha_programa.php?ac=cantidad&idCo='+$(this).val());
         });
     });
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
-    <? echo $html->input('Org.id', $infoOrg[0]['id'], array('type' => 'hidden'));?>
+    <? echo $html->input('Recepcion.id', $infoRec[0]['id'], array('type' => 'hidden'));?>
     <div id="titulo_modulo">
         NUEVA RECEPCI&Oacute;N<br/><hr/>
     </div>
+    <table align="center" border="0" width="100%">
+        <tr>
+            <td colspan="2">Entrada Nro: <div id="nrocosecha"></div></td>
+        </tr>
+        <tr>
+            <td><span class="msj_rojo">* </span>Cosecha: </td>
+            <td><? echo $html->select('Recepcion.id_cosecha',array('options'=>$listadoC, 'default' => 'Seleccione'))?></td>
+        </tr>
+    </table>
     <fieldset>
         <legend>Datos de la Gu&iacute;a</legend>
         <table align="center">
             <tr>
-                <td><span class="msj_rojo">* </span>Agencia Origen: </td>
-                <td><? echo $html->input('Org.codigo', $infoOrg[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><span class="msj_rojo">* </span>N&uacute;mero de Gu&iacute;a: </td>
+                <td><? echo $html->input('Recepcion.nombre', $infoRec[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
-                <td>N&uacute;mero de Gu&iacute;a: </td>
-                <td><? echo $html->input('Org.nombre', $infoOrg[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><span class="msj_rojo">* </span>Agencia Origen: </td>
+                <td><? echo $html->input('Recepcion.codigo', $infoRec[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td>Fecha de Emisi&oacute;n: </td>
-                <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><? echo $html->input('Recepcion.direccion', $infoRec[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td>N&uacute;mero de Contrato: </td>
-                <td><? echo $html->input('Org.rif', $infoOrg[0]['rif'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><? echo $html->input('Recepcion.rif', $infoRec[0]['rif'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td>Disponible a Recibir: </td>
-                <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><? echo $html->input('Recepcion.direccion', $infoRec[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td>C&eacute;dula/Rif Productor: </td>
-                <td><? echo $html->input('Org.telefono', $infoOrg[0]['telefono'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><? echo $html->input('Recepcion.telefono', $infoRec[0]['telefono'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td>Productor Asociado: </td>
-                <td><? echo $html->input('Org.email', $infoOrg[0]['email'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><? echo $html->input('Recepcion.email', $infoRec[0]['email'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td>Cultivo: </td>
-                <td><? echo $html->input('Org.fax', $infoOrg[0]['fax'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><? echo $html->input('Recepcion.fax', $infoRec[0]['fax'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td>Kilogramos Gu&iacute;a: </td>
-                <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><? echo $html->input('Recepcion.direccion', $infoRec[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
         </table>
     </fieldset>
@@ -112,19 +118,19 @@ $validator->printScript();
         <table align="center">
             <tr>
                 <td>Placa Veh&iacute;culo: </td>
-                <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><? echo $html->input('Recepcion.direccion', $infoRec[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td>Marca: </td>
-                <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><? echo $html->input('Recepcion.direccion', $infoRec[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td>Placa Remolque: </td>
-                <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><? echo $html->input('Recepcion.direccion', $infoRec[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td>C&eacute;dula Chofer: </td>
-                <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><? echo $html->input('Recepcion.direccion', $infoRec[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
         </table>
     </fieldset>
@@ -133,19 +139,19 @@ $validator->printScript();
         <table align="center">
             <tr>
                 <td>Centro Receptor: </td>
-                <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><? echo $html->input('Recepcion.direccion', $infoRec[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td>Fecha de Recepci&oacute;n: </td>
-                <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><? echo $html->input('Recepcion.direccion', $infoRec[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td>Hora Recepci&oacute;n: </td>
-                <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><? echo $html->input('Recepcion.direccion', $infoRec[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td>Carril de Muestreo: </td>
-                <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><? echo $html->input('Recepcion.direccion', $infoRec[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
