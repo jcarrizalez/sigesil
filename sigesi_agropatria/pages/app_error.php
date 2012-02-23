@@ -14,7 +14,7 @@ require('../lib/common/header_externo.php');
     <p id="text_error">
         Una condicion inesperada a ocurrido. Nuestro equipo de soporte t&eacute;cnico ha sido notificado. Por favor regrese luego e intente nuevamente.
         <br/><br/>
-        <a href="cerrar_sesion.php" title="Inicio"><strong>INCIO</strong></a>
+        <a href="cerrar_sesion.php" title="Inicio"><strong>INICIO</strong></a>
     </p>
 </div>
 <? }else{ ?>
