@@ -422,3 +422,7 @@ form fieldset legend{
 .inputGrilla{
     width: 200px;
 }
+
+.cuadricula {
+    width: 50px;    
+}
