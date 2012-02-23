@@ -66,79 +66,97 @@ $validator->printScript();
     <div id="titulo_modulo">
         NUEVA RECEPCI&Oacute;N<br/><hr/>
     </div>
+    <fieldset>
+        <legend>Datos de la Gu&iacute;a</legend>
+        <table align="center">
+            <tr>
+                <td><span class="msj_rojo">* </span>Agencia Origen: </td>
+                <td><? echo $html->input('Org.codigo', $infoOrg[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            </tr>
+            <tr>
+                <td>N&uacute;mero de Gu&iacute;a: </td>
+                <td><? echo $html->input('Org.nombre', $infoOrg[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            </tr>
+            <tr>
+                <td>Fecha de Emisi&oacute;n: </td>
+                <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            </tr>
+            <tr>
+                <td>N&uacute;mero de Contrato: </td>
+                <td><? echo $html->input('Org.rif', $infoOrg[0]['rif'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            </tr>
+            <tr>
+                <td>Disponible a Recibir: </td>
+                <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            </tr>
+            <tr>
+                <td>C&eacute;dula/Rif Productor: </td>
+                <td><? echo $html->input('Org.telefono', $infoOrg[0]['telefono'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            </tr>
+            <tr>
+                <td>Productor Asociado: </td>
+                <td><? echo $html->input('Org.email', $infoOrg[0]['email'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            </tr>
+            <tr>
+                <td>Cultivo: </td>
+                <td><? echo $html->input('Org.fax', $infoOrg[0]['fax'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            </tr>
+            <tr>
+                <td>Kilogramos Gu&iacute;a: </td>
+                <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            </tr>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>Datos del Veh&iacute;culo</legend>
+        <table align="center">
+            <tr>
+                <td>Placa Veh&iacute;culo: </td>
+                <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            </tr>
+            <tr>
+                <td>Marca: </td>
+                <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            </tr>
+            <tr>
+                <td>Placa Remolque: </td>
+                <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            </tr>
+            <tr>
+                <td>C&eacute;dula Chofer: </td>
+                <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            </tr>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>Datos de la Recepci&oacute;n</legend>
+        <table align="center">
+            <tr>
+                <td>Centro Receptor: </td>
+                <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            </tr>
+            <tr>
+                <td>Fecha de Recepci&oacute;n: </td>
+                <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            </tr>
+            <tr>
+                <td>Hora Recepci&oacute;n: </td>
+                <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            </tr>
+            <tr>
+                <td>Carril de Muestreo: </td>
+                <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+        </table>
+    </fieldset>
     <table align="center">
-        <tr>
-            <td><span class="msj_rojo">* </span>Agencia Origen: </td>
-            <td><? echo $html->input('Org.codigo', $infoOrg[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-        </tr>
-        <tr>
-            <td>N&uacute;mero de Gu&iacute;: </td>
-            <td><? echo $html->input('Org.nombre', $infoOrg[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-        </tr>
-        <tr>
-            <td>Fecha de Emisi&oacute;n: </td>
-            <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-        </tr>
-        <tr>
-            <td>N&uacute;mero de Contrato: </td>
-            <td><? echo $html->input('Org.rif', $infoOrg[0]['rif'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-        </tr>
-        <tr>
-            <td>Disponible a Recibir: </td>
-            <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-        </tr>
-        <tr>
-            <td>C&eacute;dula/Rif Productor: </td>
-            <td><? echo $html->input('Org.telefono', $infoOrg[0]['telefono'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-        </tr>
-        <tr>
-            <td>Productor Asociado: </td>
-            <td><? echo $html->input('Org.email', $infoOrg[0]['email'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-        </tr>
-        <tr>
-            <td>Cultivo: </td>
-            <td><? echo $html->input('Org.fax', $infoOrg[0]['fax'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-        </tr>
-        <tr>
-            <td>Kilogramos Gu&iacute;: </td>
-            <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-        </tr>
-        <tr>
-            <td>Placa Veh&iacute;culo: </td>
-            <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-        </tr>
-        <tr>
-            <td>Marca: </td>
-            <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-        </tr>
-        <tr>
-            <td>Placa Remolque: </td>
-            <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-        </tr>
-        <tr>
-            <td>C&eacute;dula Chofer: </td>
-            <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-        </tr>
-        <tr>
-            <td>Centro Receptor: </td>
-            <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-        </tr>
-        <tr>
-            <td>Fecha de Recepci&oacute;n: </td>
-            <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-        </tr>
-        <tr>
-            <td>Hora Recepci&oacute;n: </td>
-            <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-        </tr>
-        <tr>
-            <td>Carril de Muestreo: </td>
-            <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-        </tr>
         <tr>
             <td>&nbsp;</td>
         </tr>
-        <tr align="center">
+        <tr>
             <td colspan="2">
                 <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
                 <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick'=>'cancelar()')); ?>

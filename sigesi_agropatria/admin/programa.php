@@ -134,7 +134,7 @@ $validator->printScript();
         NUEVO PROGRAMA<br/><hr/>
     </div>
     <fieldset>
-        <legend class="titulo_leyenda">Datos del Programa</legend>
+        <legend>Datos del Programa</legend>
         <table align="center">
             <tr>
                 <td><span class="msj_rojo">* </span>C&oacute;digo: </td>
@@ -154,11 +154,11 @@ $validator->printScript();
             </tr>
         </table>
     </fieldset>
-    <div id="botones">
+    <div id="botones2">
         <? echo $html->input('Agregar', 'Agregar Cosecha', array('type' => 'button')); ?>
     </div>
     <fieldset>
-        <legend class="titulo_leyenda">Datos de la Cosecha #1</legend>
+        <legend>Datos de la Cosecha #1</legend>
         <table align="center" border="0" width="100%">
             <tr>
                 <td>

@@ -333,6 +333,11 @@ img{
     margin-bottom: 15px;
 }
 
+#botones2{
+    text-align: right;
+    padding-top: 15px;
+}
+
 #mensajes{
     text-align: center;
     font-size: 16px;
@@ -396,8 +401,22 @@ img{
     padding:2px;
 }
 
-.titulo_leyenda{
-    font-weight: bold;
+form fieldset{
+    border-width:2px;
+    border-style:solid;
+    border-color:#000000;
+}
+
+form fieldset legend{
+    font-size: 14px;
+    color: #FFFFFF;
+    font-weight:bold;
+    background-color:#C8131B;
+    border-width:2px;
+    border-style:solid;
+    border-color:#333333;
+    padding:2px 5px;
+    margin:10px 0px 10px 0px;
 }
 
 .inputGrilla{
