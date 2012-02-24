@@ -426,3 +426,11 @@ form fieldset legend{
 .cuadricula {
     width: 50px;    
 }
+
+#nrocosecha{
+    font-weight: bold;
+}
+
+.crproductor{
+    width: 142px;
+}

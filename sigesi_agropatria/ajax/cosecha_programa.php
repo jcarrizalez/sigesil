@@ -19,7 +19,7 @@
             if(!empty($GPC['idCo'])){
                 $recepcion = new Recepcion();
                 $cantRecepcion = $recepcion->recepcionesDia($_SESSION['s_ca_id'], $GPC['idCo']);
-                echo $cantRecepcion[0]['total'];
+                echo "Entrada Nro: ".++$cantRecepcion[0]['total'];
             }
         break;
     }

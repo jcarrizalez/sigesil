@@ -24,5 +24,18 @@
                 echo '<div id="perfiles">'.$html->select('perfil',array('options'=>$listaPerfiles, 'selected' => $infoUsuario[0]['perfil'], 'default' => 'Seleccione')).'</div>';
             }
         break;
+        case 'productor':
+            $listaN = array('V' => 'V', 'E' => 'E');
+            $listaR = array('V' => 'V', 'E' => 'E', 'J' => 'J');
+            if($GPC['valor'] == '1'){
+                echo $html->select('nacion',array('options'=>$listaN));
+                echo "&nbsp;".$html->input('Guia.cedula_productor', '',array('type' => 'text', 'class' => 'crproductor'));
+                echo $html->link('<img src="../images/buscar.png" width="16" height="16" title=Buscar Productor>', 'recepcion.php?ac=buscarPro');
+            }else{
+                echo $html->select('nacion',array('options'=>$listaR));
+                echo "&nbsp;".$html->input('Guia.rif_productor', '', array('type' => 'text', 'class' => 'crproductor'));
+                echo $html->link('<img src="../images/buscar.png" width="16" height="16" title=Buscar Productor>', 'recepcion.php?ac=buscarPro');
+            }
+        break;
     }
 ?>
