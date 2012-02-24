@@ -69,11 +69,12 @@ class Usuario extends Model {
     }
 
     function obtenerDetalleUsuarios($idUsuario = null, $idPerfil = null, $usuario = null, $orden = null, $min = '', $max = '', $nombre = null, $sexo = null, $statusU = 't', $statusCA = 't') {
-        $query = "SELECT DISTINCT (u.id), u.nombre, u.apellido, u.cedula, u.fecha_nacimiento, u.sexo, u.direccion, u.telefono, u.email, u.usuario, u.contrasena, u.creado, u.modificado, ca.id AS id_ca, ca.codigo AS codigo_ca, ca.nombre AS nombre_ca, al.id AS id_al, up.id AS id_u_p, up.id_perfil, p.nombre_perfil
+        $query = "SELECT DISTINCT (u.id), u.nombre, u.apellido, u.cedula, u.fecha_nacimiento, u.sexo, u.direccion, u.telefono, u.email, u.usuario, u.contrasena, u.creado, u.modificado, org.id AS id_org, org.codigo AS codigo_org, org.nombre AS nombre_org, ca.id AS id_ca, ca.codigo AS codigo_ca, ca.nombre AS nombre_ca, al.id AS id_al, up.id AS id_u_p, up.id_perfil, p.nombre_perfil
                     FROM si_usuarios u
                     INNER JOIN si_usuarios_perfiles up ON up.id_usuario = u.id
                     LEFT OUTER JOIN si_almacenes al ON al.id = up.id_almacen
                     LEFT OUTER JOIN si_centro_acopio ca ON ca.id = al.id_centro_acopio
+                    LEFT OUTER JOIN si_organizacion org ON org.id = ca.id_org
                     INNER JOIN si_perfiles p ON p.id = up.id_perfil
                     WHERE '1'";
         if (!empty($idUsuario))
@@ -143,6 +144,9 @@ class Usuario extends Model {
             $this->actualizarUsuarioConectado($arr_user['id']);
 
             $_SESSION['s_perfil_id'] = $arr_detail[0]['id_perfil'];
+            $_SESSION['s_org_id'] = $arr_detail[0]['id_org'];
+            $_SESSION['s_org_codigo'] = $arr_detail[0]['codigo_org'];
+            $_SESSION['s_org_nombre'] = $arr_detail[0]['nombre_org'];
             $_SESSION['s_ca_id'] = $arr_detail[0]['id_ca'];
             $_SESSION['s_ca_codigo'] = $arr_detail[0]['codigo_ca'];
             $_SESSION['s_ca_nombre'] = $arr_detail[0]['nombre_ca'];

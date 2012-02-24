@@ -13,6 +13,7 @@ body{
     text-align: justify;
     background-color: #E9E8E8;
     background-image: url('../images/old_paper.jpg');
+    /*text-transform: uppercase;*/
 }
 
 input, textarea, select{
@@ -432,5 +433,5 @@ form fieldset legend{
 }
 
 .crproductor{
-    width: 142px;
+    width: 135px;
 }

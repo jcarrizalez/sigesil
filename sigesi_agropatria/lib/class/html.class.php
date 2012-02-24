@@ -63,7 +63,8 @@ class Html{
     
     function link($name = 'link',$url = '#',$options=array()){
         $output = '<a ';
-        if($url != '#')	$output .= 'href="'.$url.'" ';
+        $output .= 'href="'.$url.'" ';
+        //if($url != '#')	$output .= 'href="'.$url.'" ';
         foreach($options as $attribute => $value)
             $output .= $attribute.'="'.$value.'" ';		
         $output .= '>'.$name.'</a>';
