@@ -38,5 +38,11 @@ class Cosecha extends Model {
         $query .= " ORDER BY pr.creado, cu.codigo";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
+    
+    function guardarProductorCosecha($idCo, $idCa, $idPr, $aso){
+        $query = "INSERT INTO si_cosecha_productor (id_cosecha, id_centro_acopio, id_productor, asociado)
+                    VALUES ('$idCo', '$idCa', '$idPr', '$aso')";
+        return $this->_SQL_tool('INSERT', __METHOD__, $query);
+    }
 }
 ?>

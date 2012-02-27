@@ -26,10 +26,13 @@
             $GPC['Guia']['id_usuario'] = $_SESSION['s_id'];
             $GPC['Guia']['estatus'] = 'A';
             $GPC['Guia']['cedula_chofer'] = $GPC['nacion3'].$GPC['Guia']['cedula_chofer'];
+            $GPC['Productor']['ced_rif'] = $GPC['nacion'].$GPC['Productor']['ced_rif'];
+            $GPC['Asociado']['ced_rif'] = $GPC['nacion2'].$GPC['Asociado']['ced_rif'];
             $GPC['Recepcion']['id_usuario'] = $_SESSION['s_id'];
             $GPC['Recepcion']['estatus_rec'] = 'A';
             $GPC['Recepcion']['id_centro_acopio'] = $_SESSION['s_ca_id'];
             $GPC['Recepcion']['id_silo'] = 2;
+            
             $recepcion->_begin_tool();
             
             $guia->save($GPC['Guia']);
@@ -41,10 +44,13 @@
                 $asociado->save($GPC['Asociado']);
                 $idAsociado = $asociado->id;
             }
+            $aso = (!empty($idAsociado)) ? 't' : 'f';
+            $cosecha->guardarProductorCosecha($GPC['Recepcion']['id_cosecha'], $idCA, $idProductor, $aso);
             $vehiculo->save($GPC['Vehiculo']);
             $idVehiculo = $vehiculo->id;
             $GPC['Recepcion']['id_productor'] = $idProductor;
             $GPC['Recepcion']['id_guia'] = $idGuia;
+            $GPC['Recepcion']['id_vehiculo'] = $idVehiculo;
             if(!empty($idAsociado)){
                 $GPC['Recepcion']['id_asociado'] = $idAsociado;
             }
@@ -67,7 +73,7 @@
     
 $validator = new Validator('form1');
 $validator->printIncludes();
-$validator->setRules('id_cosecha', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Recepcion.id_cosecha', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Guia.numero_guia', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros')));
 $validator->setRules('Guia.fecha_emision', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Guia.kilogramos', array('required' => array('value' => true, 'message' => 'Requerido'), 'number' => array('value' => true, 'message' => 'Solo N&uacute;meros')));
@@ -79,7 +85,6 @@ $validator->setRules('Asociado.ced_rif', array('digits' => array('value' => true
 $validator->setRules('Guia.cedula_chofer', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros')));
 $validator->setRules('Guia.nombre_chofer', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Vehiculo.placa', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('Vehiculo.placa_remolques', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Recepcion.carril', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Recepcion.cant_muestras', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->printScript();
@@ -144,7 +149,7 @@ $validator->printScript();
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
     <div id="titulo_modulo">
-        NUEVA RECEPCI&Oacute;N<br/><hr/>
+        RECEPCI&Oacute;N<br/><hr/>
     </div>
     <div id="mensajes">
         <?
@@ -200,11 +205,11 @@ $validator->printScript();
                         </script>
                     </td>
                 </tr>
-                <tr>
+                <!--tr>
                     <td>N&uacute;mero de Contrato: </td>
                     <td><? echo $html->input('Guia.contrato', $infoGuia[0]['contrato'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
-                <!--tr>
+                <tr>
                     <td>Disponible a Recibir: </td>
                     <td><? echo $html->input('Guia.direccion', $infoGuia[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
@@ -301,7 +306,7 @@ $validator->printScript();
                 <td><? echo $html->input('Vehiculo.marca', $infoVehiculo[0]['marca'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
-                <td><span class="msj_rojo">* </span>Placa Remolque: </td>
+                <td>Placa Remolque: </td>
                 <td><? echo $html->input('Vehiculo.placa_remolques', $infoVehiculo[0]['remolque'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
         </table>
