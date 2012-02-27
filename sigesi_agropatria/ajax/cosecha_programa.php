@@ -19,7 +19,9 @@
             if(!empty($GPC['idCo'])){
                 $recepcion = new Recepcion();
                 $cantRecepcion = $recepcion->recepcionesDia($_SESSION['s_ca_id'], $GPC['idCo']);
-                echo "Entrada Nro: ".++$cantRecepcion[0]['total'];
+                $numeroRecepcion = ++$cantRecepcion[0]['total'];
+                echo "Entrada Nro: ".$numeroRecepcion;
+                echo $html->input('Recepcion.numero', $numeroRecepcion, array('type' => 'hidden', 'class' => 'estilo_campos'));
             }
         break;
     }

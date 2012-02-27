@@ -5,9 +5,10 @@ $Rec=new Recepcion();
 
 //print_r($Rec);
 
-$idCA=$_SESSION['s_ca_id'];
-
-$idORG=$_SESSION['s_org_id'];
+if($_SESSION['s_perfil_id'] == GERENTEG)
+    $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : null;
+else
+    $idCA = $_SESSION['s_ca_id'];
 
 $listadoRec=$Rec->listadoAnalisis(null,$idCA);
 
@@ -51,7 +52,7 @@ require('../lib/common/header.php');
             <td align="center">
                 <?
                     echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Nuevo>', 'analisis_recepcion.php?ac=nuevo&id='.$dataREC['id_rec'].'&cant_muestras='.$dataREC['cant_muestras']);
-                    echo $html->link('<img src="../images/claudita_printer.png" width="16" height="16" title=Imprimir>', 'analisis_recepcion.php?ac=imprimir&id='.$dataREC['id_rec']);
+                    echo $html->link('<img src="../images/imprimir.png" width="16" height="16" title=Imprimir>', 'analisis_recepcion.php?ac=imprimir&id='.$dataREC['id_rec']);
                 ?>
             </td>
         </tr>
