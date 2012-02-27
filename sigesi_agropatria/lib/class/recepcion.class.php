@@ -18,19 +18,36 @@ class Recepcion extends Model {
 
     //la funcion listadoAnalisis  busca los analisis por registrar
     function listadoAnalisis($idORG = null, $idCA = null, $idCo = null, $idRec = null, $estatus = null) {
-        $query = "SELECT o.id AS id_org, o.nombre AS nombre_org, ca.id AS id_ca, ca.codigo AS codigo_ca, ca.nombre AS nombre_ca, cul.id AS id_cultivo, cul.codigo AS codigo_cul, cul.nombre AS nombre_cul, rec.id AS id_rec, rec.numero, rec.estatus_rec, rec.fecha_recepcion, rec.cant_muestras
-                    FROM si_recepcion rec 
-                    INNER JOIN si_centro_acopio ca ON rec.id_centro_acopio=ca.id 
-                    INNER JOIN si_cosecha cos ON cos.id=rec.id_cosecha	
-                    INNER JOIN si_cultivo cul ON cul.id=cos.id_cultivo 
-                    INNER JOIN si_organizacion o ON o.id=ca.id_org 
+        $query = "select  o.id as id_org,
+                    o.nombre as nombre_org,
+                    ca.id as id_ca,
+                    ca.codigo as codigo_ca, 
+                    ca.nombre as nombre_ca,
+                    cul.id as id_cultivo,
+                    cul.codigo as codigo_cul,
+                    cul.nombre as nombre_cul,  
+                    rec.id as id_rec,
+                    rec.numero,
+                    rec.estatus_rec,
+                    rec.fecha_recepcion,
+                    rec.cant_muestras,
+                    rec.carril 
+                    from si_recepcion rec 
+                    inner join si_centro_acopio ca
+                    on rec.id_centro_acopio=ca.id 
+                    inner join si_cosecha cos
+                    on cos.id=rec.id_cosecha	
+                    inner join si_cultivo cul
+                    on cul.id=cos.id_cultivo 
+                    inner join si_organizacion o
+                    on o.id=ca.id_org 
                     WHERE '1'";
         $query .= (!empty($idORG)) ? " AND o.id = '$idORG'" : "";
         $query .= (!empty($idCA)) ? " AND ca.id = '$idCA'" : "";
         $query .= (!empty($idCo)) ? " AND cul.id = '$idCo'" : "";
         $query .= (!empty($idRec)) ? " AND rec.id = '$idRec'" : "";
-        $query .= (!empty($estatus)) ? " AND rec.estatus_guia = '$estatus'" : "";
-        $query .= " ORDER BY rec.id";        
+        $query .= (!empty($estatus)) ? " AND rec.estatus_rec = '$estatus'" : "";
+        $query .= " ORDER BY rec.id";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 
@@ -47,31 +64,37 @@ class Recepcion extends Model {
         //$id = $this->_SQL_tool('INSERT', __METHOD__, $query);
         return $this->id = $id;
     }
-    
-    function productorRecepcion($ced_rif){
+
+    function productorRecepcion($ced_rif) {
         $query = "SELECT pro.id, pro.ced_rif AS cedula_pro, pro.nombre AS nombre_pro, pro.telefono AS telefono_pro, pro.email AS email_pro
                     FROM si_productor pro
                     WHERE pro.ced_rif = '$ced_rif'
                     LIMIT 1";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
-    
-    function asociadoRecepcion($ced_rif){
+
+    function asociadoRecepcion($ced_rif) {
         $query = "SELECT aso.id, aso.ced_rif AS cedula_aso, aso.nombre AS nombre_aso, aso.telefono AS telefeno_aso 
                     FROM si_asociado aso
                     WHERE aso.ced_rif = '$ced_rif'
                     LIMIT 1";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
-    
-    function buscarChofer($ced){
+
+    function buscarChofer($ced) {
         $query = "SELECT gui.cedula_chofer, gui.nombre_chofer AS nombre_cho
                     FROM si_guiarec gui
                     WHERE gui.cedula_chofer = '$ced'
                     LIMIT 1";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
-    
+
+    function cambiarEstatus($id, $status) {
+        $query = "UPDATE si_recepcion SET estatus_rec = '$status'";
+        $query .= (!empty($id)) ? " WHERE id = '$id'" : "";
+        return $result = $this->_SQL_tool("UPDATE", __METHOD__, $query);
+    }
+  
     function verificarProAso($idCo, $idCa, $ced_rif){
         $query = "SELECT cp.*
                     FROM si_cosecha_productor cp
@@ -80,6 +103,7 @@ class Recepcion extends Model {
                     LIMIT 1";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
+
 }
 
 ?>

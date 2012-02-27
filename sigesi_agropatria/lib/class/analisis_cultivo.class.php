@@ -13,7 +13,7 @@ class AnalisisCultivo extends Model {
                     WHERE '1'";
         $query .= (!empty($id)) ? " AND a.id = '$id'" : "";        
         $query .= (!empty($idOrg)) ? " AND a.id_org = '$idOrg'" : "";
-        $query .= (!empty($IdCultivo)) ? " AND a.id_cultivo = '$idOrg'" : "";
+        $query .= (!empty($IdCultivo)) ? " AND ac.id_cultivo = '$IdCultivo'" : "";
         $query .= " ORDER BY a.id";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query); 
     }

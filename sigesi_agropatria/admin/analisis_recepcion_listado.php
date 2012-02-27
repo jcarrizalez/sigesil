@@ -3,20 +3,35 @@ require_once('../lib/core.lib.php');
 
 $Rec=new Recepcion();
 
-//print_r($Rec);
+$listaEstatus = array(1 => 'Sin Analizar', 'Analizado', 3, 4, 5, 6, 7, 8, 9);
 
 if($_SESSION['s_perfil_id'] == GERENTEG)
     $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : null;
 else
     $idCA = $_SESSION['s_ca_id'];
 
-$listadoRec=$Rec->listadoAnalisis(null,$idCA);
+$listadoRec=$Rec->listadoAnalisis(null,$idCA,null,null,$GPC['estatus']);
 
 require('../lib/common/header.php');
 ?>
     <div id="titulo_modulo">
-        LISTADO DE RECEPCIONES POR ANALISIS<br/><hr/>
+        RECEPCIONES POR ANALISIS<br/><hr/>
     </div>
+    <div id="filtro">
+        <form name="form1" id="form1" method="GET" action="" enctype="multipart/form-data">
+            <table width="100%">
+                <tr>
+                    <td width="110">Condici&oacute;n:</td>
+                    <td colspan="2">
+                        <?
+                            echo $html->select('estatus',array('options'=>$listaEstatus, 'selected' => $GPC['estatus'], 'default' => 'Seleccione'));
+                            echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
+                        ?>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div><hr/>
     <div id="mensajes">
         <?
             switch($GPC['msg']){
@@ -34,9 +49,9 @@ require('../lib/common/header.php');
             <th>Centro de Acopio</th>            
             <th>Entrada Nro</th>
             <th>C&oacute;digo de Cultivo</th> 
-            <th>Fecha Recepci&oacute;n</th>
-            <th>Muestras</th>
+            <th>Fecha</th>            
             <th>Acci&oacute;n</th>
+            <th>Condici&oacute;n</th>
         </tr>
         <?
             $i=0;
@@ -44,16 +59,26 @@ require('../lib/common/header.php');
             $clase = $general->obtenerClaseFila($i);
         ?>
         <tr class="<?=$clase?>">
-            <td align="center"><?=$dataREC['codigo_ca']?></td>            
+            <td align="center"><?=$dataREC['codigo_ca'].' - '.$dataREC['nombre_ca']?></td>
             <td align="center"><?=$dataREC['numero']?></td>
-            <td align="center"><?=$dataREC['codigo_cul']?></td>
-            <td align="center"><?=$dataREC['fecha_recepcion']?></td>
-            <td align="center"><?=$dataREC['cant_muestras']?></td>
+            <td><?=$dataREC['codigo_cul'].' - '.$dataREC['nombre_cul']?></td>
+            <td align="center"><?=$general->date_sql_screen($dataREC['fecha_recepcion'],false,'es','-')?></td>
             <td align="center">
                 <?
-                    echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Nuevo>', 'analisis_recepcion.php?ac=nuevo&id='.$dataREC['id_rec'].'&cant_muestras='.$dataREC['cant_muestras']);
-                    echo $html->link('<img src="../images/imprimir.png" width="16" height="16" title=Imprimir>', 'analisis_recepcion.php?ac=imprimir&id='.$dataREC['id_rec']);
+                    if ($dataREC['estatus_rec']==1)
+                        echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Nuevo>', 'analisis_recepcion.php?ac=nuevo&id_rec='.$dataREC['id_rec'].'&cant_muestras='.$dataREC['cant_muestras'].'&id_cultivo='.$dataREC['codigo_cul']);
+                    else                        
+                        echo $html->link('<img src="../images/imprimir.png" width="16" height="16" title=Imprimir>', 'analisis_recepcion.php?ac=imprimir&id='.$dataREC['id_rec']);
                 ?>
+            </td>
+            <td align="center">
+                <?
+                    if ($dataREC['estatus_rec']==1)
+                        echo '<img src="../images/deshabilitar.png" width="16" height="16" title="Pendiente">';
+                    else                        
+                        echo '<img src="../images/habilitar.png" width="16" height="16" title="Analizado">';
+                ?>
+                
             </td>
         </tr>
         <? $i++; } ?>
