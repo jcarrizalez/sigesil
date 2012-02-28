@@ -91,7 +91,7 @@ $validator->printScript();
 ?>
 <script type="text/javascript">
     function cancelar(){
-        window.location = 'recepcion_listado.php';
+        window.location = 'recepcion.php';
     }
     
     $(document).ready(function(){

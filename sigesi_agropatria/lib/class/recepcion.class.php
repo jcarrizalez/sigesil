@@ -17,37 +17,18 @@ class Recepcion extends Model {
     }
 
     //la funcion listadoAnalisis  busca los analisis por registrar
-    function listadoAnalisis($idORG = null, $idCA = null, $idCo = null, $idRec = null, $estatus = null) {
-        $query = "select  o.id as id_org,
-                    o.nombre as nombre_org,
-                    ca.id as id_ca,
-                    ca.codigo as codigo_ca, 
-                    ca.nombre as nombre_ca,
-                    cul.id as id_cultivo,
-                    cul.codigo as codigo_cul,
-                    cul.nombre as nombre_cul,  
-                    rec.id as id_rec,
-                    rec.numero,
-                    rec.estatus_rec,
-                    rec.fecha_recepcion,
-                    rec.cant_muestras,
-                    rec.carril 
-                    from si_recepcion rec 
-                    inner join si_centro_acopio ca
-                    on rec.id_centro_acopio=ca.id 
-                    inner join si_cosecha cos
-                    on cos.id=rec.id_cosecha	
-                    inner join si_cultivo cul
-                    on cul.id=cos.id_cultivo 
-                    inner join si_organizacion o
-                    on o.id=ca.id_org 
+    function listadoAnalisis($idCA = null, $idCo = null, $idRec = null, $estatus = null) {
+        $query = "SELECT ca.id AS id_ca, ca.codigo AS codigo_ca, ca.nombre AS nombre_ca, cul.id AS id_cultivo, cul.codigo AS codigo_cul, cul.nombre AS nombre_cul, rec.id AS id_rec, rec.numero, rec.estatus_rec, rec.fecha_recepcion, rec.cant_muestras, rec.carril 
+                    FROM si_recepcion rec
+                    INNER JOIN si_centro_acopio ca ON rec.id_centro_acopio=ca.id
+                    INNER JOIN si_cosecha cos ON cos.id=rec.id_cosecha
+                    INNER JOIN si_cultivo cul ON cul.id=cos.id_cultivo
                     WHERE '1'";
-        $query .= (!empty($idORG)) ? " AND o.id = '$idORG'" : "";
         $query .= (!empty($idCA)) ? " AND ca.id = '$idCA'" : "";
         $query .= (!empty($idCo)) ? " AND cul.id = '$idCo'" : "";
         $query .= (!empty($idRec)) ? " AND rec.id = '$idRec'" : "";
         $query .= (!empty($estatus)) ? " AND rec.estatus_rec = '$estatus'" : "";
-        $query .= " ORDER BY rec.id";
+        $query .= " ORDER BY ca.codigo, cos.id, cul.id, rec.fecha_recepcion, rec.numero";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 

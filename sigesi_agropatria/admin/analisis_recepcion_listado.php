@@ -10,7 +10,7 @@ if($_SESSION['s_perfil_id'] == GERENTEG)
 else
     $idCA = $_SESSION['s_ca_id'];
 
-$listadoRec=$Rec->listadoAnalisis(null,$idCA,null,null,$GPC['estatus']);
+$listadoRec=$Rec->listadoAnalisis($idCA,null,null,$GPC['estatus']);
 
 require('../lib/common/header.php');
 ?>

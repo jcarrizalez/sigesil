@@ -12,15 +12,13 @@ $listadoAnalisis = $analisisCul->buscarAC(null, $IdCultivo, $idORG);
 $cantidad = count($listadoAnalisis);
 
 $Rec = new Recepcion();
-$infoRec = $Rec->listadoAnalisis($idORG, $idCA, $IdCultivo, $id_rec, '1');
+$infoRec = $Rec->listadoAnalisis(null, $IdCultivo, $id_rec);
 //print_r($infoRec);
 
 
 switch ($GPC['ac']) {
     case 'guardar': 
         $analisis = new Analisis();
-        $Rec = new Recepcion();
-        $infoRec = $Rec->listadoAnalisis($idORG, $idCA, $IdCultivo, $id_rec, '1');        
         $analisis->_begin_tool();        
         for ($i = 0; $i < $GPC['cantA']; $i++) {
             $GPC['Resultados']['id_recepcion'] = $GPC['id_rec'];
