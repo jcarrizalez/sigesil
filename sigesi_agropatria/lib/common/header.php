@@ -16,6 +16,7 @@ else
             $javascript->includeFile('jquery/jquery-1.7.1.min.js');
             $javascript->includeFile('jquery/jquery-ui-1.8.17.custom.min.js');
             $javascript->includeFile('jquery/jquery.validate.js');
+            $javascript->includeFile('jquery/jquery.numeric.js');
             $javascript->includeFile('general.js');
         ?>
         <script type="text/javascript">

@@ -3,7 +3,7 @@ class AnalisisCultivo extends Model {
     var $table = 'si_analisis_cultivo';
     
     function buscarAC($id=null,$IdCultivo=null,$idOrg=null){ 
-        $query = "SELECT a.id, ac.id_cultivo, a.codigo, a.nombre 
+        $query = "SELECT a.id, ac.id_cultivo, a.codigo, a.nombre, a.tipo_analisis 
                     FROM si_analisis_cultivo ac 
                     INNER JOIN si_analisis a ON a.id=ac.id_analisis and a.id_org=ac.id_org
                     WHERE '1'";
