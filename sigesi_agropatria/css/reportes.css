@@ -1,5 +1,5 @@
 #principal_reporte{
-    border: 1px red solid;
+    
     width: 800px;
     margin: 0 auto;
     position: absolute;
@@ -15,7 +15,6 @@
 
 #cuerpo_reporte{
     clear: both;
-    border: 1px green solid;
 }
 
 #pie_pagina_reporte{
@@ -23,9 +22,34 @@
 }
 
 #pie_pagina_reporte hr{
+    margin-top: 50px;
     background-color: #000000;
     border: 0 none;
     color: #000000;
     height: 2px;
     width: 800px;
+}
+
+#titulo_reporte{
+    text-align: center;
+}
+
+#tabla_reporte2{
+    padding-top: 20px;
+}
+
+#tabla_reporte2 th{
+    border-top: 1px #000000 dashed;
+    border-bottom: 1px #000000 dashed;
+}
+
+#reporte_fila_separar{
+    line-height: 30px;
+}
+
+.reporte_input{
+    border: none;
+    width: 100px;
+    text-align: center;
+    border-bottom: 1px #000000 solid;
 }

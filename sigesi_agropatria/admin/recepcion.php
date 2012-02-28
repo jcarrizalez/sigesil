@@ -29,9 +29,10 @@
             $GPC['Productor']['ced_rif'] = $GPC['nacion'].$GPC['Productor']['ced_rif'];
             $GPC['Asociado']['ced_rif'] = $GPC['nacion2'].$GPC['Asociado']['ced_rif'];
             $GPC['Recepcion']['id_usuario'] = $_SESSION['s_id'];
-            $GPC['Recepcion']['estatus_rec'] = 'A';
+            $GPC['Recepcion']['estatus_rec'] = 1;
             $GPC['Recepcion']['id_centro_acopio'] = $_SESSION['s_ca_id'];
             $GPC['Recepcion']['id_silo'] = 2;
+            $GPC['Recepcion']['fecha_recepcion'] = 'now()';
             
             $recepcion->_begin_tool();
             
