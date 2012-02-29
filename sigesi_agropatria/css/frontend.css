@@ -435,3 +435,17 @@ form fieldset legend{
 .crproductor{
     width: 135px;
 }
+
+.transparente{
+    border: none;
+    width: 40px;
+    background: none;
+}
+
+.incorrecto{
+    color: #F00;
+}
+
+.correcto{
+    color: #00CC00;
+}

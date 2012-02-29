@@ -18,7 +18,10 @@ class Recepcion extends Model {
 
     //la funcion listadoAnalisis  busca los analisis por registrar
     function listadoAnalisis($idCA = null, $idCo = null, $idRec = null, $estatus = null) {
-        $query = "SELECT ca.id AS id_ca, ca.codigo AS codigo_ca, ca.nombre AS nombre_ca, cul.id AS id_cultivo, cul.codigo AS codigo_cul, cul.nombre AS nombre_cul, rec.id AS id_rec, rec.numero, rec.estatus_rec, rec.fecha_recepcion, rec.cant_muestras, rec.carril 
+        $query = "SELECT ca.id AS id_ca, ca.codigo AS codigo_ca, ca.nombre AS nombre_ca, 
+                    cul.id AS id_cultivo, cul.codigo AS codigo_cul, cul.nombre AS nombre_cul,                    
+                    rec.id AS id_rec, rec.numero, rec.estatus_rec, rec.fecha_recepcion, 
+                    rec.cant_muestras, rec.carril 
                     FROM si_recepcion rec
                     INNER JOIN si_centro_acopio ca ON rec.id_centro_acopio=ca.id
                     INNER JOIN si_cosecha cos ON cos.id=rec.id_cosecha

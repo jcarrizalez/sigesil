@@ -3,7 +3,7 @@ require_once('../lib/core.lib.php');
 
 $Rec=new Recepcion();
 
-$listaEstatus = array(1 => 'Sin Analizar', 'Analizado', 3, 4, 5, 6, 7, 8, 9);
+$listaEstatus = array(1 => 'Laboratorio', '40tna. lab', 'Roma. Lleno', 'Tolvas', '40tna. Tolva', 'Roma. Vacio', 'Rch.Lab.Cen', 'Rch.L.Plant.', 'Acondicionado');
 
 if($_SESSION['s_perfil_id'] == GERENTEG)
     $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : null;
@@ -68,7 +68,7 @@ require('../lib/common/header.php');
                     if ($dataREC['estatus_rec']==1)
                         echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Nuevo>', 'analisis_recepcion.php?ac=nuevo&id_rec='.$dataREC['id_rec'].'&cant_muestras='.$dataREC['cant_muestras'].'&id_cultivo='.$dataREC['codigo_cul']);
                     else                        
-                        echo $html->link('<img src="../images/imprimir.png" width="16" height="16" title=Imprimir>', 'analisis_recepcion.php?ac=imprimir&id='.$dataREC['id_rec']);
+                        echo $html->link('<img src="../images/imprimir.png" width="16" height="16" title=Imprimir>', 'analisis_recepcion_listado.php?ac=imprimir&id='.$dataREC['id_rec']);
                 ?>
             </td>
             <td align="center">
