@@ -5,8 +5,17 @@
     switch ($GPC['ac']){
         case 'guia':
             $guia = new Guia();
-            $infoGuia = $guia->find(array('numero_guia' => $GPC['numero_guia']), '', '*', '');
-            $guiaNueva = (empty($infoGuia)) ? true : false;
+            $infoGuia = $guia->find(array('numero_guia' => $GPC['numero_guia'], 'estatus_rec' => 'P'), '', '*', '');
+            //$guiaNueva = ($infoGuia[0]['estatus'] == ) ? true : false;
+            if($infoGuia[0]['estatus'] == 'P'){
+                
+            ?>
+                <tr>
+                    <th colspan="2">Gu&iacute;a Procesada</th>
+                    <? echo $html->input('Guia.fecha_emision', '', array('type' => 'hidden')); ?>
+                </tr>
+            <?
+            }elseif($infoGuia[0]['estatus'] == 'N'){
             ?>
                 <tr>
                     <td><span class="msj_rojo">* </span>Fecha de Emisi&oacute;n: </td>
@@ -44,11 +53,16 @@
                 <tr>
                     <th colspan="2" align="center">Gu&iacute;a Nueva, se proceder&aacute; a almacenar</th>
                 </tr>
-                <? } ?>
+                <?
+                    }
+            }
+                ?>
             <?
         break;
         case 'productor':
             $infoProductor = $recepcion->productorRecepcion($GPC['cp']);
+            $verifAso = $recepcion->verificarProAso($GPC['co'], $_SESSION['s_ca_id'], $GPC['cp']);
+            $listaConfirmacion = array(0 => 'No', 'Si');
             $proNuevo = (empty($infoProductor)) ? true : false;
             ?>
                 <tr>
@@ -63,13 +77,31 @@
                     <td>Email: </td>
                     <td><? echo $html->input('Productor.email', $infoProductor[0]['email_pro'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
+            <? if(empty($verifAso)){ ?>
+                <tr>
+                    <td><span class="msj_rojo">* </span>Tiene Asociado: </td>
+                    <td><? echo $html->select('preg_asociado', array('options'=>$listaConfirmacion)); ?></td>
+                </tr>
             <?
+                }elseif($verifAso[0]['asociado'] == 't'){
+            ?>
+                <script type="text/javascript">
+                    $('#fieldAsociado').css('display', 'block');
+                </script>
+            <?
+                }elseif($verifAso[0]['asociado'] == 'f'){
+            ?>
+                <script type="text/javascript">
+                    $('#fieldAsociado').css('display', 'none');
+                </script>
+            <?
+                }
                 if($proNuevo){
-                    ?>
-                    <tr>
-                        <th colspan="2" align="center">Productor Nuevo, se proceder&aacute; a almacenar</th>
-                    </tr>
-                    <?
+            ?>
+                <tr>
+                    <th colspan="2" align="center">Productor Nuevo, se proceder&aacute; a almacenar</th>
+                </tr>
+            <?
                 }
                 echo $html->input('Productor.id', $infoProductor[0]['id'], array('type' => 'hidden'));
         break;
@@ -100,7 +132,7 @@
             $choNuevo = (empty($infoVehiculo)) ? true : false;
             ?>
                 <tr>
-                    <td>Nombres y Apellidos: </td>
+                    <td><span class="msj_rojo">* </span>Nombres y Apellidos: </td>
                     <td><? echo $html->input('Guia.nombre_chofer', $infoVehiculo[0]['nombre_cho'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
             <?
@@ -150,3 +182,11 @@
         break;*/
     }
 ?>
+<script type="text/javascript">
+$('#preg_asociado').change(function(){
+    if($(this).val() == 0)
+        $('#fieldAsociado').css('display', 'none');
+    else
+        $('#fieldAsociado').css('display', 'block');
+});
+</script>

@@ -1,29 +1,29 @@
 <?
-    require_once('../lib/core.lib.php');
-    
-    $silo = new Silos();
-    
-    switch($GPC['ac']){
-        case 'guardar':
-            $GPC['Silo']['id_centro_acopio'] = $_SESSION['s_ca_id'];
-            if(!empty($GPC['Silo']['nombre']) && !empty($GPC['Silo']['codigo']) && !empty($GPC['Silo']['capacidad'])){
-                $silo->save($GPC['Silo']);
-                $id = $silo->id;
-                if(!empty($id)){
-                    header("location: silos_listado.php?msg=exitoso");
-                    die();
-                }else{
-                    header("location: silos_listado.php?msg=error");
-                    die();
-                }
-            }
+require_once('../lib/core.lib.php');
+
+$silo = new Silos();
+
+switch ($GPC['ac']) {
+    case 'guardar':
+        $GPC['Silo']['id_centro_acopio'] = $_SESSION['s_ca_id'];
+        if (!empty($GPC['Silo']['nombre']) && !empty($GPC['Silo']['codigo']) && !empty($GPC['Silo']['capacidad'])) {
+            $silo->save($GPC['Silo']);
+            $id = $silo->id;
+        }
+        if (!empty($id)) {
+            header("location: silos_listado.php?msg=exitoso");
+            die();
+        } else {
+            header("location: silos_listado.php?msg=error");
+            die();
+        }
         break;
-        case 'editar':
-            $infoSilo = $silo->find(array('id' => $GPC['id']));
+    case 'editar':
+        $infoSilo = $silo->find(array('id' => $GPC['id']));
         break;
-    }
-    require('../lib/common/header.php');
-    
+}
+require('../lib/common/header.php');
+
 $validator = new Validator('form1');
 $validator->printIncludes();
 $validator->setRules('Silo.codigo', array('required' => array('value' => true, 'message' => 'Requerido')));
@@ -38,7 +38,7 @@ $validator->printScript();
     }
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
-    <? echo $html->input('Silo.id', $infoSilo[0]['id'], array('type' => 'hidden'));?>
+    <? echo $html->input('Silo.id', $infoSilo[0]['id'], array('type' => 'hidden')); ?>
     <div id="titulo_modulo">
         NUEVO SILO<br/><hr/>
     </div>
@@ -61,7 +61,7 @@ $validator->printScript();
         </tr>
         <tr>
             <td>Observaci&oacute;n: </td>
-            <td><textarea name="Silo[observacion]" cols="20" rows="2" id="Silo[observacion]"><?=$infoSilo[0]['observacion']?></textarea></td>
+            <td><textarea name="Silo[observacion]" cols="20" rows="2" id="Silo[observacion]"><?= $infoSilo[0]['observacion'] ?></textarea></td>
         </tr>
         <tr>
             <td>&nbsp;</td>
@@ -69,11 +69,11 @@ $validator->printScript();
         <tr align="center">
             <td colspan="2">
                 <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick'=>'cancelar()')); ?>
+                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
             </td>
         </tr>
     </table>
 </form>
 <?
-    require('../lib/common/footer.php');
+require('../lib/common/footer.php');
 ?>

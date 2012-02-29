@@ -2,7 +2,7 @@
     require_once("../lib/core.lib.php");
     require_once("../lib/common/header_reportes.php");
     //include("../lib/class/mpdf/mpdf.php");
-    $id_rec = 1;
+    $id_rec = $GPC['id_rec'];
     $recepcion = new Recepcion();
     $analisisCul = new AnalisisCultivo();
     

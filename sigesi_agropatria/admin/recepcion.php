@@ -24,7 +24,7 @@
             $vehiculo = new Vehiculo();
             
             $GPC['Guia']['id_usuario'] = $_SESSION['s_id'];
-            $GPC['Guia']['estatus'] = 'A';
+            $GPC['Guia']['estatus'] = 'P';
             $GPC['Guia']['cedula_chofer'] = $GPC['nacion3'].$GPC['Guia']['cedula_chofer'];
             $GPC['Productor']['ced_rif'] = $GPC['nacion'].$GPC['Productor']['ced_rif'];
             $GPC['Asociado']['ced_rif'] = $GPC['nacion2'].$GPC['Asociado']['ced_rif'];
@@ -40,7 +40,7 @@
             $idGuia = $guia->id;
             $productor->save($GPC['Productor']);
             $idProductor = $productor->id;
-            if(!empty($GPC['Asociado']['ced_rif']) && !empty($GPC['Asociado']['nombre']) ){
+            if(!empty($GPC['Asociado']['ced_rif']) && !empty($GPC['Asociado']['nombre'])){
                 $GPC['Asociado']['id_productor'] = $idProductor;
                 $asociado->save($GPC['Asociado']);
                 $idAsociado = $asociado->id;
@@ -78,12 +78,12 @@ $validator->setRules('Recepcion.id_cosecha', array('required' => array('value' =
 $validator->setRules('Guia.numero_guia', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros')));
 $validator->setRules('Guia.fecha_emision', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Guia.kilogramos', array('required' => array('value' => true, 'message' => 'Requerido'), 'number' => array('value' => true, 'message' => 'Solo N&uacute;meros')));
-$validator->setRules('Productor.ced_rif', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros')));
+$validator->setRules('Productor.ced_rif', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros'), 'minlength' => array('value' => 6, 'message' => 'Min&iacute;mo 6 D&iacute;gitos')));
 $validator->setRules('Productor.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Productor.telefono', array('digits' => array('value' => true, 'message' => 'Solo N&uacute;meros')));
 $validator->setRules('Productor.email', array('email' => array('value' => true, 'message' => 'Correo Inv&aacute;lido')));
-$validator->setRules('Asociado.ced_rif', array('digits' => array('value' => true, 'message' => 'Solo N&uacute;meros')));
-$validator->setRules('Guia.cedula_chofer', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros')));
+$validator->setRules('Asociado.ced_rif', array('digits' => array('value' => true, 'message' => 'Solo N&uacute;meros'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros'), 'minlength' => array('value' => 6, 'message' => 'Min&iacute;mo 6 D&iacute;gitos')));
+$validator->setRules('Guia.cedula_chofer', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros'), 'minlength' => array('value' => 6, 'message' => 'Min&iacute;mo 6 D&iacute;gitos')));
 $validator->setRules('Guia.nombre_chofer', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Vehiculo.placa', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Recepcion.carril', array('required' => array('value' => true, 'message' => 'Requerido')));
@@ -96,6 +96,8 @@ $validator->printScript();
     }
     
     $(document).ready(function(){
+        $('.integer').numeric();
+        
         $('#Recepcion\\[id_cosecha\\]').change(function(){
             if($(this).val() != '')
                 $('#nrocosecha').load('../ajax/cosecha_programa.php?ac=cantidad&idCo='+$(this).val());
@@ -105,15 +107,50 @@ $validator->printScript();
             }
         });
     
-        $('#buscarGuia').click(function(){
+        $('#Guia\\[numero_guia\\]').change(function(){
+            
+        });
+        /*$('#buscarGuia').click(function(){
             var guia = $('#Guia\\[numero_guia\\]').val();
             if(guia != '')
                 $('#guia').load('../ajax/recepcion_detalle.php?ac=guia&numero_guia='+guia);
             else
                 alert('Nro de Guia Invalida');
+        });*/
+        
+        $('#Productor\\[ced_rif\\]').change(function(){
+            var np = $('#nacion').val();
+            var co = $('#Recepcion\\[id_cosecha\\]').val();
+            var ced = $('#Productor\\[ced_rif\\]');
+            if(ced.val().length >= 6 && co != ''){
+                ced = np+ced.val();
+                $('#productor').load('../ajax/recepcion_detalle.php?ac=productor&cp='+ced+'&co='+co);
+            }else if(co == ''){
+                ced.attr('value', '');
+                var campo = '<tr><th colspan="2">Favor seleccione una cosecha</th></tr>';
+                $('#productor').html(campo);
+            }
         });
         
-        $('#buscarPro').click(function(){
+        $('#Asociado\\[ced_rif\\]').change(function(){
+            var np = $('#nacion2').val();
+            var ced = $('#Asociado\\[ced_rif\\]');
+            if(ced.val().length >= 6){
+                ced = np+ced.val();
+                $('#asociado').load('../ajax/recepcion_detalle.php?ac=asociado&cp='+ced);
+            }
+        });
+        
+        $('#Guia\\[cedula_chofer\\]').change(function(){
+            var np = $('#nacion3').val();
+            var ced = $('#Guia\\[cedula_chofer\\]');
+            if(ced.val().length >= 6){
+                ced = np+ced.val();
+                $('#chofer').load('../ajax/recepcion_detalle.php?ac=chofer&cp='+ced);
+            }
+        });
+        
+        /*$('#buscarPro').click(function(){
             var cedPro = $('#Productor\\[ced_rif\\]').val();
             if(cedPro == '' || isNaN(cedPro))
                 alert('Cedula/Rif Invalida');
@@ -141,11 +178,7 @@ $validator->printScript();
                 cedCho = $('#nacion3').val()+$('#Guia\\[cedula_chofer\\]').val();
                 $('#chofer').load('../ajax/recepcion_detalle.php?ac=chofer&cp='+cedCho);
             }
-        });
-        
-        $('#Guardar').click(function(){
-            //if($('#Guia\\[fecha_recepcion\\]').val() < '')
-        });
+        });*/
     });
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
@@ -180,8 +213,8 @@ $validator->printScript();
                 <td><span class="msj_rojo">* </span>N&uacute;mero de Gu&iacute;a: </td>
                 <td>
                     <?
-                        echo $html->input('Guia.numero_guia', '', array('type' => 'text', 'class' => 'estilo_campos'));
-                        echo $html->link('<img id="buscarGuia" src="../images/buscar.png" width="16" height="16" title=Buscar Guia>');
+                        echo $html->input('Guia.numero_guia', '', array('type' => 'text', 'class' => 'estilo_campos integer'));
+                        //echo $html->link('<img id="buscarGuia" src="../images/buscar.png" width="16" height="16" title=Buscar Guia>');
                     ?>
                 </td>
             </tr>
@@ -220,7 +253,7 @@ $validator->printScript();
                 </tr-->
                 <tr>
                     <td><span class="msj_rojo">* </span>Kilogramos Gu&iacute;a: </td>
-                    <td><? echo $html->input('Guia.kilogramos', $infoGuia[0]['kilogramos'], array('type' => 'text', 'class' => 'estilo_campos')); ?> (Kgrs)</td>
+                    <td><? echo $html->input('Guia.kilogramos', $infoGuia[0]['kilogramos'], array('type' => 'text', 'class' => 'estilo_campos integer')); ?> (Kgrs)</td>
                 </tr>
             </tbody>
         </table>
@@ -233,8 +266,8 @@ $validator->printScript();
                 <td>
                     <?
                         echo $html->select('nacion', array('options'=>$listaCR));
-                        echo "&nbsp;".$html->input('Productor.ced_rif', $infoProductor[0]['cedula_pro'], array('type' => 'text', 'class' => 'crproductor'));
-                        echo $html->link('<img id="buscarPro" src="../images/buscar.png" width="16" height="16" title=Buscar Productor>');
+                        echo "&nbsp;".$html->input('Productor.ced_rif', $infoProductor[0]['cedula_pro'], array('type' => 'text', 'length' => '8', 'class' => 'crproductor integer'));
+                        //echo $html->link('<img id="buscarPro" src="../images/buscar.png" width="16" height="16" title=Buscar Productor>');
                     ?>
                 </td>
             </tr>
@@ -254,7 +287,7 @@ $validator->printScript();
             </tbody>
         </table>
     </fieldset>
-    <fieldset>
+    <fieldset id="fieldAsociado" style="display: none;">
         <legend>Datos del Asociado</legend>
         <table align="center">
             <tr>
@@ -262,8 +295,8 @@ $validator->printScript();
                 <td>
                     <?
                         echo $html->select('nacion2', array('options'=>$listaCR));
-                        echo "&nbsp;".$html->input('Asociado.ced_rif', $infoAsociado[0]['cedula_aso'], array('type' => 'text', 'class' => 'crproductor'));
-                        echo $html->link('<img id="buscarAso" src="../images/buscar.png" width="16" height="16" title=Buscar Productor>');
+                        echo "&nbsp;".$html->input('Asociado.ced_rif', $infoAsociado[0]['cedula_aso'], array('type' => 'text', 'length' => '8', 'class' => 'crproductor integer'));
+                        //echo $html->link('<img id="buscarAso" src="../images/buscar.png" width="16" height="16" title=Buscar Productor>');
                     ?>
                 </td>
             </tr>
@@ -287,8 +320,8 @@ $validator->printScript();
                 <td>
                     <?
                         echo $html->select('nacion3', array('options'=>$listaCR));
-                        echo "&nbsp;".$html->input('Guia.cedula_chofer', $infoVehiculo[0]['cedula_chofer'], array('type' => 'text', 'class' => 'crproductor'));
-                        echo $html->link('<img id="buscarCho" src="../images/buscar.png" width="16" height="16" title=Buscar Productor>');
+                        echo "&nbsp;".$html->input('Guia.cedula_chofer', $infoVehiculo[0]['cedula_chofer'], array('type' => 'text', 'length' => '8', 'class' => 'crproductor integer'));
+                        //echo $html->link('<img id="buscarCho" src="../images/buscar.png" width="16" height="16" title=Buscar Productor>');
                     ?>
                 </td>
             </tr>
@@ -334,7 +367,7 @@ $validator->printScript();
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td colspan="2">
+            <td>
                 <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
                 <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick'=>'cancelar()')); ?>
             </td>

@@ -1,32 +1,32 @@
 <?
-    require_once('../lib/core.lib.php');
-    
-    $org = new Organizacion();
-    
-    $listaOrg = $org->find('','', array('id', 'nombre'), 'list', 'id');
-    
-    $productor = new Productor();
-    
-    switch($GPC['ac']){
-        case 'guardar':
-            if(!empty($GPC['Prod']['nombre'])){
-                $productor->save($GPC['Prod']);
-                $id = $productor->id;
-                if(!empty($id)){
-                    header("location: productor_listado.php?msg=exitoso");
-                    die();
-                }else{
-                    header("location: productor_listado.php?msg=error");
-                    die();
-                }
-            }
+require_once('../lib/core.lib.php');
+
+$org = new Organizacion();
+
+$listaOrg = $org->find('', '', array('id', 'nombre'), 'list', 'id');
+
+$productor = new Productor();
+
+switch ($GPC['ac']) {
+    case 'guardar':
+        if (!empty($GPC['Prod']['nombre'])) {
+            $productor->save($GPC['Prod']);
+            $id = $productor->id;
+        }
+        if (!empty($id)) {
+            header("location: productor_listado.php?msg=exitoso");
+            die();
+        } else {
+            header("location: productor_listado.php?msg=error");
+            die();
+        }
         break;
-        case 'editar':
-            $infoProductor = $productor->find(array('id' => $GPC['id']));
+    case 'editar':
+        $infoProductor = $productor->find(array('id' => $GPC['id']));
         break;
-    }
-    require('../lib/common/header.php');
-    
+}
+require('../lib/common/header.php');
+
 $validator = new Validator('form1');
 $validator->printIncludes();
 $validator->setRules('Prod.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
@@ -38,14 +38,14 @@ $validator->printScript();
     }
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
-    <? echo $html->input('Prod.id', $infoProductor[0]['id'], array('type' => 'hidden'));?>
+    <? echo $html->input('Prod.id', $infoProductor[0]['id'], array('type' => 'hidden')); ?>
     <div id="titulo_modulo">
         NUEVO PRODUCTOR<br/><hr/>
     </div>
     <table align="center">
         <tr>
             <td><span class="msj_rojo">* </span>Organizaci&oacute;n: </td>
-            <td><? echo $html->select('Prod.id_org',array('options'=>$listaOrg, 'selected' => $infoProductor[0]['id_org'], 'default' => 'Seleccione'))?></td>
+            <td><? echo $html->select('Prod.id_org', array('options' => $listaOrg, 'selected' => $infoProductor[0]['id_org'], 'default' => 'Seleccione')) ?></td>
         </tr>
         <tr>
             <td><? echo $html->input('Prod.id_sap', $infoProductor[0]['id_sap'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
@@ -92,11 +92,11 @@ $validator->printScript();
         <tr align="center">
             <td colspan="2">
                 <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick'=>'cancelar()')); ?>
+                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
             </td>
         </tr>
     </table>
 </form>
 <?
-    require('../lib/common/footer.php');
+require('../lib/common/footer.php');
 ?>

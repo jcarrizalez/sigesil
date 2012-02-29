@@ -7,7 +7,7 @@ class Recepcion extends Model {
     function recepcionesDia($idCA, $idCo) {
         $query = "SELECT COUNT(*) AS total
                 FROM si_recepcion
-                WHERE id_centro_acopio = '$idCA' AND id_cosecha = '$idCo' AND fecha_recepcion = '" . date('Y-m-d') . "'";
+                WHERE id_centro_acopio = '$idCA' AND id_cosecha = '$idCo' AND (fecha_recepcion >= '".date('Y-m-d')."' OR fecha_recepcion <= '".date('Y-m-d')."')";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
@@ -80,7 +80,7 @@ class Recepcion extends Model {
         $query = "SELECT cp.*
                     FROM si_cosecha_productor cp
                     INNER JOIN si_productor pr ON pr.id = cp.id_productor
-                    WHERE cp.id_cosecha = '$idCo' AND cp.id_centro_acopio = '$idCa' AND pr.ced_rif = '$ced_rif' AND cp.asociado = 't'
+                    WHERE cp.id_cosecha = '$idCo' AND cp.id_centro_acopio = '$idCa' AND pr.ced_rif = '$ced_rif'
                     LIMIT 1";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }

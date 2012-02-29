@@ -1,51 +1,50 @@
 <?
-    require_once('../lib/core.lib.php');
-    
-    $programa = new Programa();
-    $cosecha = new Cosecha();
-    $cultivo = new Cultivo();
-    
-    $estatus = array('t' => 'Activo', 'f' => 'Inactivo');
-    $listaCultivos = $cultivo->find('', '', 'id, nombre', 'list', 'codigo');
-    
-    switch($GPC['ac']){
-        case 'guardar':
-            if(!empty($GPC['Programa']['codigo']) && !empty($GPC['Programa']['nombre']) && !empty($GPC['Programa']['estatus']) && !empty($GPC['Cosecha1']['codigo']) && !empty($GPC['Cosecha1']['id_cultivo'])){
-                $GPC['Programa']['id_centro_acopio'] = $_SESSION['s_ca_id'];
-                $programa->_begin_tool();
-                $programa->save($GPC['Programa']);
-                $programaID = $programa->id;
-                
-                if(!empty($programaID)){
-                    for($i=1;$i<=$GPC['numeroCosecha'];$i++){
-                        $total = "Cosecha".$i;
-                        $GPC[$total]['id_programa'] = $programaID;
-                        $GPC[$total]['estatus'] = 't';
-                        $cosecha->save($GPC[$total]);
-                        if(empty($cosecha->id))
-                            break;
-                        $idCosecha[] = $cosecha->id;
-                        $cosecha->id = null;
-                    }
-                }
-                
-                if(!empty($programaID) && ($GPC['numeroCosecha'] == count($idCosecha))){
-                    $programa->_commit_tool();
-                    header("location: programa_listado.php?msg=exitoso");
-                    die();
-                }else{
-                    header("location: programa_listado.php?msg=error");
-                    die();
+require_once('../lib/core.lib.php');
+
+$programa = new Programa();
+$cosecha = new Cosecha();
+$cultivo = new Cultivo();
+
+$estatus = array('t' => 'Activo', 'f' => 'Inactivo');
+$listaCultivos = $cultivo->find('', '', 'id, nombre', 'list', 'codigo');
+
+switch ($GPC['ac']) {
+    case 'guardar':
+        if (!empty($GPC['Programa']['codigo']) && !empty($GPC['Programa']['nombre']) && !empty($GPC['Programa']['estatus']) && !empty($GPC['Cosecha1']['codigo']) && !empty($GPC['Cosecha1']['id_cultivo'])) {
+            $GPC['Programa']['id_centro_acopio'] = $_SESSION['s_ca_id'];
+            $programa->_begin_tool();
+            $programa->save($GPC['Programa']);
+            $programaID = $programa->id;
+
+            if (!empty($programaID)) {
+                for ($i = 1; $i <= $GPC['numeroCosecha']; $i++) {
+                    $total = "Cosecha" . $i;
+                    $GPC[$total]['id_programa'] = $programaID;
+                    $GPC[$total]['estatus'] = 't';
+                    $cosecha->save($GPC[$total]);
+                    if (empty($cosecha->id))
+                        break;
+                    $idCosecha[] = $cosecha->id;
+                    $cosecha->id = null;
                 }
             }
+        }
+        if (!empty($programaID) && ($GPC['numeroCosecha'] == count($idCosecha))) {
+            $programa->_commit_tool();
+            header("location: programa_listado.php?msg=exitoso");
+            die();
+        } else {
+            header("location: programa_listado.php?msg=error");
+            die();
+        }
         break;
-        case 'editar':
-            $infoCA = $programa->find(array('id' => $GPC['id']));
+    case 'editar':
+        $infoCA = $programa->find(array('id' => $GPC['id']));
         break;
-    }
-    require('../lib/common/header.php');
-    require('../lib/common/init_calendar.php');
-    
+}
+require('../lib/common/header.php');
+require('../lib/common/init_calendar.php');
+
 $validator = new Validator('form1');
 $validator->printIncludes();
 $validator->setRules('Programa.codigo', array('required' => array('value' => true, 'message' => 'Requerido')));
@@ -65,75 +64,75 @@ $validator->printScript();
         $('#Agregar').click(function(){
             $('#numeroCosecha').val(parseInt($('#numeroCosecha').val())+1);
             filaId = $('#numeroCosecha').val();
-            if(filaId<= <?=COSECHAS_PROGRAMA?>){
+            if(filaId<= <?= COSECHAS_PROGRAMA ?>){
                 var infoCosecha = "<fieldset id='cosecha_"+filaId+"'><legend class='titulo_leyenda'>Datos de la Cosecha #"+filaId+" <img src='../images/eliminar2.png' width='16' height='16' title='Eliminar' style='cursor: pointer;' onclick='eliminarFila("+filaId+");'></legend><table align='center' width='100%'><tr><td><table align='center' cellpadding='0' cellspacing='0'>";
                 infoCosecha +="<tr><td><span class='msj_rojo'>* </span>C&oacute;digo: </td><td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+"[codigo]' id='Cosecha"+filaId+"[codigo]' readOnly=''></td></tr>";
                 infoCosecha +="<tr><td>Nombre: </td><td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+"[nombre]' id='Cosecha"+filaId+"[nombre]'></td></tr>";
                 infoCosecha +="<tr><td><span class='msj_rojo'>* </span>Cultivo: </td><td><select class='inputGrilla' name='Cosecha"+filaId+"[id_cultivo]' id='Cosecha"+filaId+"[id_cultivo]' onChange='generarCodigo("+filaId+");'><option value=''> Seleccione </option>";
                 var array_js = new Array();
-	        <?php
-                    foreach($listaCultivos as $indice=>$valor){
-                        echo "array_js[$indice] = '$valor';\n";
-                    }
-	        ?>
-                for(var i in array_js)
-                {
-                    infoCosecha +="<option value="+i+">"+array_js[i]+"</option>";
-                }
-                infoCosecha +="</select></td></tr>";
-                infoCosecha +="<tr><td>Proyectado: </td><td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+"[proyectado]' id='Cosecha"+filaId+"[proyectado]'></td></tr>";
-                infoCosecha +="<tr><td>Area Siembra: </td><td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+"[area_siembra]' id='Cosecha"+filaId+"[area_siembra]'></td></tr>";
-                infoCosecha +="<tr><td>Fecha Inicio: </td><td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+"[fecha_inicio]' id='Cosecha"+filaId+"[fecha_inicio]'>&nbsp;&nbsp;<img src='../images/calendario.png' id='finicio"+filaId+"' width='16' height='16' style='cursor:pointer' />";
-                infoCosecha +="<script>Calendar.setup({trigger    : 'finicio"+filaId+"',inputField : 'Cosecha"+filaId+"[fecha_inicio]',dateFormat: '%d-%m-%Y',onSelect   : function() { this.hide() }});<\/script>";
-                infoCosecha +="</td></tr>";
-                infoCosecha +="<tr><td>Fecha Fin: </td><td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+"[fecha_fin]' id='Cosecha"+filaId+"[fecha_fin]'>&nbsp;&nbsp;<img src='../images/calendario.png' id='ffin"+filaId+"' width='16' height='16' style='cursor:pointer' />";
-                infoCosecha +="<script>Calendar.setup({trigger    : 'ffin"+filaId+"',inputField : 'Cosecha"+filaId+"[fecha_fin]',dateFormat: '%d-%m-%Y',onSelect   : function() { this.hide() }});<\/script>";
-                infoCosecha +="</td></tr>";
-                infoCosecha += "</table></td></tr></table></fieldset>";
-                $("#nuevaCosecha").append(infoCosecha);
-            }else{
-                $('#numeroCosecha').val(parseInt($('#numeroCosecha').val())-1);
-                alert('Solo se admiten ('+<?=COSECHAS_PROGRAMA?>+') Cosechas por Programa');
-            }
-        });
+<?php
+foreach ($listaCultivos as $indice => $valor) {
+    echo "array_js[$indice] = '$valor';\n";
+}
+?>
+                                for(var i in array_js)
+                                {
+                                    infoCosecha +="<option value="+i+">"+array_js[i]+"</option>";
+                                }
+                                infoCosecha +="</select></td></tr>";
+                                infoCosecha +="<tr><td>Proyectado: </td><td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+"[proyectado]' id='Cosecha"+filaId+"[proyectado]'></td></tr>";
+                                infoCosecha +="<tr><td>Area Siembra: </td><td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+"[area_siembra]' id='Cosecha"+filaId+"[area_siembra]'></td></tr>";
+                                infoCosecha +="<tr><td>Fecha Inicio: </td><td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+"[fecha_inicio]' id='Cosecha"+filaId+"[fecha_inicio]'>&nbsp;&nbsp;<img src='../images/calendario.png' id='finicio"+filaId+"' width='16' height='16' style='cursor:pointer' />";
+                                infoCosecha +="<script>Calendar.setup({trigger    : 'finicio"+filaId+"',inputField : 'Cosecha"+filaId+"[fecha_inicio]',dateFormat: '%d-%m-%Y',onSelect   : function() { this.hide() }});<\/script>";
+                                infoCosecha +="</td></tr>";
+                                infoCosecha +="<tr><td>Fecha Fin: </td><td><input type='text' class='inputGrilla' value='' name='Cosecha"+filaId+"[fecha_fin]' id='Cosecha"+filaId+"[fecha_fin]'>&nbsp;&nbsp;<img src='../images/calendario.png' id='ffin"+filaId+"' width='16' height='16' style='cursor:pointer' />";
+                                infoCosecha +="<script>Calendar.setup({trigger    : 'ffin"+filaId+"',inputField : 'Cosecha"+filaId+"[fecha_fin]',dateFormat: '%d-%m-%Y',onSelect   : function() { this.hide() }});<\/script>";
+                                infoCosecha +="</td></tr>";
+                                infoCosecha += "</table></td></tr></table></fieldset>";
+                                $("#nuevaCosecha").append(infoCosecha);
+                            }else{
+                                $('#numeroCosecha').val(parseInt($('#numeroCosecha').val())-1);
+                                alert('Solo se admiten ('+<?= COSECHAS_PROGRAMA ?>+') Cosechas por Programa');
+                            }
+                        });
 
-        $('#Guardar').click(function(){
-            fechaActual = "<? echo date("d-m-Y"); ?>";
-            for(j=1;j<=$('#numeroCosecha').val();j++){
-                if(j > 1 && ($('#Cosecha'+j+'\\[codigo\\]').val() == '') && ($('#Cosecha'+j+'\\[id_cultivo\\]').val() == '')){
-                    alert('Complete la Informacion de la Cosecha #'+j+' o Eliminela');
-                    return false;
-                }
+                        $('#Guardar').click(function(){
+                            fechaActual = "<? echo date("d-m-Y"); ?>";
+                            for(j=1;j<=$('#numeroCosecha').val();j++){
+                                if(j > 1 && ($('#Cosecha'+j+'\\[codigo\\]').val() == '') && ($('#Cosecha'+j+'\\[id_cultivo\\]').val() == '')){
+                                    alert('Complete la Informacion de la Cosecha #'+j+' o Eliminela');
+                                    return false;
+                                }
                 
-                if($('#Cosecha'+j+'\\[fecha_inicio\\]').val() != '' || $('#Cosecha'+j+'\\[fecha_fin\\]').val() != ''){
-                    if($('#Cosecha'+j+'\\[fecha_inicio\\]').val() < fechaActual){
-                        alert('La Fecha de Inicio no puede ser menor a la Actual');
-                        return false;
-                    }else if($('#Cosecha'+j+'\\[fecha_fin\\]').val() <= $('#Cosecha'+j+'\\[fecha_inicio\\]').val()){
-                        alert('La Fecha Fin no puede ser menor o igual a la Fecha de Inicio');
+                                if($('#Cosecha'+j+'\\[fecha_inicio\\]').val() != '' || $('#Cosecha'+j+'\\[fecha_fin\\]').val() != ''){
+                                    if($('#Cosecha'+j+'\\[fecha_inicio\\]').val() < fechaActual){
+                                        alert('La Fecha de Inicio no puede ser menor a la Actual');
+                                        return false;
+                                    }else if($('#Cosecha'+j+'\\[fecha_fin\\]').val() <= $('#Cosecha'+j+'\\[fecha_inicio\\]').val()){
+                                        alert('La Fecha Fin no puede ser menor o igual a la Fecha de Inicio');
+                                        return false;
+                                    }
+                                }
+                            }
+                        });
+                    });
+    
+                    function generarCodigo(id){
+                        var cultivo = parseInt(document.getElementById('Cosecha'+id+'[id_cultivo]').value);
+                        if(cultivo < 10)
+                            cultivo = '0'+cultivo;
+                        document.getElementById('Cosecha'+id+'[codigo]').value = <?= date('Y') ?>+cultivo;
+                    }
+    
+                    function eliminarFila(fila){
+                        $("#cosecha_"+fila).remove();	
+                        $('#numeroCosecha').val(parseInt($('#numeroCosecha').val())-1);
                         return false;
                     }
-                }
-            }
-        });
-    });
-    
-    function generarCodigo(id){
-        var cultivo = parseInt(document.getElementById('Cosecha'+id+'[id_cultivo]').value);
-        if(cultivo < 10)
-            cultivo = '0'+cultivo;
-        document.getElementById('Cosecha'+id+'[codigo]').value = <?=date('Y')?>+cultivo;
-    }
-    
-    function eliminarFila(fila){
-        $("#cosecha_"+fila).remove();	
-        $('#numeroCosecha').val(parseInt($('#numeroCosecha').val())-1);
-            return false;
-    }
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
-    <? echo $html->input('Programa.id', $infoCA[0]['id'], array('type' => 'hidden'));?>
-    <? echo $html->input('numeroCosecha', 1, array('type' => 'hidden'));?>
+    <? echo $html->input('Programa.id', $infoCA[0]['id'], array('type' => 'hidden')); ?>
+    <? echo $html->input('numeroCosecha', 1, array('type' => 'hidden')); ?>
     <div id="titulo_modulo">
         NUEVO PROGRAMA<br/><hr/>
     </div>
@@ -150,7 +149,7 @@ $validator->printScript();
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>Estatus: </td>
-                <td><? echo $html->select('Programa.estatus',array('options'=>$estatus, 'selected' => $infoPrograma[0]['estatus'], 'default' => 'Seleccione'))?></td>
+                <td><? echo $html->select('Programa.estatus', array('options' => $estatus, 'selected' => $infoPrograma[0]['estatus'], 'default' => 'Seleccione')) ?></td>
             </tr>
             <tr>
                 <td>Observaci&oacute;n: </td>
@@ -166,38 +165,38 @@ $validator->printScript();
         <table align="center" border="0" width="100%">
             <tr>
                 <td>
-                <table align="center" border="0" cellpadding="0" cellspacing="0">
+                    <table align="center" border="0" cellpadding="0" cellspacing="0">
                         <tr>
                             <td><span class="msj_rojo">* </span>C&oacute;digo: </td>
-                            <td><?=$html->input('Cosecha1.codigo', '', array('type' => 'text', 'class' => 'inputGrilla', 'readOnly' => true));?></td>
+                            <td><?= $html->input('Cosecha1.codigo', '', array('type' => 'text', 'class' => 'inputGrilla', 'readOnly' => true)); ?></td>
                         </tr>
                         <tr>
                             <td>Nombre: </td>
-                            <td><?=$html->input('Cosecha1.nombre', '', array('type' => 'text', 'class' => 'inputGrilla'));?></td>
+                            <td><?= $html->input('Cosecha1.nombre', '', array('type' => 'text', 'class' => 'inputGrilla')); ?></td>
                         </tr>
                         <tr>
                             <td><span class="msj_rojo">* </span>Cultivo: </td>
-                            <td><? echo $html->select('Cosecha1.id_cultivo',array('options'=>$listaCultivos, 'default'=>' Seleccione ', 'class' => 'inputGrilla', 'onChange' => "generarCodigo(1);"))?></td>
+                            <td><? echo $html->select('Cosecha1.id_cultivo', array('options' => $listaCultivos, 'default' => ' Seleccione ', 'class' => 'inputGrilla', 'onChange' => "generarCodigo(1);")) ?></td>
                         </tr>
                         <tr>
                             <td>Proyectado: </td>
-                            <td><?=$html->input('Cosecha1.proyectado', '', array('type' => 'text', 'class' => 'inputGrilla'));?></td>
+                            <td><?= $html->input('Cosecha1.proyectado', '', array('type' => 'text', 'class' => 'inputGrilla')); ?></td>
                         </tr>
                         <tr>
                             <td>Area Siembra: </td>
-                            <td><?=$html->input('Cosecha1.area_siembra', '', array('type' => 'text', 'class' => 'inputGrilla'));?></td>
+                            <td><?= $html->input('Cosecha1.area_siembra', '', array('type' => 'text', 'class' => 'inputGrilla')); ?></td>
                         </tr>
                         <tr>
                             <td>Fecha Inicio: </td>
                             <td>
-                                <?=$html->input('Cosecha1.fecha_inicio', '', array('type' => 'text', 'class' => 'inputGrilla', 'readOnly' => 'readOnly'));?>
+                                <?= $html->input('Cosecha1.fecha_inicio', '', array('type' => 'text', 'class' => 'inputGrilla', 'readOnly' => 'readOnly')); ?>
                                 <img src="../images/calendario.png" id="finicio1" width="16" height="16" style="cursor:pointer" />
                                 <script>
                                     Calendar.setup({
                                         trigger    : "finicio1",
                                         inputField : "Cosecha1[fecha_inicio]",
                                         dateFormat: "%d-%m-%Y",
-                                        selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($fecha_fact_optime));?>),
+                                        selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($fecha_fact_optime)); ?>),
                                         onSelect   : function() { this.hide() }
                                     });
                                 </script>
@@ -206,20 +205,20 @@ $validator->printScript();
                         <tr>
                             <td>Fecha Fin: </td>
                             <td>
-                                <?=$html->input('Cosecha1.fecha_fin', '', array('type' => 'text', 'class' => 'inputGrilla', 'readOnly' => 'readOnly'));?>
+                                <?= $html->input('Cosecha1.fecha_fin', '', array('type' => 'text', 'class' => 'inputGrilla', 'readOnly' => 'readOnly')); ?>
                                 <img src="../images/calendario.png" id="ffin1" width="16" height="16" style="cursor:pointer" />
                                 <script>
                                     Calendar.setup({
                                         trigger    : "ffin1",
                                         inputField : "Cosecha1[fecha_fin]",
                                         dateFormat: "%d-%m-%Y",
-                                        selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($fecha_fact_optime));?>),
+                                        selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($fecha_fact_optime)); ?>),
                                         onSelect   : function() { this.hide() }
                                     });
                                 </script>
                             </td>
                         </tr>
-                </table>
+                    </table>
                 </td>
             </tr>
         </table>
@@ -232,11 +231,11 @@ $validator->printScript();
         <tr>
             <td colspan="2">
                 <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick'=>'cancelar()')); ?>
+                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
             </td>
         </tr>
     </table>
 </form>
 <?
-    require('../lib/common/footer.php');
+require('../lib/common/footer.php');
 ?>
