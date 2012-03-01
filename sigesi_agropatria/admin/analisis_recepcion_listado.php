@@ -3,7 +3,8 @@ require_once('../lib/core.lib.php');
 
 $Rec=new Recepcion();
 
-$listaEstatus = array(1 => 'Laboratorio', '40tna. lab', 'Roma. Lleno', 'Tolvas', '40tna. Tolva', 'Roma. Vacio', 'Rch.Lab.Cen', 'Rch.L.Plant.', 'Acondicionado');
+//$listaEstatus = array(1 => 'Laboratorio', 2 => '40tna. lab', 3 => 'Roma. Lleno', 4 => 'Tolvas', 5 => '40tna. Tolva', 6 => 'Roma. Vacio', 7 => 'Rch.Lab.Cen', 8 => 'Rch.L.Plant.', 9 => 'Acondicionado');
+$listaEstatus = array(1 => 'Laboratorio', 2 => '40tna. lab', 4 => 'Tolvas', 5 => '40tna. Tolva');
 
 if($_SESSION['s_perfil_id'] == GERENTEG)
     $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : null;
@@ -72,11 +73,23 @@ require('../lib/common/header.php');
                 ?>
             </td>
             <td align="center">
-                <?
-                    if ($dataREC['estatus_rec']==1)
-                        echo '<img src="../images/deshabilitar.png" width="16" height="16" title="Pendiente">';
-                    else                        
-                        echo '<img src="../images/habilitar.png" width="16" height="16" title="Analizado">';
+                <? 
+//                    if ($dataREC['estatus_rec']==1)
+//                        echo '<img src="../images/deshabilitar.png" width="16" height="16" title="Pendiente">';
+//                    else                        
+//                        echo '<img src="../images/habilitar.png" width="16" height="16" title="Analizado">';
+                    switch ($dataREC['estatus_rec']) 
+                    {
+                        case '1':
+                            echo '<img src="../images/deshabilitar.png" width="16" height="16" title="Pendiente">';
+                            break;
+                        case '2':
+                            echo '<img src="../images/cuarentena.png" width="16" height="16" title="Curentena">';
+                            break;
+                        case '3':
+                            echo '<img src="../images/deshabilitar.png" width="16" height="16" title="Cuarentena">';
+                            break;
+                    }
                 ?>
                 
             </td>

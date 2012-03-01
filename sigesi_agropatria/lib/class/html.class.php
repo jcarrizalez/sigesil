@@ -21,6 +21,7 @@ class Html{
             $attribs .= ($params['length']!=null)?' maxlength="'.$params['length'].'"':'';
             $attribs .= ($params['class']!=null)?' class="'.$params['class'].'"':'';
             $attribs .= ($params['onClick']!=null)?' onclick="'.$params['onClick'].'"':'';
+            $attribs .= ($params['onChange']!=null)?' onChange="'.$params['onChange'].'"':'';
             $attribs .= ($params['onBlur']!=null)?' onBlur="'.$params['onBlur'].'"':'';		
             $attribs .= ($params['tabIndex']!=null)?' tabIndex="'.$params['tabIndex'].'"':'';
             $attribs .= ($params['disabled']!=null)?' disabled ':'';
