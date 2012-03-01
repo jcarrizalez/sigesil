@@ -11,6 +11,12 @@
     //echo "<pre>";print_r($listadoAnalisis); echo "</pre>";die();
     
 ?>
+<script type="text/javascript">
+    $(document).ready(function(){
+        window.print();
+        window.location = '<?=DOMAIN_ROOT?>admin/recepcion.php';
+    });
+</script>
 <div id="titulo_reporte">
     RESULTADOS DE ANALISIS
 </div>

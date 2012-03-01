@@ -108,7 +108,9 @@ $validator->printScript();
         });
     
         $('#Guia\\[numero_guia\\]').change(function(){
-            
+            var guia = $('#Guia\\[numero_guia\\]').val();
+            if(guia != '')
+                $('#guia').load('../ajax/recepcion_detalle.php?ac=guia&numero_guia='+guia);
         });
         /*$('#buscarGuia').click(function(){
             var guia = $('#Guia\\[numero_guia\\]').val();
@@ -245,12 +247,9 @@ $validator->printScript();
                 </tr>
                 <tr>
                     <td>Disponible a Recibir: </td>
-                    <td><? echo $html->input('Guia.direccion', $infoGuia[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><? echo $html->input('Guia.disponible_rec', $infoGuia[0]['disponible_rec'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
-                <tr>
-                    <td>Cultivo: </td>
-                    <td><? echo $html->input('Guia.id_cultivo', $infoGuia[0]['id_cultivo'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-                </tr-->
+                <tr-->
                 <tr>
                     <td><span class="msj_rojo">* </span>Kilogramos Gu&iacute;a: </td>
                     <td><? echo $html->input('Guia.kilogramos', $infoGuia[0]['kilogramos'], array('type' => 'text', 'class' => 'estilo_campos integer')); ?> (Kgrs)</td>

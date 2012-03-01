@@ -5,17 +5,15 @@
     switch ($GPC['ac']){
         case 'guia':
             $guia = new Guia();
-            $infoGuia = $guia->find(array('numero_guia' => $GPC['numero_guia'], 'estatus_rec' => 'P'), '', '*', '');
-            //$guiaNueva = ($infoGuia[0]['estatus'] == ) ? true : false;
-            if($infoGuia[0]['estatus'] == 'P'){
-                
+            $infoGuia = $guia->find(array('numero_guia' => $GPC['numero_guia']), null, '*');
+            if(!empty($infoGuia) && $infoGuia[0]['estatus'] == 'P'){
             ?>
                 <tr>
-                    <th colspan="2">Gu&iacute;a Procesada</th>
+                    <th colspan="2" align="center">Gu&iacute;a Procesada</th>
                     <? echo $html->input('Guia.fecha_emision', '', array('type' => 'hidden')); ?>
                 </tr>
             <?
-            }elseif($infoGuia[0]['estatus'] == 'N'){
+            }elseif(empty($infoGuia) || $infoGuia[0]['estatus'] == 'N'){
             ?>
                 <tr>
                     <td><span class="msj_rojo">* </span>Fecha de Emisi&oacute;n: </td>
@@ -33,31 +31,24 @@
                         </script>
                     </td>
                 </tr>
-                <tr>
+                <!--tr>
                     <td>N&uacute;mero de Contrato: </td>
                     <td><? echo $html->input('Guia.contrato', $infoGuia[0]['contrato'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
-                <!--tr>
+                <tr>
                     <td>Disponible a Recibir: </td>
                     <td><? echo $html->input('Guia.direccion', $infoGuia[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
-                <tr>
-                    <td>Cultivo: </td>
-                    <td><? echo $html->input('Guia.id_cultivo', $infoGuia[0]['id_cultivo'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-                </tr-->
+                <tr-->
                 <tr>
                     <td><span class="msj_rojo">* </span>Kilogramos Gu&iacute;a: </td>
                     <td><? echo $html->input('Guia.kilogramos', $infoGuia[0]['kilogramos'], array('type' => 'text', 'class' => 'estilo_campos')); ?> (Kgrs)</td>
                 </tr>
-                <? if($guiaNueva){ ?>
                 <tr>
                     <th colspan="2" align="center">Gu&iacute;a Nueva, se proceder&aacute; a almacenar</th>
                 </tr>
                 <?
-                    }
             }
-                ?>
-            <?
         break;
         case 'productor':
             $infoProductor = $recepcion->productorRecepcion($GPC['cp']);
@@ -82,6 +73,9 @@
                     <td><span class="msj_rojo">* </span>Tiene Asociado: </td>
                     <td><? echo $html->select('preg_asociado', array('options'=>$listaConfirmacion)); ?></td>
                 </tr>
+                <script type="text/javascript">
+                    $('#fieldAsociado').css('display', 'none');
+                </script>
             <?
                 }elseif($verifAso[0]['asociado'] == 't'){
             ?>
@@ -182,11 +176,11 @@
         break;*/
     }
 ?>
-<script type="text/javascript">
+<!--script type="text/javascript">
 $('#preg_asociado').change(function(){
     if($(this).val() == 0)
         $('#fieldAsociado').css('display', 'none');
     else
         $('#fieldAsociado').css('display', 'block');
 });
-</script>
+</script-->
