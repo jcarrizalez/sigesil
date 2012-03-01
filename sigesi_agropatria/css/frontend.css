@@ -449,3 +449,12 @@ form fieldset legend{
 .correcto{
     color: #00CC00;
 }
+
+#formula_exp{
+    width: 95%;
+    resize: none;
+}
+
+.btnFormula{
+    width: 40px;
+}

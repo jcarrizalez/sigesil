@@ -42,7 +42,7 @@
                 <tr-->
                 <tr>
                     <td><span class="msj_rojo">* </span>Kilogramos Gu&iacute;a: </td>
-                    <td><? echo $html->input('Guia.kilogramos', $infoGuia[0]['kilogramos'], array('type' => 'text', 'class' => 'estilo_campos')); ?> (Kgrs)</td>
+                    <td><? echo $html->input('Guia.kilogramos', $infoGuia[0]['kilogramos'], array('type' => 'text', 'class' => 'estilo_campos integer')); ?> (Kgrs)</td>
                 </tr>
                 <tr>
                     <th colspan="2" align="center">Gu&iacute;a Nueva, se proceder&aacute; a almacenar</th>
@@ -176,11 +176,14 @@
         break;*/
     }
 ?>
-<!--script type="text/javascript">
+<script type="text/javascript">
+$(document).ready(function(){
+    $('.integer').numeric();
+});
 $('#preg_asociado').change(function(){
     if($(this).val() == 0)
         $('#fieldAsociado').css('display', 'none');
     else
         $('#fieldAsociado').css('display', 'block');
 });
-</script-->
+</script>

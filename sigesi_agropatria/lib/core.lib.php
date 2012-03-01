@@ -35,7 +35,7 @@
 
     // Global Objects
     $general = new General;
-    $systemParameter = new Parameter();
+    $parametros = new Parameter();
     $javascript = new Javascript();
     $html = new Html();
 

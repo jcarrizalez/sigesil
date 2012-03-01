@@ -60,7 +60,7 @@
             
             if(!empty($idGuia) && !empty($idProductor) && !empty($idVehiculo) && !empty($idRecepcion)){
                 $recepcion->_commit_tool();
-                header("location: recepcion.php?msg=exitoso");
+                header("location: ".DOMAIN_ROOT."/reportes/imprimir_recepcion.php?id_rec=$idRecepcion");
                 die();
             }else{
                 header("location: recepcion.php?msg=error");
