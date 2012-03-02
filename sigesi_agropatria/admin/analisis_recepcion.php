@@ -9,8 +9,8 @@ $id_rec = $GPC['id_rec'];
 $IdCultivo = $id = $GPC['id_cultivo'];
 $idORG = $_SESSION['s_org_id'];
 $cant_muestras = $GPC['cant_muestras'];
-$estatus = array('NO' => 'NO', 'SI'=>'SI');
-$calidad = array('A' => 'A', 'B'=>'B','C'=>'C','D'=>'D');
+$estatus = array('NO' => 'NO', 'SI' => 'SI');
+$calidad = array('A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D');
 
 $listadoAnalisis = $analisisCul->buscarAC(null, $IdCultivo, $idORG);
 $cantidad = count($listadoAnalisis);
@@ -26,25 +26,37 @@ switch ($GPC['ac']) {
             foreach ($listadoAnalisis as $dataAnalisis) {
                 $GPC['Resultados']['id_recepcion'] = $GPC['id_rec'];
                 $GPC['Resultados']['id_analisis'] = $GPC['id_analisis'][$j];
-                $GPC['Resultados']['id_usuario'] = $_SESSION['s_id'];                
-                $valor = 'muestra'.$j.'_'.$dataAnalisis['codigo'];
-                $GPC['Resultados']['muestra1'] = $GPC[$valor][0];
-                $GPC['Resultados']['muestra2'] = $GPC[$valor][1];
-                $GPC['Resultados']['muestra3'] = $GPC[$valor][2];
+                $GPC['Resultados']['id_usuario'] = $_SESSION['s_id'];
+                $valor = 'muestra' . $j . '_' . $dataAnalisis['codigo'];
+                $GPC['Resultados']['muestra1'] = is_numeric($GPC[$valor][0]) ? number_format($GPC[$valor][0],3) : $GPC[$valor][0];
+                $GPC['Resultados']['muestra2'] = is_numeric($GPC[$valor][1]) ? number_format($GPC[$valor][1],3) : $GPC[$valor][1];
+                $GPC['Resultados']['muestra3'] = is_numeric($GPC[$valor][2]) ? number_format($GPC[$valor][2],3) : $GPC[$valor][2];
                 $j++;
-                echo "<pre>";print_r($GPC['Resultados']);echo "</pre>"; 
                 $id_analisis_res = $analisis->guardarResultados($GPC['Resultados']);
             }
-            //Estatus = 2 Analisis registrado
-            if ($GPC['cuarentena']==0)  
+            //Estatus = 2=>Cuarentena, 3=> Romanda
+            if ($GPC['cuarentena'] == 0)
                 $Rec->cambiarEstatus($GPC['id_rec'], 3);
-            else 
+            else {
                 $Rec->cambiarEstatus($GPC['id_rec'], 2);
-                
+                $Ctna = new Cuarentena();
+                $recepcion['id_centro_acopio']=$_SESSION['s_ca_id'];
+                $recepcion['id_recepcion']=$GPC['id_rec'];
+                $recepcion['id_cultivo']=$GPC['id_cultivo'];
+                $recepcion['id_analisis']='21';
+                $recepcion['tipo_mov']='R';                
+                $recepcion['fecha_mov']='now()';
+                $recepcion['fecha_cultivo']='now()';
+                $recepcion['laboratorio']='C';         
+                $id_cuarentena=$Ctna->guardar($recepcion);
+            }
         }
         if (!empty($id_analisis_res)) {
             $analisis->_commit_tool();
-            header("location: analisis_recepcion_listado.php?msg=exitoso");
+            if (!empty($id_cuarentena)) 
+                header("location: cuarentena.php?ac=editar&id=".$id_cuarentena);
+            else
+                header("location: analisis_recepcion_listado.php?msg=exitoso");
             die();
         } else {
             header("location: analisis_recepcion_listado.php?msg=error");
@@ -65,21 +77,21 @@ require('../lib/common/header.php');
             if (valor< min || valor > max) {
                 //document.getelementbyid('mensajes').innerHTML='Los analisis no estan en norma !';
                 document.getElementById("mensajes").style.display="block";                
-//                document.getElementById("es_curentena").value=1;
+                //                document.getElementById("es_curentena").value=1;
             }
             else {
                 document.getElementById("mensajes").style.display="none";
-//                if (document.getElementById("es_curentena").value==1)
-//                    document.getElementById("es_curentena").value=1;
-//                else
-//                    document.getElementById("es_curentena").value=0;
+                //                if (document.getElementById("es_curentena").value==1)
+                //                    document.getElementById("es_curentena").value=1;
+                //                else
+                //                    document.getElementById("es_curentena").value=0;
             }
             
         }
     }
     
     $(document).ready(function() {
-        $(".positive").numeric();
+        $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
         $("#form1").submit(function(){
             var isFormValid = true;
             $("#form1 :input").each(function(){
@@ -94,7 +106,8 @@ require('../lib/common/header.php');
                     resp=confirm('La muestra contiene INSECTOS VIVOS. Desea enviar a Cuarentena !');
                     if (resp) {
                         $('#cuarentena').val('1');
-                        alert($('#cuarentena').val());
+//                        $('#id_insecto').val($(this).val());
+//                        alert($('#cuarentena').val());
                         return true;
                     }
                     else {
@@ -111,7 +124,8 @@ require('../lib/common/header.php');
     <?
     echo $html->input('id_rec', $id_rec, array('type' => 'hidden'));
     echo $html->input('id_cultivo', $IdCultivo, array('type' => 'hidden'));
-    echo $html->input('cuarentena', '0', array('type' => 'text'));
+    echo $html->input('cuarentena', '0', array('type' => 'hidden'));
+    echo $html->input('id_insecto', '1', array('type' => 'text'));
     ?>
     <div id="titulo_modulo">
         ANALISIS DE RECEPCI&Oacute;N<br/><hr/>
@@ -139,20 +153,20 @@ require('../lib/common/header.php');
     </fieldset>
     <div id="mensajes" style="display:none">
         <?
-            switch($GPC['msg']){
-                case 'exitoso':
-                    echo "<span class='msj_verde'>Registro Guardado !</span>";
+        switch ($GPC['msg']) {
+            case 'exitoso':
+                echo "<span class='msj_verde'>Registro Guardado !</span>";
                 break;
-                case 'error':
-                    echo "<span class='msj_rojo'>Ocurri&oacute; un Problema !</span>";
+            case 'error':
+                echo "<span class='msj_rojo'>Ocurri&oacute; un Problema !</span>";
                 break;
-                default:
-                    echo "<span class='msj_rojo'>Los analisis no est&aacute en norma !</span>";
+            default:
+                echo "<span class='msj_rojo'>Los analisis no est&aacute en norma !</span>";
                 break;
-            }
+        }
         ?>
     </div>
-   
+
     <fieldset>
         <legend>Datos de los An&aacute;lisis</legend>
         <table align="center" width="100%">
@@ -181,29 +195,29 @@ require('../lib/common/header.php');
                         switch ($dataAnalisis['tipo_analisis']) {
                             case '1':
                                 ?>                    
-                                <td align="center"><? echo $html->input('muestra' . $i ."_".$dataAnalisis['codigo'] . '[]', '', array('type' => 'text', 'length' => '6', 'class' => 'cuadricula positive', 'onChange' => "valoresMinMax(this.value,".$dataAnalisis['min_rec'].",".$dataAnalisis['max_rec'].")")); ?></td>
+                                <td align="center"><? echo $html->input('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', '', array('type' => 'text', 'length' => '6', 'class' => 'cuadricula positive', 'onChange' => "valoresMinMax(this.value," . $dataAnalisis['min_rec'] . "," . $dataAnalisis['max_rec'] . ")")); ?></td>
                                 <?
                                 break;
                             case '2':
                                 ?>                    
-                                <td align="center"><? echo $html->select('muestra' . $i ."_".$dataAnalisis['codigo'] . '[]', array('options' => $calidad,'class' => 'cuadricula cualitativo')); ?></td>
+                                <td align="center"><? echo $html->select('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', array('options' => $calidad, 'class' => 'cuadricula cualitativo')); ?></td>
                                 <?
                                 break;
                             case '3':
                                 ?>
-                                <td align="center"><? echo $html->select('muestra' . $i . "_".$dataAnalisis['codigo'] . '[]', array('options' => $estatus, 'class' => 'cuadricula booleano')) ?></td>
+                                <td align="center"><? echo $html->select('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', array('options' => $estatus, 'class' => 'cuadricula booleano')) ?></td>
                                 <?
                                 break;
                         }
                     }
-                    if($dataAnalisis['tipo_analisis'] == 1){
-                        echo '<td align="center" width="80">'.$dataAnalisis['min_rec']." / ".$dataAnalisis['max_rec'].'</td>';                        
-                    }else{
-                    ?>
-                    <td align="center">&nbsp;</td>
-                </tr>
-                <?
-                    }
+                    if ($dataAnalisis['tipo_analisis'] == 1) {
+                        echo '<td align="center" width="80">' . $dataAnalisis['min_rec'] . " / " . $dataAnalisis['max_rec'] . '</td>';
+                    } else {
+                        ?>
+                        <td align="center">&nbsp;</td>
+                    </tr>
+                    <?
+                }
                 $i++;
             }
             ?>

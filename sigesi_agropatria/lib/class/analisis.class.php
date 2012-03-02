@@ -16,5 +16,14 @@ class Analisis extends Model {
         $id = $this->_SQL_tool('INSERT', __METHOD__, $query);
         return $this->id = $id;
     }
+    
+    function listadoResultados($id_recepcion, $id_analisis=null) {
+        $query = "SELECT id_recepcion, id_analisis, muestra1, muestra2, muestra3
+                    FROM si_analisis_resultado WHERE '1' ";
+        $query .= (!empty($id_recepcion)) ? " AND id_recepcion = '$id_recepcion'" : "";
+        $query .= (!empty($id_analisis)) ? " AND id_analisis = '$id_analisis'" : "";
+        $id = $this->_SQL_tool('SELECT', __METHOD__, $query);
+        return $this->id = $id;
+    }
 }
 ?>

@@ -5,16 +5,18 @@
     $id_rec = $GPC['id_rec'];
     $recepcion = new Recepcion();
     $analisisCul = new AnalisisCultivo();
-    
+    $AnalisisRes = new Analisis();
+        
     $dataRecepcion = $recepcion->listadoAnalisis(null, null, $id_rec);
     $listadoAnalisis = $analisisCul->buscarAC(null, $dataRecepcion[0]['id_cultivo'], $idORG);
-    //echo "<pre>";print_r($listadoAnalisis); echo "</pre>";die();
+    $data = $AnalisisRes->listadoResultados($id_rec);
     
 ?>
 <script type="text/javascript">
     $(document).ready(function(){
         window.print();
-        window.location = '<?=DOMAIN_ROOT?>admin/recepcion.php';
+        history.back();
+        //window.location = '<?=DOMAIN_ROOT?>admin/recepcion.php';
     });
 </script>
 <div id="titulo_reporte">
@@ -44,15 +46,18 @@
         <th>MUESTRA <?=$i?></th>
         <? } ?>
     </tr>
-    <? foreach ($listadoAnalisis as $dataAnalisis) { ?>
+    <? $j = 0; foreach ($listadoAnalisis as $dataAnalisis) { ?>
     <tr id="reporte_fila_separar">
         <td align="center"><?=$dataAnalisis['codigo'] ?></td>
         <td><?=$dataAnalisis['nombre'] ?></td>
-        <? for($i=1;$i<=$dataRecepcion[0]['cant_muestras'];$i++){ ?>
-        <td align="center"><? echo $html->input('', $data[0]['muestra'.$i], array('type' => 'text', 'class' => 'reporte_input')); ?></td>
+        <? for($i=1;$i<=$dataRecepcion[0]['cant_muestras'];$i++){ ?>            
+        <td align="center"><? 
+            echo $html->input('', trim($data[$j]['muestra'.$i]), array('type' => 'text', 'class' => 'reporte_input'));         
+        ?></td>
         <? } ?>
     </tr>
-    <? } ?>
+    <? $j++; } ?>
+    
 </table>
 <?    
     require_once("../lib/common/footer_reportes.php");

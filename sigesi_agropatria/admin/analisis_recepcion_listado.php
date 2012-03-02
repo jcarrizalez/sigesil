@@ -69,15 +69,11 @@ require('../lib/common/header.php');
                     if ($dataREC['estatus_rec']==1)
                         echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Nuevo>', 'analisis_recepcion.php?ac=nuevo&id_rec='.$dataREC['id_rec'].'&cant_muestras='.$dataREC['cant_muestras'].'&id_cultivo='.$dataREC['codigo_cul']);
                     else                        
-                        echo $html->link('<img src="../images/imprimir.png" width="16" height="16" title=Imprimir>', 'analisis_recepcion_listado.php?ac=imprimir&id='.$dataREC['id_rec']);
+                        echo $html->link('<img src="../images/imprimir.png" width="16" height="16" title=Imprimir>', '../reportes/imprimir_recepcion.php?id='.$dataREC['id_rec']);
                 ?>
             </td>
             <td align="center">
                 <? 
-//                    if ($dataREC['estatus_rec']==1)
-//                        echo '<img src="../images/deshabilitar.png" width="16" height="16" title="Pendiente">';
-//                    else                        
-//                        echo '<img src="../images/habilitar.png" width="16" height="16" title="Analizado">';
                     switch ($dataREC['estatus_rec']) 
                     {
                         case '1':
