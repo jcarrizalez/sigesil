@@ -138,42 +138,6 @@
                     <?
                 }
         break;
-        /*case 'verificaraso':
-            $verifAso = $recepcion->verificarProAso($GPC['co'], $GPC['ca'], $GPC['cp']);
-            if(!empty($verifAso)){
-                ?>
-                    <div style="font-weight: bold; text-align: center; margin: 0 auto; padding-top: 10px;">YA EXISTE UN ASOCIADO PARA ESTE PRODUCTOR</div>
-                <?
-            }else{
-                ?>
-                    <fieldset>
-                        <legend>Datos del Asociado</legend>
-                        <table align="center">
-                            <tr>
-                                <td>C&eacute;dula/Rif: </td>
-                                <td>
-                                    <?
-                                        echo $html->select('nacion2', array('options'=>$listaCR));
-                                        echo "&nbsp;".$html->input('Asociado.ced_rif', $infoAsociado[0]['cedula_aso'], array('type' => 'text', 'class' => 'crproductor'));
-                                        echo $html->link('<img id="buscarAso" src="../images/buscar.png" width="16" height="16" title=Buscar Productor>');
-                                    ?>
-                                </td>
-                            </tr>
-                            <tbody id="asociado">
-                                <tr>
-                                    <td>Nombres y Apellidos: </td>
-                                    <td><? echo $html->input('Asociado.nombre', $infoAsociado[0]['nombre_aso'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-                                </tr>
-                                <tr>
-                                    <td>Tel&eacute;fono: </td>
-                                    <td><? echo $html->input('Asociado.telefono', $infoAsociado[0]['telefono_aso'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </fieldset>
-                <?
-            }
-        break;*/
     }
 ?>
 <script type="text/javascript">

@@ -450,11 +450,11 @@ form fieldset legend{
     color: #00CC00;
 }
 
-#formula_exp{
+.tabla_formula textarea{
     width: 95%;
     resize: none;
 }
 
-.btnFormula{
-    width: 40px;
+.formula_campos{
+    width: 50px;
 }
