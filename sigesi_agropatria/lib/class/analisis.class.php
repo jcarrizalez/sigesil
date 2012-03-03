@@ -25,5 +25,16 @@ class Analisis extends Model {
         $id = $this->_SQL_tool('SELECT', __METHOD__, $query);
         return $this->id = $id;
     }
+    
+    function listaAnalisis($idA='', $tipo='', $nombre='', $codigo='', $estatus='', $formula=''){
+        $query = "SELECT * FROM si_analisis WHERE '1'";
+        $query .= (!empty($idA)) ? " AND id = '$idA'" : "";
+        $query .= (!empty($tipo)) ? " AND tipo_analisis = '$tipo'" : "";
+        $query .= (!empty($nombre)) ? " AND nombre LIKE '%$nombre%'" : "";
+        $query .= (!empty($codigo)) ? " AND codigo = '$codigo'" : "";
+        $query .= (!empty($estatus)) ? " AND estatus = '$estatus'" : "";
+        $query .= (!empty($formula)) ? " AND formula = '$formula'" : "";
+        return $this->_SQL_tool('SELECT', __METHOD__, $query);
+    }
 }
 ?>

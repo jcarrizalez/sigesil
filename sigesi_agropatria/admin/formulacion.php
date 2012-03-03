@@ -6,6 +6,7 @@ $cultivo = new Cultivo();
 
 $idCA = $_SESSION['s_ca_id'];
 $listaCultivos = $cultivo->find('', '', 'id, nombre', 'list', 'codigo');
+
 $listaCondicion = array(1 => 'Si', 2 => 'No');
 $parametros->listaParametros(1, 6);
 $formulas->listaFormulas($idCA);
@@ -63,6 +64,22 @@ $validator->printScript();
     $(document).ready(function(){
         $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
         $('input.operador').attr('disabled', true);
+        
+        $('#id_cultivo').change(function(){
+            var cul = $(this).val();
+            if(cul != '')
+                $('#opciones').load('../ajax/cosecha_programa.php?ac=formu&cul='+cul);
+            else
+                $('#opciones').html('');
+        });
+        
+        $('#multiple_cond').change(function(){
+            var cond = $(this).val();
+            if(cond != '' && cond != 1)
+                $('#multiple').css('display', 'block');
+            else
+                $('#multiple').css('display', 'none');
+        });
         
         $('.parentesis').click(function(){
             var valor = $(this).val();
@@ -184,10 +201,6 @@ $validator->printScript();
                     $("#resultado").append(resultado);
             }
         });
-        
-        /*var miValor = 'seccion_1';
-        miValor=miValor.replace('seccion_',"");
-        alert(miValor);*/
     });
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
@@ -202,9 +215,10 @@ $validator->printScript();
                 <td width="110">Cultivo: </td>
                 <td><? echo $html->select('id_cultivo', array('options' => $listaCultivos, 'default' => 'Seleccione', 'class' => 'inputGrilla')) ?></td>
             </tr>
+            <tbody id="opciones"></tbody>
             <tr>
                 <td>Condici&oacute;n &Uacute;nica: </td>
-                <td><? echo $html->select('condicion', array('options' => $listaCondicion, 'selected' => $GPC['condicion'], 'default' => 'Seleccione', 'class' => 'inputGrilla')) ?></td>
+                <td><? echo $html->select('multiple_cond', array('options' => $listaCondicion, 'selected' => $GPC['condicion'], 'default' => 'Seleccione', 'class' => 'inputGrilla')) ?></td>
             </tr>
             <tr>
                 <td colspan="2">&nbsp;</td>
@@ -230,6 +244,24 @@ $validator->printScript();
             </tr>
         </table>
     </fieldset>
+    <!---->
+    <fieldset id="multiple" style="display: none;">
+    <!--fieldset id="multiple"-->
+        <legend>Condiciones a Evaluar</legend>
+        <table align="center" border="0" cellpadding="0" cellspacing="0">
+            <? for($k = 1; $k <= 2; $k++ ){ ?>
+            <tr>
+            <th width="100">Condicion Nro <?=$k?></th>
+            <td>
+                <? echo "-&nbsp;&nbsp;Desde ".$html->input('input_condi'.$k, '', array('type' => 'text', 'length' => '7', 'class' => 'formula_campos positive')); ?>
+                <? echo "Hasta ".$html->input('input_condi'.$k, '', array('type' => 'text', 'length' => '7', 'class' => 'formula_campos positive')); ?>
+                <? echo "Desc ".$html->input('input_condi'.$k, '', array('type' => 'text', 'length' => '7', 'class' => 'formula_campos positive')); ?>
+            </td>
+            </tr>
+            <? } ?>
+        </table>
+    </fieldset>
+    <!---->
     <fieldset>
         <legend>F&oacute;rmula</legend>
         <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" class="tabla_formula">
@@ -277,7 +309,7 @@ $validator->printScript();
     </fieldset>
     <fieldset>
         <legend>Comprobar F&oacute;rmula</legend>
-        <table align="center" border="0" width="100%"  cellpadding="0" cellspacing="0" class="tabla_formula">
+        <table align="center" border="0" width="100%" cellpadding="0" cellspacing="0" class="tabla_formula">
             <?
                 $j=0;
                 foreach($parametros->lista as $parametro){
@@ -303,17 +335,17 @@ $validator->printScript();
             </tr>
         </table>
     </fieldset>
-        <table align="center" width="100%">
-            <tr>
-                <td>&nbsp;</td>
-            </tr>
-            <tr align="center">
-                <td>
-                    <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
-                    <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
-                </td>
-            </tr>
-        </table>
+    <table align="center" width="100%">
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr align="center">
+            <td>
+                <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
+                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
+            </td>
+        </tr>
+    </table>
 </form>
 <?
 require('../lib/common/footer.php');
