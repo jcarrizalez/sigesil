@@ -173,7 +173,7 @@ $validator->printScript();
             var resultado;
             $("#resultado").html('');
             if(formula != ''){
-                //FALTA VERIFICAR QUE EXISTA LA MISMA CANTIDAD DE PARENTESIS
+                //FALTA VERIFICAR QUE EXISTA LA MISMA CANTIDAD DE PARENTESIS EN LA FORMULA
                 var total = eval(formula).toFixed(3);
                 if(total < 0){
                     resultado = "<tr><th colspan='3' class='error' align='center'><h3>El resultado debe ser Mayor o igual a Cero (0)";
