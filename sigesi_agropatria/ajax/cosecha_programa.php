@@ -26,7 +26,7 @@
         break;
         case 'formu':
             if(!empty($GPC['cul'])){
-                if($GPC['cul'] != 9){
+                if($GPC['cul'] == 1){
                     $analisis = new Analisis();
                     $infoAnalisis = $analisis->listaAnalisis('', '', '', '', 't', 't');
                     foreach($infoAnalisis as $valor){
@@ -36,14 +36,6 @@
                     <tr>
                         <td width="110">An&aacute;lisis: </td>
                         <td><? echo $html->select('id_analisis', array('options' => $listaAnalisis, 'default' => 'Seleccione', 'class' => 'inputGrilla')) ?></td>
-                    </tr>
-                    <?
-                }else{
-                    $listaOpciones = array(1 => 'Franquicia');
-                    ?>
-                    <tr>
-                        <td width="110">Opciones: </td>
-                        <td><? echo $html->select('id_analisis', array('options' => $listaOpciones, 'default' => 'Seleccione', 'class' => 'inputGrilla')) ?></td>
                     </tr>
                     <?
                 }

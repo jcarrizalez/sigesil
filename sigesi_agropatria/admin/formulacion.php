@@ -8,6 +8,7 @@ $idCA = $_SESSION['s_ca_id'];
 $listaCultivos = $cultivo->find('', '', 'id, nombre', 'list', 'codigo');
 
 $listaCondicion = array(1 => 'Si', 2 => 'No');
+$listaTipo = array(1 => 'An&aacute;lisis', 2 => 'Otro');
 $parametros->listaParametros(1, 6);
 $formulas->listaFormulas($idCA);
 
@@ -40,6 +41,8 @@ require('../lib/common/header.php');
 $validator = new Validator('form1');
 $validator->printIncludes();
 $validator->setRules('id_cultivo', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('tipo_for', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('multiple_cond', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('condicion', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('codigo', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('formula_exp', array('required' => array('value' => true, 'message' => 'Requerido')));
@@ -65,7 +68,7 @@ $validator->printScript();
         $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
         $('input.operador').attr('disabled', true);
         
-        $('#id_cultivo').change(function(){
+        $('#tipo_for').change(function(){
             var cul = $(this).val();
             if(cul != '')
                 $('#opciones').load('../ajax/cosecha_programa.php?ac=formu&cul='+cul);
@@ -75,10 +78,20 @@ $validator->printScript();
         
         $('#multiple_cond').change(function(){
             var cond = $(this).val();
-            if(cond != '' && cond != 1)
-                $('#multiple').css('display', 'block');
-            else
+            if(cond == 1){
+                $('#unica_formula').css('display', 'block');
                 $('#multiple').css('display', 'none');
+                $('#btnCondicion').css('display', 'none');
+            }else if(cond == 2){
+                $('#unica_formula').css('display', 'block');
+                $('#multiple').css('display', 'block');
+                $('#btnCondicion').css('display', 'block');
+            }
+            else{
+                $('#unica_formula').css('display', 'none');
+                $('#multiple').css('display', 'none');
+                $('#btnCondicion').css('display', 'none');
+            }
         });
         
         $('.parentesis').click(function(){
@@ -89,6 +102,7 @@ $validator->printScript();
                 $('#formula_eval').attr('value', campo+valor);
                 $('#parc').attr('disabled', true);
                 $('input.operador').attr('disabled', true);
+                $('#res').attr('disabled', false);
                 $('#agregar').attr('disabled', false);
                 $('#numero').attr('disabled', false);
                 $('input.constante').attr('disabled', false);
@@ -192,9 +206,9 @@ $validator->printScript();
                 //FALTA VERIFICAR QUE EXISTA LA MISMA CANTIDAD DE PARENTESIS EN LA FORMULA
                 var total = eval(formula).toFixed(3);
                 if(total < 0){
-                    resultado = "<tr><th colspan='3' class='error' align='center'><h3>El resultado debe ser Mayor o igual a Cero (0)";
+                    resultado = "<tr><th class='error' align='center'><h3>El resultado debe ser Mayor o igual a Cero (0)";
                 }else{
-                    resultado = "<tr><th colspan='3' class='msj_verde' align='center'><h3>El resultado es: "+total;
+                    resultado = "<tr><th class='msj_verde' align='center'><h3>El resultado es: "+total;
                 }
                     resultado += "</h3></th></tr>";
                     $("#resultado").append(resultado);
@@ -211,20 +225,6 @@ $validator->printScript();
             infoCondicion += "</td></tr>";
             $("#nueva_condicion").append(infoCondicion);
         });
-        
-        /*$(".menor_cond").change(function(){
-            var campo_id = $(this).attr('id').split('_');
-            var campo_valor = $(this).val();
-            for(i=1; i < parseInt(campo_id[1]); i++){
-                var comparar = $('#condhasta_'+i).val();
-                if(i < campo_id[1]){
-                    if(campo_valor <= comparar){
-                        alert('Esta condicion ya fue evaluada');
-                        $(this).val('');
-                    }
-                }
-            }
-        });*/
     });
     
     function CondicionNueva(id){
@@ -252,24 +252,37 @@ $validator->printScript();
         <legend>Informaci&oacute;n del Cultivo</legend>
         <table align="center" width="100%" cellpadding="0" cellspacing="0" border="0">
             <tr>
-                <td width="110">Cultivo: </td>
+                <td width="130">Cultivo:</td>
                 <td><? echo $html->select('id_cultivo', array('options' => $listaCultivos, 'default' => 'Seleccione', 'class' => 'inputGrilla')) ?></td>
+            </tr>
+            <tr>
+                <td>Tipo de Formulaci&oacute;n:</td>
+                <td><? echo $html->select('tipo_for', array('options' => $listaTipo, 'default' => 'Seleccione', 'class' => 'inputGrilla')) ?></td>
             </tr>
             <tbody id="opciones"></tbody>
             <tr>
-                <td>Condici&oacute;n &Uacute;nica: </td>
-                <td><? echo $html->select('multiple_cond', array('options' => $listaCondicion, 'selected' => $GPC['condicion'], 'default' => 'Seleccione', 'class' => 'inputGrilla')) ?></td>
+                <td>Condici&oacute;n &Uacute;nica:</td>
+                <td>
+                    <? echo $html->select('multiple_cond', array('options' => $listaCondicion, 'selected' => $GPC['condicion'], 'default' => 'Seleccione', 'class' => 'inputGrilla')) ?>
+                    <span id="btnCondicion" style="display: none"><? echo $html->input('agregarcon', 'Agregar Condici&oacute;n', array('type' => 'button')); ?></span>
+                </td>
             </tr>
             <tr>
                 <td colspan="2">&nbsp;</td>
             </tr>
         </table>
     </fieldset>
-    <fieldset>
-        <legend>Operadores Matem&aacute;ticos</legend>
-        <table align="center" width="100%" cellpadding="0" cellspacing="0">
+    <fieldset id="unica_formula" style="display: none;">
+        <legend>F&oacute;rmula 1</legend>
+        <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" class="tabla_formula">
             <tr>
-                <td align="center">
+                <td>
+                    <span class="msj_rojo">* </span>C&oacute;digo de la Formula: 
+                    <? echo $html->input('codigo', '', array('type' => 'text', 'length' => '5', 'class' => 'cuadricula')); ?>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" style="padding: 15px 0">
                     <? echo $html->input('para', '(', array('type' => 'button', 'class' => 'parentesis')); ?>
                     <? echo $html->input('parc', ')', array('type' => 'button', 'class' => 'parentesis')); ?>
                     <? echo $html->input('sum', '+', array('type' => 'button', 'class' => 'operador')); ?>
@@ -280,118 +293,118 @@ $validator->printScript();
                 </td>
             </tr>
             <tr>
-                <td>&nbsp;</td>
-            </tr>
-        </table>
-    </fieldset>
-    <!---->
-    <!--fieldset id="multiple" style="display: none;"-->
-    <fieldset id="multiple">
-    <!--fieldset id="multiple"-->
-        <legend>Condiciones a Evaluar</legend>
-        <table align="center" border="0" cellpadding="0" cellspacing="0" width="350">
-            <tr>
-                <td align="center" colspan="4"><? echo $html->input('agregarcon', 'Agregar Condici&oacute;n', array('type' => 'button')); ?></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-            </tr>
-            <tr>
-                <th>&nbsp;</th>
-                <th colspan="2" align="center">Humedad</th>
-                <th align="center">Descuento</th>
-            </tr>
-            <tr align="center">
-                <th>&nbsp;</th>
-                <th>Desde</th>
-                <th>Hasta</th>
-                <th>&nbsp;</th>
-            </tr>
-            <? for($k = 1; $k <= 2; $k++ ){ ?>
-            <tr align="center">
-            <th width="100">Condicion Nro <?=$k?></th>
-            <td>
-                <? echo "&nbsp;&nbsp;".$html->input('conddesde_'.$k, '', array('type' => 'text', 'length' => '7', 'class' => 'formula_campos positive menor_cond', 'onChange' => 'CondicionNueva(this.id)')); ?>
-            </td>
-            <td>
-                <? echo "&nbsp;&nbsp;".$html->input('condhasta_'.$k, '', array('type' => 'text', 'length' => '7', 'class' => 'formula_campos positive menor_cond', 'onChange' => 'CondicionNueva(this.id)')); ?>
-            </td>
-            <td>
-                <? echo "&nbsp;&nbsp;".$html->input('conddesc_'.$k, '', array('type' => 'text', 'length' => '7', 'class' => 'formula_campos positive menor_cond')); ?>
-            </td>
-            </tr>
-            <? } ?>
-            <tbody id="nueva_condicion"></tbody>
-        </table>
-    </fieldset>
-    <!---->
-    <fieldset>
-        <legend>F&oacute;rmula</legend>
-        <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" class="tabla_formula">
-            <tr>
-                <td colspan="3">
-                    <span class="msj_rojo">* </span>C&oacute;digo de la Formula: 
-                    <? echo $html->input('codigo', '', array('type' => 'text', 'length' => '3', 'class' => 'cuadricula')); ?>
+                <td align="center" style="padding: 15px 0; line-height: 30px;">
+                    <?
+                    echo $html->input('agregar', '<-', array('type' => 'button', 'class' => 'formula_campos'));
+                    echo $html->input('numero', '', array('type' => 'text', 'length' => '7', 'class' => 'formula_campos positive'));
+                    foreach($parametros->lista as $parametro){
+                        echo $html->input($parametro['parametro_llave'], $parametro['parametro_llave'], array('type' => 'button', 'class' => 'formula_campos constante'));
+                    }
+                    foreach($formulas->listaF as $formula){
+                        echo $html->input($formula['codigo'], $formula['codigo'], array('type' => 'button', 'class' => 'formula_campos btnFormula', 'onClick' => "asignarFormula('".$formula['formula']."')"));
+                    }
+                    ?>
                 </td>
             </tr>
             <tr>
-                <th width="355">&nbsp;</th>
-                <th align="center" width="1">Constante</th>
-                <th align="center">Descripci&oacute;n</th>
-            </tr>
-            <tr class="segundaclase">
-                <td rowspan="<?=count($parametros->lista)+count($formulas->listaF)+1?>" align="center">
-                    <textarea name="formula_exp" id="formula_exp" readOnly="true"><?=$GPC['formula']?></textarea>
+                <td align="center">
+                    <textarea name="formula_exp" id="formula_exp" rows="1" readOnly="readOnly"><?=$GPC['formula']?></textarea>
                 </td>
-                <td align="center"><? echo $html->input('agregar', '<-', array('type' => 'button', 'class' => 'formula_campos')); ?></td>
-                <td align="center"><? echo $html->input('numero', '', array('type' => 'text', 'length' => '7', 'class' => 'formula_campos positive')); ?></td>
             </tr>
-            <?
-                $i=1;
-                foreach($parametros->lista as $parametro){
-                    $clase = $general->obtenerClaseFila($i);
-            ?>
-            <tr class="<?=$clase?>">
-                <td align="center"><? echo $html->input($parametro['parametro_llave'], $parametro['parametro_llave'], array('type' => 'button', 'class' => 'formula_campos constante')); ?></td>
-                <td align="center"><?=$parametro['parametro_valor']?></td>
-            </tr>
-            <? $i++; } ?>
-            <?
-                foreach($formulas->listaF as $formula){
-                    $clase = $general->obtenerClaseFila($i);
-            ?>
-            <tr class="<?=$clase?>">
-                <td align="center"><? echo $html->input($formula['codigo'], $formula['codigo'], array('type' => 'button', 'class' => 'formula_campos btnFormula', 'onClick' => "asignarFormula('".$formula['formula']."')")); ?></td>
-                <td align="center"><?=$formula['formula']?></td>
-            </tr>
-            <? $i++; } ?>
             <tr>
-                <td colspan="3">&nbsp;</td>
+                <td style="padding: 10px 0;"><hr/></td>
             </tr>
-        </table>
-    </fieldset>
-    <fieldset>
-        <legend>Comprobar F&oacute;rmula</legend>
-        <table align="center" border="0" width="100%" cellpadding="0" cellspacing="0" class="tabla_formula">
-            <?
-                $j=0;
-                foreach($parametros->lista as $parametro){
-                    $clase = $general->obtenerClaseFila($j);
-            ?>
-            <tr class="<?=$clase?>">
-                <td align="center" width="1"><? echo $parametro['parametro_llave']; ?>&nbsp;</td>
-                <td width="70"><? echo $html->input($parametro['parametro_llave'], '', array('type' => 'text', 'length' => '7', 'class' => 'cuadricula valores positive')); ?></td>
-                <? if($parametro['parametro_llave'] == 'PL1'){ ?>
-                <td rowspan="<?=count($parametros->lista)?>" align="center">
-                    <textarea name="formula_eval" id="formula_eval" readOnly="true"></textarea>
+            <tr>
+                <th>COMPROBAR F&Oacute;RMULA<br/><br/></th>
+            </tr>
+            <tr>
+                <td align="center">
+                    <?
+                    foreach($parametros->lista as $parametro){
+                        echo $parametro['parametro_llave']."&nbsp;&nbsp;&nbsp;";
+                        echo $html->input($parametro['parametro_llave'], '', array('type' => 'text', 'length' => '7', 'class' => 'cuadricula valores positive'));
+                    }
+                    ?>
                 </td>
-            <? } ?>
             </tr>
-            <? $j++; } ?>
             <tr>
+                <td align="center">
+                    <textarea name="formula_eval" id="formula_eval" rows="1" readOnly="readOnly"></textarea>
+                </td>
+            </tr>
             <tbody id="resultado"></tbody>
             <tr align="center">
-                <td colspan="3" style="padding-top: 20px;">
+                <td style="padding-top: 20px;">
+                    <? echo $html->input('Comprobar', 'Comprobar', array('type' => 'button')); ?>
+                    <? echo $html->input('Recuperar', 'Corregir Valores', array('type' => 'button')); ?>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    
+    <fieldset id="multiple" style="display: none;">
+        <legend>F&oacute;rmula 2</legend>
+        <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" class="tabla_formula">
+            <tr>
+                <td>
+                    <span class="msj_rojo">* </span>C&oacute;digo de la Formula: 
+                    <? echo $html->input('codigo', '', array('type' => 'text', 'length' => '5', 'class' => 'cuadricula')); ?>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" style="padding: 15px 0">
+                    <? echo $html->input('para', '(', array('type' => 'button', 'class' => 'parentesis')); ?>
+                    <? echo $html->input('parc', ')', array('type' => 'button', 'class' => 'parentesis')); ?>
+                    <? echo $html->input('sum', '+', array('type' => 'button', 'class' => 'operador')); ?>
+                    <? echo $html->input('res', '-', array('type' => 'button', 'class' => 'operador')); ?>
+                    <? echo $html->input('mul', '*', array('type' => 'button', 'class' => 'operador')); ?>
+                    <? echo $html->input('div', '/', array('type' => 'button', 'class' => 'operador')); ?>
+                    <? echo $html->input('borrar', 'Borrar', array('type' => 'button')); ?>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" style="padding: 15px 0; line-height: 30px;">
+                    <?
+                    echo $html->input('agregar', '<-', array('type' => 'button', 'class' => 'formula_campos'));
+                    echo $html->input('numero', '', array('type' => 'text', 'length' => '7', 'class' => 'formula_campos positive'));
+                    foreach($parametros->lista as $parametro){
+                        echo $html->input($parametro['parametro_llave'], $parametro['parametro_llave'], array('type' => 'button', 'class' => 'formula_campos constante'));
+                    }
+                    foreach($formulas->listaF as $formula){
+                        echo $html->input($formula['codigo'], $formula['codigo'], array('type' => 'button', 'class' => 'formula_campos btnFormula', 'onClick' => "asignarFormula('".$formula['formula']."')"));
+                    }
+                    ?>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <textarea name="formula_exp" id="formula_exp" rows="1" readOnly="readOnly"><?=$GPC['formula']?></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 0;"><hr/></td>
+            </tr>
+            <tr>
+                <th>COMPROBAR F&Oacute;RMULA<br/><br/></th>
+            </tr>
+            <tr>
+                <td align="center">
+                    <?
+                    foreach($parametros->lista as $parametro){
+                        echo $parametro['parametro_llave']."&nbsp;&nbsp;&nbsp;";
+                        echo $html->input($parametro['parametro_llave'], '', array('type' => 'text', 'length' => '7', 'class' => 'cuadricula valores positive'));
+                    }
+                    ?>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <textarea name="formula_eval" id="formula_eval" rows="1" readOnly="readOnly"></textarea>
+                </td>
+            </tr>
+            <tbody id="resultado"></tbody>
+            <tr align="center">
+                <td style="padding-top: 20px;">
                     <? echo $html->input('Comprobar', 'Comprobar', array('type' => 'button')); ?>
                     <? echo $html->input('Recuperar', 'Corregir Valores', array('type' => 'button')); ?>
                 </td>
