@@ -174,7 +174,6 @@ $validator->printScript();
             var reemplazo = new RegExp(id,'g');
             if(campo_valor != ''){
                 $('#formula_eval').attr('value', formula.replace(reemplazo, campo_valor));
-                //$(this).attr('disabled', true);
             }
         });
         
@@ -201,10 +200,51 @@ $validator->printScript();
                     $("#resultado").append(resultado);
             }
         });
+        
+        $('#agregarcon').click(function(){
+            $('#nroCondicion').val(parseInt($('#nroCondicion').val())+1);
+            var nro = $('#nroCondicion').val();
+            var infoCondicion = "<tr align='center'><th width='100'>Condicion Nro "+nro+"</th>";
+            infoCondicion += "<td><input type='text' maxlength='7' value='' name='conddesde_"+nro+"' id='conddesde_"+nro+"' class='formula_campos positive menor_cond' onChange='CondicionNueva(this.id)'></td>";
+            infoCondicion += "<td><input type='text' maxlength='7' value='' name='condhasta_"+nro+"' id='condhasta_"+nro+"' class='formula_campos positive menor_cond' onChange='CondicionNueva(this.id)'></td>";
+            infoCondicion += "<td><input type='text' maxlength='7' value='' name='conddesc_"+nro+"' id='conddesc_"+nro+"' class='formula_campos positive menor_cond' onChange='CondicionNueva(this.id)'></td>";
+            infoCondicion += "</td></tr>";
+            $("#nueva_condicion").append(infoCondicion);
+        });
+        
+        /*$(".menor_cond").change(function(){
+            var campo_id = $(this).attr('id').split('_');
+            var campo_valor = $(this).val();
+            for(i=1; i < parseInt(campo_id[1]); i++){
+                var comparar = $('#condhasta_'+i).val();
+                if(i < campo_id[1]){
+                    if(campo_valor <= comparar){
+                        alert('Esta condicion ya fue evaluada');
+                        $(this).val('');
+                    }
+                }
+            }
+        });*/
     });
+    
+    function CondicionNueva(id){
+        var campo_id = id.split('_');
+        var campo_valor = document.getElementById(id).value;
+        for(i=1; i < parseInt(campo_id[1]); i++){
+            var comparar = document.getElementById('condhasta_'+i).value;
+            if(i < campo_id[1]){
+                if(campo_valor <= comparar){
+                    alert('Esta condicion ya fue evaluada');
+                    document.getElementById(id).value = '';
+                    return false;
+                }
+            }
+        }
+    }
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
     <? echo $html->input('Cultivo.id', $infoCultivo[0]['id'], array('type' => 'hidden')); ?>
+    <? echo $html->input('nroCondicion', 2, array('type' => 'hidden')); ?>
     <div id="titulo_modulo">
         NUEVA F&Oacute;RMULA<br/><hr/>
     </div>
@@ -245,20 +285,43 @@ $validator->printScript();
         </table>
     </fieldset>
     <!---->
-    <fieldset id="multiple" style="display: none;">
+    <!--fieldset id="multiple" style="display: none;"-->
+    <fieldset id="multiple">
     <!--fieldset id="multiple"-->
         <legend>Condiciones a Evaluar</legend>
-        <table align="center" border="0" cellpadding="0" cellspacing="0">
-            <? for($k = 1; $k <= 2; $k++ ){ ?>
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="350">
             <tr>
+                <td align="center" colspan="4"><? echo $html->input('agregarcon', 'Agregar Condici&oacute;n', array('type' => 'button')); ?></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <th>&nbsp;</th>
+                <th colspan="2" align="center">Humedad</th>
+                <th align="center">Descuento</th>
+            </tr>
+            <tr align="center">
+                <th>&nbsp;</th>
+                <th>Desde</th>
+                <th>Hasta</th>
+                <th>&nbsp;</th>
+            </tr>
+            <? for($k = 1; $k <= 2; $k++ ){ ?>
+            <tr align="center">
             <th width="100">Condicion Nro <?=$k?></th>
             <td>
-                <? echo "-&nbsp;&nbsp;Desde ".$html->input('input_condi'.$k, '', array('type' => 'text', 'length' => '7', 'class' => 'formula_campos positive')); ?>
-                <? echo "Hasta ".$html->input('input_condi'.$k, '', array('type' => 'text', 'length' => '7', 'class' => 'formula_campos positive')); ?>
-                <? echo "Desc ".$html->input('input_condi'.$k, '', array('type' => 'text', 'length' => '7', 'class' => 'formula_campos positive')); ?>
+                <? echo "&nbsp;&nbsp;".$html->input('conddesde_'.$k, '', array('type' => 'text', 'length' => '7', 'class' => 'formula_campos positive menor_cond', 'onChange' => 'CondicionNueva(this.id)')); ?>
+            </td>
+            <td>
+                <? echo "&nbsp;&nbsp;".$html->input('condhasta_'.$k, '', array('type' => 'text', 'length' => '7', 'class' => 'formula_campos positive menor_cond', 'onChange' => 'CondicionNueva(this.id)')); ?>
+            </td>
+            <td>
+                <? echo "&nbsp;&nbsp;".$html->input('conddesc_'.$k, '', array('type' => 'text', 'length' => '7', 'class' => 'formula_campos positive menor_cond')); ?>
             </td>
             </tr>
             <? } ?>
+            <tbody id="nueva_condicion"></tbody>
         </table>
     </fieldset>
     <!---->
