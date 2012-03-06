@@ -37,7 +37,10 @@
     $general = new General;
     $parametros = new Parameter();
     $javascript = new Javascript();
+    $lenguaje = new Lenguaje();
     $html = new Html();
+    
+    $etiqueta = $lenguaje->etiquetasPorPagina($_SERVER['PHP_SELF']);
 
     if (file_exists(APPROOT.'lib/common/verificar_login.php')){
         $archivo = explode("/", $_SERVER['PHP_SELF']);

@@ -29,36 +29,36 @@
         <img src="../images/bienvenido.png" width="100%" height="100%" />
     </div>
     <div id="mostrar_error">
-        <span>Usuario y/o Contrase&ntilde;a Inv&aacute;lidos</span>
+        <span><?=$etiqueta['loginerror']?></span>
     </div>
     <div id="mostrar_error2">
         <?php 
             switch ($GPC['msg']){
                 case 'loginerror':
-                    echo 'Usuario y/o Contrase&ntilde;a Inv&aacute;lidos';
+                    echo $etiqueta['loginerror'];
                 break;
                 case 'auth_requerida':
-                    echo 'Debe Iniciar Sesi&oacute;n';
+                    echo $etiqueta['auth_requerida'];
                 break;
                 case 'usuario_inactivo':
-                    echo 'Usuario y/o Centro de Acopio Inactivo';
+                    echo $etiqueta['usuario_inactivo'];
                 break;
                 case 'captcha_invalido':
-                    echo 'Captcha Inv&aacute;lido';
+                    echo $etiqueta['txtUscaptcha_invalidouario'];
                 break;
                 case 'captcha_vacio':
-                    echo 'Debe introducir el Captcha';
+                    echo $etiqueta['captcha_vacio'];
                 break;
             }
         ?>
     </div>
     <table id="table_login" align="center" border="0">
         <tr>
-            <td class="labelText" width="1">Usuario:</td>
+            <td class="labelText" width="1"><?=$etiqueta['txtUsuario']?></td>
             <td align="right"><? echo $html->input('usuario', '', array('type' => 'text', 'class' => 'inputLogin')); ?></td>
         </tr>
         <tr>
-            <td class="labelText">Contrase&ntilde;a:&nbsp;</td>
+            <td class="labelText"><?=$etiqueta['txtContrasena']?></td>
             <td align="right"><? echo $html->input('pass', '', array('type' => 'password', 'class' => 'inputLogin')); ?></td>
         </tr>
         <tr>
@@ -80,8 +80,8 @@
         </tr>
         <tr align="center">
             <td colspan="2">
-                <? echo $html->input('Entrar', 'Entrar', array('type' => 'submit', 'class' => 'btnLogin')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'class' => 'btnLogin', 'onClick'=>'cancelar()')); ?>
+                <? echo $html->input('Entrar', $etiqueta['txtEntrar'], array('type' => 'submit', 'class' => 'btnLogin')); ?>
+                <? echo $html->input('Cancelar', $etiqueta['txtCancelar'], array('type' => 'reset', 'class' => 'btnLogin', 'onClick'=>'cancelar()')); ?>
             </td>
         </tr>
     </table>

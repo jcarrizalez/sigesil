@@ -8,11 +8,11 @@ $armarMenuP = $objMenu->menuPorUsuario($_SESSION['s_id']);
             $armarMenuH = $objMenu->menuPorUsuario($_SESSION['s_id'], $valorPadre['id']);
     ?>
     <div>
-        <h3><a href="#"><?=$valorPadre['nombre']?></a></h3>
+        <h3><a href="#"><?=$etiqueta[$valorPadre['nombre']]?></a></h3>
         <div>
             <ul id="lista_accordion">
                 <? foreach($armarMenuH as $valorHijo){ ?>
-                <li><a href="<?=DOMAIN_ROOT.$valorHijo['url']?>"><?=$valorHijo['nombre']?></a></li>
+                <li><a href="<?=DOMAIN_ROOT.$valorHijo['url']?>"><?=$etiqueta[$valorHijo['nombre']]?></a></li>
                 <? } ?>
             </ul>
         </div>
