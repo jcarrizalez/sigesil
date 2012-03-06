@@ -450,9 +450,8 @@ form fieldset legend{
     color: #00CC00;
 }
 
-.tabla_formula textarea{
+.campo_formula{
     width: 95%;
-    resize: none;
 }
 
 .formula_campos{

@@ -24,22 +24,5 @@
                 echo $html->input('Recepcion.numero', $numeroRecepcion, array('type' => 'hidden', 'class' => 'estilo_campos'));
             }
         break;
-        case 'formu':
-            if(!empty($GPC['cul'])){
-                if($GPC['cul'] == 1){
-                    $analisis = new Analisis();
-                    $infoAnalisis = $analisis->listaAnalisis('', '', '', '', 't', 't');
-                    foreach($infoAnalisis as $valor){
-                        $listaAnalisis[$valor['codigo']] = $valor['nombre'];
-                    }
-                    ?>
-                    <tr>
-                        <td width="110">An&aacute;lisis: </td>
-                        <td><? echo $html->select('id_analisis', array('options' => $listaAnalisis, 'default' => 'Seleccione', 'class' => 'inputGrilla')) ?></td>
-                    </tr>
-                    <?
-                }
-            }
-        break;
     }
 ?>
