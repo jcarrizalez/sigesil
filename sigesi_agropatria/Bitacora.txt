@@ -28,3 +28,7 @@ http://code.google.com/intl/es-ES/apis/recaptcha/intro.html
 IMPLEMENTACION:
 http://www.zarpele.com.ar/2009/10/php-implementar-recaptcha-facilmente-parte-2/
 
+Convensiones de Programacion
+Etiquetas
+    Se crea un prefijo en el nombre de la variable para identificar de que se trata Ejem
+    E_

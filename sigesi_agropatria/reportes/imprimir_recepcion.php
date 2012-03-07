@@ -2,15 +2,32 @@
     require_once("../lib/core.lib.php");
     require_once("../lib/common/header_reportes.php");
     //include("../lib/class/mpdf/mpdf.php");
+    if (empty($GPC['id_rec'])) {
+        die('Error');
+    }
+        
     $id_rec = $GPC['id_rec'];
     $recepcion = new Recepcion();
     $analisisCul = new AnalisisCultivo();
     $AnalisisRes = new Analisis();
-        
+    
+    //$recepcion->find(array('id'=>$id_rec));
     $dataRecepcion = $recepcion->listadoAnalisis(null, null, $id_rec);
     $listadoAnalisis = $analisisCul->buscarAC(null, $dataRecepcion[0]['id_cultivo'], $idORG);
     $data = $AnalisisRes->listadoResultados($id_rec);
-    
+
+//    echo 'Recepcion';
+//    debug::pr($dataRecepcion);
+//    
+//    echo 'Analisis por Cultivo';
+//    debug::pr($listadoAnalisis);
+//    
+//    echo 'Analisis Resultados';
+//    debug::pr($data);
+////    echo '<br>';
+////    echo print_r($data);
+////    echo '</br>';
+//    die();
 ?>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -52,7 +69,7 @@
         <td><?=$dataAnalisis['nombre'] ?></td>
         <? for($i=1;$i<=$dataRecepcion[0]['cant_muestras'];$i++){ ?>            
         <td align="center"><? 
-            echo $html->input('', trim($data[$j]['muestra'.$i]), array('type' => 'text', 'class' => 'reporte_input'));         
+            echo $html->input('muestra'.$j.'[]', trim($data[$j]['muestra'.$i]), array('type' => 'text', 'class' => 'reporte_input'));         
         ?></td>
         <? } ?>
     </tr>

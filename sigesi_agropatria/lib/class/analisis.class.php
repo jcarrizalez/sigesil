@@ -22,7 +22,10 @@ class Analisis extends Model {
                     FROM si_analisis_resultado WHERE '1' ";
         $query .= (!empty($id_recepcion)) ? " AND id_recepcion = '$id_recepcion'" : "";
         $query .= (!empty($id_analisis)) ? " AND id_analisis = '$id_analisis'" : "";
+        $query .= "ORDER BY id_recepcion";
         $id = $this->_SQL_tool('SELECT', __METHOD__, $query);
+//        debug::pr($query);
+//        die();
         return $this->id = $id;
     }
     

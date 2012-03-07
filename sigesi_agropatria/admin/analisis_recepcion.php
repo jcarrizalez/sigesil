@@ -72,23 +72,20 @@ require('../lib/common/header.php');
         history.back();
     }
 
-    function valoresMinMax(valor, min, max, codigo, muestra, estatus) {        
+    function valoresMinMax(valor, min, max, codigo, muestra, estatus, objeto) {        
         var campo=codigo+'_'+muestra;
         indice=muestra-1;
         var rechazo = document.getElementById("es_rechazado");
         var cuarentena=document.getElementById("es_cuarentena");
         var celda= document.getElementById('muestra' + indice.toString()+ '_' + codigo); 
-
-        if (rechazo.value!='99_99') {
-            esRechazada=alert('La recepcion actualmente esta rechazada. !!!');
-        }
-       
+        //var mensaje= document.getElementById('mensaje'); 
+        //mensaje.style.display="block";
         if (valor != ''){            
             if (estatus=='R') {
                 if ((valor< min) || (valor > max) || (valor=='SI')) {                   
                     //document.getElementById("mensajes").style.display="block"; 
 //                    alert('estatus:'+estatus+'|, valor:'+valor+'|');
-                    esRechazada=alert('<?= $html->unhtmlize($etiqueta['E_analisis1']); ?>');
+                    esRechazada=alert('<?= $html->unhtmlize($etiqueta['E_FueraNorma']); ?>');                    
                     if (rechazo.value.indexOf(campo)==-1) {
                         rechazo.value+=campo+':';
                     }                    
@@ -99,28 +96,30 @@ require('../lib/common/header.php');
                     }
                 }                
             }
-            if (estatus=='C') {                
-                //alert('estatus:'+estatus+'|, valor:'+valor+'|');
-                if (valor=='SI') { 
-                    esRechazada=confirm('<?= $html->unhtmlize($etiqueta['E_analisis1']); ?>');
-                    //document.getElementById("mensajes").style.display="block";
-                    cuarentena.value+=campo+':';
-                } else {
-                    //document.getElementById("mensajes").style.display="none";                
-                        cuarentena.value = cuarentena.value.replace(campo+':','');
-                }               
-            }            
-        }        
+            
+            if (estatus=='C') {
+                if (valor=='SI') {
+                    if (rechazo.value=='99_99') {                    
+                        esCuarentena=confirm('Va A cuarentena. !!!');
+                        //document.getElementById("mensajes").style.display="block";
+                        cuarentena.value+=campo+':';
+                    }
+                    else {
+                            alert(objeto.value);
+                            esRechazada=confirm('<?= $html->unhtmlize($etiqueta['E_NO40TNA']); ?>');
+                        }                                                
+                }
+                else {
+                    //document.getElementById("mensajes").style.display="none";
+                    cuarentena.value = cuarentena.value.replace(campo+':','');
+                }
+            }
+        }
     }       
    
     $(document).ready(function() {
         $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
-//        $("#form1 :input").each(function(){
-//            if ($.trim($(this).val()).length != 0) {
-//                $("mensajes").css('display','block');
-//                alert($(this).attr('id'));
-//            }
-//        });
+        
         $("#form1").submit(function(){
             var isFormValid = true;
             $("#form1 :input").each(function(){
@@ -129,33 +128,33 @@ require('../lib/common/header.php');
                     $(this).focus();
                     isFormValid = false;
                     return false;
-                }
-                else {                    
-                    if (($('#es_rechazado').val()!='99_99') && ($.trim($(this).val()).length == 0))  {
-                        esRechazada=confirm('La Muestra  rechazada. Desea emitir boleta de Rechazo !');
-                        if (esRechazada) {
-                            isFormValid = false;
-                            return false;
-                        }
-                        else {
-                            isFormValid = false;
-                            return false;
-                        }
-                    }
-                    //alert('Pregunta si es Cuarentena! ');
-                    if (($('#es_cuarentena').val()!='99_99') && ($.trim($(this).val()).length == 0)) {                        
-                        esCuarentena=confirm('La Muestra contiene INSECTOS VIVOS. Desea enviar a Cuarentena !');
-                        if (esCuarentena) {
-                            isFormValid = false;
-                            return false;                            
-                        }
-                        else {
-                            isFormValid = false;
-                            return false;                            
-                        }
-                    }
-                }                
+                }             
             });
+            if (isFormValid) {
+                if (($('#es_rechazado').val()!='99_99') && ($.trim($(this).val()).length == 0))  {
+                    esRechazada=confirm('La Muestra  rechazada. Desea emitir boleta de Rechazo !');
+                    if (esRechazada) {
+                        isFormValid = true;
+                        //return false;
+                    }
+                    else {
+                        isFormValid = false;
+                        //return false;
+                    }
+                }
+                //alert('Pregunta si es Cuarentena! ');
+                if (($('#es_cuarentena').val()!='99_99') && ($.trim($(this).val()).length == 0)) {                        
+                    esCuarentena=confirm('La Muestra contiene INSECTOS VIVOS. Desea enviar a Cuarentena !');
+                    if (esCuarentena) {
+                        isFormValid = true;
+                        //return false;                            
+                    }
+                    else {
+                        isFormValid = false;
+                        //return false;                            
+                    }
+                }
+            }
             return isFormValid;
         });
     });
@@ -164,8 +163,8 @@ require('../lib/common/header.php');
     <?
     echo $html->input('id_rec', $id_rec, array('type' => 'hidden'));
     echo $html->input('id_cultivo', $IdCultivo, array('type' => 'hidden'));
-    echo $html->input('es_cuarentena', '99_99', array('type' => 'text'));
-    echo $html->input('es_rechazado', '99_99', array('type' => 'text'));
+    echo $html->input('es_cuarentena', '99_99', array('type' => 'hidden'));
+    echo $html->input('es_rechazado', '99_99', array('type' => 'hidden'));
     ?>
     <div id="titulo_modulo">
         ANALISIS DE RECEPCI&Oacute;N<br/><hr/>
@@ -235,7 +234,7 @@ require('../lib/common/header.php');
                         switch ($dataAnalisis['tipo_analisis']) {
                             case '1':
                                 ?>                    
-                                <td align="center"><?echo $html->input('muestra'.$i."_".$dataAnalisis['codigo'].'[]','', array('type' => 'text', 'length' => '6', 'class' => 'cuadricula positive', 'onChange' => "valoresMinMax(this.value,".$dataAnalisis['min_rec'].",".$dataAnalisis['max_rec'].",".$dataAnalisis['codigo'].",".$j.",'".$dataAnalisis['estatus']."')")); ?></td>
+                                <td align="center"><?echo $html->input('muestra'.$i."_".$dataAnalisis['codigo'].'[]','', array('type' => 'text', 'length' => '6', 'class' => 'cuadricula positive', 'onChange' => "valoresMinMax(this.value,".$dataAnalisis['min_rec'].",".$dataAnalisis['max_rec'].",".$dataAnalisis['codigo'].",".$j.",'".$dataAnalisis['estatus']."', this)")); ?></td>
                                 <?
                                 break;
                             case '2':
