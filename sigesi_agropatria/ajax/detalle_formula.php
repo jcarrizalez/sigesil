@@ -23,30 +23,42 @@
             $formulas = new Formulas();
             $parametros->listaParametros(1, 6);
             $formulas->listaFormulas($idCA);
+            $nro = $GPC['nro'];
             ?>
-            <legend>F&oacute;rmula <?=$GPC['nro']?></legend>
+            <legend>F&oacute;rmula <?=$nro?></legend>
             <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0">
-                <tr>
+                <!--tr>
                     <td>
                         <span class="msj_rojo">* </span>C&oacute;digo de la Formula: 
                         <? echo $html->input('codigo', '', array('type' => 'text', 'length' => '5', 'class' => 'cuadricula')); ?>
                     </td>
-                </tr>
+                </tr-->
                 <tr>
-                    <td align="center" style="padding: 15px 0; line-height: 30px;">
+                    <td align="center" style="padding: 10px 0;">
                         <?
                         foreach($parametros->lista as $parametro){
-                            echo $html->input($parametro['parametro_llave'], $parametro['parametro_llave'], array('type' => 'button', 'class' => 'formula_campos constante'));
+                            echo $html->input("btn_".$parametro['parametro_llave']."_$nro", $parametro['parametro_llave'], array('type' => 'button', 'class' => 'formula_campos constante'));
                         }
                         foreach($formulas->listaF as $formula){
-                            echo $html->input($formula['codigo'], $formula['codigo'], array('type' => 'button', 'class' => 'formula_campos btnFormula', 'onClick' => "asignarFormula('".$formula['formula']."')"));
+                            echo $html->input("btn_".$formula['codigo']."_$nro", $formula['codigo'], array('type' => 'button', 'class' => 'formula_campos btnFormula', 'onClick' => "asignarFormula($nro, '".$formula['formula']."')"));
                         }
                         ?>
                     </td>
                 </tr>
                 <tr>
-                    <td align="center">
-                        <? echo $html->input('formula_exp', $GPC['formula'], array('type' => 'text', 'class' => 'campo_formula')); ?>
+                    <td align="left">
+                        <?
+                            if(!empty($GPC['tipo']) && $GPC['tipo'] == 2){
+                                echo $html->input('otra_condicion', '', array('type' => 'text', 'style' => 'width: 100px')).":&nbsp;";
+                                echo $html->input("desde$nro", '', array('type' => 'text', 'class' => 'positive', 'style' => 'width: 40px'));
+                                echo "<&nbsp;&nbsp;".$html->input("hasta$nro", '', array('type' => 'text', 'class' => 'positive', 'style' => 'width: 40px'));
+                                echo $html->input('formula_exp_'.$nro, $GPC['formula'], array('type' => 'text', 'class' => 'campo_formula form_exp'));
+                            }else{
+                                echo $html->input("desde$nro", '', array('type' => 'text', 'class' => 'positive', 'style' => 'width: 40px'));
+                                echo "<&nbsp;&nbsp;".$html->input("hasta$nro", '', array('type' => 'text', 'class' => 'positive', 'style' => 'width: 40px'))."<br/>";
+                                echo $html->input('formula_exp_'.$nro, $GPC['formula'], array('type' => 'text', 'class' => 'campo_formula form_exp'));
+                            }
+                        ?>
                     </td>
                 </tr>
                 <tr>
@@ -56,29 +68,25 @@
                     <th>COMPROBAR F&Oacute;RMULA<br/><br/></th>
                 </tr>
                 <tr>
-                    <td align="center">
+                    <td align="center" id="td_<?=$nro?>" style="padding: 10px 0;">
                         <?
                         foreach($parametros->lista as $parametro){
                             echo $parametro['parametro_llave']."&nbsp;&nbsp;";
-                            echo $html->input($parametro['parametro_llave'], '', array('type' => 'text', 'length' => '7', 'class' => 'cuadricula valores positive'));
-                        }
-                        foreach($formulas->listaF as $formula){
-                            echo $formula['codigo']."&nbsp;&nbsp;";
-                            echo $html->input($formula['codigo'], '', array('type' => 'text', 'class' => 'formula_campos btnFormula', 'onClick' => "asignarFormula('".$formula['formula']."')"));
+                            echo $html->input($parametro['parametro_llave']."_$nro", '', array('type' => 'text', 'length' => '7', 'class' => 'cuadricula valores positive'));
                         }
                         ?>
                     </td>
                 </tr>
                 <tr>
                     <td align="center">
-                        <? echo $html->input('formula_eval', '', array('type' => 'text', 'readOnly' => true, 'class' => 'campo_formula')); ?>
+                        <? echo $html->input('formula_eval_'.$nro, '', array('type' => 'text', 'readOnly' => true, 'class' => 'campo_formula')); ?>
                     </td>
                 </tr>
-                <tbody id="resultado"></tbody>
+                <tbody id="resultado_<?=$nro?>"></tbody>
                 <tr align="center">
                     <td style="padding-top: 20px;">
-                        <? echo $html->input('Comprobar', 'Comprobar', array('type' => 'button')); ?>
-                        <? echo $html->input('Recuperar', 'Corregir Valores', array('type' => 'button')); ?>
+                        <? echo $html->input('Comprobar_'.$nro, 'Comprobar', array('type' => 'button', 'class' => 'comprobar')); ?>
+                    <? echo $html->input('Recuperar_'.$nro, 'Corregir Valores', array('type' => 'button', 'class' => 'recuperar')); ?>
                     </td>
                 </tr>
             </table>
@@ -86,10 +94,14 @@
         break;
         case 'formu':
             if(!empty($GPC['formula_eval'])){
-                $evaluar = new Matematica();
+                $evaluar = new LaMermelex();
                 $evaluar->suppress_errors = true;
                 if ($evaluar->evaluate('y(x) = ' . $GPC['formula_eval'])) {
-                    echo "<tr><th class='msj_verde' align='center'><h3>El resultado es: " . number_format($evaluar->e("y(0)"), 3) . "</h3></th></tr>";
+                    $total = $evaluar->e("y(0)");
+                    if($total < 0)
+                        echo "<tr><th class='error' align='center'><h3>El resultado es: " . number_format($total, 3) . "</h3></th></tr>";
+                    else
+                        echo "<tr><th class='msj_verde' align='center'><h3>El resultado es: " . number_format($total, 3) . "</h3></th></tr>";
                 } else {
                     echo "<tr><th class='error' align='center'><h3>No se puede evaluar la funci&oacute;n: " . $evaluar->last_error . "</h3></th></tr>";
                 }

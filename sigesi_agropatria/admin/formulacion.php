@@ -7,6 +7,7 @@ $cultivo = new Cultivo();
 $idCA = $_SESSION['s_ca_id'];
 $listaCultivos = $cultivo->find('', '', 'id, nombre', 'list', 'codigo');
 
+$listaMov = array(1 => 'Recepci&oacute;n', 2 => 'Despacho');
 $listaCondicion = array(1 => 'Si', 2 => 'No');
 $listaTipo = array(1 => 'An&aacute;lisis', 2 => 'Otro');
 $parametros->listaParametros(1, 6);
@@ -35,6 +36,7 @@ require('../lib/common/header.php');
 
 $validator = new Validator('form1');
 $validator->printIncludes();
+$validator->setRules('id_mov', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('id_cultivo', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('tipo_for', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('multiple_cond', array('required' => array('value' => true, 'message' => 'Requerido')));
@@ -48,10 +50,10 @@ $validator->printScript();
         window.location = 'formula_listado.php';
     }
 
-    function asignarFormula(valor){
-        var campo = $('#formula_exp').val();
-        $('#formula_exp').attr('value', campo+valor);
-        $('#formula_eval').attr('value', campo+valor);
+    function asignarFormula(id, valor){
+        var campo = $('#formula_exp_'+id).val();
+        $('#formula_exp_'+id).attr('value', campo+valor);
+        $('#formula_eval_'+id).attr('value', campo+valor);
     }
     
     $(document).ready(function(){
@@ -60,31 +62,51 @@ $validator->printScript();
         
         $('#tipo_for').change(function(){
             var cul = $(this).val();
-            if(cul == 1)
+            if(cul == 1){
                 $('#opciones').load('../ajax/detalle_formula.php?ac=tipo&cul='+cul);
-            else
+                $('#eval_cond').css('display', 'none');
+            }else if (cul == 2){
+                $('#eval_cond').css('display', 'block');
                 $('#opciones').html('');
+            }else{
+                $('#opciones').html('');
+                $('#eval_cond').css('display', 'none');
+            }
         });
         
         $('#multiple_cond').change(function(){
             var cond = $(this).val();
-            if(cond == 1){
-                $('#unica_formula').css('display', 'block');
-                $('#multiple').css('display', 'none');
-                $('#multiple').html('');
-                $('#btnCondicion').css('display', 'none');
-            }else if(cond == 2){
-                $('#nroCondicion').val(parseInt($('#nroCondicion').val())+1);
-                var nro = $('#nroCondicion').val();
-                $('#unica_formula').css('display', 'block');
-                $('#multiple').css('display', 'block');
-                $('#multiple').load('../ajax/detalle_formula.php?ac=multiple&nro='+nro);
-                $('#btnCondicion').css('display', 'block');
+            if($('#tipo_for').val() != ''){
+                if(cond == 1){
+                    
+                }
+                /*if($('#tipo_for').val() == 1 && cond == 1){
+                    $('#unica_formula').css('display', 'block');
+                    $('#eval_cond').css('display', 'none');
+                    $('#eval_cond2').css('display', 'none');
+                    $('#otraformula').html('');
+                    $('#btnCondicion').css('visibility', 'hidden');
+                    $('#nroCondicion').val('1');
+                }else if(cond == 2){
+                    $('#nroCondicion').val(parseInt($('#nroCondicion').val())+1);
+                    var nro = $('#nroCondicion').val();
+                    var nombre = "multiple"+nro;
+                    var tipoFor = $('#tipo_for').val();
+                    otraform = "<fieldset id='"+nombre+"'></fieldset>";
+                    nombre = '#'+nombre;
+                    $('#otraformula').append(otraform);
+                    $('#btnCondicion').css('visibility', 'visible');
+                    $(nombre).load('../ajax/detalle_formula.php?ac=multiple&tipo='+tipoFor+'&nro='+nro);
+                }else{
+                    $('#multiple').css('display', 'none');
+                    $('#multiple').html('');
+                    $('#otraformula').html('');
+                    $('#btnCondicion').css('display', 'hidden');
+                    $('#nroCondicion').val('1');
+                }*/
             }else{
-                $('#unica_formula').css('display', 'none');
-                $('#multiple').css('display', 'none');
-                $('#multiple').html('');
-                $('#btnCondicion').css('display', 'none');
+                $("#multiple_cond option[value='']").attr("selected", "selected");
+                alert('Seleccione un tipo de Formulacion');
             }
         });
         
@@ -92,46 +114,54 @@ $validator->printScript();
             $('#nroCondicion').val(parseInt($('#nroCondicion').val())+1);
             var nro = $('#nroCondicion').val();
             var nombre = "multiple"+nro;
+            var tipoFor = $('#tipo_for').val();
             otraform = "<fieldset id='"+nombre+"'></fieldset>";
             nombre = '#'+nombre;
             $('#otraformula').append(otraform);
-            $(nombre).load('../ajax/detalle_formula.php?ac=multiple&nro='+nro);
+            $(nombre).load('../ajax/detalle_formula.php?ac=multiple&tipo='+tipoFor+'&nro='+nro);
         });
-        
-        $('#formula_exp').change(function(){
-            $('#formula_eval').val($(this).val());
+    
+        $('.form_exp').live("change", function(){
+            var campo_id = $(this).attr('id').split('_');
+            $('#formula_eval_'+campo_id[2]).val($(this).val());
         });
-        
-        $('.constante').click(function(){
+    
+        $('.constante').live("click", function(){
             var valor = $(this).val();
-            var campo = $('#formula_exp').val();
-            $('#formula_exp').attr('value', campo+valor);
-            $('#formula_eval').attr('value', campo+valor);
+            var campo_id = $(this).attr('id').split('_');
+            var campo = $('#formula_exp_'+campo_id[2]).val();
+            $('#formula_exp_'+campo_id[2]).attr('value', campo+valor);
+            $('#formula_eval_'+campo_id[2]).attr('value', campo+valor);
         });
-        
-        $('.valores').change(function(){
-            var id = $(this).attr('id');
+    
+        $('.valores').live("change", function(){
+            var id = $(this).attr('id').split('_');
             var campo_valor = $(this).val();
-            var formula = $('#formula_eval').val();
-            var reemplazo = new RegExp(id,'g');
+            var formula = $('#formula_eval_'+id[1]).val();
+            var reemplazo = new RegExp(id[0],'g');
             if(campo_valor != ''){
-                $('#formula_eval').attr('value', formula.replace(reemplazo, campo_valor));
+                $('#formula_eval_'+id[1]).attr('value', formula.replace(reemplazo, campo_valor));
             }
         });
         
-        $('#Comprobar').click(function(){
-            var formula = $('#formula_eval').val();
+        $('.comprobar').live("click", function(){
+            var id = $(this).attr('id').split('_');
+            var formula = $('#formula_eval_'+id[1]).val();
             if(formula != ''){
-                formula = ($('#formula_eval').serialize());
-                $("#resultado").load('../ajax/detalle_formula.php?ac=formu&'+formula);
+                formula = ($('#formula_eval_'+id[1]).serialize());
+                formula = formula.split('=');
+                $("#resultado_"+id[1]).load('../ajax/detalle_formula.php?ac=formu&formula_eval='+formula[1]);
             }else
-                $("#resultado").html('');
+                $("#resultado_"+id[1]).html('');
         });
         
-        $('#Recuperar').click(function(){
-            $('.valores').attr('value', '');
-            $('#formula_eval').val($('#formula_exp').val());
-            $("#resultado").html('');
+        $('.recuperar').live("click", function(){
+            var id = $(this).attr('id').split('_');
+            $("#td_"+id[1]+" :input").each(function(){
+                $(this).attr('value', '');
+            });
+            $("#formula_eval_"+id[1]).val($("#formula_exp_"+id[1]).val());
+            $("#resultado_"+id[1]).html('');
         });
     });
     
@@ -160,6 +190,10 @@ $validator->printScript();
         <legend>Informaci&oacute;n del Cultivo</legend>
         <table align="center" width="100%" cellpadding="0" cellspacing="0" border="0">
             <tr>
+                <td width="130">Tipo de Movimiento:</td>
+                <td><? echo $html->select('id_mov', array('options' => $listaMov, 'default' => 'Seleccione', 'class' => 'inputGrilla')) ?></td>
+            </tr>
+            <tr>
                 <td width="130">Cultivo:</td>
                 <td><? echo $html->select('id_cultivo', array('options' => $listaCultivos, 'default' => 'Seleccione', 'class' => 'inputGrilla')) ?></td>
             </tr>
@@ -172,39 +206,58 @@ $validator->printScript();
                 <td>Condici&oacute;n &Uacute;nica:</td>
                 <td>
                     <? echo $html->select('multiple_cond', array('options' => $listaCondicion, 'selected' => $GPC['condicion'], 'default' => 'Seleccione', 'class' => 'inputGrilla')) ?>
-                    <span id="btnCondicion" style="display: none"><? echo $html->input('agregarcon', 'Agregar Condici&oacute;n', array('type' => 'button')); ?></span>
                 </td>
             </tr>
+            <tbody id="btnCondicion" style="visibility: hidden">
+                <tr>
+                    <td>&nbsp;</td>
+                <td>
+                <? echo $html->input('agregarcon', 'Agregar Condici&oacute;n', array('type' => 'button')); ?>
+                </td>
+                </tr>
+            </tbody>
             <tr>
                 <td colspan="2">&nbsp;</td>
             </tr>
         </table>
     </fieldset>
-    <fieldset id="unica_formula" style="display: none;">
-    <!--fieldset id="unica_formula"-->
+    <fieldset id="unica_formula">
         <legend>F&oacute;rmula 1</legend>
         <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0">
             <tr>
                 <td>
                     <span class="msj_rojo">* </span>C&oacute;digo de la Formula: 
-                    <? echo $html->input('codigo', '', array('type' => 'text', 'length' => '5', 'class' => 'cuadricula')); ?>
+                    <? echo $html->input('codigo', '', array('type' => 'text', 'length' => '10', 'class' => 'cuadricula')); ?>
                 </td>
             </tr>
             <tr>
-                <td align="center" style="padding: 15px 0; line-height: 30px;">
+                <td align="center" style="padding: 10px 0;">
                     <?
                     foreach($parametros->lista as $parametro){
-                        echo $html->input($parametro['parametro_llave'], $parametro['parametro_llave'], array('type' => 'button', 'class' => 'formula_campos constante'));
+                        echo $html->input("btn_".$parametro['parametro_llave']."_1", $parametro['parametro_llave'], array('type' => 'button', 'class' => 'formula_campos constante'));
                     }
                     foreach($formulas->listaF as $formula){
-                        echo $html->input($formula['codigo'], $formula['codigo'], array('type' => 'button', 'class' => 'formula_campos btnFormula', 'onClick' => "asignarFormula('".$formula['formula']."')"));
+                        echo $html->input("btn_".$formula['codigo']."_1", $formula['codigo'], array('type' => 'button', 'class' => 'formula_campos btnFormula', 'onClick' => "asignarFormula(1, '".$formula['formula']."')"));
                     }
                     ?>
                 </td>
             </tr>
             <tr>
-                <td align="center">
-                    <? echo $html->input('formula_exp', $GPC['formula'], array('type' => 'text', 'class' => 'campo_formula')); ?>
+                <td>
+                    <span id="eval_cond" style="display: none;">
+                        <?
+                            echo $html->input('otra_condicion', '', array('type' => 'text', 'style' => 'width: 100px')).":&nbsp;";
+                            echo $html->input('desde1', '', array('type' => 'text', 'class' => 'positive', 'style' => 'width: 40px'));
+                            echo "<&nbsp;&nbsp;".$html->input('hasta1', '', array('type' => 'text', 'class' => 'positive', 'style' => 'width: 40px'));
+                        ?>
+                    </span>
+                    <span id="eval_cond2" style="display: none;">
+                        <?
+                            echo $html->input("desde1", '', array('type' => 'text', 'class' => 'positive', 'style' => 'width: 40px'));
+                            echo "<&nbsp;&nbsp;".$html->input("hasta1", '', array('type' => 'text', 'class' => 'positive', 'style' => 'width: 40px'))."<br/>";
+                        ?>
+                    </span>
+                    <? echo $html->input('formula_exp_1', $GPC['formula'], array('type' => 'text', 'class' => 'campo_formula form_exp')); ?>
                 </td>
             </tr>
             <tr>
@@ -214,34 +267,30 @@ $validator->printScript();
                 <th>COMPROBAR F&Oacute;RMULA<br/><br/></th>
             </tr>
             <tr>
-                <td align="center">
+                <td align="center" id="td_1" style="padding: 10px 0;">
                     <?
                     foreach($parametros->lista as $parametro){
                         echo $parametro['parametro_llave']."&nbsp;&nbsp;";
-                        echo $html->input($parametro['parametro_llave'], '', array('type' => 'text', 'length' => '7', 'class' => 'cuadricula valores positive'));
-                    }
-                    foreach($formulas->listaF as $formula){
-                        echo $formula['codigo']."&nbsp;&nbsp;";
-                        echo $html->input($formula['codigo'], '', array('type' => 'text', 'class' => 'formula_campos btnFormula', 'onClick' => "asignarFormula('".$formula['formula']."')"));
+                        echo $html->input($parametro['parametro_llave']."_1", '', array('type' => 'text', 'length' => '7', 'class' => 'cuadricula valores positive'));
                     }
                     ?>
                 </td>
             </tr>
             <tr>
                 <td align="center">
-                    <? echo $html->input('formula_eval', '', array('type' => 'text', 'readOnly' => true, 'class' => 'campo_formula')); ?>
+                    <? echo $html->input('formula_eval_1', '', array('type' => 'text', 'readOnly' => true, 'class' => 'campo_formula')); ?>
                 </td>
             </tr>
-            <tbody id="resultado"></tbody>
+            <tbody id="resultado_1"></tbody>
             <tr align="center">
                 <td style="padding-top: 20px;">
-                    <? echo $html->input('Comprobar', 'Comprobar', array('type' => 'button')); ?>
-                    <? echo $html->input('Recuperar', 'Corregir Valores', array('type' => 'button')); ?>
+                    <? echo $html->input('Comprobar_1', 'Comprobar', array('type' => 'button', 'class' => 'comprobar')); ?>
+                    <? echo $html->input('Recuperar_1', 'Corregir Valores', array('type' => 'button', 'class' => 'recuperar')); ?>
                 </td>
             </tr>
         </table>
     </fieldset>
-    <fieldset id="multiple" style="display: none;"></fieldset>
+    <!--fieldset id="multiple" style="display: none;"></fieldset-->
     <div id="otraformula"></div>
     <table align="center" width="100%">
         <tr>

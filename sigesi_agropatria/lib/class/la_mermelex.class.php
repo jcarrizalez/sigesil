@@ -86,7 +86,7 @@ LICENSE
 author: Jesus Silva
 */
 
-class Matematica {
+class LaMermelex {
 
     var $suppress_errors = false;
     var $last_error = null;
@@ -100,7 +100,7 @@ class Matematica {
         'tan','tanh','arctan','atan','arctanh','atanh',
         'sqrt','abs','ln','log');
     
-    function Matematica() {
+    function LaMermelex() {
         // make the variables a little more accurate
         $this->v['pi'] = pi();
         $this->v['e'] = exp(1);
