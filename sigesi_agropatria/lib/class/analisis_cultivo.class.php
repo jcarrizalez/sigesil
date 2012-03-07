@@ -4,7 +4,7 @@ class AnalisisCultivo extends Model {
     
     function buscarAC($id=null,$IdCultivo=null,$idOrg=null){ 
         $query = "SELECT a.id, ac.id_cultivo, a.codigo, a.nombre, a.tipo_analisis,
-                    ac.min_rec, ac.max_rec 
+                    ac.min_rec, ac.max_rec , ac.estatus 
                     FROM si_analisis_cultivo ac 
                     INNER JOIN si_analisis a ON a.id=ac.id_analisis and a.id_org=ac.id_org
                     WHERE '1'";

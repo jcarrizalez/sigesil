@@ -9,8 +9,8 @@ $id_rec = $GPC['id_rec'];
 $IdCultivo = $id = $GPC['id_cultivo'];
 $idORG = $_SESSION['s_org_id'];
 $cant_muestras = $GPC['cant_muestras'];
-$estatus = array('NO' => 'NO', 'SI' => 'SI');
-$calidad = array('A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D');
+$estatus = array(''=>'', 'NO' => 'NO', 'SI' => 'SI');
+$calidad = array(''=>'', 'A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D');
 
 $listadoAnalisis = $analisisCul->buscarAC(null, $IdCultivo, $idORG);
 $cantidad = count($listadoAnalisis);
@@ -72,49 +72,89 @@ require('../lib/common/header.php');
         history.back();
     }
 
-    function valoresMinMax(valor, min, max){
-        if(valor != ''){
-            if (valor< min || valor > max) {
-                //document.getelementbyid('mensajes').innerHTML='Los analisis no estan en norma !';
-                document.getElementById("mensajes").style.display="block";                
-                //                document.getElementById("es_curentena").value=1;
-            }
-            else {
-                document.getElementById("mensajes").style.display="none";
-                //                if (document.getElementById("es_curentena").value==1)
-                //                    document.getElementById("es_curentena").value=1;
-                //                else
-                //                    document.getElementById("es_curentena").value=0;
-            }
-            
+    function valoresMinMax(valor, min, max, codigo, muestra, estatus) {        
+        var campo=codigo+'_'+muestra;
+        indice=muestra-1;
+        var rechazo = document.getElementById("es_rechazado");
+        var cuarentena=document.getElementById("es_cuarentena");
+        var celda= document.getElementById('muestra' + indice.toString()+ '_' + codigo); 
+
+        if (rechazo.value!='99_99') {
+            esRechazada=alert('La recepcion actualmente esta rechazada. !!!');
         }
-    }
-    
+       
+        if (valor != ''){            
+            if (estatus=='R') {
+                if ((valor< min) || (valor > max) || (valor=='SI')) {                   
+                    //document.getElementById("mensajes").style.display="block"; 
+//                    alert('estatus:'+estatus+'|, valor:'+valor+'|');
+                    esRechazada=alert('<?= $html->unhtmlize($etiqueta['E_analisis1']); ?>');
+                    if (rechazo.value.indexOf(campo)==-1) {
+                        rechazo.value+=campo+':';
+                    }                    
+                } else {
+                    //document.getElementById("mensajes").style.display="none";                
+                    if (rechazo.value.indexOf(campo)!=-1) {                    
+                        rechazo.value = rechazo.value.replace(campo+':','');
+                    }
+                }                
+            }
+            if (estatus=='C') {                
+                //alert('estatus:'+estatus+'|, valor:'+valor+'|');
+                if (valor=='SI') { 
+                    esRechazada=confirm('<?= $html->unhtmlize($etiqueta['E_analisis1']); ?>');
+                    //document.getElementById("mensajes").style.display="block";
+                    cuarentena.value+=campo+':';
+                } else {
+                    //document.getElementById("mensajes").style.display="none";                
+                        cuarentena.value = cuarentena.value.replace(campo+':','');
+                }               
+            }            
+        }        
+    }       
+   
     $(document).ready(function() {
         $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
+//        $("#form1 :input").each(function(){
+//            if ($.trim($(this).val()).length != 0) {
+//                $("mensajes").css('display','block');
+//                alert($(this).attr('id'));
+//            }
+//        });
         $("#form1").submit(function(){
             var isFormValid = true;
             $("#form1 :input").each(function(){
                 if ($.trim($(this).val()).length == 0){
-                    alert('Favor complete el campo en blanco');
+                    alert('Por favor llene todo los datos del Analisis !');
                     $(this).focus();
                     isFormValid = false;
                     return false;
                 }
-                else if ($(this).val()=='SI') {
-                    es_cuarentena=true;
-                    resp=confirm('La muestra contiene INSECTOS VIVOS. Desea enviar a Cuarentena !');
-                    if (resp) {
-                        $('#cuarentena').val('1');
-//                        $('#id_insecto').val($(this).val());
-//                        alert($('#cuarentena').val());
-                        return true;
+                else {                    
+                    if (($('#es_rechazado').val()!='99_99') && ($.trim($(this).val()).length == 0))  {
+                        esRechazada=confirm('La Muestra  rechazada. Desea emitir boleta de Rechazo !');
+                        if (esRechazada) {
+                            isFormValid = false;
+                            return false;
+                        }
+                        else {
+                            isFormValid = false;
+                            return false;
+                        }
                     }
-                    else {
-                        isFormValid = false;
-                        return false;
+                    //alert('Pregunta si es Cuarentena! ');
+                    if (($('#es_cuarentena').val()!='99_99') && ($.trim($(this).val()).length == 0)) {                        
+                        esCuarentena=confirm('La Muestra contiene INSECTOS VIVOS. Desea enviar a Cuarentena !');
+                        if (esCuarentena) {
+                            isFormValid = false;
+                            return false;                            
+                        }
+                        else {
+                            isFormValid = false;
+                            return false;                            
+                        }
                     }
-                }
+                }                
             });
             return isFormValid;
         });
@@ -124,8 +164,8 @@ require('../lib/common/header.php');
     <?
     echo $html->input('id_rec', $id_rec, array('type' => 'hidden'));
     echo $html->input('id_cultivo', $IdCultivo, array('type' => 'hidden'));
-    echo $html->input('cuarentena', '0', array('type' => 'hidden'));
-    echo $html->input('id_insecto', '1', array('type' => 'text'));
+    echo $html->input('es_cuarentena', '99_99', array('type' => 'text'));
+    echo $html->input('es_rechazado', '99_99', array('type' => 'text'));
     ?>
     <div id="titulo_modulo">
         ANALISIS DE RECEPCI&Oacute;N<br/><hr/>
@@ -195,7 +235,7 @@ require('../lib/common/header.php');
                         switch ($dataAnalisis['tipo_analisis']) {
                             case '1':
                                 ?>                    
-                                <td align="center"><? echo $html->input('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', '', array('type' => 'text', 'length' => '6', 'class' => 'cuadricula positive', 'onChange' => "valoresMinMax(this.value," . $dataAnalisis['min_rec'] . "," . $dataAnalisis['max_rec'] . ")")); ?></td>
+                                <td align="center"><?echo $html->input('muestra'.$i."_".$dataAnalisis['codigo'].'[]','', array('type' => 'text', 'length' => '6', 'class' => 'cuadricula positive', 'onChange' => "valoresMinMax(this.value,".$dataAnalisis['min_rec'].",".$dataAnalisis['max_rec'].",".$dataAnalisis['codigo'].",".$j.",'".$dataAnalisis['estatus']."')")); ?></td>
                                 <?
                                 break;
                             case '2':
@@ -205,7 +245,7 @@ require('../lib/common/header.php');
                                 break;
                             case '3':
                                 ?>
-                                <td align="center"><? echo $html->select('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', array('options' => $estatus, 'class' => 'cuadricula booleano')) ?></td>
+                                <td align="center"><? echo $html->select('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', array('options' => $estatus, 'class' => 'cuadricula booleano','onChange' => "valoresMinMax(this.value,".$dataAnalisis['min_rec'].",".$dataAnalisis['max_rec'].",".$dataAnalisis['codigo'].",".$j.",'".$dataAnalisis['estatus']."')")); ?></td>
                                 <?
                                 break;
                         }
