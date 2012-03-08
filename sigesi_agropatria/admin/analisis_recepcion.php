@@ -6,7 +6,7 @@ $Rec = new Recepcion();
 
 $idCA = $_SESSION['s_id_ca'];
 $id_rec = $GPC['id_rec'];
-$IdCultivo = $id = $GPC['id_cultivo'];
+$IdCultivo = $GPC['id_cultivo'];
 $idORG = $_SESSION['s_org_id'];
 $cant_muestras = $GPC['cant_muestras'];
 $estatus = array(''=>'', 'NO' => 'NO', 'SI' => 'SI');
@@ -18,12 +18,13 @@ $infoRec = $Rec->listadoAnalisis(null, $IdCultivo, $id_rec);
 
 switch ($GPC['ac']) {
     case 'guardar':
-        if (!empty($GPC['id_rec'])) {
+        if (!empty($GPC['id_rec']) && !empty($GPC['cant_muestras']) && !empty($GPC['id_cultivo']) && !empty($_SESSION['s_ca_id'])) {
             $analisis = new Analisis();
             $analisis->_begin_tool();
-            //for ($i = 0; $i < $GPC['cantA']; $i++) {
             $j = 0;
             foreach ($listadoAnalisis as $dataAnalisis) {
+                //$dataAnalisis['min_rec'];
+                //$dataAnalisis['max_rec'];                
                 $GPC['Resultados']['id_recepcion'] = $GPC['id_rec'];
                 $GPC['Resultados']['id_analisis'] = $GPC['id_analisis'][$j];
                 $GPC['Resultados']['id_usuario'] = $_SESSION['s_id'];
@@ -31,25 +32,26 @@ switch ($GPC['ac']) {
                 $GPC['Resultados']['muestra1'] = is_numeric($GPC[$valor][0]) ? number_format($GPC[$valor][0],3) : $GPC[$valor][0];
                 $GPC['Resultados']['muestra2'] = is_numeric($GPC[$valor][1]) ? number_format($GPC[$valor][1],3) : $GPC[$valor][1];
                 $GPC['Resultados']['muestra3'] = is_numeric($GPC[$valor][2]) ? number_format($GPC[$valor][2],3) : $GPC[$valor][2];
+                //$GPC['Resultados']['id_analisis'];
                 $j++;
                 $id_analisis_res = $analisis->guardarResultados($GPC['Resultados']);
             }
-            //Estatus = 2=>Cuarentena, 3=> Romanda
-            if ($GPC['cuarentena'] == 0)
+            //Estatus = 2=>Cuarentena, 3=> Romana
+            if ($GPC['es_rechazado'] != '0_0:')
                 $Rec->cambiarEstatus($GPC['id_rec'], 3);
-            else {
-                $Rec->cambiarEstatus($GPC['id_rec'], 2);
-                $Ctna = new Cuarentena();
-                $recepcion['id_centro_acopio']=$_SESSION['s_ca_id'];
-                $recepcion['id_recepcion']=$GPC['id_rec'];
-                $recepcion['id_cultivo']=$GPC['id_cultivo'];
-                $recepcion['id_analisis']='21';
-                $recepcion['tipo_mov']='R';                
-                $recepcion['fecha_mov']='now()';
-                $recepcion['fecha_cultivo']='now()';
-                $recepcion['laboratorio']='C';         
-                $id_cuarentena=$Ctna->guardar($recepcion);
-            }
+            else if (($GPC['es_cuarentena'] != '0_0:') && (count(split(':',$GPC['es_cuarentena']))>=2))  {
+                    $Rec->cambiarEstatus($GPC['id_rec'], 2);
+                    $Ctna = new Cuarentena();
+                    $recepcion['id_centro_acopio']=$_SESSION['s_ca_id'];
+                    $recepcion['id_recepcion']=$GPC['id_rec'];
+                    $recepcion['id_cultivo']=$GPC['id_cultivo'];
+                    $recepcion['id_analisis']=1;
+                    $recepcion['tipo_mov']='R';                
+                    $recepcion['fecha_mov']='now()';
+                    $recepcion['fecha_cultivo']='now()';
+                    $recepcion['laboratorio']='C';         
+                    $id_cuarentena=$Ctna->guardar($recepcion);
+                }
         }
         if (!empty($id_analisis_res)) {
             $analisis->_commit_tool();
@@ -71,54 +73,63 @@ require('../lib/common/header.php');
     function cancelar(){
         history.back();
     }
+    
+    function Left(str, n){
+        if (n <= 0)
+            return "";
+        else if (n > String(str).length)
+            return str;
+        else
+            return String(str).substring(0,n);
+    }
 
     function valoresMinMax(valor, min, max, codigo, muestra, estatus, objeto) {        
         var campo=codigo+'_'+muestra;
-        indice=muestra-1;
+        i=muestra-1;
         var rechazo = document.getElementById("es_rechazado");
         var cuarentena=document.getElementById("es_cuarentena");
-        var celda= document.getElementById('muestra' + indice.toString()+ '_' + codigo); 
-        //var mensaje= document.getElementById('mensaje'); 
-        //mensaje.style.display="block";
+        var Tupla=document.getElementById(objeto.id);
+        
         if (valor != ''){            
             if (estatus=='R') {
-                if ((valor< min) || (valor > max) || (valor=='SI')) {                   
-                    //document.getElementById("mensajes").style.display="block"; 
-//                    alert('estatus:'+estatus+'|, valor:'+valor+'|');
-                    esRechazada=alert('<?= $html->unhtmlize($etiqueta['E_FueraNorma']); ?>');                    
+                if ((valor< min) || (valor > max) || (valor=='SI')) {
+                    esRechazada=alert('<?= $html->unhtmlize($etiqueta['E_FueraNorma']); ?>');
                     if (rechazo.value.indexOf(campo)==-1) {
                         rechazo.value+=campo+':';
-                    }                    
+                    }
                 } else {
-                    //document.getElementById("mensajes").style.display="none";                
                     if (rechazo.value.indexOf(campo)!=-1) {                    
-                        rechazo.value = rechazo.value.replace(campo+':','');
+                        rechazo.value = rechazo.value.replace(campo+':','');                    
                     }
                 }                
-            }
+            }            
             
-            if (estatus=='C') {
+            if (estatus=='C') {                
                 if (valor=='SI') {
-                    if (rechazo.value=='99_99') {                    
+                    if (rechazo.value=='0_0:') {                    
                         esCuarentena=confirm('Va A cuarentena. !!!');
-                        //document.getElementById("mensajes").style.display="block";
                         cuarentena.value+=campo+':';
                     }
                     else {
-                            alert(objeto.value);
+                            Tupla.value='NO';
                             esRechazada=confirm('<?= $html->unhtmlize($etiqueta['E_NO40TNA']); ?>');
                         }                                                
                 }
-                else {
-                    //document.getElementById("mensajes").style.display="none";
+                else {                    
                     cuarentena.value = cuarentena.value.replace(campo+':','');
                 }
             }
         }
     }       
-   
+  
     $(document).ready(function() {
         $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
+        
+//        $(".cuadricula").change(function(){                
+//            if ($.trim($(this).val()).length != 0){
+//                alert($(this).attr('name')+$(this).attr('name').indexOf('_'));
+//            }             
+//        });
         
         $("#form1").submit(function(){
             var isFormValid = true;
@@ -131,7 +142,7 @@ require('../lib/common/header.php');
                 }             
             });
             if (isFormValid) {
-                if (($('#es_rechazado').val()!='99_99') && ($.trim($(this).val()).length == 0))  {
+                if (($('#es_rechazado').val()!='0_0:') && ($.trim($(this).val()).length == 0))  {
                     esRechazada=confirm('La Muestra  rechazada. Desea emitir boleta de Rechazo !');
                     if (esRechazada) {
                         isFormValid = true;
@@ -143,7 +154,7 @@ require('../lib/common/header.php');
                     }
                 }
                 //alert('Pregunta si es Cuarentena! ');
-                if (($('#es_cuarentena').val()!='99_99') && ($.trim($(this).val()).length == 0)) {                        
+                if (($('#es_cuarentena').val()!='0_0:') && ($.trim($(this).val()).length == 0)) {                        
                     esCuarentena=confirm('La Muestra contiene INSECTOS VIVOS. Desea enviar a Cuarentena !');
                     if (esCuarentena) {
                         isFormValid = true;
@@ -163,8 +174,8 @@ require('../lib/common/header.php');
     <?
     echo $html->input('id_rec', $id_rec, array('type' => 'hidden'));
     echo $html->input('id_cultivo', $IdCultivo, array('type' => 'hidden'));
-    echo $html->input('es_cuarentena', '99_99', array('type' => 'hidden'));
-    echo $html->input('es_rechazado', '99_99', array('type' => 'hidden'));
+    echo $html->input('es_cuarentena', '0_0:', array('type' => 'text'));
+    echo $html->input('es_rechazado', '0_0:', array('type' => 'text'));
     ?>
     <div id="titulo_modulo">
         ANALISIS DE RECEPCI&Oacute;N<br/><hr/>
@@ -235,6 +246,7 @@ require('../lib/common/header.php');
                             case '1':
                                 ?>                    
                                 <td align="center"><?echo $html->input('muestra'.$i."_".$dataAnalisis['codigo'].'[]','', array('type' => 'text', 'length' => '6', 'class' => 'cuadricula positive', 'onChange' => "valoresMinMax(this.value,".$dataAnalisis['min_rec'].",".$dataAnalisis['max_rec'].",".$dataAnalisis['codigo'].",".$j.",'".$dataAnalisis['estatus']."', this)")); ?></td>
+<!--                                    <td align="center"><?echo $html->input('muestra'.$i."_".$dataAnalisis['codigo'].'[]','', array('type' => 'text', 'length' => '6', 'class' => 'cuadricula positive')); ?></td>-->
                                 <?
                                 break;
                             case '2':
@@ -242,9 +254,14 @@ require('../lib/common/header.php');
                                 <td align="center"><? echo $html->select('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', array('options' => $calidad, 'class' => 'cuadricula cualitativo')); ?></td>
                                 <?
                                 break;
-                            case '3':
+                            case '3':                                
                                 ?>
-                                <td align="center"><? echo $html->select('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', array('options' => $estatus, 'class' => 'cuadricula booleano','onChange' => "valoresMinMax(this.value,".$dataAnalisis['min_rec'].",".$dataAnalisis['max_rec'].",".$dataAnalisis['codigo'].",".$j.",'".$dataAnalisis['estatus']."')")); ?></td>
+                                <td align="center"><?
+                                if ($dataAnalisis['estatus']=='C') 
+                                    echo $html->select('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', array('options' => $estatus, 'class' => 'cuadricula booleano 40tna','onChange' => "valoresMinMax(this.value,".$dataAnalisis['min_rec'].",".$dataAnalisis['max_rec'].",".$dataAnalisis['codigo'].",".$j.",'".$dataAnalisis['estatus']."', this)"));
+                                if ($dataAnalisis['estatus']=='R') 
+                                    echo $html->select('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', array('options' => $estatus, 'class' => 'cuadricula booleano','onChange' => "valoresMinMax(this.value,".$dataAnalisis['min_rec'].",".$dataAnalisis['max_rec'].",".$dataAnalisis['codigo'].",".$j.",'".$dataAnalisis['estatus']."', this)"));
+                                ?></td>
                                 <?
                                 break;
                         }
