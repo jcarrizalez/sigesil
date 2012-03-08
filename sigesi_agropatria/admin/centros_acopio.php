@@ -15,7 +15,6 @@ foreach ($estados as $campo => $valor) {
 }
 
 $listaOrg = $org->find('', '', array('id', 'nombre'), 'list', 'id');
-unset($listaOrg[1]);
 $estatus = array('t' => 'Activo', 'f' => 'Inactivo');
 
 $ocultarCantidad = 1;

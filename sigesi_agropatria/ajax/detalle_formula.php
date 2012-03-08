@@ -4,18 +4,30 @@
     switch ($GPC['ac']){
         case 'tipo':
             if(!empty($GPC['cul'])){
-                if($GPC['cul'] == 1){
-                    $analisis = new Analisis();
-                    $infoAnalisis = $analisis->listaAnalisis('', '', '', '', 't', 't');
-                    foreach($infoAnalisis as $valor){
-                        $listaAnalisis[$valor['codigo']] = $valor['nombre'];
-                    }
-                    ?>
-                    <tr>
-                        <td width="110">An&aacute;lisis: </td>
-                        <td><? echo $html->select('id_analisis', array('options' => $listaAnalisis, 'default' => 'Seleccione', 'class' => 'inputGrilla')) ?></td>
-                    </tr>
-                    <?
+                $analisis = new Analisis();
+                $infoAnalisis = $analisis->listaAnalisis('', '', '', '', 't', 't');
+                foreach($infoAnalisis as $valor){
+                    $listaAnalisis[$valor['codigo']] = $valor['nombre'];
+                }
+                ?>
+                <tr>
+                    <td width="110">An&aacute;lisis: </td>
+                    <td><? echo $html->select('id_analisis', array('options' => $listaAnalisis, 'default' => 'Seleccione', 'class' => 'inputGrilla botonera')) ?></td>
+                </tr>
+                <?
+            }
+        break;
+        case 'campos':
+            $tipo = $GPC['tipo'];
+            $condicion = $GPC['cond'];
+            if(!empty($tipo) && !empty($condicion)){
+                if($tipo == 1 && $condicion == 2){
+                    echo "Condici&oacute;n: ".$html->input("desde_1", '', array('type' => 'text', 'class' => 'positive rango', 'style' => 'width: 40px'));
+                    echo "<&nbsp;&nbsp;".$html->input("hasta_1", '', array('type' => 'text', 'class' => 'positive rango', 'style' => 'width: 40px'))."<br/>";
+                }elseif($tipo != 1 && ($condicion == 1 || $condicion == 2)){
+                    echo $html->input('otra_condicion', '', array('type' => 'text', 'class' => 'positive rango', 'style' => 'width: 100px')).":&nbsp;";
+                    echo $html->input('desde_1', '', array('type' => 'text', 'class' => 'positive rango', 'style' => 'width: 40px'));
+                    echo "<&nbsp;&nbsp;".$html->input('hasta_1', '', array('type' => 'text', 'class' => 'positive rango', 'style' => 'width: 40px'));
                 }
             }
         break;
@@ -27,12 +39,6 @@
             ?>
             <legend>F&oacute;rmula <?=$nro?></legend>
             <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0">
-                <!--tr>
-                    <td>
-                        <span class="msj_rojo">* </span>C&oacute;digo de la Formula: 
-                        <? echo $html->input('codigo', '', array('type' => 'text', 'length' => '5', 'class' => 'cuadricula')); ?>
-                    </td>
-                </tr-->
                 <tr>
                     <td align="center" style="padding: 10px 0;">
                         <?
@@ -50,12 +56,12 @@
                         <?
                             if(!empty($GPC['tipo']) && $GPC['tipo'] == 2){
                                 echo $html->input('otra_condicion', '', array('type' => 'text', 'style' => 'width: 100px')).":&nbsp;";
-                                echo $html->input("desde$nro", '', array('type' => 'text', 'class' => 'positive', 'style' => 'width: 40px'));
-                                echo "<&nbsp;&nbsp;".$html->input("hasta$nro", '', array('type' => 'text', 'class' => 'positive', 'style' => 'width: 40px'));
+                                echo $html->input("desde_$nro", '', array('type' => 'text', 'class' => 'positive rango', 'style' => 'width: 40px'));
+                                echo "<&nbsp;&nbsp;".$html->input("hasta_$nro", '', array('type' => 'text', 'class' => 'positive rango', 'style' => 'width: 40px'));
                                 echo $html->input('formula_exp_'.$nro, $GPC['formula'], array('type' => 'text', 'class' => 'campo_formula form_exp'));
                             }else{
-                                echo $html->input("desde$nro", '', array('type' => 'text', 'class' => 'positive', 'style' => 'width: 40px'));
-                                echo "<&nbsp;&nbsp;".$html->input("hasta$nro", '', array('type' => 'text', 'class' => 'positive', 'style' => 'width: 40px'))."<br/>";
+                                echo "Condici&oacute;n: ".$html->input("desde_$nro", '', array('type' => 'text', 'class' => 'positive rango', 'style' => 'width: 40px'));
+                                echo "<&nbsp;&nbsp;".$html->input("hasta_$nro", '', array('type' => 'text', 'class' => 'positive rango', 'style' => 'width: 40px'))."<br/>";
                                 echo $html->input('formula_exp_'.$nro, $GPC['formula'], array('type' => 'text', 'class' => 'campo_formula form_exp'));
                             }
                         ?>
@@ -65,7 +71,7 @@
                     <td style="padding: 10px 0;"><hr/></td>
                 </tr>
                 <tr>
-                    <th>COMPROBAR F&Oacute;RMULA<br/><br/></th>
+                    <th>Comprobar F&oacute;rmula<br/><br/></th>
                 </tr>
                 <tr>
                     <td align="center" id="td_<?=$nro?>" style="padding: 10px 0;">
@@ -82,7 +88,7 @@
                         <? echo $html->input('formula_eval_'.$nro, '', array('type' => 'text', 'readOnly' => true, 'class' => 'campo_formula')); ?>
                     </td>
                 </tr>
-                <tbody id="resultado_<?=$nro?>"></tbody>
+                <tbody id="resultado_<?=$nro?>" class="verif_resul"></tbody>
                 <tr align="center">
                     <td style="padding-top: 20px;">
                         <? echo $html->input('Comprobar_'.$nro, 'Comprobar', array('type' => 'button', 'class' => 'comprobar')); ?>
