@@ -87,6 +87,38 @@ class Recepcion extends Model {
                     LIMIT 1";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
+    
+    function listadoRechazo($idRec, $estatus=null, $idCA=null ) {
+        $query="select rec.numero,
+                    rec.fecha_recepcion,
+                    rec.carril,
+                    rec.estatus_rec,
+                    pro.ced_rif as ced_rif_pro,
+                    pro.nombre as nom_pro,
+                    aso.ced_rif as ced_rif_aso,
+                    aso.nombre as nom_aso,
+		    guia.cedula_chofer,      
+		    guia.nombre_chofer,
+		    veh.placa		    
+                    from si_recepcion rec                     
+                    inner join si_productor pro 
+                    on rec.id_productor=pro.id 
+                    inner join si_asociado aso
+                    on rec.id_productor=pro.id 
+                    inner join si_guiarec guia
+                    on rec.id_guia=guia.id
+                    inner join si_vehiculos veh
+                    on rec.id_vehiculo=veh.id
+                    inner join si_cosecha cos
+                    on rec.id_cosecha=cos.id
+                    inner join si_cultivo cul
+                    on cos.id_cultivo=cul.id
+                    where '1'";        
+        $query .= (!empty($idCA)) ? " AND rec.id_centro_acopio = '$idCA'" : "";
+        $query .= (!empty($idRec)) ? " AND rec.id= '$idRec'" : "";
+        $query .= (!empty($estatus)) ? " AND rec.estatus_rec = '$estatus'" : "";
+        return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
+    }
 
 }
 

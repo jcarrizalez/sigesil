@@ -7,13 +7,13 @@ $Rec = new Recepcion();
 
 $listadoCultivos = $Cultivos->find('', null, array('id','nombre'), 'list', 'id');
 
-foreach ($listadoCultivos as $campo =>$valor) {
-    echo 'campo: '.$campo .' - '. $valor;
-    
-}
-echo '</br><br>REC';
-print_r($listaC);
-echo '</br>';
+//foreach ($listadoCultivos as $campo =>$valor) {
+//    echo 'campo: '.$campo .' - '. $valor;
+//    
+//}
+//echo '</br><br>REC';
+//print_r($listaC);
+//echo '</br>';
         
 $laboratorio = array(2 => '40tna. lab');
 
