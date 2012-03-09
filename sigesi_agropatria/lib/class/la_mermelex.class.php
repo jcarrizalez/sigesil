@@ -118,7 +118,7 @@ class LaMermelex {
         // is it a variable assignment?
         if (preg_match('/^\s*([a-z]\w*)\s*=\s*(.+)$/', $expr, $matches)) {
             if (in_array($matches[1], $this->vb)) { // make sure we're not assigning to a constant
-                return $this->trigger("No se puede asignar a una constante '$matches[1]'");
+                return $this->trigger("No se puede asignar a una constante '".strtoupper($matches[1])."'");
             }
             if (($tmp = $this->pfx($this->nfx($matches[2]))) === false) return false; // get the result and make sure it's good
             $this->v[$matches[1]] = $tmp; // if so, stick it in the variable array
@@ -128,7 +128,7 @@ class LaMermelex {
         } elseif (preg_match('/^\s*([a-z]\w*)\s*\(\s*([a-z]\w*(?:\s*,\s*[a-z]\w*)*)\s*\)\s*=\s*(.+)$/', $expr, $matches)) {
             $fnn = $matches[1]; // get the function name
             if (in_array($matches[1], $this->fb)) { // make sure it isn't built in
-                return $this->trigger("No se puede redefinir la funci&oacute;n incorporada '$matches[1]()'");
+                return $this->trigger("No se puede redefinir la funci&oacute;n incorporada '".strtoupper($matches[1])."()'");
             }
             $args = explode(",", preg_replace("/\s+/", "", $matches[2])); // get the arguments
             if (($stack = $this->nfx($matches[3])) === false) return false; // see if it can be converted to postfix
@@ -138,7 +138,7 @@ class LaMermelex {
                     if (array_key_exists($token, $this->v)) {
                         $stack[$i] = $this->v[$token];
                     } else {
-                        return $this->trigger("Variable '$token' no definida en la funci&oacute;n");
+                        return $this->trigger("Variable '".strtoupper($token)."' no definida en la funci&oacute;n");
                     }
                 }
             }
@@ -345,7 +345,7 @@ class LaMermelex {
                 } elseif (array_key_exists($token, $vars)) {
                     $stack->push($vars[$token]);
                 } else {
-                    return $this->trigger("variable indefenida '$token'");
+                    return $this->trigger("variable indefenida '".strtoupper($token)."'");
                 }
             }
         }

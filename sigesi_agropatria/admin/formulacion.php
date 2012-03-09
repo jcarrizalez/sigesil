@@ -15,6 +15,7 @@ $formulas->listaFormulas($idCA);
 
 switch ($GPC['ac']) {
     case 'guardar':
+        Debug::pr($GPC['Formula']);
         /*if (!empty($GPC['Cultivo']['id_org']) && !empty($GPC['Cultivo']['codigo']) && !empty($GPC['Cultivo']['nombre'])) {
             $GPC['Cultivo']['tipificado'] = (!empty($GPC['Cultivo']['tipificado'])) ? $GPC['Cultivo']['tipificado'] : 'f';
             $cultivo->save($GPC['Cultivo']);
@@ -36,11 +37,11 @@ require('../lib/common/header.php');
 
 $validator = new Validator('form1');
 $validator->printIncludes();
-$validator->setRules('id_mov', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('id_cultivo', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('tipo_for', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('id_analisis', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('multiple_cond', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Formula.id_mov', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Formula.id_cultivo', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Formula.tipo_for', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Formula.id_analisis', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Formula.multiple_cond', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('condicion', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('codigo', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('formula_exp', array('required' => array('value' => true, 'message' => 'Requerido')));
@@ -66,7 +67,7 @@ $validator->printScript();
             $('.botonera').attr('disabled', true);
         });
         
-        $('#tipo_for').change(function(){
+        $('#Formula\\[tipo_for\\]').change(function(){
             var tipo = $(this).val();
             if(tipo == 1)
                 $('#opciones').load('../ajax/detalle_formula.php?ac=tipo&cul='+tipo);
@@ -76,9 +77,9 @@ $validator->printScript();
                 $('#opciones').html('');
         });
         
-        $('#multiple_cond').change(function(){
+        $('#Formula\\[multiple_cond\\]').change(function(){
             var cond = $(this).val();
-            var tipo = $('#tipo_for').val();
+            var tipo = $('#Formula\\[tipo_for\\]').val();
             
             if(tipo != ''){
                 if(cond == 1){
@@ -105,7 +106,7 @@ $validator->printScript();
                     $('#btnCondicion').css('visibility', 'hidden');
                 }
             }else{
-                $("#multiple_cond option[value='']").attr("selected", "selected");
+                $("#Formula\\[multiple_cond\\] option[value='']").attr("selected", "selected");
                 alert('Seleccione un tipo de Formulacion');
             }
         });
@@ -114,7 +115,7 @@ $validator->printScript();
             $('#nroCondicion').val(parseInt($('#nroCondicion').val())+1);
             var nro = $('#nroCondicion').val();
             var nombre = "multiple"+nro;
-            var tipoFor = $('#tipo_for').val();
+            var tipoFor = $('#Formula\\[tipo_for\\]').val();
             otraform = "<fieldset id='"+nombre+"'></fieldset>";
             nombre = '#'+nombre;
             $('#otraformula').append(otraform);
@@ -126,7 +127,7 @@ $validator->printScript();
             $('#formula_eval_'+campo_id[2]).val($(this).val());
         });
     
-        $('.constante').live("click", function(){
+        $('.constante').live('click', function(){
             var valor = $(this).val();
             var campo_id = $(this).attr('id').split('_');
             var campo = $('#formula_exp_'+campo_id[2]).val();
@@ -134,30 +135,52 @@ $validator->printScript();
             $('#formula_eval_'+campo_id[2]).attr('value', campo+valor);
         });
     
-        $('.valores').live("change", function(){
+        $('.valores').live('change', function(){
             var id = $(this).attr('id').split('_');
             var campo_valor = $(this).val();
-            var formula = $('#formula_eval_'+id[1]).val();
+            var formula = $('#formula_eval_'+id[1]).val().toUpperCase();
             var reemplazo = new RegExp(id[0],'g');
             if(campo_valor != ''){
                 $('#formula_eval_'+id[1]).attr('value', formula.replace(reemplazo, campo_valor));
             }
+            
+            if($('#Formula\\[tipo_for\\]').val() == 2){
+                var campo_cond = $('#condicion_eval').val().toUpperCase();
+                if(campo_cond != '')
+                    $('#condicion_eval').attr('value', campo_cond.replace(reemplazo, campo_valor));
+            }
         });
         
-        $('.comprobar').live("click", function(){
+        $('#otra_condicion_1').live('keypress', function(){
+            if($('#Formula\\[tipo_for\\]').val() == 2 && $('#Formula\\[multiple_cond\\]').val() == 2){
+                var cond_formu = $(this).val();
+                $('#condicion_eval').val(cond_formu);
+                $('.otra_con').each(function(){
+                    $(this).val(cond_formu);
+                });
+            }
+        });
+        
+        $('.comprobar').live('click', function(){
             var id = $(this).attr('id').split('_');
             var formula = $('#formula_eval_'+id[1]).val();
-            if(formula != ''){
+            if($('#Formula\\[tipo_for\\]').val() == 2 && $('#otra_condicion_1').val() == ''){
+                alert('Evalue una Condicion');
+                $('#otra_condicion_1').focus();
+            }else if($('#desde_'+id[1]).val() == '' || $('#hasta_'+id[1]).val() == '')
+                alert('Complete la Condicion');
+            else if(formula != ''){
                 formula = ($('#formula_eval_'+id[1]).serialize());
                 formula = formula.split('=');
                 $("#resultado_"+id[1]).load('../ajax/detalle_formula.php?ac=formu&formula_eval='+formula[1]);
-            }else if($('#desde_'+id[1]).val() == '' || $('#hasta_'+id[1]).val() == ''){
-                alert('Complete la Condicion');
-            }else
+            }else{
+                alert('Ingrese una Formula');
                 $("#resultado_"+id[1]).html('');
+                $('#formula_exp_'+id[1]).focus();
+            }
         });
         
-        $('.recuperar').live("click", function(){
+        $('.recuperar').live('click', function(){
             var id = $(this).attr('id').split('_');
             $("#td_"+id[1]+" :input").each(function(){
                 $(this).attr('value', '');
@@ -165,6 +188,8 @@ $validator->printScript();
             $("#formula_eval_"+id[1]).val($("#formula_exp_"+id[1]).val());
             $("#resultado_"+id[1]).html('');
             $("#Comprobar_"+id[1]).attr('disabled', false);
+            if(id[1] == 1)
+                $('#condicion_eval').val($('#otra_condicion_1').val());
         });
         
         $('.rango').live('change', function(){
@@ -184,15 +209,44 @@ $validator->printScript();
             });
         });
         
-        $('#Guardar').live('click', function(){
+        $('#form1').submit(function(e){
+            var id = 1;
+            var listo = 0;
+            var total = $('.comprobar').size();
+            var enviar = false;
             $(".verif_resul").each(function(){
-                alert($('tr').length);
+                if($(this).children().length > 0){
+                    if($(this).children().find('th').attr('class') == 'msj_verde'){
+                        listo++;
+                        $('#Comprobar_'+id).attr('disabled', true);
+                    }else{
+                        alert('Verifique el resultado de las formulas');
+                        e.preventDefault();
+                        return false;
+                    }
+                }else{
+                    alert('Compruebe todas las formulas');
+                    e.preventDefault();
+                    return false;
+                }
+                id++;
             });
-            return false;
-            /*clase = $('#resultado_'+id[1]+' th').attr('class')
-            if(clase == 'msj_verde'){
-                $(this).attr('disabled', true);
-            }*/
+            
+            if(total == listo){
+                $(".rango").each(function(){
+                    if($(this).val() == ''){
+                        enviar = false;
+                        alert('Complete las Condiciones');
+                        $(this).focus();
+                        e.preventDefault();
+                        return false;
+                    }else
+                        enviar = true;
+                });
+            }
+            
+            //if(total == listo && enviar == true)
+                $('.botonera').attr('disabled', false);
         });
     });
 </script>
@@ -207,21 +261,21 @@ $validator->printScript();
         <table align="center" width="100%" cellpadding="0" cellspacing="0" border="0">
             <tr>
                 <td width="130">Tipo de Movimiento:</td>
-                <td><? echo $html->select('id_mov', array('options' => $listaMov, 'default' => 'Seleccione', 'class' => 'inputGrilla botonera')) ?></td>
+                <td><? echo $html->select('Formula.id_mov', array('options' => $listaMov, 'default' => 'Seleccione', 'class' => 'inputGrilla botonera')) ?></td>
             </tr>
             <tr>
                 <td width="130">Cultivo:</td>
-                <td><? echo $html->select('id_cultivo', array('options' => $listaCultivos, 'default' => 'Seleccione', 'class' => 'inputGrilla botonera')) ?></td>
+                <td><? echo $html->select('Formula.id_cultivo', array('options' => $listaCultivos, 'default' => 'Seleccione', 'class' => 'inputGrilla botonera')) ?></td>
             </tr>
             <tr>
                 <td>Tipo de Formulaci&oacute;n:</td>
-                <td><? echo $html->select('tipo_for', array('options' => $listaTipo, 'default' => 'Seleccione', 'class' => 'inputGrilla botonera')) ?></td>
+                <td><? echo $html->select('Formula.tipo_for', array('options' => $listaTipo, 'default' => 'Seleccione', 'class' => 'inputGrilla botonera')) ?></td>
             </tr>
             <tbody id="opciones"></tbody>
             <tr>
                 <td>Condici&oacute;n &Uacute;nica:</td>
                 <td>
-                    <? echo $html->select('multiple_cond', array('options' => $listaCondicion, 'selected' => $GPC['condicion'], 'default' => 'Seleccione', 'class' => 'inputGrilla botonera')) ?>
+                    <? echo $html->select('Formula.multiple_cond', array('options' => $listaCondicion, 'selected' => $GPC['condicion'], 'default' => 'Seleccione', 'class' => 'inputGrilla botonera')) ?>
                 </td>
             </tr>
             <tbody id="btnCondicion" style="visibility: hidden">
