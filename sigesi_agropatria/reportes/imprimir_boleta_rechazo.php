@@ -3,25 +3,17 @@
     require_once("../lib/common/header_reportes.php");
     //include("../lib/class/mpdf/mpdf.php");
        
-    if (empty($GPC['id']))  {
-        die();
-    }       
+//    if (empty($GPC['id']))  {
+//        die();
+//    }       
     
     $Rec=new Recepcion();
     
     $Rechazo=$Rec->listadoRechazo($GPC['id'], 7);
-//    debug::pr($listadoRechazo);
-    
-//    $infoRec = $Rec->find(array('id' => $GPC['id']));    
-//    $infoPro = $Pro->find(array('id' => $infoRec[0]['id_productor']));
-//    $infoCo = $Co->find(array('id' => $infoRec[0]['id_cosecha']));    
-//    $infoAso = $Aso->find(array('id' => $infoRec[0]['id_asociado']));    
-//    $infoVehiculo = $Veh->find(array('id' => $infoRec[0]['id_vehiculo']));
+    if(empty($Rechazo)){
+        header('location: ../admin/analisis_recepcion?msg=error');      
+    }
 
-//    
-//    echo '<br>';print_r($infoRec[0]);echo '</br>';
-//    
-//    echo '<br>';print_r($infoPro[0]);echo '</br>';
 ?>
 <div id="titulo_reporte">
     BOLETA DE RECHAZO
@@ -49,30 +41,16 @@
 <p>MOTIVO DEL RECHAZO
 <?    
     require_once("../lib/common/footer_reportes.php");
+//    $curl_handle=curl_init();
+//    curl_setopt($curl_handle,CURLOPT_URL,DOMAIN_ROOT.'reportes/imprimir_boleta_rechazo.php?id=2');
+//    $buffer = curl_exec($curl_handle);
+//    curl_close($curl_handle);  
+//    if (empty($buffer))
+//    {
+//        print "Sorry, example.com are a bunch of poopy-heads.<p>";
+//    }
+//    else
+//    {
+//        print $buffer;
+//    } 
 ?>
-<!--select rec.numero,
-                    rec.fecha_recepcion,
-                    rec.carril,
-                    rec.estatus_rec,
-                    pro.ced_rif as ced_rif_pro,
-                    pro.nombre as nom_pro,
-                    aso.ced_rif as ced_rif_aso,
-                    aso.nombre as nom_aso,
-		    guia.cedula_chofer,      
-		    guia.nombre_chofer,
-		    veh.placa,
-		    cul.nombre as nom_cul 		    
-                    from si_recepcion rec                     
-                    inner join si_productor pro 
-                    on rec.id_productor=pro.id 
-                    inner join si_asociado aso
-                    on rec.id_productor=pro.id 
-                    inner join si_guiarec guia
-                    on rec.id_guia=guia.id
-                    inner join si_vehiculos veh
-                    on rec.id_vehiculo=veh.id
-                    inner join si_cosecha cos
-                    on rec.id_cosecha=cos.id
-                    inner join si_cultivo cul
-                    on cos.id_cultivo=cul.id
-                    where '1'-->
