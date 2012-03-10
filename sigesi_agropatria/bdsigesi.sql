@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Started on 2012-03-09 16:30:36 VET
+-- Started on 2012-03-10 11:54:36 VET
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -372,7 +372,7 @@ ALTER SEQUENCE si_analisis_resultado_id_seq OWNED BY si_analisis_resultado.id;
 -- Name: si_analisis_resultado_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_analisis_resultado_id_seq', 2395, true);
+SELECT pg_catalog.setval('si_analisis_resultado_id_seq', 2416, true);
 
 
 --
@@ -1144,7 +1144,9 @@ CREATE TABLE si_formulas (
     codigo character varying(4) NOT NULL,
     id_mov bigint NOT NULL,
     tipo_for bigint NOT NULL,
-    condicion character(1)
+    condicion character(1),
+    creado timestamp with time zone,
+    modificado timestamp with time zone
 );
 
 
@@ -3043,111 +3045,27 @@ INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, r
 -- Data for Name: si_analisis_resultado; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2291, 2, NULL, 1, 3, '2.000           ', '1.900           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2292, 2, NULL, 2, 3, '4.900           ', '4.900           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2293, 2, NULL, 3, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2294, 2, NULL, 4, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2295, 2, NULL, 5, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2296, 2, NULL, 6, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2297, 2, NULL, 7, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2298, 2, NULL, 8, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2299, 2, NULL, 9, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2300, 2, NULL, 10, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2301, 2, NULL, 11, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2302, 2, NULL, 12, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2303, 2, NULL, 13, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2304, 2, NULL, 14, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2305, 2, NULL, 15, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2306, 2, NULL, 16, 3, 'NO              ', 'NO              ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2307, 2, NULL, 17, 3, 'B               ', 'B               ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2308, 2, NULL, 18, 3, 'B               ', 'B               ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2309, 2, NULL, 19, 3, 'B               ', 'B               ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2310, 2, NULL, 20, 3, 'C               ', 'C               ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2311, 2, NULL, 21, 3, 'NO              ', 'NO              ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2312, 3, NULL, 1, 3, '1.910           ', '1.990           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2313, 3, NULL, 2, 3, '1.990           ', '4.990           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2314, 3, NULL, 3, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2315, 3, NULL, 4, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2316, 3, NULL, 5, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2317, 3, NULL, 6, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2318, 3, NULL, 7, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2319, 3, NULL, 8, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2320, 3, NULL, 9, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2321, 3, NULL, 10, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2322, 3, NULL, 11, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2323, 3, NULL, 12, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2324, 3, NULL, 13, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2325, 3, NULL, 14, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2326, 3, NULL, 15, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2327, 3, NULL, 16, 3, 'NO              ', 'NO              ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2328, 3, NULL, 17, 3, 'A               ', 'A               ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2329, 3, NULL, 18, 3, 'A               ', 'A               ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2330, 3, NULL, 19, 3, 'B               ', 'B               ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2331, 3, NULL, 20, 3, 'B               ', 'B               ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2332, 3, NULL, 21, 3, 'NO              ', 'NO              ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2333, 4, NULL, 1, 3, '10.000          ', '2.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2334, 4, NULL, 2, 3, '2.000           ', '5.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2335, 4, NULL, 3, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2336, 4, NULL, 4, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2337, 4, NULL, 5, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2338, 4, NULL, 6, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2339, 4, NULL, 7, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2340, 4, NULL, 8, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2341, 4, NULL, 9, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2342, 4, NULL, 10, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2343, 4, NULL, 11, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2344, 4, NULL, 12, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2345, 4, NULL, 13, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2346, 4, NULL, 14, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2347, 4, NULL, 15, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2348, 4, NULL, 16, 3, 'SI              ', 'NO              ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2349, 4, NULL, 17, 3, 'A               ', 'A               ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2350, 4, NULL, 18, 3, 'A               ', 'A               ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2351, 4, NULL, 19, 3, 'A               ', 'A               ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2352, 4, NULL, 20, 3, 'A               ', 'A               ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2353, 4, NULL, 21, 3, 'NO              ', 'NO              ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2354, 5, NULL, 1, 3, '1.000           ', '1.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2355, 5, NULL, 2, 3, '7.000           ', '2.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2356, 5, NULL, 3, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2357, 5, NULL, 4, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2358, 5, NULL, 5, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2359, 5, NULL, 6, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2360, 5, NULL, 7, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2361, 5, NULL, 8, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2362, 5, NULL, 9, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2363, 5, NULL, 10, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2364, 5, NULL, 11, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2365, 5, NULL, 12, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2366, 5, NULL, 13, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2367, 5, NULL, 14, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2368, 5, NULL, 15, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2369, 5, NULL, 16, 3, 'SI              ', 'SI              ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2370, 5, NULL, 17, 3, 'B               ', 'B               ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2371, 5, NULL, 18, 3, 'B               ', 'B               ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2372, 5, NULL, 19, 3, 'B               ', 'B               ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2373, 5, NULL, 20, 3, 'B               ', 'B               ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2374, 5, NULL, 21, 3, 'NO              ', 'NO              ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2375, 6, NULL, 1, 3, '10.000          ', '1.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2376, 6, NULL, 2, 3, '2.000           ', '2.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2377, 6, NULL, 3, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2378, 6, NULL, 4, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2379, 6, NULL, 5, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2380, 6, NULL, 6, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2381, 6, NULL, 7, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2382, 6, NULL, 8, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2383, 6, NULL, 9, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2384, 6, NULL, 10, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2385, 6, NULL, 11, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2386, 6, NULL, 12, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2387, 6, NULL, 13, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2388, 6, NULL, 14, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2389, 6, NULL, 15, 3, '0.000           ', '0.000           ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2390, 6, NULL, 16, 3, 'SI              ', 'NO              ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2391, 6, NULL, 17, 3, 'B               ', 'B               ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2392, 6, NULL, 18, 3, 'B               ', 'B               ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2393, 6, NULL, 19, 3, 'B               ', 'B               ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2394, 6, NULL, 20, 3, 'B               ', 'B               ', '                ');
-INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2395, 6, NULL, 21, 3, 'NO              ', 'NO              ', '                ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2396, 2, NULL, 1, 3, '2.000           ', '2.000           ', '                ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2397, 2, NULL, 2, 3, '2.000           ', '2.000           ', '                ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2398, 2, NULL, 3, 3, '0.000           ', '0.000           ', '                ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2399, 2, NULL, 4, 3, '0.000           ', '0.000           ', '                ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2400, 2, NULL, 5, 3, '0.000           ', '0.000           ', '                ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2401, 2, NULL, 6, 3, '0.000           ', '0.000           ', '                ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2402, 2, NULL, 7, 3, '0.000           ', '0.000           ', '                ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2403, 2, NULL, 8, 3, '0.000           ', '0.000           ', '                ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2404, 2, NULL, 9, 3, '0.000           ', '0.000           ', '                ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2405, 2, NULL, 10, 3, '0.000           ', '0.000           ', '                ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2406, 2, NULL, 11, 3, '0.000           ', '0.000           ', '                ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2407, 2, NULL, 12, 3, '0.000           ', '0.000           ', '                ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2408, 2, NULL, 13, 3, '0.000           ', '0.000           ', '                ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2409, 2, NULL, 14, 3, '0.000           ', '0.000           ', '                ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2410, 2, NULL, 15, 3, '0.000           ', '0.000           ', '                ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2411, 2, NULL, 16, 3, 'SI              ', 'NO              ', '                ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2412, 2, NULL, 17, 3, 'A               ', 'A               ', '                ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2413, 2, NULL, 18, 3, 'A               ', 'A               ', '                ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2414, 2, NULL, 19, 3, 'A               ', 'A               ', '                ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2415, 2, NULL, 20, 3, 'A               ', 'A               ', '                ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3) VALUES (2416, 2, NULL, 21, 3, 'NO              ', 'NO              ', '                ');
 
 
 --
@@ -3439,9 +3357,9 @@ INSERT INTO si_estado (id, id_pais, nombre) VALUES (24, 1, 'Zulia');
 -- Data for Name: si_formulas; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO si_formulas (id, id_org, id_centro_acopio, id_cultivo, formula, codigo, id_mov, tipo_for, condicion) VALUES (1, 1, 2, 2, '(PL1+PL2)', 'PL12', 0, 2, NULL);
-INSERT INTO si_formulas (id, id_org, id_centro_acopio, id_cultivo, formula, codigo, id_mov, tipo_for, condicion) VALUES (2, 1, 2, 2, '(PV1+PV2)', 'PV12', 0, 2, NULL);
-INSERT INTO si_formulas (id, id_org, id_centro_acopio, id_cultivo, formula, codigo, id_mov, tipo_for, condicion) VALUES (3, 1, 2, 2, '((PL1+PL2)-(PV1+PV2))', 'PN', 0, 2, NULL);
+INSERT INTO si_formulas (id, id_org, id_centro_acopio, id_cultivo, formula, codigo, id_mov, tipo_for, condicion, creado, modificado) VALUES (1, 1, 2, 2, '(PL1+PL2)', 'PL12', 0, 2, NULL, NULL, NULL);
+INSERT INTO si_formulas (id, id_org, id_centro_acopio, id_cultivo, formula, codigo, id_mov, tipo_for, condicion, creado, modificado) VALUES (2, 1, 2, 2, '(PV1+PV2)', 'PV12', 0, 2, NULL, NULL, NULL);
+INSERT INTO si_formulas (id, id_org, id_centro_acopio, id_cultivo, formula, codigo, id_mov, tipo_for, condicion, creado, modificado) VALUES (3, 1, 2, 2, '((PL1+PL2)-(PV1+PV2))', 'PN', 0, 2, NULL, NULL, NULL);
 
 
 --
@@ -4040,11 +3958,11 @@ INSERT INTO si_programa (id, id_centro_acopio, nombre, observacion, creado, modi
 -- Data for Name: si_recepcion; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_asociado, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo) VALUES (2, 2, 2, 2, 2, NULL, 2, 4, 1, '2012-02-29 16:12:27.158984-04:30', 1, '3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-02-29 16:12:27.158984-04:30', '2012-03-09 13:32:54.574316', 2, 2);
-INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_asociado, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo) VALUES (3, 2, 2, 2, 2, NULL, 3, 4, 2, '2012-02-29 16:14:01.338074-04:30', 1, '7', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-02-29 16:14:01.338074-04:30', '2012-03-09 13:34:51.560415', 2, 3);
-INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_asociado, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo) VALUES (4, 2, 2, 2, 3, 2, 4, 4, 3, '2012-02-29 16:17:14.272529-04:30', 1, '7', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-02-29 16:17:14.272529-04:30', '2012-03-09 15:09:42.098226', 2, 4);
-INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_asociado, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo) VALUES (5, 2, 2, 2, 4, NULL, 5, 4, 4, '2012-03-01 08:08:37.409028-04:30', 1, '7', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-03-01 08:08:37.409028-04:30', '2012-03-09 15:19:00.35981', 2, 5);
-INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_asociado, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo) VALUES (6, 2, 2, 2, 4, NULL, 6, 4, 5, '2012-03-01 08:10:00.987249-04:30', 1, '7', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-03-01 08:10:00.987249-04:30', '2012-03-09 15:29:44.661086', 2, 6);
+INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_asociado, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo) VALUES (3, 2, 2, 2, 2, NULL, 3, 4, 2, '2012-02-29 16:14:01.338074-04:30', 1, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-02-29 16:14:01.338074-04:30', '2012-03-09 13:34:51.560415', 2, 3);
+INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_asociado, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo) VALUES (4, 2, 2, 2, 3, 2, 4, 4, 3, '2012-02-29 16:17:14.272529-04:30', 1, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-02-29 16:17:14.272529-04:30', '2012-03-09 15:09:42.098226', 2, 4);
+INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_asociado, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo) VALUES (5, 2, 2, 2, 4, NULL, 5, 4, 4, '2012-03-01 08:08:37.409028-04:30', 1, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-03-01 08:08:37.409028-04:30', '2012-03-09 15:19:00.35981', 2, 5);
+INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_asociado, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo) VALUES (6, 2, 2, 2, 4, NULL, 6, 4, 5, '2012-03-01 08:10:00.987249-04:30', 1, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-03-01 08:10:00.987249-04:30', '2012-03-09 15:29:44.661086', 2, 6);
+INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_asociado, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo) VALUES (2, 2, 2, 2, 2, NULL, 2, 4, 1, '2012-02-29 16:12:27.158984-04:30', 1, '7', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-02-29 16:12:27.158984-04:30', '2012-03-10 10:04:05.026462', 2, 2);
 
 
 --
@@ -4215,10 +4133,10 @@ INSERT INTO si_silos (id, id_centro_acopio, id_almacen, nombre, coordenada, codi
 -- Data for Name: si_usuarios; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
+INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (2, 'JESUS', 'SILVA', '9668397', '1970-09-01', 'M', 'JSILVA                          ', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', NULL, NULL, 'jesussilva@agropatria.co.ve', '2012-02-13', '2012-02-13', true, 1, 'hu73222tqqpnbodc1sipn09t46', '2012-03-10 11:22:41.255222-04:30');
+INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (3, 'JUAN', 'TABORDA', '13769341', NULL, 'M', 'JTABORDA                        ', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', NULL, NULL, 'juantaborda@agropatria.co.ve', '2012-02-13', '2012-02-17', true, 1, '2jjfrd1d6kop9dgde5j1mk3hb3', '2012-03-10 11:46:10.620144-04:30');
 INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (4, 'JESUS', 'RODRIGUEZ', '18264065', NULL, 'M', 'JRODRIGUEZ                      ', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', NULL, NULL, 'jesusrodriguez@agropatria.co.ve', '2012-02-13', '2012-02-13', true, 0, NULL, '2012-03-09 12:13:53.934538-04:30');
-INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (2, 'JESUS', 'SILVA', '9668397', '1970-09-01', 'M', 'JSILVA                          ', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', NULL, NULL, 'jesussilva@agropatria.co.ve', '2012-02-13', '2012-02-13', true, 1, '7h6dg6ap1up5pk3020kvdphms1', '2012-03-09 13:29:12.329635-04:30');
 INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (1, 'JOSE', 'PELUZZO', '1234567', '2012-02-12', 'M', 'JPELUZZO                        ', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Maracay', NULL, 'josepeluzzo@agropatria.co.ve', '2012-02-12', NULL, true, 1, 'jujj3c73vjeqo9rpsr1d6q4gu1', '2012-03-09 15:28:13.132038-04:30');
-INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (3, 'JUAN', 'TABORDA', '13769341', NULL, 'M', 'JTABORDA                        ', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', NULL, NULL, 'juantaborda@agropatria.co.ve', '2012-02-13', '2012-02-17', true, 1, 'jujj3c73vjeqo9rpsr1d6q4gu1', '2012-03-09 16:18:29.620888-04:30');
 
 
 --
@@ -5668,7 +5586,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2012-03-09 16:30:37 VET
+-- Completed on 2012-03-10 11:54:37 VET
 
 --
 -- PostgreSQL database dump complete

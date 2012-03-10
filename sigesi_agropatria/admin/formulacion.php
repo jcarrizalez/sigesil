@@ -15,11 +15,13 @@ $formulas->listaFormulas($idCA);
 
 switch ($GPC['ac']) {
     case 'guardar':
-        Debug::pr($GPC['Formula']);
-        /*if (!empty($GPC['Cultivo']['id_org']) && !empty($GPC['Cultivo']['codigo']) && !empty($GPC['Cultivo']['nombre'])) {
-            $GPC['Cultivo']['tipificado'] = (!empty($GPC['Cultivo']['tipificado'])) ? $GPC['Cultivo']['tipificado'] : 'f';
-            $cultivo->save($GPC['Cultivo']);
-            $id = $cultivo->id;
+        if (!empty($GPC['Formula'])) {
+            //Debug::pr($GPC['Formula']);
+            $GPC['Formula']['id_org'] = $_SESSION['s_org_id'];
+            $GPC['Formula']['id_centro_acopio'] = $_SESSION['s_ca_id'];
+
+            /*$formulas->save($GPC['Formula']);
+            $id = $formulas->id;*/
         }
         if (!empty($id)) {
             header("location: cultivo_listado.php?msg=exitoso");
@@ -27,7 +29,7 @@ switch ($GPC['ac']) {
         } else {
             header("location: cultivo_listado.php?msg=error");
             die();
-        }*/
+        }
         break;
     case 'editar':
         //$infoCultivo = $cultivo->find(array('id' => $GPC['id']));
@@ -152,7 +154,7 @@ $validator->printScript();
         });
         
         $('#otra_condicion_1').live('keypress', function(){
-            if($('#Formula\\[tipo_for\\]').val() == 2 && $('#Formula\\[multiple_cond\\]').val() == 2){
+            if($('#Formula\\[tipo_for\\]').val() == 2){
                 var cond_formu = $(this).val();
                 $('#condicion_eval').val(cond_formu);
                 $('.otra_con').each(function(){
@@ -231,7 +233,6 @@ $validator->printScript();
                 }
                 id++;
             });
-            
             if(total == listo){
                 $(".rango").each(function(){
                     if($(this).val() == ''){
@@ -245,8 +246,12 @@ $validator->printScript();
                 });
             }
             
-            //if(total == listo && enviar == true)
-                $('.botonera').attr('disabled', false);
+            if($('#Formula\\[tipo_for\\]').val() == 1 && $('#Formula\\[multiple_cond\\]').val() == 1 && total == listo)
+                $('.botonera').removeAttr('disabled');
+            else if($('#Formula\\[tipo_for\\]').val() == 1 && $('#Formula\\[multiple_cond\\]').val() == 2 && total == listo && enviar == true)
+                $('.botonera').removeAttr('disabled');
+            else if ($('#Formula\\[tipo_for\\]').val() == 2 && total == listo && enviar == true)
+                $('.botonera').removeAttr('disabled');
         });
     });
 </script>
