@@ -16,18 +16,33 @@ $formulas->listaFormulas($idCA);
 switch ($GPC['ac']) {
     case 'guardar':
         if (!empty($GPC['Formula'])) {
-            //Debug::pr($GPC['Formula']);
+            
             $GPC['Formula']['id_org'] = $_SESSION['s_org_id'];
             $GPC['Formula']['id_centro_acopio'] = $_SESSION['s_ca_id'];
+            $GPC['Formula']['codigo'] = $GPC['codigo_1'];
+            $multiple = $GPC['Formula']['multiple_cond'];
+            unset($GPC['Formula']['multiple_cond']);
+            for($i=1;$i<=$GPC['nroCondicion'];$i++){
+                
+                $GPC['Formula']['formula'] = $GPC["formula_exp_$i"];
+                
+                if($GPC['Formula']['tipo_for'] == 1 && $multiple == 1)
+                    unset($GPC['Formula']['condicion']);
+                elseif ($GPC['Formula']['tipo_for'] == 1 && $multiple == 2)
+                    $GPC['Formula']['condicion'] = $GPC["desde_$i"]." < ".$GPC["hasta_$i"];
+                else
+                    $GPC['Formula']['condicion'] = $GPC["otra_condicion_$i"]." = ".$GPC["desde_$i"]." < ".$GPC["hasta_$i"];
 
-            /*$formulas->save($GPC['Formula']);
-            $id = $formulas->id;*/
+                $formulas->save($GPC['Formula']);
+                $id = $formulas->id;
+                $formulas->id = null;
+            }
         }
         if (!empty($id)) {
-            header("location: cultivo_listado.php?msg=exitoso");
+            header("location: formulacion.php?msg=exitoso");
             die();
         } else {
-            header("location: cultivo_listado.php?msg=error");
+            header("location: formulacion.php?msg=error");
             die();
         }
         break;
@@ -45,7 +60,7 @@ $validator->setRules('Formula.tipo_for', array('required' => array('value' => tr
 $validator->setRules('Formula.id_analisis', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Formula.multiple_cond', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('condicion', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('codigo', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('codigo_1', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('formula_exp', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->printScript();
 ?>
@@ -54,6 +69,7 @@ $validator->printScript();
         var campo = $('#formula_exp_'+id).val();
         $('#formula_exp_'+id).attr('value', campo+valor);
         $('#formula_eval_'+id).attr('value', campo+valor);
+        $('#formula_exp_'+id).focus();
     }
     
     $(document).ready(function(){
@@ -135,6 +151,7 @@ $validator->printScript();
             var campo = $('#formula_exp_'+campo_id[2]).val();
             $('#formula_exp_'+campo_id[2]).attr('value', campo+valor);
             $('#formula_eval_'+campo_id[2]).attr('value', campo+valor);
+            $('#formula_exp_'+campo_id[2]).focus();
         });
     
         $('.valores').live('change', function(){
@@ -261,6 +278,18 @@ $validator->printScript();
     <div id="titulo_modulo">
         F&Oacute;RMULA<br/><hr/>
     </div>
+    <div id="mensajes">
+        <?
+            switch($GPC['msg']){
+                case 'exitoso':
+                    echo "<span class='msj_verde'>Registro Guardado !</span>";
+                break;
+                case 'error':
+                    echo "<span class='msj_rojo'>Ocurri&oacute; un Problema !</span>";
+                break;
+            }
+        ?>
+    </div>
     <fieldset>
         <legend>Informaci&oacute;n del Cultivo</legend>
         <table align="center" width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -297,13 +326,12 @@ $validator->printScript();
         </table>
     </fieldset>
     <fieldset id="unica_formula" style="display: none;" class="field_formu">
-    <!--fieldset id="unica_formula"-->
         <legend>F&oacute;rmula 1</legend>
         <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0">
             <tr>
                 <td>
                     <span class="msj_rojo">* </span>C&oacute;digo de la Formula: 
-                    <? echo $html->input('codigo', '', array('type' => 'text', 'length' => '10')); ?>
+                    <? echo $html->input('codigo_1', '', array('type' => 'text', 'length' => '10')); ?>
                 </td>
             </tr>
             <tr>
