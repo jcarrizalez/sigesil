@@ -99,8 +99,9 @@ class Recepcion extends Model {
                     aso.ced_rif as ced_rif_aso,
                     aso.nombre as nom_aso,
 		    guia.cedula_chofer,      
-		    guia.nombre_chofer,
-		    veh.placa		    
+		    guia.nombre_chofer,                     
+		    veh.placa,
+                    cul.nombre as nom_cul 
                     from si_recepcion rec                     
                     inner join si_productor pro 
                     on rec.id_productor=pro.id 

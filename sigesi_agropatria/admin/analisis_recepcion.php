@@ -35,26 +35,26 @@ switch ($GPC['ac']) {
                 $GPC['Resultados']['muestra1'] = is_numeric($GPC[$valor][0]) ? number_format($GPC[$valor][0], 3) : $GPC[$valor][0];
                 $GPC['Resultados']['muestra2'] = is_numeric($GPC[$valor][1]) ? number_format($GPC[$valor][1], 3) : $GPC[$valor][1];
                 $GPC['Resultados']['muestra3'] = is_numeric($GPC[$valor][2]) ? number_format($GPC[$valor][2], 3) : $GPC[$valor][2];
-                //$GPC['Resultados']['id_analisis'];
+                
                 $j++;
-                //print_r($GPC['Resultados']);
+                
                 $id_analisis_res = $analisis->guardarResultados($GPC['Resultados']);
-                //echo '<br>id_analisis_res:'.$id_analisis_res.'</br>';
+                
             }
-            $estatus_rec = '3';
-            //Estatus = 2=>Cuarentena, 3=> Romana
-            if ($GPC['es_rechazado'] != '0_0:') {
-                //7 => 'Rch.Lab.Cen'
-                $estatus_rec = '7';
+            $estatus_rec = '3'; //Estatus = 2=>Cuarentena, 3=> Romana
+            
+            if ($GPC['es_rechazado'] != '0_0:') {                 
+                $estatus_rec = '7'; //7 => 'Rch.Lab.Cen'
+                $serial_rechazado = split(':', $GPC['es_rechazado']);
+                $id_analisis_rechazado = split('_', $GPC[$rechazado]);
             } else if ($GPC['es_cuarentena'] != '0_0:') {
-//                  $Rec->cambiarEstatus($GPC['id_rec'], 2);
-                $estatus_rec = '2';
+                $estatus_rec = '2'; //                  $Rec->cambiarEstatus($GPC['id_rec'], 2);
                 $Ctna = new Cuarentena();
                 $recepcion['id_centro_acopio'] = $_SESSION['s_ca_id'];
                 $recepcion['id_recepcion'] = $GPC['id_rec'];
                 $recepcion['id_cultivo'] = $GPC['id_cultivo'];
                 $serial_cuarentena = split(':', $GPC['es_cuarentena']);
-                $id_analisis_cuarentena = split('_', $GPC[$serial_cuarentena]);
+                $id_analisis_cuarentena = split('_', $serial_cuarentena[1]);
                 $recepcion['id_analisis'] = $id_analisis_cuarentena[0];
                 $recepcion['tipo_mov'] = 'R';
                 $recepcion['fecha_mov'] = 'now()';

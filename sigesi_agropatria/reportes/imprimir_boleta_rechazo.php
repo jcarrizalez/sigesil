@@ -20,25 +20,27 @@
 </div>
 <table id="tabla_reporte" border="0" width="100%">
     <tr>
-        <td width="200px">PROPIEDAD DE: </td>        
+        <td align="right" width=200px">PROPIEDAD DE: </td>        
         <td align="left" width="120px"><?echo $Rechazo[0]['ced_rif_pro']; ?></td>
         <td align="left"><?echo $Rechazo[0]['nom_pro']; ?></td>
     </tr>
     <tr>
-        <td>PRODUCTO: </td>
-        <td align="left"><?echo $Rechazo[0]['nom_cul']; ?></td>
+        <td align="right">PRODUCTO: </td>
+        <td align="left" colspan="3"><?echo $Rechazo[0]['nom_cul']; ?></td>
     </tr>
     <tr>
-        <td>CHOFER: </td>
-        <td><?echo $Rechazo[0]['nombre_chofer']; ?></td>
+        <td align="right">CHOFER: </td>
+        <td colspan="2"><?echo $Rechazo[0]['nombre_chofer']; ?></td>
     </tr>
     <tr>
-        <td>VEHICULO PLACA: </td>
-        <td><?echo $Rechazo[0]['placa']; ?></td>
+        <td align="right">VEHICULO PLACA: </td>
+        <td colspan="2"><?echo $Rechazo[0]['placa']; ?></td>
     </tr>
 </table>
-<br>
+<br/>
 <p>MOTIVO DEL RECHAZO
+<br/>
+<p><?echo $etiqueta['M_BoletaRechazo']; ?>
 <?    
     require_once("../lib/common/footer_reportes.php");
 //    $curl_handle=curl_init();
