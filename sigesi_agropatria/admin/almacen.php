@@ -33,10 +33,15 @@ switch ($GPC['ac']) {
         }
         break;
     case 'editar':
-        $infoAlmacen = $almacen->find(array('id' => $GPC['id']));
-        $listaMcpos = $div_pol->obtenerMcpo('', $infoAlmacen[0]['id_estado']);
-        foreach ($listaMcpos as $dataMcpo) {
-            $listaM[$dataMcpo['id']] = $dataMcpo['nombre'];
+        if(!empty($GPC['id'])){
+            $infoAlmacen = $almacen->find(array('id' => $GPC['id']));
+            $listaMcpos = $div_pol->obtenerMcpo('', $infoAlmacen[0]['id_estado']);
+            foreach ($listaMcpos as $dataMcpo) {
+                $listaM[$dataMcpo['id']] = $dataMcpo['nombre'];
+            }
+        }else{
+            header("location: almacen_listado.php?msg=error");
+            die();
         }
         break;
 }

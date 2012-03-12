@@ -112,13 +112,6 @@ $validator->printScript();
             if(guia != '')
                 $('#guia').load('../ajax/recepcion_detalle.php?ac=guia&numero_guia='+guia);
         });
-        /*$('#buscarGuia').click(function(){
-            var guia = $('#Guia\\[numero_guia\\]').val();
-            if(guia != '')
-                $('#guia').load('../ajax/recepcion_detalle.php?ac=guia&numero_guia='+guia);
-            else
-                alert('Nro de Guia Invalida');
-        });*/
         
         $('#Productor\\[ced_rif\\]').change(function(){
             var np = $('#nacion').val();
@@ -152,35 +145,13 @@ $validator->printScript();
             }
         });
         
-        /*$('#buscarPro').click(function(){
-            var cedPro = $('#Productor\\[ced_rif\\]').val();
-            if(cedPro == '' || isNaN(cedPro))
-                alert('Cedula/Rif Invalida');
-            else{
-                cedPro = $('#nacion').val()+$('#Productor\\[ced_rif\\]').val();
-                $('#productor').load('../ajax/recepcion_detalle.php?ac=productor&cp='+cedPro);
-            }
+        $('#otraguia').change(function(){
+            var cant = $(this).val();
+            if(cant != '')
+                $('#nuevasguias').load('../ajax/recepcion_detalle.php?ac=otraguia&cant='+cant);
+            else
+                $('#nuevasguias').html('');
         });
-        
-        $('#buscarAso').click(function(){
-            var cedAso = $('#Asociado\\[ced_rif\\]').val();
-            if(cedAso == '' || isNaN(cedAso))
-                alert('Cedula/Rif Invalida');
-            else{
-                cedAso = $('#nacion2').val()+$('#Asociado\\[ced_rif\\]').val();
-                $('#asociado').load('../ajax/recepcion_detalle.php?ac=asociado&cp='+cedAso);
-            }
-        });
-        
-        $('#buscarCho').click(function(){
-            var cedCho = $('#Guia\\[cedula_chofer\\]').val();
-            if(cedCho == '' || isNaN(cedCho))
-                alert('Cedula Invalida');
-            else{
-                cedCho = $('#nacion3').val()+$('#Guia\\[cedula_chofer\\]').val();
-                $('#chofer').load('../ajax/recepcion_detalle.php?ac=chofer&cp='+cedCho);
-            }
-        });*/
     });
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
@@ -254,9 +225,14 @@ $validator->printScript();
                     <td><span class="msj_rojo">* </span>Kilogramos Gu&iacute;a: </td>
                     <td><? echo $html->input('Guia.kilogramos', $infoGuia[0]['kilogramos'], array('type' => 'text', 'class' => 'estilo_campos integer')); ?> (Kgrs)</td>
                 </tr>
+                <tr>
+                    <td>Otras Gu&iacute;as: </td>
+                    <td><? echo $html->select('otraguia',array('options'=>$listaCantM, 'default' => 'Seleccione'))?></td>
+                </tr>
             </tbody>
         </table>
     </fieldset>
+    <div id="nuevasguias"></div>
     <fieldset>
         <legend>Datos del Productor</legend>
         <table align="center">

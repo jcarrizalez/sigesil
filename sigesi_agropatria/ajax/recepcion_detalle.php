@@ -50,6 +50,41 @@
                 <?
             }
         break;
+        case 'otraguia':
+            if(!empty($GPC['cant'])){
+                for($i=1; $i<=$GPC['cant'];$i++){
+            ?>
+                <fieldset>
+                    <legend>Sub-Gu&iacute;a Nro<?=$i?></legend>
+                    <table align="center" border="0">
+                        <tr>
+                            <td><span class="msj_rojo">* </span>N&uacute;mero: </td>
+                            <td>
+                                <? echo $html->input('subguia[]', '', array('type' => 'text', 'class' => 'estilo_campos integer')); ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="msj_rojo">* </span>Fecha de Emisi&oacute;n: </td>
+                            <td>
+                                <? echo $html->input('subguia_fecha[]', $general->date_sql_screen($infoGuia[0]['fecha_emision'], '', 'es', '-'), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?>
+                                <img src="../images/calendario.png" id="femision" width="16" height="16" style="cursor:pointer" />
+                                <script>
+                                    Calendar.setup({
+                                        trigger    : "femision",
+                                        inputField : "Guia[fecha_emision]",
+                                        dateFormat: "%d-%m-%Y",
+                                        selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($infoGuia[0]['fecha_emision']));?>),
+                                        onSelect   : function() { this.hide() }
+                                    });
+                                </script>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            <?
+                }
+            }
+        break;
         case 'productor':
             $infoProductor = $recepcion->productorRecepcion($GPC['cp']);
             $verifAso = $recepcion->verificarProAso($GPC['co'], $_SESSION['s_ca_id'], $GPC['cp']);

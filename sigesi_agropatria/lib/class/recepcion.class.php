@@ -7,7 +7,8 @@ class Recepcion extends Model {
     function recepcionesDia($idCA, $idCo) {
         $query = "SELECT COUNT(*) AS total
                 FROM si_recepcion
-                WHERE id_centro_acopio = '$idCA' AND id_cosecha = '$idCo' AND (fecha_recepcion >= '".date('Y-m-d')."' OR fecha_recepcion <= '".date('Y-m-d')."')";
+                WHERE id_centro_acopio = '$idCA' AND id_cosecha = '$idCo' AND 
+                fecha_recepcion BETWEEN '".date('Y-m-d 00:00:00')."' AND '".date('Y-m-d 23:59:59')."'";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     

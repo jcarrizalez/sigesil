@@ -229,7 +229,8 @@ class cls_logs {
 	 * @param string $tablas tablas a usar
 	 * @param string $sentencia sentencia del where
 	 */
-	function get_old_data($campos,$tablas,$sentencia){
+	/* FUNCION ANTERIOR QUE PRESENTABA ERRORES Y NO ALMACENABA LA DATA ANTERIOR
+        function get_old_data($campos,$tablas,$sentencia){
 		$i=0; $var_data_old = array();
 		$query="SELECT ".$campos." FROM ".$tablas." WHERE ".$sentencia;
 		//die($query);
@@ -249,6 +250,31 @@ class cls_logs {
 		} else {
 			$var_data_old[0] = 'No data';
 		}		
+		$this->data_old_del = $var_data_old;
+	}*/
+        
+        function get_old_data($campos,$tablas,$sentencia){
+		$i=0; $var_data_old = array();
+		$query="SELECT ".$campos." FROM ".$tablas." WHERE ".$sentencia;
+		//die($query);
+		$res=pg_query($query) or die("Error: ".pg_last_error()."<br /><br />Function: ".__METHOD__."<br /><br />Query: ".$query);
+		$cant_data=pg_num_rows($res);
+		if($cant_data<>0){
+			while($row=pg_fetch_array($res) ){
+				$var_data_old = "Register No.".$i."<br />";	
+				foreach($row as $key => $value){
+					if(!is_numeric($key)){ //Hay que obiar los indices numericos
+						$var_data_old .= $key." = ".$value."<br />";
+					}
+				$i++;					
+				}
+			}
+			//$var_data_old = substr($var_data_old, 0, -6);
+		} else {
+			$var_data_old[0] = 'No data';
+		}
+		$this->data_old = $var_data_old;
+                //var_dump($this->data_old);die();
 		$this->data_old_del = $var_data_old;
 	}
 	
