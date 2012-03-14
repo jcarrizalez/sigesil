@@ -16,7 +16,7 @@ $listadoRec=$Rec->listadoAnalisis($idCA,null,null,$GPC['estatus']);
 require('../lib/common/header.php');
 ?>
     <div id="titulo_modulo">
-        RECEPCIONES POR ANALISIS<br/><hr/>
+        RESULTADOS DE ANALISIS<br/><hr/>
     </div>
     <div id="filtro">
         <form name="form1" id="form1" method="GET" action="" enctype="multipart/form-data">
@@ -66,10 +66,14 @@ require('../lib/common/header.php');
             <td align="center"><?=$general->date_sql_screen($dataREC['fecha_recepcion'],false,'es','-')?></td>
             <td align="center">
                 <?
-                    if ($dataREC['estatus_rec']==1)
-                        echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Nuevo>', 'analisis_recepcion.php?ac=nuevo&id_rec='.$dataREC['id_rec'].'&cant_muestras='.$dataREC['cant_muestras'].'&id_cultivo='.$dataREC['codigo_cul']);
-                    else                        
-                        echo $html->link('<img src="../images/imprimir.png" width="16" height="16" title=Imprimir>', '../reportes/imprimir_recepcion.php?id_rec='.$dataREC['id_rec']);
+                    switch ($dataREC['estatus_rec']) {
+                        case '1':
+                            echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Nuevo>', 'analisis_recepcion.php?ac=nuevo&id_rec='.$dataREC['id_rec'].'&cant_muestras='.$dataREC['cant_muestras'].'&id_cultivo='.$dataREC['codigo_cul']);
+                            break;
+                        case '2':                            
+                            echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Nuevo>', 'cuarentena.php?ac=editar&id='.$dataREC['id_rec']);
+                            break;
+                    }
                 ?>
             </td>
             <td align="center">

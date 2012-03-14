@@ -25,21 +25,16 @@ switch ($GPC['ac']) {
 
             $analisis->_begin_tool();
             $j = 0;
-            foreach ($listadoAnalisis as $dataAnalisis) {
-                //$dataAnalisis['min_rec'];
-                //$dataAnalisis['max_rec'];                
+            foreach ($listadoAnalisis as $dataAnalisis) {              
                 $GPC['Resultados']['id_recepcion'] = $GPC['id_rec'];
                 $GPC['Resultados']['id_analisis'] = $GPC['id_analisis'][$j];
                 $GPC['Resultados']['id_usuario'] = $_SESSION['s_id'];
                 $valor = 'muestra' . $j . '_' . $dataAnalisis['codigo'];
                 $GPC['Resultados']['muestra1'] = is_numeric($GPC[$valor][0]) ? number_format($GPC[$valor][0], 3) : $GPC[$valor][0];
                 $GPC['Resultados']['muestra2'] = is_numeric($GPC[$valor][1]) ? number_format($GPC[$valor][1], 3) : $GPC[$valor][1];
-                $GPC['Resultados']['muestra3'] = is_numeric($GPC[$valor][2]) ? number_format($GPC[$valor][2], 3) : $GPC[$valor][2];
-                
-                $j++;
-                
-                $id_analisis_res = $analisis->guardarResultados($GPC['Resultados']);
-                
+                $GPC['Resultados']['muestra3'] = is_numeric($GPC[$valor][2]) ? number_format($GPC[$valor][2], 3) : $GPC[$valor][2];                
+                $j++;                
+                $id_analisis_res = $analisis->guardarResultados($GPC['Resultados']);                
             }
             $estatus_rec = '3'; //Estatus = 2=>Cuarentena, 3=> Romana
             
@@ -53,14 +48,16 @@ switch ($GPC['ac']) {
                 $recepcion['id_centro_acopio'] = $_SESSION['s_ca_id'];
                 $recepcion['id_recepcion'] = $GPC['id_rec'];
                 $recepcion['id_cultivo'] = $GPC['id_cultivo'];
+                $recepcion['id_usuario'] = $_SESSION['s_id'];
                 $serial_cuarentena = split(':', $GPC['es_cuarentena']);
                 $id_analisis_cuarentena = split('_', $serial_cuarentena[1]);
                 $recepcion['id_analisis'] = $id_analisis_cuarentena[0];
                 $recepcion['tipo_mov'] = 'R';
                 $recepcion['fecha_mov'] = 'now()';
-                $recepcion['fecha_cultivo'] = 'now()';
+                $recepcion['fecha_cultivo'] = 'now()';                
                 $recepcion['laboratorio'] = 'C';
-                $id_cuarentena = $Ctna->guardar($recepcion);
+                //$id_cuarentena = $Ctna->guardar($recepcion);
+                $id_cuarentena = $Ctna->save($recepcion);
             }
             if (!empty($id_analisis_res)) {
                 $GPC['Recepcion']['id'] = $GPC['id_rec'];
@@ -70,8 +67,6 @@ switch ($GPC['ac']) {
 
                 switch ($estatus_rec) {
                     case '2':
-                        header("location: cuarentena.php?ac=editar&id=" . $id_cuarentena);
-                        break;
                     case '3':
                         header("location: analisis_recepcion_listado.php?msg=exitoso");
                         break;
@@ -90,17 +85,8 @@ switch ($GPC['ac']) {
         function cancelar(){
             history.back();
         }
-        
-        //    function Left(str, n){
-        //        if (n <= 0)
-        //            return "";
-        //        else if (n > String(str).length)
-        //            return str;
-        //        else
-        //            return String(str).substring(0,n);
-        //    }
 
-        function valoresMinMax(valor, min, max, codigo, muestra, estatus, objeto) {        
+function valoresMinMax(valor, min, max, codigo, muestra, estatus, objeto) {        
             var campo=codigo+'_'+muestra;
             i=muestra-1;
             var rechazo = document.getElementById("es_rechazado");
@@ -124,7 +110,7 @@ switch ($GPC['ac']) {
                 if (estatus=='C') {                
                     if (valor=='SI') {
                         if (rechazo.value=='0_0:') {                    
-                            esCuarentena=confirm('Va A cuarentena. !!!');
+                            esCuarentena=confirm('<?= $html->unhtmlize($etiqueta['E_NO40TNA']); ?>');
                             cuarentena.value+=campo+':';
                         }
                         else {
@@ -160,7 +146,7 @@ switch ($GPC['ac']) {
                 });
                 if (isFormValid) {
                     if (($('#es_rechazado').val()!='0_0:') && ($.trim($(this).val()).length == 0))  {
-                        esRechazada=confirm('La Muestra  rechazada. Desea emitir boleta de Rechazo !');
+                        esRechazada=confirm('<?= $html->unhtmlize($etiqueta['M_Rechazo']); ?>');
                         if (esRechazada) {
                             isFormValid = true;
                             //return false;
@@ -172,7 +158,7 @@ switch ($GPC['ac']) {
                     }
                     //alert('Pregunta si es Cuarentena! ');
                     if (($('#es_cuarentena').val()!='0_0:') && ($.trim($(this).val()).length == 0)) {                        
-                        esCuarentena=confirm('La Muestra contiene INSECTOS VIVOS. Desea enviar a Cuarentena !');
+                        esCuarentena=confirm('<?= $html->unhtmlize($etiqueta['M_InsectosVivos']); ?>');
                         if (esCuarentena) {
                             isFormValid = true;
                             //return false;                            
@@ -195,7 +181,7 @@ switch ($GPC['ac']) {
         echo $html->input('es_rechazado', '0_0:', array('type' => 'hidden'));
         ?>
         <div id="titulo_modulo">
-            ANALISIS DE RECEPCI&Oacute;N<br/><hr/>
+            ANALISIS DE RESULTADOS<br/><hr/>
         </div>
         <fieldset>
             <legend>Datos de la Muestra</legend>
@@ -274,13 +260,12 @@ switch ($GPC['ac']) {
                                 case '3':
                                     ?>
                                     <td align="center"><?
-                    if ($dataAnalisis['estatus'] == 'C')
-                        echo $html->select('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', array('options' => $estatus, 'class' => 'cuadricula booleano 40tna', 'onChange' => "valoresMinMax(this.value," . $dataAnalisis['min_rec'] . "," . $dataAnalisis['max_rec'] . "," . $dataAnalisis['codigo'] . "," . $j . ",'" . $dataAnalisis['estatus'] . "', this)"));
-                    if ($dataAnalisis['estatus'] == 'R')
-                        echo $html->select('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', array('options' => $estatus, 'class' => 'cuadricula booleano', 'onChange' => "valoresMinMax(this.value," . $dataAnalisis['min_rec'] . "," . $dataAnalisis['max_rec'] . "," . $dataAnalisis['codigo'] . "," . $j . ",'" . $dataAnalisis['estatus'] . "', this)"));
-                                    ?></td>
-                                        <?
-                                        break;
+                                    if ($dataAnalisis['estatus'] == 'C')
+                                        echo $html->select('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', array('options' => $estatus, 'class' => 'cuadricula booleano 40tna', 'onChange' => "valoresMinMax(this.value," . $dataAnalisis['min_rec'] . "," . $dataAnalisis['max_rec'] . "," . $dataAnalisis['codigo'] . "," . $j . ",'" . $dataAnalisis['estatus'] . "', this)"));
+                                    if ($dataAnalisis['estatus'] == 'R')
+                                        echo $html->select('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', array('options' => $estatus, 'class' => 'cuadricula booleano', 'onChange' => "valoresMinMax(this.value," . $dataAnalisis['min_rec'] . "," . $dataAnalisis['max_rec'] . "," . $dataAnalisis['codigo'] . "," . $j . ",'" . $dataAnalisis['estatus'] . "', this)"));?></td>
+                                    <?
+                                    break;
                                 }
                             }
                             if ($dataAnalisis['tipo_analisis'] == 1) {
