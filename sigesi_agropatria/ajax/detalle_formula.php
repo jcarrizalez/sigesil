@@ -35,7 +35,7 @@
         case 'multiple':
             $formulas = new Formulas();
             $parametros->listaParametros(1, 6);
-            $formulas->listaFormulas($idCA);
+            $formulas->listaFormulas(1, '');
             $nro = $GPC['nro'];
             ?>
             <legend>F&oacute;rmula <?=$nro?></legend>
@@ -47,7 +47,7 @@
                             echo $html->input("btn_".$parametro['parametro_llave']."_$nro", $parametro['parametro_llave'], array('type' => 'button', 'class' => 'formula_campos constante'));
                         }
                         foreach($formulas->listaF as $formula){
-                            echo $html->input("btn_".$formula['codigo']."_$nro", $formula['codigo'], array('type' => 'button', 'class' => 'formula_campos btnFormula', 'onClick' => "asignarFormula($nro, '".$formula['formula']."')"));
+                            echo $html->input("btn_".$formula['codigo']."_$nro", $formula['codigo'], array('type' => 'button', 'class' => 'btnFormula', 'onClick' => "asignarFormula($nro, '".$formula['formula']."')"));
                         }
                         ?>
                     </td>

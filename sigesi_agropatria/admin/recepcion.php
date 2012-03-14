@@ -38,6 +38,13 @@
             
             $guia->save($GPC['Guia']);
             $idGuia = $guia->id;
+            
+            if($GPC['cantguia'] >= 1){
+                for($j=1; $j<=$GPC['cantguia']; $j++){
+                    $idSubGuia = $guia->guardarSubGuias($idGuia, $GPC["subguia_$j"], $GPC["subguiaFecha_$j"]);
+                }
+            }
+            
             $productor->save($GPC['Productor']);
             $idProductor = $productor->id;
             if(!empty($GPC['Asociado']['ced_rif']) && !empty($GPC['Asociado']['nombre'])){
@@ -109,8 +116,12 @@ $validator->printScript();
     
         $('#Guia\\[numero_guia\\]').change(function(){
             var guia = $('#Guia\\[numero_guia\\]').val();
-            if(guia != '')
+            if(guia != '' && $('#Recepcion\\[id_cosecha\\]').val() != '')
                 $('#guia').load('../ajax/recepcion_detalle.php?ac=guia&numero_guia='+guia);
+            else{
+                $('#Guia\\[numero_guia\\]').val('');
+                alert('Seleccione primero una Cosecha');
+            }
         });
         
         $('#Productor\\[ced_rif\\]').change(function(){
@@ -145,7 +156,7 @@ $validator->printScript();
             }
         });
         
-        $('#otraguia').change(function(){
+        $('#cantguia').live('change', function(){
             var cant = $(this).val();
             if(cant != '')
                 $('#nuevasguias').load('../ajax/recepcion_detalle.php?ac=otraguia&cant='+cant);
@@ -186,7 +197,7 @@ $validator->printScript();
                 <td><span class="msj_rojo">* </span>N&uacute;mero de Gu&iacute;a: </td>
                 <td>
                     <?
-                        echo $html->input('Guia.numero_guia', '', array('type' => 'text', 'class' => 'estilo_campos integer'));
+                        echo $html->input('Guia.numero_guia', '', array('type' => 'text', 'length' => '10', 'class' => 'estilo_campos integer'));
                         //echo $html->link('<img id="buscarGuia" src="../images/buscar.png" width="16" height="16" title=Buscar Guia>');
                     ?>
                 </td>
@@ -227,7 +238,7 @@ $validator->printScript();
                 </tr>
                 <tr>
                     <td>Otras Gu&iacute;as: </td>
-                    <td><? echo $html->select('otraguia',array('options'=>$listaCantM, 'default' => 'Seleccione'))?></td>
+                    <td><? echo $html->select('cantguia',array('options'=>$listaCantM, 'default' => 'Seleccione'))?></td>
                 </tr>
             </tbody>
         </table>

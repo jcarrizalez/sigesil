@@ -224,7 +224,7 @@ $validator->printScript();
             campo_verif = $(this);
             $(".rango").each(function(){
                 if(id_verif != $(this).attr('id')){
-                    if(campo_verif.val() <= $(this).val()){
+                    if(campo_verif.val() < $(this).val()){
                         alert("Condicion ya evaluada");
                         campo_verif.val('');
                         campo_verif.addClass('error');
@@ -339,7 +339,7 @@ $validator->printScript();
                         echo $html->input("btn_".$parametro['parametro_llave']."_1", $parametro['parametro_llave'], array('type' => 'button', 'class' => 'formula_campos constante'));
                     }
                     foreach($formulas->listaF as $formula){
-                        echo $html->input("btn_".$formula['codigo']."_1", $formula['codigo'], array('type' => 'button', 'class' => 'formula_campos btnFormula', 'onClick' => "asignarFormula(1, '".$formula['formula']."')"));
+                        echo $html->input("btn_".$formula['codigo']."_1", $formula['codigo'], array('type' => 'button', 'class' => 'btnFormula', 'onClick' => "asignarFormula(1, '".$formula['formula']."')"));
                     }
                     ?>
                 </td>
@@ -397,7 +397,7 @@ $validator->printScript();
                         echo $html->input("btn_".$parametro['parametro_llave']."_1", $parametro['parametro_llave'], array('type' => 'button', 'class' => 'formula_campos constante'));
                     }
                     foreach($formulas->listaF as $formula){
-                        echo $html->input("btn_".$formula['codigo']."_1", $formula['codigo'], array('type' => 'button', 'class' => 'formula_campos btnFormula', 'onClick' => "asignarFormula(1, '".$formula['formula']."')"));
+                        echo $html->input("btn_".$formula['codigo']."_1", $formula['codigo'], array('type' => 'button', 'class' => 'btnFormula', 'onClick' => "asignarFormula(1, '".$formula['formula']."')"));
                     }
                     ?>
                 </td>

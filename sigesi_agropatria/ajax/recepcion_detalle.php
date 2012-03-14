@@ -5,6 +5,7 @@
     switch ($GPC['ac']){
         case 'guia':
             $guia = new Guia();
+            $listaCantM = array(1 => 1, 2 => 2, 3 => 3);
             $infoGuia = $guia->find(array('numero_guia' => $GPC['numero_guia']), null, '*');
             if(!empty($infoGuia) && $infoGuia[0]['estatus'] == 'P'){
             ?>
@@ -45,6 +46,10 @@
                     <td><? echo $html->input('Guia.kilogramos', $infoGuia[0]['kilogramos'], array('type' => 'text', 'class' => 'estilo_campos integer')); ?> (Kgrs)</td>
                 </tr>
                 <tr>
+                    <td>Otras Gu&iacute;as: </td>
+                    <td><? echo $html->select('cantguia',array('options'=>$listaCantM, 'default' => 'Seleccione'))?></td>
+                </tr>
+                <tr>
                     <th colspan="2" align="center">Gu&iacute;a Nueva, se proceder&aacute; a almacenar</th>
                 </tr>
                 <?
@@ -60,18 +65,18 @@
                         <tr>
                             <td><span class="msj_rojo">* </span>N&uacute;mero: </td>
                             <td>
-                                <? echo $html->input('subguia[]', '', array('type' => 'text', 'class' => 'estilo_campos integer')); ?>
+                                <? echo $html->input("subguia_$i", '', array('type' => 'text', 'class' => 'estilo_campos integer')); ?>
                             </td>
                         </tr>
                         <tr>
                             <td><span class="msj_rojo">* </span>Fecha de Emisi&oacute;n: </td>
                             <td>
-                                <? echo $html->input('subguia_fecha[]', $general->date_sql_screen($infoGuia[0]['fecha_emision'], '', 'es', '-'), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?>
-                                <img src="../images/calendario.png" id="femision" width="16" height="16" style="cursor:pointer" />
+                                <? echo $html->input("subguiaFecha_$i", '', array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?>
+                                <img src="../images/calendario.png" id="femisionsub_<?=$i?>" width="16" height="16" style="cursor:pointer" />
                                 <script>
                                     Calendar.setup({
-                                        trigger    : "femision",
-                                        inputField : "Guia[fecha_emision]",
+                                        trigger    : "femisionsub_<?=$i?>",
+                                        inputField : "subguiaFecha_<?=$i?>",
                                         dateFormat: "%d-%m-%Y",
                                         selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($infoGuia[0]['fecha_emision']));?>),
                                         onSelect   : function() { this.hide() }
