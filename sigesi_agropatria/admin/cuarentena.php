@@ -20,7 +20,7 @@ $id=!empty($GPC['id']) ? $GPC['id']: $GPC['Cuarentena']['id'];
 
 switch ($GPC['ac']) {
     case 'editar':
-        if (!empty($id)) {
+//        if (!empty($id)) {
             $infoCtna = $Ctna->find(array('id_recepcion' => $id));
             if ($infoCtna->id) {
                 header("location: analisis_recepcion_listado.php?msg=error");
@@ -29,21 +29,26 @@ switch ($GPC['ac']) {
             $infoRecepcion = $Rec->find(array('id' => $infoCtna[0]['id_recepcion']));
             $infoVehiculo = $Vehiculos->find(array('id' => $infoRecepcion[0]['id_vehiculo']));
             $infoGuia = $Guias->find(array('id' => $infoRecepcion[0]['id_guia']));
-        }
-        else 
-            header("location: analisis_recepcion_listado.php?msg=error");
+//        }
+//        else 
+//            header("location: analisis_recepcion_listado.php?msg=error");
         break;
     case 'guardar': 
         if (!empty($id)) {
             $infoCtna = $Ctna->find(array('id_recepcion' => $id));
+            $id_cuarentena=$infoCtna[0]['id'];
             if ($infoCtna->id) {
                 header("location: analisis_recepcion_listado.php?msg=error");
                 die();
-            }
-            $Ctna->_begin_tool();            
+            }            
+            $Ctna->_begin_tool();
+            $GPC['Cuarentena']['id']=$id_cuarentena;
+            $GPC['Cuarentena']['fecha_mov']=$general->fecha_normal_sql($GPC['Cuarentena']['fecha_mov'],'es');
+            $GPC['Cuarentena']['fecha_cultivo']=$general->fecha_normal_sql($GPC['Cuarentena']['fecha_cultivo'],'es');
+            $GPC['Cuarentena']['fecha_lib']=$general->fecha_normal_sql($GPC['Cuarentena']['fecha_lib'],'es');
             $Ctna->save($GPC['Cuarentena']);
-            if ($Ctna->id) {
-                $Ctna->_commit_tool();
+            $Ctna->_commit_tool();
+            if ($Ctna->id) {                
                 header("location: analisis_recepcion_listado.php?msg=exitoso");
                 die();
             }
@@ -70,48 +75,56 @@ require('../lib/common/init_calendar.php');
 ?>
 <script type="text/javascript">
     function cancelar(){
-        window.location = 'curentena_listado.php';
+        window.location = 'analisis_recepcion_listado.php';
     }
     
+    function sumarFecha(fecha1, fecha2) {        
+        parte1=fecha1.split('-');
+        parte2=fecha1.split('-');
+        for(var i = 0; i < parte1.length; i++) {            
+            parte1[i] = parseInt(parte1[i], 10);            
+            parte2[i] = parseInt(parte2[i], 10);
+        }
+        var fechaTotal1=new Date(parte1[2], parte1[1]-1, parte1[0]);
+        var fechaTotal2=new Date(parte2[2], parte2[1]-1, parte2[0]);
+        
+        return fechaTotal1+fechaTotal2;        
+    }
+  
     $(document).ready(function(){ 
-        $('#Cuarentena\\[hora_trab\\]').change(function() {
+        $('#Cuarentena\\[hora_trab\\]').change(function() {            
             var horatotal=new Date()
-            
+
             var fecha1= new Date();
             if ($('#Cuarentena\\[hora_trab\\]').val()=='') {
                 return;
-            }
-           
-            fecha_cultivo= $('#Cuarentena\\[fecha_cultivo\\]').val();            
+            }           
+            fecha_cultivo= $('#Cuarentena\\[fecha_cultivo\\]').val();
             Fecha1=fecha_cultivo.split('-');
-            Dia=isNaN(parseInt(Fecha1[0])) ? 0: parseInt(Fecha1[0]);
-            Mes=isNaN(parseInt(Fecha1[1])) ? 0: parseInt(Fecha1[1]);
+            Dia=isNaN(parseInt(Fecha1[0])) ? 0: parseInt(Fecha1[0]);            
+            Mes=isNaN(parseInt(Fecha1[1])) ? 0: parseInt(Fecha1[1]-1);
             Ano=isNaN(parseInt(Fecha1[2])) ? 0: parseInt(Fecha1[2]);            
             horatotal.setDate(Dia);
             horatotal.setMonth(Mes);
-            horatotal.setFullYear(Ano);                        
-           
+            horatotal.setFullYear(Ano);
             hora_trab= $('#Cuarentena\\[hora_trab\\]').val();
             Hora1=hora_trab.split(':');
             Min1=Hora1[1].split(' ');            
-            h=isNaN(parseInt(Hora1[0])) ? 0: parseInt(Hora1[0]+1);
-            m=isNaN(parseInt(Min1[0])) ? 0: parseInt(Min1[0]+1);
+            h=isNaN(parseInt(Hora1[0])) ? 0: parseInt(Hora1[0]);
+            m=isNaN(parseInt(Min1[0])) ? 0: parseInt(Min1[0]);
             p=(Min1[1]=='am') ? 0: 12;
             meridiano=Min1[1];            
-            //h=h+40;
+            h=h+40;
             horatotal.setHours(h);
             horatotal.setMinutes(m);
-            horatotal.setDate(Dia);
-            
-//            hf=(horatotal.getHours() < 10) ? '0'+horatotal.getHours(): ''+horatotal.getHours();
-//            mf=(horatotal.getMinutes() < 10) ? '0'+horatotal.getMinutes(): ''+horatotal.getMinutes();
-//            Dia=Dia+1;
-//            df=(Dia < 9) ? '0'+Dia: ''+Dia;
-//            dm=(Mes < 9) ? '0'+Mes: ''+Mes; 
-//            $('#Cuarentena\\[fecha_lib\\]').val(df+'-'+dm+'-'+Ano);
-            
-            $('#Cuarentena\\[fecha_lib\\]').val(horatotal.getDate()+'-'+horatotal.getMonth()+'-'+horatotal.getFullYear());
-            $('#Cuarentena\\[hora_lib\\]').val(horatotal.getHours());
+            horatotal.setSeconds(0);            
+            horaF=(horatotal.getHours() < 10) ? '0'+horatotal.getHours(): ''+horatotal.getHours();
+            minF=(horatotal.getMinutes() < 10) ? '0'+horatotal.getMinutes(): ''+horatotal.getMinutes();
+            diaF=(horatotal.getDate()<10) ? '0'+horatotal.getDate(): horatotal.getDate();
+            mesF=(Mes < 10) ? '0'+(horatotal.getMonth()+1): ''+(horatotal.getMonth()+1);
+            //alert('diaF: '+diaF+' Dia: '+Dia);
+            $('#Cuarentena\\[fecha_lib\\]').val(diaF+'-'+mesF+'-'+horatotal.getFullYear());
+            $('#Cuarentena\\[hora_lib\\]').val(horaF+':'+minF+' '+meridiano);
         });
 
         $('#Cuarentena\\[hora_trab\\]').timepicker({
@@ -124,7 +137,11 @@ require('../lib/common/init_calendar.php');
             millisecText: "Milisegundo",
             currentText: "Ahora",
             closeText: "Cerrar"
-        });        
+        });   
+        
+//        $('#Cuarentena\\[fecha_lib\\]').AnyTime.picker(
+//            { format: "%H:%i", labelTitle: "Hora",
+//            labelHour: "Hora", labelMinute: "Minuto" } );
         
         $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
         
@@ -165,7 +182,7 @@ require('../lib/common/init_calendar.php');
     }
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
-    <? echo $html->input('Cuarentena.id', $GPC['id'], array('type' => 'text')); ?>
+    <? echo $html->input('Cuarentena.id', $GPC['id'], array('type' => 'hidden')); ?>
     <? echo $html->input('Cuarentena.id_usuario', $_SESSION['s_id'], array('type' => 'hidden')); ?>
     <? echo $html->input('Cuarentena.estatus', '2', array('type' => 'hidden')); ?>
     <div id="titulo_modulo">
@@ -241,8 +258,8 @@ require('../lib/common/init_calendar.php');
             <td><? echo $html->input('Cuarentena.hora_trab', $infoCtna[0]['hora_trab'], array('type' => 'text', 'readOnly' => true, 'class' => 'crproductor')); ?></td>
             </tr>
             <tr>
-                <td>Fecha Liberaci&oacute;n:</td>
-                <td><? echo $html->input('Cuarentena.fecha_lib', $infoCtna[0]['fecha_lib'], array('type' => 'text', 'readOnly' => true, 'class' => 'crproductor')); ?></td>
+                <td>Fecha Liberaci&oacute;n:</td>                
+                <td><? echo $html->input('Cuarentena.fecha_lib', $general->date_sql_screen($infoCtna[0]['fecha_lib'],'','es','-'), array('type' => 'text', 'readOnly' => true, 'class' => 'crproductor')); ?></td>
                 <td>Hora Liberaci&oacute;n:</td>
                 <td><? echo $html->input('Cuarentena.hora_lib', $infoCtna[0]['hora_lib'], array('type' => 'text', 'readOnly' => true, 'class' => 'crproductor')); ?></td>                
             </tr>               
