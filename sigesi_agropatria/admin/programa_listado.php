@@ -89,7 +89,9 @@
             <th>Area Siembra</th>
             <th>Fecha Inicio</th>
             <th>Fecha Fin</th>
-            <!--th>Acci&oacute;n</th-->
+            <? if($_SESSION['s_perfil_id'] == GERENTES){ ?>
+            <th>Acci&oacute;n</th>
+            <? } ?>
         </tr>
         <?
             $i=0;
@@ -108,14 +110,11 @@
             <td><?=$dataPrograma['nombre']?></td>
             <td align="center">-</td>
             <td align="center">-</td>
-            <td align="center">-</td>
-            <td align="center">-</td>
-            <!--td align="center">
-                <?
-                    echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'programa.php?ac=editar&id='.$dataPrograma['id']);
-                    echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'programa_listado.php?ac=eliminar&id='.$dataPrograma['id'], array('onclick' => 'return eliminar();'));
-                ?>
-            </td-->
+            <td align="center"><?=$general->date_sql_screen($dataPrograma['fecha_inicio'], '', 'es', '-')?></td>
+            <td align="center"><?=$general->date_sql_screen($dataPrograma['fecha_fin'], '', 'es', '-')?></td>
+            <td align="center">
+                <? echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'programa.php?ac=editar&id='.$dataPrograma['id']); ?>
+            </td>
         </tr>
         <tbody id="tbodyPN_<?php echo $i?>" style="display:none">
             <?
@@ -130,18 +129,15 @@
                 <? } ?>
                 <td align="center"><?=$dataCosecha['codigo']?></td>
                 <td><?=$dataCosecha['nombre_cosecha']?></td>
-                <td><?=$dataCosecha['proyectado']?></td>
-                <td><?=$dataCosecha['area_siembra']?></td>
-                <td align="center"><?=$dataCosecha['fecha_inicio']?></td>
-                <td align="center"><?=$dataCosecha['fecha_fin']?></td>
-                <?/* if($_SESSION['s_perfil_id'] == GERENTES){ ?>
+                <td align="center"><?=$dataCosecha['proyectado']?></td>
+                <td align="center"><?=$dataCosecha['area_siembra']?></td>
+                <td align="center"><?=$general->date_sql_screen($dataCosecha['fecha_inicio'], '', 'es', '-')?></td>
+                <td align="center"><?=$general->date_sql_screen($dataCosecha['fecha_fin'], '', 'es', '-')?></td>
+                <? if($_SESSION['s_perfil_id'] == GERENTES){ ?>
                 <td align="center">
-                    <?
-                        echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'almacen.php?ac=editar&id='.$dataCosecha['id']);
-                        //echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'almacen_listado.php?ac=eliminar&id='.$dataCosecha['id'], array('onclick' => 'return eliminar();'));
-                    ?>
+                    <? echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'cosecha.php?ac=editar&id='.$dataCosecha['id']); ?>
                 </td>
-                <? } */?>
+                <? } ?>
             </tr>
             <?
                 $j++;

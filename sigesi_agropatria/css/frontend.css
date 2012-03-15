@@ -20,6 +20,10 @@ input, textarea, select{
     text-transform: uppercase;
 }
 
+textarea{
+    resize: none;
+}
+
 hr{
     background-color: #ffdd57;
     border: 0 none;
