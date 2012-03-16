@@ -16,7 +16,7 @@ $listaPlagas = $Plagas->find('', null, array('id', 'nombre'), 'list', 'id');
 $listaProductos = $Productos->find('', null, "id, nombre || ' (' || presentacion || ')' as nombre", 'list', 'id');
 $laboratorio = array(2 => '40tna. lab');
 
-$id=!empty($GPC['id']) ? $GPC['id']: $GPC['Cuarentena']['id']; 
+$id=(!empty($GPC['id'])) ? $GPC['id']: $GPC['Cuarentena']['id']; 
 
 switch ($GPC['ac']) {
     case 'editar':
@@ -46,6 +46,7 @@ switch ($GPC['ac']) {
             $GPC['Cuarentena']['fecha_mov']=$general->fecha_normal_sql($GPC['Cuarentena']['fecha_mov'],'es');
             $GPC['Cuarentena']['fecha_cultivo']=$general->fecha_normal_sql($GPC['Cuarentena']['fecha_cultivo'],'es');
             $GPC['Cuarentena']['fecha_lib']=$general->fecha_normal_sql($GPC['Cuarentena']['fecha_lib'],'es');
+            $GPC['Cuarentena']['estatus']='2'; //Se fija el estatus 2 la primera vez que se registra
             $Ctna->save($GPC['Cuarentena']);
             $Ctna->_commit_tool();
             if ($Ctna->id) {                
@@ -271,7 +272,14 @@ require('../lib/common/init_calendar.php');
         </tr>
         <tr>
             <td>                
-                <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>                
+                <?
+                if ($GPC['estatus']=='liberar')
+                    echo $html->input('Liberar', 'Liberar', array('type' => 'button')); 
+                else if ($GPC['estatus']=='rechazar')
+                    echo $html->input('Rechazar', 'Rechazar', array('type' => 'button')); 
+                else
+                    echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); 
+                ?>
                 <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
             </td>
         </tr>        

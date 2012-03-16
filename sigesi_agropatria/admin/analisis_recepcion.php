@@ -109,8 +109,8 @@ function valoresMinMax(valor, min, max, codigo, muestra, estatus, objeto) {
                 
                 if (estatus=='C') {                
                     if (valor=='SI') {
-                        if (rechazo.value=='0_0:') {                    
-                            esCuarentena=confirm('<?= $html->unhtmlize($etiqueta['E_NO40TNA']); ?>');
+                        if (rechazo.value=='0_0:') {
+                            esCuarentena=confirm('<?= $html->unhtmlize($etiqueta['E_40TNA']); ?>');
                             cuarentena.value+=campo+':';
                         }
                         else {

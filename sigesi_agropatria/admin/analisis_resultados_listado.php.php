@@ -96,8 +96,7 @@ require('../lib/common/header.php');
             </td>
         </tr>
         <? $i++; } ?>
-        <tr>
-            
+        <tr>            
             <td colspan="4">&nbsp;</td>
         </tr>
     </table>
