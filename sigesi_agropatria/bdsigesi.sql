@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Started on 2012-03-15 16:33:31 VET
+-- Started on 2012-03-16 11:05:54 VET
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -30,7 +30,7 @@ CREATE SEQUENCE si_almacenes_id_seq
 ALTER TABLE public.si_almacenes_id_seq OWNER TO admin;
 
 --
--- TOC entry 2420 (class 0 OID 0)
+-- TOC entry 2468 (class 0 OID 0)
 -- Dependencies: 140
 -- Name: si_almacenes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -44,7 +44,7 @@ SET default_with_oids = false;
 
 --
 -- TOC entry 141 (class 1259 OID 26212)
--- Dependencies: 2082 6
+-- Dependencies: 2100 6
 -- Name: si_almacenes; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -87,7 +87,7 @@ CREATE SEQUENCE si_analisis_id_seq
 ALTER TABLE public.si_analisis_id_seq OWNER TO admin;
 
 --
--- TOC entry 2421 (class 0 OID 0)
+-- TOC entry 2469 (class 0 OID 0)
 -- Dependencies: 142
 -- Name: si_analisis_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -97,7 +97,7 @@ SELECT pg_catalog.setval('si_analisis_id_seq', 1, false);
 
 --
 -- TOC entry 143 (class 1259 OID 26221)
--- Dependencies: 2083 2084 2085 6
+-- Dependencies: 2101 2102 2103 6
 -- Name: si_analisis; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -117,7 +117,7 @@ CREATE TABLE si_analisis (
 ALTER TABLE public.si_analisis OWNER TO admin;
 
 --
--- TOC entry 2422 (class 0 OID 0)
+-- TOC entry 2470 (class 0 OID 0)
 -- Dependencies: 143
 -- Name: TABLE si_analisis; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -145,7 +145,7 @@ CREATE TABLE si_analisis_centro_acopio (
 ALTER TABLE public.si_analisis_centro_acopio OWNER TO admin;
 
 --
--- TOC entry 2423 (class 0 OID 0)
+-- TOC entry 2471 (class 0 OID 0)
 -- Dependencies: 144
 -- Name: TABLE si_analisis_centro_acopio; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -170,7 +170,7 @@ CREATE SEQUENCE si_analisis_centro_acopio_id_seq
 ALTER TABLE public.si_analisis_centro_acopio_id_seq OWNER TO admin;
 
 --
--- TOC entry 2424 (class 0 OID 0)
+-- TOC entry 2472 (class 0 OID 0)
 -- Dependencies: 145
 -- Name: si_analisis_centro_acopio_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -179,7 +179,7 @@ ALTER SEQUENCE si_analisis_centro_acopio_id_seq OWNED BY si_analisis_centro_acop
 
 
 --
--- TOC entry 2425 (class 0 OID 0)
+-- TOC entry 2473 (class 0 OID 0)
 -- Dependencies: 145
 -- Name: si_analisis_centro_acopio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -189,7 +189,7 @@ SELECT pg_catalog.setval('si_analisis_centro_acopio_id_seq', 1, false);
 
 --
 -- TOC entry 146 (class 1259 OID 26232)
--- Dependencies: 2087 2088 2089 2090 2091 2092 6
+-- Dependencies: 2105 2106 2107 2108 2109 2110 6
 -- Name: si_analisis_cultivo; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -212,7 +212,18 @@ CREATE TABLE si_analisis_cultivo (
 ALTER TABLE public.si_analisis_cultivo OWNER TO admin;
 
 --
--- TOC entry 2426 (class 0 OID 0)
+-- TOC entry 2474 (class 0 OID 0)
+-- Dependencies: 146
+-- Name: TABLE si_analisis_cultivo; Type: COMMENT; Schema: public; Owner: admin
+--
+
+COMMENT ON TABLE si_analisis_cultivo IS 'Laboratorio
+C->Laboratorio Central
+P->Laboratorio de Planta';
+
+
+--
+-- TOC entry 2475 (class 0 OID 0)
 -- Dependencies: 146
 -- Name: COLUMN si_analisis_cultivo.estatus; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -238,7 +249,7 @@ CREATE SEQUENCE si_analisis_cultivo_id_seq
 ALTER TABLE public.si_analisis_cultivo_id_seq OWNER TO admin;
 
 --
--- TOC entry 2427 (class 0 OID 0)
+-- TOC entry 2476 (class 0 OID 0)
 -- Dependencies: 147
 -- Name: si_analisis_cultivo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -247,7 +258,7 @@ ALTER SEQUENCE si_analisis_cultivo_id_seq OWNED BY si_analisis_cultivo.id;
 
 
 --
--- TOC entry 2428 (class 0 OID 0)
+-- TOC entry 2477 (class 0 OID 0)
 -- Dependencies: 147
 -- Name: si_analisis_cultivo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -257,7 +268,7 @@ SELECT pg_catalog.setval('si_analisis_cultivo_id_seq', 63, true);
 
 --
 -- TOC entry 148 (class 1259 OID 26243)
--- Dependencies: 2094 6
+-- Dependencies: 2112 6
 -- Name: si_analisis_des; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -295,7 +306,7 @@ CREATE SEQUENCE si_analisis_des_id_seq
 ALTER TABLE public.si_analisis_des_id_seq OWNER TO admin;
 
 --
--- TOC entry 2429 (class 0 OID 0)
+-- TOC entry 2478 (class 0 OID 0)
 -- Dependencies: 149
 -- Name: si_analisis_des_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -304,7 +315,7 @@ ALTER SEQUENCE si_analisis_des_id_seq OWNED BY si_analisis_des.id;
 
 
 --
--- TOC entry 2430 (class 0 OID 0)
+-- TOC entry 2479 (class 0 OID 0)
 -- Dependencies: 149
 -- Name: si_analisis_des_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -333,7 +344,7 @@ CREATE TABLE si_analisis_resultado (
 ALTER TABLE public.si_analisis_resultado OWNER TO admin;
 
 --
--- TOC entry 2431 (class 0 OID 0)
+-- TOC entry 2480 (class 0 OID 0)
 -- Dependencies: 150
 -- Name: TABLE si_analisis_resultado; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -358,7 +369,7 @@ CREATE SEQUENCE si_analisis_resultado_id_seq
 ALTER TABLE public.si_analisis_resultado_id_seq OWNER TO admin;
 
 --
--- TOC entry 2432 (class 0 OID 0)
+-- TOC entry 2481 (class 0 OID 0)
 -- Dependencies: 151
 -- Name: si_analisis_resultado_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -367,7 +378,7 @@ ALTER SEQUENCE si_analisis_resultado_id_seq OWNED BY si_analisis_resultado.id;
 
 
 --
--- TOC entry 2433 (class 0 OID 0)
+-- TOC entry 2482 (class 0 OID 0)
 -- Dependencies: 151
 -- Name: si_analisis_resultado_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -407,7 +418,7 @@ CREATE SEQUENCE si_asociado_id_seq
 ALTER TABLE public.si_asociado_id_seq OWNER TO admin;
 
 --
--- TOC entry 2434 (class 0 OID 0)
+-- TOC entry 2483 (class 0 OID 0)
 -- Dependencies: 153
 -- Name: si_asociado_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -417,7 +428,7 @@ SELECT pg_catalog.setval('si_asociado_id_seq', 3, true);
 
 --
 -- TOC entry 154 (class 1259 OID 26262)
--- Dependencies: 2097 6
+-- Dependencies: 2115 6
 -- Name: si_asociado; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -460,7 +471,7 @@ CREATE SEQUENCE si_cargo_id_seq
 ALTER TABLE public.si_cargo_id_seq OWNER TO admin;
 
 --
--- TOC entry 2435 (class 0 OID 0)
+-- TOC entry 2484 (class 0 OID 0)
 -- Dependencies: 155
 -- Name: si_cargo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -470,7 +481,7 @@ SELECT pg_catalog.setval('si_cargo_id_seq', 1, false);
 
 --
 -- TOC entry 156 (class 1259 OID 26271)
--- Dependencies: 2098 6
+-- Dependencies: 2116 6
 -- Name: si_cargo; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -503,7 +514,7 @@ CREATE SEQUENCE si_cargo_tipo_id_seq
 ALTER TABLE public.si_cargo_tipo_id_seq OWNER TO admin;
 
 --
--- TOC entry 2436 (class 0 OID 0)
+-- TOC entry 2485 (class 0 OID 0)
 -- Dependencies: 157
 -- Name: si_cargo_tipo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -513,7 +524,7 @@ SELECT pg_catalog.setval('si_cargo_tipo_id_seq', 1, false);
 
 --
 -- TOC entry 158 (class 1259 OID 26277)
--- Dependencies: 2099 2100 6
+-- Dependencies: 2117 2118 6
 -- Name: si_cargo_tipo; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -543,7 +554,7 @@ CREATE SEQUENCE si_centro_acopio_id_seq
 ALTER TABLE public.si_centro_acopio_id_seq OWNER TO admin;
 
 --
--- TOC entry 2437 (class 0 OID 0)
+-- TOC entry 2486 (class 0 OID 0)
 -- Dependencies: 159
 -- Name: si_centro_acopio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -553,7 +564,7 @@ SELECT pg_catalog.setval('si_centro_acopio_id_seq', 9, true);
 
 --
 -- TOC entry 160 (class 1259 OID 26284)
--- Dependencies: 2101 2102 2103 2104 2105 2106 2107 6
+-- Dependencies: 2119 2120 2121 2122 2123 2124 2125 6
 -- Name: si_centro_acopio; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -581,6 +592,65 @@ CREATE TABLE si_centro_acopio (
 ALTER TABLE public.si_centro_acopio OWNER TO admin;
 
 --
+-- TOC entry 238 (class 1259 OID 27360)
+-- Dependencies: 6
+-- Name: si_choferes; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
+--
+
+CREATE TABLE si_choferes (
+    id bigint NOT NULL,
+    id_org bigint,
+    id_pais bigint,
+    id_estado bigint,
+    id_municipio bigint,
+    cedula character(16) NOT NULL,
+    nombre character varying(32) NOT NULL,
+    celular character varying(32),
+    telefono character varying(32),
+    direccion character varying(255),
+    estatus boolean,
+    creado timestamp with time zone,
+    modificado timestamp with time zone
+);
+
+
+ALTER TABLE public.si_choferes OWNER TO admin;
+
+--
+-- TOC entry 237 (class 1259 OID 27358)
+-- Dependencies: 238 6
+-- Name: si_choferes_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE si_choferes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.si_choferes_id_seq OWNER TO admin;
+
+--
+-- TOC entry 2487 (class 0 OID 0)
+-- Dependencies: 237
+-- Name: si_choferes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE si_choferes_id_seq OWNED BY si_choferes.id;
+
+
+--
+-- TOC entry 2488 (class 0 OID 0)
+-- Dependencies: 237
+-- Name: si_choferes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('si_choferes_id_seq', 1, false);
+
+
+--
 -- TOC entry 161 (class 1259 OID 26297)
 -- Dependencies: 6
 -- Name: si_cliente_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
@@ -597,7 +667,7 @@ CREATE SEQUENCE si_cliente_id_seq
 ALTER TABLE public.si_cliente_id_seq OWNER TO admin;
 
 --
--- TOC entry 2438 (class 0 OID 0)
+-- TOC entry 2489 (class 0 OID 0)
 -- Dependencies: 161
 -- Name: si_cliente_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -607,7 +677,7 @@ SELECT pg_catalog.setval('si_cliente_id_seq', 1, false);
 
 --
 -- TOC entry 162 (class 1259 OID 26299)
--- Dependencies: 2108 6
+-- Dependencies: 2126 6
 -- Name: si_cliente; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -661,17 +731,17 @@ CREATE SEQUENCE si_cosecha_id_seq
 ALTER TABLE public.si_cosecha_id_seq OWNER TO admin;
 
 --
--- TOC entry 2439 (class 0 OID 0)
+-- TOC entry 2490 (class 0 OID 0)
 -- Dependencies: 163
 -- Name: si_cosecha_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_cosecha_id_seq', 9, true);
+SELECT pg_catalog.setval('si_cosecha_id_seq', 10, true);
 
 
 --
 -- TOC entry 164 (class 1259 OID 26308)
--- Dependencies: 2109 2110 2111 2112 2113 6
+-- Dependencies: 2127 2128 2129 2130 2131 6
 -- Name: si_cosecha; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -715,7 +785,7 @@ ALTER TABLE public.si_cosecha_productor OWNER TO admin;
 
 --
 -- TOC entry 166 (class 1259 OID 26322)
--- Dependencies: 6 165
+-- Dependencies: 165 6
 -- Name: si_cosecha_productor_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -730,7 +800,7 @@ CREATE SEQUENCE si_cosecha_productor_id_seq
 ALTER TABLE public.si_cosecha_productor_id_seq OWNER TO admin;
 
 --
--- TOC entry 2440 (class 0 OID 0)
+-- TOC entry 2491 (class 0 OID 0)
 -- Dependencies: 166
 -- Name: si_cosecha_productor_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -739,7 +809,7 @@ ALTER SEQUENCE si_cosecha_productor_id_seq OWNED BY si_cosecha_productor.id;
 
 
 --
--- TOC entry 2441 (class 0 OID 0)
+-- TOC entry 2492 (class 0 OID 0)
 -- Dependencies: 166
 -- Name: si_cosecha_productor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -748,7 +818,7 @@ SELECT pg_catalog.setval('si_cosecha_productor_id_seq', 5, true);
 
 
 --
--- TOC entry 234 (class 1259 OID 27169)
+-- TOC entry 232 (class 1259 OID 27169)
 -- Dependencies: 6
 -- Name: si_cosecha_silo; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
@@ -764,8 +834,8 @@ CREATE TABLE si_cosecha_silo (
 ALTER TABLE public.si_cosecha_silo OWNER TO admin;
 
 --
--- TOC entry 2442 (class 0 OID 0)
--- Dependencies: 234
+-- TOC entry 2493 (class 0 OID 0)
+-- Dependencies: 232
 -- Name: TABLE si_cosecha_silo; Type: COMMENT; Schema: public; Owner: admin
 --
 
@@ -773,8 +843,8 @@ COMMENT ON TABLE si_cosecha_silo IS 'Planificacion de los Silos por Cosecha';
 
 
 --
--- TOC entry 233 (class 1259 OID 27167)
--- Dependencies: 6 234
+-- TOC entry 231 (class 1259 OID 27167)
+-- Dependencies: 6 232
 -- Name: si_cosecha_silo_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -789,8 +859,8 @@ CREATE SEQUENCE si_cosecha_silo_id_seq
 ALTER TABLE public.si_cosecha_silo_id_seq OWNER TO admin;
 
 --
--- TOC entry 2443 (class 0 OID 0)
--- Dependencies: 233
+-- TOC entry 2494 (class 0 OID 0)
+-- Dependencies: 231
 -- Name: si_cosecha_silo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -798,8 +868,8 @@ ALTER SEQUENCE si_cosecha_silo_id_seq OWNED BY si_cosecha_silo.id;
 
 
 --
--- TOC entry 2444 (class 0 OID 0)
--- Dependencies: 233
+-- TOC entry 2495 (class 0 OID 0)
+-- Dependencies: 231
 -- Name: si_cosecha_silo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -807,7 +877,7 @@ SELECT pg_catalog.setval('si_cosecha_silo_id_seq', 14, true);
 
 
 --
--- TOC entry 238 (class 1259 OID 27282)
+-- TOC entry 236 (class 1259 OID 27327)
 -- Dependencies: 6
 -- Name: si_cuarentena; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
@@ -818,7 +888,7 @@ CREATE TABLE si_cuarentena (
     id_analisis bigint NOT NULL,
     id_cultivo bigint NOT NULL,
     id_recepcion bigint,
-    id_despacho bigint,
+    id_usuario bigint NOT NULL,
     tipo_mov character(2) NOT NULL,
     fecha_mov timestamp with time zone,
     fecha_cultivo timestamp with time zone,
@@ -833,16 +903,34 @@ CREATE TABLE si_cuarentena (
     hora_lib character(10),
     estatus character(2),
     creado timestamp with time zone,
-    modificado timestamp with time zone,
-    id_usuario bigint NOT NULL
+    modificado timestamp with time zone
 );
 
 
 ALTER TABLE public.si_cuarentena OWNER TO admin;
 
 --
--- TOC entry 237 (class 1259 OID 27280)
--- Dependencies: 238 6
+-- TOC entry 2496 (class 0 OID 0)
+-- Dependencies: 236
+-- Name: TABLE si_cuarentena; Type: COMMENT; Schema: public; Owner: admin
+--
+
+COMMENT ON TABLE si_cuarentena IS 'Tabla de Control de Cuarentenas
+Estatus
+1.- LabCentral
+2.- Ctna
+3.- Romana Lleno
+4.- Tolvas
+5.- Ctna Tolva
+6.- Romana Vacio
+7.- Rechazo Central
+8.- Rechazo Planta
+9.- Acondicionado';
+
+
+--
+-- TOC entry 235 (class 1259 OID 27325)
+-- Dependencies: 236 6
 -- Name: si_cuarentena_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -857,8 +945,8 @@ CREATE SEQUENCE si_cuarentena_id_seq
 ALTER TABLE public.si_cuarentena_id_seq OWNER TO admin;
 
 --
--- TOC entry 2445 (class 0 OID 0)
--- Dependencies: 237
+-- TOC entry 2497 (class 0 OID 0)
+-- Dependencies: 235
 -- Name: si_cuarentena_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -866,12 +954,12 @@ ALTER SEQUENCE si_cuarentena_id_seq OWNED BY si_cuarentena.id;
 
 
 --
--- TOC entry 2446 (class 0 OID 0)
--- Dependencies: 237
+-- TOC entry 2498 (class 0 OID 0)
+-- Dependencies: 235
 -- Name: si_cuarentena_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_cuarentena_id_seq', 2, true);
+SELECT pg_catalog.setval('si_cuarentena_id_seq', 1, false);
 
 
 --
@@ -891,7 +979,7 @@ CREATE SEQUENCE si_cultivo_id_seq
 ALTER TABLE public.si_cultivo_id_seq OWNER TO admin;
 
 --
--- TOC entry 2447 (class 0 OID 0)
+-- TOC entry 2499 (class 0 OID 0)
 -- Dependencies: 167
 -- Name: si_cultivo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -901,7 +989,7 @@ SELECT pg_catalog.setval('si_cultivo_id_seq', 26, true);
 
 --
 -- TOC entry 168 (class 1259 OID 26331)
--- Dependencies: 2115 2116 2117 6
+-- Dependencies: 2133 2134 2135 6
 -- Name: si_cultivo; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -920,6 +1008,59 @@ CREATE TABLE si_cultivo (
 ALTER TABLE public.si_cultivo OWNER TO admin;
 
 --
+-- TOC entry 240 (class 1259 OID 27366)
+-- Dependencies: 2187 2188 6
+-- Name: si_cultivo_tipo; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
+--
+
+CREATE TABLE si_cultivo_tipo (
+    id bigint NOT NULL,
+    id_centro_acopio bigint NOT NULL,
+    id_cultivo bigint NOT NULL,
+    id_analisis bigint NOT NULL,
+    tipo character(2) NOT NULL,
+    min numeric(10,2) DEFAULT 0.0 NOT NULL,
+    max numeric(10,2) DEFAULT 0.0 NOT NULL
+);
+
+
+ALTER TABLE public.si_cultivo_tipo OWNER TO admin;
+
+--
+-- TOC entry 239 (class 1259 OID 27364)
+-- Dependencies: 240 6
+-- Name: si_cultivo_tipo_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE si_cultivo_tipo_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.si_cultivo_tipo_id_seq OWNER TO admin;
+
+--
+-- TOC entry 2500 (class 0 OID 0)
+-- Dependencies: 239
+-- Name: si_cultivo_tipo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE si_cultivo_tipo_id_seq OWNED BY si_cultivo_tipo.id;
+
+
+--
+-- TOC entry 2501 (class 0 OID 0)
+-- Dependencies: 239
+-- Name: si_cultivo_tipo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('si_cultivo_tipo_id_seq', 1, false);
+
+
+--
 -- TOC entry 169 (class 1259 OID 26337)
 -- Dependencies: 6
 -- Name: si_denom_tip_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
@@ -936,7 +1077,7 @@ CREATE SEQUENCE si_denom_tip_id_seq
 ALTER TABLE public.si_denom_tip_id_seq OWNER TO admin;
 
 --
--- TOC entry 2448 (class 0 OID 0)
+-- TOC entry 2502 (class 0 OID 0)
 -- Dependencies: 169
 -- Name: si_denom_tip_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -946,7 +1087,7 @@ SELECT pg_catalog.setval('si_denom_tip_id_seq', 1, false);
 
 --
 -- TOC entry 170 (class 1259 OID 26339)
--- Dependencies: 2118 6
+-- Dependencies: 2136 6
 -- Name: si_denom_tip; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -1010,7 +1151,7 @@ CREATE TABLE si_despacho (
 ALTER TABLE public.si_despacho OWNER TO admin;
 
 --
--- TOC entry 2449 (class 0 OID 0)
+-- TOC entry 2503 (class 0 OID 0)
 -- Dependencies: 171
 -- Name: TABLE si_despacho; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -1027,7 +1168,7 @@ Estatus:
 
 --
 -- TOC entry 172 (class 1259 OID 26346)
--- Dependencies: 6 171
+-- Dependencies: 171 6
 -- Name: si_despacho_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -1042,7 +1183,7 @@ CREATE SEQUENCE si_despacho_id_seq
 ALTER TABLE public.si_despacho_id_seq OWNER TO admin;
 
 --
--- TOC entry 2450 (class 0 OID 0)
+-- TOC entry 2504 (class 0 OID 0)
 -- Dependencies: 172
 -- Name: si_despacho_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1051,7 +1192,7 @@ ALTER SEQUENCE si_despacho_id_seq OWNED BY si_despacho.id;
 
 
 --
--- TOC entry 2451 (class 0 OID 0)
+-- TOC entry 2505 (class 0 OID 0)
 -- Dependencies: 172
 -- Name: si_despacho_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1076,7 +1217,7 @@ CREATE SEQUENCE si_ejes_id_seq
 ALTER TABLE public.si_ejes_id_seq OWNER TO admin;
 
 --
--- TOC entry 2452 (class 0 OID 0)
+-- TOC entry 2506 (class 0 OID 0)
 -- Dependencies: 173
 -- Name: si_ejes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1086,7 +1227,7 @@ SELECT pg_catalog.setval('si_ejes_id_seq', 1, false);
 
 --
 -- TOC entry 174 (class 1259 OID 26350)
--- Dependencies: 2120 2121 6
+-- Dependencies: 2138 2139 6
 -- Name: si_ejes; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -1117,7 +1258,7 @@ CREATE SEQUENCE si_estado_id_seq
 ALTER TABLE public.si_estado_id_seq OWNER TO admin;
 
 --
--- TOC entry 2453 (class 0 OID 0)
+-- TOC entry 2507 (class 0 OID 0)
 -- Dependencies: 175
 -- Name: si_estado_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1127,7 +1268,7 @@ SELECT pg_catalog.setval('si_estado_id_seq', 1, false);
 
 --
 -- TOC entry 176 (class 1259 OID 26357)
--- Dependencies: 2122 6
+-- Dependencies: 2140 6
 -- Name: si_estado; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -1142,7 +1283,7 @@ ALTER TABLE public.si_estado OWNER TO admin;
 
 --
 -- TOC entry 177 (class 1259 OID 26361)
--- Dependencies: 2123 6
+-- Dependencies: 2141 6
 -- Name: si_finca; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -1181,7 +1322,7 @@ CREATE SEQUENCE si_finca_id_seq
 ALTER TABLE public.si_finca_id_seq OWNER TO admin;
 
 --
--- TOC entry 2454 (class 0 OID 0)
+-- TOC entry 2508 (class 0 OID 0)
 -- Dependencies: 178
 -- Name: si_finca_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1190,7 +1331,7 @@ ALTER SEQUENCE si_finca_id_seq OWNED BY si_finca.id;
 
 
 --
--- TOC entry 2455 (class 0 OID 0)
+-- TOC entry 2509 (class 0 OID 0)
 -- Dependencies: 178
 -- Name: si_finca_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1224,7 +1365,7 @@ ALTER TABLE public.si_formulas OWNER TO admin;
 
 --
 -- TOC entry 180 (class 1259 OID 26373)
--- Dependencies: 179 6
+-- Dependencies: 6 179
 -- Name: si_formulas_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -1239,7 +1380,7 @@ CREATE SEQUENCE si_formulas_id_seq
 ALTER TABLE public.si_formulas_id_seq OWNER TO admin;
 
 --
--- TOC entry 2456 (class 0 OID 0)
+-- TOC entry 2510 (class 0 OID 0)
 -- Dependencies: 180
 -- Name: si_formulas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1248,7 +1389,7 @@ ALTER SEQUENCE si_formulas_id_seq OWNED BY si_formulas.id;
 
 
 --
--- TOC entry 2457 (class 0 OID 0)
+-- TOC entry 2511 (class 0 OID 0)
 -- Dependencies: 180
 -- Name: si_formulas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1258,7 +1399,7 @@ SELECT pg_catalog.setval('si_formulas_id_seq', 9, true);
 
 --
 -- TOC entry 181 (class 1259 OID 26375)
--- Dependencies: 2126 2127 6
+-- Dependencies: 2144 2145 6
 -- Name: si_guiarec; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -1285,7 +1426,7 @@ CREATE TABLE si_guiarec (
 ALTER TABLE public.si_guiarec OWNER TO admin;
 
 --
--- TOC entry 2458 (class 0 OID 0)
+-- TOC entry 2512 (class 0 OID 0)
 -- Dependencies: 181
 -- Name: TABLE si_guiarec; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -1330,7 +1471,7 @@ CREATE SEQUENCE si_guiarec_det_id_seq
 ALTER TABLE public.si_guiarec_det_id_seq OWNER TO admin;
 
 --
--- TOC entry 2459 (class 0 OID 0)
+-- TOC entry 2513 (class 0 OID 0)
 -- Dependencies: 183
 -- Name: si_guiarec_det_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1339,7 +1480,7 @@ ALTER SEQUENCE si_guiarec_det_id_seq OWNED BY si_guiarec_det.id;
 
 
 --
--- TOC entry 2460 (class 0 OID 0)
+-- TOC entry 2514 (class 0 OID 0)
 -- Dependencies: 183
 -- Name: si_guiarec_det_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1349,7 +1490,7 @@ SELECT pg_catalog.setval('si_guiarec_det_id_seq', 9, true);
 
 --
 -- TOC entry 184 (class 1259 OID 26385)
--- Dependencies: 6 181
+-- Dependencies: 181 6
 -- Name: si_guiarec_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -1364,7 +1505,7 @@ CREATE SEQUENCE si_guiarec_id_seq
 ALTER TABLE public.si_guiarec_id_seq OWNER TO admin;
 
 --
--- TOC entry 2461 (class 0 OID 0)
+-- TOC entry 2515 (class 0 OID 0)
 -- Dependencies: 184
 -- Name: si_guiarec_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1373,7 +1514,7 @@ ALTER SEQUENCE si_guiarec_id_seq OWNED BY si_guiarec.id;
 
 
 --
--- TOC entry 2462 (class 0 OID 0)
+-- TOC entry 2516 (class 0 OID 0)
 -- Dependencies: 184
 -- Name: si_guiarec_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1398,7 +1539,7 @@ CREATE SEQUENCE si_log_codigos_log_codigo_id_seq
 ALTER TABLE public.si_log_codigos_log_codigo_id_seq OWNER TO admin;
 
 --
--- TOC entry 2463 (class 0 OID 0)
+-- TOC entry 2517 (class 0 OID 0)
 -- Dependencies: 185
 -- Name: si_log_codigos_log_codigo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1408,7 +1549,7 @@ SELECT pg_catalog.setval('si_log_codigos_log_codigo_id_seq', 1, false);
 
 --
 -- TOC entry 186 (class 1259 OID 26389)
--- Dependencies: 2130 6
+-- Dependencies: 2148 6
 -- Name: si_log_codigos; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -1439,7 +1580,7 @@ CREATE SEQUENCE si_log_consultas_log_id_seq
 ALTER TABLE public.si_log_consultas_log_id_seq OWNER TO admin;
 
 --
--- TOC entry 2464 (class 0 OID 0)
+-- TOC entry 2518 (class 0 OID 0)
 -- Dependencies: 187
 -- Name: si_log_consultas_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1449,7 +1590,7 @@ SELECT pg_catalog.setval('si_log_consultas_log_id_seq', 1, true);
 
 --
 -- TOC entry 188 (class 1259 OID 26395)
--- Dependencies: 2131 6
+-- Dependencies: 2149 6
 -- Name: si_log_consultas; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -1491,7 +1632,7 @@ CREATE SEQUENCE si_menu_id_seq
 ALTER TABLE public.si_menu_id_seq OWNER TO admin;
 
 --
--- TOC entry 2465 (class 0 OID 0)
+-- TOC entry 2519 (class 0 OID 0)
 -- Dependencies: 189
 -- Name: si_menu_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1501,7 +1642,7 @@ SELECT pg_catalog.setval('si_menu_id_seq', 28, true);
 
 --
 -- TOC entry 190 (class 1259 OID 26410)
--- Dependencies: 2132 2133 6
+-- Dependencies: 2150 2151 6
 -- Name: si_menu; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -1551,7 +1692,7 @@ CREATE SEQUENCE si_menu_usuario_id_seq
 ALTER TABLE public.si_menu_usuario_id_seq OWNER TO admin;
 
 --
--- TOC entry 2466 (class 0 OID 0)
+-- TOC entry 2520 (class 0 OID 0)
 -- Dependencies: 192
 -- Name: si_menu_usuario_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1560,7 +1701,7 @@ ALTER SEQUENCE si_menu_usuario_id_seq OWNED BY si_menu_usuario.id;
 
 
 --
--- TOC entry 2467 (class 0 OID 0)
+-- TOC entry 2521 (class 0 OID 0)
 -- Dependencies: 192
 -- Name: si_menu_usuario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1585,7 +1726,7 @@ CREATE SEQUENCE si_municipio_id_seq
 ALTER TABLE public.si_municipio_id_seq OWNER TO admin;
 
 --
--- TOC entry 2468 (class 0 OID 0)
+-- TOC entry 2522 (class 0 OID 0)
 -- Dependencies: 193
 -- Name: si_municipio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1595,7 +1736,7 @@ SELECT pg_catalog.setval('si_municipio_id_seq', 1, false);
 
 --
 -- TOC entry 194 (class 1259 OID 26422)
--- Dependencies: 2135 6
+-- Dependencies: 2153 6
 -- Name: si_municipio; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -1625,7 +1766,7 @@ CREATE SEQUENCE si_ordenes_id_seq
 ALTER TABLE public.si_ordenes_id_seq OWNER TO admin;
 
 --
--- TOC entry 2469 (class 0 OID 0)
+-- TOC entry 2523 (class 0 OID 0)
 -- Dependencies: 195
 -- Name: si_ordenes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1635,7 +1776,7 @@ SELECT pg_catalog.setval('si_ordenes_id_seq', 1, false);
 
 --
 -- TOC entry 196 (class 1259 OID 26428)
--- Dependencies: 2136 2137 6
+-- Dependencies: 2154 2155 6
 -- Name: si_ordenes; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -1673,7 +1814,7 @@ CREATE SEQUENCE si_organizacion_id_seq
 ALTER TABLE public.si_organizacion_id_seq OWNER TO admin;
 
 --
--- TOC entry 2470 (class 0 OID 0)
+-- TOC entry 2524 (class 0 OID 0)
 -- Dependencies: 197
 -- Name: si_organizacion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1683,7 +1824,7 @@ SELECT pg_catalog.setval('si_organizacion_id_seq', 1, true);
 
 --
 -- TOC entry 198 (class 1259 OID 26435)
--- Dependencies: 2138 6
+-- Dependencies: 2156 6
 -- Name: si_organizacion; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -1709,7 +1850,7 @@ CREATE TABLE si_organizacion (
 ALTER TABLE public.si_organizacion OWNER TO admin;
 
 --
--- TOC entry 2471 (class 0 OID 0)
+-- TOC entry 2525 (class 0 OID 0)
 -- Dependencies: 198
 -- Name: TABLE si_organizacion; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -1734,7 +1875,7 @@ CREATE SEQUENCE si_pais_id_seq
 ALTER TABLE public.si_pais_id_seq OWNER TO admin;
 
 --
--- TOC entry 2472 (class 0 OID 0)
+-- TOC entry 2526 (class 0 OID 0)
 -- Dependencies: 199
 -- Name: si_pais_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1744,7 +1885,7 @@ SELECT pg_catalog.setval('si_pais_id_seq', 1, false);
 
 --
 -- TOC entry 200 (class 1259 OID 26444)
--- Dependencies: 2139 6
+-- Dependencies: 2157 6
 -- Name: si_pais; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -1773,7 +1914,7 @@ CREATE SEQUENCE si_parametros_id_seq
 ALTER TABLE public.si_parametros_id_seq OWNER TO admin;
 
 --
--- TOC entry 2473 (class 0 OID 0)
+-- TOC entry 2527 (class 0 OID 0)
 -- Dependencies: 201
 -- Name: si_parametros_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1783,7 +1924,7 @@ SELECT pg_catalog.setval('si_parametros_id_seq', 11, true);
 
 --
 -- TOC entry 202 (class 1259 OID 26450)
--- Dependencies: 2140 6
+-- Dependencies: 2158 6
 -- Name: si_parametros; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -1819,7 +1960,7 @@ CREATE SEQUENCE si_perfiles_id_seq
 ALTER TABLE public.si_perfiles_id_seq OWNER TO admin;
 
 --
--- TOC entry 2474 (class 0 OID 0)
+-- TOC entry 2528 (class 0 OID 0)
 -- Dependencies: 203
 -- Name: si_perfiles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1829,7 +1970,7 @@ SELECT pg_catalog.setval('si_perfiles_id_seq', 7, true);
 
 --
 -- TOC entry 204 (class 1259 OID 26459)
--- Dependencies: 2141 6
+-- Dependencies: 2159 6
 -- Name: si_perfiles; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -1862,7 +2003,7 @@ CREATE TABLE si_plaga (
 ALTER TABLE public.si_plaga OWNER TO admin;
 
 --
--- TOC entry 2475 (class 0 OID 0)
+-- TOC entry 2529 (class 0 OID 0)
 -- Dependencies: 205
 -- Name: TABLE si_plaga; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -1887,7 +2028,7 @@ CREATE SEQUENCE si_plaga_id_seq
 ALTER TABLE public.si_plaga_id_seq OWNER TO admin;
 
 --
--- TOC entry 2476 (class 0 OID 0)
+-- TOC entry 2530 (class 0 OID 0)
 -- Dependencies: 206
 -- Name: si_plaga_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1896,7 +2037,7 @@ ALTER SEQUENCE si_plaga_id_seq OWNED BY si_plaga.id;
 
 
 --
--- TOC entry 2477 (class 0 OID 0)
+-- TOC entry 2531 (class 0 OID 0)
 -- Dependencies: 206
 -- Name: si_plaga_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1905,7 +2046,7 @@ SELECT pg_catalog.setval('si_plaga_id_seq', 9, true);
 
 
 --
--- TOC entry 236 (class 1259 OID 27194)
+-- TOC entry 234 (class 1259 OID 27194)
 -- Dependencies: 6
 -- Name: si_producto; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
@@ -1926,8 +2067,8 @@ CREATE TABLE si_producto (
 ALTER TABLE public.si_producto OWNER TO admin;
 
 --
--- TOC entry 2478 (class 0 OID 0)
--- Dependencies: 236
+-- TOC entry 2532 (class 0 OID 0)
+-- Dependencies: 234
 -- Name: TABLE si_producto; Type: COMMENT; Schema: public; Owner: admin
 --
 
@@ -1935,8 +2076,8 @@ COMMENT ON TABLE si_producto IS 'Tabla de Productos para Fumigacion de Cultivos'
 
 
 --
--- TOC entry 235 (class 1259 OID 27192)
--- Dependencies: 236 6
+-- TOC entry 233 (class 1259 OID 27192)
+-- Dependencies: 234 6
 -- Name: si_producto_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -1951,8 +2092,8 @@ CREATE SEQUENCE si_producto_id_seq
 ALTER TABLE public.si_producto_id_seq OWNER TO admin;
 
 --
--- TOC entry 2479 (class 0 OID 0)
--- Dependencies: 235
+-- TOC entry 2533 (class 0 OID 0)
+-- Dependencies: 233
 -- Name: si_producto_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -1960,8 +2101,8 @@ ALTER SEQUENCE si_producto_id_seq OWNED BY si_producto.id;
 
 
 --
--- TOC entry 2480 (class 0 OID 0)
--- Dependencies: 235
+-- TOC entry 2534 (class 0 OID 0)
+-- Dependencies: 233
 -- Name: si_producto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -1985,7 +2126,7 @@ CREATE SEQUENCE si_productor_id_seq
 ALTER TABLE public.si_productor_id_seq OWNER TO admin;
 
 --
--- TOC entry 2481 (class 0 OID 0)
+-- TOC entry 2535 (class 0 OID 0)
 -- Dependencies: 207
 -- Name: si_productor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1995,7 +2136,7 @@ SELECT pg_catalog.setval('si_productor_id_seq', 5, true);
 
 --
 -- TOC entry 208 (class 1259 OID 26475)
--- Dependencies: 2143 6
+-- Dependencies: 2161 6
 -- Name: si_productor; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2053,7 +2194,7 @@ CREATE SEQUENCE si_programa_id_seq
 ALTER TABLE public.si_programa_id_seq OWNER TO admin;
 
 --
--- TOC entry 2482 (class 0 OID 0)
+-- TOC entry 2536 (class 0 OID 0)
 -- Dependencies: 209
 -- Name: si_programa_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -2063,7 +2204,7 @@ SELECT pg_catalog.setval('si_programa_id_seq', 8, true);
 
 --
 -- TOC entry 210 (class 1259 OID 26484)
--- Dependencies: 2144 6
+-- Dependencies: 2162 6
 -- Name: si_programa; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2085,34 +2226,38 @@ CREATE TABLE si_programa (
 ALTER TABLE public.si_programa OWNER TO admin;
 
 --
--- TOC entry 211 (class 1259 OID 26491)
+-- TOC entry 244 (class 1259 OID 27387)
 -- Dependencies: 6
 -- Name: si_proveedor; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
 CREATE TABLE si_proveedor (
     id bigint NOT NULL,
-    nombre character varying(255) NOT NULL,
+    id_org bigint NOT NULL,
+    rif character(16) NOT NULL,
+    cedula character(16) NOT NULL,
+    nombre character varying(32) NOT NULL,
     telefono character varying(32) NOT NULL,
-    email character varying(255) NOT NULL,
-    ubicacion character varying(255) NOT NULL
+    fax character varying(32) NOT NULL,
+    email_org character varying(255) NOT NULL,
+    contacto_nombre character varying(32) NOT NULL,
+    contacto_telefono character varying(32) NOT NULL,
+    contacto_email character varying(255) NOT NULL,
+    id_pais bigint NOT NULL,
+    id_estado bigint NOT NULL,
+    id_municipio bigint NOT NULL,
+    direccion character varying(255) NOT NULL,
+    estatus boolean,
+    creado timestamp with time zone,
+    modificado timestamp with time zone
 );
 
 
 ALTER TABLE public.si_proveedor OWNER TO admin;
 
 --
--- TOC entry 2483 (class 0 OID 0)
--- Dependencies: 211
--- Name: TABLE si_proveedor; Type: COMMENT; Schema: public; Owner: admin
---
-
-COMMENT ON TABLE si_proveedor IS 'Tabla de los Proveedores';
-
-
---
--- TOC entry 212 (class 1259 OID 26497)
--- Dependencies: 211 6
+-- TOC entry 243 (class 1259 OID 27385)
+-- Dependencies: 6 244
 -- Name: si_proveedor_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -2127,8 +2272,8 @@ CREATE SEQUENCE si_proveedor_id_seq
 ALTER TABLE public.si_proveedor_id_seq OWNER TO admin;
 
 --
--- TOC entry 2484 (class 0 OID 0)
--- Dependencies: 212
+-- TOC entry 2537 (class 0 OID 0)
+-- Dependencies: 243
 -- Name: si_proveedor_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -2136,8 +2281,8 @@ ALTER SEQUENCE si_proveedor_id_seq OWNED BY si_proveedor.id;
 
 
 --
--- TOC entry 2485 (class 0 OID 0)
--- Dependencies: 212
+-- TOC entry 2538 (class 0 OID 0)
+-- Dependencies: 243
 -- Name: si_proveedor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -2145,7 +2290,7 @@ SELECT pg_catalog.setval('si_proveedor_id_seq', 1, false);
 
 
 --
--- TOC entry 213 (class 1259 OID 26499)
+-- TOC entry 211 (class 1259 OID 26499)
 -- Dependencies: 6
 -- Name: si_punto_entrega; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
@@ -2169,8 +2314,8 @@ CREATE TABLE si_punto_entrega (
 ALTER TABLE public.si_punto_entrega OWNER TO admin;
 
 --
--- TOC entry 2486 (class 0 OID 0)
--- Dependencies: 213
+-- TOC entry 2539 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: TABLE si_punto_entrega; Type: COMMENT; Schema: public; Owner: admin
 --
 
@@ -2178,8 +2323,8 @@ COMMENT ON TABLE si_punto_entrega IS 'Tabla de Punto de Entrega en los Despachos
 
 
 --
--- TOC entry 214 (class 1259 OID 26505)
--- Dependencies: 6 213
+-- TOC entry 212 (class 1259 OID 26505)
+-- Dependencies: 6 211
 -- Name: si_punto_entrega_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -2194,8 +2339,8 @@ CREATE SEQUENCE si_punto_entrega_id_seq
 ALTER TABLE public.si_punto_entrega_id_seq OWNER TO admin;
 
 --
--- TOC entry 2487 (class 0 OID 0)
--- Dependencies: 214
+-- TOC entry 2540 (class 0 OID 0)
+-- Dependencies: 212
 -- Name: si_punto_entrega_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -2203,8 +2348,8 @@ ALTER SEQUENCE si_punto_entrega_id_seq OWNED BY si_punto_entrega.id;
 
 
 --
--- TOC entry 2488 (class 0 OID 0)
--- Dependencies: 214
+-- TOC entry 2541 (class 0 OID 0)
+-- Dependencies: 212
 -- Name: si_punto_entrega_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -2212,8 +2357,8 @@ SELECT pg_catalog.setval('si_punto_entrega_id_seq', 1, false);
 
 
 --
--- TOC entry 215 (class 1259 OID 26507)
--- Dependencies: 2147 6
+-- TOC entry 213 (class 1259 OID 26507)
+-- Dependencies: 2164 6
 -- Name: si_recepcion; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2251,8 +2396,8 @@ CREATE TABLE si_recepcion (
 ALTER TABLE public.si_recepcion OWNER TO admin;
 
 --
--- TOC entry 2489 (class 0 OID 0)
--- Dependencies: 215
+-- TOC entry 2542 (class 0 OID 0)
+-- Dependencies: 213
 -- Name: TABLE si_recepcion; Type: COMMENT; Schema: public; Owner: admin
 --
 
@@ -2271,8 +2416,60 @@ Estatus:
 
 
 --
--- TOC entry 216 (class 1259 OID 26511)
--- Dependencies: 215 6
+-- TOC entry 242 (class 1259 OID 27374)
+-- Dependencies: 6
+-- Name: si_recepcion_cultivo_tipo; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
+--
+
+CREATE TABLE si_recepcion_cultivo_tipo (
+    id bigint NOT NULL,
+    id_recepcion bigint NOT NULL,
+    id_centro_acopio bigint NOT NULL,
+    id_cultivo bigint NOT NULL,
+    laboratorio character(2) NOT NULL,
+    tipo character(2) NOT NULL
+);
+
+
+ALTER TABLE public.si_recepcion_cultivo_tipo OWNER TO admin;
+
+--
+-- TOC entry 241 (class 1259 OID 27372)
+-- Dependencies: 6 242
+-- Name: si_recepcion_cultivo_tipo_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE si_recepcion_cultivo_tipo_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.si_recepcion_cultivo_tipo_id_seq OWNER TO admin;
+
+--
+-- TOC entry 2543 (class 0 OID 0)
+-- Dependencies: 241
+-- Name: si_recepcion_cultivo_tipo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE si_recepcion_cultivo_tipo_id_seq OWNED BY si_recepcion_cultivo_tipo.id;
+
+
+--
+-- TOC entry 2544 (class 0 OID 0)
+-- Dependencies: 241
+-- Name: si_recepcion_cultivo_tipo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('si_recepcion_cultivo_tipo_id_seq', 1, false);
+
+
+--
+-- TOC entry 214 (class 1259 OID 26511)
+-- Dependencies: 6 213
 -- Name: si_recepcion_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -2287,8 +2484,8 @@ CREATE SEQUENCE si_recepcion_id_seq
 ALTER TABLE public.si_recepcion_id_seq OWNER TO admin;
 
 --
--- TOC entry 2490 (class 0 OID 0)
--- Dependencies: 216
+-- TOC entry 2545 (class 0 OID 0)
+-- Dependencies: 214
 -- Name: si_recepcion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -2296,8 +2493,8 @@ ALTER SEQUENCE si_recepcion_id_seq OWNED BY si_recepcion.id;
 
 
 --
--- TOC entry 2491 (class 0 OID 0)
--- Dependencies: 216
+-- TOC entry 2546 (class 0 OID 0)
+-- Dependencies: 214
 -- Name: si_recepcion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -2305,8 +2502,8 @@ SELECT pg_catalog.setval('si_recepcion_id_seq', 10, true);
 
 
 --
--- TOC entry 217 (class 1259 OID 26513)
--- Dependencies: 2149 6
+-- TOC entry 215 (class 1259 OID 26513)
+-- Dependencies: 2166 6
 -- Name: si_recursos; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2324,8 +2521,8 @@ CREATE TABLE si_recursos (
 ALTER TABLE public.si_recursos OWNER TO admin;
 
 --
--- TOC entry 218 (class 1259 OID 26520)
--- Dependencies: 2151 6
+-- TOC entry 216 (class 1259 OID 26520)
+-- Dependencies: 2168 6
 -- Name: si_recursos_etiquetas; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2343,8 +2540,8 @@ CREATE TABLE si_recursos_etiquetas (
 ALTER TABLE public.si_recursos_etiquetas OWNER TO admin;
 
 --
--- TOC entry 219 (class 1259 OID 26527)
--- Dependencies: 218 6
+-- TOC entry 217 (class 1259 OID 26527)
+-- Dependencies: 6 216
 -- Name: si_recursos_etiquetas_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -2359,8 +2556,8 @@ CREATE SEQUENCE si_recursos_etiquetas_id_seq
 ALTER TABLE public.si_recursos_etiquetas_id_seq OWNER TO admin;
 
 --
--- TOC entry 2492 (class 0 OID 0)
--- Dependencies: 219
+-- TOC entry 2547 (class 0 OID 0)
+-- Dependencies: 217
 -- Name: si_recursos_etiquetas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -2368,8 +2565,8 @@ ALTER SEQUENCE si_recursos_etiquetas_id_seq OWNED BY si_recursos_etiquetas.id;
 
 
 --
--- TOC entry 2493 (class 0 OID 0)
--- Dependencies: 219
+-- TOC entry 2548 (class 0 OID 0)
+-- Dependencies: 217
 -- Name: si_recursos_etiquetas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -2377,8 +2574,8 @@ SELECT pg_catalog.setval('si_recursos_etiquetas_id_seq', 43, true);
 
 
 --
--- TOC entry 220 (class 1259 OID 26529)
--- Dependencies: 217 6
+-- TOC entry 218 (class 1259 OID 26529)
+-- Dependencies: 6 215
 -- Name: si_recursos_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -2393,8 +2590,8 @@ CREATE SEQUENCE si_recursos_id_seq
 ALTER TABLE public.si_recursos_id_seq OWNER TO admin;
 
 --
--- TOC entry 2494 (class 0 OID 0)
--- Dependencies: 220
+-- TOC entry 2549 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: si_recursos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -2402,8 +2599,8 @@ ALTER SEQUENCE si_recursos_id_seq OWNED BY si_recursos.id;
 
 
 --
--- TOC entry 2495 (class 0 OID 0)
--- Dependencies: 220
+-- TOC entry 2550 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: si_recursos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -2411,7 +2608,7 @@ SELECT pg_catalog.setval('si_recursos_id_seq', 3, true);
 
 
 --
--- TOC entry 221 (class 1259 OID 26531)
+-- TOC entry 219 (class 1259 OID 26531)
 -- Dependencies: 6
 -- Name: si_silos_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
@@ -2427,8 +2624,8 @@ CREATE SEQUENCE si_silos_id_seq
 ALTER TABLE public.si_silos_id_seq OWNER TO admin;
 
 --
--- TOC entry 2496 (class 0 OID 0)
--- Dependencies: 221
+-- TOC entry 2551 (class 0 OID 0)
+-- Dependencies: 219
 -- Name: si_silos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -2436,8 +2633,8 @@ SELECT pg_catalog.setval('si_silos_id_seq', 85, true);
 
 
 --
--- TOC entry 222 (class 1259 OID 26533)
--- Dependencies: 2153 2154 2155 6
+-- TOC entry 220 (class 1259 OID 26533)
+-- Dependencies: 2170 2171 2172 6
 -- Name: si_silos; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2460,8 +2657,8 @@ CREATE TABLE si_silos (
 ALTER TABLE public.si_silos OWNER TO admin;
 
 --
--- TOC entry 2497 (class 0 OID 0)
--- Dependencies: 222
+-- TOC entry 2552 (class 0 OID 0)
+-- Dependencies: 220
 -- Name: TABLE si_silos; Type: COMMENT; Schema: public; Owner: admin
 --
 
@@ -2472,7 +2669,7 @@ COMMENT ON TABLE si_silos IS 'estatus
 
 
 --
--- TOC entry 223 (class 1259 OID 26542)
+-- TOC entry 221 (class 1259 OID 26542)
 -- Dependencies: 6
 -- Name: si_tolcarom_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
@@ -2488,8 +2685,8 @@ CREATE SEQUENCE si_tolcarom_id_seq
 ALTER TABLE public.si_tolcarom_id_seq OWNER TO admin;
 
 --
--- TOC entry 2498 (class 0 OID 0)
--- Dependencies: 223
+-- TOC entry 2553 (class 0 OID 0)
+-- Dependencies: 221
 -- Name: si_tolcarom_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -2497,8 +2694,8 @@ SELECT pg_catalog.setval('si_tolcarom_id_seq', 1, false);
 
 
 --
--- TOC entry 224 (class 1259 OID 26544)
--- Dependencies: 2156 2157 2158 6
+-- TOC entry 222 (class 1259 OID 26544)
+-- Dependencies: 2173 2174 2175 6
 -- Name: si_tolcarom; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2517,7 +2714,7 @@ CREATE TABLE si_tolcarom (
 ALTER TABLE public.si_tolcarom OWNER TO admin;
 
 --
--- TOC entry 225 (class 1259 OID 26550)
+-- TOC entry 223 (class 1259 OID 26550)
 -- Dependencies: 6
 -- Name: si_transporte; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
@@ -2542,8 +2739,8 @@ CREATE TABLE si_transporte (
 ALTER TABLE public.si_transporte OWNER TO admin;
 
 --
--- TOC entry 2499 (class 0 OID 0)
--- Dependencies: 225
+-- TOC entry 2554 (class 0 OID 0)
+-- Dependencies: 223
 -- Name: TABLE si_transporte; Type: COMMENT; Schema: public; Owner: admin
 --
 
@@ -2551,8 +2748,8 @@ COMMENT ON TABLE si_transporte IS 'Tabla de Trasporte';
 
 
 --
--- TOC entry 226 (class 1259 OID 26556)
--- Dependencies: 225 6
+-- TOC entry 224 (class 1259 OID 26556)
+-- Dependencies: 223 6
 -- Name: si_transporte_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -2567,8 +2764,8 @@ CREATE SEQUENCE si_transporte_id_seq
 ALTER TABLE public.si_transporte_id_seq OWNER TO admin;
 
 --
--- TOC entry 2500 (class 0 OID 0)
--- Dependencies: 226
+-- TOC entry 2555 (class 0 OID 0)
+-- Dependencies: 224
 -- Name: si_transporte_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -2576,8 +2773,8 @@ ALTER SEQUENCE si_transporte_id_seq OWNED BY si_transporte.id;
 
 
 --
--- TOC entry 2501 (class 0 OID 0)
--- Dependencies: 226
+-- TOC entry 2556 (class 0 OID 0)
+-- Dependencies: 224
 -- Name: si_transporte_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -2585,7 +2782,7 @@ SELECT pg_catalog.setval('si_transporte_id_seq', 1, false);
 
 
 --
--- TOC entry 227 (class 1259 OID 26558)
+-- TOC entry 225 (class 1259 OID 26558)
 -- Dependencies: 6
 -- Name: si_usuarios_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
@@ -2601,8 +2798,8 @@ CREATE SEQUENCE si_usuarios_id_seq
 ALTER TABLE public.si_usuarios_id_seq OWNER TO admin;
 
 --
--- TOC entry 2502 (class 0 OID 0)
--- Dependencies: 227
+-- TOC entry 2557 (class 0 OID 0)
+-- Dependencies: 225
 -- Name: si_usuarios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -2610,8 +2807,8 @@ SELECT pg_catalog.setval('si_usuarios_id_seq', 6, true);
 
 
 --
--- TOC entry 228 (class 1259 OID 26560)
--- Dependencies: 2160 2161 2162 6
+-- TOC entry 226 (class 1259 OID 26560)
+-- Dependencies: 2177 2178 2179 6
 -- Name: si_usuarios; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2639,7 +2836,7 @@ CREATE TABLE si_usuarios (
 ALTER TABLE public.si_usuarios OWNER TO admin;
 
 --
--- TOC entry 229 (class 1259 OID 26569)
+-- TOC entry 227 (class 1259 OID 26569)
 -- Dependencies: 6
 -- Name: si_usuarios_perfiles_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
@@ -2655,8 +2852,8 @@ CREATE SEQUENCE si_usuarios_perfiles_id_seq
 ALTER TABLE public.si_usuarios_perfiles_id_seq OWNER TO admin;
 
 --
--- TOC entry 2503 (class 0 OID 0)
--- Dependencies: 229
+-- TOC entry 2558 (class 0 OID 0)
+-- Dependencies: 227
 -- Name: si_usuarios_perfiles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -2664,8 +2861,8 @@ SELECT pg_catalog.setval('si_usuarios_perfiles_id_seq', 6, true);
 
 
 --
--- TOC entry 230 (class 1259 OID 26571)
--- Dependencies: 2163 6
+-- TOC entry 228 (class 1259 OID 26571)
+-- Dependencies: 2180 6
 -- Name: si_usuarios_perfiles; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2682,7 +2879,7 @@ CREATE TABLE si_usuarios_perfiles (
 ALTER TABLE public.si_usuarios_perfiles OWNER TO admin;
 
 --
--- TOC entry 231 (class 1259 OID 26575)
+-- TOC entry 229 (class 1259 OID 26575)
 -- Dependencies: 6
 -- Name: si_vehiculos; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
@@ -2704,8 +2901,8 @@ CREATE TABLE si_vehiculos (
 ALTER TABLE public.si_vehiculos OWNER TO admin;
 
 --
--- TOC entry 232 (class 1259 OID 26578)
--- Dependencies: 231 6
+-- TOC entry 230 (class 1259 OID 26578)
+-- Dependencies: 6 229
 -- Name: si_vehiculos_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -2720,8 +2917,8 @@ CREATE SEQUENCE si_vehiculos_id_seq
 ALTER TABLE public.si_vehiculos_id_seq OWNER TO admin;
 
 --
--- TOC entry 2504 (class 0 OID 0)
--- Dependencies: 232
+-- TOC entry 2559 (class 0 OID 0)
+-- Dependencies: 230
 -- Name: si_vehiculos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
 
@@ -2729,8 +2926,8 @@ ALTER SEQUENCE si_vehiculos_id_seq OWNED BY si_vehiculos.id;
 
 
 --
--- TOC entry 2505 (class 0 OID 0)
--- Dependencies: 232
+-- TOC entry 2560 (class 0 OID 0)
+-- Dependencies: 230
 -- Name: si_vehiculos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
@@ -2738,7 +2935,7 @@ SELECT pg_catalog.setval('si_vehiculos_id_seq', 9, true);
 
 
 --
--- TOC entry 2086 (class 2604 OID 26580)
+-- TOC entry 2104 (class 2604 OID 26580)
 -- Dependencies: 145 144
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
@@ -2747,7 +2944,7 @@ ALTER TABLE si_analisis_centro_acopio ALTER COLUMN id SET DEFAULT nextval('si_an
 
 
 --
--- TOC entry 2093 (class 2604 OID 26581)
+-- TOC entry 2111 (class 2604 OID 26581)
 -- Dependencies: 147 146
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
@@ -2756,7 +2953,7 @@ ALTER TABLE si_analisis_cultivo ALTER COLUMN id SET DEFAULT nextval('si_analisis
 
 
 --
--- TOC entry 2095 (class 2604 OID 26582)
+-- TOC entry 2113 (class 2604 OID 26582)
 -- Dependencies: 149 148
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
@@ -2765,7 +2962,7 @@ ALTER TABLE si_analisis_des ALTER COLUMN id SET DEFAULT nextval('si_analisis_des
 
 
 --
--- TOC entry 2096 (class 2604 OID 26583)
+-- TOC entry 2114 (class 2604 OID 26583)
 -- Dependencies: 151 150
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
@@ -2774,7 +2971,16 @@ ALTER TABLE si_analisis_resultado ALTER COLUMN id SET DEFAULT nextval('si_analis
 
 
 --
--- TOC entry 2114 (class 2604 OID 26584)
+-- TOC entry 2185 (class 2604 OID 27363)
+-- Dependencies: 237 238 238
+-- Name: id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE si_choferes ALTER COLUMN id SET DEFAULT nextval('si_choferes_id_seq'::regclass);
+
+
+--
+-- TOC entry 2132 (class 2604 OID 26584)
 -- Dependencies: 166 165
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
@@ -2783,8 +2989,8 @@ ALTER TABLE si_cosecha_productor ALTER COLUMN id SET DEFAULT nextval('si_cosecha
 
 
 --
--- TOC entry 2165 (class 2604 OID 27172)
--- Dependencies: 234 233 234
+-- TOC entry 2182 (class 2604 OID 27172)
+-- Dependencies: 231 232 232
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -2792,8 +2998,8 @@ ALTER TABLE si_cosecha_silo ALTER COLUMN id SET DEFAULT nextval('si_cosecha_silo
 
 
 --
--- TOC entry 2167 (class 2604 OID 27285)
--- Dependencies: 237 238 238
+-- TOC entry 2184 (class 2604 OID 27330)
+-- Dependencies: 235 236 236
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -2801,7 +3007,16 @@ ALTER TABLE si_cuarentena ALTER COLUMN id SET DEFAULT nextval('si_cuarentena_id_
 
 
 --
--- TOC entry 2119 (class 2604 OID 26586)
+-- TOC entry 2186 (class 2604 OID 27369)
+-- Dependencies: 240 239 240
+-- Name: id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE si_cultivo_tipo ALTER COLUMN id SET DEFAULT nextval('si_cultivo_tipo_id_seq'::regclass);
+
+
+--
+-- TOC entry 2137 (class 2604 OID 26586)
 -- Dependencies: 172 171
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
@@ -2810,7 +3025,7 @@ ALTER TABLE si_despacho ALTER COLUMN id SET DEFAULT nextval('si_despacho_id_seq'
 
 
 --
--- TOC entry 2124 (class 2604 OID 26587)
+-- TOC entry 2142 (class 2604 OID 26587)
 -- Dependencies: 178 177
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
@@ -2819,7 +3034,7 @@ ALTER TABLE si_finca ALTER COLUMN id SET DEFAULT nextval('si_finca_id_seq'::regc
 
 
 --
--- TOC entry 2125 (class 2604 OID 26588)
+-- TOC entry 2143 (class 2604 OID 26588)
 -- Dependencies: 180 179
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
@@ -2828,7 +3043,7 @@ ALTER TABLE si_formulas ALTER COLUMN id SET DEFAULT nextval('si_formulas_id_seq'
 
 
 --
--- TOC entry 2128 (class 2604 OID 26589)
+-- TOC entry 2146 (class 2604 OID 26589)
 -- Dependencies: 184 181
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
@@ -2837,7 +3052,7 @@ ALTER TABLE si_guiarec ALTER COLUMN id SET DEFAULT nextval('si_guiarec_id_seq'::
 
 
 --
--- TOC entry 2129 (class 2604 OID 26590)
+-- TOC entry 2147 (class 2604 OID 26590)
 -- Dependencies: 183 182
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
@@ -2846,7 +3061,7 @@ ALTER TABLE si_guiarec_det ALTER COLUMN id SET DEFAULT nextval('si_guiarec_det_i
 
 
 --
--- TOC entry 2134 (class 2604 OID 26592)
+-- TOC entry 2152 (class 2604 OID 26592)
 -- Dependencies: 192 191
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
@@ -2855,7 +3070,7 @@ ALTER TABLE si_menu_usuario ALTER COLUMN id SET DEFAULT nextval('si_menu_usuario
 
 
 --
--- TOC entry 2142 (class 2604 OID 26593)
+-- TOC entry 2160 (class 2604 OID 26593)
 -- Dependencies: 206 205
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
@@ -2864,8 +3079,8 @@ ALTER TABLE si_plaga ALTER COLUMN id SET DEFAULT nextval('si_plaga_id_seq'::regc
 
 
 --
--- TOC entry 2166 (class 2604 OID 27197)
--- Dependencies: 235 236 236
+-- TOC entry 2183 (class 2604 OID 27197)
+-- Dependencies: 233 234 234
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -2873,8 +3088,8 @@ ALTER TABLE si_producto ALTER COLUMN id SET DEFAULT nextval('si_producto_id_seq'
 
 
 --
--- TOC entry 2145 (class 2604 OID 26595)
--- Dependencies: 212 211
+-- TOC entry 2190 (class 2604 OID 27390)
+-- Dependencies: 243 244 244
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -2882,8 +3097,8 @@ ALTER TABLE si_proveedor ALTER COLUMN id SET DEFAULT nextval('si_proveedor_id_se
 
 
 --
--- TOC entry 2146 (class 2604 OID 26596)
--- Dependencies: 214 213
+-- TOC entry 2163 (class 2604 OID 26596)
+-- Dependencies: 212 211
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -2891,8 +3106,8 @@ ALTER TABLE si_punto_entrega ALTER COLUMN id SET DEFAULT nextval('si_punto_entre
 
 
 --
--- TOC entry 2148 (class 2604 OID 26597)
--- Dependencies: 216 215
+-- TOC entry 2165 (class 2604 OID 26597)
+-- Dependencies: 214 213
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -2900,8 +3115,17 @@ ALTER TABLE si_recepcion ALTER COLUMN id SET DEFAULT nextval('si_recepcion_id_se
 
 
 --
--- TOC entry 2150 (class 2604 OID 26598)
--- Dependencies: 220 217
+-- TOC entry 2189 (class 2604 OID 27377)
+-- Dependencies: 242 241 242
+-- Name: id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE si_recepcion_cultivo_tipo ALTER COLUMN id SET DEFAULT nextval('si_recepcion_cultivo_tipo_id_seq'::regclass);
+
+
+--
+-- TOC entry 2167 (class 2604 OID 26598)
+-- Dependencies: 218 215
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -2909,8 +3133,8 @@ ALTER TABLE si_recursos ALTER COLUMN id SET DEFAULT nextval('si_recursos_id_seq'
 
 
 --
--- TOC entry 2152 (class 2604 OID 26599)
--- Dependencies: 219 218
+-- TOC entry 2169 (class 2604 OID 26599)
+-- Dependencies: 217 216
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -2918,8 +3142,8 @@ ALTER TABLE si_recursos_etiquetas ALTER COLUMN id SET DEFAULT nextval('si_recurs
 
 
 --
--- TOC entry 2159 (class 2604 OID 26600)
--- Dependencies: 226 225
+-- TOC entry 2176 (class 2604 OID 26600)
+-- Dependencies: 224 223
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -2927,8 +3151,8 @@ ALTER TABLE si_transporte ALTER COLUMN id SET DEFAULT nextval('si_transporte_id_
 
 
 --
--- TOC entry 2164 (class 2604 OID 26601)
--- Dependencies: 232 231
+-- TOC entry 2181 (class 2604 OID 26601)
+-- Dependencies: 230 229
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
@@ -2936,7 +3160,7 @@ ALTER TABLE si_vehiculos ALTER COLUMN id SET DEFAULT nextval('si_vehiculos_id_se
 
 
 --
--- TOC entry 2365 (class 0 OID 26212)
+-- TOC entry 2410 (class 0 OID 26212)
 -- Dependencies: 141
 -- Data for Name: si_almacenes; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -2955,7 +3179,7 @@ INSERT INTO si_almacenes (id, id_centro_acopio, nombre, direccion, id_pais, id_e
 
 
 --
--- TOC entry 2366 (class 0 OID 26221)
+-- TOC entry 2411 (class 0 OID 26221)
 -- Dependencies: 143
 -- Data for Name: si_analisis; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -2984,7 +3208,7 @@ INSERT INTO si_analisis (id, id_org, nombre, tipo_analisis, estatus, creado, mod
 
 
 --
--- TOC entry 2367 (class 0 OID 26227)
+-- TOC entry 2412 (class 0 OID 26227)
 -- Dependencies: 144
 -- Data for Name: si_analisis_centro_acopio; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -2992,7 +3216,7 @@ INSERT INTO si_analisis (id, id_org, nombre, tipo_analisis, estatus, creado, mod
 
 
 --
--- TOC entry 2368 (class 0 OID 26232)
+-- TOC entry 2413 (class 0 OID 26232)
 -- Dependencies: 146
 -- Data for Name: si_analisis_cultivo; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3063,7 +3287,7 @@ INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, r
 
 
 --
--- TOC entry 2369 (class 0 OID 26243)
+-- TOC entry 2414 (class 0 OID 26243)
 -- Dependencies: 148
 -- Data for Name: si_analisis_des; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3071,7 +3295,7 @@ INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, r
 
 
 --
--- TOC entry 2370 (class 0 OID 26249)
+-- TOC entry 2415 (class 0 OID 26249)
 -- Dependencies: 150
 -- Data for Name: si_analisis_resultado; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3310,7 +3534,7 @@ INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, i
 
 
 --
--- TOC entry 2371 (class 0 OID 26254)
+-- TOC entry 2416 (class 0 OID 26254)
 -- Dependencies: 152
 -- Data for Name: si_app_error; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3318,7 +3542,7 @@ INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, i
 
 
 --
--- TOC entry 2372 (class 0 OID 26262)
+-- TOC entry 2417 (class 0 OID 26262)
 -- Dependencies: 154
 -- Data for Name: si_asociado; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3328,7 +3552,7 @@ INSERT INTO si_asociado (id, id_productor, ced_rif, nombre, direccion, telefono,
 
 
 --
--- TOC entry 2373 (class 0 OID 26271)
+-- TOC entry 2418 (class 0 OID 26271)
 -- Dependencies: 156
 -- Data for Name: si_cargo; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3336,7 +3560,7 @@ INSERT INTO si_asociado (id, id_productor, ced_rif, nombre, direccion, telefono,
 
 
 --
--- TOC entry 2374 (class 0 OID 26277)
+-- TOC entry 2419 (class 0 OID 26277)
 -- Dependencies: 158
 -- Data for Name: si_cargo_tipo; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3344,13 +3568,12 @@ INSERT INTO si_asociado (id, id_productor, ced_rif, nombre, direccion, telefono,
 
 
 --
--- TOC entry 2375 (class 0 OID 26284)
+-- TOC entry 2420 (class 0 OID 26284)
 -- Dependencies: 160
 -- Data for Name: si_centro_acopio; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 INSERT INTO si_centro_acopio (id, id_org, codigo, nombre, rif, telefono, fax, email, direccion, id_pais, id_estado, id_municipio, id_codigo_postal, coordenadas_utm, estatus, creado, modificado) VALUES (1, 1, '00', 'AGROPATRIA', NULL, NULL, NULL, NULL, NULL, 1, 1, 1, NULL, NULL, true, '2012-02-12 00:00:00-04:30', NULL);
-INSERT INTO si_centro_acopio (id, id_org, codigo, nombre, rif, telefono, fax, email, direccion, id_pais, id_estado, id_municipio, id_codigo_postal, coordenadas_utm, estatus, creado, modificado) VALUES (2, 1, '56', 'ARAURE', 'J-123123', NULL, NULL, NULL, 'GUARICO', 1, 18, 227, NULL, NULL, true, '2012-02-13 11:01:40.092295-04:30', '2012-02-19 15:03:36.599-04:30');
 INSERT INTO si_centro_acopio (id, id_org, codigo, nombre, rif, telefono, fax, email, direccion, id_pais, id_estado, id_municipio, id_codigo_postal, coordenadas_utm, estatus, creado, modificado) VALUES (3, 1, '57', 'SABANA DE PARRA', 'J-123123', NULL, NULL, NULL, 'Algun Lugar', 1, 1, 1, NULL, NULL, true, '2012-02-13 11:05:32.010896-04:30', NULL);
 INSERT INTO si_centro_acopio (id, id_org, codigo, nombre, rif, telefono, fax, email, direccion, id_pais, id_estado, id_municipio, id_codigo_postal, coordenadas_utm, estatus, creado, modificado) VALUES (4, 1, '58', 'CHAGUARAMAS', 'J-123123', NULL, NULL, NULL, 'Chaguaramas', 1, 1, 1, NULL, NULL, true, '2012-02-13 11:06:27.30781-04:30', NULL);
 INSERT INTO si_centro_acopio (id, id_org, codigo, nombre, rif, telefono, fax, email, direccion, id_pais, id_estado, id_municipio, id_codigo_postal, coordenadas_utm, estatus, creado, modificado) VALUES (5, 1, '60', 'SABANETA', 'J-123123', NULL, NULL, NULL, 'Zulia', 1, 2, 2, NULL, NULL, true, '2012-02-13 11:12:33.305226-04:30', NULL);
@@ -3358,10 +3581,19 @@ INSERT INTO si_centro_acopio (id, id_org, codigo, nombre, rif, telefono, fax, em
 INSERT INTO si_centro_acopio (id, id_org, codigo, nombre, rif, telefono, fax, email, direccion, id_pais, id_estado, id_municipio, id_codigo_postal, coordenadas_utm, estatus, creado, modificado) VALUES (7, 1, '67', 'MATURIN', NULL, NULL, NULL, NULL, NULL, 1, 16, 209, NULL, NULL, true, '2012-02-19 15:23:43.873-04:30', NULL);
 INSERT INTO si_centro_acopio (id, id_org, codigo, nombre, rif, telefono, fax, email, direccion, id_pais, id_estado, id_municipio, id_codigo_postal, coordenadas_utm, estatus, creado, modificado) VALUES (8, 1, '69', 'CALABOZO', NULL, NULL, NULL, NULL, NULL, 1, 12, 137, NULL, NULL, true, '2012-02-19 15:35:00.425-04:30', '2012-02-19 15:39:43.266-04:30');
 INSERT INTO si_centro_acopio (id, id_org, codigo, nombre, rif, telefono, fax, email, direccion, id_pais, id_estado, id_municipio, id_codigo_postal, coordenadas_utm, estatus, creado, modificado) VALUES (9, 1, '71', 'GUANARE', NULL, NULL, NULL, NULL, NULL, 1, 18, 229, NULL, NULL, true, '2012-02-19 15:39:25.134-04:30', NULL);
+INSERT INTO si_centro_acopio (id, id_org, codigo, nombre, rif, telefono, fax, email, direccion, id_pais, id_estado, id_municipio, id_codigo_postal, coordenadas_utm, estatus, creado, modificado) VALUES (2, 1, '56', 'ARAURE', 'J-123123', NULL, NULL, NULL, 'GUARICO', 1, 18, 227, NULL, NULL, true, '2012-02-13 11:01:40.092295-04:30', '2012-03-16 10:40:45.916545-04:30');
 
 
 --
--- TOC entry 2376 (class 0 OID 26299)
+-- TOC entry 2459 (class 0 OID 27360)
+-- Dependencies: 238
+-- Data for Name: si_choferes; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+
+
+--
+-- TOC entry 2421 (class 0 OID 26299)
 -- Dependencies: 162
 -- Data for Name: si_cliente; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3369,7 +3601,7 @@ INSERT INTO si_centro_acopio (id, id_org, codigo, nombre, rif, telefono, fax, em
 
 
 --
--- TOC entry 2377 (class 0 OID 26308)
+-- TOC entry 2422 (class 0 OID 26308)
 -- Dependencies: 164
 -- Data for Name: si_cosecha; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3381,11 +3613,12 @@ INSERT INTO si_cosecha (id, id_programa, id_cultivo, nombre, proyectado, observa
 INSERT INTO si_cosecha (id, id_programa, id_cultivo, nombre, proyectado, observacion, area_siembra, fecha_inicio, fecha_fin, estatus, creado, modificado, codigo) VALUES (6, 6, 1, 'PRIMERA COSECHA', NULL, NULL, NULL, NULL, NULL, true, '2012-03-15 11:58:11.560369-04:30', NULL, '2012011');
 INSERT INTO si_cosecha (id, id_programa, id_cultivo, nombre, proyectado, observacion, area_siembra, fecha_inicio, fecha_fin, estatus, creado, modificado, codigo) VALUES (7, 7, 2, 'PRIMERA COSECHA DE ARROZ', 123123, NULL, NULL, NULL, NULL, true, '2012-03-15 12:00:34.702275-04:30', NULL, '2012021');
 INSERT INTO si_cosecha (id, id_programa, id_cultivo, nombre, proyectado, observacion, area_siembra, fecha_inicio, fecha_fin, estatus, creado, modificado, codigo) VALUES (8, 7, 2, 'SEGUNDA COSECHA ARROZ', NULL, NULL, NULL, NULL, NULL, true, '2012-03-15 12:00:34.702275-04:30', NULL, '2012022');
-INSERT INTO si_cosecha (id, id_programa, id_cultivo, nombre, proyectado, observacion, area_siembra, fecha_inicio, fecha_fin, estatus, creado, modificado, codigo) VALUES (9, 8, 11, 'COSECHA DE MAIZ 2012 1', 100000, NULL, 500, '2012-03-15', '2012-05-15', true, '2012-03-15 14:26:29.738337-04:30', NULL, '2012111');
+INSERT INTO si_cosecha (id, id_programa, id_cultivo, nombre, proyectado, observacion, area_siembra, fecha_inicio, fecha_fin, estatus, creado, modificado, codigo) VALUES (9, 8, 11, 'COSECHA DE MAIZ 2012 1', 100000, NULL, 500, '2012-03-15', '2012-05-15', true, '2012-03-15 14:26:29.738337-04:30', '2012-03-16 10:18:21.621684-04:30', '2012111');
+INSERT INTO si_cosecha (id, id_programa, id_cultivo, nombre, proyectado, observacion, area_siembra, fecha_inicio, fecha_fin, estatus, creado, modificado, codigo) VALUES (10, 8, 11, 'COSECHA DE MAIZ 2012 2', NULL, NULL, NULL, NULL, NULL, true, '2012-03-16 10:18:41.518728-04:30', NULL, '2012112');
 
 
 --
--- TOC entry 2378 (class 0 OID 26319)
+-- TOC entry 2423 (class 0 OID 26319)
 -- Dependencies: 165
 -- Data for Name: si_cosecha_productor; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3397,8 +3630,8 @@ INSERT INTO si_cosecha_productor (id_cosecha, id_centro_acopio, id_productor, as
 
 
 --
--- TOC entry 2412 (class 0 OID 27169)
--- Dependencies: 234
+-- TOC entry 2456 (class 0 OID 27169)
+-- Dependencies: 232
 -- Data for Name: si_cosecha_silo; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -3407,16 +3640,15 @@ INSERT INTO si_cosecha_silo (id, id_cosecha, id_silo, id_cultivo) VALUES (2, 2, 
 
 
 --
--- TOC entry 2414 (class 0 OID 27282)
--- Dependencies: 238
+-- TOC entry 2458 (class 0 OID 27327)
+-- Dependencies: 236
 -- Data for Name: si_cuarentena; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO si_cuarentena (id, id_centro_acopio, id_analisis, id_cultivo, id_recepcion, id_despacho, tipo_mov, fecha_mov, fecha_cultivo, grado_infestacion, laboratorio, id_producto, toneladas, cant_producto, id_plaga, hora_trab, fecha_lib, hora_lib, estatus, creado, modificado, id_usuario) VALUES (2, 2, 24, 1, 10, NULL, 'R ', '2012-03-14 14:31:00.929526-04:30', '2012-03-14 14:31:00.929526-04:30', NULL, 'C ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-03-14 14:31:00.929526-04:30', NULL, 3);
 
 
 --
--- TOC entry 2379 (class 0 OID 26331)
+-- TOC entry 2424 (class 0 OID 26331)
 -- Dependencies: 168
 -- Data for Name: si_cultivo; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3450,7 +3682,15 @@ INSERT INTO si_cultivo (id, id_org, codigo, nombre, tipificado, ciclo, creado, m
 
 
 --
--- TOC entry 2380 (class 0 OID 26339)
+-- TOC entry 2460 (class 0 OID 27366)
+-- Dependencies: 240
+-- Data for Name: si_cultivo_tipo; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+
+
+--
+-- TOC entry 2425 (class 0 OID 26339)
 -- Dependencies: 170
 -- Data for Name: si_denom_tip; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3458,7 +3698,7 @@ INSERT INTO si_cultivo (id, id_org, codigo, nombre, tipificado, ciclo, creado, m
 
 
 --
--- TOC entry 2381 (class 0 OID 26343)
+-- TOC entry 2426 (class 0 OID 26343)
 -- Dependencies: 171
 -- Data for Name: si_despacho; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3466,7 +3706,7 @@ INSERT INTO si_cultivo (id, id_org, codigo, nombre, tipificado, ciclo, creado, m
 
 
 --
--- TOC entry 2382 (class 0 OID 26350)
+-- TOC entry 2427 (class 0 OID 26350)
 -- Dependencies: 174
 -- Data for Name: si_ejes; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3474,7 +3714,7 @@ INSERT INTO si_cultivo (id, id_org, codigo, nombre, tipificado, ciclo, creado, m
 
 
 --
--- TOC entry 2383 (class 0 OID 26357)
+-- TOC entry 2428 (class 0 OID 26357)
 -- Dependencies: 176
 -- Data for Name: si_estado; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3506,7 +3746,7 @@ INSERT INTO si_estado (id, id_pais, nombre) VALUES (24, 1, 'Zulia');
 
 
 --
--- TOC entry 2384 (class 0 OID 26361)
+-- TOC entry 2429 (class 0 OID 26361)
 -- Dependencies: 177
 -- Data for Name: si_finca; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3514,7 +3754,7 @@ INSERT INTO si_estado (id, id_pais, nombre) VALUES (24, 1, 'Zulia');
 
 
 --
--- TOC entry 2385 (class 0 OID 26370)
+-- TOC entry 2430 (class 0 OID 26370)
 -- Dependencies: 179
 -- Data for Name: si_formulas; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3531,7 +3771,7 @@ INSERT INTO si_formulas (id, id_org, id_centro_acopio, id_cultivo, formula, codi
 
 
 --
--- TOC entry 2386 (class 0 OID 26375)
+-- TOC entry 2431 (class 0 OID 26375)
 -- Dependencies: 181
 -- Data for Name: si_guiarec; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3550,7 +3790,7 @@ INSERT INTO si_guiarec (id, id_agencia, id_cultivo, id_usuario, numero_guia, kil
 
 
 --
--- TOC entry 2387 (class 0 OID 26380)
+-- TOC entry 2432 (class 0 OID 26380)
 -- Dependencies: 182
 -- Data for Name: si_guiarec_det; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3564,7 +3804,7 @@ INSERT INTO si_guiarec_det (id, id_guiarec, subguia, fecha, descripcion) VALUES 
 
 
 --
--- TOC entry 2388 (class 0 OID 26389)
+-- TOC entry 2433 (class 0 OID 26389)
 -- Dependencies: 186
 -- Data for Name: si_log_codigos; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3578,7 +3818,7 @@ INSERT INTO si_log_codigos (log_codigo_id, log_codigo_nombre_es, log_codigo_crit
 
 
 --
--- TOC entry 2389 (class 0 OID 26395)
+-- TOC entry 2434 (class 0 OID 26395)
 -- Dependencies: 188
 -- Data for Name: si_log_consultas; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3586,7 +3826,7 @@ INSERT INTO si_log_codigos (log_codigo_id, log_codigo_nombre_es, log_codigo_crit
 
 
 --
--- TOC entry 2390 (class 0 OID 26410)
+-- TOC entry 2435 (class 0 OID 26410)
 -- Dependencies: 190
 -- Data for Name: si_menu; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3622,7 +3862,7 @@ INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modifica
 
 
 --
--- TOC entry 2391 (class 0 OID 26415)
+-- TOC entry 2436 (class 0 OID 26415)
 -- Dependencies: 191
 -- Data for Name: si_menu_usuario; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3665,7 +3905,7 @@ INSERT INTO si_menu_usuario (id_menu, id_usuario, id) VALUES (28, 3, 35);
 
 
 --
--- TOC entry 2392 (class 0 OID 26422)
+-- TOC entry 2437 (class 0 OID 26422)
 -- Dependencies: 194
 -- Data for Name: si_municipio; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -4012,7 +4252,7 @@ INSERT INTO si_municipio (id, id_estado, nombre) VALUES (155, 13, 'Simón Planas
 
 
 --
--- TOC entry 2393 (class 0 OID 26428)
+-- TOC entry 2438 (class 0 OID 26428)
 -- Dependencies: 196
 -- Data for Name: si_ordenes; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -4020,7 +4260,7 @@ INSERT INTO si_municipio (id, id_estado, nombre) VALUES (155, 13, 'Simón Planas
 
 
 --
--- TOC entry 2394 (class 0 OID 26435)
+-- TOC entry 2439 (class 0 OID 26435)
 -- Dependencies: 198
 -- Data for Name: si_organizacion; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -4029,7 +4269,7 @@ INSERT INTO si_organizacion (id, nombre, descripcion, rif, telefono, email, dire
 
 
 --
--- TOC entry 2395 (class 0 OID 26444)
+-- TOC entry 2440 (class 0 OID 26444)
 -- Dependencies: 200
 -- Data for Name: si_pais; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -4038,7 +4278,7 @@ INSERT INTO si_pais (id, nombre) VALUES (1, 'Venezuela');
 
 
 --
--- TOC entry 2396 (class 0 OID 26450)
+-- TOC entry 2441 (class 0 OID 26450)
 -- Dependencies: 202
 -- Data for Name: si_parametros; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -4057,7 +4297,7 @@ INSERT INTO si_parametros (id, parametro_llave, parametro_valor, descripcion, pa
 
 
 --
--- TOC entry 2397 (class 0 OID 26459)
+-- TOC entry 2442 (class 0 OID 26459)
 -- Dependencies: 204
 -- Data for Name: si_perfiles; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -4072,7 +4312,7 @@ INSERT INTO si_perfiles (id, nombre_perfil, creado, modificado) VALUES (7, 'DESP
 
 
 --
--- TOC entry 2398 (class 0 OID 26463)
+-- TOC entry 2443 (class 0 OID 26463)
 -- Dependencies: 205
 -- Data for Name: si_plaga; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -4088,8 +4328,8 @@ INSERT INTO si_plaga (id, id_org, nombre, estatus, creado, modificado) VALUES (9
 
 
 --
--- TOC entry 2413 (class 0 OID 27194)
--- Dependencies: 236
+-- TOC entry 2457 (class 0 OID 27194)
+-- Dependencies: 234
 -- Data for Name: si_producto; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -4099,7 +4339,7 @@ INSERT INTO si_producto (id, id_org, codigo, nombre, presentacion, dosis, estatu
 
 
 --
--- TOC entry 2399 (class 0 OID 26475)
+-- TOC entry 2444 (class 0 OID 26475)
 -- Dependencies: 208
 -- Data for Name: si_productor; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -4111,7 +4351,7 @@ INSERT INTO si_productor (id, id_org, id_sap, ced_rif, cod_ref, nombre, telefono
 
 
 --
--- TOC entry 2400 (class 0 OID 26484)
+-- TOC entry 2445 (class 0 OID 26484)
 -- Dependencies: 210
 -- Data for Name: si_programa; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -4121,28 +4361,28 @@ INSERT INTO si_programa (id, id_centro_acopio, nombre, observacion, creado, modi
 INSERT INTO si_programa (id, id_centro_acopio, nombre, observacion, creado, modificado, estatus, codigo, fecha_inicio, fecha_fin, id_cultivo) VALUES (4, 2, 'PROGAMA DE GIRASOL 2012', 'PROGRAMA DE GIRASOL ', '2012-03-14 08:51:20.219544-04:30', NULL, true, '201212', '2012-03-13', '2012-03-15', 12);
 INSERT INTO si_programa (id, id_centro_acopio, nombre, observacion, creado, modificado, estatus, codigo, fecha_inicio, fecha_fin, id_cultivo) VALUES (6, 2, 'PRIMER PROGRAMA', NULL, '2012-03-15 11:58:11.560369-04:30', NULL, true, '20121', '2012-03-15', '2013-03-15', 1);
 INSERT INTO si_programa (id, id_centro_acopio, nombre, observacion, creado, modificado, estatus, codigo, fecha_inicio, fecha_fin, id_cultivo) VALUES (7, 2, 'SEGUNDO PROGRAMA', NULL, '2012-03-15 12:00:34.702275-04:30', NULL, true, '201202', '2012-03-15', '2013-03-15', 2);
-INSERT INTO si_programa (id, id_centro_acopio, nombre, observacion, creado, modificado, estatus, codigo, fecha_inicio, fecha_fin, id_cultivo) VALUES (8, 2, 'PROG. DE MAIZ 1', NULL, '2012-03-15 14:26:29.738337-04:30', '2012-03-15 16:32:44.664009-04:30', true, '201211', '2012-03-15', '2013-03-15', 11);
+INSERT INTO si_programa (id, id_centro_acopio, nombre, observacion, creado, modificado, estatus, codigo, fecha_inicio, fecha_fin, id_cultivo) VALUES (8, 2, 'PROG. DE MAIZ 1', NULL, '2012-03-15 14:26:29.738337-04:30', '2012-03-16 10:26:30.62589-04:30', true, '201211', '2012-03-15', '2013-03-15', 11);
 
 
 --
--- TOC entry 2401 (class 0 OID 26491)
--- Dependencies: 211
+-- TOC entry 2462 (class 0 OID 27387)
+-- Dependencies: 244
 -- Data for Name: si_proveedor; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 
 
 --
--- TOC entry 2402 (class 0 OID 26499)
--- Dependencies: 213
+-- TOC entry 2446 (class 0 OID 26499)
+-- Dependencies: 211
 -- Data for Name: si_punto_entrega; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 
 
 --
--- TOC entry 2403 (class 0 OID 26507)
--- Dependencies: 215
+-- TOC entry 2447 (class 0 OID 26507)
+-- Dependencies: 213
 -- Data for Name: si_recepcion; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -4153,12 +4393,20 @@ INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_producto
 INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_asociado, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo) VALUES (5, 2, 2, 2, 4, NULL, 5, 4, 1, '2012-03-01 08:08:37.409028-04:30', 1, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-03-01 08:08:37.409028-04:30', '2012-03-14 10:39:17.951289', 2, 5);
 INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_asociado, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo) VALUES (6, 2, 2, 2, 4, NULL, 6, 4, 2, '2012-03-01 08:10:00.987249-04:30', 1, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-03-01 08:10:00.987249-04:30', '2012-03-14 10:56:32.430537', 2, 6);
 INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_asociado, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo) VALUES (2, 2, 2, 2, 2, NULL, 2, 4, 1, '2012-02-29 16:12:27.158984-04:30', 1, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-02-29 16:12:27.158984-04:30', '2012-03-14 11:56:14.889533', 2, 2);
-INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_asociado, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo) VALUES (10, 2, 2, 2, 5, 3, 13, 4, 1, '2012-03-14 08:33:15.16074-04:30', 1, '2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-03-14 08:33:15.16074-04:30', '2012-03-14 14:31:00.929526', 2, 9);
+INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_asociado, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo) VALUES (10, 2, 2, 2, 5, 3, 13, 4, 1, '2012-03-14 08:33:15.16074-04:30', 1, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-03-14 08:33:15.16074-04:30', '2012-03-14 14:31:00.929526', 2, 9);
 
 
 --
--- TOC entry 2404 (class 0 OID 26513)
--- Dependencies: 217
+-- TOC entry 2461 (class 0 OID 27374)
+-- Dependencies: 242
+-- Data for Name: si_recepcion_cultivo_tipo; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+
+
+--
+-- TOC entry 2448 (class 0 OID 26513)
+-- Dependencies: 215
 -- Data for Name: si_recursos; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -4168,8 +4416,8 @@ INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificaci
 
 
 --
--- TOC entry 2405 (class 0 OID 26520)
--- Dependencies: 218
+-- TOC entry 2449 (class 0 OID 26520)
+-- Dependencies: 216
 -- Data for Name: si_recursos_etiquetas; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -4214,12 +4462,12 @@ INSERT INTO si_recursos_etiquetas (id, id_recurso, nombre, valor, global, creado
 INSERT INTO si_recursos_etiquetas (id, id_recurso, nombre, valor, global, creado, modificado) VALUES (40, 3, 'E_FueraNorma', 'El valor indicado está fuera de norma.!!!', 0, '2012-03-06 00:00:00-04:30', NULL);
 INSERT INTO si_recursos_etiquetas (id, id_recurso, nombre, valor, global, creado, modificado) VALUES (38, 1, 'M_AnalisisRec', 'Resultados de Lab.', 1, '2012-03-06 10:43:26.712496-04:30', NULL);
 INSERT INTO si_recursos_etiquetas (id, id_recurso, nombre, valor, global, creado, modificado) VALUES (41, 3, 'M_Rechazo', 'La Muestra  rechazada. Desea emitir boleta de Rechazo? !!!', 0, '2012-03-14 00:00:00-04:30', NULL);
-INSERT INTO si_recursos_etiquetas (id, id_recurso, nombre, valor, global, creado, modificado) VALUES (42, 3, 'M_EnviaCuarentena', 'La Muestra contiene INSECTOS VIVOS. Desea enviar a Cuarentena?', 0, '2012-03-14 00:00:00-04:30', NULL);
+INSERT INTO si_recursos_etiquetas (id, id_recurso, nombre, valor, global, creado, modificado) VALUES (42, 3, 'E_40TNA', 'El valor indicado está fuera de norma. Desea enviar a Cuarentena? !!!', 0, '2012-03-14 00:00:00-04:30', NULL);
 
 
 --
--- TOC entry 2406 (class 0 OID 26533)
--- Dependencies: 222
+-- TOC entry 2450 (class 0 OID 26533)
+-- Dependencies: 220
 -- Data for Name: si_silos; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -4305,38 +4553,38 @@ INSERT INTO si_silos (id, id_centro_acopio, id_almacen, nombre, coordenada, codi
 
 
 --
--- TOC entry 2407 (class 0 OID 26544)
--- Dependencies: 224
+-- TOC entry 2451 (class 0 OID 26544)
+-- Dependencies: 222
 -- Data for Name: si_tolcarom; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 
 
 --
--- TOC entry 2408 (class 0 OID 26550)
--- Dependencies: 225
+-- TOC entry 2452 (class 0 OID 26550)
+-- Dependencies: 223
 -- Data for Name: si_transporte; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 
 
 --
--- TOC entry 2409 (class 0 OID 26560)
--- Dependencies: 228
+-- TOC entry 2453 (class 0 OID 26560)
+-- Dependencies: 226
 -- Data for Name: si_usuarios; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (4, 'JESUS', 'RODRIGUEZ', '18264065', NULL, 'M', 'JRODRIGUEZ                      ', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Cagua', NULL, 'jesusrodriguez@agropatria.co.ve', '2012-02-13 00:00:00-04:30', '2012-02-13 00:00:00-04:30', true, 0, NULL, '2012-03-14 09:28:46.315917-04:30');
-INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (1, 'JOSE', 'PELUZZO', '1234567', '2012-02-12', 'M', 'JPELUZZO                        ', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Maracay', NULL, 'josepeluzzo@agropatria.co.ve', '2012-02-12 00:00:00-04:30', NULL, true, 1, '0nfvl1u2c43ttrhshciecmffk0', '2012-03-14 13:22:44.751752-04:30');
+INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (2, 'JESUS', 'SILVA', '9668397', '1970-09-01', 'M', 'JSILVA                          ', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Maracay', NULL, 'jesussilva@agropatria.co.ve', '2012-02-13 00:00:00-04:30', '2012-02-13 00:00:00-04:30', true, 0, NULL, '2012-03-16 10:43:30.714079-04:30');
+INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (4, 'JESUS', 'RODRIGUEZ', '18264065', NULL, 'M', 'JRODRIGUEZ                      ', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Cagua', NULL, 'jesusrodriguez@agropatria.co.ve', '2012-02-13 00:00:00-04:30', '2012-02-13 00:00:00-04:30', true, 1, 'ht3u59657ji7gvr8ggu1jaab42', '2012-03-16 10:55:53.086692-04:30');
 INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (5, 'Mariely', 'Coronado', '16000000', NULL, 'F', 'MCORONADO                       ', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'La Villa', NULL, 'marielycoronado@agropatria.co.ve', '2012-02-13 00:00:00-04:30', NULL, true, 0, NULL, NULL);
 INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (6, 'Yelitza', 'Guzman', '13000000', NULL, 'F', 'YGUZMAN                         ', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Maracay', NULL, 'yelitzaguzman@agropatria.co.ve', '2012-02-13 00:00:00-04:30', NULL, true, 0, NULL, NULL);
-INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (3, 'JUAN', 'TABORDA', '13769341', NULL, 'M', 'JTABORDA                        ', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Maracay', NULL, 'juantaborda@agropatria.co.ve', '2012-02-13 00:00:00-04:30', '2012-02-17 00:00:00-04:30', true, 1, '0nfvl1u2c43ttrhshciecmffk0', '2012-03-14 13:38:58.719587-04:30');
-INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (2, 'JESUS', 'SILVA', '9668397', '1970-09-01', 'M', 'JSILVA                          ', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Maracay', NULL, 'jesussilva@agropatria.co.ve', '2012-02-13 00:00:00-04:30', '2012-02-13 00:00:00-04:30', true, 0, NULL, '2012-03-15 15:52:31.186878-04:30');
+INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (3, 'JUAN', 'TABORDA', '13769341', NULL, 'M', 'JTABORDA                        ', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Maracay', NULL, 'juantaborda@agropatria.co.ve', '2012-02-13 00:00:00-04:30', '2012-02-17 00:00:00-04:30', true, 1, 'blrevot01orsbnhm86a49r4i94', '2012-03-16 10:32:59.866523-04:30');
+INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (1, 'JOSE', 'PELUZZO', '1234567', '2012-02-12', 'M', 'JPELUZZO                        ', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Maracay', NULL, 'josepeluzzo@agropatria.co.ve', '2012-02-12 00:00:00-04:30', NULL, true, 0, NULL, '2012-03-16 10:38:48.525318-04:30');
 
 
 --
--- TOC entry 2410 (class 0 OID 26571)
--- Dependencies: 230
+-- TOC entry 2454 (class 0 OID 26571)
+-- Dependencies: 228
 -- Data for Name: si_usuarios_perfiles; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -4349,8 +4597,8 @@ INSERT INTO si_usuarios_perfiles (id, id_usuario, id_almacen, id_perfil, creado,
 
 
 --
--- TOC entry 2411 (class 0 OID 26575)
--- Dependencies: 231
+-- TOC entry 2455 (class 0 OID 26575)
+-- Dependencies: 229
 -- Data for Name: si_vehiculos; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -4365,7 +4613,7 @@ INSERT INTO si_vehiculos (id, placa, marca, color, capacidad, tara_aprox, chuto,
 
 
 --
--- TOC entry 2181 (class 2606 OID 26603)
+-- TOC entry 2204 (class 2606 OID 26603)
 -- Dependencies: 152 152
 -- Name: app_error_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4375,7 +4623,7 @@ ALTER TABLE ONLY si_app_error
 
 
 --
--- TOC entry 2213 (class 2606 OID 26605)
+-- TOC entry 2236 (class 2606 OID 26605)
 -- Dependencies: 186 186
 -- Name: log_codigos_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4385,7 +4633,7 @@ ALTER TABLE ONLY si_log_codigos
 
 
 --
--- TOC entry 2169 (class 2606 OID 26607)
+-- TOC entry 2192 (class 2606 OID 26607)
 -- Dependencies: 141 141
 -- Name: si_alamacenes_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4395,7 +4643,7 @@ ALTER TABLE ONLY si_almacenes
 
 
 --
--- TOC entry 2175 (class 2606 OID 26609)
+-- TOC entry 2198 (class 2606 OID 26609)
 -- Dependencies: 144 144
 -- Name: si_analisis_centro_acopio_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4405,7 +4653,7 @@ ALTER TABLE ONLY si_analisis_centro_acopio
 
 
 --
--- TOC entry 2177 (class 2606 OID 26611)
+-- TOC entry 2200 (class 2606 OID 26611)
 -- Dependencies: 146 146
 -- Name: si_analisis_cultivo_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4415,7 +4663,7 @@ ALTER TABLE ONLY si_analisis_cultivo
 
 
 --
--- TOC entry 2171 (class 2606 OID 26613)
+-- TOC entry 2194 (class 2606 OID 26613)
 -- Dependencies: 143 143 143
 -- Name: si_analisis_id_key; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4425,7 +4673,7 @@ ALTER TABLE ONLY si_analisis
 
 
 --
--- TOC entry 2173 (class 2606 OID 26615)
+-- TOC entry 2196 (class 2606 OID 26615)
 -- Dependencies: 143 143
 -- Name: si_analisis_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4435,7 +4683,7 @@ ALTER TABLE ONLY si_analisis
 
 
 --
--- TOC entry 2179 (class 2606 OID 26617)
+-- TOC entry 2202 (class 2606 OID 26617)
 -- Dependencies: 150 150
 -- Name: si_analisis_resultado_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4445,7 +4693,7 @@ ALTER TABLE ONLY si_analisis_resultado
 
 
 --
--- TOC entry 2183 (class 2606 OID 26619)
+-- TOC entry 2206 (class 2606 OID 26619)
 -- Dependencies: 154 154
 -- Name: si_asociado_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4455,7 +4703,7 @@ ALTER TABLE ONLY si_asociado
 
 
 --
--- TOC entry 2185 (class 2606 OID 26621)
+-- TOC entry 2208 (class 2606 OID 26621)
 -- Dependencies: 156 156
 -- Name: si_cargo_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4465,7 +4713,7 @@ ALTER TABLE ONLY si_cargo
 
 
 --
--- TOC entry 2187 (class 2606 OID 26623)
+-- TOC entry 2210 (class 2606 OID 26623)
 -- Dependencies: 158 158
 -- Name: si_cargo_tipo_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4475,7 +4723,7 @@ ALTER TABLE ONLY si_cargo_tipo
 
 
 --
--- TOC entry 2189 (class 2606 OID 26625)
+-- TOC entry 2212 (class 2606 OID 26625)
 -- Dependencies: 160 160
 -- Name: si_centro_acopio_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4485,7 +4733,17 @@ ALTER TABLE ONLY si_centro_acopio
 
 
 --
--- TOC entry 2191 (class 2606 OID 26627)
+-- TOC entry 2292 (class 2606 OID 27379)
+-- Dependencies: 238 238
+-- Name: si_choferes_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
+--
+
+ALTER TABLE ONLY si_choferes
+    ADD CONSTRAINT si_choferes_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2214 (class 2606 OID 26627)
 -- Dependencies: 162 162
 -- Name: si_cliente_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4495,7 +4753,7 @@ ALTER TABLE ONLY si_cliente
 
 
 --
--- TOC entry 2193 (class 2606 OID 26629)
+-- TOC entry 2216 (class 2606 OID 26629)
 -- Dependencies: 164 164
 -- Name: si_cosecha_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4505,8 +4763,8 @@ ALTER TABLE ONLY si_cosecha
 
 
 --
--- TOC entry 2263 (class 2606 OID 27191)
--- Dependencies: 234 234 234 234
+-- TOC entry 2284 (class 2606 OID 27191)
+-- Dependencies: 232 232 232 232
 -- Name: si_cosecha_silo_id_cosecha_key; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -4515,8 +4773,8 @@ ALTER TABLE ONLY si_cosecha_silo
 
 
 --
--- TOC entry 2265 (class 2606 OID 27174)
--- Dependencies: 234 234
+-- TOC entry 2286 (class 2606 OID 27174)
+-- Dependencies: 232 232
 -- Name: si_cosecha_silo_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -4525,8 +4783,8 @@ ALTER TABLE ONLY si_cosecha_silo
 
 
 --
--- TOC entry 2269 (class 2606 OID 27287)
--- Dependencies: 238 238
+-- TOC entry 2290 (class 2606 OID 27332)
+-- Dependencies: 236 236
 -- Name: si_cuarentena_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -4535,7 +4793,7 @@ ALTER TABLE ONLY si_cuarentena
 
 
 --
--- TOC entry 2195 (class 2606 OID 26633)
+-- TOC entry 2218 (class 2606 OID 26633)
 -- Dependencies: 168 168
 -- Name: si_cultivo_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4545,7 +4803,17 @@ ALTER TABLE ONLY si_cultivo
 
 
 --
--- TOC entry 2197 (class 2606 OID 26635)
+-- TOC entry 2294 (class 2606 OID 27417)
+-- Dependencies: 240 240
+-- Name: si_cultivo_tipo_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
+--
+
+ALTER TABLE ONLY si_cultivo_tipo
+    ADD CONSTRAINT si_cultivo_tipo_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2220 (class 2606 OID 26635)
 -- Dependencies: 170 170
 -- Name: si_denom_tip_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4555,7 +4823,7 @@ ALTER TABLE ONLY si_denom_tip
 
 
 --
--- TOC entry 2199 (class 2606 OID 26637)
+-- TOC entry 2222 (class 2606 OID 26637)
 -- Dependencies: 171 171
 -- Name: si_despacho_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4565,7 +4833,7 @@ ALTER TABLE ONLY si_despacho
 
 
 --
--- TOC entry 2201 (class 2606 OID 26639)
+-- TOC entry 2224 (class 2606 OID 26639)
 -- Dependencies: 174 174
 -- Name: si_ejes_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4575,7 +4843,7 @@ ALTER TABLE ONLY si_ejes
 
 
 --
--- TOC entry 2203 (class 2606 OID 26641)
+-- TOC entry 2226 (class 2606 OID 26641)
 -- Dependencies: 176 176
 -- Name: si_estado_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4585,7 +4853,7 @@ ALTER TABLE ONLY si_estado
 
 
 --
--- TOC entry 2205 (class 2606 OID 26643)
+-- TOC entry 2228 (class 2606 OID 26643)
 -- Dependencies: 177 177
 -- Name: si_finca_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4595,7 +4863,7 @@ ALTER TABLE ONLY si_finca
 
 
 --
--- TOC entry 2207 (class 2606 OID 26645)
+-- TOC entry 2230 (class 2606 OID 26645)
 -- Dependencies: 179 179
 -- Name: si_formulas_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4605,7 +4873,7 @@ ALTER TABLE ONLY si_formulas
 
 
 --
--- TOC entry 2209 (class 2606 OID 26647)
+-- TOC entry 2232 (class 2606 OID 26647)
 -- Dependencies: 181 181
 -- Name: si_guia_rec_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4615,7 +4883,7 @@ ALTER TABLE ONLY si_guiarec
 
 
 --
--- TOC entry 2211 (class 2606 OID 26649)
+-- TOC entry 2234 (class 2606 OID 26649)
 -- Dependencies: 182 182
 -- Name: si_guiarec_det_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4625,7 +4893,7 @@ ALTER TABLE ONLY si_guiarec_det
 
 
 --
--- TOC entry 2215 (class 2606 OID 26651)
+-- TOC entry 2238 (class 2606 OID 26651)
 -- Dependencies: 188 188
 -- Name: si_log_consultas_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4635,7 +4903,7 @@ ALTER TABLE ONLY si_log_consultas
 
 
 --
--- TOC entry 2217 (class 2606 OID 26653)
+-- TOC entry 2240 (class 2606 OID 26653)
 -- Dependencies: 190 190
 -- Name: si_menu_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4645,7 +4913,7 @@ ALTER TABLE ONLY si_menu
 
 
 --
--- TOC entry 2219 (class 2606 OID 26655)
+-- TOC entry 2242 (class 2606 OID 26655)
 -- Dependencies: 191 191 191
 -- Name: si_menu_usuario_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4655,7 +4923,7 @@ ALTER TABLE ONLY si_menu_usuario
 
 
 --
--- TOC entry 2221 (class 2606 OID 26657)
+-- TOC entry 2244 (class 2606 OID 26657)
 -- Dependencies: 194 194
 -- Name: si_municipio_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4665,7 +4933,7 @@ ALTER TABLE ONLY si_municipio
 
 
 --
--- TOC entry 2223 (class 2606 OID 26659)
+-- TOC entry 2246 (class 2606 OID 26659)
 -- Dependencies: 196 196
 -- Name: si_ordenes_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4675,7 +4943,7 @@ ALTER TABLE ONLY si_ordenes
 
 
 --
--- TOC entry 2225 (class 2606 OID 26661)
+-- TOC entry 2248 (class 2606 OID 26661)
 -- Dependencies: 198 198
 -- Name: si_org_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4685,7 +4953,7 @@ ALTER TABLE ONLY si_organizacion
 
 
 --
--- TOC entry 2227 (class 2606 OID 26663)
+-- TOC entry 2250 (class 2606 OID 26663)
 -- Dependencies: 200 200
 -- Name: si_pais_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4695,7 +4963,7 @@ ALTER TABLE ONLY si_pais
 
 
 --
--- TOC entry 2229 (class 2606 OID 26665)
+-- TOC entry 2252 (class 2606 OID 26665)
 -- Dependencies: 202 202
 -- Name: si_parametros_pkey1; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4705,7 +4973,7 @@ ALTER TABLE ONLY si_parametros
 
 
 --
--- TOC entry 2231 (class 2606 OID 26667)
+-- TOC entry 2254 (class 2606 OID 26667)
 -- Dependencies: 204 204
 -- Name: si_perfiles_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4715,7 +4983,7 @@ ALTER TABLE ONLY si_perfiles
 
 
 --
--- TOC entry 2233 (class 2606 OID 26669)
+-- TOC entry 2256 (class 2606 OID 26669)
 -- Dependencies: 205 205
 -- Name: si_plaga_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4725,8 +4993,8 @@ ALTER TABLE ONLY si_plaga
 
 
 --
--- TOC entry 2267 (class 2606 OID 27199)
--- Dependencies: 236 236
+-- TOC entry 2288 (class 2606 OID 27199)
+-- Dependencies: 234 234
 -- Name: si_producto_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -4735,7 +5003,7 @@ ALTER TABLE ONLY si_producto
 
 
 --
--- TOC entry 2235 (class 2606 OID 26673)
+-- TOC entry 2258 (class 2606 OID 26673)
 -- Dependencies: 208 208
 -- Name: si_productor_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4745,7 +5013,7 @@ ALTER TABLE ONLY si_productor
 
 
 --
--- TOC entry 2237 (class 2606 OID 26675)
+-- TOC entry 2260 (class 2606 OID 26675)
 -- Dependencies: 210 210
 -- Name: si_programa_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -4755,8 +5023,8 @@ ALTER TABLE ONLY si_programa
 
 
 --
--- TOC entry 2239 (class 2606 OID 26677)
--- Dependencies: 211 211
+-- TOC entry 2298 (class 2606 OID 27395)
+-- Dependencies: 244 244
 -- Name: si_proveedor_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -4765,8 +5033,8 @@ ALTER TABLE ONLY si_proveedor
 
 
 --
--- TOC entry 2241 (class 2606 OID 26679)
--- Dependencies: 213 213
+-- TOC entry 2262 (class 2606 OID 26679)
+-- Dependencies: 211 211
 -- Name: si_punto_entrega_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -4775,8 +5043,18 @@ ALTER TABLE ONLY si_punto_entrega
 
 
 --
--- TOC entry 2243 (class 2606 OID 26681)
--- Dependencies: 215 215
+-- TOC entry 2296 (class 2606 OID 27434)
+-- Dependencies: 242 242
+-- Name: si_recepcion_cultivo_tipo_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
+--
+
+ALTER TABLE ONLY si_recepcion_cultivo_tipo
+    ADD CONSTRAINT si_recepcion_cultivo_tipo_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2264 (class 2606 OID 26681)
+-- Dependencies: 213 213
 -- Name: si_recepcion_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -4785,8 +5063,8 @@ ALTER TABLE ONLY si_recepcion
 
 
 --
--- TOC entry 2247 (class 2606 OID 26683)
--- Dependencies: 218 218
+-- TOC entry 2268 (class 2606 OID 26683)
+-- Dependencies: 216 216
 -- Name: si_recursos_etiquetas_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -4795,8 +5073,8 @@ ALTER TABLE ONLY si_recursos_etiquetas
 
 
 --
--- TOC entry 2245 (class 2606 OID 26685)
--- Dependencies: 217 217
+-- TOC entry 2266 (class 2606 OID 26685)
+-- Dependencies: 215 215
 -- Name: si_recursos_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -4805,8 +5083,8 @@ ALTER TABLE ONLY si_recursos
 
 
 --
--- TOC entry 2249 (class 2606 OID 26687)
--- Dependencies: 222 222
+-- TOC entry 2270 (class 2606 OID 26687)
+-- Dependencies: 220 220
 -- Name: si_silos_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -4815,8 +5093,8 @@ ALTER TABLE ONLY si_silos
 
 
 --
--- TOC entry 2251 (class 2606 OID 26689)
--- Dependencies: 224 224
+-- TOC entry 2272 (class 2606 OID 26689)
+-- Dependencies: 222 222
 -- Name: si_tolcarom_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -4825,8 +5103,8 @@ ALTER TABLE ONLY si_tolcarom
 
 
 --
--- TOC entry 2253 (class 2606 OID 26691)
--- Dependencies: 225 225
+-- TOC entry 2274 (class 2606 OID 26691)
+-- Dependencies: 223 223
 -- Name: si_transporte_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -4835,8 +5113,8 @@ ALTER TABLE ONLY si_transporte
 
 
 --
--- TOC entry 2259 (class 2606 OID 26693)
--- Dependencies: 230 230
+-- TOC entry 2280 (class 2606 OID 26693)
+-- Dependencies: 228 228
 -- Name: si_usuarios_perfiles_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -4845,8 +5123,8 @@ ALTER TABLE ONLY si_usuarios_perfiles
 
 
 --
--- TOC entry 2255 (class 2606 OID 26695)
--- Dependencies: 228 228
+-- TOC entry 2276 (class 2606 OID 26695)
+-- Dependencies: 226 226
 -- Name: si_usuarios_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -4855,8 +5133,8 @@ ALTER TABLE ONLY si_usuarios
 
 
 --
--- TOC entry 2257 (class 2606 OID 26697)
--- Dependencies: 228 228
+-- TOC entry 2278 (class 2606 OID 26697)
+-- Dependencies: 226 226
 -- Name: si_usuarios_usuario_key; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -4865,8 +5143,8 @@ ALTER TABLE ONLY si_usuarios
 
 
 --
--- TOC entry 2261 (class 2606 OID 26699)
--- Dependencies: 231 231
+-- TOC entry 2282 (class 2606 OID 26699)
+-- Dependencies: 229 229
 -- Name: si_vehiculos_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -4875,8 +5153,8 @@ ALTER TABLE ONLY si_vehiculos
 
 
 --
--- TOC entry 2270 (class 2606 OID 26700)
--- Dependencies: 160 2188 141
+-- TOC entry 2299 (class 2606 OID 26700)
+-- Dependencies: 2211 141 160
 -- Name: si_almacenes_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -4885,8 +5163,8 @@ ALTER TABLE ONLY si_almacenes
 
 
 --
--- TOC entry 2271 (class 2606 OID 26705)
--- Dependencies: 2202 141 176
+-- TOC entry 2300 (class 2606 OID 26705)
+-- Dependencies: 141 2225 176
 -- Name: si_almacenes_id_estado_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -4895,8 +5173,8 @@ ALTER TABLE ONLY si_almacenes
 
 
 --
--- TOC entry 2272 (class 2606 OID 26710)
--- Dependencies: 194 141 2220
+-- TOC entry 2301 (class 2606 OID 26710)
+-- Dependencies: 2243 141 194
 -- Name: si_almacenes_id_municipio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -4905,8 +5183,8 @@ ALTER TABLE ONLY si_almacenes
 
 
 --
--- TOC entry 2273 (class 2606 OID 26715)
--- Dependencies: 2226 141 200
+-- TOC entry 2302 (class 2606 OID 26715)
+-- Dependencies: 141 200 2249
 -- Name: si_almacenes_id_pais_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -4915,8 +5193,8 @@ ALTER TABLE ONLY si_almacenes
 
 
 --
--- TOC entry 2275 (class 2606 OID 26720)
--- Dependencies: 143 144 2172
+-- TOC entry 2304 (class 2606 OID 26720)
+-- Dependencies: 144 2195 143
 -- Name: si_analisis_centro_acopio_id_analisis_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -4925,8 +5203,8 @@ ALTER TABLE ONLY si_analisis_centro_acopio
 
 
 --
--- TOC entry 2276 (class 2606 OID 26725)
--- Dependencies: 144 160 2188
+-- TOC entry 2305 (class 2606 OID 26725)
+-- Dependencies: 2211 160 144
 -- Name: si_analisis_centro_acopio_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -4935,8 +5213,8 @@ ALTER TABLE ONLY si_analisis_centro_acopio
 
 
 --
--- TOC entry 2277 (class 2606 OID 26730)
--- Dependencies: 143 2172 146
+-- TOC entry 2306 (class 2606 OID 26730)
+-- Dependencies: 143 146 2195
 -- Name: si_analisis_cultivo_id_analisis_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -4945,8 +5223,8 @@ ALTER TABLE ONLY si_analisis_cultivo
 
 
 --
--- TOC entry 2278 (class 2606 OID 26735)
--- Dependencies: 146 2224 198
+-- TOC entry 2307 (class 2606 OID 26735)
+-- Dependencies: 2247 146 198
 -- Name: si_analisis_cultivo_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -4955,8 +5233,8 @@ ALTER TABLE ONLY si_analisis_cultivo
 
 
 --
--- TOC entry 2279 (class 2606 OID 26740)
--- Dependencies: 148 143 2172
+-- TOC entry 2308 (class 2606 OID 26740)
+-- Dependencies: 148 143 2195
 -- Name: si_analisis_des_id_analisis_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -4965,8 +5243,8 @@ ALTER TABLE ONLY si_analisis_des
 
 
 --
--- TOC entry 2280 (class 2606 OID 26745)
--- Dependencies: 148 198 2224
+-- TOC entry 2309 (class 2606 OID 26745)
+-- Dependencies: 148 198 2247
 -- Name: si_analisis_des_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -4975,8 +5253,8 @@ ALTER TABLE ONLY si_analisis_des
 
 
 --
--- TOC entry 2274 (class 2606 OID 26750)
--- Dependencies: 143 198 2224
+-- TOC entry 2303 (class 2606 OID 26750)
+-- Dependencies: 143 2247 198
 -- Name: si_analisis_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -4985,8 +5263,8 @@ ALTER TABLE ONLY si_analisis
 
 
 --
--- TOC entry 2281 (class 2606 OID 26755)
--- Dependencies: 2172 150 143
+-- TOC entry 2310 (class 2606 OID 26755)
+-- Dependencies: 150 143 2195
 -- Name: si_analisis_resultado_id_analisis_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -4995,8 +5273,8 @@ ALTER TABLE ONLY si_analisis_resultado
 
 
 --
--- TOC entry 2282 (class 2606 OID 26760)
--- Dependencies: 2198 150 171
+-- TOC entry 2311 (class 2606 OID 26760)
+-- Dependencies: 2221 171 150
 -- Name: si_analisis_resultado_id_despacho_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5005,8 +5283,8 @@ ALTER TABLE ONLY si_analisis_resultado
 
 
 --
--- TOC entry 2283 (class 2606 OID 26765)
--- Dependencies: 150 215 2242
+-- TOC entry 2312 (class 2606 OID 26765)
+-- Dependencies: 2263 150 213
 -- Name: si_analisis_resultado_id_recepcion_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5015,8 +5293,8 @@ ALTER TABLE ONLY si_analisis_resultado
 
 
 --
--- TOC entry 2284 (class 2606 OID 26770)
--- Dependencies: 150 2254 228
+-- TOC entry 2313 (class 2606 OID 26770)
+-- Dependencies: 150 2275 226
 -- Name: si_analisis_resultado_id_usuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5025,8 +5303,8 @@ ALTER TABLE ONLY si_analisis_resultado
 
 
 --
--- TOC entry 2285 (class 2606 OID 26775)
--- Dependencies: 2202 154 176
+-- TOC entry 2314 (class 2606 OID 26775)
+-- Dependencies: 2225 176 154
 -- Name: si_asociado_id_estado_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5035,8 +5313,8 @@ ALTER TABLE ONLY si_asociado
 
 
 --
--- TOC entry 2286 (class 2606 OID 26780)
--- Dependencies: 2220 194 154
+-- TOC entry 2315 (class 2606 OID 26780)
+-- Dependencies: 194 154 2243
 -- Name: si_asociado_id_municipio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5045,8 +5323,8 @@ ALTER TABLE ONLY si_asociado
 
 
 --
--- TOC entry 2287 (class 2606 OID 26785)
--- Dependencies: 200 154 2226
+-- TOC entry 2316 (class 2606 OID 26785)
+-- Dependencies: 2249 154 200
 -- Name: si_asociado_id_pais_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5055,8 +5333,8 @@ ALTER TABLE ONLY si_asociado
 
 
 --
--- TOC entry 2288 (class 2606 OID 26790)
--- Dependencies: 154 208 2234
+-- TOC entry 2317 (class 2606 OID 26790)
+-- Dependencies: 154 208 2257
 -- Name: si_asociado_id_productor_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5065,8 +5343,8 @@ ALTER TABLE ONLY si_asociado
 
 
 --
--- TOC entry 2289 (class 2606 OID 26795)
--- Dependencies: 156 141 2168
+-- TOC entry 2318 (class 2606 OID 26795)
+-- Dependencies: 2191 156 141
 -- Name: si_cargo_id_almacen_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5075,8 +5353,8 @@ ALTER TABLE ONLY si_cargo
 
 
 --
--- TOC entry 2290 (class 2606 OID 26800)
--- Dependencies: 158 156 2186
+-- TOC entry 2319 (class 2606 OID 26800)
+-- Dependencies: 156 158 2209
 -- Name: si_cargo_id_cargo_tipo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5085,8 +5363,8 @@ ALTER TABLE ONLY si_cargo
 
 
 --
--- TOC entry 2291 (class 2606 OID 26805)
--- Dependencies: 2254 228 156
+-- TOC entry 2320 (class 2606 OID 26805)
+-- Dependencies: 226 156 2275
 -- Name: si_cargo_id_usuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5095,8 +5373,8 @@ ALTER TABLE ONLY si_cargo
 
 
 --
--- TOC entry 2292 (class 2606 OID 26810)
--- Dependencies: 176 160 2202
+-- TOC entry 2321 (class 2606 OID 26810)
+-- Dependencies: 160 2225 176
 -- Name: si_centro_acopio_id_estado_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5105,8 +5383,8 @@ ALTER TABLE ONLY si_centro_acopio
 
 
 --
--- TOC entry 2293 (class 2606 OID 26815)
--- Dependencies: 2220 194 160
+-- TOC entry 2322 (class 2606 OID 26815)
+-- Dependencies: 2243 194 160
 -- Name: si_centro_acopio_id_municipio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5115,8 +5393,8 @@ ALTER TABLE ONLY si_centro_acopio
 
 
 --
--- TOC entry 2294 (class 2606 OID 26820)
--- Dependencies: 160 2224 198
+-- TOC entry 2323 (class 2606 OID 26820)
+-- Dependencies: 2247 198 160
 -- Name: si_centro_acopio_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5125,8 +5403,8 @@ ALTER TABLE ONLY si_centro_acopio
 
 
 --
--- TOC entry 2295 (class 2606 OID 26825)
--- Dependencies: 160 200 2226
+-- TOC entry 2324 (class 2606 OID 26825)
+-- Dependencies: 160 200 2249
 -- Name: si_centro_acopio_id_pais_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5135,8 +5413,18 @@ ALTER TABLE ONLY si_centro_acopio
 
 
 --
--- TOC entry 2296 (class 2606 OID 26830)
--- Dependencies: 2224 198 162
+-- TOC entry 2399 (class 2606 OID 27380)
+-- Dependencies: 238 2247 198
+-- Name: si_choferes_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY si_choferes
+    ADD CONSTRAINT si_choferes_id_org_fkey FOREIGN KEY (id_org) REFERENCES si_organizacion(id);
+
+
+--
+-- TOC entry 2325 (class 2606 OID 26830)
+-- Dependencies: 2247 198 162
 -- Name: si_cliente_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5145,8 +5433,8 @@ ALTER TABLE ONLY si_cliente
 
 
 --
--- TOC entry 2297 (class 2606 OID 26835)
--- Dependencies: 2194 168 164
+-- TOC entry 2326 (class 2606 OID 26835)
+-- Dependencies: 2217 168 164
 -- Name: si_cosecha_id_cultivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5155,8 +5443,8 @@ ALTER TABLE ONLY si_cosecha
 
 
 --
--- TOC entry 2298 (class 2606 OID 26840)
--- Dependencies: 2236 210 164
+-- TOC entry 2327 (class 2606 OID 26840)
+-- Dependencies: 210 164 2259
 -- Name: si_cosecha_id_programa_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5165,8 +5453,8 @@ ALTER TABLE ONLY si_cosecha
 
 
 --
--- TOC entry 2299 (class 2606 OID 26845)
--- Dependencies: 160 165 2188
+-- TOC entry 2328 (class 2606 OID 26845)
+-- Dependencies: 160 2211 165
 -- Name: si_cosecha_productor_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5175,8 +5463,8 @@ ALTER TABLE ONLY si_cosecha_productor
 
 
 --
--- TOC entry 2300 (class 2606 OID 26850)
--- Dependencies: 164 165 2192
+-- TOC entry 2329 (class 2606 OID 26850)
+-- Dependencies: 165 164 2215
 -- Name: si_cosecha_productor_id_cosecha_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5185,8 +5473,8 @@ ALTER TABLE ONLY si_cosecha_productor
 
 
 --
--- TOC entry 2301 (class 2606 OID 26855)
--- Dependencies: 165 208 2234
+-- TOC entry 2330 (class 2606 OID 26855)
+-- Dependencies: 208 165 2257
 -- Name: si_cosecha_productor_id_productor_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5195,8 +5483,8 @@ ALTER TABLE ONLY si_cosecha_productor
 
 
 --
--- TOC entry 2361 (class 2606 OID 27175)
--- Dependencies: 2192 164 234
+-- TOC entry 2390 (class 2606 OID 27175)
+-- Dependencies: 164 2215 232
 -- Name: si_cosecha_silo_id_cosecha_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5205,8 +5493,8 @@ ALTER TABLE ONLY si_cosecha_silo
 
 
 --
--- TOC entry 2363 (class 2606 OID 27185)
--- Dependencies: 234 2194 168
+-- TOC entry 2392 (class 2606 OID 27185)
+-- Dependencies: 168 2217 232
 -- Name: si_cosecha_silo_id_cultivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5215,8 +5503,8 @@ ALTER TABLE ONLY si_cosecha_silo
 
 
 --
--- TOC entry 2362 (class 2606 OID 27180)
--- Dependencies: 222 234 2248
+-- TOC entry 2391 (class 2606 OID 27180)
+-- Dependencies: 2269 232 220
 -- Name: si_cosecha_silo_id_silo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5225,8 +5513,58 @@ ALTER TABLE ONLY si_cosecha_silo
 
 
 --
--- TOC entry 2302 (class 2606 OID 26860)
--- Dependencies: 168 198 2224
+-- TOC entry 2395 (class 2606 OID 27338)
+-- Dependencies: 2195 143 236
+-- Name: si_cuarentena_id_analisis_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY si_cuarentena
+    ADD CONSTRAINT si_cuarentena_id_analisis_fkey FOREIGN KEY (id_analisis) REFERENCES si_analisis(id);
+
+
+--
+-- TOC entry 2394 (class 2606 OID 27333)
+-- Dependencies: 160 2211 236
+-- Name: si_cuarentena_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY si_cuarentena
+    ADD CONSTRAINT si_cuarentena_id_centro_acopio_fkey FOREIGN KEY (id_centro_acopio) REFERENCES si_centro_acopio(id);
+
+
+--
+-- TOC entry 2396 (class 2606 OID 27343)
+-- Dependencies: 2217 236 168
+-- Name: si_cuarentena_id_cultivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY si_cuarentena
+    ADD CONSTRAINT si_cuarentena_id_cultivo_fkey FOREIGN KEY (id_cultivo) REFERENCES si_cultivo(id);
+
+
+--
+-- TOC entry 2397 (class 2606 OID 27348)
+-- Dependencies: 2263 236 213
+-- Name: si_cuarentena_id_recepcion_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY si_cuarentena
+    ADD CONSTRAINT si_cuarentena_id_recepcion_fkey FOREIGN KEY (id_recepcion) REFERENCES si_recepcion(id);
+
+
+--
+-- TOC entry 2398 (class 2606 OID 27353)
+-- Dependencies: 226 236 2275
+-- Name: si_cuarentena_id_usuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY si_cuarentena
+    ADD CONSTRAINT si_cuarentena_id_usuario_fkey FOREIGN KEY (id_usuario) REFERENCES si_usuarios(id);
+
+
+--
+-- TOC entry 2331 (class 2606 OID 26860)
+-- Dependencies: 198 168 2247
 -- Name: si_cultivo_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5235,8 +5573,38 @@ ALTER TABLE ONLY si_cultivo
 
 
 --
--- TOC entry 2303 (class 2606 OID 26865)
--- Dependencies: 168 170 2194
+-- TOC entry 2402 (class 2606 OID 27428)
+-- Dependencies: 240 143 2195
+-- Name: si_cultivo_tipo_id_analisis_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY si_cultivo_tipo
+    ADD CONSTRAINT si_cultivo_tipo_id_analisis_fkey FOREIGN KEY (id_analisis) REFERENCES si_analisis(id);
+
+
+--
+-- TOC entry 2400 (class 2606 OID 27418)
+-- Dependencies: 2211 160 240
+-- Name: si_cultivo_tipo_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY si_cultivo_tipo
+    ADD CONSTRAINT si_cultivo_tipo_id_centro_acopio_fkey FOREIGN KEY (id_centro_acopio) REFERENCES si_centro_acopio(id);
+
+
+--
+-- TOC entry 2401 (class 2606 OID 27423)
+-- Dependencies: 240 2217 168
+-- Name: si_cultivo_tipo_id_cultivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY si_cultivo_tipo
+    ADD CONSTRAINT si_cultivo_tipo_id_cultivo_fkey FOREIGN KEY (id_cultivo) REFERENCES si_cultivo(id);
+
+
+--
+-- TOC entry 2332 (class 2606 OID 26865)
+-- Dependencies: 2217 168 170
 -- Name: si_denom_tip_id_cultivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5245,8 +5613,8 @@ ALTER TABLE ONLY si_denom_tip
 
 
 --
--- TOC entry 2304 (class 2606 OID 26870)
--- Dependencies: 170 198 2224
+-- TOC entry 2333 (class 2606 OID 26870)
+-- Dependencies: 170 198 2247
 -- Name: si_denom_tip_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5255,8 +5623,8 @@ ALTER TABLE ONLY si_denom_tip
 
 
 --
--- TOC entry 2305 (class 2606 OID 26875)
--- Dependencies: 171 160 2188
+-- TOC entry 2334 (class 2606 OID 26875)
+-- Dependencies: 171 160 2211
 -- Name: si_despacho_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5265,8 +5633,8 @@ ALTER TABLE ONLY si_despacho
 
 
 --
--- TOC entry 2306 (class 2606 OID 26880)
--- Dependencies: 171 168 2194
+-- TOC entry 2335 (class 2606 OID 26880)
+-- Dependencies: 171 168 2217
 -- Name: si_despacho_id_cultivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5275,8 +5643,8 @@ ALTER TABLE ONLY si_despacho
 
 
 --
--- TOC entry 2307 (class 2606 OID 26885)
--- Dependencies: 171 196 2222
+-- TOC entry 2336 (class 2606 OID 26885)
+-- Dependencies: 196 2245 171
 -- Name: si_despacho_id_orden_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5285,8 +5653,8 @@ ALTER TABLE ONLY si_despacho
 
 
 --
--- TOC entry 2308 (class 2606 OID 26890)
--- Dependencies: 171 208 2234
+-- TOC entry 2337 (class 2606 OID 26890)
+-- Dependencies: 171 2257 208
 -- Name: si_despacho_id_productor_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5295,8 +5663,8 @@ ALTER TABLE ONLY si_despacho
 
 
 --
--- TOC entry 2309 (class 2606 OID 26895)
--- Dependencies: 171 213 2240
+-- TOC entry 2338 (class 2606 OID 26895)
+-- Dependencies: 2261 171 211
 -- Name: si_despacho_id_punto_entrega_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5305,8 +5673,8 @@ ALTER TABLE ONLY si_despacho
 
 
 --
--- TOC entry 2310 (class 2606 OID 26900)
--- Dependencies: 171 222 2248
+-- TOC entry 2339 (class 2606 OID 26900)
+-- Dependencies: 2269 171 220
 -- Name: si_despacho_id_silo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5315,8 +5683,8 @@ ALTER TABLE ONLY si_despacho
 
 
 --
--- TOC entry 2311 (class 2606 OID 26905)
--- Dependencies: 171 225 2252
+-- TOC entry 2340 (class 2606 OID 26905)
+-- Dependencies: 171 2273 223
 -- Name: si_despacho_id_transporte_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5325,8 +5693,8 @@ ALTER TABLE ONLY si_despacho
 
 
 --
--- TOC entry 2312 (class 2606 OID 26910)
--- Dependencies: 2254 228 171
+-- TOC entry 2341 (class 2606 OID 26910)
+-- Dependencies: 2275 226 171
 -- Name: si_despacho_id_usuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5335,8 +5703,8 @@ ALTER TABLE ONLY si_despacho
 
 
 --
--- TOC entry 2313 (class 2606 OID 26915)
--- Dependencies: 231 171 2260
+-- TOC entry 2342 (class 2606 OID 26915)
+-- Dependencies: 2281 229 171
 -- Name: si_despacho_id_vehiculo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5345,8 +5713,8 @@ ALTER TABLE ONLY si_despacho
 
 
 --
--- TOC entry 2314 (class 2606 OID 26920)
--- Dependencies: 174 198 2224
+-- TOC entry 2343 (class 2606 OID 26920)
+-- Dependencies: 174 198 2247
 -- Name: si_ejes_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5355,8 +5723,8 @@ ALTER TABLE ONLY si_ejes
 
 
 --
--- TOC entry 2315 (class 2606 OID 26925)
--- Dependencies: 176 200 2226
+-- TOC entry 2344 (class 2606 OID 26925)
+-- Dependencies: 176 200 2249
 -- Name: si_estado_id_pais_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5365,8 +5733,8 @@ ALTER TABLE ONLY si_estado
 
 
 --
--- TOC entry 2316 (class 2606 OID 26930)
--- Dependencies: 177 176 2202
+-- TOC entry 2345 (class 2606 OID 26930)
+-- Dependencies: 2225 176 177
 -- Name: si_finca_id_estado_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5375,8 +5743,8 @@ ALTER TABLE ONLY si_finca
 
 
 --
--- TOC entry 2317 (class 2606 OID 26935)
--- Dependencies: 177 194 2220
+-- TOC entry 2346 (class 2606 OID 26935)
+-- Dependencies: 194 177 2243
 -- Name: si_finca_id_municipio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5385,8 +5753,8 @@ ALTER TABLE ONLY si_finca
 
 
 --
--- TOC entry 2318 (class 2606 OID 26940)
--- Dependencies: 177 198 2224
+-- TOC entry 2347 (class 2606 OID 26940)
+-- Dependencies: 177 2247 198
 -- Name: si_finca_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5395,8 +5763,8 @@ ALTER TABLE ONLY si_finca
 
 
 --
--- TOC entry 2319 (class 2606 OID 26945)
--- Dependencies: 177 200 2226
+-- TOC entry 2348 (class 2606 OID 26945)
+-- Dependencies: 177 2249 200
 -- Name: si_finca_id_pais_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5405,8 +5773,8 @@ ALTER TABLE ONLY si_finca
 
 
 --
--- TOC entry 2320 (class 2606 OID 26950)
--- Dependencies: 177 208 2234
+-- TOC entry 2349 (class 2606 OID 26950)
+-- Dependencies: 208 2257 177
 -- Name: si_finca_id_productor_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5415,8 +5783,8 @@ ALTER TABLE ONLY si_finca
 
 
 --
--- TOC entry 2321 (class 2606 OID 26955)
--- Dependencies: 160 179 2188
+-- TOC entry 2350 (class 2606 OID 26955)
+-- Dependencies: 160 2211 179
 -- Name: si_formulas_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5425,8 +5793,8 @@ ALTER TABLE ONLY si_formulas
 
 
 --
--- TOC entry 2322 (class 2606 OID 26960)
--- Dependencies: 179 168 2194
+-- TOC entry 2351 (class 2606 OID 26960)
+-- Dependencies: 168 179 2217
 -- Name: si_formulas_id_cultivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5435,8 +5803,8 @@ ALTER TABLE ONLY si_formulas
 
 
 --
--- TOC entry 2323 (class 2606 OID 26965)
--- Dependencies: 179 198 2224
+-- TOC entry 2352 (class 2606 OID 26965)
+-- Dependencies: 2247 179 198
 -- Name: si_formulas_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5445,8 +5813,8 @@ ALTER TABLE ONLY si_formulas
 
 
 --
--- TOC entry 2324 (class 2606 OID 26970)
--- Dependencies: 181 228 2254
+-- TOC entry 2353 (class 2606 OID 26970)
+-- Dependencies: 2275 181 226
 -- Name: si_guia_rec_id_usuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5455,8 +5823,8 @@ ALTER TABLE ONLY si_guiarec
 
 
 --
--- TOC entry 2325 (class 2606 OID 26975)
--- Dependencies: 182 181 2208
+-- TOC entry 2354 (class 2606 OID 26975)
+-- Dependencies: 182 2231 181
 -- Name: si_guiarec_det_id_guiarec_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5465,8 +5833,8 @@ ALTER TABLE ONLY si_guiarec_det
 
 
 --
--- TOC entry 2326 (class 2606 OID 26980)
--- Dependencies: 188 186 2212
+-- TOC entry 2355 (class 2606 OID 26980)
+-- Dependencies: 2235 186 188
 -- Name: si_log_consultas_log_codigo_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5475,8 +5843,8 @@ ALTER TABLE ONLY si_log_consultas
 
 
 --
--- TOC entry 2327 (class 2606 OID 26985)
--- Dependencies: 191 190 2216
+-- TOC entry 2356 (class 2606 OID 26985)
+-- Dependencies: 2239 190 191
 -- Name: si_menu_usuario_id_menu_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5485,8 +5853,8 @@ ALTER TABLE ONLY si_menu_usuario
 
 
 --
--- TOC entry 2328 (class 2606 OID 26990)
--- Dependencies: 191 228 2254
+-- TOC entry 2357 (class 2606 OID 26990)
+-- Dependencies: 2275 191 226
 -- Name: si_menu_usuario_id_usuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5495,8 +5863,8 @@ ALTER TABLE ONLY si_menu_usuario
 
 
 --
--- TOC entry 2329 (class 2606 OID 26995)
--- Dependencies: 194 2202 176
+-- TOC entry 2358 (class 2606 OID 26995)
+-- Dependencies: 176 2225 194
 -- Name: si_municipio_id_estado_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5505,8 +5873,8 @@ ALTER TABLE ONLY si_municipio
 
 
 --
--- TOC entry 2330 (class 2606 OID 27000)
--- Dependencies: 160 196 2188
+-- TOC entry 2359 (class 2606 OID 27000)
+-- Dependencies: 160 196 2211
 -- Name: si_ordenes_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5515,8 +5883,8 @@ ALTER TABLE ONLY si_ordenes
 
 
 --
--- TOC entry 2331 (class 2606 OID 27005)
--- Dependencies: 162 2190 196
+-- TOC entry 2360 (class 2606 OID 27005)
+-- Dependencies: 196 162 2213
 -- Name: si_ordenes_id_cliente_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5525,8 +5893,8 @@ ALTER TABLE ONLY si_ordenes
 
 
 --
--- TOC entry 2332 (class 2606 OID 27010)
--- Dependencies: 2194 168 196
+-- TOC entry 2361 (class 2606 OID 27010)
+-- Dependencies: 168 196 2217
 -- Name: si_ordenes_id_cultivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5535,8 +5903,8 @@ ALTER TABLE ONLY si_ordenes
 
 
 --
--- TOC entry 2333 (class 2606 OID 27015)
--- Dependencies: 2202 198 176
+-- TOC entry 2362 (class 2606 OID 27015)
+-- Dependencies: 2225 176 198
 -- Name: si_organizacion_id_estado_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5545,8 +5913,8 @@ ALTER TABLE ONLY si_organizacion
 
 
 --
--- TOC entry 2334 (class 2606 OID 27020)
--- Dependencies: 194 198 2220
+-- TOC entry 2363 (class 2606 OID 27020)
+-- Dependencies: 2243 194 198
 -- Name: si_organizacion_id_municipio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5555,8 +5923,8 @@ ALTER TABLE ONLY si_organizacion
 
 
 --
--- TOC entry 2335 (class 2606 OID 27025)
--- Dependencies: 2226 200 198
+-- TOC entry 2364 (class 2606 OID 27025)
+-- Dependencies: 198 2249 200
 -- Name: si_organizacion_id_pais_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5565,8 +5933,8 @@ ALTER TABLE ONLY si_organizacion
 
 
 --
--- TOC entry 2336 (class 2606 OID 27030)
--- Dependencies: 205 2224 198
+-- TOC entry 2365 (class 2606 OID 27030)
+-- Dependencies: 198 205 2247
 -- Name: si_plaga_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5575,8 +5943,8 @@ ALTER TABLE ONLY si_plaga
 
 
 --
--- TOC entry 2364 (class 2606 OID 27200)
--- Dependencies: 236 198 2224
+-- TOC entry 2393 (class 2606 OID 27200)
+-- Dependencies: 198 234 2247
 -- Name: si_producto_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5585,8 +5953,8 @@ ALTER TABLE ONLY si_producto
 
 
 --
--- TOC entry 2337 (class 2606 OID 27040)
--- Dependencies: 2202 208 176
+-- TOC entry 2366 (class 2606 OID 27040)
+-- Dependencies: 2225 208 176
 -- Name: si_productor_id_estado_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5595,8 +5963,8 @@ ALTER TABLE ONLY si_productor
 
 
 --
--- TOC entry 2338 (class 2606 OID 27045)
--- Dependencies: 2220 208 194
+-- TOC entry 2367 (class 2606 OID 27045)
+-- Dependencies: 194 208 2243
 -- Name: si_productor_id_municipio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5605,8 +5973,8 @@ ALTER TABLE ONLY si_productor
 
 
 --
--- TOC entry 2339 (class 2606 OID 27050)
--- Dependencies: 2224 208 198
+-- TOC entry 2368 (class 2606 OID 27050)
+-- Dependencies: 198 208 2247
 -- Name: si_productor_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5615,8 +5983,8 @@ ALTER TABLE ONLY si_productor
 
 
 --
--- TOC entry 2340 (class 2606 OID 27055)
--- Dependencies: 200 208 2226
+-- TOC entry 2369 (class 2606 OID 27055)
+-- Dependencies: 200 208 2249
 -- Name: si_productor_id_pais_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5625,8 +5993,8 @@ ALTER TABLE ONLY si_productor
 
 
 --
--- TOC entry 2341 (class 2606 OID 27060)
--- Dependencies: 210 2188 160
+-- TOC entry 2370 (class 2606 OID 27060)
+-- Dependencies: 2211 210 160
 -- Name: si_programa_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5635,8 +6003,48 @@ ALTER TABLE ONLY si_programa
 
 
 --
--- TOC entry 2342 (class 2606 OID 27065)
--- Dependencies: 213 162 2190
+-- TOC entry 2408 (class 2606 OID 27406)
+-- Dependencies: 244 176 2225
+-- Name: si_proveedor_id_estado_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY si_proveedor
+    ADD CONSTRAINT si_proveedor_id_estado_fkey FOREIGN KEY (id_estado) REFERENCES si_estado(id);
+
+
+--
+-- TOC entry 2409 (class 2606 OID 27411)
+-- Dependencies: 244 2243 194
+-- Name: si_proveedor_id_municipio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY si_proveedor
+    ADD CONSTRAINT si_proveedor_id_municipio_fkey FOREIGN KEY (id_municipio) REFERENCES si_municipio(id);
+
+
+--
+-- TOC entry 2406 (class 2606 OID 27396)
+-- Dependencies: 2247 198 244
+-- Name: si_proveedor_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY si_proveedor
+    ADD CONSTRAINT si_proveedor_id_org_fkey FOREIGN KEY (id_org) REFERENCES si_organizacion(id);
+
+
+--
+-- TOC entry 2407 (class 2606 OID 27401)
+-- Dependencies: 200 2249 244
+-- Name: si_proveedor_id_pais_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY si_proveedor
+    ADD CONSTRAINT si_proveedor_id_pais_fkey FOREIGN KEY (id_pais) REFERENCES si_pais(id);
+
+
+--
+-- TOC entry 2371 (class 2606 OID 27065)
+-- Dependencies: 211 2213 162
 -- Name: si_punto_entrega_id_cliente_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5645,8 +6053,8 @@ ALTER TABLE ONLY si_punto_entrega
 
 
 --
--- TOC entry 2343 (class 2606 OID 27070)
--- Dependencies: 213 176 2202
+-- TOC entry 2372 (class 2606 OID 27070)
+-- Dependencies: 176 211 2225
 -- Name: si_punto_entrega_id_estado_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5655,8 +6063,8 @@ ALTER TABLE ONLY si_punto_entrega
 
 
 --
--- TOC entry 2344 (class 2606 OID 27075)
--- Dependencies: 2220 213 194
+-- TOC entry 2373 (class 2606 OID 27075)
+-- Dependencies: 2243 194 211
 -- Name: si_punto_entrega_id_municipio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5665,8 +6073,8 @@ ALTER TABLE ONLY si_punto_entrega
 
 
 --
--- TOC entry 2345 (class 2606 OID 27080)
--- Dependencies: 200 213 2226
+-- TOC entry 2374 (class 2606 OID 27080)
+-- Dependencies: 200 2249 211
 -- Name: si_punto_entrega_id_pais_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5675,8 +6083,38 @@ ALTER TABLE ONLY si_punto_entrega
 
 
 --
--- TOC entry 2346 (class 2606 OID 27085)
--- Dependencies: 2182 154 215
+-- TOC entry 2404 (class 2606 OID 27440)
+-- Dependencies: 2211 160 242
+-- Name: si_recepcion_cultivo_tipo_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY si_recepcion_cultivo_tipo
+    ADD CONSTRAINT si_recepcion_cultivo_tipo_id_centro_acopio_fkey FOREIGN KEY (id_centro_acopio) REFERENCES si_centro_acopio(id);
+
+
+--
+-- TOC entry 2405 (class 2606 OID 27445)
+-- Dependencies: 2217 242 168
+-- Name: si_recepcion_cultivo_tipo_id_cultivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY si_recepcion_cultivo_tipo
+    ADD CONSTRAINT si_recepcion_cultivo_tipo_id_cultivo_fkey FOREIGN KEY (id_cultivo) REFERENCES si_cultivo(id);
+
+
+--
+-- TOC entry 2403 (class 2606 OID 27435)
+-- Dependencies: 213 2263 242
+-- Name: si_recepcion_cultivo_tipo_id_recepcion_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY si_recepcion_cultivo_tipo
+    ADD CONSTRAINT si_recepcion_cultivo_tipo_id_recepcion_fkey FOREIGN KEY (id_recepcion) REFERENCES si_recepcion(id);
+
+
+--
+-- TOC entry 2375 (class 2606 OID 27085)
+-- Dependencies: 213 154 2205
 -- Name: si_recepcion_id_asociado_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5685,8 +6123,8 @@ ALTER TABLE ONLY si_recepcion
 
 
 --
--- TOC entry 2347 (class 2606 OID 27090)
--- Dependencies: 2188 215 160
+-- TOC entry 2376 (class 2606 OID 27090)
+-- Dependencies: 213 2211 160
 -- Name: si_recepcion_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5695,8 +6133,8 @@ ALTER TABLE ONLY si_recepcion
 
 
 --
--- TOC entry 2348 (class 2606 OID 27095)
--- Dependencies: 215 2192 164
+-- TOC entry 2377 (class 2606 OID 27095)
+-- Dependencies: 164 2215 213
 -- Name: si_recepcion_id_cosecha_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5705,8 +6143,8 @@ ALTER TABLE ONLY si_recepcion
 
 
 --
--- TOC entry 2349 (class 2606 OID 27100)
--- Dependencies: 215 181 2208
+-- TOC entry 2378 (class 2606 OID 27100)
+-- Dependencies: 2231 213 181
 -- Name: si_recepcion_id_guia_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5715,8 +6153,8 @@ ALTER TABLE ONLY si_recepcion
 
 
 --
--- TOC entry 2350 (class 2606 OID 27105)
--- Dependencies: 2234 215 208
+-- TOC entry 2379 (class 2606 OID 27105)
+-- Dependencies: 208 213 2257
 -- Name: si_recepcion_id_productor_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5725,8 +6163,8 @@ ALTER TABLE ONLY si_recepcion
 
 
 --
--- TOC entry 2351 (class 2606 OID 27110)
--- Dependencies: 222 215 2248
+-- TOC entry 2380 (class 2606 OID 27110)
+-- Dependencies: 213 220 2269
 -- Name: si_recepcion_id_silo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5735,8 +6173,8 @@ ALTER TABLE ONLY si_recepcion
 
 
 --
--- TOC entry 2352 (class 2606 OID 27115)
--- Dependencies: 228 215 2254
+-- TOC entry 2381 (class 2606 OID 27115)
+-- Dependencies: 226 213 2275
 -- Name: si_recepcion_id_usuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5745,8 +6183,8 @@ ALTER TABLE ONLY si_recepcion
 
 
 --
--- TOC entry 2353 (class 2606 OID 27120)
--- Dependencies: 217 218 2244
+-- TOC entry 2382 (class 2606 OID 27120)
+-- Dependencies: 2265 216 215
 -- Name: si_recursos_etiquetas_id_recurso_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5755,8 +6193,8 @@ ALTER TABLE ONLY si_recursos_etiquetas
 
 
 --
--- TOC entry 2354 (class 2606 OID 27125)
--- Dependencies: 141 222 2168
+-- TOC entry 2383 (class 2606 OID 27125)
+-- Dependencies: 141 2191 220
 -- Name: si_silos_id_almacen_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5765,8 +6203,8 @@ ALTER TABLE ONLY si_silos
 
 
 --
--- TOC entry 2355 (class 2606 OID 27130)
--- Dependencies: 160 2188 222
+-- TOC entry 2384 (class 2606 OID 27130)
+-- Dependencies: 160 2211 220
 -- Name: si_silos_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5775,8 +6213,8 @@ ALTER TABLE ONLY si_silos
 
 
 --
--- TOC entry 2356 (class 2606 OID 27135)
--- Dependencies: 160 2188 224
+-- TOC entry 2385 (class 2606 OID 27135)
+-- Dependencies: 160 222 2211
 -- Name: si_tolcarom_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5785,8 +6223,8 @@ ALTER TABLE ONLY si_tolcarom
 
 
 --
--- TOC entry 2357 (class 2606 OID 27140)
--- Dependencies: 2188 160 225
+-- TOC entry 2386 (class 2606 OID 27140)
+-- Dependencies: 2211 160 223
 -- Name: si_transporte_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5795,8 +6233,8 @@ ALTER TABLE ONLY si_transporte
 
 
 --
--- TOC entry 2358 (class 2606 OID 27145)
--- Dependencies: 230 141 2168
+-- TOC entry 2387 (class 2606 OID 27145)
+-- Dependencies: 141 228 2191
 -- Name: si_usuarios_perfiles_id_almacen_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5805,8 +6243,8 @@ ALTER TABLE ONLY si_usuarios_perfiles
 
 
 --
--- TOC entry 2359 (class 2606 OID 27150)
--- Dependencies: 230 2230 204
+-- TOC entry 2388 (class 2606 OID 27150)
+-- Dependencies: 2253 228 204
 -- Name: si_usuarios_perfiles_id_perfil_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5815,8 +6253,8 @@ ALTER TABLE ONLY si_usuarios_perfiles
 
 
 --
--- TOC entry 2360 (class 2606 OID 27155)
--- Dependencies: 228 230 2254
+-- TOC entry 2389 (class 2606 OID 27155)
+-- Dependencies: 226 228 2275
 -- Name: si_usuarios_perfiles_id_usuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -5825,7 +6263,7 @@ ALTER TABLE ONLY si_usuarios_perfiles
 
 
 --
--- TOC entry 2419 (class 0 OID 0)
+-- TOC entry 2467 (class 0 OID 0)
 -- Dependencies: 6
 -- Name: public; Type: ACL; Schema: -; Owner: postgres
 --
@@ -5836,7 +6274,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2012-03-15 16:33:32 VET
+-- Completed on 2012-03-16 11:05:55 VET
 
 --
 -- PostgreSQL database dump complete
