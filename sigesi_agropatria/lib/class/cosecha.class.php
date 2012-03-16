@@ -35,7 +35,7 @@ class Cosecha extends Model {
         $query.=(!empty($codigoCu)) ? " AND cu.codigo = '$codigoCu'" : '';
         $query.=(!empty($stausCo)) ? " AND co.estatus = '$stausCo'" : '';
         $query.=(!empty($statusP)) ? " AND pr.estatus = '$statusP'" : '';
-        $query .= " ORDER BY pr.creado, cu.codigo";
+        $query .= " ORDER BY pr.id, co.codigo";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     

@@ -14,9 +14,9 @@
                 // El texto ingresado es valido, aquí pondremos el código de mandar mensaje...
                 $usuarios = new Usuario();
                 $login = strtoupper($GPC['usuario']);
-                $pass = strtoupper($GPC['pass']);
+                $pass = strtoupper(sha1($GPC['pass']));
 
-                $acction = $usuarios->do_login($login,sha1($pass));
+                $acction = $usuarios->do_login($login,$pass);
                 switch($acction){
                     case 'success':
                         header("location: principal.php");

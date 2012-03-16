@@ -89,6 +89,7 @@
             <th>Area Siembra</th>
             <th>Fecha Inicio</th>
             <th>Fecha Fin</th>
+            <th>Estado</th>
             <? if($_SESSION['s_perfil_id'] == GERENTES){ ?>
             <th>Acci&oacute;n</th>
             <? } ?>
@@ -113,8 +114,18 @@
             <td align="center"><?=$general->date_sql_screen($dataPrograma['fecha_inicio'], '', 'es', '-')?></td>
             <td align="center"><?=$general->date_sql_screen($dataPrograma['fecha_fin'], '', 'es', '-')?></td>
             <td align="center">
+                <?
+                    if($dataPrograma['estatus'] == 't')
+                        echo $html->link('<img src="../images/habilitar.png" width="16" height="16" title=Activo>');
+                    else
+                        echo $html->link('<img src="../images/deshabilitar.png" width="16" height="16" title=Inactivo>');
+                ?>
+            </td>
+            <? if($_SESSION['s_perfil_id'] == GERENTES){ ?>
+            <td align="center">
                 <? echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'programa.php?ac=editar&id='.$dataPrograma['id']); ?>
             </td>
+            <? } ?>
         </tr>
         <tbody id="tbodyPN_<?php echo $i?>" style="display:none">
             <?
@@ -133,9 +144,10 @@
                 <td align="center"><?=$dataCosecha['area_siembra']?></td>
                 <td align="center"><?=$general->date_sql_screen($dataCosecha['fecha_inicio'], '', 'es', '-')?></td>
                 <td align="center"><?=$general->date_sql_screen($dataCosecha['fecha_fin'], '', 'es', '-')?></td>
+                <td align="center">-</td>
                 <? if($_SESSION['s_perfil_id'] == GERENTES){ ?>
                 <td align="center">
-                    <? echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'cosecha.php?ac=editar&id='.$dataCosecha['id']); ?>
+                    <? echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'cosecha.php?ac=editar&idP='.$dataPrograma['id'].'&id='.$dataCosecha['id']); ?>
                 </td>
                 <? } ?>
             </tr>

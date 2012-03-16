@@ -16,7 +16,7 @@ switch ($GPC['ac']) {
             $programa->save($GPC['Programa']);
             $programaID = $programa->id;
 
-            if (!empty($programaID) && !empty($GPC['codigo1']) && !empty($GPC['id_cultivo'])) {
+            if (!empty($programaID) && !empty($GPC['codigo1'])) {
                 for ($i = 1; $i <= $GPC['numeroCosecha']; $i++) {
                     if($GPC['nombre'.$i] != ''){
                         $GPC['Cosecha']['id_programa'] = $programaID;
@@ -196,6 +196,10 @@ $validator->printScript();
                 }
             }
         });
+        
+        $('#AgregarC').click(function(){
+            window.location = 'cosecha.php?idP=<?= $infoPrograma[0]['id'] ?>';
+        });
 
         $('#Guardar').click(function(){
             fechaActual = "<? echo date("d-m-Y"); ?>";
@@ -258,6 +262,7 @@ $validator->printScript();
                 <td><span class="msj_rojo">* </span>Fecha Inicio</td>
                 <td>
                     <?= $html->input('Programa.fecha_inicio', $general->date_sql_screen($infoPrograma[0]['fecha_inicio'], '', 'es', '-'), array('type' => 'text', 'class' => 'inputGrilla fechas', 'readOnly' => 'readOnly')); ?>
+                    <? if($GPC['ac'] != 'editar'){ ?>
                     <img src="../images/calendario.png" id="finiciop" width="16" height="16" style="cursor:pointer" />
                     <script>
                         Calendar.setup({
@@ -268,11 +273,14 @@ $validator->printScript();
                             onSelect   : function() { calculaAno(); verificaCodigo(); this.hide() }
                         });
                     </script>
+                    <? } ?>
                 </td>
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>Fecha Fin</td>
-                <td><?= $html->input('Programa.fecha_fin', $general->date_sql_screen($infoPrograma[0]['fecha_fin'], '', 'es', '-'), array('type' => 'text', 'class' => 'inputGrilla fechas', 'readOnly' => 'readOnly')); ?></td>
+                <td>
+                    <?= $html->input('Programa.fecha_fin', $general->date_sql_screen($infoPrograma[0]['fecha_fin'], '', 'es', '-'), array('type' => 'text', 'class' => 'inputGrilla fechas', 'readOnly' => 'readOnly')); ?>
+                </td>
             </tr>
         </table>
     </fieldset>
@@ -341,6 +349,10 @@ $validator->printScript();
         </table>
     </fieldset>
     <div id="nuevaCosecha"></div>
+    <? }elseif($GPC['ac'] == 'editar'){ ?>
+    <div id="botones2">
+        <? echo $html->input('AgregarC', 'Agregar Cosecha', array('type' => 'button')); ?>
+    </div>
     <? } ?>
     <table align="center">
         <tr>

@@ -5,30 +5,9 @@
     $silos = new Silos();
     
     $listadoCA = $centro_acopio->buscarCA();
-    
-    if($GPC['ac'] == 'estatus'){
-        $almacen = new Almacen();
-        $usuarios = new Usuario();
-        $idCA = $GPC['id'];
-        $status = $GPC['cambiar'];
-        $centro_acopio->desactivarCA($idCA, $status);
-        /* EN EL CASO DE QUE SE QUIERA DESACTIVAR LOS ALMACENES, SILOS Y USUARIOS, DESCOMENTAR ESTAS LINEAS
-         * $almacen->desactivarAL('',$idCA, $status);
-        $silos->desactivarSI('',$idCA, $status);
-        $usuarios->desactivarUsuariosCA($idCA, $status);*/
-        header('location: centros_acopio_listado.php');
-        die();
-    }
     require('../lib/common/header.php');
 ?>
-<script type="text/javascript">
-    function cambiarStatus(){
-        if(confirm('¿Desea cambiar de estatus a este Centro de Acopio?'))
-            return true;
-        else
-            return false;
-    }
-    
+<script type="text/javascript">    
     $(document).ready(function(){
         $('#Nuevo').click(function(){
            window.location = 'centros_acopio.php';
@@ -105,9 +84,9 @@
             <td align="center">
                 <?
                     if($dataCA['estatus'] == 't'){
-                        echo $html->link('<img src="../images/habilitar.png" width="16" height="16" title=Activo>', 'centros_acopio_listado.php?ac=estatus&id='.$dataCA['id'].'&cambiar=f', array('onclick' => 'return cambiarStatus();'));
+                        echo $html->link('<img src="../images/habilitar.png" width="16" height="16" title=Activo>');
                     }else{
-                        echo $html->link('<img src="../images/deshabilitar.png" width="16" height="16" title=Inactivo>', 'centros_acopio_listado.php?ac=estatus&id='.$dataCA['id'].'&cambiar=t', array('onclick' => 'return cambiarStatus();'));
+                        echo $html->link('<img src="../images/deshabilitar.png" width="16" height="16" title=Inactivo>');
                     }
                 ?>
             </td>

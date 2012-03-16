@@ -8,16 +8,6 @@ $usuario = $_SESSION['s_usuario'];
 $nombre_completo = $_SESSION['s_nombre'] . " " . $_SESSION['s_apellido'];
 $perfil_usuario = $_SESSION['s_perfil_id'];
 
-/*
-define('GERENTEG',1);
-define('GERENTES',2);
-define('ADMINISTRADOR',3);
-define('CALIDAD',4);
-define('ROMANERO',5);
-define('RECEPCION',6);
-define('DESPACHO',7);
- */
-
 switch ($perfil_usuario) {
     case GERENTEG:
         $perfil = " GERENTE GENERAL";
@@ -28,8 +18,11 @@ switch ($perfil_usuario) {
     case ADMINISTRADOR:
         $perfil = " ADMINISTRADOR";
     break;
-    case CALIDAD:
-        $perfil = " CALIDAD";
+    case CALIDADG:
+        $perfil = " CALIDAD GENERAL";
+    break;
+    case CALIDADS:
+        $perfil = " CALIDAD DE SILO";
     break;
     case ROMANERO:
         $perfil = " ROMANERO";

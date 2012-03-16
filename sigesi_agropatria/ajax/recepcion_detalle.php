@@ -162,12 +162,13 @@
                 echo $html->input('Asociado.id', $infoAsociado[0]['id'], array('type' => 'hidden'));
         break;
         case 'chofer':
-            $infoVehiculo = $recepcion->buscarChofer($GPC['cp']);
-            $choNuevo = (empty($infoVehiculo)) ? true : false;
+            $chofer = new Chofer();
+            $infoChofer = $chofer->find(array('ced_rif' => $GPC['cp']));
+            $choNuevo = (empty($infoChofer)) ? true : false;
             ?>
                 <tr>
                     <td><span class="msj_rojo">* </span>Nombres y Apellidos: </td>
-                    <td><? echo $html->input('Guia.nombre_chofer', $infoVehiculo[0]['nombre_cho'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><? echo $html->input('Chofer.nombre', $infoChofer[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
             <?
                 if($choNuevo){

@@ -22,10 +22,12 @@
             $productor = new Productor();
             $asociado = new Asociado();
             $vehiculo = new Vehiculo();
+            $chofer = new Chofer();
             
             $GPC['Guia']['id_usuario'] = $_SESSION['s_id'];
             $GPC['Guia']['estatus'] = 'P';
-            $GPC['Guia']['cedula_chofer'] = $GPC['nacion3'].$GPC['Guia']['cedula_chofer'];
+            $GPC['Chofer']['id_org'] = $_SESSION['s_org_id'];
+            //$GPC['Guia']['cedula_chofer'] = $GPC['nacion3'].$GPC['Guia']['cedula_chofer'];
             $GPC['Productor']['ced_rif'] = $GPC['nacion'].$GPC['Productor']['ced_rif'];
             $GPC['Asociado']['ced_rif'] = $GPC['nacion2'].$GPC['Asociado']['ced_rif'];
             $GPC['Recepcion']['id_usuario'] = $_SESSION['s_id'];
@@ -54,6 +56,8 @@
             }
             $aso = (!empty($idAsociado)) ? 't' : 'f';
             $cosecha->guardarProductorCosecha($GPC['Recepcion']['id_cosecha'], $idCA, $idProductor, $aso);
+            $chofer->save($GPC['Chofer']);
+            $idChofer = $chofer->id;
             $vehiculo->save($GPC['Vehiculo']);
             $idVehiculo = $vehiculo->id;
             $GPC['Recepcion']['id_productor'] = $idProductor;
@@ -65,7 +69,7 @@
             $recepcion->save($GPC['Recepcion']);
             $idRecepcion = $recepcion->id;
             
-            if(!empty($idGuia) && !empty($idProductor) && !empty($idVehiculo) && !empty($idRecepcion)){
+            if(!empty($idGuia) && !empty($idProductor) && !empty($idChofer) && !empty($idVehiculo) && !empty($idRecepcion)){
                 $recepcion->_commit_tool();
                 header("location: ".DOMAIN_ROOT."/reportes/imprimir_recepcion.php?id_rec=$idRecepcion");
                 die();
@@ -90,8 +94,8 @@ $validator->setRules('Productor.nombre', array('required' => array('value' => tr
 $validator->setRules('Productor.telefono', array('digits' => array('value' => true, 'message' => 'Solo N&uacute;meros')));
 $validator->setRules('Productor.email', array('email' => array('value' => true, 'message' => 'Correo Inv&aacute;lido')));
 $validator->setRules('Asociado.ced_rif', array('digits' => array('value' => true, 'message' => 'Solo N&uacute;meros'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros'), 'minlength' => array('value' => 6, 'message' => 'Min&iacute;mo 6 D&iacute;gitos')));
-$validator->setRules('Guia.cedula_chofer', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros'), 'minlength' => array('value' => 6, 'message' => 'Min&iacute;mo 6 D&iacute;gitos')));
-$validator->setRules('Guia.nombre_chofer', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Chofer.ced_rif', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros'), 'minlength' => array('value' => 6, 'message' => 'Min&iacute;mo 6 D&iacute;gitos')));
+$validator->setRules('Chofer.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Vehiculo.placa', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Recepcion.carril', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Recepcion.cant_muestras', array('required' => array('value' => true, 'message' => 'Requerido')));
@@ -124,11 +128,16 @@ $validator->printScript();
             }
         });
         
-        $('#Productor\\[ced_rif\\]').change(function(){
+        $('#Productor\\[ced_rif\\]').live('change', function(){
             var np = $('#nacion').val();
             var co = $('#Recepcion\\[id_cosecha\\]').val();
             var ced = $('#Productor\\[ced_rif\\]');
-            if(ced.val().length >= 6 && co != ''){
+            var verif = np+ced.val()
+            var aso = $('#nacion2').val()+$('#Asociado\\[ced_rif\\]').val();
+            if(verif == aso){
+                ced.attr('value', '');
+                alert('La Cedula no puede ser igual a la del Asociado');
+            }else if(ced.val().length >= 6 && co != ''){
                 ced = np+ced.val();
                 $('#productor').load('../ajax/recepcion_detalle.php?ac=productor&cp='+ced+'&co='+co);
             }else if(co == ''){
@@ -138,18 +147,23 @@ $validator->printScript();
             }
         });
         
-        $('#Asociado\\[ced_rif\\]').change(function(){
+        $('#Asociado\\[ced_rif\\]').live('change', function(){
             var np = $('#nacion2').val();
             var ced = $('#Asociado\\[ced_rif\\]');
-            if(ced.val().length >= 6){
+            var verif = np+ced.val();
+            var prod = $('#nacion').val()+$('#Productor\\[ced_rif\\]').val();
+            if(verif == prod){
+                ced.attr('value', '');
+                alert('La Cedula no puede ser igual a la del Productor');
+            }else if(ced.val().length >= 6){
                 ced = np+ced.val();
                 $('#asociado').load('../ajax/recepcion_detalle.php?ac=asociado&cp='+ced);
             }
         });
         
-        $('#Guia\\[cedula_chofer\\]').change(function(){
+        $('#Chofer\\[ced_rif\\]').change(function(){
             var np = $('#nacion3').val();
-            var ced = $('#Guia\\[cedula_chofer\\]');
+            var ced = $('#Chofer\\[ced_rif\\]');
             if(ced.val().length >= 6){
                 ced = np+ced.val();
                 $('#chofer').load('../ajax/recepcion_detalle.php?ac=chofer&cp='+ced);
@@ -306,7 +320,7 @@ $validator->printScript();
                 <td>
                     <?
                         echo $html->select('nacion3', array('options'=>$listaCR));
-                        echo "&nbsp;".$html->input('Guia.cedula_chofer', $infoVehiculo[0]['cedula_chofer'], array('type' => 'text', 'length' => '8', 'class' => 'crproductor integer'));
+                        echo "&nbsp;".$html->input('Chofer.ced_rif', '', array('type' => 'text', 'length' => '8', 'class' => 'crproductor integer'));
                         //echo $html->link('<img id="buscarCho" src="../images/buscar.png" width="16" height="16" title=Buscar Productor>');
                     ?>
                 </td>
@@ -314,7 +328,7 @@ $validator->printScript();
             <tbody id="chofer">
                 <tr>
                     <td><span class="msj_rojo">* </span>Nombres y Apellidos: </td>
-                    <td><? echo $html->input('Guia.nombre_chofer', $infoVehiculo[0]['nombre_chofer'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><? echo $html->input('Chofer.nombre', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
             </tbody>
             <tr>

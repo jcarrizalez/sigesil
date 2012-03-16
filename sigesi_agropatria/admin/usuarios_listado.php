@@ -8,14 +8,6 @@
     else
         $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : null;
     $listadoUsuarios = $usuario->obtenerTodosUsuarios('', $idCA, '', '', '', 'u.nombre');
-    
-    if($GPC['ac'] == 'estatus'){
-        $id = $GPC['id'];
-        $status = $GPC['cambiar'];
-        $usuario->desactivarUsuario($id, $status);
-        header('location: usuarios_listado.php');
-        die();
-    }
     require('../lib/common/header.php');
 ?>
 <script type="text/javascript">
@@ -79,13 +71,13 @@
             <td align="center"><?=$dataUsuario['apellido']?></td>
             <td align="center"><?=$dataUsuario['usuario']?></td>
             <td align="center"><?=$dataUsuario['perfil']?></td>
-            <td align="center"><?=$dataUsuario['email']?></td>
+            <td align="center" style="text-transform: lowercase;"><?=$dataUsuario['email']?></td>
             <td align="center">
                 <?
                     if($dataUsuario['estatus'] == 't'){
-                        echo $html->link('<img src="../images/habilitar.png" width="16" height="16" title=Activo>', 'usuarios_listado.php?ac=estatus&id='.$dataUsuario['id'].'&cambiar=f', array('onclick' => 'return cambiarStatus();'));
+                        echo $html->link('<img src="../images/habilitar.png" width="16" height="16" title=Activo>');
                     }else{
-                        echo $html->link('<img src="../images/deshabilitar.png" width="16" height="16" title=Inactivo>', 'usuarios_listado.php?ac=estatus&id='.$dataUsuario['id'].'&cambiar=t', array('onclick' => 'return cambiarStatus();'));
+                        echo $html->link('<img src="../images/deshabilitar.png" width="16" height="16" title=Inactivo>');
                     }
                 ?>
             </td>
