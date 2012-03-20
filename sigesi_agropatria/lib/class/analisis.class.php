@@ -39,5 +39,20 @@ class Analisis extends Model {
         $query .= (!empty($formula)) ? " AND formula = '$formula'" : "";
         return $this->_SQL_tool('SELECT', __METHOD__, $query);
     }
+    
+    function listadoRecepcion($idCA=null, $id_recepcion=null) {
+        $query = "SELECT a.codigo, a.nombre as nombre_ana, ar.id_analisis,
+                    a.tipo_analisis, ar.muestra1, ar.muestra2, ar.muestra2,
+                    ca.codigo as codigo_ca, ca.nombre as nombre_ca FROM
+                    si_analisis_resultado ar 
+                    INNER JOIN si_centro_acopio ca ON ar.id_centro_acopio=ca.id
+                    INNER JOIN si_analisis a
+                    ON (ar.id_centro_acopio=a.id_centro_acopio) AND (ar.id_analisis=a.id)                                        
+                    WHERE tipo_mov='R'";                    
+        $query .= (!empty($id_recepcion)) ? " AND ar.id = '$$id_recepcion'" : "";
+        $query .= (!empty($idCA)) ? " AND ar.id_centro_acopio = '$idCA'" : "";
+        $query .= "ORDER BY ar.id_recepcion";
+        return $this->_SQL_tool('SELECT', __METHOD__, $query);
+    }
 }
 ?>
