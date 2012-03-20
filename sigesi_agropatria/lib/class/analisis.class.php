@@ -33,7 +33,7 @@ class Analisis extends Model {
         $query = "SELECT * FROM si_analisis WHERE '1'";
         $query .= (!empty($idA)) ? " AND id = '$idA'" : "";
         $query .= (!empty($tipo)) ? " AND tipo_analisis = '$tipo'" : "";
-        $query .= (!empty($nombre)) ? " AND nombre LIKE '%$nombre%'" : "";
+        $query .= (!empty($nombre)) ? " AND nombre ILIKE '%$nombre%'" : "";
         $query .= (!empty($codigo)) ? " AND codigo = '$codigo'" : "";
         $query .= (!empty($estatus)) ? " AND estatus = '$estatus'" : "";
         $query .= (!empty($formula)) ? " AND formula = '$formula'" : "";

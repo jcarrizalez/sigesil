@@ -20,7 +20,7 @@ class Almacen extends Model {
                     INNER JOIN si_municipio mu ON mu.id = al.id_municipio
                     WHERE '1'";
         $query .= (!empty($id)) ? " AND al.id = '$id'" : "";
-        $query .= (!empty($nombre)) ? " AND al.nombre LIKE '%$nombre%'" : "";
+        $query .= (!empty($nombre)) ? " AND al.nombre ILIKE '%$nombre%'" : "";
         $query .= (!empty($idCA)) ? " AND ca.id = '$idCA'" : "";
         $query .= (!empty($idOrg)) ? " AND o.id = '$idOrg'" : "";
         $query .= " ORDER BY al.id_centro_acopio, al.id";

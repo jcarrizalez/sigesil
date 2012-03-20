@@ -27,6 +27,8 @@
             $GPC['Guia']['id_usuario'] = $_SESSION['s_id'];
             $GPC['Guia']['estatus'] = 'P';
             $GPC['Chofer']['id_org'] = $_SESSION['s_org_id'];
+            $GPC['Chofer']['ced_rif'] = $GPC['nacion3'].$GPC['Chofer']['ced_rif'];
+            $GPC['Chofer']['estatus'] = 't';
             //$GPC['Guia']['cedula_chofer'] = $GPC['nacion3'].$GPC['Guia']['cedula_chofer'];
             $GPC['Productor']['ced_rif'] = $GPC['nacion'].$GPC['Productor']['ced_rif'];
             $GPC['Asociado']['ced_rif'] = $GPC['nacion2'].$GPC['Asociado']['ced_rif'];

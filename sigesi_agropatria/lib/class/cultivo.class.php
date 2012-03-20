@@ -8,7 +8,7 @@ class Cultivo extends Model {
                     FROM si_cultivo cul
                     WHERE '1'";
         $query.=(!empty($id)) ? " AND cul.id = $id" : '';
-        $query.=(!empty($nombre)) ? " AND cul.nombre LIKE '%$nombre%'" : '';
+        $query.=(!empty($nombre)) ? " AND cul.nombre ILIKE '%$nombre%'" : '';
         $query.=(!empty($tipo)) ? " AND cul.id_tipo_cultivo = $tipo" : '';
         $query.= " ORDER BY cul.id";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);

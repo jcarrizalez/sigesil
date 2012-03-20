@@ -61,7 +61,7 @@ class Usuario extends Model {
         if (!empty($idPerfil))
             $query .= " AND pe.id = '$idPerfil'";
         if (!empty($buscar))
-            $query .= " AND u.nombre LIKE '%$buscar%' OR u.apellido LIKE '%$buscar%' u.email LIKE '%$buscar%'";
+            $query .= " AND u.nombre ILIKE '%$buscar%' OR u.apellido ILIKE '%$buscar%' u.email ILIKE '%$buscar%'";
         if (!empty($estatus))
             $query .= " AND u.estatus = '$estatus'";
         $query .= (!empty($orden)) ? " ORDER BY $orden" : " ORDER BY ca.nombre, al.id, u.nombre, u.apellido";
@@ -84,7 +84,7 @@ class Usuario extends Model {
         if (!empty($usuario))
             $query .= " AND u.usuario = '$usuario'";
         if (!empty($nombre))
-            $query .= " AND (u.nombre LIKE '%$nombre%' OR u.apellido LIKE '%$nombre%')";
+            $query .= " AND (u.nombre ILIKE '%$nombre%' OR u.apellido ILIKE '%$nombre%')";
         if (!empty($sexo))
             $query .= " AND u.sexo = '$sexo'";
         if (!empty($statusCA))
