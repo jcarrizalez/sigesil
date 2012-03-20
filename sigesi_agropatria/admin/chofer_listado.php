@@ -27,7 +27,7 @@
     });
 </script>
     <div id="titulo_modulo">
-        ORGANIZACIONES<br/><hr/>
+        CHOFERES<br/><hr/>
     </div>
     <div id="mensajes">
         <?

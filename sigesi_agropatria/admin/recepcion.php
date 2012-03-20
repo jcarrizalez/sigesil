@@ -4,7 +4,9 @@
     $cosecha = new Cosecha();
     
     $listaCR = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
-    $listaCantM = array(1 => 1, 2 => 2, 3 => 3);
+    $listaCantM = array(1 => 1, 2 => 2);
+    /*PARA TRABAJAR CON 3 MUESTRAS
+    $listaCantM = array(1 => 1, 2 => 2, 3 => 3);*/
     $listaCarriles = array(1 => 1, 2 => 2);
     $idCA = $_SESSION['s_ca_id'];
     
@@ -65,6 +67,7 @@
             $GPC['Recepcion']['id_productor'] = $idProductor;
             $GPC['Recepcion']['id_guia'] = $idGuia;
             $GPC['Recepcion']['id_vehiculo'] = $idVehiculo;
+            $GPC['Recepcion']['id_chofer'] = $idChofer;
             if(!empty($idAsociado)){
                 $GPC['Recepcion']['id_asociado'] = $idAsociado;
             }

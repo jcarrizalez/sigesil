@@ -66,7 +66,7 @@ $validator->printScript();
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
     <? echo $html->input('Chofer.id', $infoChofer[0]['id'], array('type' => 'hidden')); ?>
     <div id="titulo_modulo">
-        NUEVA ORGANIZACI&Oacute;N<br/><hr/>
+        CHOFER<br/><hr/>
     </div>
     <table align="center">
         <tr>

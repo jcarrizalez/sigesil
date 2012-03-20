@@ -121,7 +121,38 @@ class Recepcion extends Model {
         $query .= (!empty($estatus)) ? " AND rec.estatus_rec = '$estatus'" : "";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
-
+    
+    function listadoRecepcion($id=null, $idCA=null, $idCo=null, $idSilo=null, $entradaNum=null, $estatus=null){
+        $query = "SELECT r.*, 
+                    ca.codigo AS ca_codigo, ca.nombre AS centro_acopio, 
+                    co.codigo AS cosecha_codigo, 
+                    cu.codigo AS cultivo_codigo, cu.nombre AS cultivo_nombre,
+                    g.numero_guia,
+                    s.*,
+                    a.*,
+                    p.*,
+                    ch.*,
+                    v.*
+                    FROM si_recepcion r
+                    INNER JOIN si_centro_acopio ca ON ca.id = r.id_centro_acopio
+                    INNER JOIN si_cosecha co ON co.id = r.id_cosecha
+                    INNER JOIN si_cultivo cu ON cu.id = co.id_cultivo
+                    INNER JOIN si_silos s ON s.id = r.id_silo
+                    INNER JOIN si_productor p ON p.id = r.id_productor
+                    LEFT JOIN si_asociado a ON a.id = r.id_asociado
+                    INNER JOIN si_guiarec g ON g.id = r.id_guia
+                    INNER JOIN si_choferes ch ON ch.id = r.id_chofer
+                    INNER JOIN si_vehiculos v ON v.id = r.id_vehiculo
+                    WHERE '1'";
+        $query .= (!empty($id)) ? " AND r.id = '$id'" : '';
+        $query .= (!empty($idCa)) ? " AND r.id_centro_acopio = '$idCa'" : '';
+        $query .= (!empty($idCo)) ? " AND r.id_cosecha = '$idCo'" : '';
+        $query .= (!empty($idSilo)) ? " AND r.id_silo = '$idSilo'" : '';
+        $query .= (!empty($entradaNum)) ? " AND r.numero = '$entradaNum'" : '';
+        $query .= (!empty($estatus)) ? " AND r.estatus_rec IN ($estatus)" : '';
+        $query .= " ORDER BY r.fecha_recepcion, r.numero";
+        return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
+    }
 }
 
 ?>
