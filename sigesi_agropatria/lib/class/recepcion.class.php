@@ -36,20 +36,6 @@ class Recepcion extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 
-    function guardarGuia($data) {
-        $query = "INSERT INTO si_guiarec (";
-        foreach ($data as $campo => $valor) {
-            $query .= $campo . ", ";
-        }
-        $query = substr($query, 0, -2) . ") VALUES (";
-        foreach ($data as $campo => $valor) {
-            $query .= "'$valor', ";
-        }
-        $query = substr($query, 0, -2) . ")";
-        //$id = $this->_SQL_tool('INSERT', __METHOD__, $query);
-        return $this->id = $id;
-    }
-
     function productorRecepcion($ced_rif) {
         $query = "SELECT pro.id, pro.ced_rif AS cedula_pro, pro.nombre AS nombre_pro, pro.telefono AS telefono_pro, pro.email AS email_pro
                     FROM si_productor pro
@@ -128,11 +114,11 @@ class Recepcion extends Model {
                     co.codigo AS cosecha_codigo, 
                     cu.codigo AS cultivo_codigo, cu.nombre AS cultivo_nombre,
                     g.numero_guia,
-                    s.*,
-                    a.*,
-                    p.*,
-                    ch.*,
-                    v.*
+                    s.codigo AS codigo_silo, s.nombre AS silo_nombre,
+                    a.ced_rif AS ced_asociado, a.nombre AS asociado_nombre,
+                    p.ced_rif AS ced_productor, p.nombre AS productor_nombre,
+                    ch.ced_rif AS ced_chofer, ch.nombre AS chofer_nombre,
+                    v.placa, v.marca, v.color, v.capacidad, v.tara_aprox, v.chuto, v.placa_remolques
                     FROM si_recepcion r
                     INNER JOIN si_centro_acopio ca ON ca.id = r.id_centro_acopio
                     INNER JOIN si_cosecha co ON co.id = r.id_cosecha
