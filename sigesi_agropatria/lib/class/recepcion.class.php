@@ -110,6 +110,8 @@ class Recepcion extends Model {
     
     function listadoRecepcion($id=null, $idCA=null, $idCo=null, $idSilo=null, $entradaNum=null, $estatus=null){
         $query = "SELECT r.*, 
+                    (SELECT t1.nombre FROM si_tolcarom t1 WHERE t1.id = r.romana_ent) AS romana_ent, 
+                    (SELECT t2.nombre FROM si_tolcarom t2 WHERE t2.id = r.romana_sal) AS romana_sal, 
                     ca.codigo AS ca_codigo, ca.nombre AS centro_acopio, 
                     co.codigo AS cosecha_codigo, 
                     cu.codigo AS cultivo_codigo, cu.nombre AS cultivo_nombre,

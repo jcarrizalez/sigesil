@@ -30,7 +30,7 @@ switch ($GPC['ac']) {
                     if($GPC['Formula']['tipo_for'] == 1 && $multiple == 1)
                         unset($GPC['Formula']['condicion']);
                     elseif ($GPC['Formula']['tipo_for'] == 1 && $multiple == 2)
-                        $GPC['Formula']['condicion'] = $GPC["desde_$i"]." < ".$GPC["hasta_$i"];
+                        $GPC['Formula']['condicion'] = $GPC['Formula']['id_analisis']. " = " .$GPC["desde_$i"]." < ".$GPC["hasta_$i"];
                     else
                         $GPC['Formula']['condicion'] = $GPC["otra_condicion_$i"]." = ".$GPC["desde_$i"]." < ".$GPC["hasta_$i"];
 
@@ -302,6 +302,7 @@ $validator->printScript();
                 <td>Tipo de Formulaci&oacute;n:</td>
                 <td><? echo $html->select('Formula.tipo_for', array('options' => $listaTipo, 'readOnly' => $disabled, 'selected' => $infoFormula[0]['tipo_for'], 'default' => 'Seleccione', 'class' => 'inputGrilla botonera')) ?></td>
             </tr>
+            </tr>
             <tbody id="opciones"></tbody>
             <tr>
                 <td>Condici&oacute;n &Uacute;nica:</td>
@@ -407,9 +408,10 @@ $validator->printScript();
                     <span id="eval_cond">
                     <?
                         if($infoFormula[0]['tipo_for'] == 1 && !empty($infoFormula[0]['condicion'])){
-                            $condicion = split('<', $infoFormula[0]['condicion']);
-                            echo "Condici&oacute;n: ".$html->input("desde_1", trim($condicion[0]), array('type' => 'text', 'class' => 'positive rango', 'style' => 'width: 40px'));
-                            echo "<&nbsp;&nbsp;".$html->input("hasta_1", trim($condicion[1]), array('type' => 'text', 'class' => 'positive rango', 'style' => 'width: 40px'))."<br/>";
+                            $condicion = split('=', $infoFormula[0]['condicion']);
+                            $rango = split('<', $condicion[1]);
+                            echo "Condici&oacute;n: ".$html->input("desde_1", trim($rango[0]), array('type' => 'text', 'class' => 'positive rango', 'style' => 'width: 40px'));
+                            echo "<&nbsp;&nbsp;".$html->input("hasta_1", trim($rango[1]), array('type' => 'text', 'class' => 'positive rango', 'style' => 'width: 40px'))."<br/>";
                         }elseif($infoFormula[0]['tipo_for'] == 2){
                             $condicion = split('=', $infoFormula[0]['condicion']);
                             $rango = split('<', $condicion[1]);

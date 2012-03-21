@@ -87,7 +87,7 @@
             <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
             <th>Centro Acopio</th>
             <? } ?>
-            <th>C&oacute;digo Cultivo</th>
+            <th>Cultivo</th>
             <th width="1">C&oacute;digo</th>
             <th>Formula</th>
             <th>Condici&oacute;n</th>
@@ -107,7 +107,7 @@
             <td align="center"><?=$dataFormula['codigo_cultivo']?></td>
             <td align="center"><?=$dataFormula['codigo']?></td>
             <td><?=$dataFormula['formula']?></td>
-            <td><?=$dataFormula['condicion']?></td>
+            <td align="center"><?=$dataFormula['condicion']?></td>
             <? if($_SESSION['s_perfil_id'] == GERENTES){ ?>
             <td align="center">
                 <?

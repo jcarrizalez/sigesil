@@ -17,7 +17,8 @@
     switch ($GPC['mov']){
         case 'des':
         $movimiento = new Despacho();
-        $estatus = "'1', '3'";
+        $listadoEstatus = array('3' => 'Romana Lleno', '6' => 'Romana Vac&iacute;o');
+        $estatus = (!empty($GPC['estatus'])) ? "'".$GPC['estatus']."'" : "'1', '3'";
         //$listadoRomana = $movimiento->listadoDespacho($idCA, $idCo=null, $idSilo=null, $entradaNum=null, $estatus);
 
 
@@ -53,6 +54,15 @@
                     <td width="60">Cosecha</td>
                     <td>
                         <? echo $html->select('cosecha',array('options'=>$listadoC, 'selected' => $GPC['cosecha'], 'default' => 'Seleccione'));?>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="60">Estatus</td>
+                    <td>
+                        <?
+                            echo $html->select('estatus',array('options'=>$listadoEstatus, 'selected' => $GPC['estatus'], 'default' => 'Seleccione'));
+                            echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
+                        ?>
                     </td>
                 </tr>
                 <tr id="botones">
@@ -102,7 +112,7 @@
             <td align="center"><?=$tipo?></td>
             <? if($_SESSION['s_perfil_id'] == ROMANERO){ ?>
             <td align="center">
-                <? echo $html->link('<img src="../images/peso.png" width="16" height="16" title=Pesar>', 'romana.php?ac=pesar&id='.$dataRomana['id']); ?>
+                <? echo $html->link('<img src="../images/peso.png" width="16" height="16" title=Pesar>', 'romana.php?ac=pesar&id='.$dataRomana['id'].'&mov='.$GPC['mov']); ?>
             </td>
             <? } ?>
         </tr>
@@ -218,7 +228,7 @@
             <td align="center"><?=$tipo?></td>
             <? if($_SESSION['s_perfil_id'] == ROMANERO){ ?>
             <td align="center">
-                <? echo $html->link('<img src="../images/peso1.png" width="26" height="20" title=Pesar>', 'romana.php?ac=pesar&id='.$dataRomana['id'].'&estatus='.$dataRomana['estatus_rec']); ?>
+                <? echo $html->link('<img src="../images/peso1.png" width="26" height="20" title=Pesar>', 'romana.php?ac=pesar&id='.$dataRomana['id'].'&mov='.$GPC['mov']); ?>
             </td>
             <? } ?>
         </tr>
