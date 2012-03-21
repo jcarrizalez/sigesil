@@ -38,7 +38,7 @@ switch ($GPC['ac']) {
             $infoCtna = $Ctna->find(array('id_recepcion' => $id));
             $id_cuarentena=$infoCtna[0]['id'];
             if ($infoCtna->id) {
-                header("location: analisis_recepcion_listado.php?msg=error");
+                header("location: analisis_resultado_listado.php?msg=error");
                 die();
             }            
             $Ctna->_begin_tool();
@@ -49,13 +49,13 @@ switch ($GPC['ac']) {
             $GPC['Cuarentena']['estatus']='2'; //Se fija el estatus 2 la primera vez que se registra
             $Ctna->save($GPC['Cuarentena']);
             $Ctna->_commit_tool();
-            if ($Ctna->id) {                
-                header("location: analisis_recepcion_listado.php?msg=exitoso");
+            if ($Ctna->id) {
+                header("location: analisis_resultado_listado.php?msg=exitoso&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
                 die();
             }
             else {
                 $Ctna->_rollback_tool();
-                header("location: analisis_recepcion_listado.php?msg=error");
+                header("location: analisis_resultado_listado.php?msg=error");
                 die();
                 }
         }

@@ -24,8 +24,6 @@ class Analisis extends Model {
         $query .= (!empty($id_analisis)) ? " AND id_analisis = '$id_analisis'" : "";
         $query .= "ORDER BY id_recepcion";
         $id = $this->_SQL_tool('SELECT', __METHOD__, $query);
-//        debug::pr($query);
-//        die();
         return $this->id = $id;
     }
     
@@ -40,19 +38,32 @@ class Analisis extends Model {
         return $this->_SQL_tool('SELECT', __METHOD__, $query);
     }
     
-    function listadoRecepcion($idCA=null, $id_recepcion=null) {
-        $query = "SELECT a.codigo, a.nombre as nombre_ana, ar.id_analisis,
-                    a.tipo_analisis, ar.muestra1, ar.muestra2, ar.muestra2,
-                    ca.codigo as codigo_ca, ca.nombre as nombre_ca FROM
-                    si_analisis_resultado ar 
-                    INNER JOIN si_centro_acopio ca ON ar.id_centro_acopio=ca.id
-                    INNER JOIN si_analisis a
-                    ON (ar.id_centro_acopio=a.id_centro_acopio) AND (ar.id_analisis=a.id)                                        
-                    WHERE tipo_mov='R'";                    
-        $query .= (!empty($id_recepcion)) ? " AND ar.id = '$$id_recepcion'" : "";
-        $query .= (!empty($idCA)) ? " AND ar.id_centro_acopio = '$idCA'" : "";
-        $query .= "ORDER BY ar.id_recepcion";
-        return $this->_SQL_tool('SELECT', __METHOD__, $query);
+    function buscarAC($id=null, $IdCultivo=null, $idCA=null) { 
+    $query = "SELECT a.id, ac.id_cultivo, a.codigo, a.nombre, a.tipo_analisis,
+                ac.min_rec, ac.max_rec , ac.estatus 
+                FROM si_analisis_cultivo ac 
+                INNER JOIN si_analisis a ON a.id=ac.id_analisis and a.id_org=ac.id_org
+                WHERE '1'";
+    $query .= (!empty($id)) ? " AND a.id = '$Id'" : "";        
+    $query .= (!empty($IdCultivo)) ? " AND ac.id_cultivo = '$IdCultivo'" : "";
+    $query .= (!empty($IdCA)) ? " AND ac.id_centro_acopio = '$IdCA'" : "";
+    $query .= " ORDER BY cast(a.codigo as int)";
+    return $this->_SQL_tool($this->SELECT, __METHOD__, $query); 
     }
+    
+//    function listadoRecepcion($idCA=null, $id_recepcion=null) {
+//        $query = "SELECT a.codigo, a.nombre as nombre_ana, ar.id_analisis,
+//                    a.tipo_analisis, ar.muestra1, ar.muestra2, ar.muestra2,
+//                    ca.codigo as codigo_ca, ca.nombre as nombre_ca FROM
+//                    si_analisis_resultado ar 
+//                    INNER JOIN si_centro_acopio ca ON ar.id_centro_acopio=ca.id
+//                    INNER JOIN si_analisis a
+//                    ON (ar.id_centro_acopio=a.id_centro_acopio) AND (ar.id_analisis=a.id)                                        
+//                    WHERE tipo_mov='R'";                    
+//        $query .= (!empty($id_recepcion)) ? " AND ar.id = '$$id_recepcion'" : "";
+//        $query .= (!empty($idCA)) ? " AND ar.id_centro_acopio = '$idCA'" : "";
+//        $query .= "ORDER BY ar.id_recepcion";
+//        return $this->_SQL_tool('SELECT', __METHOD__, $query);
+//    }
 }
 ?>
