@@ -93,7 +93,7 @@
         <?
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
-            $paginador->print_paginator();
+            $paginador->print_paginator('pulldown');
         ?>
     </div>
     <table align="center" width="100%">
@@ -141,7 +141,7 @@
         <?
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
-            $paginador->print_paginator();
+            $paginador->print_paginator('pulldown');
         ?>
     </div>
 <?

@@ -15,7 +15,7 @@
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
     
     $listaCA = $centro_acopio->find('', '', array('id', 'nombre'), 'list', 'id');
-    $formulas->listaFormulas($id_CA, $codigo, '');
+    $formulas->listaFormulas($id_CA, $codigo, '', $porPagina, $inicio);
     
     $total_registros = $formulas->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);
@@ -79,7 +79,7 @@
         <?
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
-            $paginador->print_paginator();
+            $paginador->print_paginator('pulldown');
         ?>
     </div>
     <table align="center" width="100%">
@@ -127,7 +127,7 @@
         <?
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
-            $paginador->print_paginator();
+            $paginador->print_paginator('pulldown');
         ?>
     </div>
 <?
