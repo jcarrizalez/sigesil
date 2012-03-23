@@ -2,36 +2,40 @@
 require_once('../lib/core.lib.php');
 
 $Ctna = new Cuarentena();
-$Cultivos = new Cultivo();
 $Rec = new Recepcion();
-$Vehiculos = new Vehiculo();
 $Guias = new Guia();
+$Cultivos = new Cultivo();
+$Vehiculos = new Vehiculo();
 $Plagas = new Plaga();
 $Productos = new Producto();
 $usuario = new Usuario();
-
 
 $listaCultivos = $Cultivos->find('', null, array('id', 'nombre'), 'list', 'id');
 $listaPlagas = $Plagas->find('', null, array('id', 'nombre'), 'list', 'id');
 $listaProductos = $Productos->find('', null, "id, nombre || ' (' || presentacion || ')' as nombre", 'list', 'id');
 $laboratorio = array(2 => '40tna. lab');
 
-$id=(!empty($GPC['id'])) ? $GPC['id']: $GPC['Cuarentena']['id']; 
+$id=(!empty($GPC['id'])) ? $GPC['id']: ''; 
+$soloLectura=false;
+
+//debug::pr($GPC['id']);
 
 switch ($GPC['ac']) {
     case 'editar':
-//        if (!empty($id)) {
+        if (!empty($GPC['id'])) {
             $infoCtna = $Ctna->find(array('id_recepcion' => $id));
             if ($infoCtna->id) {
-                header("location: analisis_recepcion_listado.php?msg=error");
+                header("location: analisis_resultado_listado.php?msg=error");
                 die();
             }
             $infoRecepcion = $Rec->find(array('id' => $infoCtna[0]['id_recepcion']));
             $infoVehiculo = $Vehiculos->find(array('id' => $infoRecepcion[0]['id_vehiculo']));
             $infoGuia = $Guias->find(array('id' => $infoRecepcion[0]['id_guia']));
-//        }
-//        else 
-//            header("location: analisis_recepcion_listado.php?msg=error");
+            //$soloLectura=(empty($infoCtna['id_producto'])) ? true: false;
+            
+        }
+        else 
+            header("location: analisis_resultado_listado.php?msg=error");
         break;
     case 'guardar': 
         if (!empty($id)) {
@@ -40,7 +44,8 @@ switch ($GPC['ac']) {
             if ($infoCtna->id) {
                 header("location: analisis_resultado_listado.php?msg=error");
                 die();
-            }            
+            }
+            debug::pr($GPC['Cuarentena'],true);
             $Ctna->_begin_tool();
             $GPC['Cuarentena']['id']=$id_cuarentena;
             $GPC['Cuarentena']['fecha_mov']=$general->fecha_normal_sql($GPC['Cuarentena']['fecha_mov'],'es');
@@ -55,28 +60,36 @@ switch ($GPC['ac']) {
             }
             else {
                 $Ctna->_rollback_tool();
-                header("location: analisis_resultado_listado.php?msg=error");
+                header("location: ../admin/analisis_resultado_listado.php?msg=error&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
                 die();
                 }
         }
         else  {
-            header("location: analisis_recepcion_listado.php?msg=error");
+            header("location: ../admin/analisis_resultado_listado.php?msg=error&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
             die();
             }
         break;
 }
+
+
+
 require('../lib/common/header.php');
 require('../lib/common/init_calendar.php');
 
 //$validator = new Validator('form1');
-//$validator->printIncludes();
-//$validator->setRules('Almacen.codigo', array('required' => array('value' => true, 'message' => 'Requerido')));
-//
+//$validator->setRules('Cuarentena.id_plaga', array('required' => array('value' => true, 'message' => '')));
+//$validator->setRules('Cuarentena.id_producto', array('required' => array('value' => true, 'message' => '')));
+//$validator->setRules('Cuarentena.toneladas', array('required' => array('value' => true, 'message' => '')));
+//$validator->setRules('Cuarentena.cant_producto', array('required' => array('value' => true, 'message' => '')));
+//$validator->setRules('Cuarentena.fecha_cultivo', array('required' => array('value' => true, 'message' => '')));
+//$validator->setRules('Cuarentena.hora_trab', array('required' => array('value' => true, 'message' => '')));
+//$validator->setRules('Cuarentena.fecha_lib', array('required' => array('value' => true, 'message' => '')));
+//$validator->setRules('Cuarentena.hora_lib', array('required' => array('value' => true, 'message' => '')));
 //$validator->printScript();
 ?>
 <script type="text/javascript">
     function cancelar(){
-        window.location = 'analisis_recepcion_listado.php';
+        window.location = '<?=DOMAIN_ROOT?>/admin/analisis_resultado_listado.php?msg=exitoso&mov=<?=$_SESSION["s_mov"]?>&lab=<?=$_SESSION["s_lab"]?>';
     }
     
     function sumarFecha(fecha1, fecha2) {        
@@ -229,15 +242,29 @@ require('../lib/common/init_calendar.php');
         <table align="center" border="0">
             <tr>
                 <td>Insectos:</td>
-                <td colspan="3"><? echo $html->select('Cuarentena.id_plaga', array('options' => $listaPlagas, 'selected' => $infoCtna[0]['id_plaga'], 'default' =>'Seleccione')); ?></td>
+                <td colspan="3">
+                <? 
+//                if ($soloLectura)
+//                    echo $html->select('Cuarentena.id_plaga', array('options' => $listaPlagas, 'selected' => $infoCtna[0]['id_plaga'], 'default' =>'Seleccione', 'readOnly' => true)); 
+//                else
+                    echo $html->select('Cuarentena.id_plaga', array('options' => $listaPlagas, 'selected' => $infoCtna[0]['id_plaga'], 'default' =>'Seleccione')); 
+                ?>
+                </td>
             </tr>
             <tr>
                 <td>Producto:</td>
-                <td colspan="3"><? echo $html->select('Cuarentena.id_producto', array('options' => $listaProductos, 'selected' => $infoCtna[0]['id_producto'], 'default' =>'Seleccione', 'class'=>'calcular_dosis')); ?></td>
+                <td colspan="3">
+                <?
+//                if ($soloLectura)
+//                    echo $html->select('Cuarentena.id_producto', array('options' => $listaProductos, 'selected' => $infoCtna[0]['id_producto'], 'default' =>'Seleccione', 'class'=>'calcular_dosis', 'readOnly' => true)); 
+//                else
+                    echo $html->select('Cuarentena.id_producto', array('options' => $listaProductos, 'selected' => $infoCtna[0]['id_producto'], 'default' =>'Seleccione', 'class'=>'calcular_dosis')); 
+                ?>
+                </td>
             </tr>
             <tr>
                 <td>Toneladas Aprox.</td>
-                <td><? echo $html->input('Cuarentena.toneladas', $infoCtna[0]['toneladas'], array('type' => 'text', 'class' => 'crproductor calcular_dosis positive')); ?></td>
+                <td><? echo $html->input('Cuarentena.toneladas', $infoCtna[0]['toneladas'], array('type' => 'text', 'readOnly' => $soloLectura, 'class' => 'crproductor calcular_dosis positive')); ?></td>
                 <td>Dosis Estimada:</td>
                 <td id="calculo"><? echo $html->input('Cuarentena.cant_producto', $infoCtna[0]['cant_producto'], array('type' => 'text', 'readOnly' => true, 'class' => 'crproductor positive')); ?></td>
             </tr>
@@ -259,7 +286,7 @@ require('../lib/common/init_calendar.php');
             <td><? echo $html->input('Cuarentena.hora_trab', $infoCtna[0]['hora_trab'], array('type' => 'text', 'readOnly' => true, 'class' => 'crproductor')); ?></td>
             </tr>
             <tr>
-                <td>Fecha Liberaci&oacute;n:</td>                
+                <td>Fecha Liberaci&oacute;n:</td>
                 <td><? echo $html->input('Cuarentena.fecha_lib', $general->date_sql_screen($infoCtna[0]['fecha_lib'],'','es','-'), array('type' => 'text', 'readOnly' => true, 'class' => 'crproductor')); ?></td>
                 <td>Hora Liberaci&oacute;n:</td>
                 <td><? echo $html->input('Cuarentena.hora_lib', $infoCtna[0]['hora_lib'], array('type' => 'text', 'readOnly' => true, 'class' => 'crproductor')); ?></td>                

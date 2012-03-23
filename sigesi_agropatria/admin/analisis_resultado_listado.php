@@ -16,19 +16,20 @@ $listaAccion = array('P' => 'Imprimir');
 $fecha_mov=date('d-m-Y');
 $idCA=$_SESSION['s_ca_id'];
 
-if ($GPC['mov']=='rec') {
-    $recepcion = new Recepcion();
-    $estatus="'1','2'";
-//    $listadoM=$recepcion->find(array('estatus_rec' => $estatus));   
-    //$listadoAnalisis=$recepcion->listadoAnalisis($idCA, null, null, $estatus);
-    $listadoM=$recepcion->listadoRecepcion(null, $idCA, null, null, null, $estatus);
-}
-
-if ($GPC['mov']=='des') {
-    $despacho= new Despacho();
-    $estatus='1';
-    $listadoM=$despacho->listadoAnalisis($idCA, null, null, $estatus);
-    //$listadoM=$despacho->find(array('estatus' => $estatus));
+switch ($GPC['mov']) {
+    case 'rec':
+        $recepcion = new Recepcion();
+        $estatus=($_SESSION['s_lab']=='C')? "'1','2'": "'4','5'";        
+    //    $listadoM=$recepcion->find(array('estatus_rec' => $estatus));   
+        //$listadoAnalisis=$recepcion->listadoAnalisis($idCA, null, null, $estatus);
+        $listadoM=$recepcion->listadoRecepcion(null, $idCA, null, null, null, $estatus);
+        break;
+    case 'des':
+        $despacho= new Despacho();
+        $estatus="'2'";
+        //$listadoM=$despacho->listadoAnalisis($idCA, null, null, $estatus);
+        $listadoM=$despacho->listadoDespacho(null, $idCA, null, null, null, $estatus);
+        break;
 }
 
 require('../lib/common/header.php');
@@ -68,25 +69,27 @@ require('../lib/common/init_calendar.php');
     });
 </script>
 
+
+<div id="titulo_modulo">    
+    RESULTADOS DE ANALISIS - <? echo $listaMov[$GPC['mov']]; ?><br/><hr/>    
+</div> 
 <div id="mensajes">
-    <?
+    <?    
         switch($GPC['msg']){
             case 'exitoso':
                 echo "<span class='msj_verde'>Registro Guardado !</span>";
             break;
             case 'error':
                 echo "<span class='msj_rojo'>Ocurri&oacute; un Problema !</span>";
-            break;//            $infoCA=$centroAcopio->buscarCA($dataMov['id_centro_acopio']);
+            break;//            
+            //$infoCA=$centroAcopio->buscarCA($dataMov['id_centro_acopio']);
 //            $infoCosecha=$cosecha->find(array('id' => $dataMov['id_cosecha']));
 //            $id_cultivo=$infoCosecha[0]['id_cultivo'];
 //            $infoCultivo=$cultivo->find(array('id' => $id_cultivo));
         }
     ?>
 </div>
-<div id="titulo_modulo">    
-    RESULTADOS DE ANALISIS - <? echo $listaMov[$GPC['mov']]; ?><br/><hr/>    
-</div> 
-<table align="center" width="100%" border="0">
+<table align="center" width="100%" border="0" style="padding-top: 20px">
     <tr align="right">
         <td >Fecha:</td>                
         <td><? echo $html->input('fecha', $fecha_mov, array('type' => 'text', 'readOnly' => true, 'class' => 'crproductor')); ?>
@@ -146,6 +149,7 @@ require('../lib/common/init_calendar.php');
             case 'rec':
                 switch ($dataMov['estatus_rec']) {
                     case '1':
+                    case '4':
                         echo '<img src="../images/reloj.png" width="16" height="16" title=Espera />';
                         break;
                     case '2':
@@ -153,23 +157,30 @@ require('../lib/common/init_calendar.php');
                         break;
                 }
                 break;
+            case 'des':
+                switch ($dataMov['estatus']) {
+                    case '2':
+                        echo '<img src="../images/reloj.png" width="16" height="16" title=Espera />';
+                        break;
+                }
+                break;
         }
-
         ?>
         </td>
         <td align="center">
         <? 
-        switch ($GPC['mov']) {
+        switch ($GPC['mov']) {            
             case 'rec':
                 switch ($dataMov['estatus_rec']) {
                     case '1':
+                    case '4':
                         echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Nuevo>', 'analisis_resultado.php?ac=nuevo&id='.$dataMov['id'].'&cant_muestras='.$dataMov['cant_muestras'].'&id_cosecha='.$dataMov['id_cosecha']); 
                         break;
                     case '2':
+                    case '6':
                         echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'cuarentena.php?ac=editar&id='.$dataMov['id']); 
-                        break;
+                    break;                
                 }
-                break;
         }
         ?>
         </td>

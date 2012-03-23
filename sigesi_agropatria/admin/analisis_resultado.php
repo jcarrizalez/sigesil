@@ -11,28 +11,28 @@ $IdCosecha = $GPC['id_cosecha'];
 $idORG = $_SESSION['s_org_id'];
 $cant_muestras = $GPC['cant_muestras'];
 $estatus=0;
-$tipo_mov=array('rec'=>'R','des'=>'D');
 $booleano = array('' => '', 'NO' => 'NO', 'SI' => 'SI');
 $calidad = array('' => '', 'A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D');
-
-if (!empty($GPC['id_cosecha'])) {
-    $InfoCosecha=$cosecha->find(array('id'=>$GPC['id_cosecha']));
-    $idCultivo=$InfoCosecha[0]['id_cultivo'];
-}
-
-$cantidad = count($listadoAnalisis);
-$infoRec = $Rec->listadoAnalisis($idCA, $IdCultivo, $id);
-$listadoAnalisis = $analisis->buscarAC(null, $idCultivo, $idCA);
-
-//echo 'idCultivo: '.$idCultivo;
+$tipo_mov=array('rec'=>'R','des'=>'D');
 
 switch ($GPC['ac']) {
+    case 'nuevo':
+        if (!empty($GPC['id']) && !empty($GPC['id_cosecha']) && !empty($GPC['cant_muestras']) && !empty($_SESSION['s_lab']) && !empty($_SESSION['s_mov'])) {
+            $InfoCosecha=$cosecha->find(array('id'=>$GPC['id_cosecha']));
+            $idCultivo=$InfoCosecha[0]['id_cultivo'];
+            $infoRec = $Rec->listadoAnalisis($idCA, $IdCultivo, $id);
+            $laboratorio=($_SESSION['s_lab']=='C')? $laboratorio="'C','A'": $laboratorio="'A'";
+            $listadoAnalisis = $analisis->buscarAC(null, $idCultivo, $idCA, $laboratorio);
+            $cantidad = count($listadoAnalisis);
+        }
+        break;
     case 'guardar':
-        if (!empty($GPC['id'])) {            
+        if (!empty($GPC['id']) && !empty($_SESSION['s_lab']) && !empty($_SESSION['s_mov'])) {
             $infoRecepcion = $Rec->find(array('id' => $GPC['id']));
             $InfoCosecha=$cosecha->find(array('id'=>$infoRecepcion[0]['id_cosecha']));
             $idCultivo=$InfoCosecha[0]['id_cultivo'];
-            $listadoAnalisis = $analisis->buscarAC(null, $idCultivo, $idCA);
+            $laboratorio=($tipo_mov[$_SESSION['s_lab']=='C'])? $laboratorio="'C','A'": $laboratorio="'A'";
+            $listadoAnalisis = $analisis->buscarAC(null, $idCultivo, $idCA, $laboratorio);
             $analisis->_begin_tool();
             $j = 0;
             foreach ($listadoAnalisis as $dataAnalisis) { 
@@ -107,7 +107,8 @@ switch ($GPC['ac']) {
                 die();
                 break;
             case '7':
-                header("location: ../reportes/imprimir_boleta_rechazo.php?id=". $GPC['id']."&mov=".$_SESSION['s_mov']."&estatus=".$estatus);
+            case '8':
+                header("location: ../reportes/imprimir_boleta_rechazo.php?id=". $GPC['id']."&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']."&es_rechazado=".$GPC['es_rechazado']);
                 die();
                 break;
             default:
@@ -165,14 +166,8 @@ switch ($GPC['ac']) {
         }       
       
         $(document).ready(function() {
-            $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
-            
-            //        $(".cuadricula").change(function(){                
-            //            if ($.trim($(this).val()).length != 0){
-            //                alert($(this).attr('name')+$(this).attr('name').indexOf('_'));
-            //            }             
-            //        });
-            
+            $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });           
+           
             $("#form1").submit(function(){
                 var isFormValid = true;
                 $("#form1 :input").each(function(){
@@ -215,13 +210,22 @@ switch ($GPC['ac']) {
 <div id="titulo_modulo">
     ANALISIS DE RESULTADOS<br/><hr/>
 </div>
-<form name="form1" id="form1" method="POST" action="?ac=guardar&cantA=<?= $cantidad ?>" enctype="multipart/form-data">
+<div id="mensajes" style="display:none">
     <?
-    echo $html->input('id', $id, array('type' => 'text'));
-    echo $html->input('cosecha', $IdCosecha, array('type' => 'text'));
-    echo $html->input('es_cuarentena', '0_0:', array('type' => 'text'));
-    echo $html->input('es_rechazado', '0_0:', array('type' => 'text'));
+    switch ($GPC['msg']) {
+        case 'exitoso':
+            echo "<span class='msj_verde'>Registro Guardado !</span>";
+            break;
+        case 'error':
+            echo "<span class='msj_rojo'>Ocurri&oacute; un Problema !</span>";
+            break;
+        default:
+            echo "<span class='msj_rojo'>Los analisis no est&aacute en norma !</span>";
+            break;
+    }
     ?>
+    </div>
+<form name="form1" id="form1" method="POST" action="?ac=guardar&cantA=<?= $cantidad ?>" enctype="multipart/form-data">
     <fieldset>
         <legend>Datos de la Muestra</legend>
         <table align="center" width="100%" border="0">
@@ -243,22 +247,6 @@ switch ($GPC['ac']) {
             </tr>
         </table>
     </fieldset>
-    <div id="mensajes" style="display:none">
-        <?
-        switch ($GPC['msg']) {
-            case 'exitoso':
-                echo "<span class='msj_verde'>Registro Guardado !</span>";
-                break;
-            case 'error':
-                echo "<span class='msj_rojo'>Ocurri&oacute; un Problema !</span>";
-                break;
-            default:
-                echo "<span class='msj_rojo'>Los analisis no est&aacute en norma !</span>";
-                break;
-        }
-        ?>
-    </div>
-
     <fieldset>
         <legend>Datos de los An&aacute;lisis</legend>
         <table align="center" width="100%">
@@ -308,7 +296,7 @@ switch ($GPC['ac']) {
                             }
                         }
                         if ($dataAnalisis['tipo_analisis'] == 1) {
-                            echo '<td align="center" width="80">' . $dataAnalisis['min_rec'] . " / " . $dataAnalisis['max_rec'] . '</td>';
+                            echo '<td align="center" width="100">' . $dataAnalisis['min_rec'] . " / " . $dataAnalisis['max_rec'] . '</td>';
                         } else {
                             ?>
                         <td align="center">&nbsp;</td>
@@ -329,6 +317,12 @@ switch ($GPC['ac']) {
             </td>
         </tr>
     </table>
+    <?
+    echo $html->input('id', $id, array('type' => 'hidden'));
+    echo $html->input('cosecha', $IdCosecha, array('type' => 'hidden'));
+    echo $html->input('es_cuarentena', '0_0:', array('type' => 'hidden'));
+    echo $html->input('es_rechazado', '0_0:', array('type' => 'hidden'));    
+    ?>    
 </form>    
 <?
 require('../lib/common/footer.php');
