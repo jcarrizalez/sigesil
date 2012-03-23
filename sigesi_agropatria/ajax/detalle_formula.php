@@ -117,5 +117,109 @@
                 }
             }
         break;
+        case 'pesoromana':
+            if(!empty($GPC['Recepcion'])){
+                $formula = new Formulas();
+                $evaluar = new LaMermelex();
+                $evaluar->suppress_errors = true;
+                
+                $orden = " ORDER BY id_centro_acopio DESC, id_cultivo, id_analisis";
+                $formulas = $formula->formulaCultivo($_SESSION['s_ca_id'], trim(substr($GPC['cultivo'], 0, 2)), $orden);
+                //Debug::pr($formulas);
+                foreach($formulas as $valor){
+                    if($valor['codigo'] == 'PL12')
+                        $formulaAplicar['PL'] = $valor['formula'];
+                    elseif($valor['codigo'] == 'PV12')
+                        $formulaAplicar['PV'] = $valor['formula'];
+                    elseif($valor['codigo'] == 'PN')
+                        $formulaAplicar['PN'] = $valor['formula'];
+                    elseif($valor['codigo'] == 'PA')
+                        $formulaAplicar['PA'] = $valor['formula'];
+                    else
+                        $humImp[] = $valor['formula'];
+                }
+                
+                //VARIABLES A USAR PARA LOS CALCULOS
+                $reservadas = array('PL1', 'PL2', 'PV1', 'PV2', 'HUML', 'IMPL', 'PHUM', 'PIMP');
+                $GPC['Recepcion']['pesoLleno2'] = (!empty($GPC['Recepcion']['pesoLleno2'])) ? $GPC['Recepcion']['pesoLleno2'] : 0;
+                $GPC['Recepcion']['peso_02v'] = (!empty($GPC['Recepcion']['peso_02v'])) ? $GPC['Recepcion']['peso_02v'] : 0;
+                $pesos = array($GPC['Recepcion']['pesoLleno1'], $GPC['Recepcion']['pesoLleno2'], $GPC['Recepcion']['peso_01v'], $GPC['Recepcion']['peso_02v'], $GPC['Recepcion']['hum'] = '19.6', $GPC['Recepcion']['imp'] = '3.4');
+                
+                //CALCULO DEL PESO BRUTO
+                $totalB = str_replace($reservadas, $pesos, $formulaAplicar['PL']);
+                if ($evaluar->evaluate('y(x) = ' . $totalB))
+                    $pesoL = $evaluar->e("y(0)");
+                
+                //CALCULO DE LA TARA
+                $totalV = str_replace($reservadas, $pesos, $formulaAplicar['PV']);
+                if ($evaluar->evaluate('y(x) = ' . $totalV))
+                    $pesoV = $evaluar->e("y(0)");
+                
+                //CALCULO DEL PESO NETO
+                $totalN = str_replace($reservadas, $pesos, $formulaAplicar['PN']);
+                if ($evaluar->evaluate('y(x) = ' . $totalN))
+                    $pesoN = $evaluar->e("y(0)");
+                
+                //CALCULO DE LA HUMEDAD
+                $totalH = str_replace($reservadas, $pesos, $humImp[0]);
+                if ($evaluar->evaluate('y(x) = ' . $totalH))
+                    $pesoH = $evaluar->e("y(0)");
+                $pesos[] = $pesoH;
+                
+                //CALCULO DE LA IMPUREZA
+                $totalI = str_replace($reservadas, $pesos, $humImp[1]);
+                if ($evaluar->evaluate('y(x) = ' . $totalI))
+                    $pesoI = $evaluar->e("y(0)");
+                $pesos[] = $pesoI;
+                
+                
+                //CALCULO DEL PESO ACONDICIONADO
+                $totalA = str_replace($reservadas, $pesos, $formulaAplicar['PA']);
+                if ($evaluar->evaluate('y(x) = ' . $totalA))
+                    $pesoA = $evaluar->e("y(0)");
+            ?>
+            <tr>
+                <td>Peso Bruto Total Kgrs</td>
+                <td><? echo $html->input('pesoBruto', number_format($pesoL, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+            </tr>
+            <tr>
+                <td>Peso del Veh&iacute;culo Kgrs</td>
+                <td><? echo $html->input('pesoVehiculo', number_format($pesoV, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+            </tr>
+            <tr>
+                <td>Peso Neto Recibido Kgrs</td>
+                <td><? echo $html->input('pesoRecibido', number_format($pesoN, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+            </tr>
+            <tr>
+                <td>Desc. por Humedad Kgrs</td>
+                <td><? echo $html->input('descHumedad', number_format($pesoH, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+            </tr>
+            <tr>
+                <td>Desc. por Impurezas Kgrs</td>
+                <td><? echo $html->input('descImpurezas', number_format($pesoI, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+            </tr>
+            <tr>
+                <td>Neto Acondicionado Kgrs</td>
+                <td><? echo $html->input('netoAcondicionado', number_format($pesoA, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+            </tr>
+            <?
+                if (($pesoL < 0) || ($pesoV < 0) || ($pesoN < 0) || ($pesoH < 0) || ($pesoI < 0) || ($pesoA < 0)){
+            ?>
+            <tr class="error" align="center">
+                <td colspan="2" style="padding-top: 20px;">Favor, verifique los pesos, el calculo no puede ser negativo</td>
+            </tr>
+            <script type="text/javascript">
+                $('#Guardar').attr('disabled', true);
+            </script>
+            <?
+                }else{
+            ?>
+            <script type="text/javascript">
+                $('#Guardar').removeAttr('disabled');
+            </script>
+            <?
+                }
+            }
+        break;
     }
 ?>

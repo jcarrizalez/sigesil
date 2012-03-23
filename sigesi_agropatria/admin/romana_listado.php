@@ -33,7 +33,7 @@
     });
 </script>
     <div id="titulo_modulo">
-        ROMANA DESPACHO<br/><hr/>
+        ROMANA - DESPACHO<br/><hr/>
     </div>
     <div id="mensajes">
         <?
@@ -149,7 +149,7 @@
     });
 </script>
     <div id="titulo_modulo">
-        ROMANA RECEPCI&Oacute;N<br/><hr/>
+        ROMANA - RECEPCI&Oacute;N<br/><hr/>
     </div>
     <div id="mensajes">
         <?
