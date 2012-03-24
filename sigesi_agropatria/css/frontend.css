@@ -11,9 +11,9 @@ body{
     font-family: arial;
     font-size: 12px;
     text-align: justify;
-    background-color: #E9E8E8;
-    background-image: url('../images/old_paper.jpg');
-    /*text-transform: uppercase;*/
+    margin: 0;
+    background-color: #F5F5F5;
+    /*background-image: url('../images/old_paper.jpg');*/
 }
 
 input, textarea, select{
@@ -108,6 +108,12 @@ img{
     text-align: center;
 }
 
+#main{
+    position: relative;
+    margin: auto;
+    width: 960px;
+}
+
 #cabecera{
     background-color: #FFFFFF;
     background-image: url('../images/logo_mat.png');
@@ -115,7 +121,6 @@ img{
     margin: auto;
     padding: 0;
     height: 40px;
-    width: 800px;
     border.radius: 15px 15px 0 0;
     -moz-border-radius:15px 15px 0 0;
     -webkit-border-radius:15px 15px 0 0;
@@ -128,12 +133,14 @@ img{
     margin: auto;
     padding: 0;
     height: 70px;
-    width: 800px;
 }
 
 #global{
-    width: 800px;
     margin: auto;
+    background-image: url('../images/old_paper.jpg');
+    border.radius: 0 0 15px 15px;
+    -moz-border-radius: 0 0 15px 15px;
+    -webkit-border-radius: 0 0 15px 15px;
 }
 
 #global_sep{
@@ -141,7 +148,7 @@ img{
 }
 
 #menu{
-    width: 165px;
+    width: 175px;
     float: left;
     padding: 0 0 20px 0;
 }
@@ -173,19 +180,18 @@ img{
 
 #contenido{
     padding: 0 0 0 5px;
-    width: 630px;
+    width: 780px;
     float: left;
 }
 
 #contenido_externo{
-    width: 800px;
+    width: 960px;
     float: left;
 }
 
 #pie_pagina{
     clear: both;
     margin: auto;
-    width: 800px;
     text-align: center;
     padding-top: 15px;
 }
@@ -279,9 +285,12 @@ img{
 #modulo{
     padding: 15px;
     background-color: #FFFFFF;
-    border.radius: 15px;
-    -moz-border-radius:15px;
-    -webkit-border-radius:15px;
+    -webkit-border-top-left-radius: 15px;
+    -webkit-border-bottom-left-radius: 15px;
+    -moz-border-radius-topleft: 15px;
+    -moz-border-radius-bottomleft: 15px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
 }
 
 #principal{

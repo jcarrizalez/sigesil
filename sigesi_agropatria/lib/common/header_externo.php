@@ -33,9 +33,10 @@ else
         </script>
     </head>
     <body>
-        <div id="cabecera"></div>
-        <div id="cabecera2"></div>
-        <div id="global">
-            <div id="global_sep"></div>
-            <div id="contenido_externo">
-                <div id="modulo_externo">
+        <div id="main">
+            <div id="cabecera"></div>
+            <div id="cabecera2"></div>
+            <div id="global">
+                <div id="global_sep"></div>
+                <div id="contenido_externo">
+                    <div id="modulo_externo">

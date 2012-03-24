@@ -2,6 +2,9 @@
     require_once('../lib/core.lib.php');
     require('../lib/common/header.php');
 
+    if(!in_array($GPC['mov'], array('rec', 'des')))
+        header('location: romana_movimiento.php');
+    
     $recepcion = new Recepcion();
 
     switch ($GPC['ac']) {

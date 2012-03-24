@@ -23,6 +23,7 @@ switch ($GPC['ac']) {
             $multiple = (!empty($GPC['Formula']['multiple_cond'])) ? $GPC['Formula']['multiple_cond'] : 1;
             unset($GPC['Formula']['multiple_cond']);
             
+            $formulas->_begin_tool();
             for($i=1;$i<=$GPC['nroCondicion'];$i++){
                 if(!empty($GPC["formula_exp_$i"])){
                     $GPC['Formula']['formula'] = $GPC["formula_exp_$i"];
@@ -41,6 +42,7 @@ switch ($GPC['ac']) {
             }
         }
         if (!empty($id)) {
+            $formulas->_commit_tool();
             header("location: formulacion_listado.php?msg=exitoso");
             die();
         } else {

@@ -3,7 +3,8 @@
     require_once("../lib/common/header_reportes.php");
     //include("../lib/class/mpdf/mpdf.php");
     if (empty($GPC['id_rec'])) {
-        die('Error');
+        header('location: ../admin/recepcion.php');
+        die();
     }
         
     $id_rec = $GPC['id_rec'];
@@ -11,29 +12,16 @@
     $analisisCul = new AnalisisCultivo();
     $AnalisisRes = new Analisis();
     
-    //$recepcion->find(array('id'=>$id_rec));
     $dataRecepcion = $recepcion->listadoAnalisis(null, null, $id_rec);
-    $listadoAnalisis = $analisisCul->buscarAC(null, $dataRecepcion[0]['id_cultivo'], $idORG);
+    $listadoAnalisis = $AnalisisRes->buscarAC(null, $dataRecepcion[0]['id_cultivo'], $idORG);
     $data = $AnalisisRes->listadoResultados($id_rec);
-
-//    echo 'Recepcion';
-//    debug::pr($dataRecepcion);
-//    
-//    echo 'Analisis por Cultivo';
-//    debug::pr($listadoAnalisis);
-//    
-//    echo 'Analisis Resultados';
-//    debug::pr($data);
-////    echo '<br>';
-////    echo print_r($data);
-////    echo '</br>';
-//    die();
+    
+    if(!empty($dataRecepcion[0]['id_rec']) && $dataRecepcion[0]['estatus_rec'] == 1){
 ?>
 <script type="text/javascript">
     $(document).ready(function(){
         window.print();
-        history.back();
-        //window.location = '<?=DOMAIN_ROOT?>admin/recepcion.php';
+        window.location = '<?=DOMAIN_ROOT?>admin/recepcion.php';
     });
 </script>
 <div id="titulo_reporte">
@@ -76,7 +64,11 @@
     <? $j++; } ?>
     
 </table>
-<?    
+<?
+    }else{
+        header('location: ../admin/recepcion.php');
+        die();
+    }
     require_once("../lib/common/footer_reportes.php");
     /*$mpdf=new mPDF();
     $mpdf->WriteHTML($cadena);

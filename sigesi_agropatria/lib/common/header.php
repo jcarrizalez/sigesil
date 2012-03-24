@@ -35,17 +35,18 @@ else
         </script>
     </head>
     <body>
-        <div id="cabecera"></div>
-        <div id="cabecera2"></div>
-        <div id="global">
-            <div id="global_sep"></div>
-            <div id="menu">
-                <div id="boton_inicio">
-                    <a href="<?=DOMAIN_ROOT?>pages/principal.php"><img alt="Inicio" title="Inicio" src="../images/inicio.png" /></a>
-                    <a href="<?=DOMAIN_ROOT?>pages/cerrar_sesion.php"><img alt="Salir" title="Salir" src="../images/salir.png" /></a>
+        <div id="main">
+            <div id="cabecera"></div>
+            <div id="cabecera2"></div>
+            <div id="global">
+                <div id="global_sep"></div>
+                <div id="menu">
+                    <div id="boton_inicio">
+                        <a href="<?=DOMAIN_ROOT?>pages/principal.php"><img alt="Inicio" title="Inicio" src="../images/inicio.png" /></a>
+                        <a href="<?=DOMAIN_ROOT?>pages/cerrar_sesion.php"><img alt="Salir" title="Salir" src="../images/salir.png" /></a>
+                    </div>
+                    <?php require(APPROOT.'/lib/common/menu.php'); ?>
+                    <br/><!--a href="http://www.agropatria.co.ve" target="_blank"--><img alt="Agropatria" title="Agropatria" src="../images/logo_agropatria.png" width="100%" height="40" style="margin-left: 3px;"/><!--/a-->
                 </div>
-                <?php require(APPROOT.'/lib/common/menu.php'); ?>
-                <br/><a href="http://www.agropatria.co.ve" target="_blank"><img alt="Agropatria" title="Agropatria" src="../images/logo_agropatria.png" width="100%" height="40"/></a>
-            </div>
-            <div id="contenido">
-                <div id="modulo">
+                <div id="contenido">
+                    <div id="modulo">

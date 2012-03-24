@@ -9,10 +9,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link href="<?=DOMAIN_ROOT?>images/favicon.ico" rel="shortcut icon" />
         <link href="<?=DOMAIN_ROOT?>css/reportes.css" rel="stylesheet" type="text/css" />
-        <?
-        $javascript->includeFile('jquery/jquery-1.7.1.min.js');
-        $javascript->includeFile('jquery/jquery.validate.js');
-        ?>
     </head>
     <body>
         <div id="principal_reporte">
