@@ -90,20 +90,10 @@
     
 $validator = new Validator('form1');
 $validator->printIncludes();
-$validator->setRules('Recepcion.id_cosecha', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('Guia.numero_guia', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros')));
-$validator->setRules('Guia.fecha_emision', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('Guia.kilogramos', array('required' => array('value' => true, 'message' => 'Requerido'), 'number' => array('value' => true, 'message' => 'Solo N&uacute;meros')));
-$validator->setRules('Productor.ced_rif', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros'), 'minlength' => array('value' => 6, 'message' => 'Min&iacute;mo 6 D&iacute;gitos')));
-$validator->setRules('Productor.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('Productor.telefono', array('digits' => array('value' => true, 'message' => 'Solo N&uacute;meros')));
-$validator->setRules('Productor.email', array('email' => array('value' => true, 'message' => 'Correo Inv&aacute;lido')));
-$validator->setRules('Asociado.ced_rif', array('digits' => array('value' => true, 'message' => 'Solo N&uacute;meros'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros'), 'minlength' => array('value' => 6, 'message' => 'Min&iacute;mo 6 D&iacute;gitos')));
-$validator->setRules('Chofer.ced_rif', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros'), 'minlength' => array('value' => 6, 'message' => 'Min&iacute;mo 6 D&iacute;gitos')));
-$validator->setRules('Chofer.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('Vehiculo.placa', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('Recepcion.carril', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('Recepcion.cant_muestras', array('required' => array('value' => true, 'message' => 'Requerido')));
+//$validator->setRules('Recepcion.id_cosecha', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Orden.numero', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros')));
+$validator->setRules('Cliente.ced_rif', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros'), 'minlength' => array('value' => 6, 'message' => 'Min&iacute;mo 6 D&iacute;gitos')));
+$validator->setRules('Cliente.nombre', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros'), 'minlength' => array('value' => 6, 'message' => 'Min&iacute;mo 6 D&iacute;gitos')));
 $validator->printScript();
 ?>
 <script type="text/javascript">
@@ -124,19 +114,28 @@ $validator->printScript();
         });*/
     
         $('#Orden\\[numero\\]').change(function(){
-            var orden = $('#Guia\\[numero\\]').val();
+            var orden = $(this).val();
             if(orden != '')
-                $('#orden').load('../ajax/detalle_despacho.php?ac=guia&numero_guia='+orden);
+                $('#orden').load('../ajax/detalle_despacho.php?ac=orden&numero='+orden);
             else
                 $('#Orden\\[numero\\]').val('');
         });
         
-        $('#Chofer\\[ced_rif\\]').change(function(){
-            var np = $('#nacion3').val();
+        $('#Cliente\\[ced_rif\\]').live('change', function(){
+            var np = $('#nacion').val();
+            var ced = $('#Cliente\\[ced_rif\\]');
+            if(ced.val().length >= 6){
+                ced = np+ced.val();
+                $('#orden').load('../ajax/detalle_despacho.php?ac=cliente&cp='+ced);
+            }
+        });
+        
+        $('#Chofer\\[ced_rif\\]').live('change', function(){
+            var np = $('#nacion2').val();
             var ced = $('#Chofer\\[ced_rif\\]');
             if(ced.val().length >= 6){
                 ced = np+ced.val();
-                $('#chofer').load('../ajax/recepcion_detalle.php?ac=chofer&cp='+ced);
+                $('#orden').load('../ajax/detalle_despacho.php?ac=chofer&cp='+ced);
             }
         });
     });
@@ -207,8 +206,8 @@ $validator->printScript();
                 <td><span class="msj_rojo">* </span>C&eacute;dula/Rif Chofer</td>
                 <td>
                     <?
-                        echo $html->select('nacion', array('options'=>$listaCR));
-                        echo "&nbsp;".$html->input('Productor.ced_rif', $infoProductor[0]['cedula_pro'], array('type' => 'text', 'length' => '8', 'class' => 'crproductor integer'));
+                        echo $html->select('nacion2', array('options'=>$listaCR));
+                        echo "&nbsp;".$html->input('Chofer.ced_rif', $infoProductor[0]['cedula_pro'], array('type' => 'text', 'length' => '8', 'class' => 'crproductor integer'));
                     ?>
                 </td>
             </tr>
