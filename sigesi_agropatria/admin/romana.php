@@ -11,6 +11,11 @@
         case 'guardar':
             $GPC['Recepcion']['id'] = $GPC['id'];
             if (!empty($GPC['Recepcion']['id']) && (!empty($GPC['Recepcion']['romana_ent']) || !empty($GPC['Recepcion']['romana_sal'])) && (!empty($GPC['Recepcion']['peso_01l']) || !empty($GPC['Recepcion']['peso_01v']))) {
+                $formula = new Formulas();
+                $evaluar = new LaMermelex();
+                $resultados = new Analisis();
+                $evaluar->suppress_errors = true;
+                
                 if($GPC['mov'] == 'rec' && $GPC['estatus'] == '3'){
                     $GPC['Recepcion']['estatus_rec'] = ++$GPC['estatus'];
                     $GPC['Recepcion']['fecha_pel'] = "now()";
@@ -24,12 +29,90 @@
                     $GPC['Recepcion']['estatus_rec'] = $GPC['estatus']++;
                     $GPC['Recepcion']['fecha_v'] = "now()";
                 }
+                
+                //CALCULAR LOS PESOS PARA GUARDARLOS
+                $orden = " ORDER BY id_centro_acopio DESC, id_cultivo, id_analisis";
+                $formulas = $formula->formulaCultivo($_SESSION['s_ca_id'], trim(substr($GPC['cultivo'], 0, 2)), $orden);
+                
+                $infoResultados = $resultados->listadoResultados($GPC['id'], '', '', "'1', '2'");
+                
+                foreach($formulas as $valor){
+                    if($valor['codigo'] == 'PL12')
+                        $formulaAplicar['PL'] = $valor['formula'];
+                    elseif($valor['codigo'] == 'PV12')
+                        $formulaAplicar['PV'] = $valor['formula'];
+                    elseif($valor['codigo'] == 'PN')
+                        $formulaAplicar['PN'] = $valor['formula'];
+                    elseif($valor['codigo'] == 'PA')
+                        $formulaAplicar['PA'] = $valor['formula'];
+                    else
+                        $humImp[] = $valor['formula'];
+                }
+                
+                foreach($infoResultados as $valor){
+                    if($valor['codigo'] == 1){
+                        $sumHum = $valor['muestra1'];
+                        $sumHum += (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                    }else{
+                        $sumImp = $valor['muestra1'];
+                        $sumImp += (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                    }
+                }
+                //PROMEDIO PARA LA HUMEDAD
+                $GPC['Recepcion']['humedad'] = $sumHum/$GPC['cant_m'];
+                
+                //PROMEDIO PARA LA IMPUREZA
+                $GPC['Recepcion']['impureza'] = $sumImp/$GPC['cant_m'];
+                
+                //VARIABLES A USAR PARA LOS CALCULOS
+                $reservadas = array('PL1', 'PL2', 'PV1', 'PV2', 'HUML', 'IMPL', 'PHUM', 'PIMP');
+                $GPC['Recepcion']['pesoLleno2'] = (!empty($GPC['Recepcion']['pesoLleno2'])) ? $GPC['Recepcion']['pesoLleno2'] : 0;
+                $GPC['Recepcion']['peso_02v'] = (!empty($GPC['Recepcion']['peso_02v'])) ? $GPC['Recepcion']['peso_02v'] : 0;
+                $pesos = array($GPC['Recepcion']['pesoLleno1'], $GPC['Recepcion']['pesoLleno2'], $GPC['Recepcion']['peso_01v'], $GPC['Recepcion']['peso_02v'], $GPC['Recepcion']['humedad'], $GPC['Recepcion']['impureza']);
+                
+                //CALCULO DEL PESO BRUTO
+                $totalB = str_replace($reservadas, $pesos, $formulaAplicar['PL']);
+                if ($evaluar->evaluate('y(x) = ' . $totalB))
+                    $pesoL = $evaluar->e("y(0)");
+                
+                //CALCULO DE LA TARA
+                $totalV = str_replace($reservadas, $pesos, $formulaAplicar['PV']);
+                if ($evaluar->evaluate('y(x) = ' . $totalV))
+                    $pesoV = $evaluar->e("y(0)");
+                
+                //CALCULO DEL PESO NETO
+                $totalN = str_replace($reservadas, $pesos, $formulaAplicar['PN']);
+                if ($evaluar->evaluate('y(x) = ' . $totalN))
+                    $pesoN = $evaluar->e("y(0)");
+                
+                //CALCULO DE LA HUMEDAD
+                $totalH = str_replace($reservadas, $pesos, $humImp[0]);
+                if ($evaluar->evaluate('y(x) = ' . $totalH))
+                    $pesoH = $evaluar->e("y(0)");
+                $pesos[] = $pesoH;
+                $GPC['Recepcion']['humedad_des'] = round($pesoH);
+                
+                //CALCULO DE LA IMPUREZA
+                $totalI = str_replace($reservadas, $pesos, $humImp[1]);
+                if ($evaluar->evaluate('y(x) = ' . $totalI))
+                    $pesoI = $evaluar->e("y(0)");
+                $pesos[] = $pesoI;
+                $GPC['Recepcion']['impureza_des'] = round($pesoI);
+                
+                
+                //CALCULO DEL PESO ACONDICIONADO
+                $totalA = str_replace($reservadas, $pesos, $formulaAplicar['PA']);
+                if ($evaluar->evaluate('y(x) = ' . $totalA))
+                    $pesoA = $evaluar->e("y(0)");
+                $GPC['Recepcion']['peso_acon'] = round($pesoA);
+                //
                 unset($GPC['Recepcion']['pesoLleno1']);
                 unset($GPC['Recepcion']['pesoLleno2']);
                 $recepcion->save($GPC['Recepcion']);
+                $idRecepcion = $recepcion->id;
             }
             if (!empty($id)) {
-                header("location: romana_listado.php?msg=exitoso&mov=".$GPC['mov']);
+                header("location: ".DOMAIN_ROOT."reportes/imprimir_boleta_liquidacion.php?id_rec=$idRecepcion&mov=".$GPC['mov']);
                 die();
             } else {
                 header("location: romana_listado.php?msg=error&mov=".$GPC['mov']);
@@ -107,6 +190,7 @@
     <?
         echo $html->input('id', $infoRecepcion[0]['id'], array('type' => 'hidden'));
         echo $html->input('estatus', $infoRecepcion[0]['estatus_rec'], array('type' => 'hidden'));
+        echo $html->input('cant_m', $infoRecepcion[0]['cant_muestras'], array('type' => 'hidden'));
         echo $html->input('mov', $GPC['mov'], array('type' => 'hidden'));
     ?>
     <table align="center">

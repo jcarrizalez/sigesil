@@ -1,0 +1,146 @@
+<?php
+    require_once("../lib/core.lib.php");
+    require_once("../lib/common/header_reportes.php");
+    //include("../lib/class/mpdf/mpdf.php");
+    if (empty($GPC['id_rec'])) {
+        header('location: ../admin/romana_listado.php?mov='.$GPC['mov']);
+        die();
+    }
+        
+    $id_rec = $GPC['id_rec'];
+    $recepcion = new Recepcion();
+    $subguias = new Guia();
+    
+    $dataRecepcion = $recepcion->listadoRecepcion($id_rec);
+    $dataSubGuias = $subguias->buscarSubGuias($id_rec);
+    
+    $pesoBruto = $dataRecepcion[0]['peso_01l']+$dataRecepcion[0]['peso_02l'];
+    $pesoTara = $dataRecepcion[0]['peso_01v']+$dataRecepcion[0]['peso_02v'];
+    $pesoNeto = ($pesoBruto-$pesoTara);
+    
+    if(!empty($dataRecepcion[0]['id']) && $dataRecepcion[0]['estatus_rec'] == 9){
+?>
+<script type="text/javascript">
+    $(document).ready(function(){
+        window.print();
+        window.location = '<?=DOMAIN_ROOT?>admin/romana_listado.php?mov=<?=$GPC['mov']?>';
+    });
+</script>
+<div id="titulo_reporte">
+    CONSTANCIA DE RECEPCION
+</div>
+<table id="tabla_reporte" border="0" width="100%" style="padding-top: 40px;">
+    <tr>
+        <td colspan="6">
+            GUIA UNICA DE MOVILIZACION MAT:
+            <?
+                foreach($dataSubGuias as $valor){
+                    $guiastotal .= $valor['subguia']. " - ";
+                }
+                    echo substr($guiastotal, 0, -2);
+            ?>
+        </td>
+    </tr>
+    <tr>
+        <td>ENTRADA Nro:</td>
+        <td><?=$dataRecepcion[0]['numero']?></td>
+        <td align="right">FECHA:</td>
+        <td><?=$general->date_sql_screen($dataRecepcion[0]['fecha_recepcion'],'','es','-')?></td>
+        <td align="right">NUMERO DE GUIA:</td>
+        <td><?=$dataRecepcion[0]['numero_guia']?></td>
+    </tr>
+    <tr>
+        <td>COSECHA:</td>
+        <td colspan="5"><?=$dataRecepcion[0]['cosecha_codigo']. " - " .$dataRecepcion[0]['cultivo_nombre']?></td>
+    </tr>
+    <tr>
+        <td>PROPIEDAD DE:</td>
+        <td colspan="5"><?=$dataRecepcion[0]['ced_productor']?></td>
+    </tr>
+    <tr>
+        <td>NOMBRE:</td>
+        <td colspan="5"><?=$dataRecepcion[0]['productor_nombre']?></td>
+    </tr>
+    <tr>
+        <td>ASOCIADO:</td>
+        <td colspan="5"><?=$dataRecepcion[0]['ced_asociado']. " " .$dataRecepcion[0]['asociado_nombre']?></td>
+    </tr>
+    <tr>
+        <td>PRODUCTO:</td>
+        <td colspan="5"><?=$dataRecepcion[0]['cultivo_codigo']. " " .$dataRecepcion[0]['cultivo_nombre']?></td>
+    </tr>
+    <tr>
+        <td>CHOFER:</td>
+        <td colspan="5"><?=$dataRecepcion[0]['ced_chofer']. " NOMBRE: " .$dataRecepcion[0]['chofer_nombre']?></td>
+    </tr>
+    <tr>
+        <td>
+            VEHICULO PLACAS:
+        </td>
+        <td colspan="5">
+            <?
+                $placa = $dataRecepcion[0]['placa'];
+                $placa .= (!empty($dataRecepcion[0]['placa_remolques'])) ? " / ".$dataRecepcion[0]['placa_remolques'] : "";
+                echo $placa;
+            ?>
+        </td>
+    </tr>
+</table>
+<table border="0" width="100%" style="padding-top: 20px;">
+    <tr>
+        <td width="20">&nbsp;</td>
+        <td>PESO BRUTO TOTAL Kgrs&nbsp;&nbsp;------------------------------------------------------------------------></td>
+        <td width="1" align="right"><?=number_format($pesoBruto, 3);?></td>
+        <td width="20">&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>PESO DEL VEHICULO Kgrs&nbsp;&nbsp;----------------------------------------------------------------------></td>
+        <td width="1" align="right"><?=number_format($pesoTara, 3);?></td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>PESO NETO RECIBIDO Kgrs&nbsp;&nbsp;--------------------------------------------------------------------></td>
+        <td width="1" align="right"><?=number_format($pesoNeto, 3);?></td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>DESC. POR HUMEDAD: <?=number_format($dataRecepcion[0]['humedad'], 3)?>% Kgrs&nbsp;------------------------------------------------------></td>
+        <td width="1" align="right"><?=number_format($dataRecepcion[0]['humedad_des'], 3);?></td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>DESC. POR IMPUREZAS: <?=number_format($dataRecepcion[0]['impureza'], 3)?>% Kgrs&nbsp;------------------------------------------------------></td>
+        <td width="1" align="right"><?=number_format($dataRecepcion[0]['impureza_des'], 3);?></td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="4">&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>NETO ACONDICIONADO Kgrs&nbsp;------------------------------------------------------------------></td>
+        <td width="1" align="right"><?=number_format($dataRecepcion[0]['peso_acon'], 3);?></td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr align="center">
+        <td colspan="4" style="padding-top: 60px;">
+            _______________________________&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_______________________________<br/>
+            Transportista&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Por el Silo
+        </td>
+    </tr>
+</table>
+<?
+    }else{
+        header('location: ../admin/recepcion.php');
+        die();
+    }
+    require_once("../lib/common/footer_reportes.php");
+    /*$mpdf=new mPDF();
+    $mpdf->WriteHTML($cadena);
+    $mpdf->Output('recepcion.pdf','F');
+    exit;*/
+?>

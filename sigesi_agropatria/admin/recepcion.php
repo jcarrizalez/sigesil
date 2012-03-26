@@ -216,8 +216,7 @@ $validator->printScript();
                 <td><span class="msj_rojo">* </span>N&uacute;mero de Gu&iacute;a: </td>
                 <td>
                     <?
-                        echo $html->input('Guia.numero_guia', '', array('type' => 'text', 'length' => '10', 'class' => 'estilo_campos integer'));
-                        //echo $html->link('<img id="buscarGuia" src="../images/buscar.png" width="16" height="16" title=Buscar Guia>');
+                        echo $html->input('Guia.numero_guia', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos integer'));
                     ?>
                 </td>
             </tr>
@@ -272,7 +271,6 @@ $validator->printScript();
                     <?
                         echo $html->select('nacion', array('options'=>$listaCR));
                         echo "&nbsp;".$html->input('Productor.ced_rif', $infoProductor[0]['cedula_pro'], array('type' => 'text', 'length' => '8', 'class' => 'crproductor integer'));
-                        //echo $html->link('<img id="buscarPro" src="../images/buscar.png" width="16" height="16" title=Buscar Productor>');
                     ?>
                 </td>
             </tr>
@@ -301,7 +299,6 @@ $validator->printScript();
                     <?
                         echo $html->select('nacion2', array('options'=>$listaCR));
                         echo "&nbsp;".$html->input('Asociado.ced_rif', $infoAsociado[0]['cedula_aso'], array('type' => 'text', 'length' => '8', 'class' => 'crproductor integer'));
-                        //echo $html->link('<img id="buscarAso" src="../images/buscar.png" width="16" height="16" title=Buscar Productor>');
                     ?>
                 </td>
             </tr>
@@ -326,7 +323,6 @@ $validator->printScript();
                     <?
                         echo $html->select('nacion3', array('options'=>$listaCR));
                         echo "&nbsp;".$html->input('Chofer.ced_rif', '', array('type' => 'text', 'length' => '8', 'class' => 'crproductor integer'));
-                        //echo $html->link('<img id="buscarCho" src="../images/buscar.png" width="16" height="16" title=Buscar Productor>');
                     ?>
                 </td>
             </tr>

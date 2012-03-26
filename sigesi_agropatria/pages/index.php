@@ -9,20 +9,13 @@
         $('.inputLogin').change(function(){
             $(this).removeClass('error');
         });
+        
+        $('.inputLogin').keypress(function(e){
+            if(e.which == 13)
+                changeop(1);
+        });
+
     });
-    
-    /*function validar_Formulario(){
-        if($('#usuario').val() == '' || $('#pass').val() == ''){
-            $('#mostrar_error').css('display', 'block');
-            $('#mostrar_error2').css('display', 'none');
-            if($('#usuario').val() == '')
-                $('#usuario').focus();
-            else
-                $('#pass').focus();
-            
-            return false;
-        }
-    }*/
     
     function cancelar(){
         window.location = 'index.php';
@@ -47,19 +40,18 @@
         function(data){
             if(data==1){
                 document.getElementById('mens').innerHTML = '';	
-                //validate(); //Objeto validator
                 document.form_login.submit();
             } else {
                 if(usuario==''){
-                    document.getElementById('usuario').setAttribute("class", 'error');
+                    document.getElementById('usuario').setAttribute("class", 'inputLogin error');
                     document.getElementById('usuario').focus();
                     return false;
                 }else if(pass==''){
-                    document.getElementById('pass').setAttribute("class", 'error');
+                    document.getElementById('pass').setAttribute("class", 'inputLogin error');
                     document.getElementById('pass').focus();
                     return false;
                 }
-                document.getElementById('tmptxt').setAttribute("class", 'error');
+                document.getElementById('tmptxt').setAttribute("class", 'inputLogin error');
                 document.getElementById('tmptxt').focus();
                 document.getElementById('mens').innerHTML = data;
                 return false;
@@ -112,7 +104,7 @@
         </tr>
         <tr align="center">
             <td colspan="2">
-                <? echo $html->input('tmptxt', '', array('type' => 'text')); ?>
+                <? echo $html->input('tmptxt', '', array('type' => 'text', 'class' => 'inputLogin')); ?>
             </td>
         </tr>
         <tr align="center">

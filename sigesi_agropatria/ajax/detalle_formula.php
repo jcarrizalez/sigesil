@@ -121,11 +121,17 @@
             if(!empty($GPC['Recepcion'])){
                 $formula = new Formulas();
                 $evaluar = new LaMermelex();
+                $resultados = new Analisis();
                 $evaluar->suppress_errors = true;
+                
+                $id = split('=', $GPC['formula']);
+                $id = $id[1];
                 
                 $orden = " ORDER BY id_centro_acopio DESC, id_cultivo, id_analisis";
                 $formulas = $formula->formulaCultivo($_SESSION['s_ca_id'], trim(substr($GPC['cultivo'], 0, 2)), $orden);
-                //Debug::pr($formulas);
+                
+                $infoResultados = $resultados->listadoResultados($id, '', '', "'1', '2'");
+                
                 foreach($formulas as $valor){
                     if($valor['codigo'] == 'PL12')
                         $formulaAplicar['PL'] = $valor['formula'];
@@ -139,11 +145,26 @@
                         $humImp[] = $valor['formula'];
                 }
                 
+                foreach($infoResultados as $valor){
+                    if($valor['codigo'] == 1){
+                        $sumHum = $valor['muestra1'];
+                        $sumHum += (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                    }else{
+                        $sumImp = $valor['muestra1'];
+                        $sumImp += (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                    }
+                }
+                //PROMEDIO PARA LA HUMEDAD
+                $promHum = $sumHum/$GPC['cant_m'];
+                
+                //PROMEDIO PARA LA IMPUREZA
+                $promImp = $sumImp/$GPC['cant_m'];
+                
                 //VARIABLES A USAR PARA LOS CALCULOS
                 $reservadas = array('PL1', 'PL2', 'PV1', 'PV2', 'HUML', 'IMPL', 'PHUM', 'PIMP');
                 $GPC['Recepcion']['pesoLleno2'] = (!empty($GPC['Recepcion']['pesoLleno2'])) ? $GPC['Recepcion']['pesoLleno2'] : 0;
                 $GPC['Recepcion']['peso_02v'] = (!empty($GPC['Recepcion']['peso_02v'])) ? $GPC['Recepcion']['peso_02v'] : 0;
-                $pesos = array($GPC['Recepcion']['pesoLleno1'], $GPC['Recepcion']['pesoLleno2'], $GPC['Recepcion']['peso_01v'], $GPC['Recepcion']['peso_02v'], $GPC['Recepcion']['hum'] = '19.6', $GPC['Recepcion']['imp'] = '3.4');
+                $pesos = array($GPC['Recepcion']['pesoLleno1'], $GPC['Recepcion']['pesoLleno2'], $GPC['Recepcion']['peso_01v'], $GPC['Recepcion']['peso_02v'], $promHum, $promImp);
                 
                 //CALCULO DEL PESO BRUTO
                 $totalB = str_replace($reservadas, $pesos, $formulaAplicar['PL']);
@@ -180,27 +201,27 @@
             ?>
             <tr>
                 <td>Peso Bruto Total Kgrs</td>
-                <td><? echo $html->input('pesoBruto', number_format($pesoL, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('pesoBruto', number_format(round($pesoL), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Peso del Veh&iacute;culo Kgrs</td>
-                <td><? echo $html->input('pesoVehiculo', number_format($pesoV, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('pesoVehiculo', number_format(round($pesoV), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Peso Neto Recibido Kgrs</td>
-                <td><? echo $html->input('pesoRecibido', number_format($pesoN, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('pesoRecibido', number_format(round($pesoN), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Desc. por Humedad Kgrs</td>
-                <td><? echo $html->input('descHumedad', number_format($pesoH, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('descHumedad', number_format(round($pesoH), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Desc. por Impurezas Kgrs</td>
-                <td><? echo $html->input('descImpurezas', number_format($pesoI, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('descImpurezas', number_format(round($pesoI), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Neto Acondicionado Kgrs</td>
-                <td><? echo $html->input('netoAcondicionado', number_format($pesoA, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('netoAcondicionado', number_format(round($pesoA), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <?
                 if (($pesoL < 0) || ($pesoV < 0) || ($pesoN < 0) || ($pesoH < 0) || ($pesoI < 0) || ($pesoA < 0)){

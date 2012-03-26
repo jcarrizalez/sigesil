@@ -23,9 +23,9 @@ class Captcha{
 		$fondo = imagecolorallocate($NewImage, 228, 229, 223);
 		$TextColor = imagecolorallocate($NewImage, 0, 0, 0);//text color-Black
 		//Rellenado de la imagen
-		imagefilledrectangle($NewImage, 0, 0, 200, 70, $fondo);
-		$fuente = 'Hotel Coral Essex.ttf'; // Aqui podemos cambiar de fuente entre otras mas cosas
-		imagettftext($NewImage, 30, 5, 35, 60, $verde, $fuente, $ResultStr);	
+		imagefilledrectangle($NewImage, 0, 0, 200, 70, $blanco);
+		$fuente = $_SERVER['DOCUMENT_ROOT'].'/sigesi_agropatria/lib/class/captcha/Hotel_Coral_Essex.ttf'; // Aqui podemos cambiar de fuente entre otras mas cosas
+		imagettftext($NewImage, 30, 5, 35, 60, $rojo, $fuente, $ResultStr);	
 		$_SESSION['captcha_val'] = $ResultStr;// carry the data through session
 		header("Content-type: image/gif");// out out the image 
 		imagegif($NewImage);//Output image to browser 
