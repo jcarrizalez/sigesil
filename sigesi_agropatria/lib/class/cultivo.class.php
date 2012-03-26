@@ -18,5 +18,17 @@ class Cultivo extends Model {
         $query = "DELETE FROM si_cultivo where id = " . $id;
         $result = $this->_SQL_tool("DELETE", __METHOD__, $query);
     }
+    
+    function buscarTipo($id, $idCA) {
+        $query = "SELECT tipo.*                         
+                    FROM si_cultivo_tipo tipo
+                    INNER JOIN si_cultivo cul
+                    ON cul.id=tipo.id_cultivo
+                    WHERE '1'";
+        $query.=(!empty($id)) ? " AND cul.id = $id" : '';
+        $query.=(!empty($idCA)) ? " AND tipo.id_centro_acopio = $idCA" : '';
+        $query.= " ORDER BY cul.id";
+        return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
+    }
 }
 ?>

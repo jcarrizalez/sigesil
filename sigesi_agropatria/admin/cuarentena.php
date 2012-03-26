@@ -8,7 +8,8 @@ $Cultivos = new Cultivo();
 $Vehiculos = new Vehiculo();
 $Plagas = new Plaga();
 $Productos = new Producto();
-$usuario = new Usuario();
+$analisis=new Analisis();
+
 
 $listaCultivos = $Cultivos->find('', null, array('id', 'nombre'), 'list', 'id');
 $listaPlagas = $Plagas->find('', null, array('id', 'nombre'), 'list', 'id');
@@ -21,11 +22,20 @@ $soloLectura=true;
 switch ($GPC['ac']) {
     case 'editar':
         if (!empty($GPC['id'])) {
-            $infoCtna = $Ctna->find(array('id_recepcion' => $id));
+            $id=$GPC['id'];
+            if ($_SESSION['s_mov']=='rec') {                
+                $infoCtna = $Ctna->find(array('id_recepcion' => $id));
+                $infoRecepcion = $Rec->find(array('id' => $infoCtna[0]['id_recepcion']));
+                $infoVehiculo = $Vehiculos->find(array('id' => $infoRecepcion[0]['id_vehiculo']));
+                $infoGuia = $Guias->find(array('id' => $infoRecepcion[0]['id_guia']));
+            }
+            else {
+                $infoCtna = $Ctna->find(array('id_despacho' => $id));
+                $infoDespacho = $despacho->find(array('id' => $infoCtna[0]['id_despacho']));                
+            }
             $id_cuarentena=$infoCtna[0]['id'];
-            $infoRecepcion = $Rec->find(array('id' => $infoCtna[0]['id_recepcion']));
-            $infoVehiculo = $Vehiculos->find(array('id' => $infoRecepcion[0]['id_vehiculo']));
-            $infoGuia = $Guias->find(array('id' => $infoRecepcion[0]['id_guia']));
+            
+            
             $soloLectura=(empty($infoCtna[0]['estatus'])) ? false: true;
         }
         else {
@@ -36,7 +46,7 @@ switch ($GPC['ac']) {
     case 'guardar':
          if (!empty($GPC['id'])) {
             $id=$GPC['id'];
-            if ($_SESSION['s_mov']='rec') 
+            if ($_SESSION['s_mov']=='rec') 
                 $infoCtna = $Ctna->find(array('id_recepcion' => $id));
             else
                 $infoCtna = $Ctna->find(array('id_despacho' => $id));            
@@ -46,8 +56,13 @@ switch ($GPC['ac']) {
             $GPC['Cuarentena']['fecha_mov']=$general->fecha_normal_sql($GPC['Cuarentena']['fecha_mov'],'es');
             $GPC['Cuarentena']['fecha_cultivo']=$general->fecha_normal_sql($GPC['Cuarentena']['fecha_cultivo'],'es');
             $GPC['Cuarentena']['fecha_lib']=$general->fecha_normal_sql($GPC['Cuarentena']['fecha_lib'],'es');
-            $GPC['Cuarentena']['estatus']='2'; //Se fija el estatus 2 la primera vez que se registra
-            $id_cuarentena=$Ctna->save($GPC['Cuarentena']);            
+            if ($_SESSION['s_mov']=='rec')
+                if ($_SESSION['s_lab']=='C')
+                    $GPC['Cuarentena']['estatus']='2'; //Se fija el estatus 2 la primera vez que se registra
+                else if ($_SESSION['s_lab']=='P') 
+                    $GPC['Cuarentena']['estatus']='5'; //Se fija el estatus 2 la primera vez que se registra
+                
+            $id_cuarentena=$Ctna->save($GPC['Cuarentena']);
          }
         if ($id_cuarentena) {
             $Ctna->_commit_tool();
@@ -60,18 +75,76 @@ switch ($GPC['ac']) {
             }
         break;
     case 'liberar':
-            header("location: ../admin/analisis_resultado_listado.php?msg=existoso&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
+        if (!empty($GPC['id'])) {
+            $id=$GPC['id'];
+            if ($_SESSION['s_mov']=='rec')
+                if ($_SESSION['s_lab']=='C')
+                    $estatus=3;
+                else if ($_SESSION['s_lab']=='P')
+                        $estatus=6;
+            if ($_SESSION['s_mov']=='rec') {                
+                $infoCtna = $Ctna->find(array('id_recepcion' => $id));
+                $infoRecepcion = $Rec->find(array('id' => $infoCtna[0]['id_recepcion']));
+                $GPC['Recepcion']['id']=$GPC['id'];
+                $GPC['Recepcion']['estatus_rec']=$estatus;
+                $Ctna->_begin_tool();
+                $Rec->save($GPC['Recepcion']);
+                $GPC['Cuarentena']['id']=$GPC['id'];
+                $GPC['Cuarentena']['estatus']=$estatus;
+                $id_cuarentena=$Ctna->save($GPC['Cuarentena']);
+            }                
+        }
+        if (!empty($id_cuarentena)) {
+            $Ctna->_commit_tool();
+            header("location: ../admin/analisis_resultado_listado.php?msg=existoso&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);        
             die();
+        } 
+        else {
+            header("location: ../admin/analisis_resultado_listado.php?msg=error&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
+            die();
+        }
+            
     break;        
     case 'rechazar':
-        if (empty($GPC['id'])) {
+        if (!empty($GPC['id'])) {            
+            $id=$GPC['id'];
+            if ($_SESSION['s_mov']=='rec')
+                if ($_SESSION['s_lab']=='C')
+                    $estatus=7;
+                else if ($_SESSION['s_lab']=='P')
+                        $estatus=8;
+            else
+                $estatus=4;
+            $Ctna->_begin_tool();
+            if ($_SESSION['s_mov']=='rec') {
+                $infoCtna = $Ctna->find(array('id_recepcion' => $id));
+                $infoRecepcion = $Rec->find(array('id' => $infoCtna[0]['id_recepcion']));
+                $GPC['Recepcion']['id']=$GPC['id'];
+                $GPC['Recepcion']['estatus_rec']=$estatus;
+                $Rec->save($GPC['Recepcion']);
+            }
+            else
+                $infoCtna = $Ctna->find(array('id_despacho' => $id));                       
+
+            $GPC['Cuarentena']['id']=$GPC['id'];
+            $GPC['Cuarentena']['estatus']=$estatus;
+            $id_cuarentena=$Ctna->save($GPC['Cuarentena']);
+            if (!empty($id_cuarentena)) {
+                $Ctna->_commit_tool();
+                $id_analisis=$infoCtna[0]['id_analisis'];
+                $listA=$analisis->listaAnalisis($id_analisis);                        
+                $GPC['es_rechazado']="0_0:".$listA[0]['codigo'];
+                header("location: ../reportes/imprimir_boleta_rechazo.php?id=". $GPC['id']."&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']."&es_rechazado=".$GPC['es_rechazado']);
+                die();
+            }
             header("location: analisis_resultado_listado.php?msg=existoso&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
-            die();                        
+            die();            
+            //die();
         }
-//        else {
-            header("location: www.google.co.ve");
+        else {
+            header("location: ../admin/analisis_resultado_listado.php?msg=error&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
             die();
-//        }
+        }
     break;
 
 }
@@ -204,7 +277,6 @@ $validator->printScript();
             fechaLib.setMinutes(parseInt(horaMin[1]));
             curentena=40;
             fechaLib.setTime(fechaLib.getTime()+1000*60*60*curentena); 
-//            $('#Cuarentena\\[fecha_lib\\]').val(fechaLib);
             
             horaF=''+fechaLib.getHours();
             meridiano=' AM';
@@ -223,12 +295,10 @@ $validator->printScript();
                     horaF=''+(fechaLib.getHours()-12);
                 meridiano=' PM';
             }
-//            horaF=(fechaLib.getHours() < 10) ? '0'+fechaLib.getHours(): ''+fechaLib.getHours();
-            minF=(fechaLib.getMinutes() < 10) ? '0'+fechaLib.getMinutes(): ''+fechaLib.getMinutes();
-            
+            minF=(fechaLib.getMinutes() < 10) ? '0'+fechaLib.getMinutes(): ''+fechaLib.getMinutes();           
             diaF=(fechaLib.getDate()<10) ? '0'+fechaLib.getDate(): fechaLib.getDate();
             mesF=(fechaLib.getMonth() < 10) ? '0'+(fechaLib.getMonth()+1): ''+(fechaLib.getMonth()+1);
-            //alert('diaF: '+diaF+' Dia: '+Dia);
+            
             $('#Cuarentena\\[fecha_lib\\]').val(diaF+'-'+mesF+'-'+fechaLib.getFullYear());
             $('#Cuarentena\\[hora_lib\\]').val(horaF+':'+minF+meridiano);
         });
@@ -245,10 +315,6 @@ $validator->printScript();
             closeText: "Cerrar"
         });   
         
-//        $('#Cuarentena\\[fecha_lib\\]').AnyTime.picker(
-//            { format: "%H:%i", labelTitle: "Hora",
-//            labelHour: "Hora", labelMinute: "Minuto" } );
-        
         $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
         
         $('.calcular_dosis').change(function() {
@@ -260,12 +326,13 @@ $validator->printScript();
         });
         
         $('#Rechazar').click(function() {
-            //if (confirm('EL MOVIMIENTO SERA RECHAZADO ESTA SEGURO QUE DESEA RECHAZAR!!!'))
-                window.location = '?ac=rechazar&id=<?=$GPC["id"]?>';                
+            if (confirm('EL MOVIMIENTO SERA RECHAZADO ESTA SEGURO QUE DESEA RECHAZAR!!!'))
+                window.location = '?ac=rechazar&id=<?=$GPC["id"] ?>';
         });
         
         $('#Liberar').click(function() {
-            window.location = '?ac=liberar';
+            if (confirm('EL MOVIMIENTO SERA LIBERADA ESTA SEGURO QUE DESEA LIBERAR!!!'))
+                window.location = '?ac=liberar&id=<?=$GPC["id"] ?>';            
         });
         
     });
@@ -405,7 +472,7 @@ $validator->printScript();
         <tr>
             <td>                
                 <?
-                $fecha=date('d-m-Y',strtotime(''.$infoCtna[0]['fecha_lib'])).' '.$infoCtna[0]['hora_lib'];
+                $fecha=date('d-m-Y',strtotime(''.$infoCtna[0]['fecha_lib'])).' '.$infoCtna[0]['hora_lib'];             
                 if (empty($infoCtna[0]['estatus']))
                     echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); 
                 else if (time() > strtotime($fecha)) {                    

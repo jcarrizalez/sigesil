@@ -12,7 +12,7 @@ $_SESSION['s_lab']=$GPC['lab'];
 $listaLab = array('C' => 'Lab. Central', 'P' => 'Lab. Planta');
 
 $listaMov = array('rec' => 'RECEPCI&Oacute;N', 'des' => 'DESPACHO');
-$listaAccion = array('P' => 'Imprimir');
+$listaAccion = array('B' => 'Buscar');
 $fecha_mov=date('d-m-Y');
 $idCA=$_SESSION['s_ca_id'];
 
@@ -49,7 +49,7 @@ require('../lib/common/init_calendar.php');
                 return;
             } 
 
-            if ($('#accion').val()=='') {
+            if ($('#Accion').val()=='') {
                 return;
             }
 //            if ($('#numero').val()=='') {
@@ -62,10 +62,22 @@ require('../lib/common/init_calendar.php');
         });
         
         //$('.imprimir').css('display','none');
+        $('#Accion').change(function(){            
+            if ($(this).val()=='') 
+                $('#verAccion').css('display','none');            
+            else
+                $('#verAccion').css('display','block');
+            
+        });
         
         $('#Regresar').click(function(){
            history.back();
-        });       
+        });
+        
+        $('#Buscar').click(function(){
+            if ($('#Accion').val()=='B') 
+                window.location = '<?=DOMAIN_ROOT?>reportes/imprimir_recepcion.php?id_rec='+$('#numero').val();
+        });
     });
 </script>
 
@@ -90,7 +102,12 @@ require('../lib/common/init_calendar.php');
     ?>
 </div>
 <table align="center" width="100%" border="0" style="padding-top: 20px">
-    <tr align="right">
+    <tr>
+        <td align="right" ><? echo $html->select('Accion', array('options' => $listaAccion, 'selected' => $GPC['accion'], 'default' => 'Seleccione', 'class' => 'crproductor'));?>
+            <? echo $html->input('Regresar', 'Regresar', array('type' => 'button')); ?>
+        </td>
+    </tr>
+    <tr align="center" id="verAccion" align="right" style="display: none">
         <td >Fecha:</td>                
         <td><? echo $html->input('fecha', $fecha_mov, array('type' => 'text', 'readOnly' => true, 'class' => 'crproductor')); ?>
             <img src="../images/calendario.png" id="fmov" width="16" height="16" style="cursor:pointer" >&nbsp;
@@ -105,13 +122,8 @@ require('../lib/common/init_calendar.php');
             </script>
         </td>
         <td>N&uacute;mero:</td>
-        <td><? echo $html->input('numero', $GPC['numero'], array('type' => 'text', 'class'=>'cuadricula positive')); ?>&nbsp;</td>        
-        <td><? echo $html->select('accion', array('options' => $listaAccion, 'selected' => $GPC['accion'], 'default' => 'Seleccione', 'class' => 'crproductor'));?></td>
-    </tr>                 
-    <tr>
-        <td align="right" colspan="6">
-            <? echo $html->input('Regresar', 'Regresar', array('type' => 'button')); ?>
-        </td>
+        <td><? echo $html->input('numero', $GPC['numero'], array('type' => 'text', 'class'=>'cuadricula positive')); ?>&nbsp;
+        <img src="../images/imprimir.png" id="Buscar" width="16" height="16" style="cursor:pointer" ></td>
     </tr>
     <tr>
         <td colspan="6">&nbsp;</td>

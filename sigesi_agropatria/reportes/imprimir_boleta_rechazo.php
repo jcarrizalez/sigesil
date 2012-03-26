@@ -17,7 +17,7 @@
             $id_rechazado = split('_', $celda);            
             foreach($listA as $dataAnalisis) {                                
                 if ($dataAnalisis['codigo']==$id_rechazado[0]) {
-                    $listaR=$analisis->listadoResultados($GPC['id'], null,null, $dataAnalisis['codigo']);                    
+                    $listaR=$analisis->listadoResultados($GPC['id'], null,null, "'".$dataAnalisis['codigo']."'");
                     $rechazados[$i]['nombre']=$dataAnalisis['nombre'];
                     $rechazados[$i]['muestra']=$listaR[0]['muestra'.$id_rechazado[1]];
                     $rechazados[$i]['codigo']=$dataAnalisis['codigo'];
@@ -34,7 +34,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
         window.print();
-        window.location = '<?=DOMAIN_ROOT?>/admin/analisis_resultado_listado.php?msg=exitoso&mov=<?=$_SESSION["s_mov"]?>&lab=<?=$_SESSION["s_lab"]?>';        
+        window.location = '<?=DOMAIN_ROOT?>admin/analisis_resultado_listado.php?msg=exitoso&mov=<?=$_SESSION["s_mov"]?>&lab=<?=$_SESSION["s_lab"]?>';
     });
 </script>
 <div id="titulo_reporte">
@@ -81,8 +81,7 @@
 foreach($rechazados as $dataRechazado) {     
     ?>    
     <tr>    
-    <td align="right"><?=$dataRechazado['codigo']; ?></td>
-    <td><?=$dataRechazado['nombre']; ?></td>
+    <td colspan="2"><?=$dataRechazado['codigo'].' - '.$dataRechazado['nombre']; ?></td>
     <td><?=$dataRechazado['muestra']; ?></td>
     </tr>
     <?

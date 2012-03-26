@@ -16,7 +16,7 @@
     $listadoAnalisis = $AnalisisRes->buscarAC(null, $dataRecepcion[0]['id_cultivo'], $idORG);
     $data = $AnalisisRes->listadoResultados($id_rec);
     
-    if(!empty($dataRecepcion[0]['id_rec']) && $dataRecepcion[0]['estatus_rec'] == 1){
+    if(!empty($dataRecepcion[0]['id_rec'])) {
 ?>
 <script type="text/javascript">
     $(document).ready(function(){

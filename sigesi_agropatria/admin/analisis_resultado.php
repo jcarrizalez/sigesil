@@ -4,6 +4,8 @@ $analisis = new Analisis();
 $Rec = new Recepcion();
 $despacho = new Despacho();
 $cosecha=new Cosecha();
+$cultivo=new Cultivo();
+$tipificacion = new Recultipo();
 
 $idCA = $_SESSION['s_id_ca'];
 $id = $GPC['id'];
@@ -31,11 +33,12 @@ switch ($GPC['ac']) {
             $infoRecepcion = $Rec->find(array('id' => $GPC['id']));
             $InfoCosecha=$cosecha->find(array('id'=>$infoRecepcion[0]['id_cosecha']));
             $idCultivo=$InfoCosecha[0]['id_cultivo'];
-            $laboratorio=($tipo_mov[$_SESSION['s_lab']=='C'])? $laboratorio="'C','A'": $laboratorio="'A'";
+            $laboratorio=($_SESSION['s_lab']=='C')? $laboratorio="'C','A'": $laboratorio="'A'";
             $listadoAnalisis = $analisis->buscarAC(null, $idCultivo, $idCA, $laboratorio);
             $analisis->_begin_tool();
             $j = 0;
-            foreach ($listadoAnalisis as $dataAnalisis) { 
+            $Resultados=array();
+            foreach ($listadoAnalisis as $dataAnalisis) {                 
                 if ($_SESSION['s_mov']=='rec') 
                     $GPC['Resultados']['id_recepcion'] = $GPC['id'];
                 if ($_SESSION['s_mov']=='des') 
@@ -45,9 +48,14 @@ switch ($GPC['ac']) {
                 $valor = 'muestra' . $j . '_' . $dataAnalisis['codigo'];
                 $GPC['Resultados']['muestra1'] = is_numeric($GPC[$valor][0]) ? number_format($GPC[$valor][0], 3) : $GPC[$valor][0];
                 $GPC['Resultados']['muestra2'] = is_numeric($GPC[$valor][1]) ? number_format($GPC[$valor][1], 3) : $GPC[$valor][1];
-                $GPC['Resultados']['muestra3'] = is_numeric($GPC[$valor][2]) ? number_format($GPC[$valor][2], 3) : $GPC[$valor][2];
+                $GPC['Resultados']['muestra3'] = is_numeric($GPC[$valor][2]) ? number_format($GPC[$valor][2], 3) : $GPC[$valor][2];                
                 $GPC['Resultados']['id_centro_acopio'] = $_SESSION['s_ca_id'];
-                $GPC['Resultados']['tipo_mov']=$tipo_mov[$_SESSION['s_mov']];                
+                $GPC['Resultados']['tipo_mov']=$tipo_mov[$_SESSION['s_mov']];
+                //vector para la tipificacion
+                $Resultados[$j]['id_analisis']=$GPC['Resultados']['id_analisis'];
+                $Resultados[$j]['muestra1']=$GPC['Resultados']['muestra1'];
+                $Resultados[$j]['muestra2']=$GPC['Resultados']['muestra2'];
+                $Resultados[$j]['muestra3']=$GPC['Resultados']['muestra3'];
                 $j++;                
                 $id_analisis = $analisis->guardarResultados($GPC['Resultados']);                
             }
@@ -96,13 +104,47 @@ switch ($GPC['ac']) {
                     $GPC['Despacho']['estatus'] = $estatus;                    
                     $despacho->save($GPC['Despacho']);
                 }
-                $analisis->_commit_tool();
-            }        
+            }
+            if ($_SESSION['s_mov']=='rec') {
+                $listaTipo=$cultivo->buscarTipo($idCultivo, $idCA);            
+                $tipoCultivo='A';
+                $tipoTemp='A';  
+                $tipo1='A';
+                $tipo2='A';
+                $tipo3='A';
+                $estipo=false;
+                for ($i=0; $i< count($Resultados); $i++) {                
+                    foreach ($listaTipo as $tipo) {
+                        if ($tipo['id_analisi']==$Resultados[$i]['id_analisis']) {
+                            $estipo=true;
+                            $tipo1=($Resultados[$i]['muestra1'] >= $tipo['min'] || $Resultados[$i]['muestra1'] <= $tipo['max']) ? $tipo['tipo']: 'B';                        
+                            if (!empty($Resultados[$i]['muestra2']))
+                                $tipo2=($Resultados[$i]['muestra2'] >= $tipo['min'] || $Resultados[$i]['muestra2'] <= $tipo['max']) ? $tipo['tipo']: 'B';
+                            if (!empty($Resultados[$i]['muestra3']))
+                                $tipo3=($Resultados[$i]['muestra3'] >= $tipo['min'] || $Resultados[$i]['muestra3'] <= $tipo['max']) ? $tipo['tipo']: 'B';//
+                            if ($tipo1=='B' || $tipo2=='B' || $tipo3=='B') {
+                                $tipoCultivo='B';
+                            }                            
+                        }
+                    }
+                }
+                if ($estipo==true) {
+                    $GPC['Tipificacion']['id_centro_acopio'] = $_SESSION['s_ca_id'];
+                    $GPC['Tipificacion']['id_recepcion'] = $GPC['id'];
+                    $GPC['Tipificacion']['id_cultivo']= $idCultivo;                
+                    $GPC['Tipificacion']['laboratorio']= $_SESSION['s_lab'];
+                    $GPC['Tipificacion']['tipo'] = $tipoCultivo;
+                    $id_tipo=$tipificacion->save($GPC['Tipificacion']);                    
+                }
+            }
         }
         switch ($estatus) {
             case '2':
             case '3':
-            case '6':                
+            case '6':
+                $analisis->_commit_tool();
+                if ($estipo==true)
+                    header("location: reportes/imprimir_boleta_tipificacion.php?id_rec=".$GPC['id']);
                 header("location: analisis_resultado_listado.php?msg=exitoso&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
                 die();
                 break;
