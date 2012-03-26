@@ -43,7 +43,8 @@ img{
     margin: 50px auto;
     background-color: #FFFFFF;
     border: 1px #000000 solid;
-    border.radius: 10px;
+    /*border.radius: 10px;*/
+    border-radius: 10px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     opacity: 0.8;
@@ -63,7 +64,8 @@ img{
     margin: 50px auto;
     background-color: #FFFFFF;
     border: 1px #000000 solid;
-    border.radius: 10px;
+    /*border.radius: 10px;*/
+    border-radius: 10px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     opacity: 0.8;
@@ -121,9 +123,10 @@ img{
     margin: auto;
     padding: 0;
     height: 40px;
-    border.radius: 15px 15px 0 0;
     -moz-border-radius:15px 15px 0 0;
     -webkit-border-radius:15px 15px 0 0;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }
 
 #cabecera2{
@@ -138,7 +141,8 @@ img{
 #global{
     margin: auto;
     background-image: url('../images/old_paper.jpg');
-    border.radius: 0 0 15px 15px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
     -moz-border-radius: 0 0 15px 15px;
     -webkit-border-radius: 0 0 15px 15px;
 }
@@ -307,7 +311,8 @@ img{
     padding: 15px;
     background-image: url('../images/fondo_externo.jpg');
     background-repeat: no-repeat;
-    border.radius: 15px;
+    /*border.radius: 15px;*/
+    border-radius: 15px;
     -moz-border-radius:15px;
     -webkit-border-radius:15px;
 }
@@ -337,7 +342,8 @@ img{
     font-size: 16px;
     padding: 10px;
     border: 3px #000000 solid;
-    border.radius: 15px;
+    /*border.radius: 15px;*/
+    border-radius: 15px;
     -moz-border-radius:15px;
     -webkit-border-radius:15px;
 }
