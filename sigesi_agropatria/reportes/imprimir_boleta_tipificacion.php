@@ -10,7 +10,7 @@ if(!empty($GPC['id_rec'])) {
     $listaR=$recepcion->listadoRecepcion($listaT[0]['id_recepcion'], $listaT[0]['id_centro_acopio']);
 }
 else {
-    header("location: admin/analisis_resultado_listado.php?msg=exitoso&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
+    header("location: admin/analisis_resultado_listado.php?msg=error&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
     die();
 }
 $tipificacion = new Recultipo();

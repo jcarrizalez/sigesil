@@ -25,17 +25,18 @@ switch ($GPC['ac']) {
             $id=$GPC['id'];
             if ($_SESSION['s_mov']=='rec') {                
                 $infoCtna = $Ctna->find(array('id_recepcion' => $id));
-                $infoRecepcion = $Rec->find(array('id' => $infoCtna[0]['id_recepcion']));
-                $infoVehiculo = $Vehiculos->find(array('id' => $infoRecepcion[0]['id_vehiculo']));
-                $infoGuia = $Guias->find(array('id' => $infoRecepcion[0]['id_guia']));
+                $id_cuarentena=$infoCtna[0]['id']; 
+                if (!empty($id_cuarentena)) {                    
+                    $infoRecepcion = $Rec->find(array('id' => $infoCtna[0]['id_recepcion']));
+                    $infoVehiculo = $Vehiculos->find(array('id' => $infoRecepcion[0]['id_vehiculo']));
+                    $infoGuia = $Guias->find(array('id' => $infoRecepcion[0]['id_guia']));
+                }
             }
             else {
                 $infoCtna = $Ctna->find(array('id_despacho' => $id));
                 $infoDespacho = $despacho->find(array('id' => $infoCtna[0]['id_despacho']));                
             }
-            $id_cuarentena=$infoCtna[0]['id'];
-            
-            
+            $id_cuarentena=$infoCtna[0]['id'];            
             $soloLectura=(empty($infoCtna[0]['estatus'])) ? false: true;
         }
         else {
@@ -60,30 +61,32 @@ switch ($GPC['ac']) {
                 if ($_SESSION['s_lab']=='C')
                     $GPC['Cuarentena']['estatus']='2'; //Se fija el estatus 2 la primera vez que se registra
                 else if ($_SESSION['s_lab']=='P') 
-                    $GPC['Cuarentena']['estatus']='5'; //Se fija el estatus 2 la primera vez que se registra
+                    $GPC['Cuarentena']['estatus']='5'; //Se fija el estatus 2 la primera vez que se registra          
                 
-            $id_cuarentena=$Ctna->save($GPC['Cuarentena']);
+            if (empty($infoCtna[0]['estatus'])) 
+                $id_cuarentena=$Ctna->save($GPC['Cuarentena']);
+            else
+                $id_cuarentena=null;
          }
         if ($id_cuarentena) {
             $Ctna->_commit_tool();
             header("location: analisis_resultado_listado.php?msg=exitoso&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
             die();
         }
-        else {            
-            header("location: ../admin/analisis_resultado_listado.php?msg=error&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
-            die();
-            }
+        header("location: ../admin/analisis_resultado_listado.php?msg=error&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
+        die();
         break;
     case 'liberar':
         if (!empty($GPC['id'])) {
             $id=$GPC['id'];
-            if ($_SESSION['s_mov']=='rec')
-                if ($_SESSION['s_lab']=='C')
-                    $estatus=3;
-                else if ($_SESSION['s_lab']=='P')
-                        $estatus=6;
+//            if ($_SESSION['s_mov']=='rec')
+//                if ($_SESSION['s_lab']=='C')
+                    $estatus='3';
+//                else if ($_SESSION['s_lab']=='P')
+//                        $estatus='6';
             if ($_SESSION['s_mov']=='rec') {                
                 $infoCtna = $Ctna->find(array('id_recepcion' => $id));
+                $estatusA=$infoCtna[0]['estatus'];
                 $infoRecepcion = $Rec->find(array('id' => $infoCtna[0]['id_recepcion']));
                 $GPC['Recepcion']['id']=$GPC['id'];
                 $GPC['Recepcion']['estatus_rec']=$estatus;
@@ -94,59 +97,56 @@ switch ($GPC['ac']) {
                 $id_cuarentena=$Ctna->save($GPC['Cuarentena']);
             }                
         }
-        if (!empty($id_cuarentena)) {
-            $Ctna->_commit_tool();
-            header("location: ../admin/analisis_resultado_listado.php?msg=existoso&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);        
-            die();
+        if (!empty($id_cuarentena)) {            
+            if ($estatusA=='2') {
+                $Ctna->_commit_tool();
+                header("location: ../admin/analisis_resultado_listado.php?msg=existoso&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);        
+                die();
+            }
         } 
-        else {
-            header("location: ../admin/analisis_resultado_listado.php?msg=error&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
-            die();
-        }
-            
+        header("location: ../admin/analisis_resultado_listado.php?msg=error&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
+        die();
     break;        
     case 'rechazar':
         if (!empty($GPC['id'])) {            
             $id=$GPC['id'];
-            if ($_SESSION['s_mov']=='rec')
-                if ($_SESSION['s_lab']=='C')
+//            if ($_SESSION['s_mov']=='rec')
+//                if ($_SESSION['s_lab']=='C')
                     $estatus=7;
-                else if ($_SESSION['s_lab']=='P')
-                        $estatus=8;
-            else
-                $estatus=4;
+//                else if ($_SESSION['s_lab']=='P')
+//                        $estatus=8;
+//            else
+//                $estatus=4;            
             $Ctna->_begin_tool();
             if ($_SESSION['s_mov']=='rec') {
                 $infoCtna = $Ctna->find(array('id_recepcion' => $id));
+                $id_cuarentena=$infoCtna[0]['id'];
+                $estatusA=$infoCtna[0]['estatus'];
                 $infoRecepcion = $Rec->find(array('id' => $infoCtna[0]['id_recepcion']));
                 $GPC['Recepcion']['id']=$GPC['id'];
-                $GPC['Recepcion']['estatus_rec']=$estatus;
+                $GPC['Recepcion']['estatus_rec']=$estatus;                
                 $Rec->save($GPC['Recepcion']);
             }
             else
-                $infoCtna = $Ctna->find(array('id_despacho' => $id));                       
-
+                $infoCtna = $Ctna->find(array('id_despacho' => $id));                 
+            
             $GPC['Cuarentena']['id']=$GPC['id'];
             $GPC['Cuarentena']['estatus']=$estatus;
-            $id_cuarentena=$Ctna->save($GPC['Cuarentena']);
-            if (!empty($id_cuarentena)) {
+            $id_cuarentena=$Ctna->save($GPC['Cuarentena']);         
+        }
+        if (!empty($id_cuarentena)) {
+            if ($estatusA=='2') {
                 $Ctna->_commit_tool();
                 $id_analisis=$infoCtna[0]['id_analisis'];
-                $listA=$analisis->listaAnalisis($id_analisis);                        
+                $listA=$analisis->listaAnalisis($id_analisis);
                 $GPC['es_rechazado']="0_0:".$listA[0]['codigo'];
                 header("location: ../reportes/imprimir_boleta_rechazo.php?id=". $GPC['id']."&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']."&es_rechazado=".$GPC['es_rechazado']);
                 die();
             }
-            header("location: analisis_resultado_listado.php?msg=existoso&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
-            die();            
-            //die();
         }
-        else {
-            header("location: ../admin/analisis_resultado_listado.php?msg=error&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
-            die();
-        }
+        header("location: analisis_resultado_listado.php?msg=error&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
+        die();
     break;
-
 }
 
 require('../lib/common/header.php');
@@ -475,7 +475,7 @@ $validator->printScript();
                 $fecha=date('d-m-Y',strtotime(''.$infoCtna[0]['fecha_lib'])).' '.$infoCtna[0]['hora_lib'];             
                 if (empty($infoCtna[0]['estatus']))
                     echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); 
-                else if (time() > strtotime($fecha)) {                    
+                else if ((time() > strtotime($fecha)) && ($infoCtna[0]['estatus']=='2')) {                    
                     echo $html->input('Rechazar', 'Rechazar', array('type' => 'button'));
                     echo $html->input('Liberar', 'Liberar', array('type' => 'button'));
                 }
