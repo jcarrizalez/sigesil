@@ -24,5 +24,14 @@
                 echo $html->input('Recepcion.numero', $numeroRecepcion, array('type' => 'hidden', 'class' => 'estilo_campos'));
             }
         break;
+        case 'cantidad2':
+            if(!empty($GPC['idCo'])){
+                $despacho = new Despacho();
+                $cantSalida = $despacho->despachosDia($_SESSION['s_ca_id'], $GPC['idCo']);
+                $numeroSalida = ++$cantSalida[0]['total'];
+                echo "Salida Nro: ".$numeroSalida;
+                echo $html->input('Despacho.numero', $numeroSalida, array('type' => 'hidden', 'class' => 'estilo_campos'));
+            }
+        break;
     }
 ?>

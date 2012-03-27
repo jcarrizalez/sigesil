@@ -1,6 +1,14 @@
 <?php
     require_once('../lib/core.lib.php');
     $recepcion = new Recepcion();
+    $cultivo = new Cultivo();
+    $idCA = $_SESSION['s_ca_id'];
+
+    $listadoCultivos = $cultivo->cultivoPrograma($idCA);
+
+    foreach($listadoCultivos as $valor){
+        $listadoC[$valor['id']] = "(".trim($valor['codigo']).") ".$valor['nombre'];
+    }
     
     switch ($GPC['ac']){
         case 'orden':
@@ -12,7 +20,7 @@
             ?>
                 <tr>
                     <th colspan="2" align="center">Orden Procesada</th>
-                    <? echo $html->input('Guia.fecha_emision', '', array('type' => 'hidden')); ?>
+                    <? echo $html->input('Cliente.nombre', '', array('type' => 'text', 'class' => 'estilo_campos')); ?>
                 </tr>
             <?
             }elseif(empty($infoOrden) || $infoOrden[0]['estatus'] == 'N'){
@@ -35,8 +43,8 @@
                     <td><? echo $html->input('Cliente.telefono', $infoOrden[0]['cliente_telefono'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
                 <tr>
-                    <td>Cultivo</td>
-                    <td><? echo $html->input('Orden.id_cultivo', $infoOrden[0]['id_cultivo'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><span class="msj_rojo">* </span>Cultivo</td>
+                    <td><? echo $html->select('Orden.id_cultivo',array('options'=>$listadoC, 'default' => 'Seleccione', 'class' => 'estilo_campos'))?></td>
                 </tr>
                 <tr>
                     <th colspan="2" align="center">Orden Nueva, se proceder&aacute; a almacenar</th>
@@ -74,14 +82,41 @@
                     <td><? echo $html->input('Cliente.telefono', $infoCliente[0]['telefono'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
                 <tr>
-                    <td>Cultivo</td>
-                    <td><? echo $html->input('Orden.id_cultivo', $infoCliente[0]['id_cultivo'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><span class="msj_rojo">* </span>Cultivo</td>
+                    <td><? echo $html->select('Orden.id_cultivo',array('options'=>$listadoC, 'default' => 'Seleccione', 'class' => 'estilo_campos'))?></td>
                 </tr>
             <?
                 if($clienteNuevo){
                     ?>
                     <tr>
                         <th colspan="2" align="center">Cliente Nuevo, se proceder&aacute; a almacenar</th>
+                    </tr>
+                    <?
+                }
+        break;
+        case 'transporte':
+            ?>
+                <tr>
+                    <td>Nombre del Transporte</td>
+                    <td><? echo $html->input('Transporte.nombre', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                </tr>
+            <?
+        break;
+        case 'chofer':
+            $chofer = new Chofer();
+            
+            $infoChofer = $chofer->find(array('ced_rif' => $GPC['cp']));
+            $choferNuevo = (empty($infoChofer)) ? true : false;
+            ?>
+                <tr>
+                    <td><span class="msj_rojo">* </span>Nombre del Chofer</td>
+                    <td><? echo $html->input('Chofer.nombre', $infoChofer[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                </tr>
+            <?
+                if($choferNuevo){
+                    ?>
+                    <tr>
+                        <th colspan="2" align="center">Chofer Nuevo, se proceder&aacute; a almacenar</th>
                     </tr>
                     <?
                 }

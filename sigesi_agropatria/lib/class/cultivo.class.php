@@ -30,5 +30,13 @@ class Cultivo extends Model {
         $query.= " ORDER BY cul.id";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
+    
+    function cultivoPrograma($idCA){
+        $query = "SELECT cu.*
+                    FROM si_cultivo cu
+                    WHERE cu.id IN (SELECT p.id_cultivo FROM si_programa p WHERE p.id_centro_acopio = '$idCA' GROUP BY p.id_cultivo)
+                    ORDER BY cu.codigo";
+        return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
+    }
 }
 ?>

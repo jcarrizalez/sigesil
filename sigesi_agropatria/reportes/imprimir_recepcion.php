@@ -21,7 +21,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
         window.print();
-        window.location = '<?=DOMAIN_ROOT?>admin/recepcion.php';
+        window.location = '<?=DOMAIN_ROOT?>admin/<?=$GPC['redir']?>.php';
     });
 </script>
 <div id="titulo_reporte">

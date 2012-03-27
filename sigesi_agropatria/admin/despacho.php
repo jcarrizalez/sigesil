@@ -2,14 +2,14 @@
     require_once('../lib/core.lib.php');
     
     $cosecha = new Cosecha();
+    $cultivo = new Cultivo();
+    $transporte = new Transporte();
     
     $listaCR = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
-    $listaCantM = array(1 => 1, 2 => 2);
-    /*PARA TRABAJAR CON 3 MUESTRAS
-    $listaCantM = array(1 => 1, 2 => 2, 3 => 3);*/
-    $listaCarriles = array(1 => 1, 2 => 2);
     $idCA = $_SESSION['s_ca_id'];
     
+    $listadoT = $transporte->find(array('id_centro_acopio' => $idCA), '', array('id', 'nombre'), 'list', 'nombre');
+    $listadoT['9999'] = 'Otro';
     $listadoCosechas = $cosecha->infoCosechaCultivo($idCA, null, null, null, null, null, null);
     $listadoAgencias = array(1 => 'Agencia 1');
     
@@ -19,69 +19,66 @@
     
     switch($GPC['ac']){
         case 'guardar':
-            $recepcion = new Recepcion();
-            $guia = new Guia();
-            $productor = new Productor();
-            $asociado = new Asociado();
-            $vehiculo = new Vehiculo();
+            $cliente = new Cliente();
+            $orden = new Orden();
             $chofer = new Chofer();
+            $vehiculo = new Vehiculo();
+            $despacho = new Despacho();
+            $transporte = new Transporte();
+            $ptoEntrega = new PuntosEntrega();
+
+            $despacho->_begin_tool();
             
-            $GPC['Guia']['id_usuario'] = $_SESSION['s_id'];
-            $GPC['Guia']['estatus'] = 'P';
-            $GPC['Chofer']['id_org'] = $_SESSION['s_org_id'];
-            $GPC['Chofer']['ced_rif'] = $GPC['nacion3'].$GPC['Chofer']['ced_rif'];
-            $GPC['Chofer']['estatus'] = 't';
-            //$GPC['Guia']['cedula_chofer'] = $GPC['nacion3'].$GPC['Guia']['cedula_chofer'];
-            $GPC['Productor']['ced_rif'] = $GPC['nacion'].$GPC['Productor']['ced_rif'];
-            $GPC['Asociado']['ced_rif'] = $GPC['nacion2'].$GPC['Asociado']['ced_rif'];
-            $GPC['Recepcion']['id_usuario'] = $_SESSION['s_id'];
-            $GPC['Recepcion']['estatus_rec'] = 1;
-            $GPC['Recepcion']['id_centro_acopio'] = $_SESSION['s_ca_id'];
-            $GPC['Recepcion']['id_silo'] = 2;
-            $GPC['Recepcion']['fecha_recepcion'] = 'now()';
+            $GPC['Cliente']['id_org'] = $_SESSION['s_org_id'];
+            $GPC['Cliente']['ced_rif'] = $GPC['nacion'].$GPC['Cliente']['ced_rif'];
+            $cliente->save($GPC['Cliente']);
+            $idCliente = $cliente->id;
             
-            $recepcion->_begin_tool();
+            $GPC['Orden']['id_centro_acopio'] = $_SESSION['s_ca_id'];
+            $GPC['Orden']['id_cliente'] = $idCliente;
+            $GPC['Orden']['id_cultivo'] = $GPC['Orden']['id_cultivo'];
+            $GPC['Orden']['estatus'] = 'P';
+            $orden->save($GPC['Orden']);
+            $idOrden = $orden->id;
             
-            $guia->save($GPC['Guia']);
-            $idGuia = $guia->id;
-            
-            if($GPC['cantguia'] >= 1){
-                for($j=1; $j<=$GPC['cantguia']; $j++){
-                    $idSubGuia = $guia->guardarSubGuias($idGuia, $GPC["subguia_$j"], $GPC["subguiaFecha_$j"]);
+            for($i=1;$i<=2;$i++){
+                if(!empty($GPC["subOrden$i"])){
+                    $idSubOrden = $orden->guardarSubOrden($idOrden, $GPC["subOrden$i"], null, null, $GPC["subOrdenkg$i"]);
                 }
             }
             
-            $productor->save($GPC['Productor']);
-            $idProductor = $productor->id;
-            if(!empty($GPC['Asociado']['ced_rif']) && !empty($GPC['Asociado']['nombre'])){
-                $GPC['Asociado']['id_productor'] = $idProductor;
-                $asociado->save($GPC['Asociado']);
-                $idAsociado = $asociado->id;
-            }
-            $aso = (!empty($idAsociado)) ? 't' : 'f';
-            $cosecha->guardarProductorCosecha($GPC['Recepcion']['id_cosecha'], $idCA, $idProductor, $aso);
+            $GPC['Chofer']['ced_rif'] = $GPC['nacion2'].$GPC['Chofer']['ced_rif'];
             $chofer->save($GPC['Chofer']);
             $idChofer = $chofer->id;
-            $vehiculo->save($GPC['Vehiculo']);
-            $idVehiculo = $vehiculo->id;
-            $GPC['Recepcion']['id_productor'] = $idProductor;
-            $GPC['Recepcion']['id_guia'] = $idGuia;
-            $GPC['Recepcion']['id_vehiculo'] = $idVehiculo;
-            $GPC['Recepcion']['id_chofer'] = $idChofer;
-            if(!empty($idAsociado)){
-                $GPC['Recepcion']['id_asociado'] = $idAsociado;
-            }
-            $recepcion->save($GPC['Recepcion']);
-            $idRecepcion = $recepcion->id;
             
-            if(!empty($idGuia) && !empty($idProductor) && !empty($idChofer) && !empty($idVehiculo) && !empty($idRecepcion)){
-                $recepcion->_commit_tool();
-                header("location: ".DOMAIN_ROOT."/reportes/imprimir_recepcion.php?id_rec=$idRecepcion");
+            $camion = $vehiculo->find(array('placa' => $GPC['Vehiculo']['placa']));
+            if(empty($camion))
+                $vehiculo->save($GPC['Vehiculo']);
+            
+            $idVehiculo = (!empty($vehiculo->id)) ? $vehiculo->id : $camion[0]['id'];
+            
+            if($GPC['Transporte']['id_transporte'] == '9999'){
+                $transporte->save($GPC['Transporte']);
+            }
+            
+            $idTransporte = (!empty($transporte->id)) ? $transporte->id : $GPC['Transporte']['id_transporte'];
+            
+            $GPC['Despacho']['id_centro_acopio'] = $_SESSION['s_ca_id'];
+            $GPC['Despacho']['id_usuario'] = $_SESSION['s_id'];
+            $GPC['Despacho']['id_cultivo'] = $GPC['Orden']['id_cultivo'];
+                        
+            /*            
+            $despacho->save($GPC['Despacho']);
+            $idDespacho = $despacho->id;
+            
+            if(!empty($idGuia) && !empty($idProductor) && !empty($idChofer) && !empty($idVehiculo) && !empty($idDespacho)){
+                $despacho->_commit_tool();
+                header("location: ".DOMAIN_ROOT."/reportes/imprimir_despacho.php?id_rec=$idDespacho");
                 die();
             }else{
-                header("location: recepcion.php?msg=error");
+                header("location: despacho.php?msg=error");
                 die();
-            }
+            }*/
         break;
     }
     
@@ -92,8 +89,11 @@ $validator = new Validator('form1');
 $validator->printIncludes();
 //$validator->setRules('Recepcion.id_cosecha', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Orden.numero', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros')));
+$validator->setRules('Orden.id_cultivo', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Cliente.ced_rif', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros'), 'minlength' => array('value' => 6, 'message' => 'Min&iacute;mo 6 D&iacute;gitos')));
-$validator->setRules('Cliente.nombre', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros'), 'minlength' => array('value' => 6, 'message' => 'Min&iacute;mo 6 D&iacute;gitos')));
+$validator->setRules('Cliente.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Chofer.ced_rif', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros'), 'minlength' => array('value' => 6, 'message' => 'Min&iacute;mo 6 D&iacute;gitos')));
+$validator->setRules('Vehiculo.placa', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->printScript();
 ?>
 <script type="text/javascript">
@@ -104,21 +104,23 @@ $validator->printScript();
     $(document).ready(function(){
         $('.integer').numeric();
         
-        /*$('#Recepcion\\[id_cosecha\\]').change(function(){
+        $('#Despacho\\[id_cosecha\\]').change(function(){
             if($(this).val() != '')
-                $('#nrocosecha').load('../ajax/cosecha_programa.php?ac=cantidad&idCo='+$(this).val());
+                $('#nrocosecha').load('../ajax/cosecha_programa.php?ac=cantidad2&idCo='+$(this).val());
             else{
                 $('#nrocosecha').html('');
-                $('#nrocosecha').append('Entrada Nro: ');
+                $('#nrocosecha').append('Salida Nro: ');
             }
-        });*/
+        });
     
-        $('#Orden\\[numero\\]').change(function(){
+        $('#Orden\\[numero_orden\\]').change(function(){
             var orden = $(this).val();
-            if(orden != '')
+            if(orden != '' && $('#Despacho\\[id_cosecha\\]').val() != '')
                 $('#orden').load('../ajax/detalle_despacho.php?ac=orden&numero='+orden);
-            else
-                $('#Orden\\[numero\\]').val('');
+            else{
+                $('#Orden\\[numero_orden\\]').val('');
+                alert('Seleccione primero una Cosecha');
+            }
         });
         
         $('#Cliente\\[ced_rif\\]').live('change', function(){
@@ -129,14 +131,21 @@ $validator->printScript();
                 $('#orden').load('../ajax/detalle_despacho.php?ac=cliente&cp='+ced);
             }
         });
-        
+    
         $('#Chofer\\[ced_rif\\]').live('change', function(){
             var np = $('#nacion2').val();
             var ced = $('#Chofer\\[ced_rif\\]');
             if(ced.val().length >= 6){
                 ced = np+ced.val();
-                $('#orden').load('../ajax/detalle_despacho.php?ac=chofer&cp='+ced);
+                $('#chofer').load('../ajax/detalle_despacho.php?ac=chofer&cp='+ced);
             }
+        });
+        
+        $('#Transporte\\[id_transporte\\]').change(function(){
+            if($(this).val() == '9999')
+                $('#otroTransporte').load('../ajax/detalle_despacho.php?ac=transporte');
+            else
+                $('#otroTransporte').html('');
         });
     });
 </script>
@@ -156,22 +165,22 @@ $validator->printScript();
             }
         ?>
     </div>
-    <!--table align="center" border="0" width="100%">
+    <table align="center" border="0" width="100%">
         <tr>
-            <td colspan="2" id="nrocosecha">Entrada Nro: </td>
+            <td colspan="2" id="nrocosecha">Salida Nro: </td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Cosecha: </td>
-            <td><? echo $html->select('Recepcion.id_cosecha',array('options'=>$listadoC, 'default' => 'Seleccione'))?></td>
+            <td><? echo $html->select('Despacho.id_cosecha',array('options'=>$listadoC, 'default' => 'Seleccione'))?></td>
         </tr>
-    </table-->
+    </table>
     <fieldset>
         <legend>Datos de la Orden</legend>
         <table align="center" border="0">
             <tr>
                 <td><span class="msj_rojo">* </span>N&uacute;mero de Orden</td>
                 <td>
-                    <? echo $html->input('Orden.numero', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos integer')); ?>
+                    <? echo $html->input('Orden.numero_orden', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos integer')); ?>
                 </td>
             </tr>
             <tbody id="orden">
@@ -193,8 +202,8 @@ $validator->printScript();
                     <td><? echo $html->input('Cliente.telefono', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
                 <tr>
-                    <td>Cultivo</td>
-                    <td><? echo $html->input('Orden.telefono', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><span class="msj_rojo">* </span>Cultivo</td>
+                    <td><? echo $html->select('Orden.id_cultivo',array('options'=>$listadoC, 'default' => 'Seleccione', 'class' => 'estilo_campos'))?></td>
                 </tr>
             </tbody>
         </table>
@@ -211,40 +220,45 @@ $validator->printScript();
                     ?>
                 </td>
             </tr>
-            <tbody id="productor">
+            <tbody id="chofer">
                 <tr>
-                    <td><span class="msj_rojo">* </span>Placa Veh&iacute;culo</td>
-                    <td><? echo $html->input('Vehiculo.placa', $infoVehiculo[0]['placa'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-                </tr>
-                <tr>
-                    <td>Placas Remolque</td>
-                    <td><? echo $html->input('Vehiculo.placa_remolques', $infoVehiculo[0]['remolque'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-                </tr>
-                <tr>
-                    <td>C&oacute;digo del Transporte</td>
-                    <td><? echo $html->input('Vehiculo.placa_remolques', $infoVehiculo[0]['remolque'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-                </tr>
-                <tr>
-                    <td>Orden de Carga 1</td>
-                    <td><? echo $html->input('Orden.numero1', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos integer')); ?></td>
-                </tr>
-                <tr>
-                    <td>Kilogramos</td>
-                    <td><? echo $html->input('Orden.kg1', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos integer')); ?></td>
-                </tr>
-                <tr>
-                    <td>Orden de Carga 2</td>
-                    <td><? echo $html->input('Orden.numero2', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos integer')); ?></td>
-                </tr>
-                <tr>
-                    <td>Kilogramos</td>
-                    <td><? echo $html->input('Orden.kg2', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos integer')); ?></td>
-                </tr>
-                <tr>
-                    <td>Punto de Entrega</td>
-                    <td><? echo $html->input('Orden.ptoEntrega', $infoProductor[0]['email_pro'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><span class="msj_rojo">* </span>Nombre del Chofer</td>
+                    <td><? echo $html->input('Chofer.nombre', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
             </tbody>
+            <tr>
+                <td><span class="msj_rojo">* </span>Placa Veh&iacute;culo</td>
+                <td><? echo $html->input('Vehiculo.placa', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            </tr>
+            <tr>
+                <td>Placas Remolque</td>
+                <td><? echo $html->input('Vehiculo.placa_remolques', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            </tr>
+            <tr>
+                <td>C&oacute;digo del Transporte</td>
+                <td><? echo $html->select('Transporte.id_transporte',array('options'=>$listadoT, 'default' => 'Seleccione', 'class' => 'estilo_campos'))?></td>
+            </tr>
+            <tbody id="otroTransporte"></tbody>
+            <tr>
+                <td>Orden de Carga 1</td>
+                <td><? echo $html->input('subOrden1', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos integer')); ?></td>
+            </tr>
+            <tr>
+                <td>Kilogramos</td>
+                <td><? echo $html->input('subOrdenkg1', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos integer')); ?></td>
+            </tr>
+            <tr>
+                <td>Orden de Carga 2</td>
+                <td><? echo $html->input('subOrden2', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos integer')); ?></td>
+            </tr>
+            <tr>
+                <td>Kilogramos</td>
+                <td><? echo $html->input('subOrdenkg2', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos integer')); ?></td>
+            </tr>
+            <tr>
+                <td>Punto de Entrega</td>
+                <td><? echo $html->input('Orden.ptoEntrega', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            </tr>
         </table>
     </fieldset>
     <table align="center">

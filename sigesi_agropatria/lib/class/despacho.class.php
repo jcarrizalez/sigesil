@@ -36,5 +36,13 @@ class Despacho extends Model {
         $query .= " ORDER BY d.fecha_des, d.numero";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
+    
+    function despachosDia($idCA, $idCo) {
+        $query = "SELECT COUNT(*) AS total
+                FROM si_despacho
+                WHERE id_centro_acopio = '$idCA' AND id_cosecha = '$idCo' AND 
+                fecha_des BETWEEN '".date('Y-m-d 00:00:00')."' AND '".date('Y-m-d 23:59:59')."'";
+        return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
+    }
 }
 ?>
