@@ -93,9 +93,9 @@
             <th>Orden</th>
             <th>Fecha Despacho</th>
             <th>Peso</th>
-            <? if($_SESSION['s_perfil_id'] == ROMANERO){ ?>
+            <? //if($_SESSION['s_perfil_id'] == ROMANERO){ ?>
             <th width="1">Acci&oacute;n</th>
-            <? } ?>
+            <? //} ?>
         </tr>
         <?
             $i=0;
@@ -112,11 +112,11 @@
             <td align="center"><?=$dataRomana['numero_guia']?></td>
             <td align="center"><?=$general->date_sql_screen($dataRomana['fecha_des'], '', 'es', '-')?></td>
             <td align="center"><?=$tipo?></td>
-            <? if($_SESSION['s_perfil_id'] == ROMANERO){ ?>
+            <? //if($_SESSION['s_perfil_id'] == ROMANERO){ ?>
             <td align="center">
                 <? echo $html->link('<img src="../images/peso1.png" width="16" height="16" title=Pesar>', 'romana.php?ac=pesar&id='.$dataRomana['id'].'&mov='.$GPC['mov']); ?>
             </td>
-            <? } ?>
+            <? //} ?>
         </tr>
         <? $i++; } ?>
         <tr>
@@ -209,9 +209,9 @@
             <th>Guia</th>
             <th>Fecha Recepci&oacute;n</th>
             <th>Peso</th>
-            <? if($_SESSION['s_perfil_id'] == ROMANERO){ ?>
+            <? //if($_SESSION['s_perfil_id'] == ROMANERO){ ?>
             <th width="1">Acci&oacute;n</th>
-            <? } ?>
+            <? //} ?>
         </tr>
         <?
             $i=0;
@@ -228,11 +228,11 @@
             <td align="center"><?=$dataRomana['numero_guia']?></td>
             <td align="center"><?=$general->date_sql_screen($dataRomana['fecha_recepcion'], '', 'es', '-')?></td>
             <td align="center"><?=$tipo?></td>
-            <? if($_SESSION['s_perfil_id'] == ROMANERO){ ?>
+            <? //if($_SESSION['s_perfil_id'] == ROMANERO){ ?>
             <td align="center">
                 <? echo $html->link('<img src="../images/peso1.png" width="26" height="20" title=Pesar>', 'romana.php?ac=pesar&id='.$dataRomana['id'].'&mov='.$GPC['mov']); ?>
             </td>
-            <? } ?>
+            <? //} ?>
         </tr>
         <? $i++; } ?>
         <tr>

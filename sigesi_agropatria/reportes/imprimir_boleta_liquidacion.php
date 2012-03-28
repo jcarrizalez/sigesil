@@ -23,8 +23,8 @@
 ?>
 <script type="text/javascript">
     $(document).ready(function(){
-        /*window.print();
-        window.location = '<?=DOMAIN_ROOT?>admin/romana_listado.php?mov=<?=$GPC['mov']?>';*/
+        window.print();
+        window.location = '<?=DOMAIN_ROOT?>admin/romana_listado.php?mov=<?=$GPC['mov']?>';
     });
 </script>
 <div id="titulo_reporte">
