@@ -144,7 +144,14 @@
                 <td align="center"><?=$dataCosecha['area_siembra']?></td>
                 <td align="center"><?=$general->date_sql_screen($dataCosecha['fecha_inicio'], '', 'es', '-')?></td>
                 <td align="center"><?=$general->date_sql_screen($dataCosecha['fecha_fin'], '', 'es', '-')?></td>
-                <td align="center">-</td>
+                <td align="center">
+                    <?
+                        if($dataCosecha['estatus'] == 't')
+                            echo $html->link('<img src="../images/habilitar.png" width="16" height="16" title=Activo>');
+                        else
+                            echo $html->link('<img src="../images/deshabilitar.png" width="16" height="16" title=Inactivo>');
+                    ?>
+                </td>
                 <? if($_SESSION['s_perfil_id'] == GERENTES){ ?>
                 <td align="center">
                     <? echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'cosecha.php?ac=editar&idP='.$dataPrograma['id'].'&id='.$dataCosecha['id']); ?>

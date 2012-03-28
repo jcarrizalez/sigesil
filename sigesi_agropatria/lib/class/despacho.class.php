@@ -21,18 +21,32 @@ class Despacho extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
-    function listadoDespacho($idCA=null, $idCo=null, $idSilo=null, $salidaNum=null, $estatus=null){
-        $query = "SELECT d.*, ca.codigo AS ca_codigo, ca.nombre AS centro_acopio, co.codigo AS cosecha_codigo 
+    function listadoDespacho($id=null, $idCA=null, $idCo=null, $idSilo=null, $salidaNum=null, $estatus=null){
+        $query = "SELECT d.*, 
+                    d.fecha_des AS fecha_recepcion, d.estatus AS estatus_rec,
+                    (SELECT t1.nombre FROM si_tolcarom t1 WHERE t1.id = d.romana_ent) AS romana_ent, 
+                    (SELECT t2.nombre FROM si_tolcarom t2 WHERE t2.id = d.romana_sal) AS romana_sal, 
+                    ca.codigo AS ca_codigo, ca.nombre AS centro_acopio, 
+                    co.codigo AS cosecha_codigo, 
+                    cu.codigo AS cultivo_codigo, cu.nombre AS cultivo_nombre,
+                    o.numero_orden AS numero_guia, 
+                    ch.ced_rif AS ced_chofer, ch.nombre AS chofer_nombre, 
+                    v.placa, v.marca, v.color, v.capacidad, v.tara_aprox, v.chuto, v.placa_remolques 
                     FROM si_despacho d
                     INNER JOIN si_centro_acopio ca ON ca.id = d.id_centro_acopio
                     INNER JOIN si_cosecha co ON co.id = d.id_cosecha
+                    INNER JOIN si_cultivo cu ON cu.id = co.id_cultivo
                     INNER JOIN si_silos s ON s.id = d.id_silo
+                    INNER JOIN si_ordenes o ON o.id = d.id_orden
+                    INNER JOIN si_choferes ch ON ch.id = d.id_chofer
+                    INNER JOIN si_vehiculos v ON v.id = d.id_vehiculo
                     WHERE '1'";
+        $query .= (!empty($id)) ? " AND d.id = '$id'" : '';
         $query .= (!empty($idCa)) ? " AND d.id_centro_acopio = '$idCa'" : '';
         $query .= (!empty($$idCo)) ? " AND d.id_cosecha = '$$idCo'" : '';
         $query .= (!empty($idSilo)) ? " AND d.id_silo = '$idSilo'" : '';
         $query .= (!empty($salidaNum)) ? " AND d.numero = '$entradaNum'" : '';
-        $query .= (!empty($estatus)) ? " AND d.estatus_rec IN ($estatus)" : '';
+        $query .= (!empty($estatus)) ? " AND d.estatus IN ($estatus)" : '';
         $query .= " ORDER BY d.fecha_des, d.numero";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }

@@ -22,8 +22,7 @@
         $movimiento = new Despacho();
         $listadoEstatus = array('3' => 'Romana Lleno', '6' => 'Romana Vac&iacute;o');
         $estatus = (!empty($GPC['estatus'])) ? "'".$GPC['estatus']."'" : "'1', '3'";
-        //$listadoRomana = $movimiento->listadoDespacho($idCA, $idCo=null, $idSilo=null, $entradaNum=null, $estatus);
-
+        $listadoRomana = $movimiento->listadoDespacho('', $idCA, $GPC['cosecha'], null, null, $estatus);
 
         $total_registros = $movimiento->total_verdadero;
         $paginador = new paginator($total_registros, $porPagina);
@@ -90,16 +89,16 @@
             <th>Centro de Acopio</th>
             <? } ?>
             <th>Cosecha</th>
-            <th width="90">Nro Recepci&oacute;n</th>
-            <th>Guia</th>
-            <th>Fecha Recepci&oacute;n</th>
+            <th width="90">Nro Salida</th>
+            <th>Orden</th>
+            <th>Fecha Despacho</th>
             <th>Peso</th>
             <? if($_SESSION['s_perfil_id'] == ROMANERO){ ?>
             <th width="1">Acci&oacute;n</th>
             <? } ?>
         </tr>
         <?
-            /*$i=0;
+            $i=0;
             foreach($listadoRomana as $dataRomana){
                 $tipo = ($dataRomana['estatus_rec'] == '3') ? 'LLENO' : 'VAC&Iacute;O';
             $clase = $general->obtenerClaseFila($i);
@@ -111,15 +110,15 @@
             <td align="center"><?=$dataRomana['cosecha_codigo']?></td>
             <td align="center"><?=$dataRomana['numero']?></td>
             <td align="center"><?=$dataRomana['numero_guia']?></td>
-            <td align="center"><?=$general->date_sql_screen($dataRomana['fecha_recepcion'], '', 'es', '-')?></td>
+            <td align="center"><?=$general->date_sql_screen($dataRomana['fecha_des'], '', 'es', '-')?></td>
             <td align="center"><?=$tipo?></td>
             <? if($_SESSION['s_perfil_id'] == ROMANERO){ ?>
             <td align="center">
-                <? echo $html->link('<img src="../images/peso.png" width="16" height="16" title=Pesar>', 'romana.php?ac=pesar&id='.$dataRomana['id'].'&mov='.$GPC['mov']); ?>
+                <? echo $html->link('<img src="../images/peso1.png" width="16" height="16" title=Pesar>', 'romana.php?ac=pesar&id='.$dataRomana['id'].'&mov='.$GPC['mov']); ?>
             </td>
             <? } ?>
         </tr>
-        <? $i++; }*/ ?>
+        <? $i++; } ?>
         <tr>
             
             <td colspan="6">&nbsp;</td>
@@ -139,7 +138,7 @@
             $movimiento = new Recepcion();
             $listadoEstatus = array('3' => 'Romana Lleno', '6' => 'Romana Vac&iacute;o');
             $estatus = (!empty($GPC['estatus'])) ? "'".$GPC['estatus']."'" : "'3', '6'";
-            $listadoRomana = $movimiento->listadoRecepcion('', $idCA, $GPC['cosecha'], $idSilo=null, $entradaNum=null, $estatus);
+            $listadoRomana = $movimiento->listadoRecepcion('', $idCA, $GPC['cosecha'], null, null, $estatus);
 
             $total_registros = $movimiento->total_verdadero;
             $paginador = new paginator($total_registros, $porPagina);

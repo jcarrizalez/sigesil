@@ -9,16 +9,17 @@
         
     $id_rec = $GPC['id_rec'];
     $recepcion = new Recepcion();
+    $despacho = new Despacho();
     $subguias = new Guia();
     
-    $dataRecepcion = $recepcion->listadoRecepcion($id_rec);
+    $dataMovimiento = ($GPC['mov'] == 'rec') ? $recepcion->listadoRecepcion($id_rec) : $despacho->listadoDespacho($id_rec);
     $dataSubGuias = $subguias->buscarSubGuias($id_rec);
     
-    $pesoBruto = $dataRecepcion[0]['peso_01l']+$dataRecepcion[0]['peso_02l'];
-    $pesoTara = $dataRecepcion[0]['peso_01v']+$dataRecepcion[0]['peso_02v'];
+    $pesoBruto = $dataMovimiento[0]['peso_01l']+$dataMovimiento[0]['peso_02l'];
+    $pesoTara = $dataMovimiento[0]['peso_01v']+$dataMovimiento[0]['peso_02v'];
     $pesoNeto = ($pesoBruto-$pesoTara);
     
-    if(!empty($dataRecepcion[0]['id']) && $dataRecepcion[0]['estatus_rec'] == 9){
+    if(!empty($dataMovimiento[0]['id']) && ($dataMovimiento[0]['estatus_rec'] == 9) || $dataMovimiento[0]['estatus'] == 5){
 ?>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -43,35 +44,35 @@
     </tr>
     <tr>
         <td>ENTRADA Nro:</td>
-        <td><?=$dataRecepcion[0]['numero']?></td>
+        <td><?=$dataMovimiento[0]['numero']?></td>
         <td align="right">FECHA:</td>
-        <td><?=$general->date_sql_screen($dataRecepcion[0]['fecha_recepcion'],'','es','-')?></td>
+        <td><?=$general->date_sql_screen($dataMovimiento[0]['fecha_recepcion'],'','es','-')?></td>
         <td align="right">NUMERO DE GUIA:</td>
-        <td><?=$dataRecepcion[0]['numero_guia']?></td>
+        <td><?=$dataMovimiento[0]['numero_guia']?></td>
     </tr>
     <tr>
         <td>COSECHA:</td>
-        <td colspan="5"><?=$dataRecepcion[0]['cosecha_codigo']. " - " .$dataRecepcion[0]['cultivo_nombre']?></td>
+        <td colspan="5"><?=$dataMovimiento[0]['cosecha_codigo']. " - " .$dataMovimiento[0]['cultivo_nombre']?></td>
     </tr>
     <tr>
         <td>PROPIEDAD DE:</td>
-        <td colspan="5"><?=$dataRecepcion[0]['ced_productor']?></td>
+        <td colspan="5"><?=$dataMovimiento[0]['ced_productor']?></td>
     </tr>
     <tr>
         <td>NOMBRE:</td>
-        <td colspan="5"><?=$dataRecepcion[0]['productor_nombre']?></td>
+        <td colspan="5"><?=$dataMovimiento[0]['productor_nombre']?></td>
     </tr>
     <tr>
         <td>ASOCIADO:</td>
-        <td colspan="5"><?=$dataRecepcion[0]['ced_asociado']. " " .$dataRecepcion[0]['asociado_nombre']?></td>
+        <td colspan="5"><?=$dataMovimiento[0]['ced_asociado']. " " .$dataMovimiento[0]['asociado_nombre']?></td>
     </tr>
     <tr>
         <td>PRODUCTO:</td>
-        <td colspan="5"><?=$dataRecepcion[0]['cultivo_codigo']. " " .$dataRecepcion[0]['cultivo_nombre']?></td>
+        <td colspan="5"><?=$dataMovimiento[0]['cultivo_codigo']. " " .$dataMovimiento[0]['cultivo_nombre']?></td>
     </tr>
     <tr>
         <td>CHOFER:</td>
-        <td colspan="5"><?=$dataRecepcion[0]['ced_chofer']. " NOMBRE: " .$dataRecepcion[0]['chofer_nombre']?></td>
+        <td colspan="5"><?=$dataMovimiento[0]['ced_chofer']. " NOMBRE: " .$dataMovimiento[0]['chofer_nombre']?></td>
     </tr>
     <tr>
         <td>
@@ -79,8 +80,8 @@
         </td>
         <td colspan="5">
             <?
-                $placa = $dataRecepcion[0]['placa'];
-                $placa .= (!empty($dataRecepcion[0]['placa_remolques'])) ? " / ".$dataRecepcion[0]['placa_remolques'] : "";
+                $placa = $dataMovimiento[0]['placa'];
+                $placa .= (!empty($dataMovimiento[0]['placa_remolques'])) ? " / ".$dataMovimiento[0]['placa_remolques'] : "";
                 echo $placa;
             ?>
         </td>
@@ -107,14 +108,14 @@
     </tr>
     <tr>
         <td>&nbsp;</td>
-        <td>DESC. POR HUMEDAD: <?=number_format($dataRecepcion[0]['humedad'], 3)?>% Kgrs&nbsp;------------------------------------------------------></td>
-        <td width="1" align="right"><?=number_format($dataRecepcion[0]['humedad_des'], 3);?></td>
+        <td>DESC. POR HUMEDAD: <?=number_format($dataMovimiento[0]['humedad'], 3)?>% Kgrs&nbsp;------------------------------------------------------></td>
+        <td width="1" align="right"><?=number_format($dataMovimiento[0]['humedad_des'], 3);?></td>
         <td>&nbsp;</td>
     </tr>
     <tr>
         <td>&nbsp;</td>
-        <td>DESC. POR IMPUREZAS: <?=number_format($dataRecepcion[0]['impureza'], 3)?>% Kgrs&nbsp;------------------------------------------------------></td>
-        <td width="1" align="right"><?=number_format($dataRecepcion[0]['impureza_des'], 3);?></td>
+        <td>DESC. POR IMPUREZAS: <?=number_format($dataMovimiento[0]['impureza'], 3)?>% Kgrs&nbsp;------------------------------------------------------></td>
+        <td width="1" align="right"><?=number_format($dataMovimiento[0]['impureza_des'], 3);?></td>
         <td>&nbsp;</td>
     </tr>
     <tr>
@@ -123,7 +124,7 @@
     <tr>
         <td>&nbsp;</td>
         <td>NETO ACONDICIONADO Kgrs&nbsp;------------------------------------------------------------------></td>
-        <td width="1" align="right"><?=number_format($dataRecepcion[0]['peso_acon'], 3);?></td>
+        <td width="1" align="right"><?=number_format($dataMovimiento[0]['peso_acon'], 3);?></td>
         <td>&nbsp;</td>
     </tr>
     <tr align="center">

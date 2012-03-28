@@ -27,7 +27,7 @@ switch ($GPC['ac']) {
                         $GPC['Cosecha']['area_siembra'] = $GPC["area_siembra$i"];
                         $GPC['Cosecha']['fecha_inicio'] = $GPC["fecha_inicio$i"];
                         $GPC['Cosecha']['fecha_fin'] = $GPC["fecha_fin$i"];
-                        $GPC['Cosecha']['estatus'] = 't';
+                        $GPC['Cosecha']['estatus'] = ($i == 1) ? 't' : 'f';
                         $cosecha->save($GPC['Cosecha']);
                         if (empty($cosecha->id))
                             break;

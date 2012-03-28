@@ -4,7 +4,7 @@ class Cosecha extends Model {
     var $table = 'si_cosecha';
     
     function buscarCosechaP($id=null, $idP=null, $statusC=null, $statusP=null){
-        $query = "SELECT co.id, co.codigo, co.id_programa, co.nombre AS nombre_cosecha, co.proyectado, co.area_siembra, co.fecha_inicio, co.fecha_fin, cu.nombre AS nombre_cultivo
+        $query = "SELECT co.id, co.codigo, co.id_programa, co.nombre AS nombre_cosecha, co.proyectado, co.area_siembra, co.estatus, co.fecha_inicio, co.fecha_fin, cu.nombre AS nombre_cultivo
                     FROM si_cosecha co
                     INNER JOIN si_programa pr ON pr.id = co.id_programa
                     INNER JOIN si_cultivo cu ON cu.id = co.id_cultivo

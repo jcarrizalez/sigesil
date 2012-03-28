@@ -14,8 +14,9 @@ class Orden extends Model {
     }
     
     function guardarSubOrden($idOrden, $subOrden, $fecha=null, $descripcion = null, $kgs = null){
+        $fecha = (!empty($fecha)) ? "'".$fecha."'" : 'null';
         $query = "INSERT INTO si_ordenes_det (id_orden, numero_orden, fecha, descripcion, kilogramos)
-                    VALUES ('$idOrden', '$subOrden', '$fecha', '$descripcion', '$kgs')";
+                    VALUES ('$idOrden', '$subOrden', $fecha, '$descripcion', '$kgs')";
         $id = $this->_SQL_tool('INSERT', __METHOD__, $query);
         return $id;
     }

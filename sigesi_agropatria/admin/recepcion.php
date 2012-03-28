@@ -10,7 +10,7 @@
     $listaCarriles = array(1 => 1, 2 => 2);
     $idCA = $_SESSION['s_ca_id'];
     
-    $listadoCosechas = $cosecha->infoCosechaCultivo($idCA, null, null, null, null, null, null);
+    $listadoCosechas = $cosecha->infoCosechaCultivo($idCA);
     $listadoAgencias = array(1 => 'Agencia 1');
     
     foreach($listadoCosechas as $valor){
@@ -37,6 +37,7 @@
             $GPC['Recepcion']['id_usuario'] = $_SESSION['s_id'];
             $GPC['Recepcion']['estatus_rec'] = 1;
             $GPC['Recepcion']['id_centro_acopio'] = $_SESSION['s_ca_id'];
+            //VERIFICAR CON EL ID DEL SILO
             $GPC['Recepcion']['id_silo'] = 2;
             $GPC['Recepcion']['fecha_recepcion'] = 'now()';
             
@@ -47,7 +48,7 @@
             
             if($GPC['cantguia'] >= 1){
                 for($j=1; $j<=$GPC['cantguia']; $j++){
-                    $idSubGuia = $guia->guardarSubGuias($idGuia, $GPC["subguia_$j"], $GPC["subguiaFecha_$j"]);
+                    $guia->guardarSubGuias($idGuia, $GPC["subguia_$j"], $GPC["subguiaFecha_$j"]);
                 }
             }
             
@@ -76,7 +77,7 @@
             
             if(!empty($idGuia) && !empty($idProductor) && !empty($idChofer) && !empty($idVehiculo) && !empty($idRecepcion)){
                 $recepcion->_commit_tool();
-                header("location: ".DOMAIN_ROOT."/reportes/imprimir_recepcion.php?redir=recepcion&id_rec=$idRecepcion");
+                header("location: ".DOMAIN_ROOT."reportes/imprimir_recepcion.php?redir=recepcion&id_rec=$idRecepcion");
                 die();
             }else{
                 header("location: recepcion.php?msg=error");

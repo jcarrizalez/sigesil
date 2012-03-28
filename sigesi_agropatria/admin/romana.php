@@ -17,21 +17,21 @@
                 $resultados = new Analisis();
                 $evaluar->suppress_errors = true;
                 
-                if($GPC['movivimiento'] == 'rec' && $GPC['estatus'] == '3'){
+                if($GPC['mov'] == 'rec' && $GPC['estatus'] == '3'){
                     $GPC['Recepcion']['estatus_rec'] = ++$GPC['estatus'];
                     $GPC['Recepcion']['fecha_pel'] = "now()";
-                }elseif($GPC['movivimiento'] == 'des' && $GPC['estatus'] == '3'){
-                    $GPC['Recepcion']['estatus_rec'] = $GPC['estatus']+2;
-                    $GPC['Recepcion']['fecha_pel'] = "now()";
-                }elseif($GPC['movivimiento'] == 'rec' && $GPC['estatus'] == '6'){
+                }elseif($GPC['mov'] == 'rec' && $GPC['estatus'] == '6'){
                     $GPC['Recepcion']['estatus_rec'] = $GPC['estatus']+3;
                     $GPC['Recepcion']['fecha_v'] = "now()";
-                }elseif($GPC['movivimiento'] == 'des' && $GPC['estatus'] == '1'){
-                    $GPC['Recepcion']['estatus_rec'] = $GPC['estatus']++;
+                }elseif($GPC['mov'] == 'des' && $GPC['estatus'] == '1'){
+                    $GPC['Recepcion']['estatus'] = ++$GPC['estatus'];
                     $GPC['Recepcion']['fecha_v'] = "now()";
+                }elseif($GPC['mov'] == 'des' && $GPC['estatus'] == '3'){
+                    $GPC['Recepcion']['estatus'] = $GPC['estatus']+2;
+                    $GPC['Recepcion']['fecha_pel'] = "now()";
                 }
                 
-                if($GPC['movimiento'] == 'rec'){
+                if(($GPC['mov'] == 'rec' && ($GPC['Recepcion']['estatus_rec'] == '9')) || ($GPC['mov'] == 'des' && ($GPC['Recepcion']['estatus'] == '5'))){
                     //CALCULAR LOS PESOS PARA GUARDARLOS
                     $orden = " ORDER BY id_centro_acopio DESC, id_cultivo, id_analisis";
                     $formulas = $formula->formulaCultivo($_SESSION['s_ca_id'], trim(substr($GPC['cultivo'], 0, 2)), $orden);
@@ -108,44 +108,76 @@
                         $pesoA = $evaluar->e("y(0)");
                     $GPC['Recepcion']['peso_acon'] = round($pesoA);
                     //
-                    unset($GPC['Recepcion']['pesoLleno1']);
-                    unset($GPC['Recepcion']['pesoLleno2']);
+                    if($GPC['mov'] == 'rec'){
+                        unset($GPC['Recepcion']['pesoLleno1']);
+                        unset($GPC['Recepcion']['pesoLleno2']);
+                    }else{
+                        $GPC['Recepcion']['peso_01l'] = $GPC['Recepcion']['pesoLleno1'];
+                        $GPC['Recepcion']['peso_02l'] = $GPC['Recepcion']['pesoLleno2'];
+                        unset($GPC['Recepcion']['pesoLleno1']);
+                        unset($GPC['Recepcion']['pesoLleno2']);
+                    }
+                    if($GPC['mov'] == 'rec'){
+                        $recepcion->save($GPC['Recepcion']);
+                        $idMovimiento = $recepcion->id;
+                    }else{
+                        $despacho->save($GPC['Recepcion']);
+                        $idMovimiento = $despacho->id;
+                    }
+                    
+                }elseif($GPC['mov'] == 'rec' && ($GPC['Recepcion']['estatus_rec'] == '4')){
+                    //RECEPCION PESO LLENO
                     $recepcion->save($GPC['Recepcion']);
-                    $idRecepcion = $recepcion->id;
-                }elseif($GPC['movimiento'] == 'des'){
-                    //DESPACHO
+                    $idMovimiento = $recepcion->id;
+                    
+                }elseif($GPC['mov'] == 'des' && ($GPC['Recepcion']['estatus'] == '2')){
+                    //DESPACHO PESO VACIO
+                    $despacho->save($GPC['Recepcion']);
+                    $idMovimiento = $despacho->id;
+                    
                 }
             }
-            if (!empty($id)) {
-                header("location: ".DOMAIN_ROOT."reportes/imprimir_boleta_liquidacion.php?id_rec=$idRecepcion&mov=".$GPC['movivimiento']);
+            if (!empty($idMovimiento) && ($GPC['mov'] == 'rec' && $GPC['Recepcion']['estatus_rec'] == '9') || ($GPC['mov'] == 'des' && $GPC['Recepcion']['estatus'] == '5')) {
+                header("location: ".DOMAIN_ROOT."reportes/imprimir_boleta_liquidacion.php?id_rec=$idMovimiento&mov=".$GPC['mov']);
+                die();
+            } elseif (!empty($idMovimiento) && ($GPC['mov'] == 'rec' && $GPC['Recepcion']['estatus_rec'] == '4') || ($GPC['mov'] == 'des' && $GPC['Recepcion']['estatus'] == '2')){
+                header("location: romana_listado.php?msg=exitoso&mov=".$GPC['mov']);
                 die();
             } else {
-                header("location: romana_listado.php?msg=error&mov=".$GPC['movivimiento']);
+                header("location: romana_listado.php?msg=error&mov=".$GPC['mov']);
                 die();
             }
             break;
         case 'pesar':
             $romana = new Tolcarom();
-            $infoRecepcion = $recepcion->listadoRecepcion($GPC['id']);
+            
+            $infoMovimiento = ($GPC['mov'] == 'rec') ? $recepcion->listadoRecepcion($GPC['id']) : $despacho->listadoDespacho($GPC['id']);
             $infoRomana = $romana->listaTolcarom($_SESSION['s_ca_id'], "'3'");
             foreach($infoRomana as $valor){
                 $listaRomanas[$valor['id']] = $valor['nombre'];
             }
 
-            $vehiculo = (!empty($infoRecepcion[0]['marca'])) ? $infoRecepcion[0]['marca']."/" : "Sin Marca/";
-            $vehiculo .= $infoRecepcion[0]['placa'];
-            $cultivo = trim($infoRecepcion[0]['cultivo_codigo'])." ".trim($infoRecepcion[0]['cultivo_nombre']);
+            $vehiculo = (!empty($infoMovimiento[0]['marca'])) ? $infoMovimiento[0]['marca']."/" : "Sin Marca/";
+            $vehiculo .= $infoMovimiento[0]['placa'];
+            $cultivo = trim($infoMovimiento[0]['cultivo_codigo'])." ".trim($infoMovimiento[0]['cultivo_nombre']);
+            //Debug::pr($infoMovimiento);
             break;
     }
 
     $validator = new Validator('form1');
     $validator->printIncludes();
-    if(($GPC['mov'] == 'rec' && $infoRecepcion[0]['estatus_rec'] == '3') || ($GPC['mov'] == 'des' && $infoRecepcion[0]['estatus_rec'] == '3')){
+    if($GPC['mov'] == 'rec' && $infoMovimiento[0]['estatus_rec'] == '3'){
         $validator->setRules('Recepcion.romana_ent', array('required' => array('value' => true, 'message' => 'Requerido')));
         $validator->setRules('Recepcion.peso_01l', array('required' => array('value' => true, 'message' => 'Requerido')));
-    }elseif(($GPC['mov'] == 'rec' && $infoRecepcion[0]['estatus_rec'] == '6') || ($GPC['mov'] == 'des' && $infoRecepcion[0]['estatus_rec'] == '1')){
+    }elseif($GPC['mov'] == 'rec' && $infoMovimiento[0]['estatus_rec'] == '6'){
         $validator->setRules('Recepcion.romana_sal', array('required' => array('value' => true, 'message' => 'Requerido')));
         $validator->setRules('Recepcion.peso_01v', array('required' => array('value' => true, 'message' => 'Requerido')));
+    }elseif($GPC['mov'] == 'des' && $infoMovimiento[0]['estatus_rec'] == '1'){
+        $validator->setRules('Recepcion.romana_ent', array('required' => array('value' => true, 'message' => 'Requerido')));
+        $validator->setRules('Recepcion.peso_01v', array('required' => array('value' => true, 'message' => 'Requerido')));
+    }elseif($GPC['mov'] == 'des' && $infoMovimiento[0]['estatus_rec'] == '3'){
+        $validator->setRules('Recepcion.romana_sal', array('required' => array('value' => true, 'message' => 'Requerido')));
+        $validator->setRules('Recepcion.peso_01l', array('required' => array('value' => true, 'message' => 'Requerido')));
     }
     $validator->printScript();
 ?>
@@ -193,23 +225,23 @@
 </div>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
     <?
-        echo $html->input('id', $infoRecepcion[0]['id'], array('type' => 'hidden'));
-        echo $html->input('estatus', $infoRecepcion[0]['estatus_rec'], array('type' => 'hidden'));
-        echo $html->input('cant_m', $infoRecepcion[0]['cant_muestras'], array('type' => 'hidden'));
-        echo $html->input('movivimiento', $GPC['mov'], array('type' => 'hidden'));
+        echo $html->input('id', $infoMovimiento[0]['id'], array('type' => 'hidden'));
+        echo $html->input('estatus', $infoMovimiento[0]['estatus_rec'], array('type' => 'hidden'));
+        echo $html->input('cant_m', $infoMovimiento[0]['cant_muestras'], array('type' => 'hidden'));
+        echo $html->input('mov', $GPC['mov'], array('type' => 'hidden'));
     ?>
     <table align="center">
         <tr>
-            <td>N&uacute;mero de Entrada</td>
-            <td><? echo $html->input('entrada', $infoRecepcion[0]['numero'], array('type' => 'text', 'class' => 'estilo_campos2', 'readOnly' => true)); ?></td>
+            <td>N&uacute;mero de <?=$tipoMovimiento = ($GPC['mov'] == 'rec') ? 'Entrada' : 'Salida';?></td>
+            <td><? echo $html->input('entrada', $infoMovimiento[0]['numero'], array('type' => 'text', 'class' => 'estilo_campos2', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
-            <td>Fecha de Recepci&oacute;n</td>
-            <td><? echo $html->input('fecha', $general->date_sql_screen($infoRecepcion[0]['fecha_recepcion'], '', 'es', '-'), array('type' => 'text', 'class' => 'estilo_campos2', 'readOnly' => true)); ?></td>
+            <td>Fecha de <?=$fechaMovimiento = ($GPC['mov'] == 'rec') ? 'Recepci&oacute;n' : 'Despacho';?></td>
+            <td><? echo $html->input('fecha', $general->date_sql_screen($infoMovimiento[0]['fecha_recepcion'], '', 'es', '-'), array('type' => 'text', 'class' => 'estilo_campos2', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
-            <td>N&uacute;mero de Gu&iacute;a</td>
-            <td><? echo $html->input('guia', $infoRecepcion[0]['numero_guia'], array('type' => 'text', 'class' => 'estilo_campos2', 'readOnly' => true)); ?></td>
+            <td>N&uacute;mero de <?=$docMovimiento = ($GPC['mov'] == 'rec') ? 'Gu&iacute;a' : 'Orden';?></td>
+            <td><? echo $html->input('guia', $infoMovimiento[0]['numero_guia'], array('type' => 'text', 'class' => 'estilo_campos2', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
             <td>Veh&iacute;culo</td>
@@ -217,66 +249,101 @@
         </tr>
         <tr>
             <td>Chofer</td>
-            <td><? echo $html->input('chofer', $infoRecepcion[0]['chofer_nombre'], array('type' => 'text', 'class' => 'estilo_campos2', 'readOnly' => true)); ?></td>
+            <td><? echo $html->input('chofer', $infoMovimiento[0]['chofer_nombre'], array('type' => 'text', 'class' => 'estilo_campos2', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
             <td>Cultivo</td>
             <td><? echo $html->input('cultivo', $cultivo, array('type' => 'text', 'class' => 'estilo_campos2', 'readOnly' => true)); ?></td>
         </tr>
         <?
-            if(($GPC['mov'] == 'rec' && $infoRecepcion[0]['estatus_rec'] == '3') || ($GPC['mov'] == 'des' && $infoRecepcion[0]['estatus_rec'] == '3')){
+        if(($GPC['mov'] == 'rec' && $infoMovimiento[0]['estatus_rec'] == '3') || ($GPC['mov'] == 'des' && $infoMovimiento[0]['estatus_rec'] == '3')){
+            if($GPC['mov'] == 'des'){
         ?>
         <tr>
             <td>Romana de Entrada</td>
-            <td><? echo $html->select('Recepcion.romana_ent', array('options' => $listaRomanas, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
-        </tr>
-        <?
-            for($i=1; $i<=$infoRecepcion[0]['cant_muestras']; $i++){
-                if($GPC['mov'] == 'des'){
-        ?>
-        <tr>
-            <td>Peso de la Muestra <?=$i?></td>
-            <td><? echo $html->input('Recepcion.peso_0'.$i.'l', '', array('type' => 'text', 'class' => 'estilo_campos integer verifPeso')); ?></td>
-        </tr>
-        <?
-                }else{
-        ?>
-        <tr>
-            <td>Peso de la Muestra <?=$i?></td>
-            <td><? echo $html->input('Recepcion.peso_0'.$i.'l', '', array('type' => 'text', 'class' => 'estilo_campos integer')); ?></td>
-        </tr>
-        <?
-                }
-            }
-        }elseif(($GPC['mov'] == 'rec' && $infoRecepcion[0]['estatus_rec'] == '6') || ($GPC['mov'] == 'des' && $infoRecepcion[0]['estatus_rec'] == '1')){
-        ?>
-        <tr>
-            <td>Romana de Entrada</td>
-            <td><? echo $html->input('romana_ent', $infoRecepcion[0]['romana_ent'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+            <td><? echo $html->input('romana_ent', $infoMovimiento[0]['romana_ent'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
             <td>Romana de Salida</td>
             <td><? echo $html->select('Recepcion.romana_sal', array('options' => $listaRomanas, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <?
-            for($i=1; $i<=$infoRecepcion[0]['cant_muestras']; $i++){
+                for($i=1; $i<=$infoMovimiento[0]['cant_muestras']; $i++){
+        ?>
+        <tr>
+            <td>Peso Vac&iacute;o Muestra <?=$i?></td>
+            <td><? echo $html->input('Recepcion.peso_0'.$i.'v', $infoMovimiento[0]['peso_0'.$i.'v'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+        </tr>
+        <tr>
+            <td>Peso Lleno <?=$i?></td>
+            <td><? echo $html->input("Recepcion.pesoLleno$i", $infoMovimiento[0]['peso_0'.$i.'l'], array('type' => 'text', 'class' => 'estilo_campos integer verifPeso')); ?></td>
+        </tr>
+        <?
+                }
+            }else{
+        ?>
+        <tr>
+            <td>Romana de Entrada</td>
+            <td><? echo $html->select('Recepcion.romana_ent', array('options' => $listaRomanas, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
+        </tr>
+        <?
+                for($i=1; $i<=$infoMovimiento[0]['cant_muestras']; $i++){
+                    if($GPC['mov'] == 'des'){
         ?>
         <tr>
             <td>Peso Lleno Muestra <?=$i?></td>
-            <td><? echo $html->input("Recepcion.pesoLleno$i", $infoRecepcion[0]['peso_0'.$i.'l'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+            <td><? echo $html->input('Recepcion.peso_0'.$i.'l', '', array('type' => 'text', 'class' => 'estilo_campos integer verifPeso')); ?></td>
         </tr>
-        <? if($GPC['mov'] == 'rec'){ ?>
+        <?
+                    }else{
+        ?>
+        <tr>
+            <td>Peso Lleno Muestra <?=$i?></td>
+            <td><? echo $html->input('Recepcion.peso_0'.$i.'l', '', array('type' => 'text', 'class' => 'estilo_campos integer')); ?></td>
+        </tr>
+        <?
+                    }
+                }
+            }
+        }elseif(($GPC['mov'] == 'rec' && $infoMovimiento[0]['estatus_rec'] == '6') || ($GPC['mov'] == 'des' && $infoMovimiento[0]['estatus_rec'] == '1')){
+            if($GPC['mov'] == 'rec'){
+        ?>
+        <tr>
+            <td>Romana de Entrada</td>
+            <td><? echo $html->input('romana_ent', $infoMovimiento[0]['romana_ent'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+        </tr>
+        <tr>
+            <td>Romana de Salida</td>
+            <td><? echo $html->select('Recepcion.romana_sal', array('options' => $listaRomanas, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
+        </tr>
+        <?
+                for($i=1; $i<=$infoMovimiento[0]['cant_muestras']; $i++){
+        ?>
+        <tr>
+            <td>Peso Lleno Muestra <?=$i?></td>
+            <td><? echo $html->input("Recepcion.pesoLleno$i", $infoMovimiento[0]['peso_0'.$i.'l'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+        </tr>
         <tr>
             <td>Peso Vac&iacute;o <?=$i?></td>
             <td><? echo $html->input('Recepcion.peso_0'.$i.'v', '', array('type' => 'text', 'class' => 'estilo_campos integer verifPeso')); ?></td>
         </tr>
-        <? }else{ ?>
+        <?
+                }
+            }else{
+        ?>
+        <tr>
+            <td>Romana de Entrada</td>
+            <td><? echo $html->select('Recepcion.romana_ent', array('options' => $listaRomanas, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
+        </tr>
+        <?
+                for($i=1; $i<=$infoMovimiento[0]['cant_muestras']; $i++){
+        ?>
         <tr>
             <td>Peso Vac&iacute;o <?=$i?></td>
             <td><? echo $html->input('Recepcion.peso_0'.$i.'v', '', array('type' => 'text', 'class' => 'estilo_campos integer')); ?></td>
         </tr>
         <?
-            }
+                }
             }
         }
         ?>

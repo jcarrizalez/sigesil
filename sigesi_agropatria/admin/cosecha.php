@@ -3,9 +3,14 @@ require_once('../lib/core.lib.php');
 
 $programa = new Programa();
 $cosecha = new Cosecha();
+$cultivo = new Cultivo();
 
 $dataPrograma = $programa->find(array('id' => $GPC['idP']), '', '*', '', '');
 $dataCosecha = $cosecha->find(array('id_programa' => $GPC['idP']), '', 'MAX(codigo) codigo', '', '');
+$dataCultivo = $cultivo->find(array('id' => $dataPrograma[0]['id_cultivo']), '', '*', '', '');
+
+$estatus = array('t' => 'Activa', 'f' => 'Inactiva');
+
 if($GPC['ac'] != 'editar'){
     $dataCosecha[0]['codigo']++;
 }
@@ -19,7 +24,7 @@ switch ($GPC['ac']) {
             $GPC['Cosecha']['area_siembra'] = $GPC["area_siembra1"];
             $GPC['Cosecha']['fecha_inicio'] = $GPC["fecha_inicio1"];
             $GPC['Cosecha']['fecha_fin'] = $GPC["fecha_fin1"];
-            $GPC['Cosecha']['estatus'] = 't';
+            $GPC['Cosecha']['estatus'] = $GPC["estatus"];
             $cosecha->save($GPC['Cosecha']);
         }
         if (!empty($cosecha->id)) {
@@ -98,6 +103,10 @@ $validator->printScript();
             <td>Fecha de Fin del Programa</td>
             <td><?= $html->input('Programa.fecha_fin', $general->date_sql_screen($dataPrograma[0]['fecha_fin'], '', 'es', '-'), array('type' => 'text', 'class' => 'inputGrilla fechas', 'readOnly' => true)); ?></td>
         </tr>
+        <tr>
+            <td>Cultivo </td>
+            <td><?= $html->input('Programa.Cultivo', "(".trim($dataCultivo[0]['codigo']).") ".$dataCultivo[0]['nombre'], array('type' => 'text', 'class' => 'inputGrilla fechas', 'readOnly' => true)); ?></td>
+        </tr>
     </table>
     <fieldset id="cosecha_unica">
         <legend>Datos de la Cosecha</legend>
@@ -107,7 +116,7 @@ $validator->printScript();
                     <table align="center" border="0" cellpadding="0" cellspacing="0">
                         <tr>
                             <td><span class="msj_rojo">* </span>C&oacute;digo</td>
-                            <td rowspan="6">&nbsp;&nbsp;</td>
+                            <td rowspan="7">&nbsp;&nbsp;</td>
                             <td><?= $html->input('codigo1', $dataCosecha[0]['codigo'], array('type' => 'text', 'class' => 'inputGrilla codigo_cul', 'readOnly' => true)); ?></td>
                         </tr>
                         <tr>
@@ -121,6 +130,10 @@ $validator->printScript();
                         <tr>
                             <td>Area Siembra</td>
                             <td><?= $html->input('area_siembra1', $infoCosecha[0]['area_siembra'], array('type' => 'text', 'class' => 'inputGrilla')); ?></td>
+                        </tr>
+                        <tr>
+                            <td>Estatus</td>
+                            <td><? echo $html->select('estatus', array('options' => $estatus, 'selected' => $infoCosecha[0]['estatus'], 'default' => 'Seleccione', 'class' => 'inputGrilla')) ?></td>
                         </tr>
                         <tr>
                             <td>Fecha Inicio</td>

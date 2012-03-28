@@ -42,10 +42,10 @@
                     <td>Tel&eacute;fono</td>
                     <td><? echo $html->input('Cliente.telefono', $infoOrden[0]['cliente_telefono'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
-                <tr>
+                <!--tr>
                     <td><span class="msj_rojo">* </span>Cultivo</td>
                     <td><? echo $html->select('Orden.id_cultivo',array('options'=>$listadoC, 'default' => 'Seleccione', 'class' => 'estilo_campos'))?></td>
-                </tr>
+                </tr-->
                 <tr>
                     <th colspan="2" align="center">Orden Nueva, se proceder&aacute; a almacenar</th>
                 </tr>
@@ -81,10 +81,10 @@
                     <td>Tel&eacute;fono</td>
                     <td><? echo $html->input('Cliente.telefono', $infoCliente[0]['telefono'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
-                <tr>
+                <!--tr>
                     <td><span class="msj_rojo">* </span>Cultivo</td>
                     <td><? echo $html->select('Orden.id_cultivo',array('options'=>$listadoC, 'default' => 'Seleccione', 'class' => 'estilo_campos'))?></td>
-                </tr>
+                </tr-->
             <?
                 if($clienteNuevo){
                     ?>
@@ -123,3 +123,8 @@
         break;
     }
 ?>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.integer').numeric();
+    });
+</script>
