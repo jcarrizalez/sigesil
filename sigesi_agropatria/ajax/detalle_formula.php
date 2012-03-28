@@ -127,11 +127,31 @@
                 $id = split('=', $GPC['formula']);
                 $id = $id[1];
                 
-                $orden = " ORDER BY id_centro_acopio DESC, id_cultivo, id_analisis";
+                $orden = " ORDER BY id_centro_acopio DESC, id_cultivo, id_analisis, id";
                 $formulas = $formula->formulaCultivo($_SESSION['s_ca_id'], trim(substr($GPC['cultivo'], 0, 2)), $orden);
                 
                 $infoResultados = $resultados->listadoResultados($id, '', '', "'1', '2'");
                 
+                if(!empty($infoResultados)){
+                    foreach($infoResultados as $valor){
+                        if($valor['codigo'] == 1){
+                            $sumHum = (!empty($valor['muestra1'])) ? $valor['muestra1'] : 0;
+                            $sumHum += (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                        }else{
+                            $sumImp = (!empty($valor['muestra1'])) ? $valor['muestra1'] : 0;
+                            $sumImp += (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                        }
+                    }
+                }else{
+                    $sumHum = 0;
+                    $sumImp = 0;
+                }
+                //PROMEDIO PARA LA HUMEDAD
+                $promHum = $sumHum/$GPC['cant_m'];
+                
+                //PROMEDIO PARA LA IMPUREZA
+                $promImp = $sumImp/$GPC['cant_m'];
+
                 foreach($formulas as $valor){
                     if($valor['codigo'] == 'PL12')
                         $formulaAplicar['PL'] = $valor['formula'];
@@ -141,24 +161,22 @@
                         $formulaAplicar['PN'] = $valor['formula'];
                     elseif($valor['codigo'] == 'PA')
                         $formulaAplicar['PA'] = $valor['formula'];
-                    else
-                        $humImp[] = $valor['formula'];
-                }
-                
-                foreach($infoResultados as $valor){
-                    if($valor['codigo'] == 1){
-                        $sumHum = $valor['muestra1'];
-                        $sumHum += (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
-                    }else{
-                        $sumImp = $valor['muestra1'];
-                        $sumImp += (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                    else{
+                        if(empty($valor['condicion']))
+                            $humImp[] = $valor['formula'];
+                        else{
+                            //$humImp[] = $valor['formula'];
+                            $rango = split('<',$valor['condicion']);
+                            if($valor['id_analisis'] == 1){
+                                if(($promHum >= $rango[0]) && ($promHum < $rango[1]))
+                                    $humImp[] = $valor['formula'];
+                            }elseif($valor['id_analisis'] == 2){
+                                if(($promImp >= $rango[0]) && ($promImp < $rango[1]))
+                                    $humImp[] = $valor['formula'];
+                            }
+                        }
                     }
                 }
-                //PROMEDIO PARA LA HUMEDAD
-                $promHum = $sumHum/$GPC['cant_m'];
-                
-                //PROMEDIO PARA LA IMPUREZA
-                $promImp = $sumImp/$GPC['cant_m'];
                 
                 //VARIABLES A USAR PARA LOS CALCULOS
                 $reservadas = array('PL1', 'PL2', 'PV1', 'PV2', 'HUML', 'IMPL', 'PHUM', 'PIMP');

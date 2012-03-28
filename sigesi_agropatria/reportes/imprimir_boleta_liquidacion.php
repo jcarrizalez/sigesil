@@ -23,12 +23,12 @@
 ?>
 <script type="text/javascript">
     $(document).ready(function(){
-        window.print();
-        window.location = '<?=DOMAIN_ROOT?>admin/romana_listado.php?mov=<?=$GPC['mov']?>';
+        /*window.print();
+        window.location = '<?=DOMAIN_ROOT?>admin/romana_listado.php?mov=<?=$GPC['mov']?>';*/
     });
 </script>
 <div id="titulo_reporte">
-    CONSTANCIA DE RECEPCION
+    CONSTANCIA DE <?=$proceso = ($GPC['mov'] == 'rec') ? 'RECEPCION' : 'DESPACHO' ?>
 </div>
 <table id="tabla_reporte" border="0" width="100%" style="padding-top: 40px;">
     <tr>

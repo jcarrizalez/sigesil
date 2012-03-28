@@ -43,7 +43,7 @@ class Despacho extends Model {
                     WHERE '1'";
         $query .= (!empty($id)) ? " AND d.id = '$id'" : '';
         $query .= (!empty($idCa)) ? " AND d.id_centro_acopio = '$idCa'" : '';
-        $query .= (!empty($$idCo)) ? " AND d.id_cosecha = '$$idCo'" : '';
+        $query .= (!empty($idCo)) ? " AND d.id_cosecha = '$idCo'" : '';
         $query .= (!empty($idSilo)) ? " AND d.id_silo = '$idSilo'" : '';
         $query .= (!empty($salidaNum)) ? " AND d.numero = '$entradaNum'" : '';
         $query .= (!empty($estatus)) ? " AND d.estatus IN ($estatus)" : '';
