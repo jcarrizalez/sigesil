@@ -75,8 +75,11 @@ require('../lib/common/init_calendar.php');
         });
         
         $('#Buscar').click(function(){
-            if ($('#Accion').val()=='B') 
-                window.location = '<?=DOMAIN_ROOT?>reportes/imprimir_recepcion.php?id_rec='+$('#numero').val();
+            if ($('#Accion').val()=='B') {
+                //alert('../ajax/detalle_analisis_buscar.php?codigo='+$('#numero').val()+'&fecha='+$('#fecha').val());
+                 $('#idRec').load('../ajax/detalle_analisis_buscar.php?numero='+$('#numero').val()+'&fecha='+$('#fecha').val());
+            }
+               // window.location = '<?=DOMAIN_ROOT?>reportes/imprimir_recepcion.php?id_rec='+$('#numero').val();
         });
     });
 </script>
@@ -103,7 +106,7 @@ require('../lib/common/init_calendar.php');
 </div>
 <table align="center" width="100%" border="0" style="padding-top: 20px">
     <tr>
-        <td align="right" ><? echo $html->select('Accion', array('options' => $listaAccion, 'selected' => $GPC['accion'], 'default' => 'Seleccione', 'class' => 'crproductor'));?>
+        <td align="right" ><? // echo $html->select('Accion', array('options' => $listaAccion, 'selected' => $GPC['accion'], 'default' => 'Seleccione', 'class' => 'crproductor'));?>
             <? echo $html->input('Regresar', 'Regresar', array('type' => 'button')); ?>
         </td>
     </tr>
@@ -205,7 +208,8 @@ require('../lib/common/init_calendar.php');
         <td colspan="4">&nbsp;</td>
     </tr>
 </table>
-
 <?
-    require('../lib/common/footer.php');
+echo $html->input('idRec', 0, array('type' => 'text'));
+?>
+<?    require('../lib/common/footer.php');
 ?>

@@ -39,9 +39,9 @@ switch ($GPC['ac']) {
             $id_cuarentena=$infoCtna[0]['id'];            
             $soloLectura=(empty($infoCtna[0]['estatus'])) ? false: true;
         }
-        else {
+        if (empty($id_cuarentena)) {
             header("location: ../admin/analisis_resultado_listado.php?msg=error&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
-            die();            
+            die();
         }
         break;
     case 'guardar':
@@ -98,11 +98,12 @@ switch ($GPC['ac']) {
             }                
         }
         if (!empty($id_cuarentena)) {            
-            if ($estatusA=='2') {
+            if (in_array($estatusA, array('2','5'))) {
                 $Ctna->_commit_tool();
                 header("location: ../admin/analisis_resultado_listado.php?msg=existoso&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);        
                 die();
             }
+            $Ctna->_rollback_tool();
         } 
         header("location: ../admin/analisis_resultado_listado.php?msg=error&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
         die();

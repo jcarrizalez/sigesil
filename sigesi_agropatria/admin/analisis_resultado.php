@@ -16,11 +16,12 @@ $estatus='';
 $booleano = array('' => '', 'NO' => 'NO', 'SI' => 'SI');
 $calidad = array('' => '', 'A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D');
 $tipo_mov=array('rec'=>'R','des'=>'D');
-$tipoCultivo='A';
-$tipoTemp='A';  
-$T1='A';
-$T2='A';
-$T3='A';
+
+$tipoCultivo='I';
+$tipoTemp='I';  
+$T1='I';
+$T2='I';
+$T3='I';
 $estipo=false;
                 
 switch ($GPC['ac']) {
@@ -112,22 +113,22 @@ switch ($GPC['ac']) {
                 }
             }
             if ($_SESSION['s_mov']=='rec') {
-                $listaTipo=$cultivo->buscarTipo($idCultivo, $idCA);
-                foreach ($Resultados as $aR) {
-                    foreach ($listaTipo as $tipo) {
-                        $estipo=true;
-                        if ($tipo['id_analisis']==$aR['id_analisis']) {                            
-                            $T1=($aR['muestra1'] >= $tipo['min'] || $aR['muestra1'] <= $tipo['max']) ? $tipo['tipo']: 'B';                        
+                $listaTipo=$cultivo->buscarTipo($idCultivo, $idCA);                
+                foreach ($Resultados as $aR) {// Resultado de Analisis 
+                    foreach ($listaTipo as $tipo) {//Valores de Tipificacion
+                        $estipo=true;                        
+                        if ($tipo['id_analisis']==$aR['id_analisis']) {
+                            echo 'Entrando al Bucle Valores de Tipificacion: ';
+                            $T1=($aR['muestra1'] >= $tipo['min'] && $aR['muestra1'] <= $tipo['max']) ? $tipo['tipo']: 'B';
                             if (!empty($aR['muestra2']))
-                                $T2=($aR['muestra2'] >= $tipo['min'] || $aR['muestra2'] <= $tipo['max']) ? $tipo['tipo']: 'B';
+                                $T2=($aR['muestra2'] >= $tipo['min'] && $aR['muestra2'] <= $tipo['max']) ? $tipo['tipo']: 'B';
                             if (!empty($aR['muestra3']))
-                                $T3=($aR['muestra3'] >= $tipo['min'] || $aR['muestra3'] <= $tipo['max']) ? $tipo['tipo']: 'B';
+                                $T3=($aR['muestra3'] >= $tipo['min'] && $aR['muestra3'] <= $tipo['max']) ? $tipo['tipo']: 'B';
                             if ($T1=='B' || $T2=='B' || $T3=='B') {
                                 $tipoCultivo='B';
-                                continue;
+//                                continue;
                             }
-                            else
-                                $tipoCultivo='A';
+//                            echo '<p>T1:'.$T1.', T2:'.$T2.', T3:'.$T3.', tipoCultivo:'.$tipoCultivo.', tipo:'.$tipo['tipo'];
                         }
                     }
                 }
@@ -146,11 +147,14 @@ switch ($GPC['ac']) {
             case '3':
             case '6':
                 $analisis->_commit_tool();
-                if ($estipo) 
-                    header("location: ".DOMAIN_ROOT."/reportes/imprimir_boleta_tipificacion.php?id_rec=".$GPC['id']);                
-                else
+                if ($estipo) {
+                    header("location: ".DOMAIN_ROOT."/reportes/imprimir_boleta_tipificacion.php?id_rec=".$GPC['id']);
+                    die();
+                }
+                else {
                     header("location: analisis_resultado_listado.php?msg=exitoso&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
-                die();
+                    die();
+                }                
                 break;
             case '7':
             case '8':
@@ -276,20 +280,22 @@ switch ($GPC['ac']) {
         <legend>Datos de la Muestra</legend>
         <table align="center" width="100%" border="0">
             <tr>
-                <td>Nro. Entrada</td>
-                <td><span><? echo $infoRec[0]['numero']; ?></span></td>
+                <td>Nro. Entrada</td>                
+                <td><? echo $html->input('', $infoRec[0]['numero'], array('type' => 'text', 'class' => 'estilo_campos cuadricula', 'readOnly' => true)); ?></td>
                 <td>Fecha</td>
-                <td><span><? echo $general->date_sql_screen($infoRec[0]['fecha_recepcion']); ?></span></td>            
+                <td><? echo $html->input('', $general->date_sql_screen($infoRec[0]['fecha_recepcion']), array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Carril</td>
-                <td><span><? echo $infoRec[0]['carril']; ?></span></td>
+                <td><? echo $html->input('', $infoRec[0]['carril'], array('type' => 'text', 'class' => 'estilo_campos cuadricula', 'readOnly' => true)); ?></td>
                 <td>Hora</td>
-                <td><? echo $general->hora_sql_normal($infoRec[0]['fecha_recepcion']); ?></td>
+                <td><? echo $html->input('', $general->hora_sql_normal($infoRec[0]['fecha_recepcion']), array('type' => 'text', 'class' => 'estilo_campos crproductor', 'readOnly' => true));
+                ?></td>
             </tr>
             <tr>
                 <td>Cultivo</td>
-                <td colspan="3"><? echo $infoRec[0]['codigo_cul'] . ' - ' . $infoRec[0]['nombre_cul']; ?></td>                
+                <td colspan="3"><? 
+                echo $html->input('', trim($infoRec[0]['codigo_cul']) . ' - ' . $infoRec[0]['nombre_cul'], array('type' => 'text', 'class' => 'estilo_campos2', 'readOnly' => true)); ?></td>
             </tr>
         </table>
     </fieldset>
