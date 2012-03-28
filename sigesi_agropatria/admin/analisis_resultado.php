@@ -119,11 +119,11 @@ switch ($GPC['ac']) {
                         $estipo=true;                        
                         if ($tipo['id_analisis']==$aR['id_analisis']) {
                             echo 'Entrando al Bucle Valores de Tipificacion: ';
-                            $T1=($aR['muestra1'] >= $tipo['min'] && $aR['muestra1'] <= $tipo['max']) ? $tipo['tipo']: 'B';
+                            $T1=($aR['muestra1'] >= $tipo['min'] && $aR['muestra1'] <= $tipo['max']) ? trim($tipo['tipo']): 'I';
                             if (!empty($aR['muestra2']))
-                                $T2=($aR['muestra2'] >= $tipo['min'] && $aR['muestra2'] <= $tipo['max']) ? $tipo['tipo']: 'B';
+                                $T2=($aR['muestra2'] >= $tipo['min'] && $aR['muestra2'] <= $tipo['max']) ? trim($tipo['tipo']): 'I';
                             if (!empty($aR['muestra3']))
-                                $T3=($aR['muestra3'] >= $tipo['min'] && $aR['muestra3'] <= $tipo['max']) ? $tipo['tipo']: 'B';
+                                $T3=($aR['muestra3'] >= $tipo['min'] && $aR['muestra3'] <= $tipo['max']) ? trim($tipo['tipo']): 'I';
                             if ($T1=='B' || $T2=='B' || $T3=='B') {
                                 $tipoCultivo='B';
 //                                continue;
@@ -137,6 +137,8 @@ switch ($GPC['ac']) {
                     $GPC['Tipificacion']['id_recepcion'] = $GPC['id'];
                     $GPC['Tipificacion']['id_cultivo']= $idCultivo;                
                     $GPC['Tipificacion']['laboratorio']= $_SESSION['s_lab'];
+                    if ($tipoCultivo='I');
+                        $tipoCultivo='B';
                     $GPC['Tipificacion']['tipo'] = $tipoCultivo;
                     $id_tipo=$tipificacion->save($GPC['Tipificacion']);                    
                 }

@@ -79,11 +79,11 @@ switch ($GPC['ac']) {
     case 'liberar':
         if (!empty($GPC['id'])) {
             $id=$GPC['id'];
-//            if ($_SESSION['s_mov']=='rec')
-//                if ($_SESSION['s_lab']=='C')
+            if ($_SESSION['s_mov']=='rec')
+                if ($_SESSION['s_lab']=='C')
                     $estatus='3';
-//                else if ($_SESSION['s_lab']=='P')
-//                        $estatus='6';
+                else if ($_SESSION['s_lab']=='P')
+                        $estatus='6';
             if ($_SESSION['s_mov']=='rec') {                
                 $infoCtna = $Ctna->find(array('id_recepcion' => $id));
                 $estatusA=$infoCtna[0]['estatus'];
@@ -111,13 +111,13 @@ switch ($GPC['ac']) {
     case 'rechazar':
         if (!empty($GPC['id'])) {            
             $id=$GPC['id'];
-//            if ($_SESSION['s_mov']=='rec')
-//                if ($_SESSION['s_lab']=='C')
+            if ($_SESSION['s_mov']=='rec')
+                if ($_SESSION['s_lab']=='C')
                     $estatus=7;
-//                else if ($_SESSION['s_lab']=='P')
-//                        $estatus=8;
-//            else
-//                $estatus=4;            
+                else if ($_SESSION['s_lab']=='P')
+                        $estatus=8;
+            else
+                $estatus=4;            
             $Ctna->_begin_tool();
             if ($_SESSION['s_mov']=='rec') {
                 $infoCtna = $Ctna->find(array('id_recepcion' => $id));

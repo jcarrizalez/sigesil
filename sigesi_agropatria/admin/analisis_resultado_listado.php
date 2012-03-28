@@ -196,6 +196,12 @@ require('../lib/common/init_calendar.php');
                         echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'cuarentena.php?ac=editar&id='.$dataMov['id']); 
                     break;                
                 }
+            case 'des':
+                switch ($dataMov['estatus']) {
+                    case '2':                    
+                        echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Nuevo>', 'analisis_resultado.php?ac=nuevo&id='.$dataMov['id'].'&cant_muestras='.$dataMov['cant_muestras'].'&id_cosecha='.$dataMov['id_cosecha']); 
+                        break;             
+                }                
         }
         ?>
         </td>
@@ -209,7 +215,7 @@ require('../lib/common/init_calendar.php');
     </tr>
 </table>
 <?
-echo $html->input('idRec', 0, array('type' => 'text'));
+echo $html->input('idRec', 0, array('type' => 'hidden'));
 ?>
 <?    require('../lib/common/footer.php');
 ?>
