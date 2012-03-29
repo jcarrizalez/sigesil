@@ -113,22 +113,24 @@ switch ($GPC['ac']) {
                 }
             }
             if ($_SESSION['s_mov']=='rec') {
-                $listaTipo=$cultivo->buscarTipo($idCultivo, $idCA);                
-                foreach ($Resultados as $aR) {// Resultado de Analisis 
+                $tipoCultivo = array();
+                $listaTipo=$cultivo->buscarTipo($idCultivo, $idCA);
+                if (!empty($listaTipo)) {
                     foreach ($listaTipo as $tipo) {//Valores de Tipificacion
-                        $estipo=true;                        
-                        if ($tipo['id_analisis']==$aR['id_analisis']) {
-                            echo 'Entrando al Bucle Valores de Tipificacion: ';
-                            $T1=($aR['muestra1'] >= $tipo['min'] && $aR['muestra1'] <= $tipo['max']) ? trim($tipo['tipo']): 'I';
-                            if (!empty($aR['muestra2']))
-                                $T2=($aR['muestra2'] >= $tipo['min'] && $aR['muestra2'] <= $tipo['max']) ? trim($tipo['tipo']): 'I';
-                            if (!empty($aR['muestra3']))
-                                $T3=($aR['muestra3'] >= $tipo['min'] && $aR['muestra3'] <= $tipo['max']) ? trim($tipo['tipo']): 'I';
-                            if ($T1=='B' || $T2=='B' || $T3=='B') {
-                                $tipoCultivo='B';
-//                                continue;
+                        $estipo=true;
+                        foreach ($Resultados as $aR) {// Resultado de Analisis                                                 
+                            if ($tipo['id_analisis']==$aR['id_analisis']) {
+    //                            echo 'Entrando al Bucle Valores de Tipificacion: ';
+                                $T1=($aR['muestra1'] >= $tipo['min'] && $aR['muestra1'] <= $tipo['max']) ? trim($tipo['tipo']): 'I';
+                                if (!empty($aR['muestra2']))
+                                    $T2=($aR['muestra2'] >= $tipo['min'] && $aR['muestra2'] <= $tipo['max']) ? trim($tipo['tipo']): 'I';
+                                if (!empty($aR['muestra3']))
+                                    $T3=($aR['muestra3'] >= $tipo['min'] && $aR['muestra3'] <= $tipo['max']) ? trim($tipo['tipo']): 'I';
+                                if ($T1=='B' || $T2=='B' || $T3=='B') 
+                                    $tipoCultivo[]='B';                            
+                                else 
+                                    $tipoCultivo[]='A';                            
                             }
-//                            echo '<p>T1:'.$T1.', T2:'.$T2.', T3:'.$T3.', tipoCultivo:'.$tipoCultivo.', tipo:'.$tipo['tipo'];
                         }
                     }
                 }
@@ -136,10 +138,8 @@ switch ($GPC['ac']) {
                     $GPC['Tipificacion']['id_centro_acopio'] = $_SESSION['s_ca_id'];
                     $GPC['Tipificacion']['id_recepcion'] = $GPC['id'];
                     $GPC['Tipificacion']['id_cultivo']= $idCultivo;                
-                    $GPC['Tipificacion']['laboratorio']= $_SESSION['s_lab'];
-                    if ($tipoCultivo='I');
-                        $tipoCultivo='B';
-                    $GPC['Tipificacion']['tipo'] = $tipoCultivo;
+                    $GPC['Tipificacion']['laboratorio']= $_SESSION['s_lab'];                    
+                    $GPC['Tipificacion']['tipo'] = (in_array('B',$tipoCultivo)) ? 'B': 'A';
                     $id_tipo=$tipificacion->save($GPC['Tipificacion']);                    
                 }
             }
@@ -152,18 +152,18 @@ switch ($GPC['ac']) {
                 if ($estipo) {
                     header("location: ".DOMAIN_ROOT."/reportes/imprimir_boleta_tipificacion.php?id_rec=".$GPC['id']);
                     die();
-                }
-                else {
+                } else {
                     header("location: analisis_resultado_listado.php?msg=exitoso&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
                     die();
-                }                
+                }
                 break;
             case '7':
             case '8':
-                header("location: ".DOMAIN_ROOT."/reportes/imprimir_boleta_rechazo.php?id=". $GPC['id']."&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']."&es_rechazado=".$GPC['es_rechazado']);
+                $analisis->_commit_tool();
+                header("location: ".DOMAIN_ROOT."/reportes/imprimir_boleta_rechazo.php?id=". $GPC['id']."&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']."&es_rechazado=".$GPC['es_rechazado']);                
                 die();
                 break;
-            default:
+            default:                
                 header("location: analisis_resultado_listado.php?msg=error&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
                 die();
                 break;                
