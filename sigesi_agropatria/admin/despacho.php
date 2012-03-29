@@ -124,7 +124,7 @@ $validator->printScript();
         
         $('#Despacho\\[id_cosecha\\]').change(function(){
             if($(this).val() != '')
-                $('#nrocosecha').load('../ajax/cosecha_programa.php?ac=cantidad2&idCo='+$(this).val());
+                $('#nrocosecha').load('../ajax/cosecha_programa.php?ac=cantidad2');
             else{
                 $('#nrocosecha').html('');
                 $('#nrocosecha').append('Salida Nro: ');

@@ -4,7 +4,7 @@
     $cosecha = new Cosecha();
     
     $listaCR = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
-    $listaCantM = array(1 => 1, 2 => 2);
+    $listaCantM = array(1 => 1, 2 => 2, 3 => 3, 4 => 4);
     /*PARA TRABAJAR CON 3 MUESTRAS
     $listaCantM = array(1 => 1, 2 => 2, 3 => 3);*/
     $listaCarriles = array(1 => 1, 2 => 2);
@@ -117,7 +117,7 @@ $validator->printScript();
         
         $('#Recepcion\\[id_cosecha\\]').change(function(){
             if($(this).val() != '')
-                $('#nrocosecha').load('../ajax/cosecha_programa.php?ac=cantidad&idCo='+$(this).val());
+                $('#nrocosecha').load('../ajax/cosecha_programa.php?ac=cantidad');
             else{
                 $('#nrocosecha').html('');
                 $('#nrocosecha').append('Entrada Nro: ');
@@ -280,14 +280,14 @@ $validator->printScript();
                     <td><span class="msj_rojo">* </span>Nombres y Apellidos: </td>
                     <td><? echo $html->input('Productor.nombre', $infoProductor[0]['nombre_pro'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
-                <tr>
+                <!--tr>
                     <td>Tel&eacute;fono: </td>
-                    <td><? echo $html->input('Productor.telefono', $infoProductor[0]['telefono_pro'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><? echo $html->input('Productor.telefono', $infoProductor[0]['telefono_pro'], array('type' => 'text', 'class' => 'estilo_campos integer')); ?></td>
                 </tr>
                 <tr>
                     <td>Email: </td>
                     <td><? echo $html->input('Productor.email', $infoProductor[0]['email_pro'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-                </tr>
+                </tr-->
             </tbody>
         </table>
     </fieldset>
@@ -308,10 +308,10 @@ $validator->printScript();
                     <td>Nombres y Apellidos: </td>
                     <td><? echo $html->input('Asociado.nombre', $infoAsociado[0]['nombre_aso'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
-                <tr>
+                <!--tr>
                     <td>Tel&eacute;fono: </td>
                     <td><? echo $html->input('Asociado.telefono', $infoAsociado[0]['telefono_aso'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-                </tr>
+                </tr-->
             </tbody>
         </table>
     </fieldset>
@@ -342,7 +342,7 @@ $validator->printScript();
                 <td><? echo $html->input('Vehiculo.marca', $infoVehiculo[0]['marca'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
-                <td>Placa Remolque: </td>
+                <td>Placa Remolque/Batea: </td>
                 <td><? echo $html->input('Vehiculo.placa_remolques', $infoVehiculo[0]['remolque'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
         </table>

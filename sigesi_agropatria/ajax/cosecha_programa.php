@@ -16,22 +16,18 @@
             }
         break;
         case 'cantidad':
-            if(!empty($GPC['idCo'])){
-                $recepcion = new Recepcion();
-                $cantRecepcion = $recepcion->recepcionesDia($_SESSION['s_ca_id'], $GPC['idCo']);
-                $numeroRecepcion = ++$cantRecepcion[0]['total'];
-                echo "Entrada Nro: ".$numeroRecepcion;
-                echo $html->input('Recepcion.numero', $numeroRecepcion, array('type' => 'hidden', 'class' => 'estilo_campos'));
-            }
+            $recepcion = new Recepcion();
+            $cantRecepcion = $recepcion->recepcionesDia($_SESSION['s_ca_id']);
+            $numeroRecepcion = ++$cantRecepcion[0]['total'];
+            echo "Entrada Nro: R$numeroRecepcion-".date('dmY');
+            echo $html->input('Recepcion.numero', $numeroRecepcion, array('type' => 'hidden', 'class' => 'estilo_campos'));
         break;
         case 'cantidad2':
-            if(!empty($GPC['idCo'])){
-                $despacho = new Despacho();
-                $cantSalida = $despacho->despachosDia($_SESSION['s_ca_id'], $GPC['idCo']);
-                $numeroSalida = ++$cantSalida[0]['total'];
-                echo "Salida Nro: ".$numeroSalida;
-                echo $html->input('Despacho.numero', $numeroSalida, array('type' => 'hidden', 'class' => 'estilo_campos'));
-            }
+            $despacho = new Despacho();
+            $cantSalida = $despacho->despachosDia($_SESSION['s_ca_id']);
+            $numeroSalida = ++$cantSalida[0]['total'];
+            echo "Salida Nro: D$numeroSalida-".date('dmY');
+            echo $html->input('Despacho.numero', $numeroSalida, array('type' => 'hidden', 'class' => 'estilo_campos'));
         break;
     }
 ?>

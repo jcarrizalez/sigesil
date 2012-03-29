@@ -100,14 +100,14 @@
                     <td><span class="msj_rojo">* </span>Nombres y Apellidos: </td>
                     <td><? echo $html->input('Productor.nombre', $infoProductor[0]['nombre_pro'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
-                <tr>
+                <!--tr>
                     <td>Tel&eacute;fono: </td>
-                    <td><? echo $html->input('Productor.telefono', $infoProductor[0]['telefono_pro'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><? echo $html->input('Productor.telefono', $infoProductor[0]['telefono_pro'], array('type' => 'text', 'class' => 'estilo_campos integer')); ?></td>
                 </tr>
                 <tr>
                     <td>Email: </td>
                     <td><? echo $html->input('Productor.email', $infoProductor[0]['email_pro'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-                </tr>
+                </tr-->
             <? if(empty($verifAso)){ ?>
                 <tr>
                     <td><span class="msj_rojo">* </span>Tiene Asociado: </td>
@@ -147,10 +147,10 @@
                     <td>Nombres y Apellidos: </td>
                     <td><? echo $html->input('Asociado.nombre', $infoAsociado[0]['nombre_aso'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
-                <tr>
+                <!--tr>
                     <td>Tel&eacute;fono: </td>
-                    <td><? echo $html->input('Asociado.telefono', $infoAsociado[0]['telefono_aso'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-                </tr>
+                    <td><? echo $html->input('Asociado.telefono', $infoAsociado[0]['telefono_aso'], array('type' => 'text', 'class' => 'estilo_campos integer')); ?></td>
+                </tr-->
             <?
                 if($asoNuevo){
                     ?>

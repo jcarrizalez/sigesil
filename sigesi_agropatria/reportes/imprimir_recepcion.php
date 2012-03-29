@@ -29,7 +29,7 @@
 </div>
 <table id="tabla_reporte" border="0" width="100%">
     <tr>
-        <td>Entrada Nro: &nbsp;<?=$dataRecepcion[0]['numero']?></td>
+        <td>Entrada Nro: &nbsp;<?="R".$dataRecepcion[0]['numero']."-".date('dmY')?></td>
     </tr>
     <tr>
         <td>

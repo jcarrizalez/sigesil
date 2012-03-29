@@ -12,7 +12,7 @@ class Formulas extends Model {
                     WHERE '1'";
         $query .= (!empty($idCa)) ? " AND f.id_centro_acopio = '$idCa'" : '';
         $query .= (!empty($codigo)) ? " AND f.codigo = '$codigo'" : '';
-        $query .= (!empty($generales)) ? " OR f.id_centro_acopio = '1'" : '';
+        $query .= (!empty($generales)) ? " AND f.id_cultivo IS NULL" : '';
         $query .= " ORDER BY ca.codigo, c.codigo, f.id";
         $query .= (!empty($porPagina)) ? " LIMIT $porPagina OFFSET $inicio" : "";
         $this->listaF = $this->_SQL_tool($this->SELECT, __METHOD__, $query);
