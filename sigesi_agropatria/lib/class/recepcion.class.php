@@ -141,6 +141,14 @@ class Recepcion extends Model {
         $query .= " ORDER BY r.fecha_recepcion, r.numero";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
+    function buscar($Num=null, $Fecha=null) {
+        $query = "SELECT * FROM si_recepcion r";
+        $query .="where '1'";
+        $query .= (!empty($Num)) ? " AND r.numero = '$Num'" : '';
+        $query .= (!empty($Num)) ? " AND to_char(r.fecha_recepcion, 'yyyy-mm-dd') = '$Fecha'" : '';        
+        return $this->_SQL_tool($this->SELECT, __METHOD__, $query);    
+    }
+    
 }
 
 ?>

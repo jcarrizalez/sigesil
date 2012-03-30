@@ -18,9 +18,6 @@ require('../lib/common/header.php');
 <table align="center" width="50%"  height="100">
     <tr align="center">
         <td>            
-            <? echo $html->input('Recepcion', 'Recepcion', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
-        </td>
-        <td>            
             <? echo $html->input('Despacho', 'Despacho', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
         </td>
     </tr>
