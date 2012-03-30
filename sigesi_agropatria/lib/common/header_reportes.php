@@ -24,7 +24,7 @@
                 <?=$_SESSION["s_org_nombre"]." - SILOS ".$_SESSION["s_ca_nombre"]?>
             </div>
             <div id="cabecera_fecha">
-                Fecha: <?=date("d/m/Y")?><br/>
-                Hora: <?=date("h:i a")?>
+                FECHA DE IMPRESION: <?=date("d/m/Y")?><br/>
+                HORA DE IMPRESION: <?=date("h:i a")?>
             </div>
             <div id="cuerpo_reporte">
