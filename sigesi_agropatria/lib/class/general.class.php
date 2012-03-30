@@ -74,6 +74,14 @@ class General {
 
         return $fechaFinal;
     }
+    
+    function caracter($repetir, $caracter){
+        $resultado = '';
+        for($i=1; $i<=$repetir; $i++){
+            $resultado .= $caracter;
+        }
+        return $resultado;
+    }
 
     function calculaEdad($fechanacimiento) {
         list($ano, $mes, $dia) = explode("-", $fechanacimiento);

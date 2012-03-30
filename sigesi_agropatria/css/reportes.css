@@ -1,20 +1,11 @@
 #principal_reporte{
-    
+    font-size: 12px;
     width: 800px;
     margin: 0 auto;
-    position: absolute;
 }
 
-#cabecera_empresa{
-    float: left;
-}
-
-#cabecera_fecha{
-    float: right;
-}
-
-#cuerpo_reporte{
-    clear: both;
+#principal_reporte table{
+    font-size: 12px;
 }
 
 #pie_pagina_reporte{

@@ -1,11 +1,6 @@
 <?php
     require_once("../lib/core.lib.php");
     require_once("../lib/common/header_reportes.php");
-    //include("../lib/class/mpdf/mpdf.php");
-    if (empty($GPC['id_rec'])) {
-        header('location: ../admin/recepcion.php');
-        die();
-    }
         
     $id_rec = $GPC['id_rec'];
     $recepcion = new Recepcion();
@@ -18,16 +13,10 @@
     
     if(!empty($dataRecepcion[0]['id_rec'])) {
 ?>
-<script type="text/javascript">
-    $(document).ready(function(){
-        window.print();
-        window.location = '<?=DOMAIN_ROOT?>admin/<?=$GPC['redir']?>.php';
-    });
-</script>
-<div id="titulo_reporte">
-    RESULTADOS DE ANALISIS
-</div>
-<table id="tabla_reporte" border="0" width="100%">
+<table id="tabla_reporte" border="0" width="800">
+    <tr>
+        <td id="titulo_reporte">RESULTADOS DE ANALISIS</td>
+    </tr>
     <tr>
         <td>Entrada Nro: &nbsp;<?="R".$dataRecepcion[0]['numero']."-".date('dmY')?></td>
     </tr>
@@ -43,7 +32,7 @@
         <td>Cultivo:&nbsp;<?="( ".$dataRecepcion[0]['codigo_cul'].") ".$dataRecepcion[0]['nombre_cul']?></td>
     </tr>
 </table>
-<table id="tabla_reporte2" width="100%" cellpadding="0" cellspacing="0">
+<table id="tabla_reporte2" width="800" cellpadding="0" cellspacing="0">
     <tr>
         <th>C&Oacute;DIGO</th>
         <th align="left">DESCRIPCION</th>
@@ -70,8 +59,4 @@
         die();
     }
     require_once("../lib/common/footer_reportes.php");
-    /*$mpdf=new mPDF();
-    $mpdf->WriteHTML($cadena);
-    $mpdf->Output('recepcion.pdf','F');
-    exit;*/
 ?>

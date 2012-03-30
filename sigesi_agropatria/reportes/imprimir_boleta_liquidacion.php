@@ -23,17 +23,24 @@
 ?>
 <script type="text/javascript">
     $(document).ready(function(){
-        window.print();
-        window.location = '<?=DOMAIN_ROOT?>admin/romana_listado.php?mov=<?=$GPC['mov']?>';
+        /*window.print();
+        window.location = '<?=DOMAIN_ROOT?>admin/romana_listado.php?mov=<?=$GPC['mov']?>';*/
     });
 </script>
 <div id="titulo_reporte">
     CONSTANCIA DE <?=$proceso = ($GPC['mov'] == 'rec') ? 'RECEPCION' : 'DESPACHO' ?>
 </div>
-<table id="tabla_reporte" border="0" width="100%" style="padding-top: 40px;">
+<table id="tabla_reporte" border="1" width="100%" style="padding-top: 20px; padding-left: 10px;">
     <tr>
-        <td colspan="6">
-            GUIA UNICA DE MOVILIZACION MAT:
+        <td colspan="6">GUIA UNICA DE MOVILIZACION MAT: <?=$dataMovimiento[0]['numero_guia']?></td>
+    </tr>
+    <tr>
+        <td width="220">ENTRADA Nro:</td>
+        <td><?=$dataMovimiento[0]['numero']?></td>
+        <td align="right">FECHA:</td>
+        <td><?=$general->date_sql_screen($dataMovimiento[0]['fecha_recepcion'],'','es','-')?></td>
+        <td align="right">NUMERO DE GUIA:</td>
+        <td>
             <?
                 foreach($dataSubGuias as $valor){
                     $guiastotal .= $valor['subguia']. " - ";
@@ -41,14 +48,6 @@
                     echo substr($guiastotal, 0, -2);
             ?>
         </td>
-    </tr>
-    <tr>
-        <td>ENTRADA Nro:</td>
-        <td><?=$dataMovimiento[0]['numero']?></td>
-        <td align="right">FECHA:</td>
-        <td><?=$general->date_sql_screen($dataMovimiento[0]['fecha_recepcion'],'','es','-')?></td>
-        <td align="right">NUMERO DE GUIA:</td>
-        <td><?=$dataMovimiento[0]['numero_guia']?></td>
     </tr>
     <tr>
         <td>COSECHA:</td>
@@ -123,12 +122,12 @@
     </tr>
     <tr>
         <td>&nbsp;</td>
-        <td>NETO ACONDICIONADO Kgrs&nbsp;------------------------------------------------------------------></td>
+        <td>PESO NETO A LIQUIDAR Kgrs&nbsp;------------------------------------------------------------------></td>
         <td width="1" align="right"><?=number_format($dataMovimiento[0]['peso_acon'], 3);?></td>
         <td>&nbsp;</td>
     </tr>
     <tr align="center">
-        <td colspan="4" style="padding-top: 60px;">
+        <td colspan="4" style="padding-top: 40px;">
             _______________________________&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_______________________________<br/>
             Transportista&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Por el Silo
         </td>
