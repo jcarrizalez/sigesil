@@ -13,9 +13,11 @@ $analisis=new Analisis();
 
 $listaCultivos = $Cultivos->find('', null, array('id', 'nombre'), 'list', 'id');
 $listaPlagas = $Plagas->find('', null, array('id', 'nombre'), 'list', 'id');
+$listaPlagas = $Plagas->find('', null, array('id', 'nombre'), 'list', 'id');
 $listaProductos = $Productos->find('', null, "id, nombre || ' (' || presentacion || ')' as nombre", 'list', 'id');
 $laboratorio = array(2 => '40tna. lab');
 $estatusCtna=array('','2','5');
+$idCA=(!empty($_SESSION['s_ca_id'])) ? $_SESSION['s_ca_id']: null;
 
 $id=(!empty($GPC['id'])) ? $GPC['id']: ''; 
 $soloLectura=true;
@@ -27,6 +29,9 @@ switch ($GPC['ac']) {
             if ($_SESSION['s_mov']=='rec') {                
                 $infoCtna = $Ctna->find(array('id_recepcion' => $id));
                 $id_cuarentena=$infoCtna[0]['id']; 
+                $listaCP = $Ctna->listadoPlaga($idCA, $id_cuarentena, $GPC['id']);
+                $insectoCtna=array();
+                count($listaCP);
                 if (!empty($id_cuarentena)) {                    
                     $infoRecepcion = $Rec->find(array('id' => $infoCtna[0]['id_recepcion']));
                     $infoVehiculo = $Vehiculos->find(array('id' => $infoRecepcion[0]['id_vehiculo']));
@@ -336,6 +341,17 @@ $validator->printScript();
             if (confirm('EL MOVIMIENTO SERA LIBERADA ESTA SEGURO QUE DESEA LIBERAR!!!'))
                 window.location = '?ac=liberar&id=<?=$GPC["id"] ?>';            
         });
+        $('#nuevoInsecto').click(function() {
+            $('form inpux')
+        });
+        
+        $('.contable').live('change', function(){
+            indice=$(this).attr('id').substring($(this).attr('id').lastIndexOf('_')+1,$(this).attr('id').length);            
+            if ($(this).val()=='I') 
+                $('#dataCP_cantidad_'+indice).css('visibility','hidden');
+            else
+                $('#dataCP_cantidad_'+indice).css('visibility','visible');
+        });
         
     });
     
@@ -375,7 +391,7 @@ $validator->printScript();
         <legend>Datos de la Recepcion</legend>
         <table align="center" border="0">
             <tr>
-                <td align="left">Nro. Entrada:</td>
+                <td align="left">Nro. Entrada</td>
                 <td><? echo $html->input('Recepcion.numero', $infoRecepcion[0]['numero'], array('type' => 'text', 'class' => 'estilo_campos cuadricula', 'readOnly' => true)); ?></td>
                 <td width="50"></td>
                 <td align="left">Fecha</td>
@@ -390,62 +406,71 @@ $validator->printScript();
                 <td colspan="4"><? echo $html->input('', $infoGuia[0]['kilogramos'], array('type' => 'text', 'readOnly' => true, 'class' => 'crproductor')); ?></td>
             </tr>
             <tr>
-                <td>Vehiculo Placa:</td>
+                <td>Vehiculo Placa</td>
                 <td><? echo $html->input('', $infoVehiculo[0]['placa'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
                 <td width="50"></td>
                 <td>Placa Rem:</td>            
                 <td><? echo $html->input('', $infoGuia[0]['placa_remolques'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
-                <td>Chofer Cedula:</td>
+                <td>Chofer Cedula</td>
                 <td><? echo $html->input('', $infoGuia[0]['cedula_chofer'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
                 <td width="50"></td>
-                <td>Chofer Nombre:</td>
+                <td>Chofer Nombre</td>
                 <td><? echo $html->input('', $infoGuia[0]['nombre_chofer'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
-                <td>
-                    <td colspan="4"><? echo $html->select('tipoInsectos', array('options' => array(''), 'selected' => $infoCtna[0]['id_cultivo'], 'readOnly' => true)); ?></td>
-                </td>
+                <td  align="right" >Tipos de Insectos</td>
+                <td align="right colspan="4"><? echo $html->select('tipoInsectos', array('options' => array('Uno'=>1,2=>'Dos','3'=>'3','4'=>'4'), 'selected' => count($listaCP), 'readOnly' => true)); ?></td>
             </tr>
         </table>        
-    </fieldset>
+    </fieldset>    
+
+<fieldset>    
+    <legend>Datos de los Insectos</legend>
     <div id="insectos">
-    <fieldset>    
-        <legend>Datos de los Insectos</legend>
-            <table align="left" border="1">
-                <tr>                    
-                    <td align="left" width="50px">Insectos:</td>
-                    <td>
-                    <? 
-                    if ($soloLectura)
-                        echo $html->select('Cuarentena.id_plaga', array('options' => $listaPlagas, 'selected' => $infoCtna[0]['id_plaga'], 'default' =>'Seleccione', 'readOnly' => true)); 
-                    else
-                        echo $html->select('Cuarentena.id_plaga', array('options' => $listaPlagas, 'selected' => $infoCtna[0]['id_plaga'], 'default' =>'Seleccione')); 
-                    ?>
-                    </td>                    
-                    <td>
-                    <? 
-                    echo '<input type="checkbox" value='.($infoCtna[0]["grado_infestacion"]>=0).' name="esContable">Es Contable';
-                    ?>
-                    </td>
-                    <td>
-                    <?                    
-                    if (!empty($infoCtna[0]['grado_infestacion']) && $infoCtna[0]['grado_infestacion'] > 0)
-                        echo $html->input('Cuarentena.grado_infestacion ', $infoCtna[0]['grado_infestacion'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'style' => $soloLectura));
-                    ?>
-                    </td>
-                </tr>
+        <table align="center" border="0">
+            <th>Insecto</th>
+            <th>Muestra</th>
+            <th>Valor</th>
+            <?
+            $i=0;
+            foreach($listaCP as $dataCP) {
+            ?>
             <tr>
+                <td>
+                <? 
+                if ($soloLectura)
+                    echo $html->select('dataCP_id_'.$i, array('options' => $listaPlagas, 'selected' => $dataCP['id_plaga'], 'default' =>'Seleccione', 'readOnly' => true)); 
+                else
+                    echo $html->select('dataCP_id_'.$i, array('options' => $listaPlagas, 'selected' => $dataCP['id_plaga'], 'default' =>'Seleccione')); 
+                ?>
+                </td>                    
+                <td>
+                <?
+                echo $html->select('esContable_'.$i, array('options' => array('C'=>'CONTABLE','I'=>'INCONTABLE'), 'selected' => (($dataCP['cantidad'] > 0) ? 'C': 'I'), 'default' =>'Seleccione', 'readOnly' => $soloLectura,'class' => 'contable'));
+                ?>
+                </td>
+                <td>
+                <?                
+                    if ($dataCP['cantidad'] > 0)
+                        echo $html->input('dataCP_cantidad_'.$i, $dataCP['cantidad'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'class' => 'estilo_campos cuadricula'));
+                ?>
+                </td>
+            </tr>
+            <? 
+            $i++;
+            }
+            ?>
         </table>
-    </fieldset>
     </div>
+    </fieldset>
     <div id="fumigacion">
-    <fieldset sytle="display: none">    
+    <fieldset sytle="display: block">    
         <legend>Datos de la Fumigaci&oacute;n</legend>
         <table align="center" border="0">
             <tr>
-                <td>Producto:</td>
+                <td>Producto</td>
                 <td colspan="4">
                 <?
                 if ($soloLectura)
@@ -459,11 +484,11 @@ $validator->printScript();
                 <td>Toneladas Aprox.</td>
                 <td><? echo $html->input('Cuarentena.toneladas', $infoCtna[0]['toneladas'], array('type' => 'text', 'readOnly' => $soloLectura, 'class' => 'crproductor calcular_dosis positive')); ?></td>
                 <td width="50"></td>
-                <td>Dosis Estimada:</td>
+                <td>Dosis Estimada</td>
                 <td id="calculo"><? echo $html->input('Cuarentena.cant_producto', $infoCtna[0]['cant_producto'], array('type' => 'text', 'readOnly' => true, 'class' => 'crproductor positive')); ?></td>
             </tr>
             <tr>
-                <td>Fecha Fumigaci&oacute;n:</td>
+                <td>Fecha Fumigaci&oacute;n</td>
                 <td>
                 <? 
                 echo $html->input('Cuarentena.fecha_cultivo', $general->date_sql_screen($infoCtna[0]['fecha_cultivo'], '', 'es', '-'), array('type' => 'text', 'readOnly' => true, 'class' => 'crproductor')); 
@@ -482,14 +507,14 @@ $validator->printScript();
                 <? } ?>
             </td>
             <td width="50"></td>
-            <td>Hora Fumigaci&oacute;n:</td>
+            <td>Hora Fumigaci&oacute;n</td>
             <td><? echo $html->input('Cuarentena.hora_trab', $infoCtna[0]['hora_trab'], array('type' => 'text', 'readOnly' => true, 'disabled' => $soloLectura,'class' => 'crproductor')); ?></td>
             </tr>
             <tr>
-                <td>Fecha Liberaci&oacute;n:</td>
+                <td>Fecha Liberaci&oacute;n</td>
                 <td><? echo $html->input('Cuarentena.fecha_lib', $general->date_sql_screen($infoCtna[0]['fecha_lib'],'','es','-'), array('type' => 'text', 'readOnly' => true, 'class' => 'crproductor')); ?></td>
                 <td width="50"></td>
-                <td>Hora Liberaci&oacute;n:</td>
+                <td>Hora Liberaci&oacute;n</td>
                 <td><? echo $html->input('Cuarentena.hora_lib', $infoCtna[0]['hora_lib'], array('type' => 'text', 'readOnly' => true, 'class' => 'crproductor')); ?></td>                
             </tr>               
         </table>

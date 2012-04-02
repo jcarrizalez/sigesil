@@ -7,9 +7,6 @@ require('../lib/common/header.php');
         $('#Recepcion').click(function(){
             window.location = 'analisis_resultado_listado.php?mov=rec&lab=P';
         });
-        $('#Despacho').click(function(){
-            window.location = 'analisis_resultado_listado.php?mov=des&lab=P';
-        });
     });
 </script>
 <div id="titulo_modulo">
@@ -18,7 +15,7 @@ require('../lib/common/header.php');
 <table align="center" width="50%"  height="100">
     <tr align="center">
         <td>            
-            <? echo $html->input('Despacho', 'Despacho', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
+            <? echo $html->input('Recepcion', 'Recepcion', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
         </td>
     </tr>
 </table>
