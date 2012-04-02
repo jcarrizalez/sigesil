@@ -1,7 +1,6 @@
 <?php
     require_once("../lib/core.lib.php");
     require_once("../lib/common/header_reportes.php");
-    //include("../lib/class/mpdf/mpdf.php");
     if (empty($GPC['id_rec'])) {
         header('location: ../admin/romana_listado.php?mov='.$GPC['mov']);
         die();
@@ -21,16 +20,10 @@
     
     if(!empty($dataMovimiento[0]['id']) && ($dataMovimiento[0]['estatus_rec'] == 9) || $dataMovimiento[0]['estatus'] == 5){
 ?>
-<script type="text/javascript">
-    $(document).ready(function(){
-        /*window.print();
-        window.location = '<?=DOMAIN_ROOT?>admin/romana_listado.php?mov=<?=$GPC['mov']?>';*/
-    });
-</script>
-<div id="titulo_reporte">
-    CONSTANCIA DE <?=$proceso = ($GPC['mov'] == 'rec') ? 'RECEPCION' : 'DESPACHO' ?>
-</div>
-<table id="tabla_reporte" border="1" width="100%" style="padding-top: 20px; padding-left: 10px;">
+<table id="tabla_reporte" border="0" width="800">
+    <tr>
+        <td id="titulo_reporte" colspan="6">CONSTANCIA DE <?=$proceso = ($GPC['mov'] == 'rec') ? 'RECEPCION' : 'DESPACHO' ?></td>
+    </tr>
     <tr>
         <td colspan="6">GUIA UNICA DE MOVILIZACION MAT: <?=$dataMovimiento[0]['numero_guia']?></td>
     </tr>
@@ -139,8 +132,4 @@
         die();
     }
     require_once("../lib/common/footer_reportes.php");
-    /*$mpdf=new mPDF();
-    $mpdf->WriteHTML($cadena);
-    $mpdf->Output('recepcion.pdf','F');
-    exit;*/
 ?>

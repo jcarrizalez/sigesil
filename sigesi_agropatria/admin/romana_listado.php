@@ -132,9 +132,9 @@
         ?>
     </div>
 <?
-    break;
+        break;
     
-    default:
+        default:
             $movimiento = new Recepcion();
             $listadoEstatus = array('3' => 'Romana Lleno', '6' => 'Romana Vac&iacute;o');
             $estatus = (!empty($GPC['estatus'])) ? "'".$GPC['estatus']."'" : "'3', '6'";
@@ -248,7 +248,7 @@
         ?>
     </div>
 <?
-    break;
+        break;
     }
     
     require('../lib/common/footer.php');

@@ -18,18 +18,18 @@
         <td id="titulo_reporte">RESULTADOS DE ANALISIS</td>
     </tr>
     <tr>
-        <td>Entrada Nro: &nbsp;<?="R".$dataRecepcion[0]['numero']."-".date('dmY')?></td>
+        <td>ENTRADA NRO: &nbsp;<?="R".$dataRecepcion[0]['numero']."-".date('dmY')?></td>
     </tr>
     <tr>
         <td>
-            Fecha de Entrada: &nbsp;<?=$general->date_sql_screen($dataRecepcion[0]['fecha_recepcion'],'','es','-')?>&nbsp;&nbsp;&nbsp;
-            Hora de Entrada:&nbsp;<?=$general->hora_sql_normal($dataRecepcion[0]['fecha_recepcion'])?></td>
+            FECHA DE ENTRADA: &nbsp;<?=$general->date_sql_screen($dataRecepcion[0]['fecha_recepcion'],'','es','-')?>&nbsp;&nbsp;&nbsp;
+            HORA DE ENTRADA:&nbsp;<?=$general->hora_sql_normal($dataRecepcion[0]['fecha_recepcion'])?></td>
     </tr>
     <tr>
-        <td>Carril de Muestreo:&nbsp;<?=$dataRecepcion[0]['carril']?></td>
+        <td>CARRIL DE MUESTREO:&nbsp;<?=$dataRecepcion[0]['carril']?></td>
     </tr>
     <tr>
-        <td>Cultivo:&nbsp;<?="( ".$dataRecepcion[0]['codigo_cul'].") ".$dataRecepcion[0]['nombre_cul']?></td>
+        <td>CULTIVO:&nbsp;<?="( ".$dataRecepcion[0]['codigo_cul'].") ".$dataRecepcion[0]['nombre_cul']?></td>
     </tr>
 </table>
 <table id="tabla_reporte2" width="800" cellpadding="0" cellspacing="0">

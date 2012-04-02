@@ -238,7 +238,7 @@
                 <td><? echo $html->input('descImpurezas', number_format(round($pesoI), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
-                <td>PESO NETO A LIQUIDAR Kgrs</td>
+                <td>Peso Neto a Liquidar Kgrs</td>
                 <td><? echo $html->input('netoAcondicionado', number_format(round($pesoA), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <?

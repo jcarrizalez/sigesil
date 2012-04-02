@@ -155,14 +155,14 @@
                     
                 }
             }
-            if (!empty($idMovimiento) && ($GPC['mov'] == 'rec' && $GPC['Recepcion']['estatus_rec'] == '9') || ($GPC['mov'] == 'des' && $GPC['Recepcion']['estatus'] == '5')) {
+            if (!empty($idMovimiento) && (($GPC['mov'] == 'rec' && $GPC['Recepcion']['estatus_rec'] == '9') || ($GPC['mov'] == 'des' && $GPC['Recepcion']['estatus'] == '5'))) {
                 header("location: ".DOMAIN_ROOT."reportes/imprimir_boleta_liquidacion.php?id_rec=$idMovimiento&mov=".$GPC['mov']);
                 die();
-            } elseif (!empty($idMovimiento) && ($GPC['mov'] == 'rec' && $GPC['Recepcion']['estatus_rec'] == '4') || ($GPC['mov'] == 'des' && $GPC['Recepcion']['estatus'] == '2')){
-                header("location: romana_listado.php?msg=exitoso&mov=".$GPC['mov']);
+            } elseif (!empty($idMovimiento) && (($GPC['mov'] == 'rec' && $GPC['Recepcion']['estatus_rec'] == '4') || ($GPC['mov'] == 'des' && $GPC['Recepcion']['estatus'] == '2'))){
+                header("location: ".DOMAIN_ROOT."admin/romana_listado.php?msg=exitoso&mov=".$GPC['mov']);
                 die();
             } else {
-                header("location: romana_listado.php?msg=error&mov=".$GPC['mov']);
+                header("location: ".DOMAIN_ROOT."admin/romana_listado.php?msg=error&mov=".$GPC['mov']);
                 die();
             }
             break;
@@ -314,9 +314,10 @@
         </tr>
         <?
                     }else{
+                        $pesar = ($i == 1) ? 'Motriz' : 'Remolque';
         ?>
         <tr>
-            <td>Peso Lleno Muestra <?=$i?></td>
+            <td>Peso Lleno <?=$pesar?></td>
             <td><? echo $html->input('Recepcion.peso_0'.$i.'l', '', array('type' => 'text', 'class' => 'estilo_campos integer')); ?></td>
         </tr>
         <?
@@ -336,13 +337,14 @@
         </tr>
         <?
                 for($i=1; $i<=$infoMovimiento[0]['cant_muestras']; $i++){
+                    $pesar = ($i == 1) ? 'Motriz' : 'Remolque';
         ?>
         <tr>
-            <td>Peso Lleno Muestra <?=$i?></td>
+            <td>Peso Lleno <?=$pesar?></td>
             <td><? echo $html->input("Recepcion.pesoLleno$i", $infoMovimiento[0]['peso_0'.$i.'l'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
-            <td>Peso Vac&iacute;o <?=$i?></td>
+            <td>Peso Vac&iacute;o <?=$pesar?></td>
             <td><? echo $html->input('Recepcion.peso_0'.$i.'v', '', array('type' => 'text', 'class' => 'estilo_campos integer verifPeso')); ?></td>
         </tr>
         <?

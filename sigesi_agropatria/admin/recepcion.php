@@ -5,8 +5,7 @@
     
     $listaCR = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
     $listaCantM = array(1 => 1, 2 => 2, 3 => 3, 4 => 4);
-    /*PARA TRABAJAR CON 3 MUESTRAS
-    $listaCantM = array(1 => 1, 2 => 2, 3 => 3);*/
+    $pesoPartes = array(1 => 'No', 2 => 'Si');
     $listaCarriles = array(1 => 1, 2 => 2);
     $idCA = $_SESSION['s_ca_id'];
     
@@ -359,8 +358,8 @@ $validator->printScript();
                 <td><? echo $html->select('Recepcion.carril', array('options'=>$listaCarriles, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
-                <td><span class="msj_rojo">* </span>Cant. Muestras</td>
-                <td><? echo $html->select('Recepcion.cant_muestras', array('options'=>$listaCantM, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
+                <td><span class="msj_rojo">* </span>¿Pesar en dos partes?</td>
+                <td><? echo $html->select('Recepcion.cant_muestras', array('options'=>$pesoPartes, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
             </tr>
         </table>
     </fieldset>
