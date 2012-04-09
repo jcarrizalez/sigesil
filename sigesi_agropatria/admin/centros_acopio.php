@@ -115,7 +115,7 @@ $validator->printScript();
     <? echo $html->input('CA.id', $infoCA[0]['id'], array('type' => 'hidden')); ?>
     <? echo $html->input('AL.id', $infoAL[0]['id'], array('type' => 'hidden')); ?>
     <div id="titulo_modulo">
-        NUEVO CENTRO DE ACOPIO<br/><hr/>
+        CENTRO DE ACOPIO<br/><hr/>
     </div>
     <table align="center">
         <tr>

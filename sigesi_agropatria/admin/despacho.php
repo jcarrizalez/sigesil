@@ -44,7 +44,7 @@
             $GPC['Orden']['id_cliente'] = $idCliente;
             $GPC['Orden']['id_cultivo'] = $dataCosecha[0]['id_cultivo'];
             $GPC['Orden']['id_punto_entrega'] = $idPtoEntrega;
-            $GPC['Orden']['estatus'] = 'P';
+            //$GPC['Orden']['estatus'] = 'P';
             $orden->save($GPC['Orden']);
             $idOrden = $orden->id;
             

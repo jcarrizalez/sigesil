@@ -69,7 +69,7 @@
                     <td>
                         <?
                             echo $html->select('nacion', array('options'=>$listaCR, 'selected' => substr($infoCliente[0]['ced_rif'], 0,1)));
-                            echo "&nbsp;".$html->input('Cliente.ced_rif', substr($infoCliente[0]['ced_rif'], 1), array('type' => 'text', 'length' => '8', 'class' => 'crproductor integer'));
+                            echo "&nbsp;".$html->input('Cliente.ced_rif', substr(trim($infoCliente[0]['ced_rif']), 1), array('type' => 'text', 'length' => '8', 'class' => 'crproductor integer'));
                         ?>
                     </td>
                 </tr>
@@ -120,6 +120,24 @@
                     </tr>
                     <?
                 }
+        break;
+        case 'pto':
+            $cliente = new Cliente();
+            $ptoEntrega = new PuntosEntrega();
+            
+            $infoCliente = $cliente->find(array('ced_rif' => $GPC['cp']));
+            if(!empty($infoCliente))
+                $listaPtos = $ptoEntrega->find(array('id_cliente' => $infoCliente[0]['id']), '', array('id', 'nombre'), 'list', 'nombre');
+            
+            $listaPtos['99999'] = 'Otro';
+            ?>
+                <tr>
+                    <td><span class="msj_rojo">* </span>Punto de Entrega</td>
+                    <td>
+                        <? echo $html->select('Orden.id_punto_entrega',array('options' => $listaPtos, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?>
+                    </td>
+                </tr>
+            <?
         break;
     }
 ?>
