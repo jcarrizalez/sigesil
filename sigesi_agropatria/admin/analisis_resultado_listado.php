@@ -74,6 +74,11 @@ require('../lib/common/init_calendar.php');
            history.back();
         });
         
+        $('#Imprimir').click(function(){
+           popupImpresion = window.open('../reportes/imprimir.php?reporte=boleta_rechazo', '', 'width=1, height=1, scrollbars=NO');
+           //popupImpresion.close();
+        });
+        
         $('#Buscar').click(function(){
             if ($('#Accion').val()=='B') {
                 //alert('../ajax/detalle_analisis_buscar.php?codigo='+$('#numero').val()+'&fecha='+$('#fecha').val());
@@ -108,6 +113,7 @@ require('../lib/common/init_calendar.php');
     <tr>
         <td align="right" ><? echo $html->select('Accion', array('options' => $listaAccion, 'selected' => $GPC['accion'], 'default' => 'Seleccione', 'class' => 'crproductor'));?>
             <? echo $html->input('Regresar', 'Regresar', array('type' => 'button')); ?>
+            <? echo $html->input('Imprimir', 'Imprimir', array('type' => 'button')); ?>
         </td>
     </tr>
     <tr align="center" id="verAccion" align="right" style="display: none">

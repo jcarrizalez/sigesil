@@ -2,12 +2,13 @@
     require_once("../lib/core.lib.php");
     require_once("../lib/common/header_reportes.php");
     //include("../lib/class/mpdf/mpdf.php");
-       
+    
     $Rec=new Recepcion();
     $analisis=new Analisis();    
     $rechazados=array();
+    $nombreMuestra=array(1=>'MOTRIZ', 2=>'REMOLQUE', 3=>'TODOS');
     
-    if (!empty($GPC['id']) && !empty($_SESSION['s_ca_id']) && !empty($GPC['es_rechazado'])) {
+    if (!empty($GPC['id']) && !empty($GPC['es_rechazado'])) {
         $estatus="'".$GPC['estatus']."'";
         $Rechazo=$Rec->listadoRecepcion($GPC['id'], $_SESSION['s_ca_id'], null, null, null,null);     
         $listA=$analisis->listaAnalisis();        
@@ -24,7 +25,17 @@
                     $i++;
                 }
             }
-        }               
+        }
+    $Muestra1=(strpos($GPC['es_rechazado'],'_1:') > 0) ? 1: 0; //Se cambia el rechazado por el aceptado en Muestra1
+    $Muestra2=(strpos($GPC['es_rechazado'],'_2:') > 0) ? 2: 0; //Se cambia el rechazado por el aceptado en Muestra2
+    if (($Muestra1==0) && ($Muestra2==0)) 
+        $Muestra=0;
+    elseif ($Muestra1==0) 
+        $Muestra=2; 
+    elseif ($Muestra2==0) 
+        $Muestra=1;
+    else 
+        $Muestra=3;
     }
     else {
         header("location: ../admin/analisis_resultado_listado.php?msg=error&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
@@ -32,63 +43,62 @@
     }
 ?>
 <script type="text/javascript">
-    $(document).ready(function(){
-        window.print();
-        window.location = '<?=DOMAIN_ROOT?>admin/analisis_resultado_listado.php?msg=exitoso&mov=<?=$_SESSION["s_mov"]?>&lab=<?=$_SESSION["s_lab"]?>';
-    });
+    window.print();
+    window.close();
 </script>
-<div id="titulo_reporte">
-    BOLETA DE RECHAZO
-</div>
-<table id="tabla_reporte" border="0" width="100%">
+<table id="tabla_reporte" border="0" width="800">
     <tr>
-        <td colspan="3"></td>            
+        <td id="titulo_reporte" colspan="3">BOLETA DE RECHAZO</td>
     </tr>
     <tr>
-        <td align="right" width=200px">PROPIEDAD DE: </td>        
-        <td align="left" width="120px"><?echo $Rechazo[0]['ced_productor']; ?></td>
-        <td align="left"><?echo $Rechazo[0]['productor_nombre']; ?></td>
+        <td width="200">PROPIEDAD DE: </td>        
+        <td width="120"><?echo $Rechazo[0]['ced_productor']; ?></td>
+        <td><?echo $Rechazo[0]['productor_nombre']; ?></td>
     </tr>
     <tr>
-        <td align="right">PRODUCTO: </td>
-        <td align="left" colspan="3"><?echo $Rechazo[0]['cultivo_nombre']; ?></td>
+        <td>PRODUCTO: </td>
+        <td colspan="2"><?echo $Rechazo[0]['cultivo_nombre']; ?></td>
     </tr>
     <tr>
-        <td align="right">CHOFER: </td>
-        <td colspan=><?echo $Rechazo[0]['ced_chofer']; ?></td>
-        <td colspan=><?echo $Rechazo[0]['chofer_nombre']; ?></td>
+        <td>CHOFER: </td>
+        <td><?echo $Rechazo[0]['ced_chofer']; ?></td>
+        <td><?echo $Rechazo[0]['chofer_nombre']; ?></td>
     </tr>
     <tr>
-        <td align="right">VEHICULO PLACA: </td>
+        <td>VEHICULO PLACA: </td>
         <td colspan="2"><?echo $Rechazo[0]['placa']; ?></td>
     </tr>
     <tr>
-        <td colspan="2"></td>            
+        <td colspan="3">&nbsp;</td>            
     </tr>
     <tr>
         <td colspan="3">MOTIVO DEL RECHAZO</td>
     </tr>
     <tr>
-        <td colspan="3"></td>            
+        <td><?echo 'MUESTRA'; ?></td>
+        <td colspan="2"><?echo $nombreMuestra[$Muestra]; ?></td>     
+    </tr>
+    <tr>
+        <td colspan="3">&nbsp;</td>
     </tr>
     <tr>
         <td colspan="3"><?echo $etiqueta['M_BoletaRechazo']; ?></td>
     </tr>
     <tr>
-        <td colspan="3"></td>            
+        <td colspan="3">&nbsp;</td>
     </tr>
 <? 
 foreach($rechazados as $dataRechazado) {     
     ?>    
     <tr>    
-    <td colspan="2"><?=$dataRechazado['codigo'].' - '.$dataRechazado['nombre']; ?></td>
-    <td><?=$dataRechazado['muestra']; ?></td>
+        <td colspan="2"><?=$dataRechazado['codigo'].' - '.$dataRechazado['nombre']; ?></td>
+        <td><?=$dataRechazado['muestra']; ?></td>
     </tr>
     <?
     }
 ?>    
 </table>
-<?    
+<?
     require_once("../lib/common/footer_reportes.php");
 //    $curl_handle=curl_init();
 //    curl_setopt($curl_handle,CURLOPT_URL,DOMAIN_ROOT.'reportes/imprimir_boleta_rechazo.php?id=2');

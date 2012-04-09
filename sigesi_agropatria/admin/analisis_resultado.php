@@ -74,13 +74,23 @@ switch ($GPC['ac']) {
             if ($_SESSION['s_lab']=='C' && $_SESSION['s_mov']=='des') 
                 $estatus = '3'; // 3=> Romana Vacio
 
-            if ($GPC['es_rechazado'] != '0_0:') {
+            if ($GPC['es_rechazado'] != '0_0:') {                
                 if ($_SESSION['s_lab']=='C' && $_SESSION['s_mov']=='rec') 
                     $estatus = '7'; //7 => 'Rch.Lab.Cen
                 if ($_SESSION['s_lab']=='P' && $_SESSION['s_mov']=='rec') 
                     $estatus = '8'; //7 => 'Rch.Lab.Cen
                 if ($_SESSION['s_lab']=='P' && $_SESSION['s_mov']=='des') 
                     $estatus = '4'; // 4=> Rechazado
+                $Muestra1=(strpos($GPC['es_rechazado'],'_1:') > 0) ? 2: 0; //Se cambia el rechazado por el aceptado en Muestra1
+                $Muestra2=(strpos($GPC['es_rechazado'],'_2:') > 0) ? 1: 0; //Se cambia el rechazado por el aceptado en Muestra2
+                if (($Muestra1==0) && ($Muestra2==0)) 
+                   $Muestra=0;
+                elseif ($Muestra1==0) 
+                   $Muestra=2; 
+                elseif ($Muestra2==0) 
+                    $Muestra=1;
+                else 
+                    $Muestra=3;
                 $serial_rechazado = split(':', $GPC['es_rechazado']);
                 $id_analisis_rechazado = split('_', $GPC[$rechazado]);
             } else if ($GPC['es_cuarentena'] != '0_0:') {
@@ -104,11 +114,13 @@ switch ($GPC['ac']) {
                 if ($_SESSION['s_mov']=='rec') {
                     $GPC['Recepcion']['id'] = $GPC['id'];
                     $GPC['Recepcion']['estatus_rec'] = $estatus;
+                    $GPC['Recepcion']['muestra'] = $Muestra;
                     $Rec->save($GPC['Recepcion']);
                 }
                 if ($_SESSION['s_mov']=='des') {
                     $GPC['Despacho']['id'] = $GPC['id'];
-                    $GPC['Despacho']['estatus'] = $estatus;                    
+                    $GPC['Despacho']['estatus'] = $estatus;
+                    $GPC['Recepcion']['muestra'] = $Muestra;
                     $despacho->save($GPC['Despacho']);
                 }
             }
@@ -150,9 +162,11 @@ switch ($GPC['ac']) {
             case '6':
                 $analisis->_commit_tool();
                 if ($estipo) {
+                    $analisis->_commit_tool();
                     header("location: ".DOMAIN_ROOT."/reportes/imprimir_boleta_tipificacion.php?id_rec=".$GPC['id']);
                     die();
                 } else {
+                    $analisis->_commit_tool();
                     header("location: analisis_resultado_listado.php?msg=exitoso&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
                     die();
                 }
@@ -160,7 +174,8 @@ switch ($GPC['ac']) {
             case '7':
             case '8':
                 $analisis->_commit_tool();
-                header("location: ".DOMAIN_ROOT."/reportes/imprimir_boleta_rechazo.php?id=". $GPC['id']."&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']."&es_rechazado=".$GPC['es_rechazado']);                
+                //header("location: ".DOMAIN_ROOT."/reportes/imprimir_boleta_rechazo.php?id=". $GPC['id']."&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']."&es_rechazado=".$GPC['es_rechazado']);
+                header('location: '.DOMAIN_ROOT."/reportes/imprimir?reporte=boleta_rechazo&id=". $GPC['id']."&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']."&es_rechazado=".$GPC['es_rechazado']);
                 die();
                 break;
             default:                
@@ -372,10 +387,10 @@ switch ($GPC['ac']) {
         </tr>
     </table>
     <?
-    echo $html->input('id', $id, array('type' => 'hidden'));
-    echo $html->input('cosecha', $IdCosecha, array('type' => 'hidden'));
-    echo $html->input('es_cuarentena', '0_0:', array('type' => 'hidden'));
-    echo $html->input('es_rechazado', '0_0:', array('type' => 'hidden'));    
+    echo $html->input('id', $id, array('type' => 'text'));
+    echo $html->input('cosecha', $IdCosecha, array('type' => 'text'));
+    echo $html->input('es_cuarentena', '0_0:', array('type' => 'text'));
+    echo $html->input('es_rechazado', '0_0:', array('type' => 'text'));    
     ?>    
 </form>    
 <?

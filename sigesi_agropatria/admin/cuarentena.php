@@ -10,9 +10,7 @@ $Plagas = new Plaga();
 $Productos = new Producto();
 $analisis=new Analisis();
 
-
 $listaCultivos = $Cultivos->find('', null, array('id', 'nombre'), 'list', 'id');
-$listaPlagas = $Plagas->find('', null, array('id', 'nombre'), 'list', 'id');
 $listaPlagas = $Plagas->find('', null, array('id', 'nombre'), 'list', 'id');
 $listaProductos = $Productos->find('', null, "id, nombre || ' (' || presentacion || ')' as nombre", 'list', 'id');
 $laboratorio = array(2 => '40tna. lab');
@@ -31,7 +29,7 @@ switch ($GPC['ac']) {
                 $id_cuarentena=$infoCtna[0]['id']; 
                 $listaCP = $Ctna->listadoPlaga($idCA, $id_cuarentena, $GPC['id']);
                 $insectoCtna=array();
-                count($listaCP);
+//                count($listaCP);
                 if (!empty($id_cuarentena)) {                    
                     $infoRecepcion = $Rec->find(array('id' => $infoCtna[0]['id_recepcion']));
                     $infoVehiculo = $Vehiculos->find(array('id' => $infoRecepcion[0]['id_vehiculo']));
@@ -57,7 +55,7 @@ switch ($GPC['ac']) {
                 $infoCtna = $Ctna->find(array('id_recepcion' => $id));
             else
                 $infoCtna = $Ctna->find(array('id_despacho' => $id));            
-            $id_cuarentena=$infoCtna[0]['id'];
+            $id_cuarentena=$infoCtna[0]['id'];            
             $Ctna->_begin_tool();
             $GPC['Cuarentena']['id']=$id_cuarentena;
             $GPC['Cuarentena']['fecha_mov']=$general->fecha_normal_sql($GPC['Cuarentena']['fecha_mov'],'es');
@@ -67,10 +65,16 @@ switch ($GPC['ac']) {
                 if ($_SESSION['s_lab']=='C')
                     $GPC['Cuarentena']['estatus']='2'; //Se fija el estatus 2 la primera vez que se registra
                 else if ($_SESSION['s_lab']=='P') 
-                    $GPC['Cuarentena']['estatus']='5'; //Se fija el estatus 2 la primera vez que se registra          
-                
-            if (empty($infoCtna[0]['estatus'])) 
-                $id_cuarentena=$Ctna->save($GPC['Cuarentena']);
+                    $GPC['Cuarentena']['estatus']='5'; //Se fija el estatus 2 la primera vez que se registra
+            if (empty($infoCtna[0]['estatus'])) {
+                $Ctna->save($GPC['Cuarentena']);
+                for ($j=0; $j < $GPC['tipoInsecto']; $j++) {
+                    $GPC['Plaga']['id_cuarentena']=$id_cuarentena;
+                    $GPC['Plaga']['id_plaga']=$GPC['dataCP_id_'.$j];
+                    $GPC['Plaga']['cantidad']=$GPC['dataCP_cantidad_'.$j];
+                    $Ctna->guardarPlaga($GPC['Plaga']);
+                }
+            }
             else
                 $id_cuarentena=null;
          }
@@ -109,8 +113,8 @@ switch ($GPC['ac']) {
             $Ctna->_commit_tool();
             header("location: ../admin/analisis_resultado_listado.php?msg=existoso&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);        
             die();            
-            $Ctna->_rollback_tool();
-        } 
+        }
+        $Ctna->_rollback_tool();
         header("location: ../admin/analisis_resultado_listado.php?msg=error&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
         die();
     break;        
@@ -341,18 +345,43 @@ $validator->printScript();
             if (confirm('EL MOVIMIENTO SERA LIBERADA ESTA SEGURO QUE DESEA LIBERAR!!!'))
                 window.location = '?ac=liberar&id=<?=$GPC["id"] ?>';            
         });
-        $('#nuevoInsecto').click(function() {
-            $('form inpux')
-        });
         
         $('.contable').live('change', function(){
             indice=$(this).attr('id').substring($(this).attr('id').lastIndexOf('_')+1,$(this).attr('id').length);            
-            if ($(this).val()=='I') 
+            if ($(this).val()=='I') {
                 $('#dataCP_cantidad_'+indice).css('visibility','hidden');
-            else
+                $('#dataCP_cantidad_'+indice).val(-1);
+            }
+            else {
                 $('#dataCP_cantidad_'+indice).css('visibility','visible');
+                $('#dataCP_cantidad_'+indice).val(0);
+            }
+                
         });
         
+        $('#tipoInsecto').change(function() {             
+            $('#insectos').load('../ajax/detalle_cuarentena.php?ac=nuevo&idCA='+<?=$_SESSION['s_ca_id']; ?>+'&idCtna='+<?=$id_cuarentena; ?>+'&cantidad='+$(this).val());
+            //alert('../ajax/detalle_cuarentena.php?ac=nuevo&idCA='+<?=$_SESSION['s_ca_id']; ?>+'&idCtna='+<?=$id_cuarentena; ?>+'&cantidad='+$(this).val());
+        });
+        
+        $("#form1").submit(function(){
+            var isFormValid = true;
+            $("#form1 :input").each(function(){
+                if ($(this).attr('class')=='plaga' && $(this).val()=='') {
+                    isFormValid = false;
+                    $(this).focus();
+                    return isFormValid;
+                }
+            });            
+            if ($('#tipoInsecto').val() < 1) {                
+                isFormValid = false;
+                $('#tipoInsecto').focus();                
+            }
+            if (!isFormValid) {                
+                alert('No ha registrado las plagas correctamente!');
+            }
+            return isFormValid;
+        });        
     });
     
     function verificar_fecha(){
@@ -419,42 +448,62 @@ $validator->printScript();
                 <td>Chofer Nombre</td>
                 <td><? echo $html->input('', $infoGuia[0]['nombre_chofer'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
             </tr>
-            <tr>
-                <td  align="right" >Tipos de Insectos</td>
-                <td align="right colspan="4"><? echo $html->select('tipoInsectos', array('options' => array('Uno'=>1,2=>'Dos','3'=>'3','4'=>'4'), 'selected' => count($listaCP), 'readOnly' => true)); ?></td>
-            </tr>
         </table>        
-    </fieldset>    
-
+    </fieldset> 
 <fieldset>    
-    <legend>Datos de los Insectos</legend>
+    <legend>Datos de los Insectos</legend>    
+        <table align="center" border="0">
+            <tr>
+                <td align="center colspan="2">Tipos de Insectos</td>
+                <?
+                if ($soloLectura) {
+                ?>
+                    <td align="left"><? echo $html->select('tipoInsecto', array('options' => range(0,count($listaPlagas)), 'selected'=>count($listaCP), 'readOnly' => $soloLectura)); ?></td>                
+                <?
+                } else {
+                ?>                     
+                <td align="left">
+                <? echo $html->select('tipoInsecto', array('options' => range(0,count($listaPlagas)), 'selected'=>count($listaCP))); ?>
+                </td>
+                <? 
+                }
+                ?>
+            </tr>
+            </table> 
     <div id="insectos">
         <table align="center" border="0">
-            <th>Insecto</th>
-            <th>Muestra</th>
-            <th>Valor</th>
-            <?
+            <tr align="center" class="titulos_tabla">
+            <? if (!empty($listaCP)) { ?>
+                <th>Insecto</th>
+                <th>Muestra</th>
+                <th>Valor</th>
+            </tr>
+            <? }
             $i=0;
             foreach($listaCP as $dataCP) {
+                $clase = $general->obtenerClaseFila($i); 
             ?>
-            <tr>
+            <tr class="<?=$clase?>">
                 <td>
                 <? 
                 if ($soloLectura)
-                    echo $html->select('dataCP_id_'.$i, array('options' => $listaPlagas, 'selected' => $dataCP['id_plaga'], 'default' =>'Seleccione', 'readOnly' => true)); 
+                    echo $html->select('dataCP_id_'.$i, array('options' => $listaPlagas, 'selected' => $dataCP['id_plaga'], 'default' =>'Seleccione', 'readOnly' => true, 'class'=>'plaga')); 
                 else
-                    echo $html->select('dataCP_id_'.$i, array('options' => $listaPlagas, 'selected' => $dataCP['id_plaga'], 'default' =>'Seleccione')); 
+                    echo $html->select('dataCP_id_'.$i, array('options' => $listaPlagas, 'selected' => $dataCP['id_plaga'], 'default' =>'Seleccione', 'class'=>'plaga')); 
                 ?>
                 </td>                    
                 <td>
                 <?
-                echo $html->select('esContable_'.$i, array('options' => array('C'=>'CONTABLE','I'=>'INCONTABLE'), 'selected' => (($dataCP['cantidad'] > 0) ? 'C': 'I'), 'default' =>'Seleccione', 'readOnly' => $soloLectura,'class' => 'contable'));
+                if ($soloLectura)
+                    echo $html->select('esContable_'.$i, array('options' => array('C'=>'CONTABLE','I'=>'INCONTABLE'), 'selected' => (($dataCP['cantidad'] >= 0) ? 'C': 'I'), 'default' =>'Seleccione', 'readOnly' => $soloLectura,'class' => 'contable'));
+                else
+                    echo $html->select('esContable_'.$i, array('options' => array('C'=>'CONTABLE','I'=>'INCONTABLE'), 'selected' => (($dataCP['cantidad'] >= 0) ? 'C': 'I'), 'default' =>'Seleccione', 'class' => 'contable'));
                 ?>
                 </td>
                 <td>
                 <?                
-                    if ($dataCP['cantidad'] > 0)
-                        echo $html->input('dataCP_cantidad_'.$i, $dataCP['cantidad'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'class' => 'estilo_campos cuadricula'));
+                    if ($dataCP['cantidad'] >= 0)                        
+                        echo $html->input('dataCP_cantidad_'.$i, $dataCP['cantidad'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'class' => 'estilo_campos cuadricula positive'));
                 ?>
                 </td>
             </tr>

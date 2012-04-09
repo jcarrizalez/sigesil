@@ -4,28 +4,24 @@
     
     switch ($GPC['reporte']){
         case 'boleta_recepcion':
-            //$imprimir = DOMAIN_ROOT.'reportes/imprimir_recepcion.php?id_rec='.$GPC['id'];
-            $imprimir = DOMAIN_ROOT.'reportes/imprimir_recepcion.php?id_rec=14';
+            $url = DOMAIN_ROOT.'reportes/imprimir_recepcion.php?id_rec='.$GPC['id'];
         break;
-    }
-    /*$ch = curl_init($imprimir);
-    $fp = fopen("sigesil.html", "w");
-    curl_setopt($ch, CURLOPT_FILE, $fp);
-    curl_setopt($ch, CURLOPT_HEADER, 0);
-    curl_exec($ch);
-    curl_close($ch);
-    fclose($fp);*/
-    $imprimir = file_get_contents($imprimir);
-    
-    $mpdf=new mPDF();
-    //$mpdf->SetDisplayMode('fullpage');
+        case 'boleta_rechazo':
+            $imprimir = DOMAIN_ROOT."reportes/imprimir_boleta_rechazo.php?id=". $GPC['id']."&es_rechazado=".$GPC['es_rechazado'];
+            //$url = DOMAIN_ROOT.'reportes/imprimir_boleta_rechazo.php?id=16&lab=C&es_rechazado=0_0:2_1:13_1:';
+        break;
+    }    
+    $imprimir = file_get_contents($url);
+    echo $imprimir;
+    $mpdf=new mPDF();  
     $stylesheet = file_get_contents(DOMAIN_ROOT.'css/reportes.css');
     $mpdf->WriteHTML($stylesheet,1);
     $mpdf->WriteHTML($imprimir);
-    $mpdf->Output('recepcion.pdf','F');
-    exit;
-    //exec("lpr -P HP-LaserJet-p1606dn sigesil.html");
+    $archivo=$GPC['reporte'].time().'.pdf';
+    $mpdf->Output($archivo,'F');
+    //exit;
+    $impresora="HP-LaserJet-p2015dn_Sistemas2";
+    exec("lpr -P $impresora $archivo");
+    //exec("lpr $archivo");
+    exec("rm $archivo");
 ?>
-<script type="text/javascript">
-    history.back();
-</script>
