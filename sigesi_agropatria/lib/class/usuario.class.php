@@ -69,7 +69,7 @@ class Usuario extends Model {
     }
 
     function obtenerDetalleUsuarios($idUsuario = null, $idPerfil = null, $usuario = null, $orden = null, $min = '', $max = '', $nombre = null, $sexo = null, $statusU = 't', $statusCA = 't') {
-        $query = "SELECT DISTINCT (u.id), u.nombre, u.apellido, u.cedula, u.fecha_nacimiento, u.sexo, u.direccion, u.telefono, u.email, u.usuario, u.contrasena, u.creado, u.modificado, org.id AS id_org, org.codigo AS codigo_org, org.nombre AS nombre_org, ca.id AS id_ca, ca.codigo AS codigo_ca, ca.nombre AS nombre_ca, al.id AS id_al, up.id AS id_u_p, up.id_perfil, p.nombre_perfil
+        $query = "SELECT DISTINCT (u.id), u.nombre, u.apellido, u.cedula, u.fecha_nacimiento, u.sexo, u.direccion, u.telefono, u.email, u.usuario, u.sesion, u.contrasena, u.creado, u.modificado, org.id AS id_org, org.codigo AS codigo_org, org.nombre AS nombre_org, ca.id AS id_ca, ca.codigo AS codigo_ca, ca.nombre AS nombre_ca, al.id AS id_al, up.id AS id_u_p, up.id_perfil, p.nombre_perfil
                     FROM si_usuarios u
                     INNER JOIN si_usuarios_perfiles up ON up.id_usuario = u.id
                     LEFT OUTER JOIN si_almacenes al ON al.id = up.id_almacen
@@ -168,6 +168,7 @@ class Usuario extends Model {
         $this->_SQL_tool('UPDATE', __METHOD__, $query, 'User Login');
 
         $_SESSION['s_conectado'] = 1;
+        $_SESSION['s_sesion'] = session_id();
     }
 
     function autoDesconectar() {
