@@ -6,15 +6,17 @@ $cosecha=new Cosecha();
 $cultivo=new Cultivo();
 $analisis=new Analisis();
 
-$_SESSION['s_mov']=$GPC['mov'];
-$_SESSION['s_lab']=$GPC['lab'];
-
 $listaLab = array('C' => 'Lab. Central', 'P' => 'Lab. Planta');
-
 $listaMov = array('rec' => 'RECEPCI&Oacute;N', 'des' => 'DESPACHO');
 $listaAccion = array('B' => 'Buscar');
 $fecha_mov=date('d-m-Y');
 $idCA=$_SESSION['s_ca_id'];
+
+if (!empty($GPC['mov']))
+    $_SESSION['s_mov']=$GPC['mov'];
+
+if (!empty($GPC['lab']))
+    $_SESSION['s_lab']=$GPC['lab'];
 
 switch ($GPC['mov']) {
     case 'rec':

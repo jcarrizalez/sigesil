@@ -173,9 +173,8 @@ switch ($GPC['ac']) {
                 break;
             case '7':
             case '8':
-                $analisis->_commit_tool();
-                //header("location: ".DOMAIN_ROOT."/reportes/imprimir_boleta_rechazo.php?id=". $GPC['id']."&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']."&es_rechazado=".$GPC['es_rechazado']);
-                header('location: '.DOMAIN_ROOT."/reportes/imprimir?reporte=boleta_rechazo&id=". $GPC['id']."&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']."&es_rechazado=".$GPC['es_rechazado']);
+                $analisis->_commit_tool();                
+                header('location: '.DOMAIN_ROOT."/reportes/imprimir?reporte=boleta_rechazo&id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado']."&redir=analisis_recepcion_listado");
                 die();
                 break;
             default:                
@@ -387,10 +386,10 @@ switch ($GPC['ac']) {
         </tr>
     </table>
     <?
-    echo $html->input('id', $id, array('type' => 'text'));
-    echo $html->input('cosecha', $IdCosecha, array('type' => 'text'));
-    echo $html->input('es_cuarentena', '0_0:', array('type' => 'text'));
-    echo $html->input('es_rechazado', '0_0:', array('type' => 'text'));    
+    echo $html->input('id', $id, array('type' => 'hidden'));
+    echo $html->input('cosecha', $IdCosecha, array('type' => 'hidden'));
+    echo $html->input('es_cuarentena', '0_0:', array('type' => 'hidden'));
+    echo $html->input('es_rechazado', '0_0:', array('type' => 'hidden'));    
     ?>    
 </form>    
 <?

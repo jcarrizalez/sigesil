@@ -38,7 +38,7 @@
         $Muestra=3;
     }
     else {
-        header("location: ../admin/analisis_resultado_listado.php?msg=error&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
+        header("location: ../admin/analisis_resultado_listado.php?msg=error");
         die();
     }
 ?>
