@@ -12,8 +12,8 @@ else
         <link href="<?=DOMAIN_ROOT?>images/favicon.ico" rel="shortcut icon" />
         <link href="<?=DOMAIN_ROOT?>css/frontend.css" rel="stylesheet" type="text/css" />
         <link href="<?=DOMAIN_ROOT?>css/jquery-ui-1.8.17.custom.css" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-        <!--script type="text/javascript">
+        <!--script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript">
             // Load jQuery
             google.load("jquery", "1.7.1");
             google.load("jqueryui", "1");

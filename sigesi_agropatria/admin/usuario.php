@@ -77,7 +77,7 @@ $validator->printScript();
     echo $html->input('Perfil.id', $infoUsuario[0]['id_u_p'], array('type' => 'hidden'));
     ?>
     <div id="titulo_modulo">
-        NUEVO USUARIO<br/><hr/>
+        USUARIO<br/><hr/>
     </div>
     <fieldset>
         <legend>Datos del Usuario</legend>

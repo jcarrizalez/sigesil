@@ -43,7 +43,7 @@
                 <tr id="botones">
                     <td colspan="3">
                         <?
-                            if($_SESSION['s_perfil_id'] == GERENTEG){
+                            if($_SESSION['s_perfil_id'] == GERENTEG || $_SESSION['s_perfil_id'] == ADMING || $_SESSION['s_perfil_id'] == ADMINS){
                                 echo $html->input('Nuevo', 'Nuevo', array('type' => 'button'));
                             }
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
@@ -59,6 +59,7 @@
             <th>Nombre</th>
             <th>Cultivo</th>
             <th>Nro Orden</th>
+            <th>Verificaci&oacute;n</th>
             <th>Fecha Emisi&oacute;n</th>
             <th>Toneladas</th>
             <th>Acci&oacute;n</th>
@@ -73,9 +74,10 @@
             <td align="center"><?=$dataOr['codigo']?></td>
             <td><?=$dataOr['nombre_ca']?></td>
             <td align="center"><?=$dataOr['id_cultivo']?></td>
-            <td align="center"><?=$dataOr['numero_orden']?></td>
-            <td align="center"><?=$dataOr['fecha_emision']?></td>
-            <td align="center"><?=$general->date_sql_screen($dataOr['toneladas'], '', 'es', '-')?></td>
+            <td align="center"><?=$dataOr['cod_orden']?></td>
+            <td align="center"><?=$dataOr['cod_verificacion']?></td>
+            <td align="center"><?=$general->date_sql_screen($dataOr['fecha_emision'], '', 'es', '-')?></td>
+            <td align="center"><?=$dataOr['toneladas']?></td>
             <td align="center">
                 <?
                     echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'ordenes.php?ac=editar&id='.$dataOr['id']);

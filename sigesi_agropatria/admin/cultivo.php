@@ -44,7 +44,7 @@ $validator->printScript();
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
     <? echo $html->input('Cultivo.id', $infoCultivo[0]['id'], array('type' => 'hidden')); ?>
     <div id="titulo_modulo">
-        NUEVO CULTIVO<br/><hr/>
+        CULTIVO<br/><hr/>
     </div>
     <table align="center">
         <tr>

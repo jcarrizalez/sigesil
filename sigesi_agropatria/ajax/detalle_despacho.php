@@ -139,6 +139,26 @@
                 </tr>
             <?
         break;
+        case 'numeroOrden':
+            if(!empty($GPC['ca']) && !empty($GPC['cu'])){
+                $orden = new Orden();
+                $centroAcopio = new CentroAcopio();
+                $cultivo = new Cultivo();
+                
+                $infoCA = $centroAcopio->find(array('id' => $GPC['ca']));
+                $infoCU = $cultivo->find(array('id' => $GPC['cu']));
+                
+                $cod = trim($infoCA[0]['codigo']).trim($infoCU[0]['codigo']).date('y');
+                
+                $infoOrden = $orden->siguienteNumOrden();
+                if(!empty($infoOrden)){
+                    $cod = trim($infoCA[0]['codigo']).trim($infoCU[0]['codigo']).date('y');
+                    $cod .= ($infoOrden[0]['cod_orden'] < 10) ? '0'.++$infoOrden[0]['cod_orden'] : $infoOrden[0]['cod_orden'];
+                }
+                
+                echo $html->input('Orden.numero_orden', $cod, array('type' => 'text', 'length' => '10', 'readOnly' => true, 'class' => 'estilo_campos integer'));
+            }
+        break;
     }
 ?>
 <script type="text/javascript">

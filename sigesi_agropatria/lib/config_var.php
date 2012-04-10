@@ -20,10 +20,11 @@ define ( "DEBUG", "1" );
 
 define('GERENTEG',1);
 define('GERENTES',2);
-define('ADMINISTRADOR',3);
-define('CALIDADG',4);
-define('CALIDADS',5);
-define('ROMANERO',6);
-define('RECEPCION',7);
-define('DESPACHO',8);
+define('ADMING',3);
+define('ADMINS',4);
+define('CALIDADG',5);
+define('CALIDADS',6);
+define('ROMANERO',7);
+define('RECEPCION',8);
+define('DESPACHO',9);
 ?>

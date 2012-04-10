@@ -4,10 +4,12 @@ class Orden extends Model {
     var $table = 'si_ordenes';
     
     function buscarOrden($id = null, $idCA = null, $idCl = null, $idCu = null, $numOrden = null){
-        $query = "SELECT o.*, ca.nombre AS nombre_ca, ca.codigo, cl.nombre AS nombre_cliente
+        //$query = "SELECT o.*, ca.nombre AS nombre_ca, ca.codigo, cl.nombre AS nombre_cliente
+        $query = "SELECT o.*, ca.codigo||cu.codigo||substr(to_date(fecha_emision::text, 'YYYY-MM-DD')::text, 3,2)||o.numero_orden AS cod_orden, ca.nombre AS nombre_ca, ca.codigo, cl.nombre AS nombre_cliente
                     FROM si_ordenes o
                     INNER JOIN si_centro_acopio ca ON ca.id = o.id_centro_acopio
                     INNER JOIN si_cliente cl ON cl.id = o.id_cliente
+                    INNER JOIN si_cultivo cu ON cu.id = o.id_cultivo
                     WHERE '1'";
         $query .= (!empty($id)) ? " AND o.id = '$id'" : "";
         $query .= (!empty($numero)) ? " AND o.numero_orden = '$numero'" : "";
@@ -30,6 +32,13 @@ class Orden extends Model {
                     VALUES ('$idOrden', '$subOrden', $fecha, '$descripcion', '$kgs')";
         $id = $this->_SQL_tool('INSERT', __METHOD__, $query);
         return $id;
+    }
+    
+    function siguienteNumOrden(){
+        $query = "SELECT MAX(numero_orden) AS cod_orden
+                    FROM si_ordenes o
+                    WHERE '1' AND EXTRACT(YEAR FROM fecha_emision) = '".date('Y')."'";
+        return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 }
 ?>

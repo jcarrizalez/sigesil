@@ -32,7 +32,7 @@
         <td>CULTIVO:&nbsp;<?="( ".$dataRecepcion[0]['codigo_cul'].") ".$dataRecepcion[0]['nombre_cul']?></td>
     </tr>
 </table>
-<table id="tabla_reporte2" width="800" cellpadding="0" cellspacing="0">
+<table id="tabla_reporte2" width="800" cellpadding="0" cellspacing="0" border="0">
     <tr>
         <th>C&Oacute;DIGO</th>
         <th align="left">DESCRIPCION</th>
@@ -45,9 +45,10 @@
         <td align="center"><?=$dataAnalisis['codigo'] ?></td>
         <td><?=$dataAnalisis['nombre'] ?></td>
         <? for($i=1;$i<=$dataRecepcion[0]['cant_muestras'];$i++){ ?>            
-        <td align="center"><? 
-            echo $html->input('muestra'.$j.'[]', trim($data[$j]['muestra'.$i]), array('type' => 'text', 'class' => 'reporte_input'));         
-        ?></td>
+        <td align="center"><div class="reporte_input"><?
+            echo trim($data[$j]['muestra'.$i]);
+            //echo $html->input('muestra'.$j.'[]', trim($data[$j]['muestra'.$i]), array('type' => 'text', 'class' => 'reporte_input'));         
+        ?></div></td>
         <? } ?>
     </tr>
     <? $j++; } ?>

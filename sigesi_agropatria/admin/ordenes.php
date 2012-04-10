@@ -1,6 +1,17 @@
 <?
 require_once('../lib/core.lib.php');
 
+$cultivo = new Cultivo();
+$centroAcopio = new CentroAcopio();
+
+$listadoC = $cultivo->find('', '', 'id, nombre', 'list', 'codigo');
+//$listadoCA = $centroAcopio->find('', '', 'id, nombre', 'list', 'codigo');
+$infoCA = $centroAcopio->buscarCA('', '', '', '', 'codigo');
+
+foreach($infoCA as $dataCA){
+    $listadoCA[$dataCA['id']] = "(".$dataCA['codigo'].") ".$dataCA['nombre'];
+}
+
 $listaCR = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
 
 switch ($GPC['ac']) {
@@ -68,7 +79,7 @@ $validator->printScript();
 ?>
 <script type="text/javascript">
     function cancelar(){
-        window.location = 'centros_acopio_listado.php';
+        window.location = 'ordenes_listado.php';
     }
     
     $(document).ready(function(){
@@ -82,6 +93,14 @@ $validator->printScript();
                 $('#orden').load('../ajax/detalle_despacho.php?ac=cliente&cp='+ced);
             }
         });
+        
+        $('.gen_cod').change(function(){
+            var ca = $('#Orden\\[id_centro_acopio\\]').val();
+            var cu = $('#Orden\\[id_cultivo\\]').val();
+            if(ca != '' && cu != ''){
+                $('#nroOrden').load('../ajax/detalle_despacho.php?ac=numeroOrden&ca='+ca+'&cu='+cu);
+            }
+        });
     });
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
@@ -92,8 +111,21 @@ $validator->printScript();
     </div>
     <table align="center">
         <tr>
+            <td><span class="msj_rojo">* </span>Centro de Acopio</td>
+            <td>
+                <?
+                    if($_SESSION['s_perfil_id'] != ADMINS)
+                        echo $html->select('Orden.id_centro_acopio',array('options'=>$listadoCA, 'default' => 'Seleccione', 'class' => 'estilo_campos gen_cod'));
+                    else{
+                        echo $html->input('centro_acopio', '('.$_SESSION['s_ca_codigo'].') '.$_SESSION['s_ca_nombre'], array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos'));
+                        echo $html->input('Orden.id_centro_acopio', $_SESSION['s_ca_id'], array('type' => 'hidden'));
+                    }
+                ?>
+            </td>
+        </tr>
+        <tr>
             <td><span class="msj_rojo">* </span>Cultivo</td>
-            <td><? echo $html->select('Orden.id_cultivo',array('options'=>$listadoC, 'default' => 'Seleccione'))?></td>
+            <td><? echo $html->select('Orden.id_cultivo',array('options'=>$listadoC, 'default' => 'Seleccione', 'class' => 'estilo_campos gen_cod'))?></td>
         </tr>
         <tbody id="orden">
             <tr>
@@ -101,7 +133,7 @@ $validator->printScript();
                 <td>
                     <?
                         echo $html->select('nacion', array('options'=>$listaCR));
-                        echo "&nbsp;".$html->input('Cliente.ced_rif', $infoOr[0]['ced_rif'], array('type' => 'text', 'length' => '8', 'class' => 'crproductor integer'));
+                        echo "&nbsp;".$html->input('Cliente.ced_rif', $infoOr[0]['ced_rif'], array('type' => 'text', 'length' => '8', 'style' => 'width: 150px', 'class' => 'integer'));
                     ?>
                 </td>
             </tr>
@@ -116,7 +148,11 @@ $validator->printScript();
         </tbody>
         <tr>
             <td><span class="msj_rojo">* </span>Nro Orden </td>
-            <td><? echo $html->input('Orden.numero_orden', $infoOr[0]['numero_orden'], array('type' => 'text', 'length' => '10', 'class' => 'estilo_campos integer')); ?></td>
+            <td>
+                <div id="nroOrden">
+                    <? echo $html->input('Orden.numero_orden', $infoOr[0]['numero_orden'], array('type' => 'text', 'length' => '10', 'readOnly' => true, 'class' => 'estilo_campos integer')); ?>
+                <div>
+            </td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Fecha de Emisi&oacute;n: </td>

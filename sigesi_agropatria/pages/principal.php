@@ -15,8 +15,11 @@ switch ($perfil_usuario) {
     case GERENTES:
         $perfil = " GERENTE DE SILO";
     break;
-    case ADMINISTRADOR:
-        $perfil = " ADMINISTRADOR";
+    case ADMING:
+        $perfil = " ADMINISTRADOR GENERAL";
+    break;
+    case ADMINS:
+        $perfil = " ADMINISTRADOR DE SILO";
     break;
     case CALIDADG:
         $perfil = " CALIDAD GENERAL";

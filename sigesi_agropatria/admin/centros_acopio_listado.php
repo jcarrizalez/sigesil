@@ -4,7 +4,7 @@
     $centro_acopio = new CentroAcopio();
     $silos = new Silos();
     
-    $listadoCA = $centro_acopio->buscarCA();
+    $listadoCA = $centro_acopio->buscarCA('', '', '', '', 'codigo');
     require('../lib/common/header.php');
 ?>
 <script type="text/javascript">    
@@ -51,8 +51,8 @@
     </div><hr/>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
-            <th>Codigo</th>
             <th>Orgnanizaci&oacute;n</th>
+            <th>Codigo</th>
             <th>Nombre</th>
             <th>Tel&eacute;fono</th>
             <th>Email</th>
@@ -66,8 +66,8 @@
             $clase = $general->obtenerClaseFila($i);
         ?>
         <tr class="<?=$clase?>">
-            <td align="center"><?=$dataCA['codigo']?></td>
             <td><?=$dataCA['nombre_org']?></td>
+            <td align="center"><?=$dataCA['codigo']?></td>
             <td><?=$dataCA['nombre']?></td>
             <td align="center"><?=$dataCA['telefono']?></td>
             <td align="center"><?=$dataCA['email']?></td>
