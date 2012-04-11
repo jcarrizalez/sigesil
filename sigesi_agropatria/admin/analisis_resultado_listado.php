@@ -14,22 +14,23 @@ $idCA=$_SESSION['s_ca_id'];
 
 if (!empty($GPC['mov']))
     $_SESSION['s_mov']=$GPC['mov'];
+else 
+    $GPC['mov']=$_SESSION['s_mov'];
 
 if (!empty($GPC['lab']))
     $_SESSION['s_lab']=$GPC['lab'];
+else
+    $GPC['lab']=$_SESSION['s_lab'];
 
 switch ($GPC['mov']) {
     case 'rec':
         $recepcion = new Recepcion();
         $estatus=($_SESSION['s_lab']=='C')? "'1','2'": "'4','5'";        
-    //    $listadoM=$recepcion->find(array('estatus_rec' => $estatus));   
-        //$listadoAnalisis=$recepcion->listadoAnalisis($idCA, null, null, $estatus);
         $listadoM=$recepcion->listadoRecepcion(null, $idCA, null, null, null, $estatus);
         break;
     case 'des':
         $despacho= new Despacho();
         $estatus="'2'";
-        //$listadoM=$despacho->listadoAnalisis($idCA, null, null, $estatus);
         $listadoM=$despacho->listadoDespacho(null, $idCA, null, null, null, $estatus);
         break;
 }
@@ -77,8 +78,8 @@ require('../lib/common/init_calendar.php');
         });
         
         $('#Imprimir').click(function(){
-           popupImpresion = window.open('../reportes/imprimir.php?reporte=boleta_rechazo', '', 'width=1, height=1, scrollbars=NO');
-           //popupImpresion.close();
+           popupImpresion = window.open('../reportes/imprimir_boleta_rechazo.php', '', 'width=1, height=1, scrollbars=NO');
+           popupImpresion.close();
         });
         
         $('#Buscar').click(function(){
@@ -92,7 +93,7 @@ require('../lib/common/init_calendar.php');
 
 
 <div id="titulo_modulo">    
-    RESULTADOS DE ANALISIS - <? echo $listaMov[$GPC['mov']]; ?><br/><hr/>    
+    RESULTADOS DE ANALISIS - <? echo $listaMov[$GPC['mov']]; ?><hr/>    
 </div> 
 <div id="mensajes">
     <?    

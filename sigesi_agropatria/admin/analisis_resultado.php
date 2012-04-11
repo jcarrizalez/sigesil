@@ -16,6 +16,7 @@ $estatus='';
 $booleano = array('' => '', 'NO' => 'NO', 'SI' => 'SI');
 $calidad = array('' => '', 'A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D');
 $tipo_mov=array('rec'=>'R','des'=>'D');
+$listaMov = array('rec' => 'RECEPCI&Oacute;N', 'des' => 'DESPACHO');
 
 $tipoCultivo='I';
 $tipoTemp='I';  
@@ -23,6 +24,16 @@ $T1='I';
 $T2='I';
 $T3='I';
 $estipo=false;
+
+if (!empty($GPC['mov']))
+    $_SESSION['s_mov']=$GPC['mov'];
+else 
+    $GPC['mov']=$_SESSION['s_mov'];
+
+if (!empty($GPC['lab']))
+    $_SESSION['s_lab']=$GPC['lab'];
+else
+    $GPC['lab']=$_SESSION['s_lab'];
                 
 switch ($GPC['ac']) {
     case 'nuevo':
@@ -162,8 +173,8 @@ switch ($GPC['ac']) {
             case '6':
                 $analisis->_commit_tool();
                 if ($estipo) {
-                    $analisis->_commit_tool();
-                    header("location: ".DOMAIN_ROOT."/reportes/imprimir_boleta_tipificacion.php?id_rec=".$GPC['id']);
+                    $analisis->_commit_tool();                    
+                    header('location: '.DOMAIN_ROOT."/reportes/imprimir?boleta_tipifica?id_rec=".$GPC['id']."&redir=analisis_resultado_listado");
                     die();
                 } else {
                     $analisis->_commit_tool();
@@ -174,13 +185,14 @@ switch ($GPC['ac']) {
             case '7':
             case '8':
                 $analisis->_commit_tool();                
-                header('location: '.DOMAIN_ROOT."/reportes/imprimir?reporte=boleta_rechazo&id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado']."&redir=analisis_recepcion_listado");
+                header('location: '.DOMAIN_ROOT."/reportes/imprimir?reporte=boleta_rechazo&id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado']."&redir=analisis_resultado_listado");
                 die();
                 break;
             default:                
+                $analisis->_rollback_tool();
                 header("location: analisis_resultado_listado.php?msg=error&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
                 die();
-                break;                
+                break;
         }
         break;
     }
@@ -274,7 +286,7 @@ switch ($GPC['ac']) {
         });
     </script>
 <div id="titulo_modulo">
-    ANALISIS DE RESULTADOS<br/><hr/>
+    ANALISIS DE RESULTADOS - <? echo $listaMov[$GPC['mov']]; ?><hr/>
 </div>
 <div id="mensajes" style="display:none">
     <?

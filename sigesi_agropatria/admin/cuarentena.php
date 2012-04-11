@@ -55,7 +55,7 @@ switch ($GPC['ac']) {
                 $infoCtna = $Ctna->find(array('id_recepcion' => $id));
             else
                 $infoCtna = $Ctna->find(array('id_despacho' => $id));            
-            $id_cuarentena=$infoCtna[0]['id'];            
+            $id_cuarentena=$infoCtna[0]['id'];
             $Ctna->_begin_tool();
             $GPC['Cuarentena']['id']=$id_cuarentena;
             $GPC['Cuarentena']['fecha_mov']=$general->fecha_normal_sql($GPC['Cuarentena']['fecha_mov'],'es');
@@ -381,7 +381,21 @@ $validator->printScript();
                 alert('No ha registrado las plagas correctamente!');
             }
             return isFormValid;
-        });        
+        });
+        $('.plaga').live('change', function() {
+            Actual=$(this);             
+            $(".plaga").each(function(){
+                Proximo=$(this);
+                if (Proximo.attr('id')!=Actual.attr('id')) {
+                    if (Proximo.val()==Actual.val()) {
+                        Actual.val(0);
+                        alert('LA PLAGA SELECIONADA YA HA SIDO ELEGIDA CON ANTERIORIDAD');
+                    }
+                }
+            });
+            
+        });
+
     });
     
     function verificar_fecha(){
@@ -462,8 +476,11 @@ $validator->printScript();
                 <?
                 } else {
                 ?>                     
-                <td align="left">
-                <? echo $html->select('tipoInsecto', array('options' => range(0,count($listaPlagas)), 'selected'=>count($listaCP))); ?>
+                <td align="left">                    
+                <? 
+                $opciones=range(0,count($listaPlagas));
+                $opciones[0]='SELECCIONE';
+                echo $html->select('tipoInsecto', array('options' => $opciones, 'selected'=>count($listaCP))); ?>
                 </td>
                 <? 
                 }
