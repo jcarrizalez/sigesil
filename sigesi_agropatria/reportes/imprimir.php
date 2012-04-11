@@ -35,12 +35,12 @@
     
     if(!empty($GPC['redir'])){
         if(!empty($_SESSION['s_mov']) && !empty($_SESSION['s_lab']))
-            $redir = $GPC['redir'].'?mov='.$_SESSION['s_mov'].'&lab='.$_SESSION['s_lab'];
+            $redir = $GPC['redir'].'.php?mov='.$_SESSION['s_mov'].'&lab='.$_SESSION['s_lab'];
         elseif(!empty($GPC['mov']))
-            $redir = $GPC['redir'].'?mov='.$GPC['mov'];
+            $redir = $GPC['redir'].'.php?mov='.$GPC['mov'];
         else
-            $redir = $GPC['redir'];
-        header("location: ".DOMAIN_ROOT."admin/$redir.php");
+            $redir = $GPC['redir'].'.php';
+        header("location: ".DOMAIN_ROOT."admin/$redir");
         die();
     }
 
