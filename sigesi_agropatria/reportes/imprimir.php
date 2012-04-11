@@ -9,6 +9,12 @@
         case 'boleta_rechazo':
             $url = DOMAIN_ROOT."reportes/imprimir_boleta_rechazo.php?id=". $GPC['id']."&es_rechazado=".$GPC['es_rechazado'];
         break;
+        case 'boleta_liquidacion':
+            $url = DOMAIN_ROOT.'reportes/imprimir_boleta_liquidacion.php?id_rec='.$GPC['id_rec'].'&mov='.$GPC['mov'];
+        break;
+        case 'boleta_tipif':
+            $url = DOMAIN_ROOT.'reportes/imprimir_boleta_tipificacion.php RECUERDA QUE FALTAN PARAMETROS';
+        break;
     }
     
     $imprimir = file_get_contents($url);
@@ -28,8 +34,14 @@
     exec("rm $archivo");
     
     if(!empty($GPC['redir'])){
-        $GPC['redir'] = (!empty($_SESSION['s_mov']) && !empty($_SESSION['s_lab'])) ? $GPC['redir'].'?mov='.$_SESSION['s_mov'].'&lab='.$_SESSION['s_lab'] : $GPC['redir'];
-        header('location: '.DOMAIN_ROOT.'admin/'.$GPC['redir'].'.php');
+        if(!empty($_SESSION['s_mov']) && !empty($_SESSION['s_lab']))
+            $redir = $GPC['redir'].'?mov='.$_SESSION['s_mov'].'&lab='.$_SESSION['s_lab'];
+        elseif(!empty($GPC['mov']))
+            $redir = $GPC['redir'].'?mov='.$GPC['mov'];
+        else
+            $redir = $GPC['redir'];
+        header("location: ".DOMAIN_ROOT."admin/$redir.php");
+        die();
     }
 
 ?>
