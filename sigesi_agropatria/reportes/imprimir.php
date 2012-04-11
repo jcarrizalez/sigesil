@@ -12,8 +12,8 @@
         case 'boleta_liquidacion':
             $url = DOMAIN_ROOT.'reportes/imprimir_boleta_liquidacion.php?id_rec='.$GPC['id_rec'].'&mov='.$GPC['mov'];
         break;
-        case 'boleta_tipif':
-            $url = DOMAIN_ROOT.'reportes/imprimir_boleta_tipificacion.php RECUERDA QUE FALTAN PARAMETROS';
+        case 'boleta_tipifica':
+            $url = DOMAIN_ROOT.'reportes/imprimir_boleta_tipificacion.php?id_rec='.$GPC['id_rec'];
         break;
     }
     
