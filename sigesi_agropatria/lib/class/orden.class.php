@@ -5,7 +5,7 @@ class Orden extends Model {
     
     function buscarOrden($id = null, $idCA = null, $idCl = null, $idCu = null, $numOrden = null){
         //$query = "SELECT o.*, ca.nombre AS nombre_ca, ca.codigo, cl.nombre AS nombre_cliente
-        $query = "SELECT o.*, ca.codigo||cu.codigo||substr(to_date(fecha_emision::text, 'YYYY-MM-DD')::text, 3,2)||o.numero_orden AS cod_orden, ca.nombre AS nombre_ca, ca.codigo, cl.nombre AS nombre_cliente
+        $query = "SELECT o.*, ca.codigo||cu.codigo||substr(to_date(fecha_emision::text, 'YYYY-MM-DD')::text, 3,2)||CASE WHEN (o.numero_orden < 10) THEN '0'||o.numero_orden ELSE o.numero_orden::text END AS cod_orden, ca.nombre AS nombre_ca, ca.codigo, cl.nombre AS nombre_cliente
                     FROM si_ordenes o
                     INNER JOIN si_centro_acopio ca ON ca.id = o.id_centro_acopio
                     INNER JOIN si_cliente cl ON cl.id = o.id_cliente
@@ -13,6 +13,8 @@ class Orden extends Model {
                     WHERE '1'";
         $query .= (!empty($id)) ? " AND o.id = '$id'" : "";
         $query .= (!empty($numero)) ? " AND o.numero_orden = '$numero'" : "";
+        $query .= (!empty($idCA)) ? " AND o.id_centro_acopio = '$idCA'" : "";
+        $query .= " ORDER BY fecha_emision DESC";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     

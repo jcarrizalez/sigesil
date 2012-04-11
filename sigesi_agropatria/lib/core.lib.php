@@ -44,7 +44,7 @@
 
     if (file_exists(APPROOT.'lib/common/verificar_login.php')){
         $archivo = explode("/", $_SERVER['PHP_SELF']);
-        if(!in_array($archivo[count($archivo)-1],array('index.php', 'app_error.php', 'verificar_acceso.php', 'cerrar_sesion.php', 'asin.general.php', 'imprimir_recepcion.php', 'imprimir_boleta_rechazo.php'))){
+        if(!in_array($archivo[count($archivo)-1],array('index.php', 'app_error.php', 'verificar_acceso.php', 'cerrar_sesion.php', 'asin.general.php', 'imprimir_recepcion.php', 'imprimir_boleta_rechazo.php', 'imprimir_boleta_liquidacion.php', 'imprimir_boleta_tipificacion.php'))){
             require_once(APPROOT.'lib/common/verificar_login.php');
         }
     }

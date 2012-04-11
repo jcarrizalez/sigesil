@@ -90,7 +90,7 @@ $validator->printScript();
             var ced = $('#Cliente\\[ced_rif\\]');
             if(ced.val().length >= 6){
                 ced = np+ced.val();
-                $('#orden').load('../ajax/detalle_despacho.php?ac=cliente&cp='+ced);
+                $('#orden').load('../ajax/detalle_despacho.php?ac=clienteOrden&cp='+ced);
             }
         });
         
@@ -102,6 +102,14 @@ $validator->printScript();
             }
         });
     });
+    
+    function abrirPopup(cedula){
+        var ancho;
+        var alto;
+        ancho = (screen.width/2)-(550/2);
+        alto = (screen.height/2)-(450/2);
+        ventana = window.open("cliente_popup.php?cp="+cedula,"Registro Cliente","status=no,toolbar=0,menubar=no,resizable=0,scrollbars=1,width=550,left="+ancho+",height=450,top="+alto);
+    }
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
     <? echo $html->input('Orden.id', $infoOr[0]['id'], array('type' => 'hidden')); ?>
@@ -136,14 +144,6 @@ $validator->printScript();
                         echo "&nbsp;".$html->input('Cliente.ced_rif', $infoOr[0]['ced_rif'], array('type' => 'text', 'length' => '8', 'style' => 'width: 150px', 'class' => 'integer'));
                     ?>
                 </td>
-            </tr>
-            <tr>
-                <td><span class="msj_rojo">* </span>Nombres Cliente</td>
-                <td><? echo $html->input('Cliente.nombre', $infoOr[0]['nombre_cliente'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-            </tr>
-            <tr>
-                <td>Tel&eacute;fono</td>
-                <td><? echo $html->input('Cliente.telefono', $infoOr[0]['telefono_cliente'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
         </tbody>
         <tr>

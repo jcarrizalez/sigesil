@@ -139,6 +139,30 @@
                 </tr>
             <?
         break;
+        case 'clienteOrden':
+            $cliente = new Cliente();
+            $listaCR = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
+            $infoCliente = $cliente->find(array('ced_rif' => $GPC['cp']));
+            if(empty($infoCliente)){
+                $infoCliente[0]['ced_rif'] = $GPC['cp'];
+            ?>
+                <tr>
+                    <td><span class="msj_rojo">* </span>C&eacute;dula/Rif Cliente</td>
+                    <td>
+                        <?
+                            echo $html->select('nacion', array('options'=>$listaCR, 'selected' => substr($infoCliente[0]['ced_rif'], 0,1)));
+                            echo "&nbsp;".$html->input('Cliente.ced_rif', substr(trim($infoCliente[0]['ced_rif']), 1), array('type' => 'text', 'length' => '8', 'class' => 'crproductor integer'));
+                            echo $html->link('<img src="../images/agregar.png" width="16" height="16" title=Agregar>', "javascript:abrirPopup('".$GPC['cp']."')");
+                            echo $html->input('Cliente.nombre', '', array('type' => 'hidden'));
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2" align="center">Cliente No Registrado</th>
+                </tr>
+            <?
+            }
+        break;
         case 'numeroOrden':
             if(!empty($GPC['ca']) && !empty($GPC['cu'])){
                 $orden = new Orden();

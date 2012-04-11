@@ -79,7 +79,7 @@
         </td>
     </tr>
 </table>
-<table border="0" width="100%" style="padding-top: 20px;">
+<table border="0" width="800" style="padding-top: 20px;">
     <tr>
         <td width="20">&nbsp;</td>
         <td>PESO BRUTO TOTAL Kgrs&nbsp;&nbsp;------------------------------------------------------------------------></td>
@@ -119,11 +119,15 @@
         <td width="1" align="right"><?=number_format($dataMovimiento[0]['peso_acon'], 3);?></td>
         <td>&nbsp;</td>
     </tr>
+</table>
+<table border="0" width="800" style="padding-top: 35px;" class="centrar">
     <tr align="center">
-        <td colspan="4" style="padding-top: 40px;">
-            _______________________________&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_______________________________<br/>
-            Transportista&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Por el Silo
-        </td>
+        <td>_______________________________</td>
+        <td>_______________________________</td>
+    </tr>
+    <tr align="center">
+        <td>Transportista</td>
+        <td>Por el Silo</td>
     </tr>
 </table>
 <?

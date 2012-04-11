@@ -18,7 +18,8 @@
     }
     
     $imprimir = file_get_contents($url);
-    $mpdf=new mPDF();  
+    $mpdf=new mPDF('c', 'A4');
+    $mpdf->SetDisplayMode('fullpage');
     $stylesheet = file_get_contents(DOMAIN_ROOT.'css/reportes.css');
     $mpdf->WriteHTML($stylesheet,1);
     $mpdf->WriteHTML($imprimir);
@@ -38,10 +39,11 @@
             $redir = $GPC['redir'].'.php?mov='.$_SESSION['s_mov'].'&lab='.$_SESSION['s_lab'];
         elseif(!empty($GPC['mov']))
             $redir = $GPC['redir'].'.php?mov='.$GPC['mov'];
-        else
+        else{
             $redir = $GPC['redir'].'.php';
-        header("location: ".DOMAIN_ROOT."admin/$redir");
-        die();
+            header("location: ".DOMAIN_ROOT."admin/$redir");
+            die();
+        }
     }
 
 ?>
