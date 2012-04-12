@@ -69,43 +69,43 @@ $validator->printScript();
     </div>
     <table align="center">
         <tr>
-            <td><span class="msj_rojo">* </span>C&oacute;digo: </td>
+            <td><span class="msj_rojo">* </span>C&oacute;digo </td>
             <td><? echo $html->input('Org.codigo', $infoOrg[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>Nombre: </td>
+            <td><span class="msj_rojo">* </span>Nombre </td>
             <td><? echo $html->input('Org.nombre', $infoOrg[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>RIF: </td>
+            <td><span class="msj_rojo">* </span>RIF </td>
             <td><? echo $html->input('Org.rif', $infoOrg[0]['rif'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td>Tel&eacute;fono: </td>
+            <td>Tel&eacute;fono </td>
             <td><? echo $html->input('Org.telefono', $infoOrg[0]['telefono'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td>Email: </td>
+            <td>Email </td>
             <td><? echo $html->input('Org.email', $infoOrg[0]['email'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td>Fax: </td>
+            <td>Fax </td>
             <td><? echo $html->input('Org.fax', $infoOrg[0]['fax'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td>Direcci&oacute;n: </td>
+            <td>Direcci&oacute;n </td>
             <td><? echo $html->input('Org.direccion', $infoOrg[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>Pa&iacute;s: </td>
+            <td><span class="msj_rojo">* </span>Pa&iacute;s </td>
             <td><? echo $html->select('Org.id_pais', array('options' => $listaP, 'selected' => $infoOrg[0]['id_pais'], 'default' => 'Seleccione')) ?></td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>Estado: </td>
+            <td><span class="msj_rojo">* </span>Estado </td>
             <td><? echo $html->select('id_estado', array('options' => $listaE, 'selected' => $infoOrg[0]['id_estado'], 'default' => 'Seleccione')) ?></td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>Municipio: </td>
+            <td><span class="msj_rojo">* </span>Municipio </td>
             <td>
                 <div id="mcpo">
                     <? echo $html->select('id_municipio', array('options' => $listaM, 'selected' => $infoOrg[0]['id_municipio'], 'default' => 'Seleccione')) ?>
@@ -113,7 +113,7 @@ $validator->printScript();
             </td>
         </tr>
         <tr>
-            <td>Estatus: </td>
+            <td>Estatus </td>
             <td><? echo $html->select('Org.estatus', array('options' => $estatus, 'selected' => $infoOrg[0]['estatus'], 'default' => 'Seleccione')) ?></td>
         </tr>
         <tr>

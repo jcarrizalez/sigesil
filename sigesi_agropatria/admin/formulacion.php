@@ -293,21 +293,21 @@ $validator->printScript();
         <legend>Informaci&oacute;n del Cultivo</legend>
         <table align="center" width="100%" cellpadding="0" cellspacing="0" border="0">
             <tr>
-                <td width="130">Tipo de Movimiento:</td>
+                <td width="130">Tipo de Movimiento</td>
                 <td><? echo $html->select('Formula.id_mov', array('options' => $listaMov, 'readOnly' => $disabled, 'selected' => $infoFormula[0]['id_mov'], 'default' => 'Seleccione', 'class' => 'inputGrilla botonera')) ?></td>
             </tr>
             <tr>
-                <td width="130">Cultivo:</td>
+                <td width="130">Cultivo</td>
                 <td><? echo $html->select('Formula.id_cultivo', array('options' => $listaCultivos, 'readOnly' => $disabled, 'selected' => $infoFormula[0]['id_cultivo'], 'default' => 'Seleccione', 'class' => 'inputGrilla botonera')) ?></td>
             </tr>
             <tr>
-                <td>Tipo de Formulaci&oacute;n:</td>
+                <td>Tipo de Formulaci&oacute;n</td>
                 <td><? echo $html->select('Formula.tipo_for', array('options' => $listaTipo, 'readOnly' => $disabled, 'selected' => $infoFormula[0]['tipo_for'], 'default' => 'Seleccione', 'class' => 'inputGrilla botonera')) ?></td>
             </tr>
             </tr>
             <tbody id="opciones"></tbody>
             <tr>
-                <td>Condici&oacute;n &Uacute;nica:</td>
+                <td>Condici&oacute;n &Uacute;nica</td>
                 <td>
                     <? echo $html->select('Formula.multiple_cond', array('options' => $listaCondicion, 'readOnly' => $disabled, 'default' => 'Seleccione', 'class' => 'inputGrilla botonera')) ?>
                 </td>
@@ -331,7 +331,7 @@ $validator->printScript();
         <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0">
             <tr>
                 <td>
-                    <span class="msj_rojo">* </span>C&oacute;digo de la Formula: 
+                    <span class="msj_rojo">* </span>C&oacute;digo de la Formula 
                     <? echo $html->input('codigo_1', '', array('type' => 'text', 'length' => '10')); ?>
                 </td>
             </tr>

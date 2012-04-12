@@ -76,27 +76,27 @@ $validator->printScript();
     </div>
     <table align="center">
         <tr>
-            <td><span class="msj_rojo">* </span>C&oacute;digo: </td>
+            <td><span class="msj_rojo">* </span>C&oacute;digo </td>
             <td><? echo $html->input('Almacen.codigo', $infoAlmacen[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>Nombre: </td>
+            <td><span class="msj_rojo">* </span>Nombre </td>
             <td><? echo $html->input('Almacen.nombre', $infoAlmacen[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td>Direccion: </td>
+            <td>Direccion </td>
             <td><? echo $html->input('Almacen.direccion', $infoAlmacen[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>Pa&iacute;s: </td>
+            <td><span class="msj_rojo">* </span>Pa&iacute;s </td>
             <td><? echo $html->select('Almacen.id_pais', array('options' => $listaP, 'selected' => $infoAlmacen[0]['id_pais'], 'default' => 'Seleccione')) ?></td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>Estado: </td>
+            <td><span class="msj_rojo">* </span>Estado </td>
             <td><? echo $html->select('id_estado', array('options' => $listaE, 'selected' => $infoAlmacen[0]['id_estado'], 'default' => 'Seleccione')) ?></td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>Municipio: </td>
+            <td><span class="msj_rojo">* </span>Municipio </td>
             <td>
                 <div id="mcpo">
                     <? echo $html->select('id_municipio', array('options' => $listaM, 'selected' => $infoAlmacen[0]['id_municipio'], 'default' => 'Seleccione')) ?>
@@ -104,23 +104,23 @@ $validator->printScript();
             </td>
         </tr>
         <tr>
-            <td>Tel&eacute;fono: </td>
+            <td>Tel&eacute;fono </td>
             <td><? echo $html->input('Almacen.telefono', $infoAlmacen[0]['telefono'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td>Fax: </td>
+            <td>Fax </td>
             <td><? echo $html->input('Almacen.fax', $infoAlmacen[0]['fax'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td>Email: </td>
+            <td>Email </td>
             <td><? echo $html->input('Almacen.email', $infoAlmacen[0]['email'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>Estatus: </td>
+            <td><span class="msj_rojo">* </span>Estatus </td>
             <td><? echo $html->select('Almacen.estatus', array('options' => $estatus, 'selected' => $infoAlmacen[0]['estatus'], 'default' => 'Seleccione')) ?></td>
         </tr>
         <tr>
-            <td>Coordenadas UTM: </td>
+            <td>Coordenadas UTM </td>
             <td><? echo $html->input('Almacen.coordenadas_utm', $infoAlmacen[0]['coordenadas_utm'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>

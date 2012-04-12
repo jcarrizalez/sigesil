@@ -188,10 +188,10 @@ $validator->printScript();
     </div>
     <table align="center" border="0" width="100%">
         <tr>
-            <td colspan="2" id="nrocosecha">Salida Nro: </td>
+            <td colspan="2" id="nrocosecha">Salida Nro </td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>Cosecha: </td>
+            <td><span class="msj_rojo">* </span>Cosecha </td>
             <td><? echo $html->select('Despacho.id_cosecha',array('options'=>$listadoC, 'default' => 'Seleccione'))?></td>
         </tr>
     </table>

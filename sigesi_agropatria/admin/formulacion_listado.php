@@ -53,7 +53,7 @@
             <table width="100%">
                 <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
                 <tr>
-                    <td width="110">Centro de Acopio:</td>
+                    <td width="110">Centro de Acopio</td>
                     <td colspan="2">
                         <?
                             echo $html->select('id_ca',array('options'=>$listaCA, 'selected' => $GPC['id_ca'], 'default' => 'Seleccione'));

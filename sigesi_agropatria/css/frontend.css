@@ -376,6 +376,7 @@ img{
 
 .msj_verde{
     color: darkgreen;
+    font-weight: bold;
 }
 
 .msj_rojo, .error{

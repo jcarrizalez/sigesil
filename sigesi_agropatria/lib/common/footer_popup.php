@@ -1,5 +1,5 @@
-                <!--/div>
-            </div>
+                </div>
+            <!--/div>
             <div id="pie_pagina"><hr/>
                     <span>
                         <?=$etiqueta['txtPiePagina']?>

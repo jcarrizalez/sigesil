@@ -151,8 +151,8 @@
                     <td>
                         <?
                             echo $html->select('nacion', array('options'=>$listaCR, 'selected' => substr($infoCliente[0]['ced_rif'], 0,1)));
-                            echo "&nbsp;".$html->input('Cliente.ced_rif', substr(trim($infoCliente[0]['ced_rif']), 1), array('type' => 'text', 'length' => '8', 'class' => 'crproductor integer'));
-                            echo $html->link('<img src="../images/agregar.png" width="16" height="16" title=Agregar>', "javascript:abrirPopup('".$GPC['cp']."')");
+                            echo "&nbsp;".$html->input('Cliente.ced_rif', substr(trim($infoCliente[0]['ced_rif']), 1), array('type' => 'text', 'length' => '8', 'class' => 'integer', 'style' => 'width: 151px'));
+                            echo $html->link('<img src="../images/agregar.png" width="16" height="16" title=Agregar>', "javascript:abrirPopup()");
                             echo $html->input('Cliente.nombre', '', array('type' => 'hidden'));
                         ?>
                     </td>
@@ -161,26 +161,46 @@
                     <th colspan="2" align="center">Cliente No Registrado</th>
                 </tr>
             <?
+            }else{
+            ?>
+                <tr>
+                    <td><span class="msj_rojo">* </span>C&eacute;dula/Rif Cliente</td>
+                    <td>
+                        <?
+                            echo $html->select('nacion', array('options'=>$listaCR, 'selected' => substr($infoCliente[0]['ced_rif'], 0,1)));
+                            echo "&nbsp;".$html->input('Cliente.ced_rif', substr(trim($infoCliente[0]['ced_rif']), 1), array('type' => 'text', 'length' => '8', 'class' => 'integer', 'style' => 'width: 151px'));
+                            echo $html->input('Orden.id_cliente', trim($infoCliente[0]['id']), array('type' => 'hidden'));
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="msj_rojo">* </span>Nombre </td>
+                    <td><? echo $html->input('Cliente.nombre', trim($infoCliente[0]['nombre']), array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
+                </tr>
+            <?
             }
         break;
         case 'numeroOrden':
-            if(!empty($GPC['ca']) && !empty($GPC['cu'])){
-                $orden = new Orden();
-                $centroAcopio = new CentroAcopio();
-                $cultivo = new Cultivo();
-                
-                $infoCA = $centroAcopio->find(array('id' => $GPC['ca']));
-                $infoCU = $cultivo->find(array('id' => $GPC['cu']));
-                
-                $cod = trim($infoCA[0]['codigo']).trim($infoCU[0]['codigo']).date('y');
-                
-                $infoOrden = $orden->siguienteNumOrden();
-                if(!empty($infoOrden)){
-                    $cod = trim($infoCA[0]['codigo']).trim($infoCU[0]['codigo']).date('y');
-                    $cod .= ($infoOrden[0]['cod_orden'] < 10) ? '0'.++$infoOrden[0]['cod_orden'] : $infoOrden[0]['cod_orden'];
+            if(!empty($GPC['orden']) && !empty($GPC['co']) && !empty($GPC['to']) && !empty($GPC['fe'])){
+                $ca = substr($GPC['orden'], 2);
+                $cu = substr($GPC['orden'], 2, 2);
+                $fechaE = split('-', $GPC['fe']);
+                $codigo = $fechaE[0]+11+$fechaE[1]+$fechaE[2]-1570+$GPC['orden']+$GPC['to']+15+$cu;
+                if($GPC['co'] != $codigo){
+                    echo "<tr><td align='center' colspan='2' class='msj_rojo'>C&oacute;digo de Verificaci&oacute;n Incorrecto</td></tr>";
+                    ?>
+                    <script type="text/javascript">
+                        $('#Guardar').attr('disabled', true);
+                    </script>
+                    <?
+                }else{
+                    echo "<tr><td align='center' colspan='2' class='msj_verde'>C&oacute;digo de Verificaci&oacute;n Correcto</td></tr>";
+                    ?>
+                    <script type="text/javascript">
+                        $('#Guardar').removeAttr('disabled');
+                    </script>
+                    <?
                 }
-                
-                echo $html->input('Orden.numero_orden', $cod, array('type' => 'text', 'length' => '10', 'readOnly' => true, 'class' => 'estilo_campos integer'));
             }
         break;
     }

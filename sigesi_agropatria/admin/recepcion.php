@@ -202,10 +202,10 @@ $validator->printScript();
     </div>
     <table align="center" border="0" width="100%">
         <tr>
-            <td colspan="2" id="nrocosecha">Entrada Nro: </td>
+            <td colspan="2" id="nrocosecha">Entrada Nro </td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>Cosecha: </td>
+            <td><span class="msj_rojo">* </span>Cosecha </td>
             <td><? echo $html->select('Recepcion.id_cosecha',array('options'=>$listadoC, 'default' => 'Seleccione'))?></td>
         </tr>
     </table>
@@ -213,7 +213,7 @@ $validator->printScript();
         <legend>Datos de la Gu&iacute;a</legend>
         <table align="center" border="0">
             <tr>
-                <td><span class="msj_rojo">* </span>N&uacute;mero de Gu&iacute;a: </td>
+                <td><span class="msj_rojo">* </span>N&uacute;mero de Gu&iacute;a </td>
                 <td>
                     <?
                         echo $html->input('Guia.numero_guia', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos integer'));
@@ -221,12 +221,12 @@ $validator->printScript();
                 </td>
             </tr>
             <!--tr>
-                <td><span class="msj_rojo">* </span>Agencia Origen: </td>
+                <td><span class="msj_rojo">* </span>Agencia Origen </td>
                 <td><? echo $html->select('Guia.id_agencia', array('options' => $listadoAgencias, 'selected' => $infoGuia[0]['id_agencia'], 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
             </tr-->
             <tbody id="guia">
                 <tr>
-                    <td><span class="msj_rojo">* </span>Fecha de Emisi&oacute;n: </td>
+                    <td><span class="msj_rojo">* </span>Fecha de Emisi&oacute;n </td>
                     <td>
                         <? echo $html->input('Guia.fecha_emision', $general->date_sql_screen($infoGuia[0]['fecha_emision'], '', 'es', '-'), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?>
                         <img src="../images/calendario.png" id="femision" width="16" height="16" style="cursor:pointer" />
@@ -242,20 +242,20 @@ $validator->printScript();
                     </td>
                 </tr>
                 <!--tr>
-                    <td>N&uacute;mero de Contrato: </td>
+                    <td>N&uacute;mero de Contrato </td>
                     <td><? echo $html->input('Guia.contrato', $infoGuia[0]['contrato'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
                 <tr>
-                    <td>Disponible a Recibir: </td>
+                    <td>Disponible a Recibir </td>
                     <td><? echo $html->input('Guia.disponible_rec', $infoGuia[0]['disponible_rec'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
                 <tr-->
                 <tr>
-                    <td><span class="msj_rojo">* </span>Kilogramos Gu&iacute;a: </td>
+                    <td><span class="msj_rojo">* </span>Kilogramos Gu&iacute;a </td>
                     <td><? echo $html->input('Guia.kilogramos', $infoGuia[0]['kilogramos'], array('type' => 'text', 'class' => 'estilo_campos integer')); ?> (Kgrs)</td>
                 </tr>
                 <tr>
-                    <td>Otras Gu&iacute;as: </td>
+                    <td>Otras Gu&iacute;as </td>
                     <td><? echo $html->select('cantguia',array('options'=>$listaCantM, 'default' => 'Seleccione'))?></td>
                 </tr>
             </tbody>
@@ -266,7 +266,7 @@ $validator->printScript();
         <legend>Datos del Productor</legend>
         <table align="center">
             <tr>
-                <td><span class="msj_rojo">* </span>C&eacute;dula/Rif: </td>
+                <td><span class="msj_rojo">* </span>C&eacute;dula/Rif </td>
                 <td>
                     <?
                         echo $html->select('nacion', array('options'=>$listaCR));
@@ -276,15 +276,15 @@ $validator->printScript();
             </tr>
             <tbody id="productor">
                 <tr>
-                    <td><span class="msj_rojo">* </span>Nombres y Apellidos: </td>
+                    <td><span class="msj_rojo">* </span>Nombres y Apellidos </td>
                     <td><? echo $html->input('Productor.nombre', $infoProductor[0]['nombre_pro'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
                 <!--tr>
-                    <td>Tel&eacute;fono: </td>
+                    <td>Tel&eacute;fono </td>
                     <td><? echo $html->input('Productor.telefono', $infoProductor[0]['telefono_pro'], array('type' => 'text', 'class' => 'estilo_campos integer')); ?></td>
                 </tr>
                 <tr>
-                    <td>Email: </td>
+                    <td>Email </td>
                     <td><? echo $html->input('Productor.email', $infoProductor[0]['email_pro'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr-->
             </tbody>
@@ -294,7 +294,7 @@ $validator->printScript();
         <legend>Datos del Asociado</legend>
         <table align="center">
             <tr>
-                <td>C&eacute;dula/Rif: </td>
+                <td>C&eacute;dula/Rif </td>
                 <td>
                     <?
                         echo $html->select('nacion2', array('options'=>$listaCR));
@@ -304,11 +304,11 @@ $validator->printScript();
             </tr>
             <tbody id="asociado">
                 <tr>
-                    <td>Nombres y Apellidos: </td>
+                    <td>Nombres y Apellidos </td>
                     <td><? echo $html->input('Asociado.nombre', $infoAsociado[0]['nombre_aso'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
                 <!--tr>
-                    <td>Tel&eacute;fono: </td>
+                    <td>Tel&eacute;fono </td>
                     <td><? echo $html->input('Asociado.telefono', $infoAsociado[0]['telefono_aso'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr-->
             </tbody>
@@ -318,7 +318,7 @@ $validator->printScript();
         <legend>Datos del Veh&iacute;culo</legend>
         <table align="center">
             <tr>
-                <td><span class="msj_rojo">* </span>C&eacute;dula Chofer: </td>
+                <td><span class="msj_rojo">* </span>C&eacute;dula Chofer </td>
                 <td>
                     <?
                         echo $html->select('nacion3', array('options'=>$listaCR));
@@ -328,20 +328,20 @@ $validator->printScript();
             </tr>
             <tbody id="chofer">
                 <tr>
-                    <td><span class="msj_rojo">* </span>Nombres y Apellidos: </td>
+                    <td><span class="msj_rojo">* </span>Nombres y Apellidos </td>
                     <td><? echo $html->input('Chofer.nombre', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
             </tbody>
             <tr>
-                <td><span class="msj_rojo">* </span>Placa Veh&iacute;culo: </td>
+                <td><span class="msj_rojo">* </span>Placa Veh&iacute;culo </td>
                 <td><? echo $html->input('Vehiculo.placa', $infoVehiculo[0]['placa'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
-                <td>Marca: </td>
+                <td>Marca </td>
                 <td><? echo $html->input('Vehiculo.marca', $infoVehiculo[0]['marca'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
-                <td>Placa Remolque/Batea: </td>
+                <td>Placa Remolque/Batea </td>
                 <td><? echo $html->input('Vehiculo.placa_remolques', $infoVehiculo[0]['remolque'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
         </table>
@@ -350,11 +350,11 @@ $validator->printScript();
         <legend>Datos de la Recepci&oacute;n</legend>
         <table align="center">
             <tr>
-                <td>Fecha de Recepci&oacute;n: </td>
+                <td>Fecha de Recepci&oacute;n </td>
                 <td><? echo $html->input('Recepcion.fecha_recepcion', date('d-m-Y'), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
-                <td><span class="msj_rojo">* </span>Carril de Muestreo: </td>
+                <td><span class="msj_rojo">* </span>Carril de Muestreo </td>
                 <td><? echo $html->select('Recepcion.carril', array('options'=>$listaCarriles, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>

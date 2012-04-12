@@ -83,43 +83,43 @@ $validator->printScript();
         <legend>Datos del Usuario</legend>
         <table align="center">
             <tr>
-                <td><span class="msj_rojo">* </span>Nombres: </td>
+                <td><span class="msj_rojo">* </span>Nombres </td>
                 <td><? echo $html->input('Usuario.nombre', $infoUsuario[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
-                <td><span class="msj_rojo">* </span>Apellidos: </td>
+                <td><span class="msj_rojo">* </span>Apellidos </td>
                 <td><? echo $html->input('Usuario.apellido', $infoUsuario[0]['apellido'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
-                <td><span class="msj_rojo">* </span>C&eacute;dula: </td>
+                <td><span class="msj_rojo">* </span>C&eacute;dula </td>
                 <td><? echo $html->input('Usuario.cedula', $infoUsuario[0]['cedula'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
-                <td>Fecha Nacimiento: </td>
+                <td>Fecha Nacimiento </td>
                 <td><? echo $html->input('Usuario.fecha_nacimiento', $infoUsuario[0]['fecha_nacimiento'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
-                <td><span class="msj_rojo">* </span>Sexo: </td>
+                <td><span class="msj_rojo">* </span>Sexo </td>
                 <td><? echo $html->select('Usuario.sexo', array('options' => $sexo, 'selected' => $infoUsuario[0]['sexo'], 'default' => 'Seleccione')) ?></td>
             </tr>
             <tr>
-                <td>Direccion: </td>
+                <td>Direccion </td>
                 <td><? echo $html->input('Usuario.direccion', $infoUsuario[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
-                <td>Tel&eacute;fono: </td>
+                <td>Tel&eacute;fono </td>
                 <td><? echo $html->input('Usuario.telefono', $infoUsuario[0]['telefono'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
-                <td>Email: </td>
+                <td>Email </td>
                 <td><? echo $html->input('Usuario.email', $infoUsuario[0]['email'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
-                <td><span class="msj_rojo">* </span>Usuario: </td>
+                <td><span class="msj_rojo">* </span>Usuario </td>
                 <td><? echo $html->input('Usuario.usuario', $infoUsuario[0]['usuario'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
-                <td><span class="msj_rojo">* </span>Contrase&ntilde;a: </td>
+                <td><span class="msj_rojo">* </span>Contrase&ntilde;a </td>
                 <td><? echo $html->input('Usuario.contrasena', '', array('type' => 'password', 'class' => 'estilo_campos')); ?></td>
             </tr>
         </table>
@@ -128,11 +128,11 @@ $validator->printScript();
         <legend>Datos del Perfil</legend>
         <table align="center">
             <tr>
-                <td><span class="msj_rojo">* </span>Centro de Acopio: </td>
+                <td><span class="msj_rojo">* </span>Centro de Acopio </td>
                 <td><? echo $html->select('centro_acopio', array('options' => $listaCA, 'selected' => $infoUsuario[0]['id_ca'], 'default' => 'Seleccione')) ?></td>
             </tr>
             <tr>
-                <td><span class="msj_rojo">* </span>Almacen: </td>
+                <td><span class="msj_rojo">* </span>Almacen </td>
                 <td>
                     <div id="almacenes">
                         <? echo $html->select('almacen', array('options' => $listaAlmacenes, 'selected' => $infoUsuario[0]['id_al'], 'default' => 'Seleccione')) ?>
@@ -140,7 +140,7 @@ $validator->printScript();
                 </td>
             </tr>
             <tr>
-                <td><span class="msj_rojo">* </span>Perfil: </td>
+                <td><span class="msj_rojo">* </span>Perfil </td>
                 <td>
                     <div id="perfiles">
                         <? echo $html->select('perfil', array('options' => $listaPerfiles, 'selected' => $infoUsuario[0]['id_perfil'], 'default' => 'Seleccione')) ?>

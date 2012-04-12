@@ -74,7 +74,7 @@
             <td align="center"><?=$dataOr['codigo']?></td>
             <td><?=$dataOr['nombre_ca']?></td>
             <td align="center"><?=$dataOr['id_cultivo']?></td>
-            <td align="center"><?=$dataOr['cod_orden']?></td>
+            <td align="center"><?=$dataOr['numero_orden']?></td>
             <td align="center"><?=$dataOr['cod_verificacion']?></td>
             <td align="center"><?=$general->date_sql_screen($dataOr['fecha_emision'], '', 'es', '-')?></td>
             <td align="center"><?=$dataOr['toneladas']?></td>

@@ -119,47 +119,47 @@ $validator->printScript();
     </div>
     <table align="center">
         <tr>
-            <td><span class="msj_rojo">* </span>Organizaci&oacute;n: </td>
+            <td><span class="msj_rojo">* </span>Organizaci&oacute;n </td>
             <td><? echo $html->select('CA.id_org', array('options' => $listaOrg, 'selected' => $infoCA[0]['id_org'], 'default' => 'Seleccione')) ?></td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>Codigo: </td>
+            <td><span class="msj_rojo">* </span>Codigo </td>
             <td><? echo $html->input('CA.codigo', $infoCA[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>Nombre: </td>
+            <td><span class="msj_rojo">* </span>Nombre </td>
             <td><? echo $html->input('CA.nombre', $infoCA[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td>RIF: </td>
+            <td>RIF </td>
             <td><? echo $html->input('CA.rif', $infoCA[0]['rif'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td>Tel&eacute;fono: </td>
+            <td>Tel&eacute;fono </td>
             <td><? echo $html->input('CA.telefono', $infoCA[0]['telefono'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td>Fax: </td>
+            <td>Fax </td>
             <td><? echo $html->input('CA.fax', $infoCA[0]['fax'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td>Email: </td>
+            <td>Email </td>
             <td><? echo $html->input('CA.email', $infoCA[0]['email'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td>Direcci&oacute;n: </td>
+            <td>Direcci&oacute;n </td>
             <td><? echo $html->input('CA.direccion', $infoCA[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>Pa&iacute;s: </td>
+            <td><span class="msj_rojo">* </span>Pa&iacute;s </td>
             <td><? echo $html->select('CA.id_pais', array('options' => $listaP, 'selected' => $infoCA[0]['id_pais'], 'default' => 'Seleccione')) ?></td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>Estado: </td>
+            <td><span class="msj_rojo">* </span>Estado </td>
             <td><? echo $html->select('id_estado', array('options' => $listaE, 'selected' => $infoCA[0]['id_estado'], 'default' => 'Seleccione')) ?></td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>Municipio: </td>
+            <td><span class="msj_rojo">* </span>Municipio </td>
             <td>
                 <div id="mcpo">
                     <? echo $html->select('id_municipio', array('options' => $listaM, 'selected' => $infoCA[0]['id_municipio'], 'default' => 'Seleccione')) ?>
@@ -167,21 +167,21 @@ $validator->printScript();
             </td>
         </tr>
         <tr>
-            <td>C&oacute;digo Postal: </td>
+            <td>C&oacute;digo Postal </td>
             <td><? echo $html->input('CA.id_codigo_postal', $infoCA[0]['id_codigo_postal'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td>Coordenadas UTM: </td>
+            <td>Coordenadas UTM </td>
             <td><? echo $html->input('CA.coordenadas_utm', $infoCA[0]['coordenadas_utm'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <? if ($ocultarCantidad) { ?>
             <tr>
-                <td><span class="msj_rojo">* </span>Cantidad de Silos: </td>
+                <td><span class="msj_rojo">* </span>Cantidad de Silos </td>
                 <td><? echo $html->select('cant_silos', array('options' => $cantSilos, 'default' => 'Seleccione')) ?></td>
             </tr>
         <? } ?>
         <tr>
-            <td><span class="msj_rojo">* </span>Estatus: </td>
+            <td><span class="msj_rojo">* </span>Estatus </td>
             <td><? echo $html->select('CA.estatus', array('options' => $estatus, 'selected' => $infoCA[0]['estatus'], 'default' => 'Seleccione')) ?></td>
         </tr>
         <tr>

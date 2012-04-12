@@ -48,15 +48,15 @@ $validator->printScript();
     </div>
     <table align="center">
         <tr>
-            <td><span class="msj_rojo">* </span>Organizaci&oacute;n: </td>
+            <td><span class="msj_rojo">* </span>Organizaci&oacute;n </td>
             <td><? echo $html->select('Cultivo.id_org', array('options' => $listaOrg, 'selected' => $infoCultivo[0]['id_org'], 'default' => 'Seleccione')) ?></td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>C&oacute;digo: </td>
+            <td><span class="msj_rojo">* </span>C&oacute;digo </td>
             <td><? echo $html->input('Cultivo.codigo', $infoCultivo[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>Nombre: </td>
+            <td><span class="msj_rojo">* </span>Nombre </td>
             <td><? echo $html->input('Cultivo.nombre', $infoCultivo[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
@@ -64,7 +64,7 @@ $validator->printScript();
             <td><? echo $html->select('Cultivo.tipificado', array('options' => $cultivoTip, 'selected' => $infoCultivo[0]['tipificado'], 'default' => 'Seleccione')) ?></td>
         </tr>
         <tr>
-            <td>Ciclo: </td>
+            <td>Ciclo </td>
             <td><? echo $html->select('Cultivo.ciclo', array('options' => $listadoCiclos, 'selected' => $infoCultivo[0]['ciclo'], 'default' => 'Seleccione')) ?></td>
         </tr>
         <tr>

@@ -44,23 +44,23 @@ $validator->printScript();
     </div>
     <table align="center">
         <tr>
-            <td><span class="msj_rojo">* </span>C&oacute;digo: </td>
+            <td><span class="msj_rojo">* </span>C&oacute;digo </td>
             <td><? echo $html->input('Silo.codigo', $infoSilo[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>Nombre: </td>
+            <td><span class="msj_rojo">* </span>Nombre </td>
             <td><? echo $html->input('Silo.nombre', $infoSilo[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>Coordenada: </td>
+            <td><span class="msj_rojo">* </span>Coordenada </td>
             <td><? echo $html->input('Silo.coordenada', $infoSilo[0]['coordenada'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>Capacidad: </td>
+            <td><span class="msj_rojo">* </span>Capacidad </td>
             <td><? echo $html->input('Silo.capacidad', $infoSilo[0]['capacidad'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td>Observaci&oacute;n: </td>
+            <td>Observaci&oacute;n </td>
             <td><textarea name="Silo[observacion]" cols="20" rows="2" id="Silo[observacion]"><?= $infoSilo[0]['observacion'] ?></textarea></td>
         </tr>
         <tr>

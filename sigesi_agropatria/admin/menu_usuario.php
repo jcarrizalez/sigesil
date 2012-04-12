@@ -46,11 +46,11 @@ $validator->printScript();
     </div>
     <table align="center">
         <tr>
-            <td><span class="msj_rojo">* </span>Nombre: </td>
+            <td><span class="msj_rojo">* </span>Nombre </td>
             <td><? echo $html->input('Almacen.nombre', $infoAlmacen[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>Pa&iacute;s: </td>
+            <td><span class="msj_rojo">* </span>Pa&iacute;s </td>
             <td><? echo $html->select('Almacen.id_pais', array('options' => $listaP, 'selected' => $infoAlmacen[0]['id_pais'], 'default' => 'Seleccione')) ?></td>
         </tr>
         <tr>
