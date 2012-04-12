@@ -7,6 +7,7 @@ $cosecha=new Cosecha();
 $cultivo=new Cultivo();
 $tipificacion = new Recultipo();
 
+
 $idCA = $_SESSION['s_id_ca'];
 $id = $GPC['id'];
 $IdCosecha = $GPC['id_cosecha'];
@@ -112,8 +113,9 @@ switch ($GPC['ac']) {
                     $recepcion['id_cultivo'] = $idCultivo;
                     $recepcion['id_usuario'] = $_SESSION['s_id'];
                     $serial_cuarentena = split(':', $GPC['es_cuarentena']);
-                    $id_analisis_cuarentena = split('_', $serial_cuarentena[1]);
-                    $recepcion['id_analisis'] = $id_analisis_cuarentena[0];
+                    $codAnalisis = split('_', $serial_cuarentena[1]);
+                    $analisis->listaAnalisis(null, null, null,$codAnalisis);
+                    $recepcion['id_analisis'] = $codAnalisis[0];
                     $recepcion['tipo_mov'] = $tipo_mov[$_SESSION['s_mov']];
                     $recepcion['fecha_mov'] = 'now()';
                     $recepcion['fecha_cultivo'] = 'now()';                
@@ -174,18 +176,18 @@ switch ($GPC['ac']) {
                 $analisis->_commit_tool();
                 if ($estipo) {
                     $analisis->_commit_tool();                    
-                    header('location: '.DOMAIN_ROOT."/reportes/imprimir?boleta_tipifica?id_rec=".$GPC['id']."&redir=analisis_resultado_listado");
+                    header('location: '.DOMAIN_ROOT."/reportes/imprimir_boleta_tipificacion.php?id_rec=".$GPC['id']);
                     die();
                 } else {
                     $analisis->_commit_tool();
-                    header("location: analisis_resultado_listado.php?msg=exitoso&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
+                    header("location: analisis_resultado_listado.php?msg=exitoso");
                     die();
                 }
                 break;
             case '7':
             case '8':
                 $analisis->_commit_tool();                
-                header('location: '.DOMAIN_ROOT."/reportes/imprimir?reporte=boleta_rechazo&id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado']."&redir=analisis_resultado_listado");
+                header('location: '.DOMAIN_ROOT."/reportes/imprimir_boleta_rechazo.php&id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado']);
                 die();
                 break;
             default:                

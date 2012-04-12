@@ -43,7 +43,7 @@ switch ($GPC['ac']){
                     <td>
                     <?                
                         if ($dataCP['cantidad'] >= 0)
-                            echo $html->input('dataCP_cantidad_'.$i, $dataCP['cantidad'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'class' => 'estilo_campos cuadricula'));
+                            echo $html->input('dataCP_cantidad_'.$i, $dataCP['cantidad'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'class' => 'estilo_campos cuadricula cantidad'));
                     ?>
                     </td>
                 </tr>

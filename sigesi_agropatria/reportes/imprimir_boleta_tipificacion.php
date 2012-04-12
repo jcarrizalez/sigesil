@@ -10,7 +10,7 @@ if(!empty($GPC['id_rec'])) {
     $listaR=$recepcion->listadoRecepcion($listaT[0]['id_recepcion'], $listaT[0]['id_centro_acopio']);
 }
 else {
-    header("location: admin/analisis_resultado_listado.php?msg=error&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
+    header("location: admin/analisis_resultado_listado.php?msg=error");
     die();
 }
 $tipificacion = new Recultipo();
@@ -19,7 +19,7 @@ $tipificacion = new Recultipo();
 <script type="text/javascript">
     $(document).ready(function(){
         window.print();
-        window.location = '<?=DOMAIN_ROOT?>admin/analisis_resultado_listado.php?msg=exitoso&mov=<?=$_SESSION["s_mov"]?>&lab=<?=$_SESSION["s_lab"]?>';
+        window.location = '<?=DOMAIN_ROOT?>admin/analisis_resultado_listado.php?msg=exitos';
     });
 </script>
 <div id="titulo_reporte">

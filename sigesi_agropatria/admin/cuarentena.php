@@ -44,7 +44,11 @@ switch ($GPC['ac']) {
             $soloLectura=(empty($infoCtna[0]['estatus'])) ? false: true;
         }
         if (empty($id_cuarentena)) {
-            header("location: ../admin/analisis_resultado_listado.php?msg=error&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
+            header("location: ../admin/analisis_resultado_listado.php?msg=error");
+            die();
+        }
+        if (in_array($infoCtna[0]['estatus'], array(7=>7,8=>8))) {
+            header("location: ../admin/analisis_resultado_listado.php?msg=error");
             die();
         }
         break;
@@ -80,10 +84,10 @@ switch ($GPC['ac']) {
          }
         if ($id_cuarentena) {
             $Ctna->_commit_tool();
-            header("location: analisis_resultado_listado.php?msg=exitoso&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
+            header("location: analisis_resultado_listado.php?msg=exitoso");
             die();
         }
-        header("location: ../admin/analisis_resultado_listado.php?msg=error&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
+        header("location: ../admin/analisis_resultado_listado.php?msg=error");
         die();
         break;
     case 'liberar':
@@ -97,9 +101,11 @@ switch ($GPC['ac']) {
                         $estatus='6';
             if ($_SESSION['s_mov']=='rec') {                
                 $infoCtna = $Ctna->find(array('id_recepcion' => $id));
+                
                 //Estatus Anterior
                 $estatusA=$infoCtna[0]['estatus'];
                 $infoRecepcion = $Rec->find(array('id' => $infoCtna[0]['id_recepcion']));
+                $muestra=$infoRecepcion[0]['muestra'];
                 $GPC['Recepcion']['id']=$GPC['id'];
                 $GPC['Recepcion']['estatus_rec']=$estatus;
                 $Ctna->_begin_tool();
@@ -111,11 +117,11 @@ switch ($GPC['ac']) {
         }
         if (!empty($id_cuarentena) && (in_array($estatusA, $estatusCtna))) {            
             $Ctna->_commit_tool();
-            header("location: ../admin/analisis_resultado_listado.php?msg=existoso&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);        
-            die();            
+            header("location: ../admin/analisis_resultado_listado.php?msg=existoso");
+            die();
         }
         $Ctna->_rollback_tool();
-        header("location: ../admin/analisis_resultado_listado.php?msg=error&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
+        header("location: ../admin/analisis_resultado_listado.php?msg=error");
         die();
     break;        
     case 'rechazar':
@@ -128,10 +134,12 @@ switch ($GPC['ac']) {
                 else if ($_SESSION['s_lab']=='P')
                         $estatus='8';
             else
-                $estatus='4';            
+                $estatus='4';
             $Ctna->_begin_tool();
             if ($_SESSION['s_mov']=='rec') {
                 $infoCtna = $Ctna->find(array('id_recepcion' => $id));
+                $infoRecepcion = $Rec->find(array('id' => $infoCtna[0]['id_recepcion']));
+                $muestra=$infoRecepcion[0]['muestra'];
                 $id_cuarentena=$infoCtna[0]['id'];
                 $estatusA=$infoCtna[0]['estatus'];
                 $infoRecepcion = $Rec->find(array('id' => $infoCtna[0]['id_recepcion']));
@@ -143,19 +151,18 @@ switch ($GPC['ac']) {
                 $infoCtna = $Ctna->find(array('id_despacho' => $id));
             $GPC['Cuarentena']['id']=$GPC['id'];
             $GPC['Cuarentena']['estatus']=$estatus;
-            $id_cuarentena=$Ctna->save($GPC['Cuarentena']);         
+            $id_cuarentena=$Ctna->save($GPC['Cuarentena']);
         }
         if (!empty($id_cuarentena) && (in_array($estatusA, $estatusCtna))) {            
                 $Ctna->_commit_tool();
-                $id_analisis=$infoCtna[0]['id_analisis'];
-                $listA=$analisis->listaAnalisis($id_analisis);
-                $GPC['es_rechazado']="0_0:".$listA[0]['codigo'];
-                header("location: ../reportes/imprimir_boleta_rechazo.php?id=". $GPC['id']."&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']."&es_rechazado=".$GPC['es_rechazado']);
+                $idAnalisis=$infoCtna[0]['id_analisis'];                
+                $GPC['es_rechazado']="0_0:".$idAnalisis."_1";
+                header("location: ../reportes/imprimir_boleta_rechazo.php?id=". $GPC['id']."&es_rechazado=".$GPC['es_rechazado']);                
                 die();
 
         }
         $Ctna->_rollback_tool();
-        header("location: analisis_resultado_listado.php?msg=error&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
+        header("location: analisis_resultado_listado.php?msg=error");
         die();
     break;
 }
@@ -366,22 +373,34 @@ $validator->printScript();
         
         $("#form1").submit(function(){
             var isFormValid = true;
-            $("#form1 :input").each(function(){
+            $("#form1 :input").each(function(){                 
                 if ($(this).attr('class')=='plaga' && $(this).val()=='') {
                     isFormValid = false;
                     $(this).focus();
+                    alert('NO SE HA SELECIONADO UNA PLAGA DE LA LISTA !!!');
                     return isFormValid;
-                }
-            });            
-            if ($('#tipoInsecto').val() < 1) {                
+                } 
+            });
+
+            $(".cantidad").each(function(){
+                if ($(this).val()==0) {
+                    isFormValid = false;
+                    $(this).focus();
+                    alert('LA CANTIDAD DE PLAGAS DEBE SER SUPERIOR A CERO (0) !!!');
+                    return isFormValid;
+                }                
+            });
+            
+            if ($('#tipoInsecto').val() == 0) {
                 isFormValid = false;
-                $('#tipoInsecto').focus();                
+                $('#tipoInsecto').focus();
+                alert('NO SE HA SELECIONADO UNA PLAGA DE LA LISTA !!!');
+                return isFormValid;
             }
-            if (!isFormValid) {                
-                alert('No ha registrado las plagas correctamente!');
-            }
+            
             return isFormValid;
         });
+        
         $('.plaga').live('change', function() {
             Actual=$(this);             
             $(".plaga").each(function(){
@@ -521,7 +540,9 @@ $validator->printScript();
                 <?                
                     if ($dataCP['cantidad'] >= 0)                        
                         echo $html->input('dataCP_cantidad_'.$i, $dataCP['cantidad'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'class' => 'estilo_campos cuadricula positive'));
-                ?>
+                    else
+                        echo $html->input('dataCP_cantidad_'.$i, '', array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'class' => 'estilo_campos cuadricula positive'));
+                ?>      
                 </td>
             </tr>
             <? 
@@ -599,7 +620,8 @@ $validator->printScript();
                 } else if ((time() > strtotime($fecha)) && (trim($infoCtna[0]['estatus'])=='2')) {
                     echo $html->input('Liberar', 'Liberar', array('type' => 'button'));
                 }
-                echo $html->input('Rechazar', 'Rechazar', array('type' => 'button')); 
+                if (!empty($infoCtna[0]['estatus'])) 
+                    echo $html->input('Rechazar', 'Rechazar', array('type' => 'button')); 
                 echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); 
                 ?>
             </td>

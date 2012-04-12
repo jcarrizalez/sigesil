@@ -43,8 +43,10 @@
     }
 ?>
 <script type="text/javascript">
-    window.print();
-    window.close();
+    $(document).ready(function(){
+        window.print();
+        window.location = '<?=DOMAIN_ROOT?>admin/analisis_resultado_listado.php?msg=exitoso';
+    });
 </script>
 <table id="tabla_reporte" border="0" width="800">
     <tr>
@@ -99,7 +101,7 @@ foreach($rechazados as $dataRechazado) {
 ?>    
 </table>
 <?
-    require_once("../lib/common/footer_reportes.php");
+    require_once("../lib/common/footer_reportes.php");    
 //    $curl_handle=curl_init();
 //    curl_setopt($curl_handle,CURLOPT_URL,DOMAIN_ROOT.'reportes/imprimir_boleta_rechazo.php?id=2');
 //    $buffer = curl_exec($curl_handle);
