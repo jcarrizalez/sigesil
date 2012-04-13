@@ -14,6 +14,7 @@ foreach($infoCA as $dataCA){
 }
 
 $listaCR = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
+$listaD = array('t' => 'Aplica', 'f' => 'No Aplica');
 
 switch ($GPC['ac']) {
     case 'guardar':
@@ -187,6 +188,10 @@ require('../lib/common/init_calendar.php');
         <tr>
             <td><span class="msj_rojo">* </span>Toneladas </td>
             <td><? echo $html->input('Orden.toneladas', $infoOr[0]['toneladas'], array('type' => 'text', 'class' => 'estilo_campos integer')); ?></td>
+        </tr>
+        <tr>
+            <td><span class="msj_rojo">* </span>Descuento </td>
+            <td><? echo $html->select('Orden.descuento', array('options'=>$listaD, 'selected' => $infoOr[0]['descuento'], 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>C&oacute;digo de Verificaci&oacute;n </td>
