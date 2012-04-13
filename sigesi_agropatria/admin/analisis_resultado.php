@@ -187,7 +187,7 @@ switch ($GPC['ac']) {
             case '7':
             case '8':
                 $analisis->_commit_tool();                
-                header('location: '.DOMAIN_ROOT."/reportes/imprimir_boleta_rechazo.php&id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado']);
+                header('location: '.DOMAIN_ROOT."/reportes/imprimir?reporte=boleta_rechazo&id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado'].'&redir=analisis_resultado_listado');
                 die();
                 break;
             default:                

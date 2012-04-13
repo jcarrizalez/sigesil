@@ -22,6 +22,7 @@
     $mpdf->SetDisplayMode('fullpage');
     $stylesheet = file_get_contents(DOMAIN_ROOT.'css/reportes.css');
     $mpdf->WriteHTML($stylesheet,1);
+    //$mpdf->WriteHTML('<pagebreak sheet-size="216mm 139.5mm" />');
     $mpdf->WriteHTML($imprimir);
     $archivo=$GPC['reporte'].time().'.pdf';
     $mpdf->Output($archivo,'F');
@@ -40,10 +41,10 @@
         elseif(!empty($GPC['mov']))
             $redir = $GPC['redir'].'.php?mov='.$GPC['mov'];
         else{
-            $redir = $GPC['redir'].'.php';
-            header("location: ".DOMAIN_ROOT."admin/$redir");
-            die();
+            $redir = $GPC['redir'].'.php';            
         }
+        header("location: ".DOMAIN_ROOT."admin/$redir");
+        die();
     }
 
 ?>
