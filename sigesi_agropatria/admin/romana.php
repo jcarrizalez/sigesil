@@ -246,6 +246,7 @@
         echo $html->input('id', $infoMovimiento[0]['id'], array('type' => 'hidden'));
         echo $html->input('estatus', $infoMovimiento[0]['estatus_rec'], array('type' => 'hidden'));
         echo $html->input('cant_m', $infoMovimiento[0]['cant_muestras'], array('type' => 'hidden'));
+        echo $html->input('rechazada', $infoMovimiento[0]['muestra'], array('type' => 'hidden'));
         echo $html->input('mov', $GPC['mov'], array('type' => 'hidden'));
     ?>
     <table align="center">
@@ -274,58 +275,61 @@
             <td><? echo $html->input('cultivo', $cultivo, array('type' => 'text', 'class' => 'estilo_campos2', 'readOnly' => true)); ?></td>
         </tr>
         <?
-        if(($GPC['mov'] == 'rec' && $infoMovimiento[0]['estatus_rec'] == '3') || ($GPC['mov'] == 'des' && $infoMovimiento[0]['estatus_rec'] == '3')){
-            if($GPC['mov'] == 'des'){
+            //PESOS PARA RECEPCIONES
+            if($GPC['mov'] == 'rec'){
+                //PESO LLENO PARA RECEPCION
+                if($infoMovimiento[0]['estatus_rec'] == '3'){
         ?>
         <tr>
             <td>Romana de Entrada</td>
-            <td><? echo $html->input('romana_ent', $infoMovimiento[0]['romana_ent'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
-        </tr>
-        <tr>
-            <td>Romana de Salida</td>
-            <td><? echo $html->select('Recepcion.romana_sal', array('options' => $listaRomanas, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
+            <td><? echo $html->select('Recepcion.romana_ent', array('options' => $listaRomanas, 'default' => 'Seleccione', 'class' => 'estilo_campos2')); ?></td>
         </tr>
         <?
-                for($i=1; $i<=$infoMovimiento[0]['cant_muestras']; $i++){
-        ?>
-        <tr>
-            <td>Peso Vac&iacute;o Muestra <?=$i?></td>
-            <td><? echo $html->input('Recepcion.peso_0'.$i.'v', $infoMovimiento[0]['peso_0'.$i.'v'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
-        </tr>
-        <tr>
-            <td>Peso Lleno <?=$i?></td>
-            <td><? echo $html->input("Recepcion.pesoLleno$i", $infoMovimiento[0]['peso_0'.$i.'l'], array('type' => 'text', 'class' => 'estilo_campos integer verifPeso')); ?></td>
-        </tr>
-        <?
-                }
-            }else{
-        ?>
-        <tr>
-            <td>Romana de Entrada</td>
-            <td><? echo $html->select('Recepcion.romana_ent', array('options' => $listaRomanas, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
-        </tr>
-        <?
-                for($i=1; $i<=$infoMovimiento[0]['cant_muestras']; $i++){
-                    if($GPC['mov'] == 'des'){
-        ?>
-        <tr>
-            <td>Peso Lleno Muestra <?=$i?></td>
-            <td><? echo $html->input('Recepcion.peso_0'.$i.'l', '', array('type' => 'text', 'class' => 'estilo_campos integer verifPeso')); ?></td>
-        </tr>
-        <?
-                    }else{
+                    for($i=1; $i<=$infoMovimiento[0]['cant_muestras']; $i++){
                         $pesar = ($i == 1) ? 'Motriz' : 'Remolque';
+                        if($infoMovimiento[0]['muestra'] == 0){
         ?>
         <tr>
             <td>Peso Lleno <?=$pesar?></td>
-            <td><? echo $html->input('Recepcion.peso_0'.$i.'l', '', array('type' => 'text', 'class' => 'estilo_campos integer')); ?></td>
+            <td><? echo $html->input('Recepcion.peso_0'.$i.'l', '', array('type' => 'text', 'class' => 'estilo_campos2 integer')); ?></td>
         </tr>
         <?
+                        }elseif($infoMovimiento[0]['muestra'] == 1){
+                            if($i == 1){
+        ?>
+        <tr>
+            <td>Peso Lleno <?=$pesar?></td>
+            <td><? echo $html->input('peso_0l', 'RECHAZADO', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 integer')); ?></td>
+        </tr>
+        <?
+                            }else{
+        ?>
+        <tr>
+            <td>Peso Lleno <?=$pesar?></td>
+            <td><? echo $html->input('Recepcion.peso_01l', '', array('type' => 'text', 'class' => 'estilo_campos2 integer')); ?></td>
+        </tr>
+        <?
+                            }
+                        }elseif($infoMovimiento[0]['muestra'] == 2){
+                            if($i == 1){
+        ?>
+        <tr>
+            <td>Peso Lleno <?=$pesar?></td>
+            <td><? echo $html->input('Recepcion.peso_01l', '', array('type' => 'text', 'class' => 'estilo_campos2 integer')); ?></td>
+        </tr>
+        <?
+                            }else{
+        ?>
+        <tr>
+            <td>Peso Lleno <?=$pesar?></td>
+            <td><? echo $html->input('peso_0l', 'RECHAZADO', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 integer')); ?></td>
+        </tr>
+        <?
+                            }
+                        }
                     }
-                }
-            }
-        }elseif(($GPC['mov'] == 'rec' && $infoMovimiento[0]['estatus_rec'] == '6') || ($GPC['mov'] == 'des' && $infoMovimiento[0]['estatus_rec'] == '1')){
-            if($GPC['mov'] == 'rec'){
+                //PESO VACIO PARA RECEPCION
+                }elseif($infoMovimiento[0]['estatus_rec'] == '6'){
         ?>
         <tr>
             <td>Romana de Entrada</td>
@@ -336,8 +340,9 @@
             <td><? echo $html->select('Recepcion.romana_sal', array('options' => $listaRomanas, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <?
-                for($i=1; $i<=$infoMovimiento[0]['cant_muestras']; $i++){
-                    $pesar = ($i == 1) ? 'Motriz' : 'Remolque';
+                    for($i=1; $i<=$infoMovimiento[0]['cant_muestras']; $i++){
+                        $pesar = ($i == 1) ? 'Motriz' : 'Remolque';
+                        if($infoMovimiento[0]['muestra'] == 0){
         ?>
         <tr>
             <td>Peso Lleno <?=$pesar?></td>
@@ -348,24 +353,59 @@
             <td><? echo $html->input('Recepcion.peso_0'.$i.'v', '', array('type' => 'text', 'class' => 'estilo_campos integer verifPeso')); ?></td>
         </tr>
         <?
-                }
-            }else{
+                    
+                        }elseif($infoMovimiento[0]['muestra'] == 1){
+                            if($i == 1){
         ?>
         <tr>
-            <td>Romana de Entrada</td>
-            <td><? echo $html->select('Recepcion.romana_ent', array('options' => $listaRomanas, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
+            <td>Peso Lleno <?=$pesar?></td>
+            <td><? echo $html->input("pesoLleno$i", 'RECHAZADO', array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+        </tr>
+        <tr>
+            <td>Peso Vac&iacute;o <?=$pesar?></td>
+            <td><? echo $html->input('peso_0'.$i.'v', 'RECHAZADO', array('type' => 'text', 'class' => 'estilo_campos integer verifPeso', 'readOnly' => true)); ?></td>
         </tr>
         <?
-                for($i=1; $i<=$infoMovimiento[0]['cant_muestras']; $i++){
+                            }else{
         ?>
         <tr>
-            <td>Peso Vac&iacute;o <?=$i?></td>
-            <td><? echo $html->input('Recepcion.peso_0'.$i.'v', '', array('type' => 'text', 'class' => 'estilo_campos integer')); ?></td>
+            <td>Peso Lleno <?=$pesar?></td>
+            <td><? echo $html->input("Recepcion.pesoLleno1", $infoMovimiento[0]['peso_01l'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+        </tr>
+        <tr>
+            <td>Peso Vac&iacute;o <?=$pesar?></td>
+            <td><? echo $html->input('Recepcion.peso_01v', '', array('type' => 'text', 'class' => 'estilo_campos integer verifPeso')); ?></td>
         </tr>
         <?
+                            }
+                        }elseif($infoMovimiento[0]['muestra'] == 2){
+                            if($i == 1){
+        ?>
+        <tr>
+            <td>Peso Lleno <?=$pesar?></td>
+            <td><? echo $html->input("Recepcion.pesoLleno1", $infoMovimiento[0]['peso_01l'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+        </tr>
+        <tr>
+            <td>Peso Vac&iacute;o <?=$pesar?></td>
+            <td><? echo $html->input('Recepcion.peso_01v', '', array('type' => 'text', 'class' => 'estilo_campos integer verifPeso')); ?></td>
+        </tr>
+        <?
+                            }else{
+        ?>
+        <tr>
+            <td>Peso Lleno <?=$pesar?></td>
+            <td><? echo $html->input("pesoLleno$i", 'RECHAZADO', array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+        </tr>
+        <tr>
+            <td>Peso Vac&iacute;o <?=$pesar?></td>
+            <td><? echo $html->input('peso_0'.$i.'v', 'RECHAZADO', array('type' => 'text', 'class' => 'estilo_campos integer verifPeso', 'readOnly' => true)); ?></td>
+        </tr>
+        <?
+                            }
+                        }
+                    }
                 }
             }
-        }
         ?>
         <tbody id="resultado" class="verif_resul"></tbody>
         <tr>

@@ -79,7 +79,7 @@
                     echo $etiqueta['usuario_inactivo'];
                 break;
                 case 'captcha_invalido':
-                    echo $etiqueta['txtUscaptcha_invalidouario'];
+                    echo $etiqueta['captcha_invalido'];
                 break;
                 case 'captcha_vacio':
                     echo $etiqueta['captcha_vacio'];
@@ -110,15 +110,6 @@
         <tr align="center">
             <td colspan="2"><span id="mens"><?php echo 'Ingrese el Captcha'//$lang['txtMen'] ?></span></td>
         </tr>
-        <!--tr>
-            <td class="labelText2" colspan="2">
-                <?
-                    require('../lib/common/recaptchalib.php');
-                    $publickey = LLAVE_PUBLICA;
-                    echo recaptcha_get_html($publickey);
-                ?>
-            </td>
-        </tr-->
     </table>
     <table align="center" border="0">
         <tr>
