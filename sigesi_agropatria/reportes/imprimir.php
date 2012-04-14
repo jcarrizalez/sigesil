@@ -18,7 +18,7 @@
     }
     
     $imprimir = file_get_contents($url);
-    $mpdf=new mPDF('c', 'A4');
+    $mpdf=new mPDF('c', 'letter');
     $mpdf->SetDisplayMode('fullpage');
     $stylesheet = file_get_contents(DOMAIN_ROOT.'css/reportes.css');
     $mpdf->WriteHTML($stylesheet,1);
