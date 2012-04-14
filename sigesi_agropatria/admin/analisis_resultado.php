@@ -176,7 +176,8 @@ switch ($GPC['ac']) {
                 $analisis->_commit_tool();
                 if ($estipo) {
                     $analisis->_commit_tool();                    
-                    header('location: '.DOMAIN_ROOT."/reportes/imprimir_boleta_tipificacion.php?id_rec=".$GPC['id']);
+                    //header('location: '.DOMAIN_ROOT."/reportes/imprimir_boleta_tipificacion.php?id_rec=".$GPC['id']);
+                    header('location: '.DOMAIN_ROOT."/reportes/imprimir?reporte=boleta_tipifica?id_rec=".$GPC['id'].'&redir=analisis_resultado_listado');
                     die();
                 } else {
                     $analisis->_commit_tool();
@@ -187,12 +188,12 @@ switch ($GPC['ac']) {
             case '7':
             case '8':
                 $analisis->_commit_tool();                
-                header('location: '.DOMAIN_ROOT."/reportes/imprimir?reporte=boleta_rechazo&id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado'].'&redir=analisis_resultado_listado');
+                header('location: '.DOMAIN_ROOT."/reportes/imprimir?reporte=boleta_rechazo&id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado'].'&redir=analisis_resultado_listado');                
                 die();
                 break;
             default:                
                 $analisis->_rollback_tool();
-                header("location: analisis_resultado_listado.php?msg=error&mov=".$_SESSION['s_mov']."&lab=".$_SESSION['s_lab']);
+                header("location: analisis_resultado_listado.php?msg=error");
                 die();
                 break;
         }
