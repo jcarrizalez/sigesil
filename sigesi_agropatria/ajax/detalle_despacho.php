@@ -15,41 +15,76 @@
             $orden = new Orden();
             
             $listaCR = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
+            
             $infoOrden = $orden->ordenCliente('', $GPC['numero']);
-            if(!empty($infoOrden) && $infoOrden[0]['estatus'] == 'P'){
+            $infoSubOrden = $orden->cantDespachada($infoOrden[0]['id']);
+            $disponible = $infoOrden[0]['toneladas'] - $infoSubOrden[0]['total'];
+            $infoSubOrden[0]['total'] = (!empty($infoSubOrden[0]['total'])) ? $infoSubOrden[0]['total'] : 0;
+            
+            if(empty($infoOrden)){
             ?>
+                <tr>
+                    <td><span class="msj_rojo">* </span>N&uacute;mero de Orden</td>
+                    <td>
+                        <? echo $html->input('Orden.numero_orden', $GPC['numero'], array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos integer')); ?>
+                        <? echo $html->input('Cliente.nombre', '', array('type' => 'hidden')); ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2" align="center">El Nro de Orden no Existe !</th>
+                </tr>
+            <?
+            }elseif(!empty($infoOrden) && $infoOrden[0]['estatus'] == 'P'){
+            ?>
+                <tr>
+                    <td><span class="msj_rojo">* </span>N&uacute;mero de Orden</td>
+                    <td>
+                        <? echo $html->input('Orden.numero_orden', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos integer')); ?>
+                    </td>
+                </tr>
                 <tr>
                     <th colspan="2" align="center">Orden Procesada</th>
                     <? echo $html->input('Cliente.nombre', '', array('type' => 'text', 'class' => 'estilo_campos')); ?>
                 </tr>
             <?
-            }elseif(empty($infoOrden) || $infoOrden[0]['estatus'] == 'N'){
+            }elseif(!empty($infoOrden) || $infoOrden[0]['estatus'] == 'N'){
             ?>
+                <tr>
+                    <td><span class="msj_rojo">* </span>N&uacute;mero de Orden</td>
+                    <td>
+                        <? echo $html->input('Orden.numero_orden', $GPC['numero'], array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos integer')); ?>
+                    </td>
+                </tr>
                 <tr>
                     <td><span class="msj_rojo">* </span>C&eacute;dula/Rif Cliente</td>
                     <td>
                         <?
-                            echo $html->select('nacion', array('options' => $listaCR, 'selected' => substr($infoOrden[0]['ced_rif'], 0,1)));
-                            echo "&nbsp;".$html->input('Cliente.ced_rif', substr($infoOrden[0]['ced_rif'], 1), array('type' => 'text', 'length' => '8', 'class' => 'crproductor integer'));
+                            echo $html->input('Cliente.ced_rif', $infoOrden[0]['ced_rif'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true));
+                            echo $html->input('Orden.id_cliente', $infoOrden[0]['id_cliente'], array('type' => 'hidden'));
                         ?>
                     </td>
                 </tr>
                 <tr>
                     <td><span class="msj_rojo">* </span>Nombres y Apellidos</td>
-                    <td><? echo $html->input('Cliente.nombre', $infoOrden[0]['cliente_nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><? echo $html->input('Cliente.nombre', $infoOrden[0]['cliente_nombre'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
                 </tr>
                 <tr>
                     <td>Tel&eacute;fono</td>
-                    <td><? echo $html->input('Cliente.telefono', $infoOrden[0]['cliente_telefono'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><? echo $html->input('Cliente.telefono', $infoOrden[0]['cliente_telefono'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
                 </tr>
-                <!--tr>
-                    <td><span class="msj_rojo">* </span>Cultivo</td>
-                    <td><? echo $html->select('Orden.id_cultivo',array('options'=>$listadoC, 'default' => 'Seleccione', 'class' => 'estilo_campos'))?></td>
-                </tr-->
                 <tr>
-                    <th colspan="2" align="center">Orden Nueva, se proceder&aacute; a almacenar</th>
+                    <td>Toneladas de la Orden</td>
+                    <td><? echo $html->input('toneladas', $infoOrden[0]['toneladas'], array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
                 </tr>
-                <?
+                <tr>
+                    <td>Despachado</td>
+                    <td><? echo $html->input('despachado', $infoSubOrden[0]['total'], array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
+                </tr>
+                <tr>
+                    <td>Disponible</td>
+                    <td><? echo $html->input('disponible', $disponible, array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
+                </tr>
+            <?
             }
         break;
         case 'cliente':

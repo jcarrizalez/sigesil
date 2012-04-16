@@ -107,9 +107,9 @@
 $validator = new Validator('form1');
 $validator->printIncludes();
 //$validator->setRules('Recepcion.id_cosecha', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('Orden.numero', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros')));
+$validator->setRules('Orden.numero_orden', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros')));
 $validator->setRules('Orden.id_cultivo', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('Cliente.ced_rif', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros'), 'minlength' => array('value' => 6, 'message' => 'Min&iacute;mo 6 D&iacute;gitos')));
+$validator->setRules('Cliente.ced_rif', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Cliente.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Chofer.ced_rif', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros'), 'minlength' => array('value' => 6, 'message' => 'Min&iacute;mo 6 D&iacute;gitos')));
 $validator->setRules('Vehiculo.placa', array('required' => array('value' => true, 'message' => 'Requerido')));
@@ -133,15 +133,12 @@ $validator->printScript();
             }
         });*/
     
-        $('#Orden\\[numero_orden\\]').change(function(){
+        $('#Orden\\[numero_orden\\]').live('change', function(){
             var orden = $(this).val();
             if(orden != '')
-            //if(orden != '' && $('#Despacho\\[id_cosecha\\]').val() != '')
                 $('#orden').load('../ajax/detalle_despacho.php?ac=orden&numero='+orden);
-            else{
+            else
                 $('#Orden\\[numero_orden\\]').val('');
-                alert('Seleccione primero una Cosecha');
-            }
         });
         
         $('#Cliente\\[ced_rif\\]').live('change', function(){
@@ -200,34 +197,13 @@ $validator->printScript();
     <fieldset>
         <legend>Datos de la Orden</legend>
         <table align="center" border="0">
-            <tr>
-                <td><span class="msj_rojo">* </span>N&uacute;mero de Orden</td>
-                <td>
-                    <? echo $html->input('Orden.numero_orden', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos integer')); ?>
-                </td>
-            </tr>
             <tbody id="orden">
                 <tr>
-                    <td><span class="msj_rojo">* </span>C&eacute;dula/Rif Cliente</td>
+                    <td><span class="msj_rojo">* </span>N&uacute;mero de Orden</td>
                     <td>
-                        <?
-                            echo $html->select('nacion', array('options'=>$listaCR));
-                            echo "&nbsp;".$html->input('Cliente.ced_rif', '', array('type' => 'text', 'length' => '8', 'class' => 'crproductor integer'));
-                        ?>
+                        <? echo $html->input('Orden.numero_orden', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos integer')); ?>
                     </td>
                 </tr>
-                <tr>
-                    <td><span class="msj_rojo">* </span>Nombres y Apellidos</td>
-                    <td><? echo $html->input('Cliente.nombre', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-                </tr>
-                <tr>
-                    <td>Tel&eacute;fono</td>
-                    <td><? echo $html->input('Cliente.telefono', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-                </tr>
-                <!--tr>
-                    <td><span class="msj_rojo">* </span>Cultivo</td>
-                    <td><? echo $html->select('Orden.id_cultivo',array('options'=>$listadoC, 'default' => 'Seleccione', 'class' => 'estilo_campos'))?></td>
-                </tr-->
             </tbody>
         </table>
     </fieldset>

@@ -14,8 +14,8 @@
     $porPagina = MAX_RESULTS_PAG;
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
     
-    //$listadoDespachos = $despacho->listadoDespacho('', $idCA, '', '', '', "'5'", $fdesde, $fhasta);
-    $listadoDespachos = $despacho->listadoDespacho('', $idCA, '', '', '', '', $fdesde, $fhasta);
+    $listadoDespachos = $despacho->listadoDespacho('', $idCA, '', '', '', "'5'", $fdesde, $fhasta);
+    //$listadoDespachos = $despacho->listadoDespacho('', $idCA, '', '', '', '', $fdesde, $fhasta);
     
     $total_registros = $silos->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);
@@ -112,7 +112,11 @@
             <th>Despacho #</th>
             <th>Orden</th>
             <th>Fecha</th>
-            <th>Placa</th>
+            <th>Cultivo</th>
+            <th>Cedula/Rif Cliente</th>
+            <th>Cliente</th>
+            <th>Accion</th>
+            <!--th>Placa</th>
             <th>Peso Bruto</th>
             <th>Tara</th>
             <th>Peso Neto</th>
@@ -120,7 +124,7 @@
             <th>Dcto Hum</th>
             <th>% Imp</th>
             <th>Dcto Imp</th>
-            <th>P. Acondicionado</th>
+            <th>P. Acondicionado</th-->
         </tr>
         <?
             $i=0;
@@ -144,7 +148,14 @@
             <td align="center"><?=$dataDespacho['numero']?></td>
             <td align="center"><?=$dataDespacho['numero_guia']?></td>
             <td align="center"><?=$general->date_sql_screen($dataDespacho['fecha_des'], '', 'es', '-')?></td>
-            <td align="center"><?=$dataDespacho['placa']?></td>
+            <td align="center"><?= "(".$dataDespacho['cultivo_codigo'].")".$dataDespacho['cultivo_nombre']?></td>
+            <td align="center"><?=$dataDespacho['ced_cliente']?></td>
+            <td align="center"><?=$dataDespacho['cliente_nombre']?></td>
+            
+            <td align="center">
+                <? echo $html->link('<img src="../images/imprimir.png" width="16" height="16" title=Imprimir>', '../reportes/pdf_listado_despachos_individual.php?id='.$dataDespacho['id']); ?>
+            </td>
+            <!--td align="center"><?=$dataDespacho['placa']?></td>
             <td align="center"><?=$pesoBruto?></td>
             <td align="center"><?=$pesoTara?></td>
             <td align="center"><?=$pesoNeto?></td>
@@ -152,7 +163,7 @@
             <td align="center"><?=$dataDespacho['humedad_des']?></td>
             <td align="center"><?=$dataDespacho['impureza']?></td>
             <td align="center"><?=$dataDespacho['impureza_des']?></td>
-            <td align="center"><?=$pesoAcon?></td>
+            <td align="center"><?=$pesoAcon?></td-->
         </tr>
         <? $i++; } ?>
         <tr>

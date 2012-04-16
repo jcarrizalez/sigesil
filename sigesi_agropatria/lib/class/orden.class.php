@@ -36,6 +36,14 @@ class Orden extends Model {
         return $id;
     }
     
+    function cantDespachada($id = null){
+        $query = "SELECT SUM(kilogramos) AS total 
+                    FROM si_ordenes_det 
+                    WHERE '1' AND id_orden = '$id'
+                    GROUP BY id_orden";
+        return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
+    }
+    
     function siguienteNumOrden(){
         $query = "SELECT MAX(numero_orden) AS cod_orden
                     FROM si_ordenes o
