@@ -1,10 +1,10 @@
 <?php
 
-    if (!is_object($objuser)) {
+    if (!is_object($objuser)){
         $objuser = new Usuario();
     }
     
-    if ($objuser->noLogeado()) {
+    if ($objuser->noLogeado()){
         header("location: " . DOMAIN_ROOT . "pages/index.php?msg=auth_requerida");
         exit;
     }

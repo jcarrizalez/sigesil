@@ -183,8 +183,10 @@ class Usuario extends Model {
     }
 
     function noLogeado() {
-        //print_r($_SESSION);
-        if (count($_SESSION) == 0 || $_SESSION['s_conectado'] != 1 || $this->usuarioNoConectado($_SESSION['s_id'])) {
+        if(empty($_SESSION['s_id'])) {
+            //die("<br><br>0");
+            return true;
+        } elseif (count($_SESSION) == 0 || $_SESSION['s_conectado'] != 1 || $this->usuarioNoConectado($_SESSION['s_id'])) {
             //die("<br><br>1");
             return true;
         } elseif ($this->obtenerUsuarioSesion($_SESSION['s_id'], $_SESSION['s_sesion'] )) {
@@ -293,6 +295,16 @@ class Usuario extends Model {
         return true;
     }
 
+    function paginasRequeridas($uri) {
+        $url = explode('/', $uri);
+        $query = "SELECT COUNT(*) AS pagina_requerida 
+                    FROM si_recursos AS r 
+                    WHERE r.autentificacion = 1 AND CASE WHEN r.localizacion ISNULL THEN r.nombre_archivo = '$url[3]' WHEN r.localizacion NOTNULL THEN '/sigesil/'||r.localizacion||'/'||r.nombre_archivo = '$uri' END";
+                    //ESTA LINEA ES LA QUE DEBERIA IR EN EL SERVIDOR
+                    //WHERE r.autentificacion = 1 AND CASE WHEN r.localizacion ISNULL THEN r.nombre_archivo = '$url[2]' WHEN r.localizacion NOTNULL THEN '/'||r.localizacion||'/'||r.nombre_archivo = '$uri' END";
+        $resultado = $this->_SQL_tool('SELECT',__METHOD__,$query);
+        return $resultado;
+    }
 }
 
 ?>

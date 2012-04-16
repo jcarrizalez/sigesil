@@ -90,6 +90,7 @@
                             /*if($_SESSION['s_perfil_id'] == GERENTES){
                                 echo $html->input('Nuevo', 'Nuevo', array('type' => 'button'));
                             }*/
+                            echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
                             echo $html->input('Excel', 'Excel', array('type' => 'submit'));
                             echo $html->input('PDF', 'PDF', array('type' => 'button'));
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));

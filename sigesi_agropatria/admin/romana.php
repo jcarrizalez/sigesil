@@ -35,28 +35,53 @@
                     //CALCULAR LOS PESOS PARA GUARDARLOS
                     $orden = " ORDER BY id_centro_acopio DESC, id_cultivo, id_analisis";
                     $formulas = $formula->formulaCultivo($_SESSION['s_ca_id'], trim(substr($GPC['cultivo'], 0, 2)), $orden);
-
-                    $infoResultados = $resultados->listadoResultados($GPC['id'], '', '', "'1', '2'");
+                    
+                    if($GPC['mov'] == 'rec'){
+                        $infoMovimiento = $recepcion->find(array('id' => $id));
+                        $infoResultados = $resultados->listadoResultados($id, '', '', "'1', '2'");
+                    }else{
+                        $infoMovimiento = $despacho->find(array('id' => $id));
+                        $infoResultados = $resultados->listadoResultados('', $id, '', "'1', '2'");
+                    }
                     
                     if(!empty($infoResultados)){
                         foreach($infoResultados as $valor){
                             if($valor['codigo'] == 1){
-                                $sumHum = (!empty($valor['muestra1'])) ? $valor['muestra1'] : 0;
-                                $sumHum += (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                                if($infoMovimiento[0]['muestra'] == 0){
+                                    $sumHum = (!empty($valor['muestra1'])) ? $valor['muestra1'] : 0;
+                                    $sumHum += (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                                }elseif($infoMovimiento[0]['muestra'] == 1){
+                                    $sumHum = (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                                }elseif($infoMovimiento[0]['muestra'] == 2){
+                                    $sumHum = (!empty($valor['muestra1'])) ? $valor['muestra1'] : 0;
+                                }
                             }else{
-                                $sumImp = (!empty($valor['muestra1'])) ? $valor['muestra1'] : 0;
-                                $sumImp += (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                                if($infoMovimiento[0]['muestra'] == 0){
+                                    $sumImp = (!empty($valor['muestra1'])) ? $valor['muestra1'] : 0;
+                                    $sumImp += (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                                }elseif($infoMovimiento[0]['muestra'] == 1){
+                                    $sumImp = (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                                }elseif($infoMovimiento[0]['muestra'] == 2){
+                                    $sumImp = (!empty($valor['muestra1'])) ? $valor['muestra1'] : 0;
+                                }
                             }
                         }
                     }else{
                         $sumHum = 0;
                         $sumImp = 0;
                     }
-                    //PROMEDIO PARA LA HUMEDAD
-                    $GPC['Recepcion']['humedad'] = $sumHum/$GPC['cant_m'];
+                    
+                     //PROMEDIO PARA LA HUMEDAD
+                    if($infoMovimiento[0]['muestra'] == 0)
+                        $GPC['Recepcion']['humedad'] = $sumHum/$GPC['cant_m'];
+                    else
+                        $GPC['Recepcion']['humedad'] = $sumHum;
 
                     //PROMEDIO PARA LA IMPUREZA
-                    $GPC['Recepcion']['impureza'] = $sumImp/$GPC['cant_m'];
+                    if($infoMovimiento[0]['muestra'] == 0)
+                        $GPC['Recepcion']['impureza'] = $sumImp/$GPC['cant_m'];
+                    else
+                        $GPC['Recepcion']['impureza'] = $sumImp;
 
                     foreach($formulas as $valor){
                         if($valor['codigo'] == 'PL12')
@@ -71,7 +96,6 @@
                             if(empty($valor['condicion']))
                                 $humImp[] = $valor['formula'];
                             else{
-                                //$humImp[] = $valor['formula'];
                                 $rango = split('<',$valor['condicion']);
                                 if($valor['id_analisis'] == 1){
                                     if(($GPC['Recepcion']['humedad'] >= $rango[0]) && ($GPC['Recepcion']['humedad'] < $rango[1]))
@@ -359,7 +383,7 @@
         ?>
         <tr>
             <td>Peso Lleno <?=$pesar?></td>
-            <td><? echo $html->input("pesoLleno$i", 'RECHAZADO', array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+            <td><? echo $html->input("pesoLleno$i", 'RECHAZADO', array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
             <td>Peso Vac&iacute;o <?=$pesar?></td>
@@ -370,7 +394,7 @@
         ?>
         <tr>
             <td>Peso Lleno <?=$pesar?></td>
-            <td><? echo $html->input("Recepcion.pesoLleno1", $infoMovimiento[0]['peso_01l'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+            <td><? echo $html->input("Recepcion.pesoLleno1", $infoMovimiento[0]['peso_01l'], array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
             <td>Peso Vac&iacute;o <?=$pesar?></td>
@@ -383,7 +407,7 @@
         ?>
         <tr>
             <td>Peso Lleno <?=$pesar?></td>
-            <td><? echo $html->input("Recepcion.pesoLleno1", $infoMovimiento[0]['peso_01l'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+            <td><? echo $html->input("Recepcion.pesoLleno1", $infoMovimiento[0]['peso_01l'], array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
             <td>Peso Vac&iacute;o <?=$pesar?></td>
@@ -394,7 +418,7 @@
         ?>
         <tr>
             <td>Peso Lleno <?=$pesar?></td>
-            <td><? echo $html->input("pesoLleno$i", 'RECHAZADO', array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+            <td><? echo $html->input("pesoLleno$i", 'RECHAZADO', array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
             <td>Peso Vac&iacute;o <?=$pesar?></td>
@@ -403,6 +427,50 @@
         <?
                             }
                         }
+                    }
+                }
+            //PESOS PARA DESPACHO
+            }elseif($GPC['mov'] == 'des'){
+                //PESO VACIO PARA DESPACHO
+                if($infoMovimiento[0]['estatus_rec'] == '1'){
+        ?>
+        <tr>
+            <td>Romana de Entrada</td>
+            <td><? echo $html->select('Recepcion.romana_ent', array('options' => $listaRomanas, 'default' => 'Seleccione', 'class' => 'estilo_campos2')); ?></td>
+        </tr>
+        <?
+                    for($i=1; $i<=$infoMovimiento[0]['cant_muestras']; $i++){
+                        $pesar = ($i == 1) ? 'Motriz' : 'Remolque';
+        ?>
+        <tr>
+            <td>Peso Vacio <?=$pesar?></td>
+            <td><? echo $html->input('Recepcion.peso_0'.$i.'v', '', array('type' => 'text', 'class' => 'estilo_campos2 integer')); ?></td>
+        </tr>
+        <?          }
+                //PESO LLENO PARA DESPACHO    
+                }elseif($infoMovimiento[0]['estatus_rec'] == '3'){
+        ?>
+        <tr>
+            <td>Romana de Entrada</td>
+            <td><? echo $html->input('romana_ent', $infoMovimiento[0]['romana_ent'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+        </tr>
+        <tr>
+            <td>Romana de Salida</td>
+            <td><? echo $html->select('Recepcion.romana_sal', array('options' => $listaRomanas, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
+        </tr>
+        <?
+                    for($i=1; $i<=$infoMovimiento[0]['cant_muestras']; $i++){
+                        $pesar = ($i == 1) ? 'Motriz' : 'Remolque';
+        ?>
+        <tr>
+            <td>Peso Vac&iacute;o <?=$pesar?></td>
+            <td><? echo $html->input('Recepcion.peso_0'.$i.'v', $infoMovimiento[0]['peso_0'.$i.'v'], array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
+        </tr>
+        <tr>
+            <td>Peso Lleno <?=$pesar?></td>
+            <td><? echo $html->input("Recepcion.pesoLleno$i", '', array('type' => 'text', 'class' => 'estilo_campos integer verifPeso')); ?></td>
+        </tr>
+        <?
                     }
                 }
             }

@@ -101,14 +101,16 @@
             $i=0;
             foreach($listadoRomana as $dataRomana){
                 $tipo = ($dataRomana['estatus_rec'] == '3') ? 'LLENO' : 'VAC&Iacute;O';
-            $clase = $general->obtenerClaseFila($i);
+                $clase = $general->obtenerClaseFila($i);
+                $numero = "D".$dataRomana['numero']."-".$general->date_sql_screen($dataRomana['fecha_des'], '', 'es', '');
         ?>
         <tr class="<?=$clase?>">
             <? if($_SESSION['s_perfil_id'] != ROMANERO){ ?>
             <td align="center"><?=$dataRomana['ca_codigo']." - ".$dataRomana['centro_acopio']?></td>
             <? } ?>
             <td align="center"><?=$dataRomana['cosecha_codigo']?></td>
-            <td align="center"><?=$dataRomana['numero']?></td>
+            <td align="center"><?=$numero?></td>
+            <!--td align="center"><?=$dataRomana['numero']?></td-->
             <td align="center"><?=$dataRomana['numero_guia']?></td>
             <td align="center"><?=$general->date_sql_screen($dataRomana['fecha_des'], '', 'es', '-')?></td>
             <td align="center"><?=$tipo?></td>
@@ -217,14 +219,16 @@
             $i=0;
             foreach($listadoRomana as $dataRomana){
                 $tipo = ($dataRomana['estatus_rec'] == '3') ? 'LLENO' : 'VAC&Iacute;O';
-            $clase = $general->obtenerClaseFila($i);
+                $clase = $general->obtenerClaseFila($i);
+                $numero = "R".$dataRomana['numero']."-".$general->date_sql_screen($dataRomana['fecha_recepcion'], '', 'es', '');
         ?>
         <tr class="<?=$clase?>">
             <? if($_SESSION['s_perfil_id'] != ROMANERO){ ?>
             <td align="center"><?=$dataRomana['ca_codigo']." - ".$dataRomana['centro_acopio']?></td>
             <? } ?>
             <td align="center"><?=$dataRomana['cosecha_codigo']?></td>
-            <td align="center"><?=$dataRomana['numero']?></td>
+            <td align="center"><?=$numero?></td>
+            <!--td align="center"><?=$dataRomana['numero']?></td-->
             <td align="center"><?=$dataRomana['numero_guia']?></td>
             <td align="center"><?=$general->date_sql_screen($dataRomana['fecha_recepcion'], '', 'es', '-')?></td>
             <td align="center"><?=$tipo?></td>

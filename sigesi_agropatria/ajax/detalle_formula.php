@@ -130,27 +130,54 @@
                 $orden = " ORDER BY id_centro_acopio DESC, id_cultivo, id_analisis, id";
                 $formulas = $formula->formulaCultivo($_SESSION['s_ca_id'], trim(substr($GPC['cultivo'], 0, 2)), $orden);
                 
-                $infoResultados = $resultados->listadoResultados($id, '', '', "'1', '2'");
+                if($GPC['mov'] == 'rec'){
+                    $recepcion = new Recepcion();
+                    $infoMovimiento = $recepcion->find(array('id' => $id));
+                    $infoResultados = $resultados->listadoResultados($id, '', '', "'1', '2'");
+                }else{
+                    $despacho = new Despacho();
+                    $infoMovimiento = $despacho->find(array('id' => $id));
+                    $infoResultados = $resultados->listadoResultados('', $id, '', "'1', '2'");
+                }
                 
                 if(!empty($infoResultados)){
                     foreach($infoResultados as $valor){
                         if($valor['codigo'] == 1){
-                            $sumHum = (!empty($valor['muestra1'])) ? $valor['muestra1'] : 0;
-                            $sumHum += (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                            if($infoMovimiento[0]['muestra'] == 0){
+                                $sumHum = (!empty($valor['muestra1'])) ? $valor['muestra1'] : 0;
+                                $sumHum += (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                            }elseif($infoMovimiento[0]['muestra'] == 1){
+                                $sumHum = (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                            }elseif($infoMovimiento[0]['muestra'] == 2){
+                                $sumHum = (!empty($valor['muestra1'])) ? $valor['muestra1'] : 0;
+                            }
                         }else{
-                            $sumImp = (!empty($valor['muestra1'])) ? $valor['muestra1'] : 0;
-                            $sumImp += (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                            if($infoMovimiento[0]['muestra'] == 0){
+                                $sumImp = (!empty($valor['muestra1'])) ? $valor['muestra1'] : 0;
+                                $sumImp += (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                            }elseif($infoMovimiento[0]['muestra'] == 1){
+                                $sumImp = (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                            }elseif($infoMovimiento[0]['muestra'] == 2){
+                                $sumImp = (!empty($valor['muestra1'])) ? $valor['muestra1'] : 0;
+                            }
                         }
                     }
                 }else{
                     $sumHum = 0;
                     $sumImp = 0;
                 }
+                
                 //PROMEDIO PARA LA HUMEDAD
-                $promHum = $sumHum/$GPC['cant_m'];
+                if($infoMovimiento[0]['muestra'] == 0)
+                    $promHum = $sumHum/$GPC['cant_m'];
+                else
+                    $promHum = $sumHum;
                 
                 //PROMEDIO PARA LA IMPUREZA
-                $promImp = $sumImp/$GPC['cant_m'];
+                if($infoMovimiento[0]['muestra'] == 0)
+                    $promImp = $sumImp/$GPC['cant_m'];
+                else
+                    $promImp = $sumImp;
 
                 foreach($formulas as $valor){
                     if($valor['codigo'] == 'PL12')
@@ -165,7 +192,6 @@
                         if(empty($valor['condicion']))
                             $humImp[] = $valor['formula'];
                         else{
-                            //$humImp[] = $valor['formula'];
                             $rango = split('<',$valor['condicion']);
                             if($valor['id_analisis'] == 1){
                                 if(($promHum >= $rango[0]) && ($promHum < $rango[1]))

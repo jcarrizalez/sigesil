@@ -15,7 +15,7 @@
             $orden = new Orden();
             
             $listaCR = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
-            $infoOrden = $orden->ordenCliente($GPC['numero']);
+            $infoOrden = $orden->ordenCliente('', $GPC['numero']);
             if(!empty($infoOrden) && $infoOrden[0]['estatus'] == 'P'){
             ?>
                 <tr>

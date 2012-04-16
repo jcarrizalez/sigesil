@@ -123,18 +123,20 @@ $validator->printScript();
     $(document).ready(function(){
         $('.integer').numeric();
         
-        $('#Despacho\\[id_cosecha\\]').change(function(){
+        $('#nrocosecha').load('../ajax/cosecha_programa.php?ac=cantidad2');
+        /*$('#Despacho\\[id_cosecha\\]').change(function(){
             if($(this).val() != '')
                 $('#nrocosecha').load('../ajax/cosecha_programa.php?ac=cantidad2');
             else{
                 $('#nrocosecha').html('');
                 $('#nrocosecha').append('Salida Nro: ');
             }
-        });
+        });*/
     
         $('#Orden\\[numero_orden\\]').change(function(){
             var orden = $(this).val();
-            if(orden != '' && $('#Despacho\\[id_cosecha\\]').val() != '')
+            if(orden != '')
+            //if(orden != '' && $('#Despacho\\[id_cosecha\\]').val() != '')
                 $('#orden').load('../ajax/detalle_despacho.php?ac=orden&numero='+orden);
             else{
                 $('#Orden\\[numero_orden\\]').val('');
@@ -190,10 +192,10 @@ $validator->printScript();
         <tr>
             <td colspan="2" id="nrocosecha">Salida Nro </td>
         </tr>
-        <tr>
+        <!--tr>
             <td><span class="msj_rojo">* </span>Cosecha </td>
             <td><? echo $html->select('Despacho.id_cosecha',array('options'=>$listadoC, 'default' => 'Seleccione'))?></td>
-        </tr>
+        </tr-->
     </table>
     <fieldset>
         <legend>Datos de la Orden</legend>
