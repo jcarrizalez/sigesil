@@ -16,7 +16,7 @@ $estatus = array('t' => 'Activa', 'f' => 'Inactiva');
 
 switch ($GPC['ac']) {
     case 'guardar':
-        if (!empty($GPC['Org']['nombre']) && !empty($GPC['Org']['Codigo']) && !empty($GPC['Org']['rif'])) {
+        if (!empty($GPC['Org']['nombre']) && !empty($GPC['Org']['codigo']) && !empty($GPC['Org']['rif'])) {
             $GPC['Org']['id_estado'] = $GPC['id_estado'];
             $GPC['Org']['id_municipio'] = $GPC['id_municipio'];
             $organizacion->save($GPC['Org']);
