@@ -17,9 +17,11 @@
             $listaCR = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
             
             $infoOrden = $orden->ordenCliente('', $GPC['numero']);
-            $infoSubOrden = $orden->cantDespachada($infoOrden[0]['id']);
-            $disponible = $infoOrden[0]['toneladas'] - $infoSubOrden[0]['total'];
-            $infoSubOrden[0]['total'] = (!empty($infoSubOrden[0]['total'])) ? $infoSubOrden[0]['total'] : 0;
+            if(!empty($infoOrden)){
+                $infoSubOrden = $orden->cantDespachada($infoOrden[0]['id']);
+                $disponible = $infoOrden[0]['toneladas'] - $infoSubOrden[0]['total'];
+                $infoSubOrden[0]['total'] = (!empty($infoSubOrden[0]['total'])) ? $infoSubOrden[0]['total'] : 0;
+            }
             
             if(empty($infoOrden)){
             ?>
