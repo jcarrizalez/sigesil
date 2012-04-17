@@ -18,8 +18,9 @@
     }
     
     $imprimir = file_get_contents($url);
-    $mpdf=new mPDF('c', 'letter');
+    $mpdf=new mPDF('c');
     $mpdf->SetDisplayMode('fullpage');
+    $mpdf->SetTopMargin(0);
     $stylesheet = file_get_contents(DOMAIN_ROOT.'css/reportes.css');
     $mpdf->WriteHTML($stylesheet,1);
     //$mpdf->WriteHTML('<pagebreak sheet-size="216mm 139.5mm" />');

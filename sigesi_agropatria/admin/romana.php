@@ -82,7 +82,14 @@
                         $GPC['Recepcion']['impureza'] = $sumImp/$GPC['cant_m'];
                     else
                         $GPC['Recepcion']['impureza'] = $sumImp;
+                    
+                    //VARIABLES A USAR PARA LOS CALCULOS
+                    $reservadas = array('PL1', 'PL2', 'PV1', 'PV2', 'HUML', 'IMPL', 'PHUM', 'PIMP');
+                    $GPC['Recepcion']['pesoLleno2'] = (!empty($GPC['Recepcion']['pesoLleno2'])) ? $GPC['Recepcion']['pesoLleno2'] : 0;
+                    $GPC['Recepcion']['peso_02v'] = (!empty($GPC['Recepcion']['peso_02v'])) ? $GPC['Recepcion']['peso_02v'] : 0;
+                    $pesos = array($GPC['Recepcion']['pesoLleno1'], $GPC['Recepcion']['pesoLleno2'], $GPC['Recepcion']['peso_01v'], $GPC['Recepcion']['peso_02v'], $GPC['Recepcion']['humedad'], $GPC['Recepcion']['impureza']);
 
+                    //ALMACENAR FORMULAS EN ARREGLO
                     foreach($formulas as $valor){
                         if($valor['codigo'] == 'PL12')
                             $formulaAplicar['PL'] = $valor['formula'];
@@ -103,16 +110,22 @@
                                 }elseif($valor['id_analisis'] == 2){
                                     if(($GPC['Recepcion']['impureza'] >= $rango[0]) && ($GPC['Recepcion']['impureza'] < $rango[1]))
                                         $humImp[] = $valor['formula'];
+                                }else{
+                                    $rango = split('=',$valor['condicion']);
+                                    $rangoEvaluar = split('<', $rango[1]);
+                                    $calculoFormula = str_replace($reservadas, $pesos, $rango[0]);
+                                    if ($evaluar->evaluate('y(x) = ' . $calculoFormula)){
+                                        $condicionFormula = $evaluar->e("y(0)");
+                                    }
+                                    if(($condicionFormula >= $rangoEvaluar[0]) && ($condicionFormula <= $rangoEvaluar[1]))
+                                        $otraFormula[] = $valor['formula'];
                                 }
                             }
                         }
                     }
-
-                    //VARIABLES A USAR PARA LOS CALCULOS
-                    $reservadas = array('PL1', 'PL2', 'PV1', 'PV2', 'HUML', 'IMPL', 'PHUM', 'PIMP');
-                    $GPC['Recepcion']['pesoLleno2'] = (!empty($GPC['Recepcion']['pesoLleno2'])) ? $GPC['Recepcion']['pesoLleno2'] : 0;
-                    $GPC['Recepcion']['peso_02v'] = (!empty($GPC['Recepcion']['peso_02v'])) ? $GPC['Recepcion']['peso_02v'] : 0;
-                    $pesos = array($GPC['Recepcion']['pesoLleno1'], $GPC['Recepcion']['pesoLleno2'], $GPC['Recepcion']['peso_01v'], $GPC['Recepcion']['peso_02v'], $GPC['Recepcion']['humedad'], $GPC['Recepcion']['impureza']);
+                    
+                    if(empty($otraFormula))
+                        $otraFormula[] = $formulaAplicar['PN'];
 
                     //CALCULO DEL PESO BRUTO
                     $totalB = str_replace($reservadas, $pesos, $formulaAplicar['PL']);
@@ -129,27 +142,37 @@
                     if ($evaluar->evaluate('y(x) = ' . $totalN))
                         $pesoN = $evaluar->e("y(0)");
 
-                    //CALCULO DE LA HUMEDAD
-                    $totalH = str_replace($reservadas, $pesos, $humImp[0]);
-                    if ($evaluar->evaluate('y(x) = ' . $totalH))
-                        $pesoH = $evaluar->e("y(0)");
-                    $pesos[] = $pesoH;
-                    $GPC['Recepcion']['humedad_des'] = round($pesoH);
+                    //CALCULO DE LA HUMEDAD Y LA IMPUREZA
+                    if(!empty($humImp)){
+                        //CALCULO DE LA HUMEDAD
+                        $totalH = str_replace($reservadas, $pesos, $humImp[0]);
+                        if ($evaluar->evaluate('y(x) = ' . $totalH))
+                            $pesoH = $evaluar->e("y(0)");
+                        $pesos[] = $pesoH;
+                        $GPC['Recepcion']['humedad_des'] = round($pesoH);
 
-                    //CALCULO DE LA IMPUREZA
-                    $totalI = str_replace($reservadas, $pesos, $humImp[1]);
-                    if ($evaluar->evaluate('y(x) = ' . $totalI))
-                        $pesoI = $evaluar->e("y(0)");
-                    $pesos[] = $pesoI;
-                    $GPC['Recepcion']['impureza_des'] = round($pesoI);
+                        //CALCULO DE LA IMPUREZA
+                        $totalI = str_replace($reservadas, $pesos, $humImp[1]);
+                        if ($evaluar->evaluate('y(x) = ' . $totalI))
+                            $pesoI = $evaluar->e("y(0)");
+                        $pesos[] = $pesoI;
+                        $GPC['Recepcion']['impureza_des'] = round($pesoI);
+                    }
 
-
-                    //CALCULO DEL PESO ACONDICIONADO
-                    $totalA = str_replace($reservadas, $pesos, $formulaAplicar['PA']);
-                    if ($evaluar->evaluate('y(x) = ' . $totalA))
+                    if(!empty($otraFormula)){
+                        //PESO ACONDICIONADO, PARA EL CASO DE CULTIVOS QUE NO APLIQUEN EL CALCULO DE HUMEDAD E IMPUREZA
+                        $totalA = str_replace($reservadas, $pesos, $otraFormula[0]);
+                        if ($evaluar->evaluate('y(x) = ' . $totalA))
                         $pesoA = $evaluar->e("y(0)");
+                    }else{
+                        //PESO ACONDICIONADO, PARA EL CASO DE CULTIVOS QUE APLIQUEN EL CALCULO DE HUMEDAD E IMPUREZA
+                        $totalA = str_replace($reservadas, $pesos, $formulaAplicar['PA']);
+                        if ($evaluar->evaluate('y(x) = ' . $totalA))
+                            $pesoA = $evaluar->e("y(0)");
+                    }
+                    
                     $GPC['Recepcion']['peso_acon'] = round($pesoA);
-                    //
+                    
                     if($GPC['mov'] == 'rec'){
                         unset($GPC['Recepcion']['pesoLleno1']);
                         unset($GPC['Recepcion']['pesoLleno2']);

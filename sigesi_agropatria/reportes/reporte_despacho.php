@@ -8,14 +8,13 @@
     else
         $idCA = $_SESSION['s_ca_id'];
 
-    $fdesde = (!empty($fdesde)) ? $general->fecha_normal_sql($GPC['fecha_inicio'], 'es') : '';
-    $fhasta = (!empty($fhasta)) ? $general->fecha_normal_sql($GPC['fecha_fin'], 'es') : '';
+    $fdesde = (!empty($GPC['fecha_inicio'])) ? $general->fecha_normal_sql($GPC['fecha_inicio'], 'es') : date('Y-m-d');
+    $fhasta = (!empty($GPC['fecha_fin'])) ? $general->fecha_normal_sql($GPC['fecha_fin'], 'es') : date('Y-m-d');
     
     $porPagina = MAX_RESULTS_PAG;
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
     
     $listadoDespachos = $despacho->listadoDespacho('', $idCA, '', '', '', "'5'", $fdesde, $fhasta);
-    //$listadoDespachos = $despacho->listadoDespacho('', $idCA, '', '', '', '', $fdesde, $fhasta);
     
     $total_registros = $silos->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);
@@ -52,12 +51,12 @@
         ?>
     </div>
     <div id="filtro">
-        <form name="form1" id="form1" method="POST" action="?ac=excel" enctype="multipart/form-data">
+        <form name="form1" id="form1" method="POST" action="?ac=buscar" enctype="multipart/form-data">
             <table width="100%" border="0">
                 <tr>
                     <td width="1">Desde </td>
                     <td width="200">
-                        <? echo $html->input('fecha_inicio', $GPC['fecha_inicio'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?>
+                        <? echo $html->input('fecha_inicio', $general->date_sql_screen($fdesde, '', 'es', '-'), array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?>
                         <img src="../images/calendario.png" id="fdesde" width="16" height="16" style="cursor:pointer" />
                         <script>
                             Calendar.setup({
@@ -71,7 +70,7 @@
                     </td>
                     <td width="1">Hasta </td>
                     <td>
-                        <? echo $html->input('fecha_fin', $GPC['fecha_fin'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?>
+                        <? echo $html->input('fecha_fin', $general->date_sql_screen($fhasta, '', 'es', '-'), array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?>
                         <img src="../images/calendario.png" id="fhasta" width="16" height="16" style="cursor:pointer" />
                         <script>
                             Calendar.setup({
@@ -153,7 +152,7 @@
             <td align="center"><?=$dataDespacho['cliente_nombre']?></td>
             
             <td align="center">
-                <? echo $html->link('<img src="../images/imprimir.png" width="16" height="16" title=Imprimir>', '../reportes/pdf_listado_despachos_individual.php?id='.$dataDespacho['id']); ?>
+                <? echo $html->link('<img src="../images/imprimir.png" width="16" height="16" title=Imprimir>', '../reportes/pdf_listado_despachos_individual.php?id='.$dataDespacho['id'].'_'.$fdesde.'_'.$fhasta); ?>
             </td>
             <!--td align="center"><?=$dataDespacho['placa']?></td>
             <td align="center"><?=$pesoBruto?></td>

@@ -3,6 +3,7 @@
     $recepcion = new Recepcion();
     $cultivo = new Cultivo();
     $idCA = $_SESSION['s_ca_id'];
+    $listaCR = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
 
     $listadoCultivos = $cultivo->cultivoPrograma($idCA);
 
@@ -14,13 +15,11 @@
         case 'orden':
             $orden = new Orden();
             
-            $listaCR = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
-            
             $infoOrden = $orden->ordenCliente('', $GPC['numero']);
             if(!empty($infoOrden)){
                 $infoSubOrden = $orden->cantDespachada($infoOrden[0]['id']);
-                $disponible = $infoOrden[0]['toneladas'] - $infoSubOrden[0]['total'];
-                $infoSubOrden[0]['total'] = (!empty($infoSubOrden[0]['total'])) ? $infoSubOrden[0]['total'] : 0;
+                $infoSubOrden[0]['total'] = (!empty($infoSubOrden[0]['total'])) ? $infoSubOrden[0]['total']/1000 : 0;
+                $disponible = ($infoOrden[0]['toneladas'] - $infoSubOrden[0]['total']);
             }
             
             if(empty($infoOrden)){
@@ -49,7 +48,7 @@
                     <? echo $html->input('Cliente.nombre', '', array('type' => 'text', 'class' => 'estilo_campos')); ?>
                 </tr>
             <?
-            }elseif(!empty($infoOrden) || $infoOrden[0]['estatus'] == 'N'){
+            }elseif(!empty($infoOrden) && $infoOrden[0]['estatus'] == 'N' && $disponible > 0){
             ?>
                 <tr>
                     <td><span class="msj_rojo">* </span>N&uacute;mero de Orden</td>
@@ -79,17 +78,30 @@
                     <td><? echo $html->input('toneladas', $infoOrden[0]['toneladas'], array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
                 </tr>
                 <tr>
-                    <td>Despachado</td>
+                    <td>Toneladas Despachadas</td>
                     <td><? echo $html->input('despachado', $infoSubOrden[0]['total'], array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
                 </tr>
                 <tr>
-                    <td>Disponible</td>
+                    <td>Toneladas Disponibles</td>
                     <td><? echo $html->input('disponible', $disponible, array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
+                </tr>
+            <?
+            }elseif(!empty($infoOrden) && $infoOrden[0]['estatus'] == 'N' && $disponible <= 0){
+            ?>
+                <tr>
+                    <td><span class="msj_rojo">* </span>N&uacute;mero de Orden</td>
+                    <td>
+                        <? echo $html->input('Orden.numero_orden', $GPC['numero'], array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos integer')); ?>
+                        <? echo $html->input('Cliente.nombre', '', array('type' => 'hidden')); ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2" align="center">Esta Orden ya fue despachada Completamente !</th>
                 </tr>
             <?
             }
         break;
-        case 'cliente':
+        /*case 'cliente':
             $cliente = new Cliente();
             
             $listaCR = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
@@ -130,7 +142,7 @@
                     </tr>
                     <?
                 }
-        break;
+        break;*/
         case 'transporte':
             ?>
                 <tr>
@@ -143,20 +155,40 @@
             $chofer = new Chofer();
             
             $infoChofer = $chofer->find(array('ced_rif' => $GPC['cp']));
-            $choferNuevo = (empty($infoChofer)) ? true : false;
+            if(!empty($infoChofer)){
             ?>
                 <tr>
+                    <td><span class="msj_rojo">* </span>C&eacute;dula/Rif Chofer</td>
+                    <td>
+                        <?
+                            echo $html->select('nacion2', array('options'=>$listaCR, 'selected' => substr($GPC['cp'], 0, 1)));
+                            echo "&nbsp;".$html->input('Chofer.ced_rif', substr($GPC['cp'], 1), array('type' => 'text', 'length' => '8', 'class' => 'integer', 'style' => 'width: 150px'));
+                        ?>
+                    </td>
+                </tr>
+                <tr>
                     <td><span class="msj_rojo">* </span>Nombre del Chofer</td>
-                    <td><? echo $html->input('Chofer.nombre', $infoChofer[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><? echo $html->input('Chofer.nombre', $infoChofer[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
                 </tr>
             <?
-                if($choferNuevo){
-                    ?>
-                    <tr>
-                        <th colspan="2" align="center">Chofer Nuevo, se proceder&aacute; a almacenar</th>
-                    </tr>
-                    <?
-                }
+            }else{
+            ?>
+                <tr>
+                    <td><span class="msj_rojo">* </span>C&eacute;dula/Rif Chofer</td>
+                    <td>
+                        <?
+                            echo $html->select('nacion2', array('options'=>$listaCR, 'selected' => substr($GPC['cp'], 0, 1)));
+                            echo "&nbsp;".$html->input('Chofer.ced_rif', substr($GPC['cp'], 1), array('type' => 'text', 'length' => '8', 'class' => 'integer', 'style' => 'width: 150px'));
+                            echo $html->link('<img src="../images/agregar.png" width="16" height="16" title=Agregar>', "javascript:abrirPopup()");
+                            echo $html->input('Chofer.nombre', '', array('type' => 'hidden'));
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2" align="center">Chofer No Registrado</th>
+                </tr>
+            <?
+            }
         break;
         case 'pto':
             $cliente = new Cliente();
@@ -178,7 +210,6 @@
         break;
         case 'clienteOrden':
             $cliente = new Cliente();
-            $listaCR = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
             $infoCliente = $cliente->find(array('ced_rif' => $GPC['cp']));
             if(empty($infoCliente)){
                 $infoCliente[0]['ced_rif'] = $GPC['cp'];

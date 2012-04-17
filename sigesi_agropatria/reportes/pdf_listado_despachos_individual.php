@@ -3,11 +3,15 @@ require_once('../lib/core.lib.php');
 include('../lib/class/tcpdf/config/lang/spa.php');
 include('../lib/class/tcpdf/tcpdf.php');
 $despacho = new Despacho();
-$listadoDespachos = $despacho->listadoDespacho($GPC['id'], '', '', '', '', "'5'");
+
+$arrays=explode('_',$GPC['id']);
+
+
+$listadoDespachos = $despacho->listadoDespacho($arrays[0], '', '', '', '', "'5'");
 //Debug::pr($listadoDespachos);
 
-$reporte_='AQUI_VA_EL_NOMBRE_REPORTE';
-$sistema='PRUEBAS';
+$reporte_=$listadoDespachos[0]['cliente_nombre'].'_'.$listadoDespachos[0]['ced_cliente'];
+$sistema='AGROPATRIA C.A.';
 
 
 
@@ -22,14 +26,14 @@ class HOJASOL extends tcpdf{
 		$this->SetMargins(10,30, 10);	
 		$this->SetDisplayMode(85) ;
 		$this->writeHTMLCell(0, 0, '', '10', '<font><b>LISTADO DE DESPACHOS ENTRE EL 03/12/2004 Y EL 05/12/2004</b></font>', 0, 1, 0, true, 'C');
-		$this->writeHTMLCell(0, 0, '28', '5', '<font><b>Fecha: '.date('d/m/Y').'</b></font>&nbsp;&nbsp;&nbsp;&nbsp;', 0, 1, 0, true, 'R');
+		$this->writeHTMLCell(0, 0, '', '7', '<font><b>Fecha: '.date('d/m/Y').'</b></font>&nbsp;&nbsp;&nbsp;&nbsp;', 0, 1, 0, true, 'R');
+		$this->writeHTMLCell(0, 0, '', '2', 'Pagina'.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, 1, 0, true, 'C');
     }
-
     function Footer()
     {
 	$this->setFooterMargin(0);
 	$this->SetY(-10);
-	$this->Cell(0, 10, 'Pagina '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(),0, 1, 'C');
+	//$this->Cell(0, 10, 'Pagina '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(),0, 1, 'C');
     }
 }
 
@@ -41,7 +45,7 @@ $pdf = new HOJASOL('L', PDF_UNIT, 'LETTER', true, 'UTF-8', false);
 $pdf->SetAutoPageBreak(true,9.5);
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('SISTEMA AGROPATRIA');
-$pdf->SetTitle("$sistema - NOMBRE DEL REPORTE");  
+$pdf->SetTitle("$sistema - $reporte_");  
 $pdf->SetSubject("$sistema");
 $pdf->SetKeywords("$sistema");
 $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
@@ -79,7 +83,7 @@ $t='
 <br />
 
 <table border="1" cellpadding="0" cellspacing="0" width="100px" bordercolor="#000000">
-<tr bgcolor="#CCCCCC" align="center">
+<tr bgcolor="#FFFFFF" align="center">
 <td width="80px">Despacho #</td>
 <td width="80px">Orden</td>
 <td width="75px">Fecha</td>
@@ -104,7 +108,8 @@ for($i=0; $i<count($listadoDespachos); $i++)
 	if($i%2==0) $class="#FFFFFF";
   	//else $class="#FFFFE2";	
 	//else $class="#F0F0F0";
-	else $class="#F9F9F9";
+	//else $class="#F9F9F9";
+	else $class="#FFFFFF";
 $pesobruto=($listadoDespachos[$i]['peso_01l']+$listadoDespachos[$i]['peso_02l']);	$suma_peso_bruto+=$pesobruto;	$pesobruto_=$pdf->decimales($pesobruto);
 $tara=$pesobruto=($listadoDespachos[$i]['peso_01v']+$listadoDespachos[$i]['peso_02v']);
 $pesoneto=($pesobruto-$tara);
@@ -154,7 +159,7 @@ $t.='
 </table>
 ';
 
-$pdf->writeHTMLCell(184, 0, 10, 30, $t, 0, 1, 0, true, 'J',true);
+$pdf->writeHTMLCell(200, 0, 15, 30, $t, 0, 1, 0, true, 'J',true);
 $pdf->Ln(4);
 $pdf->Output($reporte_.'_'.date('d-m-Y').'.pdf', 'I');
 ?>

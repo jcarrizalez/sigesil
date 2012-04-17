@@ -112,6 +112,7 @@ $validator->setRules('Orden.id_cultivo', array('required' => array('value' => tr
 $validator->setRules('Cliente.ced_rif', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Cliente.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Chofer.ced_rif', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros'), 'minlength' => array('value' => 6, 'message' => 'Min&iacute;mo 6 D&iacute;gitos')));
+$validator->setRules('Chofer.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Vehiculo.placa', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->printScript();
 ?>
@@ -120,11 +121,22 @@ $validator->printScript();
         window.location = 'despacho.php';
     }
     
+    function abrirPopup(){
+        cedula = $('#nacion2').val()+$('#Chofer\\[ced_rif\\]').val();
+        var ancho;
+        var alto;
+        ancho = (screen.width/2)-(550/2);
+        alto = (screen.height/2)-(450/2);
+        ventana = window.open("chofer_popup.php?cp="+cedula,"Registro Cliente","status=no,toolbar=0,menubar=no,resizable=0,scrollbars=1,width=550,left="+ancho+",height=450,top="+alto);
+    }
+    
     $(document).ready(function(){
         $('.integer').numeric();
         
         $('#nrocosecha').load('../ajax/cosecha_programa.php?ac=cantidad2');
-        /*$('#Despacho\\[id_cosecha\\]').change(function(){
+        
+        /* Genera el numero de despacho siguiente
+        $('#Despacho\\[id_cosecha\\]').change(function(){
             if($(this).val() != '')
                 $('#nrocosecha').load('../ajax/cosecha_programa.php?ac=cantidad2');
             else{
@@ -141,7 +153,8 @@ $validator->printScript();
                 $('#Orden\\[numero_orden\\]').val('');
         });
         
-        $('#Cliente\\[ced_rif\\]').live('change', function(){
+       /* Busqueda de puntos de entrega por Cliente
+       $('#Cliente\\[ced_rif\\]').live('change', function(){
             var np = $('#nacion').val();
             var ced = $('#Cliente\\[ced_rif\\]');
             if(ced.val().length >= 6){
@@ -150,7 +163,7 @@ $validator->printScript();
                 //PARA CAPTURAR LOS PTOS DE ENTREGA
                 //$('#ptosEntrega').load('../ajax/detalle_despacho.php?ac=cliente&cp='+ced);
             }
-        });
+        });*/
     
         $('#Chofer\\[ced_rif\\]').live('change', function(){
             var np = $('#nacion2').val();
@@ -210,16 +223,16 @@ $validator->printScript();
     <fieldset>
         <legend>Datos del Despacho</legend>
         <table align="center">
-            <tr>
-                <td><span class="msj_rojo">* </span>C&eacute;dula/Rif Chofer</td>
-                <td>
-                    <?
-                        echo $html->select('nacion2', array('options'=>$listaCR));
-                        echo "&nbsp;".$html->input('Chofer.ced_rif', $infoProductor[0]['cedula_pro'], array('type' => 'text', 'length' => '8', 'class' => 'crproductor integer'));
-                    ?>
-                </td>
-            </tr>
             <tbody id="chofer">
+                <tr>
+                    <td><span class="msj_rojo">* </span>C&eacute;dula/Rif Chofer</td>
+                    <td>
+                        <?
+                            echo $html->select('nacion2', array('options'=>$listaCR));
+                            echo "&nbsp;".$html->input('Chofer.ced_rif', '', array('type' => 'text', 'length' => '8', 'class' => 'integer', 'style' => 'width: 150px'));
+                        ?>
+                    </td>
+                </tr>
                 <tr>
                     <td><span class="msj_rojo">* </span>Nombre del Chofer</td>
                     <td><? echo $html->input('Chofer.nombre', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>

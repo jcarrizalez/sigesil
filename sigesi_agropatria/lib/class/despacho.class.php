@@ -21,13 +21,12 @@ class Despacho extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
-    function listadoDespacho($id=null, $idCA=null, $idCo=null, $idSilo=null, $salidaNum=null, $estatus=null, $fdesde = null, $fhasta = null){
+    function listadoDespacho($id=null, $idCA=null, $idCu=null, $idSilo=null, $salidaNum=null, $estatus=null, $fdesde = null, $fhasta = null){
         $query = "SELECT d.*, 
                     d.fecha_des AS fecha_recepcion, d.estatus AS estatus_rec, 
                     (SELECT t1.nombre FROM si_tolcarom t1 WHERE t1.id = d.romana_ent) AS romana_ent, 
                     (SELECT t2.nombre FROM si_tolcarom t2 WHERE t2.id = d.romana_sal) AS romana_sal, 
                     ca.codigo AS ca_codigo, ca.nombre AS centro_acopio, 
-                    co.codigo AS cosecha_codigo, 
                     cu.codigo AS cultivo_codigo, cu.nombre AS cultivo_nombre, 
                     o.numero_orden AS numero_guia, 
                     ch.ced_rif AS ced_chofer, ch.nombre AS chofer_nombre, 
@@ -35,8 +34,7 @@ class Despacho extends Model {
                     cl.ced_rif AS ced_cliente, cl.nombre AS cliente_nombre 
                     FROM si_despacho d 
                     INNER JOIN si_centro_acopio ca ON ca.id = d.id_centro_acopio 
-                    INNER JOIN si_cosecha co ON co.id = d.id_cosecha 
-                    INNER JOIN si_cultivo cu ON cu.id = co.id_cultivo 
+                    INNER JOIN si_cultivo cu ON cu.id = d.id_cultivo 
                     INNER JOIN si_silos s ON s.id = d.id_silo 
                     INNER JOIN si_ordenes o ON o.id = d.id_orden 
                     INNER JOIN si_choferes ch ON ch.id = d.id_chofer 
@@ -45,13 +43,13 @@ class Despacho extends Model {
                     WHERE '1'";
         $query .= (!empty($id)) ? " AND d.id = '$id'" : '';
         $query .= (!empty($idCa)) ? " AND d.id_centro_acopio = '$idCa'" : '';
-        $query .= (!empty($idCo)) ? " AND d.id_cosecha = '$idCo'" : '';
+        $query .= (!empty($idCo)) ? " AND d.id_cultivo = '$idCu'" : '';
         $query .= (!empty($idSilo)) ? " AND d.id_silo = '$idSilo'" : '';
         $query .= (!empty($salidaNum)) ? " AND d.numero = '$entradaNum'" : '';
         $query .= (!empty($estatus)) ? " AND d.estatus IN ($estatus)" : '';
         if(!empty($fdesde) || !empty($fhasta)){
-            $fdesde = (!empty($fdesde)) ? "'".$fdesde."'" : 'now()::date';
-            $fhasta = (!empty($fhasta)) ? "'".$fhasta."'" : 'now()::date';
+            $fdesde = (!empty($fdesde)) ? "'".$fdesde." 00:00:00'" : 'now()::date';
+            $fhasta = (!empty($fhasta)) ? "'".$fhasta." 23:59:59'" : 'now()::date';
             $query .= " AND d.fecha_des BETWEEN $fdesde AND $fhasta";
         }
         $query .= " ORDER BY d.fecha_des, d.numero";

@@ -22,7 +22,7 @@
         $movimiento = new Despacho();
         $listadoEstatus = array('3' => 'Romana Lleno', '6' => 'Romana Vac&iacute;o');
         $estatus = (!empty($GPC['estatus'])) ? "'".$GPC['estatus']."'" : "'1', '3'";
-        $listadoRomana = $movimiento->listadoDespacho('', $idCA, $GPC['cosecha'], null, null, $estatus);
+        $listadoRomana = $movimiento->listadoDespacho('', $idCA, null, null, null, $estatus);
 
         $total_registros = $movimiento->total_verdadero;
         $paginador = new paginator($total_registros, $porPagina);
@@ -88,7 +88,7 @@
             <? if($_SESSION['s_perfil_id'] != ROMANERO){ ?>
             <th>Centro de Acopio</th>
             <? } ?>
-            <th>Cosecha</th>
+            <th>Cultivo</th>
             <th width="90">Nro Salida</th>
             <th>Orden</th>
             <th>Fecha Despacho</th>
@@ -108,7 +108,7 @@
             <? if($_SESSION['s_perfil_id'] != ROMANERO){ ?>
             <td align="center"><?=$dataRomana['ca_codigo']." - ".$dataRomana['centro_acopio']?></td>
             <? } ?>
-            <td align="center"><?=$dataRomana['cosecha_codigo']?></td>
+            <td align="center"><?="(".trim($dataRomana['cultivo_codigo']).") ".$dataRomana['cultivo_nombre']?></td>
             <td align="center"><?=$numero?></td>
             <!--td align="center"><?=$dataRomana['numero']?></td-->
             <td align="center"><?=$dataRomana['numero_guia']?></td>

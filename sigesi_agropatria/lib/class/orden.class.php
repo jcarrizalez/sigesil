@@ -18,6 +18,13 @@ class Orden extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
+    function buscarSubOrden($idOrden = null, $subOrden = null){
+        $query = "SELECT * FROM si_ordenes_det WHERE '1'";
+        $query .= (!empty($idOrden)) ? " AND id_orden = '$idOrden'" : "";
+        $query .= (!empty($subOrden)) ? " AND id = '$subOrden'" : "";
+        return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
+    }
+    
     function ordenCliente($id = null, $numero = null){
         $query = "SELECT o.*, c.ced_rif, c.nombre AS cliente_nombre, c.telefono AS cliente_telefono
                     FROM si_ordenes o
@@ -37,10 +44,16 @@ class Orden extends Model {
     }
     
     function cantDespachada($id = null){
-        $query = "SELECT SUM(kilogramos) AS total 
-                    FROM si_ordenes_det 
+        //SUMA LOS KGRS DE LA TABLA ORDENES
+        $query = "SELECT SUM(peso_acon) AS total 
+                    FROM si_despacho 
                     WHERE '1' AND id_orden = '$id'
                     GROUP BY id_orden";
+        //SUMA LOS KGRS DE LA TABLA ORDENES_DET
+        /*$query = "SELECT SUM(kilogramos) AS total 
+                    FROM si_ordenes_det 
+                    WHERE '1' AND id_orden = '$id'
+                    GROUP BY id_orden";*/
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     

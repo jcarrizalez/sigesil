@@ -1,5 +1,7 @@
 <?php
     require_once("../lib/core.lib.php");
+    $centroAcopio = new CentroAcopio();
+    $data = $centroAcopio->buscarCA($_SESSION["s_ca_id"]);
 ?>
 <html>
     <head>
@@ -12,7 +14,7 @@
         <div id="principal_reporte">
             <table border="0" width="800">
                 <tr>
-                    <td width="300"><?=$_SESSION["s_org_nombre"]." - SILOS ".$_SESSION["s_ca_nombre"]?></td>
+                    <td width="300"><?=$data[0]['nombre_org']." - SILOS ".$data[0]["nombre"]?></td>
                     <td align="right">FECHA DE IMPRESI&Oacute;N: <?=date("d/m/Y")?></td>
                 </tr>
                 <tr>

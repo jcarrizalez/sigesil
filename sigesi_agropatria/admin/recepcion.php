@@ -92,6 +92,7 @@ $validator = new Validator('form1');
 $validator->printIncludes();
 $validator->setRules('Recepcion.id_cosecha', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Guia.numero_guia', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros')));
+$validator->setRules('Guia.contrato', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Guia.fecha_emision', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Guia.kilogramos', array('required' => array('value' => true, 'message' => 'Requerido'), 'number' => array('value' => true, 'message' => 'Solo N&uacute;meros')));
 $validator->setRules('Productor.ced_rif', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros'), 'minlength' => array('value' => 6, 'message' => 'Min&iacute;mo 6 D&iacute;gitos')));
@@ -241,11 +242,11 @@ $validator->printScript();
                         </script>
                     </td>
                 </tr>
-                <!--tr>
-                    <td>N&uacute;mero de Contrato </td>
+                <tr>
+                    <td><span class="msj_rojo">* </span>N&uacute;mero de Contrato </td>
                     <td><? echo $html->input('Guia.contrato', $infoGuia[0]['contrato'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
-                <tr>
+                <!--tr>
                     <td>Disponible a Recibir </td>
                     <td><? echo $html->input('Guia.disponible_rec', $infoGuia[0]['disponible_rec'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>

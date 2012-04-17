@@ -91,9 +91,9 @@
             <th width="1">C&oacute;digo</th>
             <th>Formula</th>
             <th>Condici&oacute;n</th>
-            <? if($_SESSION['s_perfil_id'] == GERENTES){ ?>
+            <? //if($_SESSION['s_perfil_id'] == GERENTES){ ?>
             <th width="1">Acci&oacute;n</th>
-            <? } ?>
+            <? //} ?>
         </tr>
         <?
             $i=0;
@@ -108,14 +108,14 @@
             <td align="center"><?=$dataFormula['codigo']?></td>
             <td><?=$dataFormula['formula']?></td>
             <td align="center"><?=$dataFormula['condicion']?></td>
-            <? if($_SESSION['s_perfil_id'] == GERENTES){ ?>
+            <? //if($_SESSION['s_perfil_id'] == GERENTES){ ?>
             <td align="center">
                 <?
                     echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'formulacion.php?ac=editar&id='.$dataFormula['id']);
                     echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'formulacion_listado.php?ac=eliminar&id='.$dataFormula['id'], array('onclick' => 'return eliminar();'));
                 ?>
             </td>
-            <? } ?>
+            <? //} ?>
         </tr>
         <? $i++; } ?>
         <tr>
