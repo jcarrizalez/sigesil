@@ -15,8 +15,7 @@
         case 'boleta_tipifica':
             $url = DOMAIN_ROOT.'reportes/imprimir_boleta_tipificacion.php?id_rec='.$GPC['id_rec'];
         break;
-    }
-    
+    }    
     $imprimir = file_get_contents($url);
     $mpdf=new mPDF('c');
     $mpdf->SetDisplayMode('fullpage');
@@ -31,11 +30,9 @@
     /* SENTENCIA PARA IMPRESION INDICANDO LA IMPRESORA A TRAVES DEL PARAMETRO -P DEL LPR
      * $parametros="-P HP-LaserJet-p1606dn";
      * exec("lpr $parametros $archivo");
-     */
-    
+     */    
     exec("lpr $archivo");
-    exec("rm $archivo");
-    
+    exec("rm $archivo");    
     if(!empty($GPC['redir'])){
         if(!empty($_SESSION['s_mov']) && !empty($_SESSION['s_lab']))
             $redir = $GPC['redir'].'.php?mov='.$_SESSION['s_mov'].'&lab='.$_SESSION['s_lab'];

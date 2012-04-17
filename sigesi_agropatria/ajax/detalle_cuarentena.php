@@ -43,7 +43,7 @@ switch ($GPC['ac']){
                     <td>
                     <?                
                         if ($dataCP['cantidad'] >= 0)
-                            echo $html->input('dataCP_cantidad_'.$i, $dataCP['cantidad'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'class' => 'estilo_campos cuadricula cantidad'));
+                            echo $html->input('dataCP_cantidad_'.$i, $dataCP['cantidad'], array('type' => 'text', 'readOnly' => $soloLectura, 'class' => 'positive cuadricula cantidad'));
                     ?>
                     </td>
                 </tr>
@@ -57,3 +57,6 @@ switch ($GPC['ac']){
             break;
 }
 ?>
+<script type="text/javascript">
+    $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
+</script>

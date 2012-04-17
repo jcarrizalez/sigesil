@@ -2,11 +2,11 @@
     require_once("../lib/core.lib.php");
     require_once("../lib/common/header_reportes.php");
     //include("../lib/class/mpdf/mpdf.php");
-    
-    $Rec=new Recepcion();
+        
+    $Rec=new Recepcion();    
     $analisis=new Analisis();    
     $rechazados=array();
-    $nombreMuestra=array(1=>'MOTRIZ', 2=>'REMOLQUE', 3=>'TODOS');
+    $nombreMuestra=array(1=>'MOTRIZ', 2=>'REMOLQUE', 3=>'AMBOS');
     
     if (!empty($GPC['id']) && !empty($GPC['es_rechazado'])) {
         $estatus="'".$GPC['estatus']."'";
@@ -16,9 +16,11 @@
         $i=0;       
         foreach($s_rechazado as $celda) {
             $id_rechazado = split('_', $celda);            
-            foreach($listA as $dataAnalisis) {                                
-                if ($dataAnalisis['codigo']==$id_rechazado[0]) {
-                    $listaR=$analisis->listadoResultados($GPC['id'], null,null, "'".$dataAnalisis['codigo']."'");
+            foreach($listA as $dataAnalisis) {                
+                //if ($dataAnalisis['codigo']==$id_rechazado[0]) {
+                if ($dataAnalisis['id']==$id_rechazado[0]) {
+                    //$listaR=$analisis->listadoResultados($GPC['id'], null,null, "'".$dataAnalisis['codigo']."'");
+                    $listaR=$analisis->listadoResultados($GPC['id'], null, "'".$dataAnalisis['id']."'");
                     $rechazados[$i]['nombre']=$dataAnalisis['nombre'];
                     $rechazados[$i]['muestra']=$listaR[0]['muestra'.$id_rechazado[1]];
                     $rechazados[$i]['codigo']=$dataAnalisis['codigo'];

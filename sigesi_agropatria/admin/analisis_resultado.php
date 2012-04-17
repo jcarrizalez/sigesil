@@ -18,6 +18,8 @@ $booleano = array('' => '', 'NO' => 'NO', 'SI' => 'SI');
 $calidad = array('' => '', 'A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D');
 $tipo_mov=array('rec'=>'R','des'=>'D');
 $listaMov = array('rec' => 'RECEPCI&Oacute;N', 'des' => 'DESPACHO');
+$enCuarentena=true;
+$enRechazo=true;
 
 $tipoCultivo='I';
 $tipoTemp='I';  
@@ -41,7 +43,11 @@ switch ($GPC['ac']) {
         if (!empty($GPC['id']) && !empty($GPC['id_cosecha']) && !empty($GPC['cant_muestras']) && !empty($_SESSION['s_lab']) && !empty($_SESSION['s_mov'])) {
             $InfoCosecha=$cosecha->find(array('id'=>$GPC['id_cosecha']));
             $idCultivo=$InfoCosecha[0]['id_cultivo'];
-            $infoRec = $Rec->listadoAnalisis($idCA, $IdCultivo, $id);
+            if ($_SESSION['s_mov']=='res') {
+                $infoMov = $Rec->listadoAnalisis($idCA, $idCultivo, $id);
+            } elseif ($_SESSION['s_mov']=='des') {
+                $infoMov = $despacho->listadoDespacho($GPC['id'], $idCA);
+            }            
             $laboratorio=($_SESSION['s_lab']=='C')? $laboratorio="'C','A'": $laboratorio="'A'";
             $listadoAnalisis = $analisis->buscarAC(null, $idCultivo, $idCA, $laboratorio);
             $cantidad = count($listadoAnalisis);
@@ -49,9 +55,14 @@ switch ($GPC['ac']) {
         break;
     case 'guardar':
         if (!empty($GPC['id']) && !empty($_SESSION['s_lab']) && !empty($_SESSION['s_mov'])) {
-            $infoRecepcion = $Rec->find(array('id' => $GPC['id']));
-            $InfoCosecha=$cosecha->find(array('id'=>$infoRecepcion[0]['id_cosecha']));
-            $idCultivo=$InfoCosecha[0]['id_cultivo'];
+            if ($_SESSION['s_mov']=='res') {
+                $infoRecepcion = $Rec->find(array('id' => $GPC['id']));
+                $InfoCosecha=$cosecha->find(array('id'=>$infoRecepcion[0]['id_cosecha']));
+                $idCultivo=$InfoCosecha[0]['id_cultivo'];
+            } elseif ($_SESSION['s_mov']=='des') {
+                $infoDespacho = $despacho->find(array('id' => $GPC['id']));
+                $idCultivo=$infoDespacho[0]['id_cultivo'];
+            }            
             $laboratorio=($_SESSION['s_lab']=='C')? $laboratorio="'C','A'": $laboratorio="'A'";
             $listadoAnalisis = $analisis->buscarAC(null, $idCultivo, $idCA, $laboratorio);
             $analisis->_begin_tool();
@@ -77,24 +88,16 @@ switch ($GPC['ac']) {
                 $Resultados[$j]['muestra3']=$GPC['Resultados']['muestra3'];
                 $j++;                
                 $id_analisis = $analisis->guardarResultados($GPC['Resultados']);                
-            }
-            
+            }            
             if ($_SESSION['s_lab']=='C' && $_SESSION['s_mov']=='rec') 
                 $estatus = '3'; // 3=> Romana            
             if ($_SESSION['s_lab']=='P' && $_SESSION['s_mov']=='rec') 
                 $estatus = '6'; // 6=> Romana Vacio
             if ($_SESSION['s_lab']=='C' && $_SESSION['s_mov']=='des') 
                 $estatus = '3'; // 3=> Romana Vacio
-
             if ($GPC['es_rechazado'] != '0_0:') {                
-                if ($_SESSION['s_lab']=='C' && $_SESSION['s_mov']=='rec') 
-                    $estatus = '7'; //7 => 'Rch.Lab.Cen
-                if ($_SESSION['s_lab']=='P' && $_SESSION['s_mov']=='rec') 
-                    $estatus = '8'; //7 => 'Rch.Lab.Cen
-                if ($_SESSION['s_lab']=='P' && $_SESSION['s_mov']=='des') 
-                    $estatus = '4'; // 4=> Rechazado
-                $Muestra1=(strpos($GPC['es_rechazado'],'_1:') > 0) ? 2: 0; //Se cambia el rechazado por el aceptado en Muestra1
-                $Muestra2=(strpos($GPC['es_rechazado'],'_2:') > 0) ? 1: 0; //Se cambia el rechazado por el aceptado en Muestra2
+                $Muestra1=(strpos($GPC['es_rechazado'],'_1:') > 0) ? 1: 0; //Se cambia el rechazado por el aceptado en Muestra1
+                $Muestra2=(strpos($GPC['es_rechazado'],'_2:') > 0) ? 2: 0; //Se cambia el rechazado por el aceptado en Muestra2
                 if (($Muestra1==0) && ($Muestra2==0)) 
                    $Muestra=0;
                 elseif ($Muestra1==0) 
@@ -103,39 +106,78 @@ switch ($GPC['ac']) {
                     $Muestra=1;
                 else 
                     $Muestra=3;
-                $serial_rechazado = split(':', $GPC['es_rechazado']);
-                $id_analisis_rechazado = split('_', $GPC[$rechazado]);
+                if ($_SESSION['s_mov']=='rec') {
+                    if ($_SESSION['s_lab']=='C') {
+                        if ($Muestra==3)
+                            $estatus = '7';
+                        else
+                            $estatus = '3';
+                    }
+                    elseif ($_SESSION['s_lab']=='P') {
+                        if ($Muestra==3)
+                            $estatus = '8';
+                        else
+                            $estatus = '6';
+                    }
+                } elseif ($_SESSION['s_mov']=='des') {
+                    if ($_SESSION['s_lab']=='C') {
+                        if ($Muestra==3)
+                            $estatus = '4';
+                        else
+                            $estatus = '3';
+                    }
+                }
+                $enRechazo=true;
             } else if ($GPC['es_cuarentena'] != '0_0:') {
-                    $estatus = '2'; //
+                    $enCuarentena=true;
+//                    $estatus = '2';     
                     $Ctna = new Cuarentena();
                     $recepcion['id_centro_acopio'] = $_SESSION['s_ca_id'];
                     $recepcion['id_recepcion'] = $GPC['id'];
                     $recepcion['id_cultivo'] = $idCultivo;
                     $recepcion['id_usuario'] = $_SESSION['s_id'];
-                    $serial_cuarentena = split(':', $GPC['es_cuarentena']);
-                    $codAnalisis = split('_', $serial_cuarentena[1]);
-                    $analisis->listaAnalisis(null, null, null,$codAnalisis);
-                    $recepcion['id_analisis'] = $codAnalisis[0];
+                    $serial1 = split(':', $GPC['es_cuarentena']);
+                    $serial2 = split('_', $serial1[1]);
+                    $codAnalisis=trim($serial2[0]);
+                    $infoAnalisis=$analisis->listaAnalisis(null, null, null,$codAnalisis);                    
+                    $recepcion['id_analisis'] = $infoAnalisis[0]['id'];
                     $recepcion['tipo_mov'] = $tipo_mov[$_SESSION['s_mov']];
                     $recepcion['fecha_mov'] = 'now()';
                     $recepcion['fecha_cultivo'] = 'now()';                
                     $recepcion['laboratorio'] = $_SESSION['s_lab'];
+                    $Muestra1=(strpos($GPC['es_cuarentena'],'_1:') > 0) ? 1: 0; //Se cambia el rechazado por el aceptado en Muestra1
+                    $Muestra2=(strpos($GPC['es_cuarentena'],'_2:') > 0) ? 2: 0; //Se cambia el rechazado por el aceptado en Muestra2
+                    if (($Muestra1==0) && ($Muestra2==0))
+                        $Muestra=0;
+                    elseif ($Muestra1==0)
+                        $Muestra=2;
+                    elseif ($Muestra2==0)
+                        $Muestra=1;
+                    else
+                        $Muestra=3;
+                    if ($_SESSION['s_mov']=='rec') {
+                        if ($_SESSION['s_lab']=='C')
+                            $estatus = '2';
+                        elseif ($_SESSION['s_lab']=='P')
+                                $estatus = '2';
+                    } elseif ($_SESSION['s_mov']=='des')
+                        if ($_SESSION['s_lab']=='P')
+                            $estatus = '4';
                     $id_cuarentena = $Ctna->save($recepcion);
-                    //$id_cuarentena = $Ctna->guardar($recepcion);                    
             }
             if (!empty($id_analisis)) {
                 if ($_SESSION['s_mov']=='rec') {
                     $GPC['Recepcion']['id'] = $GPC['id'];
-                    $GPC['Recepcion']['estatus_rec'] = $estatus;
+                    $GPC['Recepcion']['estatus_rec'] = $estatus;                    
                     $GPC['Recepcion']['muestra'] = $Muestra;
-                    $Rec->save($GPC['Recepcion']);
-                }
-                if ($_SESSION['s_mov']=='des') {
+                    $Rec->save($GPC['Recepcion']);                    
+                } elseif ($_SESSION['s_mov']=='des') {
                     $GPC['Despacho']['id'] = $GPC['id'];
-                    $GPC['Despacho']['estatus'] = $estatus;
+                    $GPC['Despacho']['estatus'] = $estatus;                    
                     $GPC['Recepcion']['muestra'] = $Muestra;
                     $despacho->save($GPC['Despacho']);
                 }
+                
             }
             if ($_SESSION['s_mov']=='rec') {
                 $tipoCultivo = array();
@@ -168,19 +210,23 @@ switch ($GPC['ac']) {
                     $id_tipo=$tipificacion->save($GPC['Tipificacion']);                    
                 }
             }
-        }
+        }            
         switch ($estatus) {
             case '2':
             case '3':
+                $analisis->_commit_tool();
+                if ($enRechazo==true) {
+                    header('location: '.DOMAIN_ROOT."/reportes/imprimir.php?reporte=boleta_rechazo&id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado'].'&redir=analisis_resultado_listado');
+                    die();
+                }
+                header("location: analisis_resultado_listado.php?msg=exitoso");
+                die();
             case '6':
                 $analisis->_commit_tool();
                 if ($estipo) {
-                    $analisis->_commit_tool();                    
-                    //header('location: '.DOMAIN_ROOT."/reportes/imprimir_boleta_tipificacion.php?id_rec=".$GPC['id']);
-                    header('location: '.DOMAIN_ROOT."/reportes/imprimir?reporte=boleta_tipifica?id_rec=".$GPC['id'].'&redir=analisis_resultado_listado');
+                    header('location: '.DOMAIN_ROOT."/reportes/imprimir.php?reporte=boleta_tipifica?id_rec=".$GPC['id'].'&redir=analisis_resultado_listado');
                     die();
                 } else {
-                    $analisis->_commit_tool();
                     header("location: analisis_resultado_listado.php?msg=exitoso");
                     die();
                 }
@@ -188,7 +234,7 @@ switch ($GPC['ac']) {
             case '7':
             case '8':
                 $analisis->_commit_tool();                
-                header('location: '.DOMAIN_ROOT."/reportes/imprimir?reporte=boleta_rechazo&id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado'].'&redir=analisis_resultado_listado');                
+                header('location: '.DOMAIN_ROOT."/reportes/imprimir.php?reporte=boleta_rechazo&id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado'].'&redir=analisis_resultado_listado');                
                 die();
                 break;
             default:                
@@ -312,21 +358,21 @@ switch ($GPC['ac']) {
         <table align="center" width="100%" border="0">
             <tr>
                 <td>Nro. Entrada</td>                
-                <td><? echo $html->input('', $infoRec[0]['numero'], array('type' => 'text', 'class' => 'estilo_campos cuadricula', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('', $infoMov[0]['numero'], array('type' => 'text', 'class' => 'estilo_campos cuadricula', 'readOnly' => true)); ?></td>
                 <td>Fecha</td>
-                <td><? echo $html->input('', $general->date_sql_screen($infoRec[0]['fecha_recepcion']), array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('', $general->date_sql_screen($infoMov[0]['fecha_recepcion']), array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Carril</td>
-                <td><? echo $html->input('', $infoRec[0]['carril'], array('type' => 'text', 'class' => 'estilo_campos cuadricula', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('', $infoMov[0]['carril'], array('type' => 'text', 'class' => 'estilo_campos cuadricula', 'readOnly' => true)); ?></td>
                 <td>Hora</td>
-                <td><? echo $html->input('', $general->hora_sql_normal($infoRec[0]['fecha_recepcion']), array('type' => 'text', 'class' => 'estilo_campos crproductor', 'readOnly' => true));
+                <td><? echo $html->input('', $general->hora_sql_normal($infoMov[0]['fecha_recepcion']), array('type' => 'text', 'class' => 'estilo_campos crproductor', 'readOnly' => true));
                 ?></td>
             </tr>
             <tr>
                 <td>Cultivo</td>
                 <td colspan="3"><? 
-                echo $html->input('', trim($infoRec[0]['codigo_cul']) . ' - ' . $infoRec[0]['nombre_cul'], array('type' => 'text', 'class' => 'estilo_campos2', 'readOnly' => true)); ?></td>
+                echo $html->input('', trim($infoMov[0]['codigo_cul']) . ' - ' . $infoMov[0]['nombre_cul'], array('type' => 'text', 'class' => 'estilo_campos2', 'readOnly' => true)); ?></td>
             </tr>
         </table>
     </fieldset>

@@ -29,7 +29,6 @@ switch ($GPC['ac']) {
                 $id_cuarentena=$infoCtna[0]['id']; 
                 $listaCP = $Ctna->listadoPlaga($idCA, $id_cuarentena, $GPC['id']);
                 $insectoCtna=array();
-//                count($listaCP);
                 if (!empty($id_cuarentena)) {                    
                     $infoRecepcion = $Rec->find(array('id' => $infoCtna[0]['id_recepcion']));
                     $infoVehiculo = $Vehiculos->find(array('id' => $infoRecepcion[0]['id_vehiculo']));
@@ -139,7 +138,28 @@ switch ($GPC['ac']) {
             if ($_SESSION['s_mov']=='rec') {
                 $infoCtna = $Ctna->find(array('id_recepcion' => $id));
                 $infoRecepcion = $Rec->find(array('id' => $infoCtna[0]['id_recepcion']));
-                $muestra=$infoRecepcion[0]['muestra'];
+                $Muestra=$infoRecepcion[0]['muestra'];                
+                if ($_SESSION['s_mov']=='rec') {
+                    if ($_SESSION['s_lab']=='C') {
+                        if ($Muestra==3)
+                            $estatus = '7';
+                        else
+                            $estatus = '3';
+                    }
+                    elseif ($_SESSION['s_lab']=='P') {
+                        if ($Muestra==3)
+                            $estatus = '8';
+                        else
+                            $estatus = '6';
+                    }
+                } elseif ($_SESSION['s_mov']=='des') {
+                    if ($_SESSION['s_lab']=='P') {
+                        if ($Muestra==3)
+                            $estatus = '4';
+                        else
+                            $estatus = '3';
+                    }
+                } 
                 $id_cuarentena=$infoCtna[0]['id'];
                 $estatusA=$infoCtna[0]['estatus'];
                 $infoRecepcion = $Rec->find(array('id' => $infoCtna[0]['id_recepcion']));
@@ -153,13 +173,12 @@ switch ($GPC['ac']) {
             $GPC['Cuarentena']['estatus']=$estatus;
             $id_cuarentena=$Ctna->save($GPC['Cuarentena']);
         }
-        if (!empty($id_cuarentena) && (in_array($estatusA, $estatusCtna))) {            
+        if (!empty($id_cuarentena) && (in_array($estatusA, $estatusCtna))) {
                 $Ctna->_commit_tool();
-                $idAnalisis=$infoCtna[0]['id_analisis'];                
-                $GPC['es_rechazado']="0_0:".$idAnalisis."_1";
-                header("location: ../reportes/imprimir?boleta_rechazo?id=". $GPC['id']."&es_rechazado=".$GPC['es_rechazado'].'&redir=analisis_resultado_listado');
+                $idAnalisis=$infoCtna[0]['id_analisis'];
+                $GPC['es_rechazado']="0_0:".$idAnalisis."_".$Muestra.':';                                
+                header('location: '.DOMAIN_ROOT."/reportes/imprimir?reporte=boleta_rechazo&id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado'].'&redir=analisis_resultado_listado');
                 die();
-
         }
         $Ctna->_rollback_tool();
         header("location: analisis_resultado_listado.php?msg=error");
@@ -334,6 +353,7 @@ $validator->printScript();
         });   
         
         $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
+        //$(".positive").live('numeric',function() { negative: false });          
         
         $('.calcular_dosis').change(function() {
             id_producto=$('#Cuarentena\\[id_producto\\]').val();
@@ -344,7 +364,7 @@ $validator->printScript();
         });
         
         $('#Rechazar').click(function() {
-            if (confirm('EL MOVIMIENTO SERA RECHAZADO ESTA SEGURO QUE DESEA RECHAZAR!!!'))
+            if (confirm("<?= $html->unhtmlize($etiqueta['M_Rechazo']); ?>"))
                 window.location = '?ac=rechazar&id=<?=$GPC["id"] ?>';
         });
         
