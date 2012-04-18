@@ -369,7 +369,7 @@ switch ($GPC['ac']) {
             </tr>
             <tr>
                 <td>Carril</td>
-                <td><? echo $html->input('', $infoMov[0]['carril'], array('type' => 'text', 'class' => 'estilo_campos cuadricula', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('', ((empty($infoMov[0]['carril'])==true) ? 0: $infoMov[0]['carril']), array('type' => 'text', 'class' => 'estilo_campos cuadricula', 'readOnly' => true)); ?></td>
                 <td>Hora</td>
                 <td><? echo $html->input('', $general->hora_sql_normal($infoMov[0]['fecha_recepcion']), array('type' => 'text', 'class' => 'estilo_campos crproductor', 'readOnly' => true));
                 ?></td>

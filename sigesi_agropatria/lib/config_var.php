@@ -13,8 +13,8 @@ define ( "DOMAIN_ROOT", "http://" . $_SERVER ['SERVER_NAME'] . "/sigesil/" );
 // Constantes de Base de datos
 define ( "USER", "admin" );
 define ( "PASS", "123456" );
-define ( "SERVER", "localhost" );
-//define ( "SERVER", "192.168.65.5" );
+//define ( "SERVER", "localhost" );
+define ( "SERVER", "192.168.65.5" );
 define ( "DB", "sigesi" );
 
 define ( "DEBUG", "1" );
