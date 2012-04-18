@@ -18,8 +18,8 @@ $booleano = array('' => '', 'NO' => 'NO', 'SI' => 'SI');
 $calidad = array('' => '', 'A' => 'A', 'B' => 'B', 'C' => 'C', 'D' => 'D');
 $tipo_mov=array('rec'=>'R','des'=>'D');
 $listaMov = array('rec' => 'RECEPCI&Oacute;N', 'des' => 'DESPACHO');
-$enCuarentena=true;
-$enRechazo=true;
+$enCuarentena=false;
+$enRechazo=false;
 
 $tipoCultivo='I';
 $tipoTemp='I';  
@@ -36,38 +36,43 @@ else
 if (!empty($GPC['lab']))
     $_SESSION['s_lab']=$GPC['lab'];
 else
-    $GPC['lab']=$_SESSION['s_lab'];
-                
+    $GPC['lab']=$_SESSION['s_lab'];                
 switch ($GPC['ac']) {
     case 'nuevo':
-        if (!empty($GPC['id']) && !empty($GPC['id_cosecha']) && !empty($GPC['cant_muestras']) && !empty($_SESSION['s_lab']) && !empty($_SESSION['s_mov'])) {
-            $InfoCosecha=$cosecha->find(array('id'=>$GPC['id_cosecha']));
-            $idCultivo=$InfoCosecha[0]['id_cultivo'];
-            if ($_SESSION['s_mov']=='res') {
+        if (!empty($GPC['id']) && !empty($GPC['cant_muestras']) && !empty($_SESSION['s_lab']) && !empty($_SESSION['s_mov'])) {
+            if ($GPC['mov']=='rec') {
+                $InfoCosecha = $cosecha->find(array('id' => $GPC['id_cosecha']));
+                $idCultivo=$InfoCosecha[0]['id_cultivo'];
                 $infoMov = $Rec->listadoAnalisis($idCA, $idCultivo, $id);
-            } elseif ($_SESSION['s_mov']=='des') {
+            } elseif ($GPC['mov']=='des') {
                 $infoMov = $despacho->listadoDespacho($GPC['id'], $idCA);
-            }            
+                $idCultivo=$infoMov[0]['id_cultivo'];                
+            }          
             $laboratorio=($_SESSION['s_lab']=='C')? $laboratorio="'C','A'": $laboratorio="'A'";
             $listadoAnalisis = $analisis->buscarAC(null, $idCultivo, $idCA, $laboratorio);
+            //print_r($listadoAnalisis);
+            //die();
             $cantidad = count($listadoAnalisis);
+            $infoCultivo=$cultivo->find(array('id' => $idCultivo));
         }
         break;
     case 'guardar':
         if (!empty($GPC['id']) && !empty($_SESSION['s_lab']) && !empty($_SESSION['s_mov'])) {
-            if ($_SESSION['s_mov']=='res') {
+            if ($GPC['mov']=='rec') {
                 $infoRecepcion = $Rec->find(array('id' => $GPC['id']));
                 $InfoCosecha=$cosecha->find(array('id'=>$infoRecepcion[0]['id_cosecha']));
                 $idCultivo=$InfoCosecha[0]['id_cultivo'];
-            } elseif ($_SESSION['s_mov']=='des') {
+            } elseif ($GPC['mov']=='des') {
                 $infoDespacho = $despacho->find(array('id' => $GPC['id']));
                 $idCultivo=$infoDespacho[0]['id_cultivo'];
             }            
-            $laboratorio=($_SESSION['s_lab']=='C')? $laboratorio="'C','A'": $laboratorio="'A'";
+            $laboratorio=(trim($_SESSION['s_lab'])=='C')? $laboratorio="'C','A'": $laboratorio="'A'";
             $listadoAnalisis = $analisis->buscarAC(null, $idCultivo, $idCA, $laboratorio);
             $analisis->_begin_tool();
             $j = 0;
             $Resultados=array();
+            //print_r($listadoAnalisis);
+            //die();
             foreach ($listadoAnalisis as $dataAnalisis) {                 
                 if ($_SESSION['s_mov']=='rec') 
                     $GPC['Resultados']['id_recepcion'] = $GPC['id'];
@@ -372,7 +377,7 @@ switch ($GPC['ac']) {
             <tr>
                 <td>Cultivo</td>
                 <td colspan="3"><? 
-                echo $html->input('', trim($infoMov[0]['codigo_cul']) . ' - ' . $infoMov[0]['nombre_cul'], array('type' => 'text', 'class' => 'estilo_campos2', 'readOnly' => true)); ?></td>
+                echo $html->input('', trim($infoCultivo[0]['codigo']) . ' - ' . $infoCultivo[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos2', 'readOnly' => true)); ?></td>                
             </tr>
         </table>
     </fieldset>
@@ -448,7 +453,8 @@ switch ($GPC['ac']) {
     </table>
     <?
     echo $html->input('id', $id, array('type' => 'hidden'));
-    echo $html->input('cosecha', $IdCosecha, array('type' => 'hidden'));
+    if (!empty($IdCosecha))
+        echo $html->input('cosecha', $IdCosecha, array('type' => 'hidden'));
     echo $html->input('es_cuarentena', '0_0:', array('type' => 'hidden'));
     echo $html->input('es_rechazado', '0_0:', array('type' => 'hidden'));    
     ?>    

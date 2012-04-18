@@ -103,20 +103,17 @@ require('../lib/common/init_calendar.php');
             break;
             case 'error':
                 echo "<span class='msj_rojo'>Ocurri&oacute; un Problema !</span>";
-            break;//            
-            //$infoCA=$centroAcopio->buscarCA($dataMov['id_centro_acopio']);
-//            $infoCosecha=$cosecha->find(array('id' => $dataMov['id_cosecha']));
-//            $id_cultivo=$infoCosecha[0]['id_cultivo'];
-//            $infoCultivo=$cultivo->find(array('id' => $id_cultivo));
+            break;
         }
     ?>
 </div>
 <div id="idRec" style="display: none"></div>
 <table align="center" width="100%" border="0" style="padding-top: 20px">
     <tr>
-        <td align="right" ><? echo $html->select('Accion', array('options' => $listaAccion, 'selected' => $GPC['accion'], 'default' => 'Seleccione', 'class' => 'crproductor'));?>
+        <td align="right" >
+            <? //echo $html->select('Accion', array('options' => $listaAccion, 'selected' => $GPC['accion'], 'default' => 'Seleccione', 'class' => 'crproductor'));?>
             <? echo $html->input('Regresar', 'Regresar', array('type' => 'button')); ?>
-            <? echo $html->input('Imprimir', 'Imprimir', array('type' => 'button')); ?>
+            <? //echo $html->input('Imprimir', 'Imprimir', array('type' => 'button')); ?>
         </td>
     </tr>
     <tr align="center" id="verAccion" align="right" style="display: none">
@@ -162,9 +159,9 @@ require('../lib/common/init_calendar.php');
         <td>
         <? 
         if ($GPC['mov']=='rec')
-            echo $general->date_sql_screen($dataMov['fecha_recepcion']);
+            echo $general->date_sql_screen($dataMov['fecha_recepcion'],'','es','-');
         if ($GPC['mov']=='des')
-            echo $general->date_sql_screen($dataMov['fecha_des']);
+            echo $general->date_sql_screen($dataMov['fecha_des'],'','es','-');
         ?>
         </td>
         <td align="center">
