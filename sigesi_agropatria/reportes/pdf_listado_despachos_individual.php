@@ -4,14 +4,29 @@ include('../lib/class/tcpdf/config/lang/spa.php');
 include('../lib/class/tcpdf/tcpdf.php');
 $despacho = new Despacho();
 
-$arrays=explode('_',$GPC['id']);
+if(isset($GPC['id']))
+{
+	$arrays=explode('_',$GPC['id']);
+	if(isset($arrays[0]) and isset($arrays[1]) and isset($arrays[2]))
+		$ban=1;
+	else
+		$ban=0;
+}
+else
+$ban=0;
 
 
-$listadoDespachos = $despacho->listadoDespacho($arrays[0], '', '', '', '', "'5'");
-//Debug::pr($listadoDespachos);
-
-$reporte_=$listadoDespachos[0]['cliente_nombre'].'_'.$listadoDespachos[0]['ced_cliente'];
 $sistema='AGROPATRIA C.A.';
+
+if($ban==1)
+{
+
+$listadoDespachos = $despacho->listadoDespacho($arrays[0], '', '', '', '', "'5'",$arrays[1],$arrays[2]);
+//Debug::pr($listadoDespachos);
+$reporte_=$listadoDespachos[0]['cliente_nombre'].'_'.$listadoDespachos[0]['ced_cliente'];
+}
+else
+$reporte_='REPORTE_SIN_DATOS';
 
 
 
@@ -25,9 +40,10 @@ class HOJASOL extends tcpdf{
     {
 		$this->SetMargins(10,30, 10);	
 		$this->SetDisplayMode(85) ;
-		$this->writeHTMLCell(0, 0, '', '10', '<font><b>LISTADO DE DESPACHOS ENTRE EL 03/12/2004 Y EL 05/12/2004</b></font>', 0, 1, 0, true, 'C');
-		$this->writeHTMLCell(0, 0, '', '7', '<font><b>Fecha: '.date('d/m/Y').'</b></font>&nbsp;&nbsp;&nbsp;&nbsp;', 0, 1, 0, true, 'R');
-		$this->writeHTMLCell(0, 0, '', '2', 'Pagina'.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, 1, 0, true, 'C');
+		//if($ban==1)
+		$this->writeHTMLCell(0, 0, '', '10', '<font><b>LISTADO DE DESPACHOS</b></font>', 0, 1, 0, true, 'C');
+		$this->writeHTMLCell(0, 0, '1', '7', '<font><b>Fecha: '.date('d/m/Y').'</b></font>&nbsp;&nbsp;&nbsp;&nbsp;', 0, 1, 0, true, 'R');
+		$this->writeHTMLCell(0, 0, '18', '2', 'Pagina'.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, 1, 0, true, 'L');
     }
     function Footer()
     {
@@ -54,27 +70,19 @@ $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
 $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
 $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-//$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO); 
 $pdf->AddPage();
-//$pdf->Image(K_PATH_IMAGES."$imagen",12,5,194,25);
 $pdf->SetY(5);
 $pdf->SetLineWidth(0.3);
 
-$pdf->SetFont('helvetica','B',13);
-/*
-$t='<font><b>LISTADO DE DESPACHOS ENTRE EL 03/12/2004 Y EL 05/12/2004</b></font>';
-$pdf->writeHTMLCell(0, 0, '', 10, $t, 0, 1, 0, true, 'C',true);
-$pdf->Ln(5);
-*/
 
-
-
-
-//echo $listadoDespachos[0]['cliente_nombre'];
 
 
 $pdf->SetFont('helvetica','',8);
+
+if($ban==1)
+{
+
 $t='
 <table border="0" cellpadding="0" cellspacing="0">
 <tr align="left"><td width="100px"> Cliente    : </td><td>'.$listadoDespachos[0]['cliente_nombre'].'  RIF: '.$listadoDespachos[0]['ced_cliente'].' </td></tr>
@@ -106,9 +114,6 @@ for($i=0; $i<count($listadoDespachos); $i++)
 
  
 	if($i%2==0) $class="#FFFFFF";
-  	//else $class="#FFFFE2";	
-	//else $class="#F0F0F0";
-	//else $class="#F9F9F9";
 	else $class="#FFFFFF";
 $pesobruto=($listadoDespachos[$i]['peso_01l']+$listadoDespachos[$i]['peso_02l']);	$suma_peso_bruto+=$pesobruto;	$pesobruto_=$pdf->decimales($pesobruto);
 $tara=$pesobruto=($listadoDespachos[$i]['peso_01v']+$listadoDespachos[$i]['peso_02v']);
@@ -158,8 +163,25 @@ $t.='
 </tr>
 </table>
 ';
+$pdf->writeHTMLCell(200, 0, 18, 30, $t, 0, 1, 0, true, 'J',true);
+}
+else
+{
 
-$pdf->writeHTMLCell(200, 0, 15, 30, $t, 0, 1, 0, true, 'J',true);
+$t='<table border="0" cellpadding="0" cellspacing="0">
+<tr align="center"><td width="900px"><font size="+4" color="#FF0000"><b>NO EXISTEN REGISTRO EN LA LISTA DE DESPACHOS</b></font> </td></tr>
+</table>
+';
+$pdf->writeHTMLCell(200, 0, 15, 30, $t, 0, 1, 0, true, 'C',true);
+}
+
+
+
+
+
+
+
+
 $pdf->Ln(4);
 $pdf->Output($reporte_.'_'.date('d-m-Y').'.pdf', 'I');
 ?>

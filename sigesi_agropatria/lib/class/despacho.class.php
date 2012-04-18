@@ -21,6 +21,8 @@ class Despacho extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
+    //function listadoDespacho($id=null, $idCa=null, $idCu=null, $idSilo=null, $salidaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null, $numeroOrden = null){
+    //QUERY ORIGINAL
     function listadoDespacho($id=null, $idCa=null, $idCu=null, $idSilo=null, $salidaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null){
         $query = "SELECT d.*, 
                     d.fecha_des AS fecha_recepcion, d.estatus AS estatus_rec, 
@@ -43,6 +45,9 @@ class Despacho extends Model {
                     INNER JOIN si_cliente cl ON cl.id = o.id_cliente 
                     LEFT JOIN si_punto_entrega pe ON pe.id = d.id_punto_entrega 
                     WHERE '1'";
+        $query .= (!empty($id)) ? " AND d.id = '$id'" : '';
+        //VERIFICAR EL ORDEN DE LOS CAMPOS
+        //$query .= (!empty($numeroOrden)) ? " AND o.numero_orden = '$numeroOrden'" : '';
         $query .= (!empty($id)) ? " AND d.id = '$id'" : '';
         $query .= (!empty($idCa)) ? " AND d.id_centro_acopio = '$idCa'" : '';
         $query .= (!empty($idCu)) ? " AND d.id_cultivo = '$idCu'" : '';

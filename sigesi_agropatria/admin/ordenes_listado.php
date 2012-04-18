@@ -11,10 +11,7 @@
     $listadoOrdenes = $ordenes->buscarOrden('', $idCA, '', '', $numOrden);
     require('../lib/common/header.php');
 ?>
-<script type="text/javascript">
-    
-    show_div_loader();
-    
+<script type="text/javascript">    
     $(document).ready(function(){
         $('#Nuevo').click(function(){
            window.location = 'ordenes.php';

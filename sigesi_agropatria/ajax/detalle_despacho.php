@@ -105,11 +105,11 @@
                 </tr>
                 <tr>
                     <td>Toneladas Despachadas</td>
-                    <td><? echo $html->input('despachado', $infoSubOrden[0]['total'], array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
+                    <td><? echo $html->input('despachado', $general->formato_numero($infoSubOrden[0]['total'], 3), array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
                 </tr>
                 <tr>
                     <td>Toneladas Disponibles</td>
-                    <td><? echo $html->input('disponible', $disponible, array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
+                    <td><? echo $html->input('disponible', $general->formato_numero($disponible, 3), array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
                 </tr>
                 <script type="text/javascript">
                     $(document).ready(function(){
