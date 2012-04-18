@@ -90,6 +90,7 @@
                     $pesos = array($GPC['Recepcion']['pesoLleno1'], $GPC['Recepcion']['pesoLleno2'], $GPC['Recepcion']['peso_01v'], $GPC['Recepcion']['peso_02v'], $GPC['Recepcion']['humedad'], $GPC['Recepcion']['impureza']);
 
                     //ALMACENAR FORMULAS EN ARREGLO
+                    $otra = false;
                     foreach($formulas as $valor){
                         if($valor['codigo'] == 'PL12')
                             $formulaAplicar['PL'] = $valor['formula'];
@@ -119,12 +120,14 @@
                                     }
                                     if(($condicionFormula >= $rangoEvaluar[0]) && ($condicionFormula <= $rangoEvaluar[1]))
                                         $otraFormula[] = $valor['formula'];
+                                    else
+                                        $otra = true;
                                 }
                             }
                         }
                     }
                     
-                    if(empty($otraFormula))
+                    if(empty($otraFormula) && $otra)
                         $otraFormula[] = $formulaAplicar['PN'];
 
                     //CALCULO DEL PESO BRUTO
@@ -148,15 +151,15 @@
                         $totalH = str_replace($reservadas, $pesos, $humImp[0]);
                         if ($evaluar->evaluate('y(x) = ' . $totalH))
                             $pesoH = $evaluar->e("y(0)");
-                        $pesos[] = $pesoH;
-                        $GPC['Recepcion']['humedad_des'] = round($pesoH);
+                        $GPC['Recepcion']['humedad_des'] = round($pesoH * 1000) / 1000;
+                        $pesos[] = $GPC['Recepcion']['humedad_des'];
 
                         //CALCULO DE LA IMPUREZA
                         $totalI = str_replace($reservadas, $pesos, $humImp[1]);
                         if ($evaluar->evaluate('y(x) = ' . $totalI))
                             $pesoI = $evaluar->e("y(0)");
-                        $pesos[] = $pesoI;
-                        $GPC['Recepcion']['impureza_des'] = round($pesoI);
+                        $GPC['Recepcion']['impureza_des'] = round($pesoI * 1000) / 1000;
+                        $pesos[] = $GPC['Recepcion']['impureza_des'];
                     }
 
                     if(!empty($otraFormula)){
@@ -171,7 +174,7 @@
                             $pesoA = $evaluar->e("y(0)");
                     }
                     
-                    $GPC['Recepcion']['peso_acon'] = round($pesoA);
+                    $GPC['Recepcion']['peso_acon'] = round($pesoA * 1000) / 1000;
                     
                     if($GPC['mov'] == 'rec'){
                         unset($GPC['Recepcion']['pesoLleno1']);

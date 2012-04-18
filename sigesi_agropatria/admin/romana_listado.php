@@ -5,24 +5,24 @@
     if(!in_array($GPC['mov'], array('rec', 'des')))
         header('location: romana_movimiento.php');
     
-    $cosecha = new Cosecha();
     if($_SESSION['s_perfil_id'] == GERENTEG)
         $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : null;
     else
         $idCA = $_SESSION['s_ca_id'];
     $porPagina = MAX_RESULTS_PAG;
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
-    $listadoCosechas = $cosecha->infoCosechaCultivo($idCA);
-    foreach($listadoCosechas as $valor){
-        $listadoC[$valor['cosecha_id']] = "(".$valor['cosecha_codigo'].") ".$valor['cultivo_nombre'];
-    }
     
     switch ($GPC['mov']){
         case 'des':
         $movimiento = new Despacho();
-        $listadoEstatus = array('3' => 'Romana Lleno', '6' => 'Romana Vac&iacute;o');
+        $cultivo = new Cultivo();
+        
+        $listadoEstatus = array('1' => 'Romana Vac&iacute;o', '3' => 'Romana Lleno');
         $estatus = (!empty($GPC['estatus'])) ? "'".$GPC['estatus']."'" : "'1', '3'";
-        $listadoRomana = $movimiento->listadoDespacho('', $idCA, null, null, null, $estatus);
+        
+        $listadoCultivo = $cultivo->find('', '', array('id, nombre'), 'list', 'codigo');
+        
+        $listadoRomana = $movimiento->listadoDespacho('', $idCA, $GPC['cultivo'], null, null, $estatus, null, null, $porPagina, $inicio);
 
         $total_registros = $movimiento->total_verdadero;
         $paginador = new paginator($total_registros, $porPagina);
@@ -53,9 +53,9 @@
         <form name="form1" id="form1" method="GET" action="" enctype="multipart/form-data">
             <table width="100%">
                 <tr>
-                    <td width="60">Cosecha</td>
+                    <td width="60">Cultivo</td>
                     <td>
-                        <? echo $html->select('cosecha',array('options'=>$listadoC, 'selected' => $GPC['cosecha'], 'default' => 'Seleccione'));?>
+                        <? echo $html->select('cultivo',array('options'=>$listadoCultivo, 'selected' => $GPC['cultivo'], 'default' => 'Seleccione'));?>
                     </td>
                 </tr>
                 <tr>
@@ -88,8 +88,8 @@
             <? if($_SESSION['s_perfil_id'] != ROMANERO){ ?>
             <th>Centro de Acopio</th>
             <? } ?>
-            <th>Cultivo</th>
             <th width="90">Nro Salida</th>
+            <th>Cultivo</th>
             <th>Orden</th>
             <th>Fecha Despacho</th>
             <th>Peso</th>
@@ -108,8 +108,8 @@
             <? if($_SESSION['s_perfil_id'] != ROMANERO){ ?>
             <td align="center"><?=$dataRomana['ca_codigo']." - ".$dataRomana['centro_acopio']?></td>
             <? } ?>
-            <td align="center"><?="(".trim($dataRomana['cultivo_codigo']).") ".$dataRomana['cultivo_nombre']?></td>
             <td align="center"><?=$numero?></td>
+            <td align="center"><?="(".trim($dataRomana['cultivo_codigo']).") ".$dataRomana['cultivo_nombre']?></td>
             <!--td align="center"><?=$dataRomana['numero']?></td-->
             <td align="center"><?=$dataRomana['numero_guia']?></td>
             <td align="center"><?=$general->date_sql_screen($dataRomana['fecha_des'], '', 'es', '-')?></td>
@@ -138,9 +138,17 @@
     
         default:
             $movimiento = new Recepcion();
+            $cosecha = new Cosecha();
+            
             $listadoEstatus = array('3' => 'Romana Lleno', '6' => 'Romana Vac&iacute;o');
             $estatus = (!empty($GPC['estatus'])) ? "'".$GPC['estatus']."'" : "'3', '6'";
-            $listadoRomana = $movimiento->listadoRecepcion('', $idCA, $GPC['cosecha'], null, null, $estatus);
+            
+            $listadoCosechas = $cosecha->infoCosechaCultivo($idCA);
+            foreach($listadoCosechas as $valor){
+                $listadoC[$valor['cosecha_id']] = "(".$valor['cosecha_codigo'].") ".$valor['cultivo_nombre'];
+            }
+            
+            $listadoRomana = $movimiento->listadoRecepcion('', $idCA, $GPC['cosecha'], null, null, $estatus, null, null, $porPagina, $inicio);
 
             $total_registros = $movimiento->total_verdadero;
             $paginador = new paginator($total_registros, $porPagina);
@@ -206,8 +214,8 @@
             <? if($_SESSION['s_perfil_id'] != ROMANERO){ ?>
             <th>Centro de Acopio</th>
             <? } ?>
-            <th>Cosecha</th>
             <th width="90">Nro Recepci&oacute;n</th>
+            <th>Cosecha</th>
             <th>Guia</th>
             <th>Fecha Recepci&oacute;n</th>
             <th>Peso</th>
@@ -226,8 +234,8 @@
             <? if($_SESSION['s_perfil_id'] != ROMANERO){ ?>
             <td align="center"><?=$dataRomana['ca_codigo']." - ".$dataRomana['centro_acopio']?></td>
             <? } ?>
-            <td align="center"><?=$dataRomana['cosecha_codigo']?></td>
             <td align="center"><?=$numero?></td>
+            <td align="center"><?=$dataRomana['cosecha_codigo']?></td>
             <!--td align="center"><?=$dataRomana['numero']?></td-->
             <td align="center"><?=$dataRomana['numero_guia']?></td>
             <td align="center"><?=$general->date_sql_screen($dataRomana['fecha_recepcion'], '', 'es', '-')?></td>

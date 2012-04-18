@@ -1,7 +1,6 @@
 <?
     require_once('../lib/core.lib.php');
     
-    $cosecha = new Cosecha();
     $transporte = new Transporte();
     
     $listaCR = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
@@ -9,76 +8,42 @@
     $idCA = $_SESSION['s_ca_id'];
     
     $listadoT = $transporte->find(array('id_centro_acopio' => $idCA), '', array('id', 'nombre'), 'list', 'nombre');
-    $listadoT['9999'] = 'Otro';
-    $listadoCosechas = $cosecha->infoCosechaCultivo($idCA);
-    $listadoAgencias = array(1 => 'Agencia 1');
-    
-    foreach($listadoCosechas as $valor){
-        $listadoC[$valor['cosecha_id']] = "(".$valor['cosecha_codigo'].") ".$valor['cultivo_nombre'];
-    }
+    $listadoT['99999'] = 'Otro';
     
     switch($GPC['ac']){
         case 'guardar':
-            $cliente = new Cliente();
             $orden = new Orden();
-            $chofer = new Chofer();
-            $vehiculo = new Vehiculo();
             $despacho = new Despacho();
             $transporte = new Transporte();
             $ptoEntrega = new PuntosEntrega();
-            
-            $dataCosecha = $cosecha->find(array('id' => $GPC['Despacho']['id_cosecha']));
 
             $despacho->_begin_tool();
             
-            $GPC['Cliente']['id_org'] = $_SESSION['s_org_id'];
-            $GPC['Cliente']['ced_rif'] = $GPC['nacion'].$GPC['Cliente']['ced_rif'];
-            $cliente->save($GPC['Cliente']);
-            $idCliente = $cliente->id;
+            if($GPC['Transporte']['id'] == '99999'){
+                unset($GPC['Transporte']['id']);
+                $GPC['Transporte']['id_centro_acopio'] = $_SESSION['s_ca_id'];
+                $transporte->save($GPC['Transporte']);
+                $idTransporte = $transporte->id;
+            }else
+                $idTransporte = $GPC['Transporte']['id'];
             
-            $GPC['PtoEntrega']['id_cliente'] = $idCliente;
-            $ptoEntrega->save($GPC['PtoEntrega']);
-            $idPtoEntrega = $ptoEntrega->id;
+            if($GPC['PtoEntrega']['id'] == '99999'){
+                unset($GPC['PtoEntrega']['id']);
+                $GPC['PtoEntrega']['id_cliente'] = $GPC['Despacho']['id_cliente'];
+                $ptoEntrega->save($GPC['PtoEntrega']);
+                $idPtoEntrega = $ptoEntrega->id;
+            }else
+                $idPtoEntrega = $GPC['PtoEntrega']['id'];
             
-            $GPC['Orden']['id_centro_acopio'] = $_SESSION['s_ca_id'];
-            $GPC['Orden']['id_cliente'] = $idCliente;
-            $GPC['Orden']['id_cultivo'] = $dataCosecha[0]['id_cultivo'];
-            $GPC['Orden']['id_punto_entrega'] = $idPtoEntrega;
-            //$GPC['Orden']['estatus'] = 'P';
-            $orden->save($GPC['Orden']);
-            $idOrden = $orden->id;
-            
-            for($i=1;$i<=2;$i++){
-                if(!empty($GPC["subOrden$i"])){
-                    $orden->guardarSubOrden($idOrden, $GPC["subOrden$i"], null, null, $GPC["subOrdenkg$i"]);
+            if(!empty($GPC['subOrden1']) && !empty($GPC['subOrdenkg1'])){
+                for($i=1;$i<=2;$i++){
+                    if(!empty($GPC["subOrden$i"])){
+                        $orden->guardarSubOrden($GPC['Despacho']['id_orden'], $GPC["subOrden$i"], null, null, $GPC["subOrdenkg$i"]);
+                    }
                 }
             }
             
-            $GPC['Chofer']['ced_rif'] = $GPC['nacion2'].$GPC['Chofer']['ced_rif'];
-            $GPC['Chofer']['estatus'] = 't';
-            $chofer->save($GPC['Chofer']);
-            $idChofer = $chofer->id;
-            
-            $camion = $vehiculo->find(array('placa' => $GPC['Vehiculo']['placa']));
-            if(empty($camion))
-                $vehiculo->save($GPC['Vehiculo']);
-            
-            $idVehiculo = (!empty($vehiculo->id)) ? $vehiculo->id : $camion[0]['id'];
-            
-            /* ASI SE UTILIZARÁ PARA GUARDAR LOS TRANSPORTES CUANDO SE MONTE EL DROPDOWN
-             * if($GPC['Transporte']['id_transporte'] == '9999'){
-                $transporte->save($GPC['Transporte']);
-                $idTransporte = (!empty($transporte->id)) ? $transporte->id : $GPC['Transporte']['id'];
-            }*/
-            $GPC['Transporte']['id_centro_acopio'] = $_SESSION['s_ca_id'];
-            $transporte->save($GPC['Transporte']);
-            $idTransporte = $transporte->id;
-            
             $GPC['Despacho']['id_centro_acopio'] = $_SESSION['s_ca_id'];
-            $GPC['Despacho']['id_orden'] = $idOrden;
-            $GPC['Despacho']['id_cliente'] = $idCliente;
-            $GPC['Despacho']['id_chofer'] = $idChofer;
-            $GPC['Despacho']['id_vehiculo'] = $idVehiculo;
             $GPC['Despacho']['id_usuario'] = $_SESSION['s_id'];
             $GPC['Despacho']['id_transporte'] = $idTransporte;
             $GPC['Despacho']['id_punto_entrega'] = $idPtoEntrega;
@@ -90,7 +55,7 @@
             $despacho->save($GPC['Despacho']);
             $idDespacho = $despacho->id;
             
-            if(!empty($idOrden) && !empty($idCliente) && !empty($ptoEntrega) && !empty($idChofer) && !empty($idVehiculo) && !empty($idTransporte) && !empty($idDespacho)){
+            if(!empty($idDespacho)){
                 $despacho->_commit_tool();
                 header("location: despacho.php?msg=exitoso");
                 die();
@@ -106,14 +71,18 @@
     
 $validator = new Validator('form1');
 $validator->printIncludes();
-//$validator->setRules('Recepcion.id_cosecha', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Orden.numero_orden', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros')));
-$validator->setRules('Orden.id_cultivo', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Cliente.ced_rif', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Cliente.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Chofer.ced_rif', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros'), 'minlength' => array('value' => 6, 'message' => 'Min&iacute;mo 6 D&iacute;gitos')));
 $validator->setRules('Chofer.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Vehiculo.placa', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Vehiculo.marca', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Transporte.id', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Transporte.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('PtoEntrega.id', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('PtoEntrega.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Despacho.cant_muestras', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->printScript();
 ?>
 <script type="text/javascript">
@@ -121,29 +90,28 @@ $validator->printScript();
         window.location = 'despacho.php';
     }
     
-    function abrirPopup(){
-        cedula = $('#nacion2').val()+$('#Chofer\\[ced_rif\\]').val();
+    function abrirPopup(accion){
         var ancho;
         var alto;
         ancho = (screen.width/2)-(550/2);
         alto = (screen.height/2)-(450/2);
-        ventana = window.open("chofer_popup.php?cp="+cedula,"Registro Cliente","status=no,toolbar=0,menubar=no,resizable=0,scrollbars=1,width=550,left="+ancho+",height=450,top="+alto);
+
+        if(accion == 'nuevoV'){
+            pla = $('#Vehiculo\\[placa\\]').val();
+            url = "vehiculo_popup.php?placa="+pla;
+            titulo = "Registro Vehiculo";
+        }else{
+            cedula = $('#nacion2').val()+$('#Chofer\\[ced_rif\\]').val();
+            url = "chofer_popup.php?cp="+cedula;
+            titulo = "Registro Cliente";
+        }
+        ventana = window.open(url,titulo,"status=no,toolbar=0,menubar=no,resizable=0,scrollbars=1,width=550,left="+ancho+",height=450,top="+alto);
     }
     
     $(document).ready(function(){
         $('.integer').numeric();
         
         $('#nrocosecha').load('../ajax/cosecha_programa.php?ac=cantidad2');
-        
-        /* Genera el numero de despacho siguiente
-        $('#Despacho\\[id_cosecha\\]').change(function(){
-            if($(this).val() != '')
-                $('#nrocosecha').load('../ajax/cosecha_programa.php?ac=cantidad2');
-            else{
-                $('#nrocosecha').html('');
-                $('#nrocosecha').append('Salida Nro: ');
-            }
-        });*/
     
         $('#Orden\\[numero_orden\\]').live('change', function(){
             var orden = $(this).val();
@@ -152,18 +120,6 @@ $validator->printScript();
             else
                 $('#Orden\\[numero_orden\\]').val('');
         });
-        
-       /* Busqueda de puntos de entrega por Cliente
-       $('#Cliente\\[ced_rif\\]').live('change', function(){
-            var np = $('#nacion').val();
-            var ced = $('#Cliente\\[ced_rif\\]');
-            if(ced.val().length >= 6){
-                ced = np+ced.val();
-                $('#orden').load('../ajax/detalle_despacho.php?ac=cliente&cp='+ced);
-                //PARA CAPTURAR LOS PTOS DE ENTREGA
-                //$('#ptosEntrega').load('../ajax/detalle_despacho.php?ac=cliente&cp='+ced);
-            }
-        });*/
     
         $('#Chofer\\[ced_rif\\]').live('change', function(){
             var np = $('#nacion2').val();
@@ -173,12 +129,24 @@ $validator->printScript();
                 $('#chofer').load('../ajax/detalle_despacho.php?ac=chofer&cp='+ced);
             }
         });
+    
+        $('#Vehiculo\\[placa\\]').live('change', function(){
+            var placa = $(this).val();
+            if(placa != ''){
+                $('#placas').load('../ajax/detalle_despacho.php?ac=otraPlaca&placa='+placa);
+            }
+        });
         
-        $('#Transporte\\[id\\]').change(function(){
-            if($(this).val() == '9999')
-                $('#otroTransporte').load('../ajax/detalle_despacho.php?ac=transporte');
-            else
+        $('.otro').live('change', function(){
+            combo = $(this).attr('id');
+            if(combo == 'Transporte[id]' && $(this).val() == '99999')
+                $('#otroTransporte').load('../ajax/detalle_despacho.php?ac=otroTransporte');
+            else if(combo == 'Transporte[id]' && $(this).val() != '99999')
                 $('#otroTransporte').html('');
+            else if(combo == 'PtoEntrega[id]' && $(this).val() == '99999')
+                $('#otroPtoEntrega').load('../ajax/detalle_despacho.php?ac=otroPto');
+            else if(combo == 'PtoEntrega[id]' && $(this).val() != '99999')
+                $('#otroPtoEntrega').html('');
         });
     });
 </script>
@@ -202,10 +170,6 @@ $validator->printScript();
         <tr>
             <td colspan="2" id="nrocosecha">Salida Nro </td>
         </tr>
-        <!--tr>
-            <td><span class="msj_rojo">* </span>Cosecha </td>
-            <td><? echo $html->select('Despacho.id_cosecha',array('options'=>$listadoC, 'default' => 'Seleccione'))?></td>
-        </tr-->
     </table>
     <fieldset>
         <legend>Datos de la Orden</legend>
@@ -238,17 +202,19 @@ $validator->printScript();
                     <td><? echo $html->input('Chofer.nombre', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
             </tbody>
-            <tr>
-                <td><span class="msj_rojo">* </span>Placa Veh&iacute;culo</td>
-                <td><? echo $html->input('Vehiculo.placa', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-            </tr>
+            <tbody id="placas">
+                <tr>
+                    <td><span class="msj_rojo">* </span>Placa Veh&iacute;culo</td>
+                    <td><? echo $html->input('Vehiculo.placa', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                </tr>
+            </tbody>
             <tr>
                 <td>Placas Remolque</td>
                 <td><? echo $html->input('Vehiculo.placa_remolques', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>C&oacute;digo del Transporte</td>
-                <td><? echo $html->select('Transporte.id',array('options'=>$listadoT, 'default' => 'Seleccione', 'class' => 'estilo_campos'))?></td>
+                <td><? echo $html->select('Transporte.id',array('options'=>$listadoT, 'default' => 'Seleccione', 'class' => 'estilo_campos otro'))?></td>
             </tr>
             <tbody id="otroTransporte"></tbody>
             <tr>
@@ -270,14 +236,10 @@ $validator->printScript();
             <tbody id="ptosEntrega">
                 <tr>
                     <td><span class="msj_rojo">* </span>Punto de Entrega</td>
-                    <td>
-                        <?
-                            //echo $html->select('Orden.id_punto_entrega',array('default' => 'Seleccione', 'class' => 'estilo_campos'))
-                            echo $html->input('PtoEntrega.nombre', '', array('type' => 'text', 'class' => 'estilo_campos'));
-                        ?>
-                    </td>
+                    <td><? echo $html->select('PtoEntrega.id',array('default' => 'Seleccione', 'class' => 'estilo_campos otro')); ?></td>
                 </tr>
             </tbody>
+            <tbody id="otroPtoEntrega"></tbody>
             <tr>
                 <td><span class="msj_rojo">* </span>¿Pesar en dos partes?</td>
                 <td><? echo $html->select('Despacho.cant_muestras', array('options'=>$pesoPartes, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>

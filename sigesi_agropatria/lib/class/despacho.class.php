@@ -21,7 +21,7 @@ class Despacho extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
-    function listadoDespacho($id=null, $idCA=null, $idCu=null, $idSilo=null, $salidaNum=null, $estatus=null, $fdesde = null, $fhasta = null){
+    function listadoDespacho($id=null, $idCa=null, $idCu=null, $idSilo=null, $salidaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null){
         $query = "SELECT d.*, 
                     d.fecha_des AS fecha_recepcion, d.estatus AS estatus_rec, 
                     (SELECT t1.nombre FROM si_tolcarom t1 WHERE t1.id = d.romana_ent) AS romana_ent, 
@@ -31,7 +31,8 @@ class Despacho extends Model {
                     o.numero_orden AS numero_guia, 
                     ch.ced_rif AS ced_chofer, ch.nombre AS chofer_nombre, 
                     v.placa, v.marca, v.color, v.capacidad, v.tara_aprox, v.chuto, v.placa_remolques, 
-                    cl.ced_rif AS ced_cliente, cl.nombre AS cliente_nombre 
+                    cl.ced_rif AS ced_cliente, cl.nombre AS cliente_nombre, 
+                    pe.nombre AS pto_entrega 
                     FROM si_despacho d 
                     INNER JOIN si_centro_acopio ca ON ca.id = d.id_centro_acopio 
                     INNER JOIN si_cultivo cu ON cu.id = d.id_cultivo 
@@ -40,12 +41,13 @@ class Despacho extends Model {
                     INNER JOIN si_choferes ch ON ch.id = d.id_chofer 
                     INNER JOIN si_vehiculos v ON v.id = d.id_vehiculo 
                     INNER JOIN si_cliente cl ON cl.id = o.id_cliente 
+                    LEFT JOIN si_punto_entrega pe ON pe.id = d.id_punto_entrega 
                     WHERE '1'";
         $query .= (!empty($id)) ? " AND d.id = '$id'" : '';
         $query .= (!empty($idCa)) ? " AND d.id_centro_acopio = '$idCa'" : '';
-        $query .= (!empty($idCo)) ? " AND d.id_cultivo = '$idCu'" : '';
+        $query .= (!empty($idCu)) ? " AND d.id_cultivo = '$idCu'" : '';
         $query .= (!empty($idSilo)) ? " AND d.id_silo = '$idSilo'" : '';
-        $query .= (!empty($salidaNum)) ? " AND d.numero = '$entradaNum'" : '';
+        $query .= (!empty($salidaNum)) ? " AND d.numero = '$salidaNum'" : '';
         $query .= (!empty($estatus)) ? " AND d.estatus IN ($estatus)" : '';
         if(!empty($fdesde) || !empty($fhasta)){
             $fdesde = (!empty($fdesde)) ? "'".$fdesde." 00:00:00'" : 'now()::date';
@@ -53,6 +55,8 @@ class Despacho extends Model {
             $query .= " AND d.fecha_des BETWEEN $fdesde AND $fhasta";
         }
         $query .= " ORDER BY d.fecha_des, d.numero";
+        $query .= (!empty($porPagina)) ? " LIMIT $porPagina OFFSET $inicio" : "";
+        //die($query);
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     

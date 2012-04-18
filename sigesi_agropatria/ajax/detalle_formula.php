@@ -186,6 +186,7 @@
                 $pesos = array($GPC['Recepcion']['pesoLleno1'], $GPC['Recepcion']['pesoLleno2'], $GPC['Recepcion']['peso_01v'], $GPC['Recepcion']['peso_02v'], $promHum, $promImp);
 
                 //ALMACENAR FORMULAS EN ARREGLO
+                $otra = false;
                 foreach($formulas as $valor){
                     if($valor['codigo'] == 'PL12')
                         $formulaAplicar['PL'] = $valor['formula'];
@@ -216,12 +217,14 @@
                                 }
                                 if(($condicionFormula >= $rangoEvaluar[0]) && ($condicionFormula <= $rangoEvaluar[1]))
                                     $otraFormula[] = $valor['formula'];
+                                else
+                                    $otra = true;
                             }
                         }
                     }
                 }
                 
-                if(empty($otraFormula))
+                if(empty($otraFormula) && $otra)
                     $otraFormula[] = $formulaAplicar['PN'];
                 
                 //CALCULO DEL PESO BRUTO
@@ -268,27 +271,27 @@
             ?>
             <tr>
                 <td>Peso Bruto Total Kgrs</td>
-                <td><? echo $html->input('pesoBruto', number_format(round($pesoL), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('pesoBruto', $general->formato_numero(round($pesoL * 1000) / 1000, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Peso del Veh&iacute;culo Kgrs</td>
-                <td><? echo $html->input('pesoVehiculo', number_format(round($pesoV), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('pesoVehiculo', $general->formato_numero(round($pesoV * 1000) / 1000, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Peso Neto Recibido Kgrs</td>
-                <td><? echo $html->input('pesoRecibido', number_format(round($pesoN), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('pesoRecibido', $general->formato_numero(round($pesoN * 1000) / 1000, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Desc. por Humedad Kgrs</td>
-                <td><? echo $html->input('descHumedad', number_format(round($pesoH), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('descHumedad', $general->formato_numero(round($pesoH * 1000) / 1000, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Desc. por Impurezas Kgrs</td>
-                <td><? echo $html->input('descImpurezas', number_format(round($pesoI), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('descImpurezas', $general->formato_numero(round($pesoI * 1000) / 1000, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Peso Neto a Liquidar Kgrs</td>
-                <td><? echo $html->input('netoAcondicionado', number_format(round($pesoA), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('netoAcondicionado', $general->formato_numero(round($pesoA * 1000) / 1000, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <?
                 if (($pesoL < 0) || ($pesoV < 0) || ($pesoN < 0) || ($pesoH < 0) || ($pesoI < 0) || ($pesoA < 0)){

@@ -34,10 +34,10 @@
 </table>
 <table id="tabla_reporte2" width="800" cellpadding="0" cellspacing="0" border="0">
     <tr>
-        <th>C&Oacute;DIGO</th>
-        <th align="left">DESCRIPCION</th>
+        <th style="border-top: #000000 1px dashed; border-bottom: #000000 1px dashed;">C&Oacute;DIGO</th>
+        <th align="left" style="border-top: #000000 1px dashed; border-bottom: #000000 1px dashed;">DESCRIPCION</th>
         <? for($i=1;$i<=$dataRecepcion[0]['cant_muestras'];$i++){ ?>
-        <th>MUESTRA <?=$i?></th>
+        <th style="border-top: #000000 1px dashed; border-bottom: #000000 1px dashed;">MUESTRA <?=$i?></th>
         <? } ?>
     </tr>
     <? $j = 0; foreach ($listadoAnalisis as $dataAnalisis) { ?>
@@ -45,10 +45,7 @@
         <td align="center"><?=$dataAnalisis['codigo'] ?></td>
         <td><?=$dataAnalisis['nombre'] ?></td>
         <? for($i=1;$i<=$dataRecepcion[0]['cant_muestras'];$i++){ ?>            
-        <td align="center"><div class="reporte_input"><?
-            echo trim($data[$j]['muestra'.$i]);
-            //echo $html->input('muestra'.$j.'[]', trim($data[$j]['muestra'.$i]), array('type' => 'text', 'class' => 'reporte_input'));         
-        ?></div></td>
+        <td align="center"><div style="border-bottom: #000000 1px solid; width: 100px; text-align: center;"><? echo $data[$j]['muestra'.$i] = (!empty($data[$j]['muestra'.$i])) ? trim($data[$j]['muestra'.$i]) : $general->caracter(35, '&nbsp;'); ?></div></td>
         <? } ?>
     </tr>
     <? $j++; } ?>

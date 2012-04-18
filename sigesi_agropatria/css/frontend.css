@@ -36,6 +36,26 @@ img{
     border: none;
 }
 
+.pageloader{
+    position:absolute; 
+    z-index:100; 
+    background-color:#EDEDED;
+    opacity:.90;
+    filter:alpha(opacity=90);
+    width:100%;
+}
+#div_loader_img{
+    position:absolute;
+    background-image:url("../images/loadingBox.png");
+    background-repeat:no-repeat;
+    width:490px;
+    height:290px;
+    font-size:16px;
+    font-weight:bold;
+    color:#4c4c4c;
+    white-space:nowrap;
+}
+
 /* Comienzo del estilo para la pagina de errores*/
 #div_error{
     width: 700px;

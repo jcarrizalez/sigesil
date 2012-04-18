@@ -66,6 +66,12 @@ require('../lib/common/init_calendar.php');
     $(document).ready(function(){
         $('.integer').numeric();
         
+        $('#Orden\\[numero_orden\\]').live('change', function(){
+            orden = $(this).val();
+            if(orden != '')
+                $('#numero').load('../ajax/detalle_despacho.php?ac=buscarOrden&num='+orden);
+        });
+        
         $('#Cliente\\[ced_rif\\]').live('change', function(){
             var np = $('#nacion').val();
             var ced = $('#Cliente\\[ced_rif\\]');
@@ -102,17 +108,19 @@ require('../lib/common/init_calendar.php');
         ORDEN<br/><hr/>
     </div>
     <table align="center">
-        <tr>
-            <td><span class="msj_rojo">* </span>Nro Orden </td>
-            <td>
-                <?
-                    if($GPC['ac'] == 'editar')
-                        echo $html->input('Orden.numero_orden', $infoOr[0]['numero_orden'], array('type' => 'text', 'length' => '8', 'class' => 'estilo_campos integer', 'readOnly' => true));
-                    else
-                        echo $html->input('Orden.numero_orden', '', array('type' => 'text', 'length' => '8', 'class' => 'estilo_campos integer'));
-                ?>
-            </td>
-        </tr>
+        <tbody id="numero">
+            <tr>
+                <td><span class="msj_rojo">* </span>Nro Orden </td>
+                <td>
+                    <?
+                        if($GPC['ac'] == 'editar')
+                            echo $html->input('Orden.numero_orden', $infoOr[0]['numero_orden'], array('type' => 'text', 'length' => '8', 'class' => 'estilo_campos integer', 'readOnly' => true));
+                        else
+                            echo $html->input('Orden.numero_orden', '', array('type' => 'text', 'length' => '8', 'class' => 'estilo_campos integer'));
+                    ?>
+                </td>
+            </tr>
+        </tbody>
         <!--tr>
             <td><span class="msj_rojo">* </span>Centro de Acopio</td>
             <td>

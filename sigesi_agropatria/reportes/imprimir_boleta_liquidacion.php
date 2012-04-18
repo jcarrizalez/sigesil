@@ -26,7 +26,7 @@
     
     if(!empty($dataMovimiento[0]['id']) && ($dataMovimiento[0]['estatus_rec'] == 9) || $dataMovimiento[0]['estatus'] == 5){
 ?>
-<table id="tabla_reporte" border="1" width="800">
+<table id="tabla_reporte" border="0" width="800">
     <?
         if($GPC['mov'] == 'rec'){
             $numero = "R".$dataMovimiento[0]['numero']."-".$general->date_sql_screen($dataMovimiento[0]['fecha_recepcion'], '', 'es', '');
@@ -136,7 +136,7 @@
     </tr>
     <tr>
         <td>PUNTO DE ENTREGA:</td>
-        <td colspan="3"><?='FALTAAAA EL PUNTO DE ENTREGA'//$dataMovimiento[0]['ced_chofer']?></td>
+        <td colspan="3"><?=$dataMovimiento[0]['pto_entrega']?></td>
     </tr>
     <? } ?>
 </table>
@@ -145,35 +145,39 @@
         <td width="20">&nbsp;</td>
         <td>PESO BRUTO TOTAL Kgrs</td>
         <td align="right">----------------------------------------------------------------------------------------></td>
-        <td width="1" align="right"><?=number_format($pesoBruto, 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($pesoBruto * 1000) / 1000, 3);?></td>
         <td width="20">&nbsp;</td>
     </tr>
     <tr>
         <td>&nbsp;</td>
         <td>PESO DEL VEHICULO Kgrs</td>
         <td align="right">----------------------------------------------------------------------------------------></td>
-        <td width="1" align="right"><?=number_format($pesoTara, 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($pesoTara * 1000) / 1000, 3);?></td>
         <td>&nbsp;</td>
     </tr>
     <tr>
         <td>&nbsp;</td>
+        <? if($GPC['mov'] == 'rec'){ ?>
         <td>PESO NETO RECIBIDO Kgrs</td>
+        <? }else{ ?>
+        <td>NETO DESPACHADO Kgrs</td>
+        <? } ?>
         <td align="right">----------------------------------------------------------------------------------------></td>
-        <td width="1" align="right"><?=number_format($pesoNeto, 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($pesoNeto * 1000) / 1000, 3);?></td>
         <td>&nbsp;</td>
     </tr>
     <tr>
         <td>&nbsp;</td>
-        <td>DESC. POR HUMEDAD: <?=number_format($dataMovimiento[0]['humedad'], 3)?>% Kgrs</td>
+        <td>DESC. POR HUMEDAD: <?=$general->formato_numero($dataMovimiento[0]['humedad'], 3);?>% Kgrs</td>
         <td align="right">----------------------------------------------------------------------------------------></td>
-        <td width="1" align="right"><?=number_format($dataMovimiento[0]['humedad_des'], 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['humedad_des'] * 1000) / 1000, 3);?></td>
         <td>&nbsp;</td>
     </tr>
     <tr>
         <td>&nbsp;</td>
-        <td>DESC. POR IMPUREZAS: <?=number_format($dataMovimiento[0]['impureza'], 3)?>% Kgrs</td>
+        <td>DESC. POR IMPUREZAS: <?=$general->formato_numero($dataMovimiento[0]['impureza'], 3);?>% Kgrs</td>
         <td align="right">----------------------------------------------------------------------------------------></td>
-        <td width="1" align="right"><?=number_format($dataMovimiento[0]['impureza_des'], 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['impureza_des'] * 1000) / 1000, 3);?></td>
         <td>&nbsp;</td>
     </tr>
     <tr>
@@ -181,9 +185,13 @@
     </tr>
     <tr>
         <td>&nbsp;</td>
+        <? if($GPC['mov'] == 'rec'){ ?>
         <td>PESO NETO A LIQUIDAR Kgrs</td>
+        <? }else{ ?>
+        <td>NETO ACONDICIONADO Kgrs</td>
+        <? } ?>
         <td align="right">----------------------------------------------------------------------------------------></td>
-        <td width="1" align="right"><?=number_format($dataMovimiento[0]['peso_acon'], 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_acon'] * 1000) / 1000, 3);?></td>
         <td>&nbsp;</td>
     </tr>
 </table>

@@ -92,6 +92,11 @@ class General {
             $ano_diferencia--;
         return $ano_diferencia;
     }
+    
+    function formato_numero($numero, $decimales='2', $sepDec=',', $sepMil='.'){
+        $numeroFormateado = number_format($numero, $decimales, $sepDec, $sepMil);
+        return $numeroFormateado;
+    }
 
     /**
      * Cambia un formato sql a una fecha normal o la divide en un arreglo

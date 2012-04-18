@@ -26,6 +26,13 @@ else
             $javascript->includeFile('jquery/jquery.validate.js');
             $javascript->includeFile('general.js');
         ?>
+        <script type="text/javascript">
+            $(function(){
+                $(this).bind("contextmenu", function(e) {
+                    e.preventDefault();
+                });
+            });
+        </script>
     </head>
     <body>
         <div id="main">

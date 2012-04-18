@@ -24,26 +24,15 @@
 #titulo_reporte{
     text-align: center;
     padding-bottom: 20px;
+    letter-spacing: 8px;
 }
 
 #tabla_reporte2{
     padding-top: 20px;
 }
 
-#tabla_reporte2 th{
-    border-top: 1px #000000 dashed;
-    border-bottom: 1px #000000 dashed;
-}
-
 #reporte_fila_separar{
     line-height: 30px;
-}
-
-.reporte_input{
-    border: none;
-    width: 100px;
-    text-align: center;
-    border-bottom: 1px #000000 solid;
 }
 
 .centrar{

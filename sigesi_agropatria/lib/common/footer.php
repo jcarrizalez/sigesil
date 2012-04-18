@@ -7,8 +7,9 @@
             </div>
         </div>
         </div>
-    </body>
-</html>
+<script language="javascript">
+	hide_div_loader(); //cargador en el header interno
+</script>
 <?
     if(DEBUG) {
         Debug::$executeQueryPage = DOMAIN_ROOT.'admin/debug_execute_query.php';
@@ -16,3 +17,5 @@
         include(APPROOT."lib/common/WebDebug.php");
     }
 ?>
+    </body>
+</html>

@@ -206,7 +206,7 @@ $validator->printScript();
             <td colspan="2" id="nrocosecha">Entrada Nro </td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>Cosecha </td>
+            <td width="80"><span class="msj_rojo">* </span>Cosecha </td>
             <td><? echo $html->select('Recepcion.id_cosecha',array('options'=>$listadoC, 'default' => 'Seleccione'))?></td>
         </tr>
     </table>
