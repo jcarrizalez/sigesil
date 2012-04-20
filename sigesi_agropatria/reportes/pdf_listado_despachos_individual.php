@@ -21,7 +21,15 @@ $sistema='AGROPATRIA C.A.';
 if($ban==1)
 {
 
-$listadoDespachos = $despacho->listadoDespacho($arrays[0], '', '', '', '', "'5'",$arrays[1],$arrays[2]);
+$arrays=explode('_',$GPC['id']);
+if (isset($arrays[3]))
+$centro_acopio=$arrays[3];
+else
+$centro_acopio='';
+
+$listadoDespachos = $despacho->listadoDespacho('', $centro_acopio, '', '', '', "'5'",$arrays[1],$arrays[2],'','',$arrays[0]);
+
+//$listadoDespachos = $despacho->listadoDespacho($arrays[0], '', '', '', '', "'5'",$arrays[1],$arrays[2]);
 //Debug::pr($listadoDespachos);
 $reporte_=$listadoDespachos[0]['cliente_nombre'].'_'.$listadoDespachos[0]['ced_cliente'];
 }
@@ -115,24 +123,31 @@ for($i=0; $i<count($listadoDespachos); $i++)
  
 	if($i%2==0) $class="#FFFFFF";
 	else $class="#FFFFFF";
-$pesobruto=($listadoDespachos[$i]['peso_01l']+$listadoDespachos[$i]['peso_02l']);	$suma_peso_bruto+=$pesobruto;	$pesobruto_=$pdf->decimales($pesobruto);
+$pesobruto=($listadoDespachos[$i]['peso_01l']+$listadoDespachos[$i]['peso_02l']);	
+$suma_peso_bruto+=$pesobruto;	
+$pesobruto_=$pdf->decimales($pesobruto);
 $tara=$pesobruto=($listadoDespachos[$i]['peso_01v']+$listadoDespachos[$i]['peso_02v']);
 $pesoneto=($pesobruto-$tara);
 
 
-$dcto_hum=$listadoDespachos[$i]['humedad_des'];	$suma_dcto_hum+=$dcto_hum;	$dcto_hum_=$pdf->decimales($dcto_hum);
-$dcto_imp=$listadoDespachos[$i]['impureza_des'];	$suma_dcto_imp+=$dcto_imp;	$dcto_imp_=$pdf->decimales($dcto_imp);
-$pacondicionado=$listadoDespachos[$i]['peso_acon'];	$suma_pacondicionado+=$pacondicionado;	$pacondicionado_=$pdf->decimales($pacondicionado);
+$dcto_hum=$listadoDespachos[$i]['humedad_des'];	
+$suma_dcto_hum+=$dcto_hum;	
+$dcto_hum_=$pdf->decimales($dcto_hum);
+$dcto_imp=$listadoDespachos[$i]['impureza_des'];	
+$suma_dcto_imp+=$dcto_imp;	
+$dcto_imp_=$pdf->decimales($dcto_imp);
+$pacondicionado=$listadoDespachos[$i]['peso_acon'];	
+$suma_pacondicionado+=$pacondicionado;	
+$pacondicionado_=$pdf->decimales($pacondicionado);
 $hum=$listadoDespachos[$i]['humedad'];
-$fecha_des=explode(" ",$listadoDespachos[$i]['fecha_des']);
-$fecha_des=$fecha_des[0];
-$fecha_des=explode("-",$fecha_des);
-$fecha_des[2];
-$fecha_des=$fecha_des[2].'/'.$fecha_des[1].'/'.$fecha_des[0];
+$fecha_des=$general->date_sql_screen($listadoDespachos[$i]['fecha_des'],'','es','');
+
+$despacho="D".$listadoDespachos[$i]['numero']."-".$fecha_des;
+
 
 $t.='
 <tr bgcolor="'.$class.'">
-<td width="80px" align="right">'.$listadoDespachos[$i]['id_cosecha'].' &nbsp;</td>
+<td width="80px" align="right">'.$despacho.' &nbsp;</td>
 <td width="80px"align="right">'.$listadoDespachos[$i]['numero_guia'].' &nbsp;</td>
 <td width="75px" align="center">'.$fecha_des.'</td>
 <td width="65px" align="center">'.$listadoDespachos[$i]['placa'].'</td>
@@ -174,12 +189,6 @@ $t='<table border="0" cellpadding="0" cellspacing="0">
 ';
 $pdf->writeHTMLCell(200, 0, 15, 30, $t, 0, 1, 0, true, 'C',true);
 }
-
-
-
-
-
-
 
 
 $pdf->Ln(4);

@@ -21,9 +21,9 @@ class Despacho extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
-    //function listadoDespacho($id=null, $idCa=null, $idCu=null, $idSilo=null, $salidaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null, $numeroOrden = null){
+    function listadoDespacho($id=null, $idCa=null, $idCu=null, $idSilo=null, $salidaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null, $numeroOrden = null){
     //QUERY ORIGINAL
-    function listadoDespacho($id=null, $idCa=null, $idCu=null, $idSilo=null, $salidaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null){
+    //function listadoDespacho($id=null, $idCa=null, $idCu=null, $idSilo=null, $salidaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null){
         $query = "SELECT d.*, 
                     d.fecha_des AS fecha_recepcion, d.estatus AS estatus_rec, 
                     (SELECT t1.nombre FROM si_tolcarom t1 WHERE t1.id = d.romana_ent) AS romana_ent, 
@@ -47,7 +47,7 @@ class Despacho extends Model {
                     WHERE '1'";
         $query .= (!empty($id)) ? " AND d.id = '$id'" : '';
         //VERIFICAR EL ORDEN DE LOS CAMPOS
-        //$query .= (!empty($numeroOrden)) ? " AND o.numero_orden = '$numeroOrden'" : '';
+        $query .= (!empty($numeroOrden)) ? " AND o.numero_orden = '$numeroOrden'" : '';
         $query .= (!empty($id)) ? " AND d.id = '$id'" : '';
         $query .= (!empty($idCa)) ? " AND d.id_centro_acopio = '$idCa'" : '';
         $query .= (!empty($idCu)) ? " AND d.id_cultivo = '$idCu'" : '';
@@ -55,9 +55,9 @@ class Despacho extends Model {
         $query .= (!empty($salidaNum)) ? " AND d.numero = '$salidaNum'" : '';
         $query .= (!empty($estatus)) ? " AND d.estatus IN ($estatus)" : '';
         if(!empty($fdesde) || !empty($fhasta)){
-            $fdesde = (!empty($fdesde)) ? "'".$fdesde." 00:00:00'" : 'now()::date';
-            $fhasta = (!empty($fhasta)) ? "'".$fhasta." 23:59:59'" : 'now()::date';
-            $query .= " AND d.fecha_des BETWEEN $fdesde AND $fhasta";
+            $fdesde = (!empty($fdesde)) ? "'$fdesde'" : 'now()::date';
+            $fhasta = (!empty($fhasta)) ? "'$fhasta'" : 'now()::date';
+            $query .= " AND d.fecha_des::date BETWEEN $fdesde AND $fhasta";
         }
         $query .= " ORDER BY d.fecha_des, d.numero";
         $query .= (!empty($porPagina)) ? " LIMIT $porPagina OFFSET $inicio" : "";

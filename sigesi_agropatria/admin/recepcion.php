@@ -5,7 +5,7 @@
     
     $listaCR = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
     $listaCantM = array(1 => 1, 2 => 2, 3 => 3, 4 => 4);
-    $pesoPartes = array(1 => 'No', 2 => 'Si');
+    $pesoPartes = array(1 => 'Sencillo', 2 => 'Doble');
     $listaCarriles = array(1 => 1, 2 => 2);
     $idCA = $_SESSION['s_ca_id'];
     
@@ -92,7 +92,7 @@ $validator = new Validator('form1');
 $validator->printIncludes();
 $validator->setRules('Recepcion.id_cosecha', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Guia.numero_guia', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros')));
-$validator->setRules('Guia.contrato', array('required' => array('value' => true, 'message' => 'Requerido')));
+//$validator->setRules('Guia.contrato', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Guia.fecha_emision', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Guia.kilogramos', array('required' => array('value' => true, 'message' => 'Requerido'), 'number' => array('value' => true, 'message' => 'Solo N&uacute;meros')));
 $validator->setRules('Productor.ced_rif', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros'), 'minlength' => array('value' => 6, 'message' => 'Min&iacute;mo 6 D&iacute;gitos')));
@@ -243,7 +243,7 @@ $validator->printScript();
                     </td>
                 </tr>
                 <tr>
-                    <td><span class="msj_rojo">* </span>N&uacute;mero de Contrato </td>
+                    <td>N&uacute;mero de Contrato </td>
                     <td><? echo $html->input('Guia.contrato', $infoGuia[0]['contrato'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
                 <!--tr>
@@ -253,7 +253,7 @@ $validator->printScript();
                 <tr-->
                 <tr>
                     <td><span class="msj_rojo">* </span>Kilogramos Gu&iacute;a </td>
-                    <td><? echo $html->input('Guia.kilogramos', $infoGuia[0]['kilogramos'], array('type' => 'text', 'class' => 'estilo_campos integer')); ?> (Kgrs)</td>
+                    <td><? echo $html->input('Guia.kilogramos', $infoGuia[0]['kilogramos'], array('type' => 'text', 'class' => 'estilo_campos integer')); ?></td>
                 </tr>
                 <tr>
                     <td>Otras Gu&iacute;as </td>
@@ -334,7 +334,7 @@ $validator->printScript();
                 </tr>
             </tbody>
             <tr>
-                <td><span class="msj_rojo">* </span>Placa Veh&iacute;culo </td>
+                <td><span class="msj_rojo">* </span>Placa Motriz/Chuto </td>
                 <td><? echo $html->input('Vehiculo.placa', $infoVehiculo[0]['placa'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
@@ -359,7 +359,7 @@ $validator->printScript();
                 <td><? echo $html->select('Recepcion.carril', array('options'=>$listaCarriles, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
-                <td><span class="msj_rojo">* </span>¿Pesar en dos partes?</td>
+                <td><span class="msj_rojo">* </span>¿Tipo de Veh&iacute;culo?</td>
                 <td><? echo $html->select('Recepcion.cant_muestras', array('options'=>$pesoPartes, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
             </tr>
         </table>

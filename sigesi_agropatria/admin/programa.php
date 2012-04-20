@@ -159,7 +159,7 @@ $validator->printScript();
                 var cultivo = parseInt($(this).val());
                 if(cultivo < 10)
                     cultivo = '0'+cultivo;
-                //
+
                 fecha = $('#Programa\\[fecha_inicio\\]').val();
                 if(fecha != '')
                     $('#validar_codigo').load('../ajax/detalle_programa.php?ac=validar&codigo='+cultivo+'&fecha='+fecha);

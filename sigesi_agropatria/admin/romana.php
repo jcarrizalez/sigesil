@@ -342,7 +342,7 @@
                         if($infoMovimiento[0]['muestra'] == 0){
         ?>
         <tr>
-            <td>Peso Lleno <?=$pesar?></td>
+            <td>Peso Lleno <?=$pesar?> Kgrs</td>
             <td><? echo $html->input('Recepcion.peso_0'.$i.'l', '', array('type' => 'text', 'class' => 'estilo_campos2 integer')); ?></td>
         </tr>
         <?
@@ -350,14 +350,14 @@
                             if($i == 1){
         ?>
         <tr>
-            <td>Peso Lleno <?=$pesar?></td>
+            <td>Peso Lleno <?=$pesar?> Kgrs</td>
             <td><? echo $html->input('peso_0l', 'RECHAZADO', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 integer')); ?></td>
         </tr>
         <?
                             }else{
         ?>
         <tr>
-            <td>Peso Lleno <?=$pesar?></td>
+            <td>Peso Lleno <?=$pesar?> Kgrs</td>
             <td><? echo $html->input('Recepcion.peso_01l', '', array('type' => 'text', 'class' => 'estilo_campos2 integer')); ?></td>
         </tr>
         <?
@@ -366,14 +366,14 @@
                             if($i == 1){
         ?>
         <tr>
-            <td>Peso Lleno <?=$pesar?></td>
+            <td>Peso Lleno <?=$pesar?> Kgrs</td>
             <td><? echo $html->input('Recepcion.peso_01l', '', array('type' => 'text', 'class' => 'estilo_campos2 integer')); ?></td>
         </tr>
         <?
                             }else{
         ?>
         <tr>
-            <td>Peso Lleno <?=$pesar?></td>
+            <td>Peso Lleno <?=$pesar?> Kgrs</td>
             <td><? echo $html->input('peso_0l', 'RECHAZADO', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 integer')); ?></td>
         </tr>
         <?
@@ -397,11 +397,11 @@
                         if($infoMovimiento[0]['muestra'] == 0){
         ?>
         <tr>
-            <td>Peso Lleno <?=$pesar?></td>
+            <td>Peso Lleno <?=$pesar?> Kgrs</td>
             <td><? echo $html->input("Recepcion.pesoLleno$i", $infoMovimiento[0]['peso_0'.$i.'l'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
-            <td>Peso Vac&iacute;o <?=$pesar?></td>
+            <td>Peso Vac&iacute;o <?=$pesar?> Kgrs</td>
             <td><? echo $html->input('Recepcion.peso_0'.$i.'v', '', array('type' => 'text', 'class' => 'estilo_campos integer verifPeso')); ?></td>
         </tr>
         <?
@@ -410,22 +410,22 @@
                             if($i == 1){
         ?>
         <tr>
-            <td>Peso Lleno <?=$pesar?></td>
+            <td>Peso Lleno <?=$pesar?> Kgrs</td>
             <td><? echo $html->input("pesoLleno$i", 'RECHAZADO', array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
-            <td>Peso Vac&iacute;o <?=$pesar?></td>
+            <td>Peso Vac&iacute;o <?=$pesar?> Kgrs</td>
             <td><? echo $html->input('peso_0'.$i.'v', 'RECHAZADO', array('type' => 'text', 'class' => 'estilo_campos integer verifPeso', 'readOnly' => true)); ?></td>
         </tr>
         <?
                             }else{
         ?>
         <tr>
-            <td>Peso Lleno <?=$pesar?></td>
+            <td>Peso Lleno <?=$pesar?> Kgrs</td>
             <td><? echo $html->input("Recepcion.pesoLleno1", $infoMovimiento[0]['peso_01l'], array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
-            <td>Peso Vac&iacute;o <?=$pesar?></td>
+            <td>Peso Vac&iacute;o <?=$pesar?> Kgrs</td>
             <td><? echo $html->input('Recepcion.peso_01v', '', array('type' => 'text', 'class' => 'estilo_campos integer verifPeso')); ?></td>
         </tr>
         <?
@@ -434,22 +434,22 @@
                             if($i == 1){
         ?>
         <tr>
-            <td>Peso Lleno <?=$pesar?></td>
+            <td>Peso Lleno <?=$pesar?> Kgrs</td>
             <td><? echo $html->input("Recepcion.pesoLleno1", $infoMovimiento[0]['peso_01l'], array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
-            <td>Peso Vac&iacute;o <?=$pesar?></td>
+            <td>Peso Vac&iacute;o <?=$pesar?> Kgrs</td>
             <td><? echo $html->input('Recepcion.peso_01v', '', array('type' => 'text', 'class' => 'estilo_campos integer verifPeso')); ?></td>
         </tr>
         <?
                             }else{
         ?>
         <tr>
-            <td>Peso Lleno <?=$pesar?></td>
+            <td>Peso Lleno <?=$pesar?> Kgrs</td>
             <td><? echo $html->input("pesoLleno$i", 'RECHAZADO', array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
-            <td>Peso Vac&iacute;o <?=$pesar?></td>
+            <td>Peso Vac&iacute;o <?=$pesar?> Kgrs</td>
             <td><? echo $html->input('peso_0'.$i.'v', 'RECHAZADO', array('type' => 'text', 'class' => 'estilo_campos integer verifPeso', 'readOnly' => true)); ?></td>
         </tr>
         <?
@@ -471,7 +471,7 @@
                         $pesar = ($i == 1) ? 'Motriz' : 'Remolque';
         ?>
         <tr>
-            <td>Peso Vacio <?=$pesar?></td>
+            <td>Peso Vacio <?=$pesar?> Kgrs</td>
             <td><? echo $html->input('Recepcion.peso_0'.$i.'v', '', array('type' => 'text', 'class' => 'estilo_campos2 integer')); ?></td>
         </tr>
         <?          }
@@ -491,11 +491,11 @@
                         $pesar = ($i == 1) ? 'Motriz' : 'Remolque';
         ?>
         <tr>
-            <td>Peso Vac&iacute;o <?=$pesar?></td>
+            <td>Peso Vac&iacute;o <?=$pesar?> Kgrs</td>
             <td><? echo $html->input('Recepcion.peso_0'.$i.'v', $infoMovimiento[0]['peso_0'.$i.'v'], array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
-            <td>Peso Lleno <?=$pesar?></td>
+            <td>Peso Lleno <?=$pesar?> Kgrs</td>
             <td><? echo $html->input("Recepcion.pesoLleno$i", '', array('type' => 'text', 'class' => 'estilo_campos integer verifPeso')); ?></td>
         </tr>
         <?

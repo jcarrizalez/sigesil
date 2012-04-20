@@ -108,7 +108,6 @@
     </div>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
-            <th>Despacho #</th>
             <th>Orden</th>
             <th>Fecha</th>
             <th>Cultivo</th>
@@ -142,9 +141,9 @@
             $totalPesoTara += $pesoTara;
             $totalPesoNeto += $pesoNeto;
             $totalPesoAcon += $pesoAcon;
+            $idCA = (!empty($idCA)) ? "_$idCA" : '';
         ?>
         <tr class="<?=$clase?>">
-            <td align="center"><?=$dataDespacho['numero']?></td>
             <td align="center"><?=$dataDespacho['numero_guia']?></td>
             <td align="center"><?=$general->date_sql_screen($dataDespacho['fecha_des'], '', 'es', '-')?></td>
             <td align="center"><?= "(".$dataDespacho['cultivo_codigo'].")".$dataDespacho['cultivo_nombre']?></td>
@@ -152,7 +151,7 @@
             <td align="center"><?=$dataDespacho['cliente_nombre']?></td>
             
             <td align="center">
-                <? echo $html->link('<img src="../images/imprimir.png" width="16" height="16" title=Imprimir>', '../reportes/pdf_listado_despachos_individual.php?id='.$dataDespacho['id'].'_'.$fdesde.'_'.$fhasta); ?>
+                <? echo $html->link('<img src="../images/imprimir.png" width="16" height="16" title=Imprimir>', '../reportes/pdf_listado_despachos_individual.php?id='.$dataDespacho['numero_guia'].'_'.$fdesde.'_'.$fhasta.$idCA); ?>
             </td>
             <!--td align="center"><?=$dataDespacho['placa']?></td>
             <td align="center"><?=$pesoBruto?></td>

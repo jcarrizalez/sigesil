@@ -4,7 +4,7 @@
     $transporte = new Transporte();
     
     $listaCR = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
-    $pesoPartes = array(1 => 'No', 2 => 'Si');
+    $pesoPartes = array(1 => 'Sencillo', 2 => 'Doble');
     $idCA = $_SESSION['s_ca_id'];
     
     $listadoT = $transporte->find(array('id_centro_acopio' => $idCA), '', array('id', 'nombre'), 'list', 'nombre');
@@ -204,12 +204,12 @@ $validator->printScript();
             </tbody>
             <tbody id="placas">
                 <tr>
-                    <td><span class="msj_rojo">* </span>Placa Veh&iacute;culo</td>
+                    <td><span class="msj_rojo">* </span>Placa Motriz/Chuto</td>
                     <td><? echo $html->input('Vehiculo.placa', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
             </tbody>
             <tr>
-                <td>Placas Remolque</td>
+                <td>Placas Remolque/Batea</td>
                 <td><? echo $html->input('Vehiculo.placa_remolques', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
@@ -241,7 +241,7 @@ $validator->printScript();
             </tbody>
             <tbody id="otroPtoEntrega"></tbody>
             <tr>
-                <td><span class="msj_rojo">* </span>¿Pesar en dos partes?</td>
+                <td><span class="msj_rojo">* </span>¿Tipo de Veh&iacute;culo?</td>
                 <td><? echo $html->select('Despacho.cant_muestras', array('options'=>$pesoPartes, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
             </tr>
         </table>

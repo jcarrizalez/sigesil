@@ -45,7 +45,7 @@ class Usuario extends Model {
     }
 
     function obtenerTodosUsuarios($idUsuario = null, $idCA = null, $idAlmacen = null, $idPerfil = null, $buscar = null, $orden = null, $estatus = null) {
-        $query = "SELECT ca.id AS id_ca, ca.nombre AS nombre_ca, al.id AS id_al, al.nombre AS nombre_al, u.id, u.nombre, u.apellido, u.cedula, u.sexo, u.usuario, u.email, u.estatus, pe.nombre_perfil AS perfil
+        $query = "SELECT ca.id AS id_ca, ca.codigo AS codigo_ca, ca.nombre AS nombre_ca, al.id AS id_al, al.nombre AS nombre_al, u.id, u.nombre, u.apellido, u.cedula, u.sexo, u.usuario, u.email, u.estatus, pe.nombre_perfil AS perfil
                     FROM si_usuarios u
                     LEFT JOIN si_usuarios_perfiles up ON up.id_usuario = u.id
                     INNER JOIN si_perfiles pe ON pe.id = up.id_perfil
