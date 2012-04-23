@@ -55,8 +55,8 @@
     </div><hr/>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
-            <th>Codigo</th>
-            <th>Nombre</th>
+            <th>Centro de Acopio</th>
+            <th>Cliente</th>
             <th>Cultivo</th>
             <th>Nro Orden</th>
             <th>Verificaci&oacute;n</th>
@@ -71,8 +71,8 @@
                 $clase = $general->obtenerClaseFila($i);
         ?>
         <tr class="<?=$clase?>">
-            <td align="center"><?=$dataOr['codigo']?></td>
-            <td><?=$dataOr['nombre_ca']?></td>
+            <td align="center"><?="(".$dataOr['codigo'].") ".$dataOr['nombre_ca']?></td>
+            <td align="center"><?=$dataOr['ced_cliente']?></td>
             <td align="center"><?=$dataOr['id_cultivo']?></td>
             <td align="center"><?=$dataOr['numero_orden']?></td>
             <td align="center"><?=$dataOr['cod_verificacion']?></td>

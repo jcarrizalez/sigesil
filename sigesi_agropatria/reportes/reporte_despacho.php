@@ -2,11 +2,15 @@
     require_once('../lib/core.lib.php');
     
     $despacho = new Despacho();
+    $centro_acopio = new CentroAcopio();
     
     if($_SESSION['s_perfil_id'] == GERENTEG)
         $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : null;
     else
         $idCA = $_SESSION['s_ca_id'];
+    
+    $listaCA = $centro_acopio->find('', '', array('id', 'nombre'), 'list', 'id');
+    unset($listaCA[1]);
 
     $fdesde = (!empty($GPC['fecha_inicio'])) ? $general->fecha_normal_sql($GPC['fecha_inicio'], 'es') : date('Y-m-d');
     $fhasta = (!empty($GPC['fecha_fin'])) ? $general->fecha_normal_sql($GPC['fecha_fin'], 'es') : date('Y-m-d');
@@ -20,10 +24,23 @@
     $paginador = new paginator($total_registros, $porPagina);
     
     switch($GPC['ac']){
+        case 'Pdf':
+            header('location: pdf_listado_despachos_todo.php?id='.$fdesde."_".$fhasta."_".$idCA);
+            die();
+        break;
+        case 'Excel':
+            
+        break;
+        case 'Buscar':
+            
+        break;
+    }
+    
+    /*switch($GPC['ac']){
         case 'excel':
             $listadoDespachos = $despacho->listadoDespacho('', $idCA, '', '', '', "'5'", $fdesde, $fhasta);
         break;
-    }
+    }*/
     
     require('../lib/common/header.php');
     require('../lib/common/init_calendar.php');
@@ -51,7 +68,7 @@
         ?>
     </div>
     <div id="filtro">
-        <form name="form1" id="form1" method="POST" action="?ac=buscar" enctype="multipart/form-data">
+        <form name="form1" id="form1" method="POST" action="#" enctype="multipart/form-data">
             <table width="100%" border="0">
                 <tr>
                     <td width="1">Desde </td>
@@ -83,15 +100,22 @@
                         </script>
                     </td>
                 </tr>
+                <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+                <tr>
+                    <td width="110">Centro de Acopio:</td>
+                    <td colspan="2">
+                        <?
+                            echo $html->select('id_ca',array('options'=>$listaCA, 'selected' => $GPC['id_ca'], 'default' => 'Seleccione'));
+                            echo $html->input('ac', 'Buscar', array('type' => 'submit'));
+                        ?>
+                    </td>
+                </tr>
+                <? } ?>
                 <tr id="botones">
                     <td colspan="4" style="padding-top: 20px;">
                         <?
-                            /*if($_SESSION['s_perfil_id'] == GERENTES){
-                                echo $html->input('Nuevo', 'Nuevo', array('type' => 'button'));
-                            }*/
-                            echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
-                            echo $html->input('Excel', 'Excel', array('type' => 'submit'));
-                            echo $html->input('PDF', 'PDF', array('type' => 'button'));
+                            echo $html->input('ac', 'Excel', array('type' => 'submit'));
+                            echo $html->input('ac', 'Pdf', array('type' => 'submit'));
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
                         ?>
                     </td>
@@ -131,17 +155,17 @@
             $totalPesoNeto = 0;
             $totalPesoAcon = 0;
             foreach($listadoDespachos as $dataDespacho){
-            $clase = $general->obtenerClaseFila($i);
-            $pesoBruto = $dataDespacho['peso_01l'] + $dataDespacho['peso_02l'];
-            $pesoTara = $dataDespacho['peso_01v'] + $dataDespacho['peso_02v'];
-            $pesoNeto = $pesoBruto - $pesoTara;
-            $pesoAcon = ($pesoNeto - ($dataDespacho['humedad_des'] + $dataDespacho['impureza_des']));
-            
-            $totalPesoBruto += $pesoBruto;
-            $totalPesoTara += $pesoTara;
-            $totalPesoNeto += $pesoNeto;
-            $totalPesoAcon += $pesoAcon;
-            $idCA = (!empty($idCA)) ? "_$idCA" : '';
+                $clase = $general->obtenerClaseFila($i);
+                $pesoBruto = $dataDespacho['peso_01l'] + $dataDespacho['peso_02l'];
+                $pesoTara = $dataDespacho['peso_01v'] + $dataDespacho['peso_02v'];
+                $pesoNeto = $pesoBruto - $pesoTara;
+                $pesoAcon = ($pesoNeto - ($dataDespacho['humedad_des'] + $dataDespacho['impureza_des']));
+
+                $totalPesoBruto += $pesoBruto;
+                $totalPesoTara += $pesoTara;
+                $totalPesoNeto += $pesoNeto;
+                $totalPesoAcon += $pesoAcon;
+                $idCA = (!empty($idCA)) ? "_$idCA" : '';
         ?>
         <tr class="<?=$clase?>">
             <td align="center"><?=$dataDespacho['numero_guia']?></td>

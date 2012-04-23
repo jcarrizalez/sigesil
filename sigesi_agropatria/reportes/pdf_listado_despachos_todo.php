@@ -3,7 +3,7 @@ require_once('../lib/core.lib.php');
 include('../lib/class/tcpdf/config/lang/spa.php');
 include('../lib/class/tcpdf/tcpdf.php');
 $despacho = new Despacho();
-
+$despacho2 = new Despacho();
 if(isset($GPC['id']))
 {
 	$arrays=explode('_',$GPC['id']);
@@ -20,20 +20,16 @@ $sistema='AGROPATRIA C.A.';
 
 if($ban==1)
 {
+	if(isset($arrays[2]))
+	$centro_acopio=$arrays[2];
+	else
+	$centro_acopio='';
 
-$arrays=explode('_',$GPC['id']);
-if (isset($arrays[3]))
-$centro_acopio=$arrays[3];
-else
-$centro_acopio='';
-
-$listadoDespachosdatos = $despacho->listadoDespacho('', $centro_acopio, '', '', '', "'5'",'2012-04-18','2012-04-18','','','');
-//$listadoDespachos = $despacho->listadoDespacho('', $centro_acopio, '', '', '', "'5'",$arrays[1],$arrays[2],'','','');
-//$listadoDespachos = $despacho->listadoDespacho($arrays[0], '', '', '', '', "'5'",$arrays[1],$arrays[2]);
+$listadoDespachosdatos = $despacho->listadoDespacho('', $centro_acopio, '', '', '', "'5'",$arrays[0],$arrays[1],'','','');
 //Debug::pr($listadoDespachos);
 
 
-$reporte_='LISTADO_DESDE_'.$arrays[1].'_HASTA_'.$arrays[2];
+$reporte_='LISTADO_DESDE_'.$arrays[0].'_HASTA_'.$arrays[1];
 }
 else
 $reporte_='REPORTE_SIN_DATOS';
@@ -92,19 +88,20 @@ $pdf->SetFont('helvetica','',8);
 
 if($ban==1)
 {
-
-
 ////////////////////////////////////////////////////////////////
+
 
 $t='';
 $cant_registros=0;
 for($j=0; $j<count($listadoDespachosdatos); $j++)
 {
+$listadoDespachos = $despacho2->listadoDespacho('', $centro_acopio, '', '', '', "'5'",$arrays[0],$arrays[1],'','',$listadoDespachosdatos[$j]['numero_guia']);
+
 
 $t.='
 <table border="0" cellpadding="0" cellspacing="0">
 <tr align="left"><td width="100px"> Cliente    : </td><td>'.$listadoDespachosdatos[$j]['cliente_nombre'].'  RIF: '.$listadoDespachosdatos[$j]['ced_cliente'].' </td></tr>
-<tr align="left"><td width="100px"> Cultivo    :  </td><td>'.$listadoDespachosdatos[$j]['cultivo_codigo'].' - '.$listadoDespachosdatos[$j]['cultivo_nombre'].'   </td></tr>
+<tr align="left"><td width="100px"> Cultivo    : </td><td>'.$listadoDespachosdatos[$j]['cultivo_codigo'].' - '.$listadoDespachosdatos[$j]['cultivo_nombre'].'   </td></tr>
 </table>
 <br />
 
@@ -128,7 +125,9 @@ $t.='
 $suma_peso_bruto=0;
 $suma_dcto_hum=0;
 
-$listadoDespachos = $despacho->listadoDespacho('', $centro_acopio, '', '', '', "'5'",'2012-04-18','2012-04-18','','','');
+
+
+
 
 for($i=0; $i<count($listadoDespachos); $i++)
 {
@@ -195,7 +194,14 @@ $t.='
 }
 
 ////////////////////////////////////////////////////////////////
+
+
+
+
 $pdf->writeHTMLCell(200, 0, 18, 30, $t, 0, 1, 0, true, 'J',true);
+
+
+
 
 }
 else

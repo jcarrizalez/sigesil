@@ -63,7 +63,7 @@ $validator->printScript();
     <table align="center">
         <tr>
             <td><span class="msj_rojo">* </span>Cedula/Rif </td>
-            <td><?echo $html->input('Chofer.ced_rif', $GPC['cp'], array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos integer')); ?></td>
+            <td><?echo $html->input('Chofer.ced_rif', $GPC['cp'], array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Nombre </td>

@@ -31,9 +31,9 @@ else
             $(function(){
                 $("#accordion").accordion({ header: "h3", active: false });
                 
-                $(this).bind("contextmenu", function(e) {
+                /*$(this).bind("contextmenu", function(e) {
                     e.preventDefault();
-                });
+                });*/
             });
             
             $("#accordion h3 a").click(function() {
