@@ -4,19 +4,18 @@
     $productor = new Productor();
     
     $id = (!empty($GPC['id'])) ? $GPC['id'] : null;
-    $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : $_SESSION['s_ca_id'];    
+    $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : $_SESSION['s_ca_id'];
     
-    $listadoProductores=$productor->listadoProductores($id,$idCA);    
-    
+    $listadoProductores=$productor->listadoProductores();    
     
     if($GPC['ac'] == 'eliminar'){
         $id = $GPC['id'];
         $silos->eliminarProductor($id);
         header('location: productor_listado.php');
         die();
-    }     
-    
-    
+    }
+
+
     require('../lib/common/header.php');
 ?>
 <script type="text/javascript">
@@ -34,7 +33,7 @@
     });
 </script>
     <div id="titulo_modulo">
-        Productores<br/><hr/>
+        PRODUCTORES<br/><hr/>
     </div>
     <div id="mensajes">
         <?
@@ -48,11 +47,11 @@
             }
         ?>
     </div>
-    <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>    
+    <? //if($_SESSION['s_perfil_id'] == GERENTEG){ ?>    
     <div id="botones">
         <? echo $html->input('Nuevo', 'Nuevo', array('type' => 'button')); ?>
     </div>
-    <? } ?>
+    <? //} ?>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">            
             <th>Centro Acopio</th>
@@ -60,9 +59,9 @@
             <th>Nombre</th>
             <th>RIF</th>
             <th>Telefono</th>           
-            <? if($_SESSION['s_perfil_id'] == GERENTES){ ?>
+            <? //if($_SESSION['s_perfil_id'] == GERENTES){ ?>
             <th>Acci&oacute;n</th>
-            <? } ?>
+            <? //} ?>
         </tr>
         <?
             $i=0;
@@ -75,15 +74,16 @@
             <td><?=$dataProductor['nombre']?></td>
             <td><?=$dataProductor['RIF']?></td>
             <td><?=$dataProductor['Telefono']?></td>            
-            
+            <? //if($_SESSION['s_perfil_id'] == GERENTES){ ?>
             <td align="center">
                 <?
-                    echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'silos.php?ac=editar&id='.$dataSilo['id']);
-                    echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'silos_listado.php?ac=eliminar&id='.$dataSilo['id'], array('onclick' => 'return eliminar();'));
+                    echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'productor.php?ac=editar&id='.$dataProductor['id']);
+                    echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'productor_listado.php?ac=eliminar&id='.$dataProductor['id'], array('onclick' => 'return eliminar();'));
                 ?>
             </td>
         </tr>
-        <? $i++; } ?>
+        <? $i++; } 
+         //} ?>
         <tr>            
             <td colspan="3">&nbsp;</td>
         </tr>

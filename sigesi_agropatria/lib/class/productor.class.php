@@ -3,14 +3,13 @@
 class Productor extends Model {
     var $table = 'si_productor';
     
-    function listadoProductores($id=null, $idCA=null){
-        $query = "SELECT p.id,p.*,
-                    ca.nombre AS nombre_ca
-                    FROM si_productor p
-                    INNER JOIN si_centro_acopio ca ON ca.id = p.id_centro_acopio
+    function listadoProductores($id=null, $idORG=null){
+        $query = "SELECT p.id,p.*
+                FROM si_productor p
+                INNER JOIN si_organizacion o ON p.id_org=o.id                    
                     WHERE '1'";
         $query.=(!empty($id)) ? " AND p.id = $id" : '';
-        $query.=(!empty($idCA)) ? " AND p.id_centro_acopio = $idCA" : '';
+        $query.=(!empty($idORG)) ? " AND p.id_org = $idORG" : '';
         $query.= " ORDER BY p.id";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     } 
