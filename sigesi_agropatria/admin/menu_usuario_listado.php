@@ -62,7 +62,7 @@
             <td align="center"><?=$dataUsuario['perfil']?></td>
             <td align="center">
                 <?
-                    echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'menu_usuario.php?ac=editar&id='.$dataUsuario['id']);
+                    echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'menu_usuario.php?ac=editar&id='.$dataUsuario['id'].'&perfil='.$dataUsuario['id_perfil']);
                     //echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'usuarios_listado.php?ac=eliminar&id='.$dataUsuario['id'], array('onclick' => 'return eliminar();'));
                 ?>
             </td>

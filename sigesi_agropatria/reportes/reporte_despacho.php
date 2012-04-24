@@ -18,7 +18,7 @@
     $porPagina = MAX_RESULTS_PAG;
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
     
-    $listadoDespachos = $despacho->listadoDespacho('', $idCA, '', '', '', "'5'", $fdesde, $fhasta);
+    $listadoDespachos = $despacho->despachosReporteGeneral($fdesde, $fhasta, $idCA);
     
     $total_registros = $silos->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);
@@ -35,12 +35,6 @@
             
         break;
     }
-    
-    /*switch($GPC['ac']){
-        case 'excel':
-            $listadoDespachos = $despacho->listadoDespacho('', $idCA, '', '', '', "'5'", $fdesde, $fhasta);
-        break;
-    }*/
     
     require('../lib/common/header.php');
     require('../lib/common/init_calendar.php');
@@ -133,7 +127,6 @@
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
             <th>Orden</th>
-            <th>Fecha</th>
             <th>Cultivo</th>
             <th>Cedula/Rif Cliente</th>
             <th>Cliente</th>
@@ -168,14 +161,13 @@
                 $idCA = (!empty($idCA)) ? "_$idCA" : '';
         ?>
         <tr class="<?=$clase?>">
-            <td align="center"><?=$dataDespacho['numero_guia']?></td>
-            <td align="center"><?=$general->date_sql_screen($dataDespacho['fecha_des'], '', 'es', '-')?></td>
-            <td align="center"><?= "(".$dataDespacho['cultivo_codigo'].")".$dataDespacho['cultivo_nombre']?></td>
-            <td align="center"><?=$dataDespacho['ced_cliente']?></td>
-            <td align="center"><?=$dataDespacho['cliente_nombre']?></td>
+            <td align="center"><?=$dataDespacho['numero_orden']?></td>
+            <td align="center"><?=$dataDespacho['cultivo']?></td>
+            <td align="center"><?=$dataDespacho['ced_rif']?></td>
+            <td align="center"><?=$dataDespacho['nombre_cliente']?></td>
             
             <td align="center">
-                <? echo $html->link('<img src="../images/imprimir.png" width="16" height="16" title=Imprimir>', '../reportes/pdf_listado_despachos_individual.php?id='.$dataDespacho['numero_guia'].'_'.$fdesde.'_'.$fhasta.$idCA); ?>
+                <? echo $html->link('<img src="../images/imprimir.png" width="16" height="16" title=Imprimir>', '../reportes/pdf_listado_despachos_individual.php?id='.$dataDespacho['numero_orden'].'_'.$fdesde.'_'.$fhasta.$idCA); ?>
             </td>
             <!--td align="center"><?=$dataDespacho['placa']?></td>
             <td align="center"><?=$pesoBruto?></td>
