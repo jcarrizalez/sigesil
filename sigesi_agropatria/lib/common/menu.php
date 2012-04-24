@@ -1,6 +1,6 @@
 <?
 $objMenu = new Menu();
-$armarMenuP = $objMenu->menuPorUsuario($_SESSION['s_id']);
+$armarMenuP = $objMenu->menuPorUsuario($_SESSION['s_id'], 0);
 ?>
 <div id="accordion">
     <?
