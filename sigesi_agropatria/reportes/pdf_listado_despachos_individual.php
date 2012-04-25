@@ -15,7 +15,6 @@ if(isset($GPC['id']))
 else
 $ban=0;
 
-
 $sistema='AGROPATRIA C.A.';
 
 if($ban==1)
@@ -28,19 +27,21 @@ else
 $centro_acopio='';
 
 $listadoDespachos = $despacho->listadoDespacho('', $centro_acopio, '', '', '', "'5'",$arrays[1],$arrays[2],'','',$arrays[0]);
-
-//$listadoDespachos = $despacho->listadoDespacho($arrays[0], '', '', '', '', "'5'",$arrays[1],$arrays[2]);
-//Debug::pr($listadoDespachos);
 $reporte_=$listadoDespachos[0]['cliente_nombre'].'_'.$listadoDespachos[0]['ced_cliente'];
 }
 else
 $reporte_='REPORTE_SIN_DATOS';
 
-
-
-
-
 class HOJASOL extends tcpdf{
+    
+    var $titulo = '';
+
+    function setearTitulo($fdesde, $fhasta){
+        if($fdesde == $fhasta)
+            $this->titulo = "LISTADO DE DESPACHOS PARA LA FECHA $fdesde";
+        else
+            $this->titulo = "LISTADO DE DESPACHOS DESDE $fdesde HASTA $fhasta";
+    }
    
     function mayus($let) { return strtr(strtoupper($let),"àèìòùáéíóúçñäëïöü","ÀÈÌÒÙÁÉÍÓÚÇÑÄËÏÖÜ");}
 
@@ -48,23 +49,24 @@ class HOJASOL extends tcpdf{
     {
 		$this->SetMargins(10,30, 10);	
 		$this->SetDisplayMode(85) ;
-		//if($ban==1)
-		$this->writeHTMLCell(0, 0, '', '10', '<font><b>LISTADO DE DESPACHOS</b></font>', 0, 1, 0, true, 'C');
-		$this->writeHTMLCell(0, 0, '1', '7', '<font><b>Fecha: '.date('d/m/Y').'</b></font>&nbsp;&nbsp;&nbsp;&nbsp;', 0, 1, 0, true, 'R');
-		$this->writeHTMLCell(0, 0, '18', '2', 'Pagina'.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, 1, 0, true, 'L');
+		$this->writeHTMLCell(0, 0, '18', '8', 'Pagina: '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, 1, 0, true, 'L');
+		$this->writeHTMLCell(0, 0, '', '10', "<font><b>$this->titulo</b></font>", 0, 1, 0, true, 'C');
+		$this->writeHTMLCell(0, 0, '1', '7', '<font>Fecha: '.date('d/m/Y').'</font>&nbsp;&nbsp;&nbsp;&nbsp;', 0, 1, 0, true, 'R');
+
     }
     function Footer()
     {
 	$this->setFooterMargin(0);
 	$this->SetY(-10);
-	//$this->Cell(0, 10, 'Pagina '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(),0, 1, 'C');
     }
 }
 
    
 
 $pdf = new HOJASOL('L', PDF_UNIT, 'LETTER', true, 'UTF-8', false);
-
+$fdesde = $general->date_sql_screen($arrays[1], '', 'es', '-');
+$fhasta = $general->date_sql_screen($arrays[2], '', 'es', '-');
+$pdf->setearTitulo($fdesde, $fhasta);
 
 $pdf->SetAutoPageBreak(true,9.5);
 $pdf->SetCreator(PDF_CREATOR);
@@ -93,7 +95,7 @@ if($ban==1)
 
 $t='
 <table border="0" cellpadding="0" cellspacing="0">
-<tr align="left"><td width="100px"> Cliente    : </td><td>'.$listadoDespachos[0]['cliente_nombre'].'  RIF: '.$listadoDespachos[0]['ced_cliente'].' </td></tr>
+<tr align="left"><td width="100px"> Cliente    : </td><td>'.$listadoDespachos[0]['cliente_nombre'].' <b>RIF:</b> '.$listadoDespachos[0]['ced_cliente'].' </td></tr>
 <tr align="left"><td width="100px"> Cultivo    :  </td><td>'.$listadoDespachos[0]['cultivo_codigo'].' - '.$listadoDespachos[0]['cultivo_nombre'].'   </td></tr>
 </table>
 <br />
@@ -147,12 +149,12 @@ $suma_pacondicionado+=$pacondicionado;
 $pacondicionado_=$pdf->decimales($pacondicionado);
 $hum=$listadoDespachos[$i]['humedad'];
 $fecha_des=$general->date_sql_screen($listadoDespachos[$i]['fecha_des'],'','es','-');
-//$suma_pacondicionado_general+=$suma_pacondicionado;
+$fecha_des_d=$general->date_sql_screen($listadoDespachos[$i]['fecha_des'],'','es','');
 $suma_despachos+=$i;
 
 
 
-$despacho="D".$listadoDespachos[$i]['numero']."-".$fecha_des;
+$despacho="D".$listadoDespachos[$i]['numero']."-".$fecha_des_d;
 
 
 $t.='
@@ -177,8 +179,8 @@ $t.='
 </table>
 <table border="0" cellpadding="0" cellspacing="2" width="100px">
 <tr>
-<td width="80px" align="right"><b>Despachos: ('.$suma_despachos.')</b> &nbsp;</td>
-<td width="221px" align="right"><div><b>Total General: &nbsp;&nbsp;&nbsp;&nbsp;</b></div></td>
+<td width="80px" align="right"><b>Cantidad: '.$suma_despachos.'</b> &nbsp;</td>
+<td width="221px" align="right"><div><b>Total: &nbsp;&nbsp;&nbsp;&nbsp;</b></div></td>
 <td width="77px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_peso_bruto).'</b> &nbsp;</div></td>
 <td width="65px" align="right">&nbsp;</td>
 <td width="90px" align="right">&nbsp;</td>

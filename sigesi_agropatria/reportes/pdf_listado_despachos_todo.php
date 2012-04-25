@@ -34,8 +34,6 @@ if($ban==1)
 	$centro_acopio='';
 
 $listadoDespachosdatos =  $despacho->despachosReporteGeneral($arrays[0], $arrays[1], $centro_acopio);
-//Debug::pr($listadoDespachosdatos);
-//echo count($listadoDespachosdatos);
 if(count($listadoDespachosdatos)<1)
 {
 $ban=0;
@@ -50,6 +48,15 @@ $reporte_='REPORTE_SIN_DATOS';
 
 
 class HOJASOL extends tcpdf{
+    
+    var $titulo = '';
+
+    function setearTitulo($fdesde, $fhasta){
+        if($fdesde == $fhasta)
+            $this->titulo = "LISTADO DE DESPACHOS PARA LA FECHA $fdesde";
+        else
+            $this->titulo = "LISTADO DE DESPACHOS DESDE $fdesde HASTA $fhasta";
+    }
    
     function mayus($let) { return strtr(strtoupper($let),"àèìòùáéíóúçñäëïöü","ÀÈÌÒÙÁÉÍÓÚÇÑÄËÏÖÜ");}
 
@@ -57,23 +64,24 @@ class HOJASOL extends tcpdf{
     {
 		$this->SetMargins(10,30, 10);	
 		$this->SetDisplayMode(85) ;
-		//if($ban==1)
-		$this->writeHTMLCell(0, 0, '', '10', '<font><b>'.$pdf->$_SESSION['fdesde'].' LISTADO DE DESPACHOS</b></font>', 0, 1, 0, true, 'C');
-		$this->writeHTMLCell(0, 0, '1', '7', '<font><b>Fecha: '.date('d/m/Y').'</b></font>&nbsp;&nbsp;&nbsp;&nbsp;', 0, 1, 0, true, 'R');
-		$this->writeHTMLCell(0, 0, '18', '2', 'Pagina'.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, 1, 0, true, 'L');
+		$this->writeHTMLCell(0, 0, '18', '8', 'Pagina: '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, 1, 0, true, 'L');
+		$this->writeHTMLCell(0, 0, '', '10', "<font><b>$this->titulo</b></font>", 0, 1, 0, true, 'C');
+		$this->writeHTMLCell(0, 0, '1', '7', '<font>Fecha: '.date('d/m/Y').'</font>&nbsp;&nbsp;&nbsp;&nbsp;', 0, 1, 0, true, 'R');
+		
     }
     function Footer()
     {
 	$this->setFooterMargin(0);
 	$this->SetY(-10);
-	//$this->Cell(0, 10, 'Pagina '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(),0, 1, 'C');
     }
 }
 
    
 
 $pdf = new HOJASOL('L', PDF_UNIT, 'LETTER', true, 'UTF-8', false);
-
+$fdesde = $general->date_sql_screen($arrays[0], '', 'es', '-');
+$fhasta = $general->date_sql_screen($arrays[1], '', 'es', '-');
+$pdf->setearTitulo($fdesde, $fhasta);
 
 $pdf->SetAutoPageBreak(true,9.5);
 $pdf->SetCreator(PDF_CREATOR);
@@ -99,7 +107,6 @@ $pdf->SetFont('helvetica','',8);
 
 if($ban==1)
 {
-////////////////////////////////////////////////////////////////
 
 
 $t='';
@@ -115,13 +122,6 @@ $suma_despachos_general=0;
 for($j=0; $j<count($listadoDespachosdatos); $j++)
 {
 $listadoDespachos = $despacho2->listadoDespacho('', $centro_acopio, '', '', '', "'5'",$arrays[0],$arrays[1],'','',$listadoDespachosdatos[$j]['numero_orden']);
-/*
-[numero_orden] => 56021210
-            [fecha_emision] => 2012-04-02 00:00:00-04:30
-            [cultivo] => (02) ARROZ BLANCO HÃšMEDO NACIONAL
-            [ced_rif] => V17247200
-            [nombre_cliente] => JOSE PEREZ
-*/
 $t.='
 <table border="0" cellpadding="0" cellspacing="0">
 <tr align="left"><td width="70px"><b> Cliente    :</b></td><td>'.$listadoDespachosdatos[$j]['nombre_cliente'].' <b> RIF: </b>'.$listadoDespachosdatos[$j]['ced_rif'].' </td></tr>
@@ -173,25 +173,25 @@ $suma_pacondicionado+=$pacondicionado;
 $pacondicionado_=$pdf->decimales($pacondicionado);
 $hum=$listadoDespachos[$i]['humedad'];
 $fecha_des=$general->date_sql_screen($listadoDespachos[$i]['fecha_des'],'','es','-');
-
-$despacho="D".$listadoDespachos[$i]['numero']."-".$fecha_des;
+$fecha_des_d=$general->date_sql_screen($listadoDespachos[$i]['fecha_des'],'','es','');
+$despacho="D".$listadoDespachos[$i]['numero']."-".$fecha_des_d;
 $suma_despachos+=$i;
 
 $t.='
 <tr bgcolor="'.$class.'">
 <td width="80px" align="right">'.$despacho.' &nbsp;</td>
-<td width="80px" align="right">'.$listadoDespachos[$i]['numero_guia'].' &nbsp;</td>
+<td width="80px" align="right">'.$listadoDespachos[$i]['numero_guia'].'</td>
 <td width="75px" align="right">'.$fecha_des.'</td>
 <td width="65px" align="right">'.$listadoDespachos[$i]['placa'].'</td>
 <td width="85px" align="right">'.$pesobruto_.' &nbsp;</td>
-<td width="65px" align="right">'.$pdf->decimales($tara).' &nbsp;</td>
-<td width="90px" align="right">'.$pdf->decimales($pesoneto).' &nbsp;</td>
-<td width="55px" align="right">'.$pdf->decimales($hum).' &nbsp;</td>
-<td width="75px" align="right">'.$dcto_hum_.' &nbsp;</td>
-<td width="55px" align="right">'.$listadoDespachos[$i]['impureza'].' &nbsp;</td>
-<td width="70px" align="right">'.$dcto_imp_.' &nbsp;</td>
+<td width="65px" align="right">'.$pdf->decimales($tara).'</td>
+<td width="90px" align="right">'.$pdf->decimales($pesoneto).'</td>
+<td width="55px" align="right">'.$pdf->decimales($hum).'</td>
+<td width="75px" align="right">'.$dcto_hum_.'</td>
+<td width="55px" align="right">'.$listadoDespachos[$i]['impureza'].'</td>
+<td width="70px" align="right">'.$dcto_imp_.'</td>
 <td width="5px">&nbsp;</td>
-<td width="105px" align="right">'.$pacondicionado_.' &nbsp;</td>
+<td width="105px" align="right">'.$pacondicionado_.'</td>
 </tr>
 ';
 }
@@ -199,17 +199,17 @@ $t.='
 </table>
 <table border="0" cellpadding="0" cellspacing="2" width="100px">
 <tr>
-<td width="80px" align="right"><b>Despachos: ('.$suma_despachos.')</b> &nbsp;</td>
+<td width="80px" align="right"><b>Cantidad: '.$suma_despachos.'</b> &nbsp;</td>
 <td width="221px" align="right"><div><b> Total: &nbsp;&nbsp;&nbsp;&nbsp;</b></div></td>
-<td width="80px" align="right"><div style="border-top:1px solid #000000;"><b>'.$pdf->decimales($suma_peso_bruto).'</b> &nbsp;</div></td>
+<td width="77px" align="right"><div style="border-top:1px solid #000000;"><b>'.$pdf->decimales($suma_peso_bruto).'</b> &nbsp;</div></td>
 <td width="65px" align="right">&nbsp;</td>
 <td width="90px" align="right">&nbsp;</td>
 <td width="55px" align="right">&nbsp;</td>
-<td width="67px" align="right"><div style="border-top:1px solid #000000;"><b>'.$pdf->decimales($suma_dcto_hum).'</b> &nbsp;</div></td>
+<td width="71px" align="right"><div style="border-top:1px solid #000000;"><b>'.$pdf->decimales($suma_dcto_hum).'</b> &nbsp;</div></td>
 <td width="55px" align="right">&nbsp;</td>
-<td width="67px" align="right"><div style="border-top:1px solid #000000;"><b>'.$pdf->decimales($suma_dcto_imp).'</b> &nbsp;</div></td>
+<td width="66px" align="right"><div style="border-top:1px solid #000000;"><b>'.$pdf->decimales($suma_dcto_imp).'</b> &nbsp;</div></td>
 <td width="5px">&nbsp;</td>
-<td width="102px" align="right"><div style="border-top:1px solid #000000;"><b>'.$pdf->decimales($suma_pacondicionado).' </b>&nbsp;</div></td>
+<td width="100px" align="right"><div style="border-top:1px solid #000000;"><b>'.$pdf->decimales($suma_pacondicionado).' </b>&nbsp;</div></td>
 </tr>
 </table>
 <br /><br />';
@@ -225,24 +225,22 @@ $suma_despachos_general+=$suma_despachos;
 $t.='
 </table>
 <table border="0" cellpadding="0" cellspacing="2" width="100px">
+<tr><td colspan="11"><b>Total General: &nbsp;&nbsp;&nbsp;&nbsp;</b></td></tr>
 <tr>
-<td width="80px" align="right"><b>Despachos: ('.$suma_despachos_general.')</b> &nbsp;</td>
-<td width="221px" align="right"><div><b>Total General: &nbsp;&nbsp;&nbsp;&nbsp;</b></div></td>
-<td width="80px" align="right"><div style="border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000;"><b>'.$pdf->decimales($suma_peso_bruto_general).'</b> &nbsp;</div></td>
+<td width="80px" align="right"><b>Cantidad: '.$suma_despachos_general.'</b> &nbsp;</td>
+<td width="221px" align="right"><div>&nbsp;</div></td>
+<td width="76px" align="right"><div style="border-bottom:1px solid #000000;"><b>'.$pdf->decimales($suma_peso_bruto_general).'</b> &nbsp;</div></td>
 <td width="65px" align="right">&nbsp;</td>
 <td width="90px" align="right">&nbsp;</td>
 <td width="55px" align="right">&nbsp;</td>
-<td width="67px" align="right"><div style="border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000;"><b>'.$pdf->decimales($suma_dcto_hum_general).'</b> &nbsp;</div></td>
+<td width="71px" align="right"><div style="border-bottom:1px solid #000000;"><b>'.$pdf->decimales($suma_dcto_hum_general).'</b> &nbsp;</div></td>
 <td width="55px" align="right">&nbsp;</td>
-<td width="67px" align="right"><div style="border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000;"><b>'.$pdf->decimales($suma_dcto_imp_general).'</b> &nbsp;</div></td>
+<td width="66px" align="right"><div style="border-bottom:1px solid #000000;"><b>'.$pdf->decimales($suma_dcto_imp_general).'</b> &nbsp;</div></td>
 <td width="5px">&nbsp;</td>
-<td width="102px" align="right"><div style="border-top:1px solid #000000; border-bottom:1px solid #000000; border-left:1px solid #000000; border-right:1px solid #000000;"><b>'.$pdf->decimales($suma_pacondicionado_general).'</b>&nbsp;</div></td>
+<td width="100px" align="right"><div style="border-bottom:1px solid #000000;"><b>'.$pdf->decimales($suma_pacondicionado_general).'</b>&nbsp;&nbsp;</div></td>
 </tr>
 </table>
 <br /><br />';
-
-
-
 
 $pdf->writeHTMLCell(200, 0, 18, 30, $t, 0, 1, 0, true, 'J',true);
 

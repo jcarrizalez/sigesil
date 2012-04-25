@@ -30,9 +30,19 @@
     
     require(APPROOT."lib/class/autoloader.class.php");
     Autoloader::Register();
-
+    
     ini_set("session.cookie_lifetime", 10800);
     ini_set("session.gc_maxlifetime", 10800);
+    define('GERENTEG',1);
+    define('GERENTES',2);
+    define('ADMING',3);
+    define('ADMINS',4);
+    define('CALIDADG',5);
+    define('CALIDADS',6);
+    define('ROMANERO',7);
+    define('RECEPCION',8);
+    define('DESPACHO',9);
+    
     session_start();
 
     // Global Objects

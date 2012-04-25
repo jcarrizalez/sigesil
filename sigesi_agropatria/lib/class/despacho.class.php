@@ -71,7 +71,7 @@ class Despacho extends Model {
                     INNER JOIN si_cliente cl ON cl.id = d.id_cliente
                     INNER JOIN si_ordenes o ON o.id = d.id_orden
                     INNER JOIN si_cultivo c ON c.id = d.id_cultivo
-                    WHERE '1'";
+                    WHERE '1' AND d.estatus = '5'";
         if(!empty($fdesde) || !empty($fhasta)){
             $fdesde = (!empty($fdesde)) ? "'$fdesde'" : 'now()::date';
             $fhasta = (!empty($fhasta)) ? "'$fhasta'" : 'now()::date';

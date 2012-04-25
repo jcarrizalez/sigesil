@@ -1,6 +1,5 @@
 <?
     require_once('../lib/core.lib.php');
-    require('../lib/common/header.php');
     
     $usuario = new Usuario();
     $menu = new Menu();
@@ -31,7 +30,7 @@
             }
         break;
     }
-
+    require('../lib/common/header.php');
 ?>
 <script type="text/javascript">
     $(document).ready(function(){
