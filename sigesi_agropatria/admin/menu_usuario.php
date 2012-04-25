@@ -7,7 +7,7 @@
     switch($GPC['ac']){
         case 'guardar':
             $total = 0;
-            $menu->eliminarMenuUsuario('', $GPC['usuario_id'], $GPC['perfil_id']);
+            $menu->eliminarMenuUsuario($GPC['usuario_id'], $GPC['perfil_id']);
             for($i=0;$i<count($GPC['padre']);$i++){
                 $idMenu = $menu->asignarMenuUsuario($GPC['padre'][$i], $GPC['usuario_id'], $GPC['perfil_id']);
                 foreach($GPC['hijo_'.$GPC['padre'][$i]] as $valor){

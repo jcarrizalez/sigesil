@@ -38,9 +38,9 @@ class HOJASOL extends tcpdf{
 
     function setearTitulo($fdesde, $fhasta){
         if($fdesde == $fhasta)
-            $this->titulo = "LISTADO DE RECEPCIONES PARA LA FECHA $fdesde";
+            $this->titulo = "LISTADO DE DESPACHOS PARA LA FECHA $fdesde";
         else
-            $this->titulo = "LISTADO DE RECEPCIONES DESDE $fdesde HASTA $fhasta";
+            $this->titulo = "LISTADO DE DESPACHOS DESDE $fdesde HASTA $fhasta";
     }
    
     function mayus($let) { return strtr(strtoupper($let),"àèìòùáéíóúçñäëïöü","ÀÈÌÒÙÁÉÍÓÚÇÑÄËÏÖÜ");}
@@ -93,22 +93,17 @@ $pdf->SetFont('helvetica','',8);
 if($ban==1)
 {
 
-$t='<table border="0" cellpadding="0" cellspacing="0">';
-if(isset($listadoDespachos[0]['cliente_nombre']))
-$t.='<tr align="left"><td width="65px"><b> Entidad    : </b></td><td>'.$listadoDespachos[0]['cliente_nombre'].' </td></tr>';
-if(isset($listadoDespachos[0]['cliente_nombre']))
-$t.='<tr align="left"><td width="65px"><b> Asociado   : </b></td><td>'.$listadoDespachos[0]['cliente_nombre'].' </td></tr>';
-if(isset($listadoDespachos[0]['cliente_nombre']))
-$t.='<tr align="left"><td width="65px"><b> Productor  : </b></td><td>'.$listadoDespachos[0]['cliente_nombre'].' <b>RIF:</b> '.$listadoDespachos[0]['ced_cliente'].' </td></tr>';
-
-$t.='
+$t='
+<table border="0" cellpadding="0" cellspacing="0">
+<tr align="left"><td width="60px"><b> Cliente    : </b></td><td>'.$listadoDespachos[0]['cliente_nombre'].' <b>RIF:</b> '.$listadoDespachos[0]['ced_cliente'].' </td></tr>
+<tr align="left"><td width="60px"><b> Cultivo    : </b></td><td>'.$listadoDespachos[0]['cultivo_codigo'].' - '.$listadoDespachos[0]['cultivo_nombre'].'   </td></tr>
 </table>
 <br />
 
 <table border="0" cellpadding="0" cellspacing="0" width="100px" bordercolor="#000000">
 <tr bgcolor="#FFFFFF" align="right">
-<td width="80px"><b>Entrada #</b></td>
-<td width="80px"><b>Guia</b></td>
+<td width="80px"><b>Despacho #</b></td>
+<td width="80px"><b>Orden</b></td>
 <td width="75px"><b>Fecha</b></td>
 <td width="65px"><b>Placa</b></td>
 <td width="85px"><b>Peso Bruto</b></td>
@@ -159,7 +154,7 @@ $suma_despachos+=$i;
 
 
 
-$despacho="R".$listadoDespachos[$i]['numero']."-".$fecha_des_d;
+$despacho="D".$listadoDespachos[$i]['numero']."-".$fecha_des_d;
 
 
 $t.='

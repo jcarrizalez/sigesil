@@ -20,9 +20,17 @@ class Menu extends Model {
         return $result;
     }
     
-    function eliminarMenuUsuario($idM, $idU, $idP){
+    function eliminarMenuUsuario($idU, $idP){
         $query = "DELETE FROM si_menu_usuario WHERE id_usuario = '$idU' AND id_perfil = '$idP'";
         $this->_SQL_tool($this->DELETE, __METHOD__, $query);
+    }
+    
+    function accionesPagina($idUsuario, $menu){
+        $query = "SELECT mu.nuevo, mu.modificar, mu.eliminar, mu.imprimir
+                    FROM si_menu_usuario mu
+                    INNER JOIN si_menu m ON m.id = mu.id_menu
+                    WHERE '1' AND mu.id_usuario = '$idUsuario' AND m.url ILIKE '%$menu%'";
+        return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 }
 ?>

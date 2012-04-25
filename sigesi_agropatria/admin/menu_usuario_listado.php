@@ -39,7 +39,7 @@
             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
         ?>
     </div>
-    <? } ?>
+    <? } ?><hr/>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
             <th>Centro de Acopio</th>

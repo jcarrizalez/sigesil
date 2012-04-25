@@ -51,8 +51,14 @@
     $javascript = new Javascript();
     $lenguaje = new Lenguaje();
     $html = new Html();
+    $menu = new Menu();
     
     $etiqueta = $lenguaje->etiquetasPorPagina($_SERVER['PHP_SELF']);
+    
+    if(!empty($_SESSION['s_id'])){
+        $infoPagina = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 1);
+        $acciones = $menu->accionesPagina($_SESSION['s_id'], $infoPagina);
+    }
 
     if (file_exists(APPROOT.'lib/common/verificar_login.php')){
         $usuario = new Usuario();

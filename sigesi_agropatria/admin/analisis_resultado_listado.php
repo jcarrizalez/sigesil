@@ -137,7 +137,7 @@ require('../lib/common/init_calendar.php');
     <tr>
         <td colspan="6">&nbsp;</td>
     </tr>
-</table>
+</table><hr/>
 <table align="center" width="100%">
     <tr align="center" class="titulos_tabla">            
         <th>Centro de Acopio</th>            

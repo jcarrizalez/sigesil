@@ -88,8 +88,16 @@
             <td align="center"><?=$dataOrg['municipio']?></td>
             <td align="center">
                 <?
+                    $url = array(0 => 'organizacion.php?ac=editar&id='.$dataOrg['id'], 'organizacion_listado.php?ac=eliminar&id='.$dataOrg['id']);
+                    $i = 0;
+                    foreach($acciones as $boton){
+                        if($boton == 1)
+                            echo $general->crearBotones($url[$i++]);
+                    }
+                    /*
                     echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'organizacion.php?ac=editar&id='.$dataOrg['id']);
                     echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'organizacion_listado.php?ac=eliminar&id='.$dataOrg['id'], array('onclick' => 'return eliminar();'));
+                    */
                 ?>
             </td>
         </tr>

@@ -51,7 +51,7 @@
     <div id="botones">
         <? echo $html->input('Nuevo', 'Nuevo', array('type' => 'button')); ?>
     </div>
-    <? //} ?>
+    <? //} ?><hr/>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">            
             <th>Centro Acopio</th>
