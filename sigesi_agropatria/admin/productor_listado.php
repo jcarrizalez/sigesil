@@ -6,15 +6,14 @@
     $id = (!empty($GPC['id'])) ? $GPC['id'] : null;
     $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : $_SESSION['s_ca_id'];
     
-    $listadoProductores=$productor->listadoProductores();    
+    $listadoProductores = $productor->listadoProductores();    
     
     if($GPC['ac'] == 'eliminar'){
         $id = $GPC['id'];
-        $silos->eliminarProductor($id);
+        $productor->eliminarProductor($id);
         header('location: productor_listado.php');
         die();
     }
-
 
     require('../lib/common/header.php');
 ?>
@@ -53,12 +52,12 @@
     </div>
     <? //} ?><hr/>
     <table align="center" width="100%">
-        <tr align="center" class="titulos_tabla">            
-            <th>Centro Acopio</th>
-            <th>Codigo</th>
+        <tr align="center" class="titulos_tabla">
+            <th>C&eacute;dula / Rif</th>
             <th>Nombre</th>
-            <th>RIF</th>
-            <th>Telefono</th>           
+            <th>Pa&iacute;s</th>           
+            <th>Estado</th>           
+            <th>Municipio</th>           
             <? //if($_SESSION['s_perfil_id'] == GERENTES){ ?>
             <th>Acci&oacute;n</th>
             <? //} ?>
@@ -68,12 +67,12 @@
             foreach($listadoProductores as $dataProductor){
                 $clase = $general->obtenerClaseFila($i);
         ?>
-        <tr class="<?=$clase?>">            
-            <td><?=$dataProductor['nombre_ca']?></td>
-            <td><?=$dataProductor['codigo']?></td>
+        <tr class="<?=$clase?>">
+            <td align="center"><?=$dataProductor['ced_rif']?></td>
             <td><?=$dataProductor['nombre']?></td>
-            <td><?=$dataProductor['RIF']?></td>
-            <td><?=$dataProductor['Telefono']?></td>            
+            <td><?=$dataProductor['pais']?></td>            
+            <td><?=$dataProductor['estado']?></td>            
+            <td><?=$dataProductor['municipio']?></td>            
             <? //if($_SESSION['s_perfil_id'] == GERENTES){ ?>
             <td align="center">
                 <?
