@@ -287,6 +287,8 @@
             }else{
                 if(!confirm('Desea Guardar'))
                     return false;
+                else
+                    show_div_loader();
             }
         });
     });

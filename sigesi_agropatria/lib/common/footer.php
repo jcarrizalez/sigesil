@@ -7,6 +7,9 @@
             </div>
         </div>
         </div>
+<script language="javascript">
+    hide_div_loader();
+</script>
 <?
     if(DEBUG) {
         Debug::$executeQueryPage = DOMAIN_ROOT.'admin/debug_execute_query.php';

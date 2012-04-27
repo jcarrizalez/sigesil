@@ -35,6 +35,64 @@ else
         </script>
     </head>
     <body>
+        <div id="div_loader" align="center" class="pageloader"></div>
+        <div align="center" id="div_loader_img" style="display:none;z-index:500;position:absolute;top:40%;left:33%;">
+            <img src="<?php echo DOMAIN_ROOT ?>images/ajax-loader.gif" style="padding-top: 70px;"/><br /><br />
+            <?php echo 'PROCESANDO POR FAVOR ESPERE' ?>
+        </div>
+        <script type="text/javascript">
+            var divs_transparentDiv = document.getElementById('div_loader');
+            divs_transparentDiv.style.display='none';
+            var divs_transparentDivImg = document.getElementById('div_loader_img');
+            
+            function __getBrowserSize(){
+                var bodyWidth = document.documentElement.clientWidth;
+                var bodyHeight = document.documentElement.clientHeight;
+                var bodyWidth, bodyHeight; 
+                if (self.innerHeight){ // all except Explorer 
+                    bodyWidth = window.innerWidth; //self.innerWidth; 
+                    bodyHeight = window.innerHeight; //self.innerHeight; 
+                }  else if (document.documentElement && document.documentElement.clientHeight) {
+                    // Explorer 6 Strict Mode 		 
+                    bodyWidth = document.documentElement.clientWidth; 
+                    bodyHeight = document.documentElement.clientHeight; 
+                } else if (document.body) {// other Explorers 		 
+                    bodyWidth = document.body.clientWidth; 
+                    bodyHeight = document.body.clientHeight; 
+                } 
+                return [bodyWidth,bodyHeight];		
+            }
+
+            function __repositionTransparentDiv(){
+                //divs_transparentDiv.style.top = Math.max(document.body.scrollTop,document.documentElement.scrollTop) + 'px';
+                divs_transparentDiv.style.top = '0px';
+                divs_transparentDiv.style.left = Math.max(document.body.scrollLeft,document.documentElement.scrollLeft) + 'px';
+                var brSize = __getBrowserSize();
+                var bodyWidth = brSize[0];
+                var bodyHeight = brSize[1];
+                var padtop = (bodyHeight/2);
+                //divs_transparentDiv.style.width = bodyWidth + 'px';
+                divs_transparentDiv.style.paddingTop = padtop + 'px';
+                divs_transparentDiv.style.height = '2000px'; //bodyHeight + 'px';
+            }
+            
+            function show_div_loader(){
+                //divs_transparentDiv.filters.alpha.opacity=90;
+                divs_transparentDiv.style.display='';
+                divs_transparentDivImg.style.display='';
+                // Preserve scroll position
+                var st = Math.max(document.body.scrollTop,document.documentElement.scrollTop);
+                var sl = Math.max(document.body.scrollLeft,document.documentElement.scrollLeft);
+                window.scrollTo(sl,st);
+                setTimeout('window.scrollTo(' + sl + ',' + st + ');',10);
+                __repositionTransparentDiv();
+            }
+
+            function hide_div_loader(){
+                divs_transparentDiv.style.display='none';
+                divs_transparentDivImg.style.display='none';
+            }
+        </script>
         <div id="main">
             <div id="cabecera"></div>
             <div id="cabecera2"></div>
