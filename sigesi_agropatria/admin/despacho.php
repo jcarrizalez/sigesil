@@ -109,7 +109,7 @@ $validator->printScript();
     }
     
     $(document).ready(function(){
-        $('.integer').numeric();
+        $('.positive').numeric();
         
         $('#nrocosecha').load('../ajax/cosecha_programa.php?ac=cantidad2');
     
@@ -178,7 +178,7 @@ $validator->printScript();
                 <tr>
                     <td><span class="msj_rojo">* </span>N&uacute;mero de Orden</td>
                     <td>
-                        <? echo $html->input('Orden.numero_orden', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos integer')); ?>
+                        <? echo $html->input('Orden.numero_orden', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive')); ?>
                     </td>
                 </tr>
             </tbody>
@@ -193,7 +193,7 @@ $validator->printScript();
                     <td>
                         <?
                             echo $html->select('nacion2', array('options'=>$listaCR));
-                            echo "&nbsp;".$html->input('Chofer.ced_rif', '', array('type' => 'text', 'length' => '8', 'class' => 'integer', 'style' => 'width: 150px'));
+                            echo "&nbsp;".$html->input('Chofer.ced_rif', '', array('type' => 'text', 'length' => '8', 'class' => 'positive', 'style' => 'width: 150px'));
                         ?>
                     </td>
                 </tr>
@@ -219,19 +219,19 @@ $validator->printScript();
             <tbody id="otroTransporte"></tbody>
             <tr>
                 <td>Orden de Carga 1</td>
-                <td><? echo $html->input('subOrden1', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos integer')); ?></td>
+                <td><? echo $html->input('subOrden1', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive')); ?></td>
             </tr>
             <tr>
                 <td>Kilogramos</td>
-                <td><? echo $html->input('subOrdenkg1', '', array('type' => 'text', 'class' => 'estilo_campos integer')); ?></td>
+                <td><? echo $html->input('subOrdenkg1', '', array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
             </tr>
             <tr>
                 <td>Orden de Carga 2</td>
-                <td><? echo $html->input('subOrden2', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos integer')); ?></td>
+                <td><? echo $html->input('subOrden2', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive')); ?></td>
             </tr>
             <tr>
                 <td>Kilogramos</td>
-                <td><? echo $html->input('subOrdenkg2', '', array('type' => 'text', 'class' => 'estilo_campos integer')); ?></td>
+                <td><? echo $html->input('subOrdenkg2', '', array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
             </tr>
             <tbody id="ptosEntrega">
                 <tr>

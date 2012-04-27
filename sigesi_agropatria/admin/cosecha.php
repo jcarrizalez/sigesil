@@ -83,7 +83,7 @@ $validator->printScript();
     }
     
     $(document).ready(function(){        
-        
+        $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });;
     });
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
@@ -125,11 +125,11 @@ $validator->printScript();
                         </tr>
                         <tr>
                             <td>Proyectado</td>
-                            <td><?= $html->input('proyectado1', $infoCosecha[0]['proyectado'], array('type' => 'text', 'class' => 'inputGrilla')); ?></td>
+                            <td><?= $html->input('proyectado1', $infoCosecha[0]['proyectado'], array('type' => 'text', 'class' => 'inputGrilla positive')); ?></td>
                         </tr>
                         <tr>
                             <td>Area Siembra</td>
-                            <td><?= $html->input('area_siembra1', $infoCosecha[0]['area_siembra'], array('type' => 'text', 'class' => 'inputGrilla')); ?></td>
+                            <td><?= $html->input('area_siembra1', $infoCosecha[0]['area_siembra'], array('type' => 'text', 'class' => 'inputGrilla positive')); ?></td>
                         </tr>
                         <tr>
                             <td>Estatus</td>

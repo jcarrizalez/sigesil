@@ -8,6 +8,7 @@ $org = new Organizacion();
 $listaNacion = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
 
 $listaOrg = $org->find('', '', array('id', 'nombre'), 'list', 'id');
+
 $paises = $div_pol->obtenerPais();
 foreach ($paises as $campo => $valor) {
     $listaP[$valor['id']] = $valor['nombre'];
@@ -16,6 +17,7 @@ $estados = $div_pol->obtenerEstado();
 foreach ($estados as $campo => $valor) {
     $listaE[$valor['id']] = $valor['nombre'];
 }
+
 $estatus = array('t' => 'Activo', 'f' => 'Inactivo');
 
 switch ($GPC['ac']) {
@@ -58,6 +60,8 @@ $validator->printScript();
     }
     
     $(document).ready(function(){
+        $('.positive').numeric();
+        
         $('#id_estado').change(function(){
             $('#id_municipio').load('../ajax/division_pol.php?ac=mcpos&idE=' + $(this).val());
         });
@@ -74,7 +78,7 @@ $validator->printScript();
             <td>
                 <?
                     echo $html->select('nacionalidad',array('options'=>$listaNacion, 'selected' => substr(trim($infoChofer[0]['ced_rif']), 0, 1)));
-                    echo "&nbsp;".$html->input('Chofer.ced_rif', substr(trim($infoChofer[0]['ced_rif']), 1), array('type' => 'text', 'length' => '8', 'class' => 'crproductor integer'));
+                    echo "&nbsp;".$html->input('Chofer.ced_rif', substr(trim($infoChofer[0]['ced_rif']), 1), array('type' => 'text', 'length' => '8', 'class' => 'crproductor positive'));
                     //echo $html->input('Org.rif', $infoChofer[0]['rif'], array('type' => 'text', 'class' => 'estilo_campos'));
                 ?>
             </td>
@@ -85,7 +89,7 @@ $validator->printScript();
         </tr>
         <tr>
             <td>Organizaci&oacute;n </td>
-            <td><? echo $html->select('Chofer.id_org', array('options' => $listaOrg, 'selected' => $infoChofer[0]['id_org'], 'default' => 'Seleccione')) ?></td>
+            <td><? echo $html->select('Chofer.id_org', array('options' => $listaOrg, 'selected' => $infoChofer[0]['id_org'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td>Direcci&oacute;n </td>
@@ -93,23 +97,23 @@ $validator->printScript();
         </tr>
         <tr>
             <td>Pa&iacute;s </td>
-            <td><? echo $html->select('Chofer.id_pais', array('options' => $listaP, 'selected' => $infoChofer[0]['id_pais'], 'default' => 'Seleccione')) ?></td>
+            <td><? echo $html->select('Chofer.id_pais', array('options' => $listaP, 'selected' => $infoChofer[0]['id_pais'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td>Estado </td>
-            <td><? echo $html->select('id_estado', array('options' => $listaE, 'selected' => $infoChofer[0]['id_estado'], 'default' => 'Seleccione')) ?></td>
+            <td><? echo $html->select('id_estado', array('options' => $listaE, 'selected' => $infoChofer[0]['id_estado'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td>Municipio </td>
             <td>
                 <div id="mcpo">
-                    <? echo $html->select('id_municipio', array('options' => $listaM, 'selected' => $infoChofer[0]['id_municipio'], 'default' => 'Seleccione')) ?>
+                    <? echo $html->select('id_municipio', array('options' => $listaM, 'selected' => $infoChofer[0]['id_municipio'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?>
                 </div>
             </td>
         </tr>
         <tr>
             <td>Estatus </td>
-            <td><? echo $html->select('Chofer.estatus', array('options' => $estatus, 'selected' => $infoChofer[0]['estatus'], 'default' => 'Seleccione')) ?></td>
+            <td><? echo $html->select('Chofer.estatus', array('options' => $estatus, 'selected' => $infoChofer[0]['estatus'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td>&nbsp;</td>

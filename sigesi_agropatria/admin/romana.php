@@ -258,7 +258,7 @@
     }
     
     $(document).ready(function(){
-        $('.integer').numeric();
+        $('.positive').numeric();
         
         $('#id_estado').change(function(){
             $('#id_municipio').load('../ajax/division_pol.php?ac=mcpos&idE=' + $(this).val());
@@ -346,7 +346,7 @@
         ?>
         <tr>
             <td>Peso Lleno <?=$pesar?> Kgrs</td>
-            <td><? echo $html->input('Recepcion.peso_0'.$i.'l', '', array('type' => 'text', 'class' => 'estilo_campos2 integer')); ?></td>
+            <td><? echo $html->input('Recepcion.peso_0'.$i.'l', '', array('type' => 'text', 'class' => 'estilo_campos2 positive')); ?></td>
         </tr>
         <?
                         }elseif($infoMovimiento[0]['muestra'] == 1){
@@ -354,14 +354,14 @@
         ?>
         <tr>
             <td>Peso Lleno <?=$pesar?> Kgrs</td>
-            <td><? echo $html->input('peso_0l', 'RECHAZADO', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 integer')); ?></td>
+            <td><? echo $html->input('peso_0l', 'RECHAZADO', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 positive')); ?></td>
         </tr>
         <?
                             }else{
         ?>
         <tr>
             <td>Peso Lleno <?=$pesar?> Kgrs</td>
-            <td><? echo $html->input('Recepcion.peso_01l', '', array('type' => 'text', 'class' => 'estilo_campos2 integer')); ?></td>
+            <td><? echo $html->input('Recepcion.peso_01l', '', array('type' => 'text', 'class' => 'estilo_campos2 positive')); ?></td>
         </tr>
         <?
                             }
@@ -370,14 +370,14 @@
         ?>
         <tr>
             <td>Peso Lleno <?=$pesar?> Kgrs</td>
-            <td><? echo $html->input('Recepcion.peso_01l', '', array('type' => 'text', 'class' => 'estilo_campos2 integer')); ?></td>
+            <td><? echo $html->input('Recepcion.peso_01l', '', array('type' => 'text', 'class' => 'estilo_campos2 positive')); ?></td>
         </tr>
         <?
                             }else{
         ?>
         <tr>
             <td>Peso Lleno <?=$pesar?> Kgrs</td>
-            <td><? echo $html->input('peso_0l', 'RECHAZADO', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 integer')); ?></td>
+            <td><? echo $html->input('peso_0l', 'RECHAZADO', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 positive')); ?></td>
         </tr>
         <?
                             }
@@ -405,7 +405,7 @@
         </tr>
         <tr>
             <td>Peso Vac&iacute;o <?=$pesar?> Kgrs</td>
-            <td><? echo $html->input('Recepcion.peso_0'.$i.'v', '', array('type' => 'text', 'class' => 'estilo_campos integer verifPeso')); ?></td>
+            <td><? echo $html->input('Recepcion.peso_0'.$i.'v', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
         </tr>
         <?
                     
@@ -414,22 +414,22 @@
         ?>
         <tr>
             <td>Peso Lleno <?=$pesar?> Kgrs</td>
-            <td><? echo $html->input("pesoLleno$i", 'RECHAZADO', array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
+            <td><? echo $html->input("pesoLleno$i", 'RECHAZADO', array('type' => 'text', 'class' => 'estilo_campos positive', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
             <td>Peso Vac&iacute;o <?=$pesar?> Kgrs</td>
-            <td><? echo $html->input('peso_0'.$i.'v', 'RECHAZADO', array('type' => 'text', 'class' => 'estilo_campos integer verifPeso', 'readOnly' => true)); ?></td>
+            <td><? echo $html->input('peso_0'.$i.'v', 'RECHAZADO', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso', 'readOnly' => true)); ?></td>
         </tr>
         <?
                             }else{
         ?>
         <tr>
             <td>Peso Lleno <?=$pesar?> Kgrs</td>
-            <td><? echo $html->input("Recepcion.pesoLleno1", $infoMovimiento[0]['peso_01l'], array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
+            <td><? echo $html->input("Recepcion.pesoLleno1", $infoMovimiento[0]['peso_01l'], array('type' => 'text', 'class' => 'estilo_campos positive', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
             <td>Peso Vac&iacute;o <?=$pesar?> Kgrs</td>
-            <td><? echo $html->input('Recepcion.peso_01v', '', array('type' => 'text', 'class' => 'estilo_campos integer verifPeso')); ?></td>
+            <td><? echo $html->input('Recepcion.peso_01v', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
         </tr>
         <?
                             }
@@ -438,22 +438,22 @@
         ?>
         <tr>
             <td>Peso Lleno <?=$pesar?> Kgrs</td>
-            <td><? echo $html->input("Recepcion.pesoLleno1", $infoMovimiento[0]['peso_01l'], array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
+            <td><? echo $html->input("Recepcion.pesoLleno1", $infoMovimiento[0]['peso_01l'], array('type' => 'text', 'class' => 'estilo_campos positive', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
             <td>Peso Vac&iacute;o <?=$pesar?> Kgrs</td>
-            <td><? echo $html->input('Recepcion.peso_01v', '', array('type' => 'text', 'class' => 'estilo_campos integer verifPeso')); ?></td>
+            <td><? echo $html->input('Recepcion.peso_01v', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
         </tr>
         <?
                             }else{
         ?>
         <tr>
             <td>Peso Lleno <?=$pesar?> Kgrs</td>
-            <td><? echo $html->input("pesoLleno$i", 'RECHAZADO', array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
+            <td><? echo $html->input("pesoLleno$i", 'RECHAZADO', array('type' => 'text', 'class' => 'estilo_campos positive', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
             <td>Peso Vac&iacute;o <?=$pesar?> Kgrs</td>
-            <td><? echo $html->input('peso_0'.$i.'v', 'RECHAZADO', array('type' => 'text', 'class' => 'estilo_campos integer verifPeso', 'readOnly' => true)); ?></td>
+            <td><? echo $html->input('peso_0'.$i.'v', 'RECHAZADO', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso', 'readOnly' => true)); ?></td>
         </tr>
         <?
                             }
@@ -475,7 +475,7 @@
         ?>
         <tr>
             <td>Peso Vacio <?=$pesar?> Kgrs</td>
-            <td><? echo $html->input('Recepcion.peso_0'.$i.'v', '', array('type' => 'text', 'class' => 'estilo_campos2 integer')); ?></td>
+            <td><? echo $html->input('Recepcion.peso_0'.$i.'v', '', array('type' => 'text', 'class' => 'estilo_campos2 positive')); ?></td>
         </tr>
         <?          }
                 //PESO LLENO PARA DESPACHO    
@@ -495,11 +495,11 @@
         ?>
         <tr>
             <td>Peso Vac&iacute;o <?=$pesar?> Kgrs</td>
-            <td><? echo $html->input('Recepcion.peso_0'.$i.'v', $infoMovimiento[0]['peso_0'.$i.'v'], array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
+            <td><? echo $html->input('Recepcion.peso_0'.$i.'v', $infoMovimiento[0]['peso_0'.$i.'v'], array('type' => 'text', 'class' => 'estilo_campos positive', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
             <td>Peso Lleno <?=$pesar?> Kgrs</td>
-            <td><? echo $html->input("Recepcion.pesoLleno$i", '', array('type' => 'text', 'class' => 'estilo_campos integer verifPeso')); ?></td>
+            <td><? echo $html->input("Recepcion.pesoLleno$i", '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
         </tr>
         <?
                     }

@@ -11,9 +11,9 @@
                     $listaM[$valor['id']] = $valor['nombre'];
                 }
                 
-                echo "<div id='mcpo'>".$html->select('id_municipio',array('options'=>$listaM, 'default' => 'Seleccione'))."</div>";
+                echo "<div id='mcpo'>".$html->select('id_municipio',array('options'=>$listaM, 'default' => 'Seleccione', 'class' => 'estilo_campos'))."</div>";
             }else{
-                echo "<div id='mcpo'>".$html->select('id_municipio',array('default' => 'Seleccione')) ."</div>";
+                echo "<div id='mcpo'>".$html->select('id_municipio',array('default' => 'Seleccione', 'class' => 'estilo_campos')) ."</div>";
             }
         break;
     }

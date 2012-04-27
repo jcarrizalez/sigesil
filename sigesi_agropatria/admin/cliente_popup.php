@@ -61,7 +61,7 @@ $validator->printScript();
     }
     
     $(document).ready(function(){
-        $('.integer').numeric();
+        $('.positive').numeric();
         
         $('#id_estado').change(function(){
             $('#id_municipio').load('../ajax/division_pol.php?ac=mcpos&idE=' + $(this).val());
@@ -95,11 +95,11 @@ $validator->printScript();
         </tr>
         <tr>
             <td>Tel&eacute;fono </td>
-            <td><? echo $html->input('Cliente.telefono', '', array('type' => 'text', 'length' => '11', 'class' => 'estilo_campos integer')); ?></td>
+            <td><? echo $html->input('Cliente.telefono', '', array('type' => 'text', 'length' => '11', 'class' => 'estilo_campos positive')); ?></td>
         </tr>
         <tr>
             <td>Fax </td>
-            <td><? echo $html->input('Cliente.fax', '', array('type' => 'text', 'class' => 'estilo_campos integer')); ?></td>
+            <td><? echo $html->input('Cliente.fax', '', array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
         </tr>
         <tr>
             <td>Email: </td>
@@ -141,7 +141,7 @@ $validator->printScript();
         </tr>
         <tr>
             <td>Tel&eacute;fono </td>
-            <td><? echo $html->input('Cliente.contacto'.$i.'_telefono', '', array('type' => 'text', 'length' => '11', 'class' => 'estilo_campos integer')); ?></td>
+            <td><? echo $html->input('Cliente.contacto'.$i.'_telefono', '', array('type' => 'text', 'length' => '11', 'class' => 'estilo_campos positive')); ?></td>
         </tr>
         <tr>
             <td>Email </td>

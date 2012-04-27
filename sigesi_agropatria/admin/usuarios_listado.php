@@ -7,7 +7,9 @@
         $idCA = $_SESSION['s_ca_id'];
     else
         $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : null;
+    
     $listadoUsuarios = $usuario->obtenerTodosUsuarios('', $idCA, '', '', '', 'u.nombre');
+    
     require('../lib/common/header.php');
 ?>
 <script type="text/javascript">

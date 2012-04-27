@@ -71,7 +71,7 @@ $validator->printScript();
         </tr>
         <tr>
             <td>Organizaci&oacute;n </td>
-            <td><? echo $html->select('Chofer.id_org', array('options' => $listaOrg, 'selected' => $infoChofer[0]['id_org'], 'default' => 'Seleccione')) ?></td>
+            <td><? echo $html->select('Chofer.id_org', array('options' => $listaOrg, 'selected' => $infoChofer[0]['id_org'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td>Direcci&oacute;n </td>
@@ -79,23 +79,23 @@ $validator->printScript();
         </tr>
         <tr>
             <td>Pa&iacute;s </td>
-            <td><? echo $html->select('Chofer.id_pais', array('options' => $listaP, 'selected' => $infoChofer[0]['id_pais'], 'default' => 'Seleccione')) ?></td>
+            <td><? echo $html->select('Chofer.id_pais', array('options' => $listaP, 'selected' => $infoChofer[0]['id_pais'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td>Estado </td>
-            <td><? echo $html->select('id_estado', array('options' => $listaE, 'selected' => $infoChofer[0]['id_estado'], 'default' => 'Seleccione')) ?></td>
+            <td><? echo $html->select('id_estado', array('options' => $listaE, 'selected' => $infoChofer[0]['id_estado'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td>Municipio </td>
             <td>
                 <div id="mcpo">
-                    <? echo $html->select('id_municipio', array('options' => $listaM, 'selected' => $infoChofer[0]['id_municipio'], 'default' => 'Seleccione')) ?>
+                    <? echo $html->select('id_municipio', array('options' => $listaM, 'selected' => $infoChofer[0]['id_municipio'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?>
                 </div>
             </td>
         </tr>
         <tr>
             <td>Estatus </td>
-            <td><? echo $html->select('Chofer.estatus', array('options' => $estatus, 'selected' => $infoChofer[0]['estatus'], 'default' => 'Seleccione')) ?></td>
+            <td><? echo $html->select('Chofer.estatus', array('options' => $estatus, 'selected' => $infoChofer[0]['estatus'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td>&nbsp;</td>

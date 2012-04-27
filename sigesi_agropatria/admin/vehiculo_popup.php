@@ -32,6 +32,10 @@ $validator->printScript();
     function cancelar(){
         window.close();
     }
+    
+    $(document).ready(function(){
+        $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
+    });
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
     <div id="titulo_modulo">
@@ -52,11 +56,11 @@ $validator->printScript();
         </tr>
         <tr>
             <td>Capacidad </td>
-            <td><? echo $html->input('Vehiculo.capacidad', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><? echo $html->input('Vehiculo.capacidad', '', array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
         </tr>
         <tr>
             <td>Tara Aproximado </td>
-            <td><? echo $html->input('Vehiculo.tara_aprox', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><? echo $html->input('Vehiculo.tara_aprox', '', array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
         </tr>
         <tr>
             <td>Chuto </td>

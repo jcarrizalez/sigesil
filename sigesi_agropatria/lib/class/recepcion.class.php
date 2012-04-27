@@ -36,22 +36,6 @@ class Recepcion extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 
-    function productorRecepcion($ced_rif) {
-        $query = "SELECT pro.id, pro.ced_rif AS cedula_pro, pro.nombre AS nombre_pro, pro.telefono AS telefono_pro, pro.email AS email_pro
-                    FROM si_productor pro
-                    WHERE pro.ced_rif = '$ced_rif'
-                    LIMIT 1";
-        return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
-    }
-
-    function asociadoRecepcion($ced_rif) {
-        $query = "SELECT aso.id, aso.ced_rif AS cedula_aso, aso.nombre AS nombre_aso, aso.telefono AS telefeno_aso 
-                    FROM si_asociado aso
-                    WHERE aso.ced_rif = '$ced_rif'
-                    LIMIT 1";
-        return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
-    }
-
     function buscarChofer($ced) {
         $query = "SELECT gui.cedula_chofer, gui.nombre_chofer AS nombre_cho
                     FROM si_guiarec gui
@@ -64,15 +48,6 @@ class Recepcion extends Model {
         $query = "UPDATE si_recepcion SET estatus_rec = '$status'";
         $query .= (!empty($id)) ? " WHERE id = '$id'" : "";
         return $result = $this->_SQL_tool("UPDATE", __METHOD__, $query);
-    }
-  
-    function verificarProAso($idCo, $idCa, $ced_rif){
-        $query = "SELECT cp.*
-                    FROM si_cosecha_productor cp
-                    INNER JOIN si_productor pr ON pr.id = cp.id_productor
-                    WHERE cp.id_cosecha = '$idCo' AND cp.id_centro_acopio = '$idCa' AND pr.ced_rif = '$ced_rif'
-                    LIMIT 1";
-        return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
     function listadoRechazo($idRec, $estatus=null, $idCA=null ) {
@@ -154,7 +129,6 @@ class Recepcion extends Model {
         $query .= (!empty($Num)) ? " AND to_char(r.fecha_recepcion, 'yyyy-mm-dd') = '$Fecha'" : '';        
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);    
     }
-    
 }
 
 ?>

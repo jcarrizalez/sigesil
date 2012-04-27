@@ -43,7 +43,7 @@
                 <tr-->
                 <tr>
                     <td><span class="msj_rojo">* </span>Kilogramos Gu&iacute;a </td>
-                    <td><? echo $html->input('Guia.kilogramos', $infoGuia[0]['kilogramos'], array('type' => 'text', 'class' => 'estilo_campos integer')); ?></td>
+                    <td><? echo $html->input('Guia.kilogramos', $infoGuia[0]['kilogramos'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
                 </tr>
                 <tr>
                     <td>Otras Gu&iacute;as </td>
@@ -65,7 +65,7 @@
                         <tr>
                             <td><span class="msj_rojo">* </span>N&uacute;mero </td>
                             <td>
-                                <? echo $html->input("subguia_$i", '', array('type' => 'text', 'class' => 'estilo_campos integer')); ?>
+                                <? echo $html->input("subguia_$i", '', array('type' => 'text', 'class' => 'estilo_campos positive')); ?>
                             </td>
                         </tr>
                         <tr>
@@ -91,75 +91,52 @@
             }
         break;
         case 'productor':
-            $infoProductor = $recepcion->productorRecepcion($GPC['cp']);
-            $verifAso = $recepcion->verificarProAso($GPC['co'], $_SESSION['s_ca_id'], $GPC['cp']);
-            $listaConfirmacion = array(0 => 'No', 'Si');
-            $proNuevo = (empty($infoProductor)) ? true : false;
+            $productor = new Productor();
+            $infoProductor = $productor->find(array('ced_rif' => $GPC['cp']), '', array('ced_rif', 'nombre'), '');
+            if(!empty($infoProductor)){
             ?>
                 <tr>
                     <td><span class="msj_rojo">* </span>Nombres y Apellidos </td>
-                    <td><? echo $html->input('Productor.nombre', $infoProductor[0]['nombre_pro'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-                </tr>
-                <!--tr>
-                    <td>Tel&eacute;fono </td>
-                    <td><? echo $html->input('Productor.telefono', $infoProductor[0]['telefono_pro'], array('type' => 'text', 'class' => 'estilo_campos integer')); ?></td>
+                    <td><? echo $html->input('Productor.nombre', $infoProductor[0]['nombre'], array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
                 </tr>
                 <tr>
-                    <td>Email </td>
-                    <td><? echo $html->input('Productor.email', $infoProductor[0]['email_pro'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-                </tr-->
-            <? if(empty($verifAso)){ ?>
-                <tr>
-                    <td><span class="msj_rojo">* </span>Tiene Asociado </td>
-                    <td><? echo $html->select('preg_asociado', array('options'=>$listaConfirmacion)); ?></td>
+                    <td><span class="msj_rojo">* </span>C&eacute;dula/Rif Asociaci&oacute;n</td>
+                    <td>
+                        <?
+                            echo $html->input('ced_rif_entidad', $infoProductor[0]['cedula_asociacion'], array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos'));
+                            echo $html->input('id_asociacion', $infoProductor[0]['id_asociacion'], array('type' => 'hidden'));
+                        ?>
+                    </td>
                 </tr>
-                <script type="text/javascript">
-                    $('#fieldAsociado').css('display', 'none');
-                </script>
-            <?
-                }elseif($verifAso[0]['asociado'] == 't'){
-            ?>
-                <script type="text/javascript">
-                    $('#fieldAsociado').css('display', 'block');
-                </script>
-            <?
-                }elseif($verifAso[0]['asociado'] == 'f'){
-            ?>
-                <script type="text/javascript">
-                    $('#fieldAsociado').css('display', 'none');
-                </script>
-            <?
-                }
-                if($proNuevo){
-            ?>
                 <tr>
-                    <th colspan="2" align="center">Productor Nuevo, se proceder&aacute; a almacenar</th>
+                    <td><span class="msj_rojo">* </span>Nombres y Apellidos Asociaci&oacute;n</td>
+                    <td><? echo $html->input('nombre_asociacion', $infoProductor[0]['nombre_asociacion'], array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
+                </tr>
+                <tr>
+                    <td><span class="msj_rojo">* </span>C&eacute;dula/Rif Asociado</td>
+                    <td>
+                        <?
+                            echo $html->input('ced_rif_asociado', $infoProductor[0]['cedula_asociado'], array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos'));
+                            echo $html->input('id_asociado', $infoProductor[0]['id_asociado'], array('type' => 'hidden'));
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="msj_rojo">* </span>Nombres y Apellidos Asociado</td>
+                    <td><? echo $html->input('nombre_asociado', $infoProductor[0]['nombre_asociado'], array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
                 </tr>
             <?
-                }
-                echo $html->input('Productor.id', $infoProductor[0]['id'], array('type' => 'hidden'));
-        break;
-        case 'asociado':
-            $infoAsociado = $recepcion->asociadoRecepcion($GPC['cp']);
-            $asoNuevo = (empty($infoAsociado)) ? true : false;
-            ?>
+            }else{
+                ?>
                 <tr>
-                    <td>Nombres y Apellidos </td>
-                    <td><? echo $html->input('Asociado.nombre', $infoAsociado[0]['nombre_aso'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><span class="msj_rojo">* </span>Nombres y Apellidos </td>
+                    <td><? echo $html->input('Productor.nombre', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
                 </tr>
-                <!--tr>
-                    <td>Tel&eacute;fono </td>
-                    <td><? echo $html->input('Asociado.telefono', $infoAsociado[0]['telefono_aso'], array('type' => 'text', 'class' => 'estilo_campos integer')); ?></td>
-                </tr-->
-            <?
-                if($asoNuevo){
-                    ?>
-                    <tr>
-                        <th colspan="2" align="center">Asociado Nuevo, se proceder&aacute; a almacenar</th>
-                    </tr>
-                    <?
-                }
-                echo $html->input('Asociado.id', $infoAsociado[0]['id'], array('type' => 'hidden'));
+                <tr>
+                    <td colspan="2" align="center"><span class="msj_rojo">Productor No Registrado</span></td>
+                </tr>
+                <?
+            }
         break;
         case 'chofer':
             $chofer = new Chofer();
@@ -183,7 +160,7 @@
 ?>
 <script type="text/javascript">
 $(document).ready(function(){
-    $('.integer').numeric();
+    $('.positive').numeric();
 });
 $('#preg_asociado').change(function(){
     if($(this).val() == 0)

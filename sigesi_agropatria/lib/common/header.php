@@ -33,6 +33,7 @@ else
                 
                 /*$(this).bind("contextmenu", function(e) {
                     e.preventDefault();
+                    //alert('Accion Invalida');
                 });*/
             });
             

@@ -39,16 +39,37 @@ class Cosecha extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
-    function guardarProductorCosecha($idCo, $idCa, $idPr, $aso){
-        $query = "SELECT * FROM si_cosecha_productor WHERE id_cosecha = '$idCo' AND id_centro_acopio = '$idCa' AND id_productor = '$idPr'";
+    function buscarCosechaProductor($cedP){
+        $query = "SELECT  p.id AS id_productor, p.nombre AS productor, 
+                    p2.id AS id_asociacion, p2.nombre AS asociacion, 
+                    p3.id AS id_asociado, p3.nombre AS asociado
+                    FROM si_productor p
+                    INNER JOIN si_cosecha_productor cp ON cp.id_productor = p.id
+                    LEFT JOIN si_productor p2 ON p2.id = cp.id_asociacion
+                    LEFT JOIN si_productor p3 ON p3.id = cp.id_asociado
+                    WHERE p.ced_rif = '$cedP'
+                    ORDER BY p2.nombre, p3.nombre";
+        return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
+    }
+    
+    function guardarCosechaProductor($idCo, $idCa, $idPr, $idAson, $idAdo){
+        $query = "SELECT * 
+                    FROM si_cosecha_productor 
+                    WHERE id_cosecha = '$idCo' AND id_centro_acopio = '$idCa' 
+                    AND id_productor = '$idPr' AND id_asociacion = '$idAson' AND id_asociado = '$idAdo'";
         $existe = $this->_SQL_tool($this->SELECT, __METHOD__, $query);
+        
         if(empty($existe)){
             $query = "INSERT INTO si_cosecha_productor (id_cosecha, id_centro_acopio, id_productor, asociado)
                         VALUES ('$idCo', '$idCa', '$idPr', '$aso')";
             $result = $this->_SQL_tool('INSERT', __METHOD__, $query);
             return $result;
-        }else
-            $result = null;
+        }else{
+            $query = "UPDATE si_cosecha_productor SET VALUES id_productor = '$idPr'
+                        AND id_asociacion = '$idAson' AND id_asociado = '$idAdo'";
+            $result = $this->_SQL_tool('UPDATE', __METHOD__, $query);
+            return $result;
+        }
     }
 }
 ?>

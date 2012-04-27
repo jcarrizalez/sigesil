@@ -36,6 +36,10 @@ $validator->printScript();
     function cancelar(){
         window.location = 'silos_listado.php';
     }
+    
+    $(document).ready(function(){
+        $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
+    });
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
     <? echo $html->input('Silo.id', $infoSilo[0]['id'], array('type' => 'hidden')); ?>
@@ -57,7 +61,7 @@ $validator->printScript();
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Capacidad </td>
-            <td><? echo $html->input('Silo.capacidad', $infoSilo[0]['capacidad'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><? echo $html->input('Silo.capacidad', $infoSilo[0]['capacidad'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
         </tr>
         <tr>
             <td>Observaci&oacute;n </td>

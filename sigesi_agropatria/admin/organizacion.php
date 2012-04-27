@@ -98,23 +98,23 @@ $validator->printScript();
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Pa&iacute;s </td>
-            <td><? echo $html->select('Org.id_pais', array('options' => $listaP, 'selected' => $infoOrg[0]['id_pais'], 'default' => 'Seleccione')) ?></td>
+            <td><? echo $html->select('Org.id_pais', array('options' => $listaP, 'selected' => $infoOrg[0]['id_pais'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Estado </td>
-            <td><? echo $html->select('id_estado', array('options' => $listaE, 'selected' => $infoOrg[0]['id_estado'], 'default' => 'Seleccione')) ?></td>
+            <td><? echo $html->select('id_estado', array('options' => $listaE, 'selected' => $infoOrg[0]['id_estado'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Municipio </td>
             <td>
                 <div id="mcpo">
-                    <? echo $html->select('id_municipio', array('options' => $listaM, 'selected' => $infoOrg[0]['id_municipio'], 'default' => 'Seleccione')) ?>
+                    <? echo $html->select('id_municipio', array('options' => $listaM, 'selected' => $infoOrg[0]['id_municipio'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?>
                 </div>
             </td>
         </tr>
         <tr>
             <td>Estatus </td>
-            <td><? echo $html->select('Org.estatus', array('options' => $estatus, 'selected' => $infoOrg[0]['estatus'], 'default' => 'Seleccione')) ?></td>
+            <td><? echo $html->select('Org.estatus', array('options' => $estatus, 'selected' => $infoOrg[0]['estatus'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td>&nbsp;</td>

@@ -64,7 +64,7 @@ require('../lib/common/init_calendar.php');
     }
     
     $(document).ready(function(){
-        $('.integer').numeric();
+        $('.positive').numeric();
         
         $('#Orden\\[numero_orden\\]').live('change', function(){
             orden = $(this).val();
@@ -114,9 +114,9 @@ require('../lib/common/init_calendar.php');
                 <td>
                     <?
                         if($GPC['ac'] == 'editar')
-                            echo $html->input('Orden.numero_orden', $infoOr[0]['numero_orden'], array('type' => 'text', 'length' => '8', 'class' => 'estilo_campos integer', 'readOnly' => true));
+                            echo $html->input('Orden.numero_orden', $infoOr[0]['numero_orden'], array('type' => 'text', 'length' => '8', 'class' => 'estilo_campos positive', 'readOnly' => true));
                         else
-                            echo $html->input('Orden.numero_orden', '', array('type' => 'text', 'length' => '8', 'class' => 'estilo_campos integer'));
+                            echo $html->input('Orden.numero_orden', '', array('type' => 'text', 'length' => '8', 'class' => 'estilo_campos positive'));
                     ?>
                 </td>
             </tr>
@@ -154,7 +154,7 @@ require('../lib/common/init_calendar.php');
                 <td>
                     <?
                         echo $html->select('nacion', array('options'=>$listaCR, 'selected' => substr(trim($infoOr[0]['ced_cliente']), 0, 1)));
-                        echo "&nbsp;".$html->input('Cliente.ced_rif', substr(trim($infoOr[0]['ced_cliente']), 1), array('type' => 'text', 'length' => '8', 'style' => 'width: 150px', 'class' => 'integer'));
+                        echo "&nbsp;".$html->input('Cliente.ced_rif', substr(trim($infoOr[0]['ced_cliente']), 1), array('type' => 'text', 'length' => '8', 'style' => 'width: 150px', 'class' => 'positive'));
                         
                         if($GPC['ac'] == 'editar'){
                             ?>
@@ -195,7 +195,7 @@ require('../lib/common/init_calendar.php');
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Toneladas </td>
-            <td><? echo $html->input('Orden.toneladas', $infoOr[0]['toneladas'], array('type' => 'text', 'class' => 'estilo_campos integer')); ?></td>
+            <td><? echo $html->input('Orden.toneladas', $infoOr[0]['toneladas'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Descuento </td>
@@ -206,9 +206,9 @@ require('../lib/common/init_calendar.php');
             <td>
                 <?
                     if($GPC['ac'] == 'editar')
-                        echo $html->input('Orden.cod_verificacion', $infoOr[0]['cod_verificacion'], array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true));
+                        echo $html->input('Orden.cod_verificacion', $infoOr[0]['cod_verificacion'], array('type' => 'text', 'class' => 'estilo_campos positive', 'readOnly' => true));
                     else
-                        echo $html->input('Orden.cod_verificacion', '', array('type' => 'text', 'class' => 'estilo_campos integer'));
+                        echo $html->input('Orden.cod_verificacion', '', array('type' => 'text', 'class' => 'estilo_campos positive'));
                 ?>
             </td>
         </tr>

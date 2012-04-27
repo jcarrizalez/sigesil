@@ -6,7 +6,10 @@ $usuarioPerfil = new UsuarioPerfil();
 $centro_acopio = new CentroAcopio();
 
 $sexo = array('F' => 'Femenino', 'M' => 'Masculino');
-$listaCA = $centro_acopio->find('', '', array('id', 'nombre'), 'list', 'id');
+if($_SESSION['s_perfil_id'] == GERENTEG)
+    $listaCA = $centro_acopio->find('', '', array('id', 'nombre'), 'list', 'id');
+else
+    $listaCA[$_SESSION['s_ca_id']] = $_SESSION['s_ca_nombre'];
 
 switch ($GPC['ac']) {
     case 'guardar':
@@ -65,6 +68,8 @@ $validator->printScript();
     }
     
     $(document).ready(function(){
+        $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
+        
         $('#centro_acopio').change(function(){
             $('#almacenes').load('../ajax/detalle_usuario.php?ac=almacen&idCA=' + $(this).val());
             $('#perfiles').load('../ajax/detalle_usuario.php?ac=perfil&idCA=' + $(this).val());
@@ -92,7 +97,7 @@ $validator->printScript();
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>C&eacute;dula </td>
-                <td><? echo $html->input('Usuario.cedula', $infoUsuario[0]['cedula'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><? echo $html->input('Usuario.cedula', $infoUsuario[0]['cedula'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
             </tr>
             <tr>
                 <td>Fecha Nacimiento </td>
@@ -100,7 +105,7 @@ $validator->printScript();
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>Sexo </td>
-                <td><? echo $html->select('Usuario.sexo', array('options' => $sexo, 'selected' => $infoUsuario[0]['sexo'], 'default' => 'Seleccione')) ?></td>
+                <td><? echo $html->select('Usuario.sexo', array('options' => $sexo, 'selected' => $infoUsuario[0]['sexo'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
             </tr>
             <tr>
                 <td>Direccion </td>
@@ -129,13 +134,13 @@ $validator->printScript();
         <table align="center">
             <tr>
                 <td><span class="msj_rojo">* </span>Centro de Acopio </td>
-                <td><? echo $html->select('centro_acopio', array('options' => $listaCA, 'selected' => $infoUsuario[0]['id_ca'], 'default' => 'Seleccione')) ?></td>
+                <td><? echo $html->select('centro_acopio', array('options' => $listaCA, 'selected' => $infoUsuario[0]['id_ca'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>Almacen </td>
                 <td>
                     <div id="almacenes">
-                        <? echo $html->select('almacen', array('options' => $listaAlmacenes, 'selected' => $infoUsuario[0]['id_al'], 'default' => 'Seleccione')) ?>
+                        <? echo $html->select('almacen', array('options' => $listaAlmacenes, 'selected' => $infoUsuario[0]['id_al'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?>
                     </div>
                 </td>
             </tr>
@@ -143,7 +148,7 @@ $validator->printScript();
                 <td><span class="msj_rojo">* </span>Perfil </td>
                 <td>
                     <div id="perfiles">
-                        <? echo $html->select('perfil', array('options' => $listaPerfiles, 'selected' => $infoUsuario[0]['id_perfil'], 'default' => 'Seleccione')) ?>
+                        <? echo $html->select('perfil', array('options' => $listaPerfiles, 'selected' => $infoUsuario[0]['id_perfil'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?>
                     </div>
                 </td>
             </tr>

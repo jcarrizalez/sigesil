@@ -113,7 +113,7 @@ $validator->printScript();
     }
     
     $(document).ready(function(){
-        $('.integer').numeric();
+        $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
         
         $('#Recepcion\\[id_cosecha\\]').change(function(){
             if($(this).val() != '')
@@ -136,16 +136,17 @@ $validator->printScript();
         
         $('#Productor\\[ced_rif\\]').live('change', function(){
             var np = $('#nacion').val();
-            var co = $('#Recepcion\\[id_cosecha\\]').val();
+            //var co = $('#Recepcion\\[id_cosecha\\]').val();
             var ced = $('#Productor\\[ced_rif\\]');
             var verif = np+ced.val()
             var aso = $('#nacion2').val()+$('#Asociado\\[ced_rif\\]').val();
             if(verif == aso){
                 ced.attr('value', '');
                 alert('La Cedula no puede ser igual a la del Asociado');
-            }else if(ced.val().length >= 6 && co != ''){
+            }else if(ced.val().length >= 6 /*&& co != ''*/){
                 ced = np+ced.val();
-                $('#productor').load('../ajax/recepcion_detalle.php?ac=productor&cp='+ced+'&co='+co);
+                //$('#productor').load('../ajax/recepcion_detalle.php?ac=productor&cp='+ced+'&co='+co);
+                $('#productor').load('../ajax/recepcion_detalle.php?ac=productor&cp='+ced);
             }else if(co == ''){
                 ced.attr('value', '');
                 var campo = '<tr><th colspan="2">Favor seleccione una cosecha</th></tr>';
@@ -153,7 +154,7 @@ $validator->printScript();
             }
         });
         
-        $('#Asociado\\[ced_rif\\]').live('change', function(){
+        /*$('#Asociado\\[ced_rif\\]').live('change', function(){
             var np = $('#nacion2').val();
             var ced = $('#Asociado\\[ced_rif\\]');
             var verif = np+ced.val();
@@ -165,7 +166,7 @@ $validator->printScript();
                 ced = np+ced.val();
                 $('#asociado').load('../ajax/recepcion_detalle.php?ac=asociado&cp='+ced);
             }
-        });
+        });*/
         
         $('#Chofer\\[ced_rif\\]').change(function(){
             var np = $('#nacion3').val();
@@ -217,7 +218,7 @@ $validator->printScript();
                 <td><span class="msj_rojo">* </span>N&uacute;mero de Gu&iacute;a </td>
                 <td>
                     <?
-                        echo $html->input('Guia.numero_guia', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos integer'));
+                        echo $html->input('Guia.numero_guia', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive'));
                     ?>
                 </td>
             </tr>
@@ -253,11 +254,11 @@ $validator->printScript();
                 <tr-->
                 <tr>
                     <td><span class="msj_rojo">* </span>Kilogramos Gu&iacute;a </td>
-                    <td><? echo $html->input('Guia.kilogramos', $infoGuia[0]['kilogramos'], array('type' => 'text', 'class' => 'estilo_campos integer')); ?></td>
+                    <td><? echo $html->input('Guia.kilogramos', $infoGuia[0]['kilogramos'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
                 </tr>
                 <tr>
                     <td>Otras Gu&iacute;as </td>
-                    <td><? echo $html->select('cantguia',array('options'=>$listaCantM, 'default' => 'Seleccione'))?></td>
+                    <td><? echo $html->select('cantguia',array('options'=>$listaCantM, 'default' => 'Seleccione', 'class' => 'estilo_campos'))?></td>
                 </tr>
             </tbody>
         </table>
@@ -271,7 +272,7 @@ $validator->printScript();
                 <td>
                     <?
                         echo $html->select('nacion', array('options'=>$listaCR));
-                        echo "&nbsp;".$html->input('Productor.ced_rif', $infoProductor[0]['cedula_pro'], array('type' => 'text', 'length' => '8', 'class' => 'crproductor integer'));
+                        echo "&nbsp;".$html->input('Productor.ced_rif', $infoProductor[0]['cedula_pro'], array('type' => 'text', 'length' => '8', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
                     ?>
                 </td>
             </tr>
@@ -280,14 +281,6 @@ $validator->printScript();
                     <td><span class="msj_rojo">* </span>Nombres y Apellidos </td>
                     <td><? echo $html->input('Productor.nombre', $infoProductor[0]['nombre_pro'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
-                <!--tr>
-                    <td>Tel&eacute;fono </td>
-                    <td><? echo $html->input('Productor.telefono', $infoProductor[0]['telefono_pro'], array('type' => 'text', 'class' => 'estilo_campos integer')); ?></td>
-                </tr>
-                <tr>
-                    <td>Email </td>
-                    <td><? echo $html->input('Productor.email', $infoProductor[0]['email_pro'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-                </tr-->
             </tbody>
         </table>
     </fieldset>
@@ -299,7 +292,7 @@ $validator->printScript();
                 <td>
                     <?
                         echo $html->select('nacion2', array('options'=>$listaCR));
-                        echo "&nbsp;".$html->input('Asociado.ced_rif', $infoAsociado[0]['cedula_aso'], array('type' => 'text', 'length' => '8', 'class' => 'crproductor integer'));
+                        echo "&nbsp;".$html->input('Asociado.ced_rif', $infoAsociado[0]['cedula_aso'], array('type' => 'text', 'length' => '8', 'class' => 'crproductor positive'));
                     ?>
                 </td>
             </tr>
@@ -323,7 +316,7 @@ $validator->printScript();
                 <td>
                     <?
                         echo $html->select('nacion3', array('options'=>$listaCR));
-                        echo "&nbsp;".$html->input('Chofer.ced_rif', '', array('type' => 'text', 'length' => '8', 'class' => 'crproductor integer'));
+                        echo "&nbsp;".$html->input('Chofer.ced_rif', '', array('type' => 'text', 'length' => '8', 'class' => 'crproductor positive'));
                     ?>
                 </td>
             </tr>

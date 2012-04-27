@@ -19,14 +19,14 @@
                 ?>
                     <tr>
                         <td><span class="msj_rojo">* </span>Nro Orden </td>
-                        <td><? echo $html->input('Orden.numero_orden', $GPC['num'], array('type' => 'text', 'length' => '8', 'class' => 'estilo_campos integer')); ?></td>
+                        <td><? echo $html->input('Orden.numero_orden', $GPC['num'], array('type' => 'text', 'length' => '8', 'class' => 'estilo_campos positive')); ?></td>
                     </tr>
                 <?
             }else{
                 ?>
                     <tr>
                         <td><span class="msj_rojo">* </span>Nro Orden </td>
-                        <td><? echo $html->input('Orden.numero_orden', '', array('type' => 'text', 'length' => '8', 'class' => 'estilo_campos integer')); ?></td>
+                        <td><? echo $html->input('Orden.numero_orden', '', array('type' => 'text', 'length' => '8', 'class' => 'estilo_campos positive')); ?></td>
                     </tr>
                     <tr>
                         <th colspan="2" align="center">El Nro de Orden ya Existe !</th>
@@ -49,7 +49,7 @@
                 <tr>
                     <td><span class="msj_rojo">* </span>N&uacute;mero de Orden</td>
                     <td>
-                        <? echo $html->input('Orden.numero_orden', $GPC['numero'], array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos integer')); ?>
+                        <? echo $html->input('Orden.numero_orden', $GPC['numero'], array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive')); ?>
                         <? echo $html->input('Cliente.nombre', '', array('type' => 'hidden')); ?>
                     </td>
                 </tr>
@@ -62,7 +62,7 @@
                 <tr>
                     <td><span class="msj_rojo">* </span>N&uacute;mero de Orden</td>
                     <td>
-                        <? echo $html->input('Orden.numero_orden', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos integer')); ?>
+                        <? echo $html->input('Orden.numero_orden', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive')); ?>
                     </td>
                 </tr>
                 <tr>
@@ -76,7 +76,7 @@
                     <td><span class="msj_rojo">* </span>N&uacute;mero de Orden</td>
                     <td>
                         <?
-                            echo $html->input('Orden.numero_orden', $GPC['numero'], array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos integer'));
+                            echo $html->input('Orden.numero_orden', $GPC['numero'], array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive'));
                             echo $html->input('Despacho.id_orden', $infoOrden[0]['id'], array('type' => 'hidden'));
                             echo $html->input('Despacho.id_cultivo', $infoOrden[0]['id_cultivo'], array('type' => 'hidden'));
                         ?>
@@ -101,15 +101,15 @@
                 </tr>
                 <tr>
                     <td>Toneladas de la Orden</td>
-                    <td><? echo $html->input('toneladas', $infoOrden[0]['toneladas'], array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
+                    <td><? echo $html->input('toneladas', $infoOrden[0]['toneladas'], array('type' => 'text', 'class' => 'estilo_campos positive', 'readOnly' => true)); ?></td>
                 </tr>
                 <tr>
                     <td>Toneladas Despachadas</td>
-                    <td><? echo $html->input('despachado', $general->formato_numero($infoSubOrden[0]['total'], 3), array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
+                    <td><? echo $html->input('despachado', $general->formato_numero($infoSubOrden[0]['total'], 3), array('type' => 'text', 'class' => 'estilo_campos positive', 'readOnly' => true)); ?></td>
                 </tr>
                 <tr>
                     <td>Toneladas Disponibles</td>
-                    <td><? echo $html->input('disponible', $general->formato_numero($disponible, 3), array('type' => 'text', 'class' => 'estilo_campos integer', 'readOnly' => true)); ?></td>
+                    <td><? echo $html->input('disponible', $general->formato_numero($disponible, 3), array('type' => 'text', 'class' => 'estilo_campos positive', 'readOnly' => true)); ?></td>
                 </tr>
                 <script type="text/javascript">
                     $(document).ready(function(){
@@ -123,7 +123,7 @@
                 <tr>
                     <td><span class="msj_rojo">* </span>N&uacute;mero de Orden</td>
                     <td>
-                        <? echo $html->input('Orden.numero_orden', $GPC['numero'], array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos integer')); ?>
+                        <? echo $html->input('Orden.numero_orden', $GPC['numero'], array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive')); ?>
                         <? echo $html->input('Cliente.nombre', '', array('type' => 'hidden')); ?>
                     </td>
                 </tr>
@@ -197,7 +197,7 @@
                     <td>
                         <?
                             echo $html->select('nacion2', array('options'=>$listaCR, 'selected' => substr($GPC['cp'], 0, 1)));
-                            echo "&nbsp;".$html->input('Chofer.ced_rif', substr($GPC['cp'], 1), array('type' => 'text', 'length' => '8', 'class' => 'integer', 'style' => 'width: 150px'));
+                            echo "&nbsp;".$html->input('Chofer.ced_rif', substr($GPC['cp'], 1), array('type' => 'text', 'length' => '8', 'class' => 'positive', 'style' => 'width: 150px'));
                             echo $html->input('Despacho.id_chofer', $infoChofer[0]['id'], array('type' => 'hidden'));
                         ?>
                     </td>
@@ -214,7 +214,7 @@
                     <td>
                         <?
                             echo $html->select('nacion2', array('options'=>$listaCR, 'selected' => substr($GPC['cp'], 0, 1)));
-                            echo "&nbsp;".$html->input('Chofer.ced_rif', substr($GPC['cp'], 1), array('type' => 'text', 'length' => '8', 'class' => 'integer', 'style' => 'width: 150px'));
+                            echo "&nbsp;".$html->input('Chofer.ced_rif', substr($GPC['cp'], 1), array('type' => 'text', 'length' => '8', 'class' => 'positive', 'style' => 'width: 150px'));
                             echo $html->link('<img src="../images/agregar.png" width="16" height="16" title=Agregar>', "javascript:abrirPopup('nuevoC')");
                             echo $html->input('Chofer.nombre', '', array('type' => 'hidden'));
                         ?>
@@ -255,7 +255,7 @@
                     <td>
                         <?
                             echo $html->select('nacion', array('options'=>$listaCR, 'selected' => substr($infoCliente[0]['ced_rif'], 0,1)));
-                            echo "&nbsp;".$html->input('Cliente.ced_rif', substr(trim($infoCliente[0]['ced_rif']), 1), array('type' => 'text', 'length' => '8', 'class' => 'integer', 'style' => 'width: 151px'));
+                            echo "&nbsp;".$html->input('Cliente.ced_rif', substr(trim($infoCliente[0]['ced_rif']), 1), array('type' => 'text', 'length' => '8', 'class' => 'positive', 'style' => 'width: 151px'));
                             echo $html->link('<img src="../images/agregar.png" width="16" height="16" title=Agregar>', "javascript:abrirPopup()");
                             echo $html->input('Cliente.nombre', '', array('type' => 'hidden'));
                         ?>
@@ -272,7 +272,7 @@
                     <td>
                         <?
                             echo $html->select('nacion', array('options'=>$listaCR, 'selected' => substr($infoCliente[0]['ced_rif'], 0,1)));
-                            echo "&nbsp;".$html->input('Cliente.ced_rif', substr(trim($infoCliente[0]['ced_rif']), 1), array('type' => 'text', 'length' => '8', 'class' => 'integer', 'style' => 'width: 151px'));
+                            echo "&nbsp;".$html->input('Cliente.ced_rif', substr(trim($infoCliente[0]['ced_rif']), 1), array('type' => 'text', 'length' => '8', 'class' => 'positive', 'style' => 'width: 151px'));
                             echo $html->input('Orden.id_cliente', trim($infoCliente[0]['id']), array('type' => 'hidden'));
                         ?>
                     </td>
@@ -311,6 +311,6 @@
 ?>
 <script type="text/javascript">
     $(document).ready(function(){
-        $('.integer').numeric();
+        $('.positive').numeric();
     });
 </script>

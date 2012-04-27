@@ -41,11 +41,11 @@
                                 </tr>
                                 <tr>
                                     <td>Proyectado</td>
-                                    <td><? echo $html->input('proyectado'.$GPC['nro'], '', array('type' => 'text', 'class' => 'inputGrilla')); ?></td>
+                                    <td><? echo $html->input('proyectado'.$GPC['nro'], '', array('type' => 'text', 'class' => 'inputGrilla positive')); ?></td>
                                 </tr>
                                 <tr>
                                     <td>Area Siembra</td>
-                                    <td><? echo $html->input('area_siembra'.$GPC['nro'], '', array('type' => 'text', 'class' => 'inputGrilla')); ?></td>
+                                    <td><? echo $html->input('area_siembra'.$GPC['nro'], '', array('type' => 'text', 'class' => 'inputGrilla positive')); ?></td>
                                 </tr>
                                 <tr>
                                     <td>Fecha Inicio</td>
@@ -88,3 +88,8 @@
         break;
     }
 ?>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.positive').numeric();
+    });
+</script>
