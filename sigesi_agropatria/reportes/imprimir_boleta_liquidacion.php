@@ -25,7 +25,12 @@
     $pesoNeto = ($pesoBruto-$pesoTara);
     
     if(!empty($dataMovimiento[0]['id']) && ($dataMovimiento[0]['estatus_rec'] == 9) || $dataMovimiento[0]['estatus'] == 5){
+        if(!empty($GPC['reimprimir'])){
 ?>
+<script type="text/javascript">
+    window.print();
+</script>
+<? } ?>
 <table id="tabla_reporte" border="0" width="800">
     <?
         if($GPC['mov'] == 'rec'){
@@ -41,7 +46,7 @@
         <td width="150">ENTRADA Nro:</td>
         <td><?=$numero?></td>
         <td align="right">FECHA:</td>
-        <td><?=$general->date_sql_screen($dataMovimiento[0]['fecha_recepcion'],'','es','-')?></td>
+        <td><?=$general->date_sql_screen($dataMovimiento[0]['modificado'],'','es','-')?></td>
         <td align="right">NUMERO DE GUIA:</td>
         <td>
             <?

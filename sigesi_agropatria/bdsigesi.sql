@@ -4,7 +4,7 @@
 
 -- Dumped from database version 9.1.2
 -- Dumped by pg_dump version 9.1.2
--- Started on 2012-04-30 02:23:50
+-- Started on 2012-04-30 02:44:29
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -1789,7 +1789,7 @@ ALTER TABLE public.si_log_consultas_log_id_seq OWNER TO admin;
 -- Name: si_log_consultas_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_log_consultas_log_id_seq', 1, true);
+SELECT pg_catalog.setval('si_log_consultas_log_id_seq', 2, true);
 
 
 --
@@ -2881,7 +2881,7 @@ ALTER SEQUENCE si_recursos_id_seq OWNED BY si_recursos.id;
 -- Name: si_recursos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_recursos_id_seq', 4, true);
+SELECT pg_catalog.setval('si_recursos_id_seq', 52, true);
 
 
 --
@@ -4163,6 +4163,10 @@ INSERT INTO si_log_codigos VALUES (203, 'Data Eliminada', 0, 'OK');
 -- Data for Name: si_log_consultas; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
+INSERT INTO si_log_consultas VALUES (2, '2012-04-30', 101, 5, 'N/A', 'N/A', 'N/A', 'qvptig4b5e9149l34b29p126m0', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Windows<br />NT 6.1 (Windows 7)</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 12.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 12.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-04-30 00:22:20.134-04:30<br />conectado = 1<br />sesion = tjecp5dqp6ubqugdddrg3h3c64<br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''qvptig4b5e9149l34b29p126m0''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''qvptig4b5e9149l34b29p126m0'' WHERE id=''5''', 'User Login');
 
 
 --
@@ -4871,6 +4875,11 @@ INSERT INTO si_recursos VALUES (44, 'Tipo Cultivo', 'admin', 'tipo_cultivo.php',
 INSERT INTO si_recursos VALUES (45, 'Listado Tipo Cultivo', 'admin', 'tipo_cultivo_listado.php', 1, '2012-03-06 09:19:38.843861-04:30', NULL);
 INSERT INTO si_recursos VALUES (46, 'Usuario', 'admin', 'usuario.php', 1, '2012-03-06 09:19:38.843861-04:30', NULL);
 INSERT INTO si_recursos VALUES (47, 'Listado de Usuarios', 'admin', 'usuarios_listado.php', 1, '2012-03-06 09:19:38.843861-04:30', NULL);
+INSERT INTO si_recursos VALUES (49, 'Imprimir', 'reportes', 'imprimir.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos VALUES (51, 'Boleta Rechazo', 'reportes', 'imprimir_boleta_rechazo.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos VALUES (50, 'Boleta Liquidacion', 'reportes', 'imprimir_boleta_liquidacion.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos VALUES (48, 'Boleta Recepcion', 'reportes', 'imprimir_recepcion.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos VALUES (52, 'Boleta Tipificacion', 'reportes', 'imprimir_boleta_tipificacion.php', 1, '2012-03-06 00:00:00-04:30', NULL);
 
 
 --
@@ -5093,7 +5102,7 @@ INSERT INTO si_usuarios VALUES (2, 'JESUS', 'SILVA', '9668397', '1970-09-01', 'M
 INSERT INTO si_usuarios VALUES (3, 'JUAN', 'TABORDA', '13769341', NULL, 'M', 'JTABORDA', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'MARACAY', NULL, 'juantaborda@agropatria.co.ve', '2012-02-13 00:00:00-04:30', '2012-02-17 00:00:00-04:30', true, 0, NULL, '2012-04-18 15:58:22.135194-04:30');
 INSERT INTO si_usuarios VALUES (7, 'JUAN', 'CARRIZALEZ', '15650075', NULL, 'M', 'JUANMC', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', NULL, NULL, NULL, '2012-04-25 09:24:19.641208-04:30', NULL, true, 0, NULL, NULL);
 INSERT INTO si_usuarios VALUES (4, 'JESUS', 'RODRIGUEZ', '18264065', NULL, 'M', 'JRODRIGUEZ', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'CAGUA', NULL, 'jesusrodriguez@agropatria.co.ve', '2012-02-13 00:00:00-04:30', '2012-02-13 00:00:00-04:30', true, 0, NULL, '2012-04-29 10:12:09.635-04:30');
-INSERT INTO si_usuarios VALUES (5, 'MARIELY', 'CORONADO', '16000000', NULL, 'F', 'MCORONADO', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'LA VILLA', NULL, 'MARIELYCORONADO@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-03-16 11:42:37.144713-04:30', true, 1, 'tjecp5dqp6ubqugdddrg3h3c64', '2012-04-30 00:22:20.134-04:30');
+INSERT INTO si_usuarios VALUES (5, 'MARIELY', 'CORONADO', '16000000', NULL, 'F', 'MCORONADO', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'LA VILLA', NULL, 'MARIELYCORONADO@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-03-16 11:42:37.144713-04:30', true, 1, 'qvptig4b5e9149l34b29p126m0', '2012-04-30 02:38:05.868-04:30');
 
 
 --
@@ -6842,7 +6851,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2012-04-30 02:23:51
+-- Completed on 2012-04-30 02:44:30
 
 --
 -- PostgreSQL database dump complete

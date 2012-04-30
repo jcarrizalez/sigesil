@@ -12,7 +12,12 @@
     $data = $AnalisisRes->listadoResultados($id_rec);
     
     if(!empty($dataRecepcion[0]['id_rec'])) {
+        if(!empty($GPC['reimprimir'])){
 ?>
+<script type="text/javascript">
+    window.print();
+</script>
+<? } ?>
 <table id="tabla_reporte" border="0" width="800">
     <tr>
         <td id="titulo_reporte">RESULTADOS DE ANALISIS</td>
