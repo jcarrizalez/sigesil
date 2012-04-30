@@ -32,7 +32,8 @@
 }
 
 #reporte_fila_separar{
-    line-height: 30px;
+    height: 35px;
+    vertical-align: bottom;
 }
 
 .centrar{

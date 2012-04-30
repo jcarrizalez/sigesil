@@ -57,8 +57,6 @@ class Recepcion extends Model {
                     rec.estatus_rec,
                     pro.ced_rif as ced_rif_pro,
                     pro.nombre as nom_pro,
-                    aso.ced_rif as ced_rif_aso,
-                    aso.nombre as nom_aso,
 		    guia.cedula_chofer,      
 		    guia.nombre_chofer,                     
 		    veh.placa,
@@ -66,7 +64,6 @@ class Recepcion extends Model {
                     from si_recepcion rec                     
                     inner join si_productor pro 
                     on rec.id_productor=pro.id 
-                    inner join si_asociado aso
                     on rec.id_productor=pro.id 
                     inner join si_guiarec guia
                     on rec.id_guia=guia.id
@@ -91,8 +88,7 @@ class Recepcion extends Model {
                     co.codigo AS cosecha_codigo, 
                     cu.codigo AS cultivo_codigo, cu.nombre AS cultivo_nombre,
                     g.numero_guia,
-                    s.codigo AS codigo_silo, s.nombre AS silo_nombre,
-                    a.ced_rif AS ced_asociado, a.nombre AS asociado_nombre,
+                    /*s.codigo AS codigo_silo, s.nombre AS silo_nombre,*/
                     p.ced_rif AS ced_productor, p.nombre AS productor_nombre,
                     ch.ced_rif AS ced_chofer, ch.nombre AS chofer_nombre,
                     v.placa, v.marca, v.color, v.capacidad, v.tara_aprox, v.chuto, v.placa_remolques
@@ -100,9 +96,8 @@ class Recepcion extends Model {
                     INNER JOIN si_centro_acopio ca ON ca.id = r.id_centro_acopio
                     INNER JOIN si_cosecha co ON co.id = r.id_cosecha
                     INNER JOIN si_cultivo cu ON cu.id = co.id_cultivo
-                    INNER JOIN si_silos s ON s.id = r.id_silo
+                    /*INNER JOIN si_silos s ON s.id = r.id_silo*/
                     INNER JOIN si_productor p ON p.id = r.id_productor
-                    LEFT JOIN si_asociado a ON a.id = r.id_asociado
                     INNER JOIN si_guiarec g ON g.id = r.id_guia
                     INNER JOIN si_choferes ch ON ch.id = r.id_chofer
                     INNER JOIN si_vehiculos v ON v.id = r.id_vehiculo

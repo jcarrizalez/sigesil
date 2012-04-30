@@ -113,7 +113,7 @@ class Usuario extends Model {
                 $_SESSION[$nombre_session] = $valor;
             }
 
-            $campos = array('contrasena', 'fecha_nacimiento', 'direccion', 'telefono', 'email', 'creado', 'modificado');
+            $campos = array('contrasena', 'fecha_nacimiento', 'direccion', 'telefono', 'email', 'estatus', 'conectado', 'creado', 'modificado');
             foreach ($campos as $nombre) {
                 $nombre_session = 's_' . $nombre;
                 unset($_SESSION[$nombre_session]);

@@ -6,7 +6,7 @@ $cosecha = new Cosecha();
 $cultivo = new Cultivo();
 
 $estatus = array('t' => 'Activo', 'f' => 'Inactivo');
-$listaCultivos = $cultivo->find('', '', 'id, nombre', 'list', 'codigo');
+$listaCultivos = $cultivo->find('', '', "id, '('||codigo||') - '||nombre AS nombre", 'list', 'codigo');
 
 switch ($GPC['ac']) {
     case 'guardar':
@@ -149,23 +149,33 @@ $validator->printScript();
     function verificaCodigo(){
         cultivo = $('#Programa\\[id_cultivo\\]').val();
         fecha = $('#Programa\\[fecha_inicio\\]').val();
-        if(cultivo != '' && fecha != '')
+        if(cultivo != '' && fecha != ''){
             $('#validar_codigo').load('../ajax/detalle_programa.php?ac=validar&codigo='+cultivo+'&fecha='+fecha);
+            setTimeout("resetCodigo()", 1000);
+        }
+    }
+    
+    function resetCodigo(){
+        if($('#Programa\\[codigo\\]').val() != ''){
+            for(i=1; i<=$('#numeroCosecha').val(); i++){
+                $('#codigo'+i).val($('#Programa\\[codigo\\]').val()+i);
+            }
+        }else{
+            for(i=1; i<=$('#numeroCosecha').val(); i++){
+                $('#codigo'+i).val('');
+            }
+        }
     }
     
     $(document).ready(function(){        
         $('#Programa\\[id_cultivo\\]').live('change', function(){
             if($(this).val() != ''){
                 var cultivo = parseInt($(this).val());
-                if(cultivo < 10)
-                    cultivo = '0'+cultivo;
 
                 fecha = $('#Programa\\[fecha_inicio\\]').val();
-                if(fecha != '')
+                if(fecha != ''){
                     $('#validar_codigo').load('../ajax/detalle_programa.php?ac=validar&codigo='+cultivo+'&fecha='+fecha);
-                
-                for(i=1; i<=$('#numeroCosecha').val(); i++){
-                    $('#codigo'+i).val('<?= date('Y') ?>'+cultivo+i);
+                    setTimeout("resetCodigo()", 1000);
                 }
             }else{
                 $('#Programa\\[codigo\\]').val('');

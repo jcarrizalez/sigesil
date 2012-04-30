@@ -4,7 +4,10 @@
     switch ($GPC['ac']){
         case 'validar':
             if(!empty($GPC['codigo'])){
-                $GPC['codigo'] = date('Y').$GPC['codigo'];
+                $cultivo = new Cultivo();
+                
+                $dataCultivo = $cultivo->find(array('id' => $GPC['codigo']), '', 'codigo');
+                $GPC['codigo'] = date('Y').$dataCultivo[0]['codigo'];
                 
                 $programa = new Programa();
                 $cond = " AND pro.fecha_fin >= '".$GPC['fecha']."'";

@@ -41,11 +41,11 @@
         <? } ?>
     </tr>
     <? $j = 0; foreach ($listadoAnalisis as $dataAnalisis) { ?>
-    <tr id="reporte_fila_separar">
-        <td align="center"><?=$dataAnalisis['codigo'] ?></td>
-        <td><?=$dataAnalisis['nombre'] ?></td>
+    <tr>
+        <td align="center" id="reporte_fila_separar"><?=$dataAnalisis['codigo'] ?></td>
+        <td id="reporte_fila_separar"><?=$dataAnalisis['nombre'] ?></td>
         <? for($i=1;$i<=$dataRecepcion[0]['cant_muestras'];$i++){ ?>            
-        <td align="center"><div style="border-bottom: #000000 1px solid; width: 100px; text-align: center;"><? echo $data[$j]['muestra'.$i] = (!empty($data[$j]['muestra'.$i])) ? trim($data[$j]['muestra'.$i]) : $general->caracter(35, '&nbsp;'); ?></div></td>
+        <td align="center" id="reporte_fila_separar"><div style="border-bottom: #000000 1px solid; width: 100px; text-align: center;"><? echo $data[$j]['muestra'.$i] = (!empty($data[$j]['muestra'.$i])) ? trim($data[$j]['muestra'.$i]) : $general->caracter(35, '&nbsp;'); ?></div></td>
         <? } ?>
     </tr>
     <? $j++; } ?>

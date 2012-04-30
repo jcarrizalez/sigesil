@@ -36,11 +36,6 @@
                     <td>N&uacute;mero de Contrato </td>
                     <td><? echo $html->input('Guia.contrato', $infoGuia[0]['contrato'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
-                <!--tr>
-                    <td>Disponible a Recibir </td>
-                    <td><? echo $html->input('Guia.direccion', $infoGuia[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-                </tr>
-                <tr-->
                 <tr>
                     <td><span class="msj_rojo">* </span>Kilogramos Gu&iacute;a </td>
                     <td><? echo $html->input('Guia.kilogramos', $infoGuia[0]['kilogramos'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
@@ -91,49 +86,121 @@
             }
         break;
         case 'productor':
-            $productor = new Productor();
-            $infoProductor = $productor->find(array('ced_rif' => $GPC['cp']), '', array('ced_rif', 'nombre'), '');
+            $cosecha = new Cosecha();
+            $listaCR = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
+            $infoProductor = $cosecha->buscarCosechaProductor($GPC['co'], $GPC['cp']);
             if(!empty($infoProductor)){
             ?>
                 <tr>
-                    <td><span class="msj_rojo">* </span>Nombres y Apellidos </td>
-                    <td><? echo $html->input('Productor.nombre', $infoProductor[0]['nombre'], array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
-                </tr>
-                <tr>
-                    <td><span class="msj_rojo">* </span>C&eacute;dula/Rif Asociaci&oacute;n</td>
+                    <td><span class="msj_rojo">* </span>C&eacute;dula/Rif Productor</td>
                     <td>
                         <?
-                            echo $html->input('ced_rif_entidad', $infoProductor[0]['cedula_asociacion'], array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos'));
-                            echo $html->input('id_asociacion', $infoProductor[0]['id_asociacion'], array('type' => 'hidden'));
+                            echo $html->select('nacion', array('options'=>$listaCR, 'selected' => substr($infoProductor[0]['ced_productor'], 0, 1)));
+                            echo "&nbsp;".$html->input('ced_rif_productor', substr($infoProductor[0]['ced_productor'], 1), array('type' => 'text', 'length' => '8', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
+                            echo $html->input('id_productor', $infoProductor[0]['id_productor'], array('type' => 'hidden'));
                         ?>
                     </td>
                 </tr>
                 <tr>
-                    <td><span class="msj_rojo">* </span>Nombres y Apellidos Asociaci&oacute;n</td>
-                    <td><? echo $html->input('nombre_asociacion', $infoProductor[0]['nombre_asociacion'], array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
+                    <td><span class="msj_rojo">* </span>Nombres y Apellidos Productor</td>
+                    <td><? echo $html->input('nombre_productor', $infoProductor[0]['productor'], array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
                 </tr>
+            <? }else{ ?>
                 <tr>
-                    <td><span class="msj_rojo">* </span>C&eacute;dula/Rif Asociado</td>
+                    <td><span class="msj_rojo">* </span>C&eacute;dula/Rif Productor</td>
                     <td>
                         <?
-                            echo $html->input('ced_rif_asociado', $infoProductor[0]['cedula_asociado'], array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos'));
-                            echo $html->input('id_asociado', $infoProductor[0]['id_asociado'], array('type' => 'hidden'));
+                            echo $html->select('nacion', array('options'=>$listaCR, 'selected' => substr($GPC['cp'], 0, 1)));
+                            echo "&nbsp;".$html->input('ced_rif_productor', substr($GPC['cp'], 1), array('type' => 'text', 'length' => '8', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
                         ?>
                     </td>
                 </tr>
                 <tr>
-                    <td><span class="msj_rojo">* </span>Nombres y Apellidos Asociado</td>
-                    <td><? echo $html->input('nombre_asociado', $infoProductor[0]['nombre_asociado'], array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
-                </tr>
-            <?
-            }else{
-                ?>
-                <tr>
-                    <td><span class="msj_rojo">* </span>Nombres y Apellidos </td>
-                    <td><? echo $html->input('Productor.nombre', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
+                    <td><span class="msj_rojo">* </span>Nombres y Apellidos Productor</td>
+                    <td><? echo $html->input('nombre_productor', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="center"><span class="msj_rojo">Productor No Registrado</span></td>
+                    <td colspan="2" align="center"><span class="msj_rojo">No Registrado para esta Cosecha</span></td>
+                </tr>
+                <?
+            }
+        break;
+        case 'asociacion':
+            $cosecha = new Cosecha();
+            $listaCR = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
+            $infoAsociacion = $cosecha->buscarCosechaProductor($GPC['co'], $GPC['cpro'], $GPC['caon']);
+            if(!empty($infoAsociacion)){
+            ?>
+                <tr>
+                    <td>C&eacute;dula/Rif Asociaci&oacute;n</td>
+                    <td>
+                        <?
+                            echo $html->select('nacion2', array('options'=>$listaCR, 'selected' => substr($infoAsociacion[0]['ced_asociacion'], 0, 1)));
+                            echo "&nbsp;".$html->input('ced_rif_asociacion', substr($infoAsociacion[0]['ced_asociacion'], 1), array('type' => 'text', 'length' => '8', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
+                            echo $html->input('id_asociacion', $infoAsociacion[0]['id_asociacion'], array('type' => 'hidden'));
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nombres y Apellidos Asociaci&oacute;n</td>
+                    <td><? echo $html->input('nombre_asociacion', $infoAsociacion[0]['asociacion'], array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
+                </tr>
+            <? }else{ ?>
+                <tr>
+                    <td>C&eacute;dula/Rif Asociaci&oacute;n</td>
+                    <td>
+                        <?
+                            echo $html->select('nacion2', array('options'=>$listaCR, 'selected' => substr($GPC['caon'], 0, 1)));
+                            echo "&nbsp;".$html->input('ced_rif_asociacion', substr($GPC['caon'], 1), array('type' => 'text', 'length' => '8', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nombres y Apellidos Asociaci&oacute;n</td>
+                    <td><? echo $html->input('nombre_asociacion', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center"><span class="msj_rojo">No Registrada para esta Cosecha o con el Productor</span></td>
+                </tr>
+                <?
+            }
+        break;
+        case 'asociado':
+            $cosecha = new Cosecha();
+            $listaCR = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
+            $infoAsociado = $cosecha->buscarCosechaProductor($GPC['co'], $GPC['cpro'], $GPC['caon'], $GPC['cado']);
+            if(!empty($infoAsociado)){
+            ?>
+                <tr>
+                    <td>C&eacute;dula/Rif Asociado</td>
+                    <td>
+                        <?
+                            echo $html->select('nacion3', array('options'=>$listaCR, 'selected' => substr($infoAsociado[0]['ced_asociado'], 0, 1)));
+                            echo "&nbsp;".$html->input('ced_rif_asociado', substr($infoAsociado[0]['ced_asociado'], 1), array('type' => 'text', 'length' => '8', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
+                            echo $html->input('id_asociado', $infoAsociado[0]['id_asociado'], array('type' => 'hidden'));
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nombres y Apellidos Asociado</td>
+                    <td><? echo $html->input('nombre_asociado', $infoAsociado[0]['asociado'], array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
+                </tr>
+            <? }else{ ?>
+                <tr>
+                    <td>C&eacute;dula/Rif Asociado</td>
+                    <td>
+                        <?
+                            echo $html->select('nacion3', array('options'=>$listaCR, 'selected' => substr($GPC['cado'], 0, 1)));
+                            echo "&nbsp;".$html->input('ced_rif_asociado', substr($GPC['cado'], 1), array('type' => 'text', 'length' => '8', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nombres y Apellidos Asociado</td>
+                    <td><? echo $html->input('nombre_asociado', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center"><span class="msj_rojo">No Registrado para esta Cosecha o con el Productor</span></td>
                 </tr>
                 <?
             }

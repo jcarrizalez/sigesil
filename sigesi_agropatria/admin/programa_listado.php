@@ -67,9 +67,9 @@
                 <tr id="botones">
                     <td colspan="3">
                         <?
-                            if($_SESSION['s_perfil_id'] == GERENTES){
+                            //if($_SESSION['s_perfil_id'] == GERENTES){
                                 echo $html->input('Nuevo', 'Nuevo', array('type' => 'button'));
-                            }
+                            //}
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
                         ?>
                     </td>
