@@ -92,14 +92,27 @@
     </fieldset>
     <fieldset>
         <legend>Datos del Menu</legend>
-        <table align="center" border="0">
+        <table align="center" border="0" cellpadding="0" cellspacing="0">
+            <tr align="center">
+                <th>&nbsp;</th>
+                <th>Opci&oacute;n del Men&uacute;</th>
+                <th colspan="4">Acciones</th>
+            </tr>
+            <tr>
+                <td colspan="2">&nbsp;</td>
+                <td align="center"><img src="../images/agregar.png" alt="Agregar" title="Agregar" width="16" height="16" /></td>
+                <td align="center"><img src="../images/editar.png" alt="Editar" title="Editar" width="16" height="16" /></td>
+                <td align="center"><img src="../images/eliminar.png" alt="Eliminar" title="Eliminar" width="16" height="16" /></td>
+                <td align="center"><img src="../images/imprimir.png" alt="Imprimir" title="Imprimir" width="16" height="16" /></td>
+                </td>
+            </tr>
             <?
                 foreach($menuPadre as $padre){
                     $asignarP = (in_array($padre['id'], $menuUsuario)) ? 'checked = "check"' : '';
             ?>
             <tr>
                 <td><input name="padre[]" id="padre_<?=$padre['id']?>" type="checkbox" <?=$asignarP?> class="marcarHijos" value="<?=$padre['id']?>"></td>
-                <td style="font-weight: bold;"><?=$etiqueta[$padre['nombre']]?></td>
+                <td colspan="5" style="font-weight: bold;"><?=$etiqueta[$padre['nombre']]?></td>
             </tr>
             <?
                     foreach($menuHijo as $hijo){
@@ -108,8 +121,13 @@
                             $idPadre = $padre['id'];
             ?>
             <tr>
-                <td align="right" width="50"><input name="hijo_<?=$padre['id']?>[]" id="hijo_<?=$padre['id']?>" type="checkbox" <?=$asignarH?> class="marcar_<?=$padre['id']?> desmarPadre" value="<?=$hijo['id']?>"></td>
+                <td align="right" width="40"><input name="hijo_<?=$padre['id']?>[]" id="hijo_<?=$padre['id']?>" type="checkbox" <?=$asignarH?> class="marcar_<?=$padre['id']?> desmarPadre" value="<?=$hijo['id']?>"></td>
                 <td><?=$etiqueta[$hijo['nombre']]?></td>
+                <td align="center"><input name="accion_<?=$hijo['id']?>[]" id ="accion_<?=$hijo['id']?>" type="checkbox" class="" value="1" /></td>
+                <td align="center"><input name="accion_<?=$hijo['id']?>[]" id ="accion_<?=$hijo['id']?>" type="checkbox" class="" value="1" /></td>
+                <td align="center"><input name="accion_<?=$hijo['id']?>[]" id ="accion_<?=$hijo['id']?>" type="checkbox" class="" value="1" /></td>
+                <td align="center"><input name="accion_<?=$hijo['id']?>[]" id ="accion_<?=$hijo['id']?>" type="checkbox" class="" value="1" /></td>
+                </td>
             </tr>
             <?
                         }

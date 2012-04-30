@@ -4,7 +4,7 @@
     $cosecha = new Cosecha();
     
     $listaCR = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
-    $listaCantM = array(1 => 1, 2 => 2, 3 => 3, 4 => 4);
+    $listaCantM = array(1 => 1, 2, 3, 4);
     $pesoPartes = array(1 => 'Una Parte', 2 => 'Dos Partes');
     $listaCarriles = array(1 => 1, 2 => 2);
     $idCA = $_SESSION['s_ca_id'];
@@ -95,6 +95,20 @@ $validator->printScript();
         window.location = 'recepcion.php';
     }
     
+    function abrirPopup(accion){
+        var ancho;
+        var alto;
+        ancho = (screen.width/2)-(550/2);
+        alto = (screen.height/2)-(450/2);
+
+        if(accion == 'nuevoV'){
+            pla = $('#Vehiculo\\[placa\\]').val();
+            url = "vehiculo_popup.php?placa="+pla;
+            titulo = "Registro Vehiculo";
+        }
+        ventana = window.open(url,titulo,"status=no,toolbar=0,menubar=no,resizable=0,scrollbars=1,width=550,left="+ancho+",height=450,top="+alto);
+    }
+    
     $(document).ready(function(){
         $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
         
@@ -107,6 +121,27 @@ $validator->printScript();
             else{
                 $('#Guia\\[numero_guia\\]').val('');
                 alert('Seleccione primero una Cosecha');
+            }
+        });
+        
+        $('.verifSubGuia').live('change', function(){
+            var guia = $('#Guia\\[numero_guia\\]').val();
+            var id = $(this).attr('id');
+            var cod = '#'+id;
+            
+            if(guia != $(this).val()){
+                $(".verifSubGuia").each(function(){
+                    if(id != $(this).attr('id')){
+                        if($(cod).val() == $(this).val()){
+                            alert('SubGuia duplicada');
+                            $(cod).val('');
+                            return false;
+                        }
+                    }
+                });
+            }else{
+                alert('SubGuia debe ser distinta a la principal');
+                $(this).val('');
             }
         });
         
@@ -174,12 +209,37 @@ $validator->printScript();
             }
         });
         
+        $('#Vehiculo\\[placa\\]').live('change', function(){
+            var placa = $(this).val();
+            if(placa != ''){
+                $('#placas').load('../ajax/detalle_despacho.php?ac=otraPlaca&placa='+placa);
+            }
+        });
+        
         $('#cantguia').live('change', function(){
             var cant = $(this).val();
             if(cant != '')
                 $('#nuevasguias').load('../ajax/recepcion_detalle.php?ac=otraguia&cant='+cant);
             else
                 $('#nuevasguias').html('');
+        });
+        
+        $("#form1").submit(function(){
+            if(!confirm('Desea Guardar')){
+                return false;
+            }else{
+                var enviar = 0;
+                $("#form1 :input").each(function(){
+                    if ($(this).hasClass('error')) {
+                        enviar++;
+                    }
+                });
+                if(enviar == 0){
+                    show_div_loader();
+                    return true;
+                }else
+                    return false;
+            }
         });
     });
 </script>
@@ -311,30 +371,26 @@ $validator->printScript();
             </tbody>
         </table>
     </fieldset>
-    <fieldset id="fieldAsociado" style="display: none;">
+    <!--fieldset id="fieldAsociado" style="display: none;">
         <legend>Datos del Asociado</legend>
         <table align="center">
             <tr>
                 <td>C&eacute;dula/Rif </td>
                 <td>
                     <?
-                        echo $html->select('nacion2', array('options'=>$listaCR));
-                        echo "&nbsp;".$html->input('Asociado.ced_rif', '', array('type' => 'text', 'length' => '8', 'class' => 'crproductor positive'));
+                        //echo $html->select('nacion2', array('options'=>$listaCR));
+                        //echo "&nbsp;".$html->input('Asociado.ced_rif', '', array('type' => 'text', 'length' => '8', 'class' => 'crproductor positive'));
                     ?>
                 </td>
             </tr>
             <tbody id="asociado">
                 <tr>
                     <td>Nombres y Apellidos </td>
-                    <td><? echo $html->input('Asociado.nombre', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><? //echo $html->input('Asociado.nombre', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
-                <!--tr>
-                    <td>Tel&eacute;fono </td>
-                    <td><? echo $html->input('Asociado.telefono', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-                </tr-->
             </tbody>
         </table>
-    </fieldset>
+    </fieldset-->
     <fieldset>
         <legend>Datos del Veh&iacute;culo</legend>
         <table align="center">
@@ -353,14 +409,20 @@ $validator->printScript();
                     <td><? echo $html->input('Chofer.nombre', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
             </tbody>
-            <tr>
+            <tbody id="placas">
+                <tr>
+                    <td><span class="msj_rojo">* </span>Placa Motriz/Chuto</td>
+                    <td><? echo $html->input('Vehiculo.placa', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                </tr>
+            </tbody>
+            <!--tr>
                 <td><span class="msj_rojo">* </span>Placa Motriz/Chuto </td>
                 <td><? echo $html->input('Vehiculo.placa', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td>Marca </td>
                 <td><? echo $html->input('Vehiculo.marca', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-            </tr>
+            </tr-->
             <tr>
                 <td>Placa Remolque/Batea </td>
                 <td><? echo $html->input('Vehiculo.placa_remolques', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>

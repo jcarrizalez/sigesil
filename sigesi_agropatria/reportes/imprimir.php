@@ -4,7 +4,7 @@
     
     switch ($GPC['reporte']){
         case 'boleta_recepcion':
-            $url = DOMAIN_ROOT.'reportes/imprimir_recepcion.php?id_rec='.$GPC['id_rec'].'&reimprimir'.$GPC['re'];
+            $url = DOMAIN_ROOT.'reportes/imprimir_recepcion.php?id_rec='.$GPC['id_rec'].'&reimprimir='.$GPC['re'];
         break;
         case 'boleta_rechazo':
             $url = DOMAIN_ROOT."reportes/imprimir_boleta_rechazo.php?id=". $GPC['id']."&es_rechazado=".$GPC['es_rechazado'];
@@ -34,7 +34,7 @@
      */
     
     exec("lpr $archivo");
-    exec("rm $archivo");  
+    exec("rm $archivo");
     
     if(!empty($GPC['redir'])){
         if(!empty($_SESSION['s_mov']) && !empty($_SESSION['s_lab']))

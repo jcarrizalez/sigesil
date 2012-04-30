@@ -5,7 +5,7 @@
     switch ($GPC['ac']){
         case 'guia':
             $guia = new Guia();
-            $listaCantM = array(1 => 1, 2 => 2, 3 => 3);
+            $listaCantM = array(1 => 1, 2, 3, 4);
             $infoGuia = $guia->find(array('numero_guia' => $GPC['numero_guia']), null, '*');
             if(!empty($infoGuia) && $infoGuia[0]['estatus'] == 'P'){
             ?>
@@ -42,7 +42,7 @@
                 </tr>
                 <tr>
                     <td>Otras Gu&iacute;as </td>
-                    <td><? echo $html->select('cantguia',array('options'=>$listaCantM, 'default' => 'Seleccione'))?></td>
+                    <td><? echo $html->select('cantguia',array('options'=>$listaCantM, 'default' => 'Seleccione', 'class' => 'estilo_campos'))?></td>
                 </tr>
                 <tr>
                     <th colspan="2" align="center">Gu&iacute;a Nueva, se proceder&aacute; a almacenar</th>
@@ -60,7 +60,7 @@
                         <tr>
                             <td><span class="msj_rojo">* </span>N&uacute;mero </td>
                             <td>
-                                <? echo $html->input("subguia_$i", '', array('type' => 'text', 'class' => 'estilo_campos positive')); ?>
+                                <? echo $html->input("subguia_$i", '', array('type' => 'text', 'class' => 'estilo_campos positive verifSubGuia')); ?>
                             </td>
                         </tr>
                         <tr>
