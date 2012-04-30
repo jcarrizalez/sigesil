@@ -17,10 +17,10 @@ $tipificacion = new Recultipo();
 
 ?>
 <script type="text/javascript">
-    $(document).ready(function(){
-        window.print();
-        window.location = '<?=DOMAIN_ROOT?>admin/analisis_resultado_listado.php?msg=exitos';
-    });
+window.onload=function() {
+    window.print();
+    window.location = '<?=DOMAIN_ROOT?>admin/analisis_resultado_listado.php?msg=exitoso';
+}
 </script>
 <div id="titulo_reporte">
     BOLETA DE TIPIFICACION 
@@ -51,6 +51,18 @@ $tipificacion = new Recultipo();
         <td>TOLVA DE DESCARGA</td>
         <td><?= $listaR[0]['tolva']; ?></td>
         <td><?= $listaT[0]['tipo']; ?></td>
+    </tr>
+</table>
+<table border="0" width="800" style="padding-top: 35px;" class="centrar">
+    <tr align="center">
+        <td><?=str_repeat('_',30)?></td>
+        <td><?=str_repeat('_',30)?></td>
+        <td><?=str_repeat('_',30)?></td>
+    </tr>
+    <tr align="center">
+        <td>Fiscal</td>
+        <td>Analista</td>
+        <td>Productor/Conductor</td>
     </tr>
 </table>
 <?    

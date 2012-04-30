@@ -36,7 +36,8 @@ else
 if (!empty($GPC['lab']))
     $_SESSION['s_lab']=$GPC['lab'];
 else
-    $GPC['lab']=$_SESSION['s_lab'];                
+    $GPC['lab']=$_SESSION['s_lab'];         
+
 switch ($GPC['ac']) {
     case 'nuevo':
         if (!empty($GPC['id']) && !empty($GPC['cant_muestras']) && !empty($_SESSION['s_lab']) && !empty($_SESSION['s_mov'])) {
@@ -50,8 +51,6 @@ switch ($GPC['ac']) {
             }          
             $laboratorio=($_SESSION['s_lab']=='C')? $laboratorio="'C','A'": $laboratorio="'A'";
             $listadoAnalisis = $analisis->buscarAC(null, $idCultivo, $idCA, $laboratorio);
-            //print_r($listadoAnalisis);
-            //die();
             $cantidad = count($listadoAnalisis);
             $infoCultivo=$cultivo->find(array('id' => $idCultivo));
         }
@@ -71,8 +70,6 @@ switch ($GPC['ac']) {
             $analisis->_begin_tool();
             $j = 0;
             $Resultados=array();
-            //print_r($listadoAnalisis);
-            //die();
             foreach ($listadoAnalisis as $dataAnalisis) {                 
                 if ($_SESSION['s_mov']=='rec') 
                     $GPC['Resultados']['id_recepcion'] = $GPC['id'];
@@ -221,7 +218,11 @@ switch ($GPC['ac']) {
             case '3':
                 $analisis->_commit_tool();
                 if ($enRechazo==true) {
-                    header('location: '.DOMAIN_ROOT."/reportes/imprimir.php?reporte=boleta_rechazo&id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado'].'&redir=analisis_resultado_listado');
+                    //header('location: '.DOMAIN_ROOT."/reportes/imprimir.php?reporte=boleta_rechazo&id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado'].'&redir=analisis_resultado_listado');
+                    header("location: ".DOMAIN_ROOT."reportes/imprimir_boleta_rechazo?id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado']);
+                    die();
+                } elseif ($estipo) {
+                    header("location: ".DOMAIN_ROOT."reportes/imprimir_boleta_tipificacion.php?id_rec=".$GPC['id']);
                     die();
                 }
                 header("location: analisis_resultado_listado.php?msg=exitoso");
@@ -229,7 +230,8 @@ switch ($GPC['ac']) {
             case '6':
                 $analisis->_commit_tool();
                 if ($estipo) {
-                    header('location: '.DOMAIN_ROOT."/reportes/imprimir.php?reporte=boleta_tipifica?id_rec=".$GPC['id'].'&redir=analisis_resultado_listado');
+                    //header('location: '.DOMAIN_ROOT."/reportes/imprimir.php?reporte=boleta_tipifica?id_rec=".$GPC['id'].'&redir=analisis_resultado_listado');
+                    header("location: ".DOMAIN_ROOT."reportes/imprimir_boleta_tipificacion.php?id_rec=".$GPC['id']);
                     die();
                 } else {
                     header("location: analisis_resultado_listado.php?msg=exitoso");
@@ -239,10 +241,11 @@ switch ($GPC['ac']) {
             case '7':
             case '8':
                 $analisis->_commit_tool();                
-                header('location: '.DOMAIN_ROOT."/reportes/imprimir.php?reporte=boleta_rechazo&id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado'].'&redir=analisis_resultado_listado');                
+                //header('location: '.DOMAIN_ROOT."/reportes/imprimir.php?reporte=boleta_rechazo&id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado'].'&redir=analisis_resultado_listado');                
+                header("location: ".DOMAIN_ROOT."reportes/imprimir_boleta_rechazo?id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado']);
                 die();
                 break;
-            default:                
+            default:
                 $analisis->_rollback_tool();
                 header("location: analisis_resultado_listado.php?msg=error");
                 die();
@@ -357,7 +360,8 @@ switch ($GPC['ac']) {
     }
     ?>
     </div>
-<form name="form1" id="form1" method="POST" action="?ac=guardar&cantA=<?= $cantidad ?>" enctype="multipart/form-data">
+<form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
+    <? echo $html->input('cantA',  $cantidad, array('type' => 'hidden')); ?>
     <fieldset>
         <legend>Datos de la Muestra</legend>
         <table align="center" width="100%" border="0">

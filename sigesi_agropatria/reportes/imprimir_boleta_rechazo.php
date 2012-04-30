@@ -45,10 +45,10 @@
     }
 ?>
 <script type="text/javascript">
-    $(document).ready(function(){
-        window.print();
-        window.location = '<?=DOMAIN_ROOT?>admin/analisis_resultado_listado.php?msg=exitoso';
-    });
+window.onload=function() {
+    window.print();
+    window.location = '<?=DOMAIN_ROOT?>admin/analisis_resultado_listado.php?msg=exitoso';
+}
 </script>
 <table id="tabla_reporte" border="0" width="800">
     <tr>
@@ -102,18 +102,18 @@ foreach($rechazados as $dataRechazado) {
     }
 ?>    
 </table>
+<table border="0" width="800" style="padding-top: 35px;" class="centrar">
+    <tr align="center">
+        <td><?=str_repeat('_',30)?></td>
+        <td><?=str_repeat('_',30)?></td>
+        <td><?=str_repeat('_',30)?></td>
+    </tr>
+    <tr align="center">
+        <td>Fiscal</td>
+        <td>Analista</td>
+        <td>Productor/Conductor</td>
+    </tr>
+</table>
 <?
     require_once("../lib/common/footer_reportes.php");    
-//    $curl_handle=curl_init();
-//    curl_setopt($curl_handle,CURLOPT_URL,DOMAIN_ROOT.'reportes/imprimir_boleta_rechazo.php?id=2');
-//    $buffer = curl_exec($curl_handle);
-//    curl_close($curl_handle);  
-//    if (empty($buffer))
-//    {
-//        print "Sorry, example.com are a bunch of poopy-heads.<p>";
-//    }
-//    else
-//    {
-//        print $buffer;
-//    } 
 ?>

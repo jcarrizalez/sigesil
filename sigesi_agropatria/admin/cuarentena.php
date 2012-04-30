@@ -177,7 +177,8 @@ switch ($GPC['ac']) {
                 $Ctna->_commit_tool();
                 $idAnalisis=$infoCtna[0]['id_analisis'];
                 $GPC['es_rechazado']="0_0:".$idAnalisis."_".$Muestra.':';                                
-                header('location: '.DOMAIN_ROOT."/reportes/imprimir?reporte=boleta_rechazo&id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado'].'&redir=analisis_resultado_listado');
+                //header('location: '.DOMAIN_ROOT."/reportes/imprimir?reporte=boleta_rechazo&id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado'].'&redir=analisis_resultado_listado');
+                header("location: ".DOMAIN_ROOT."reportes/imprimir_boleta_rechazo?id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado']);
                 die();
         }
         $Ctna->_rollback_tool();
