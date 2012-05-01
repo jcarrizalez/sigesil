@@ -311,7 +311,7 @@ class cls_dbtools extends cls_logs {
             header("location: " . DOMAIN_ROOT . "pages/app_error.php?code=" . $id_error);
             exit;
         } else {
-            include(APPROOT . "lib/common/app_pg_last_error.php");
+            include(APPROOT . "lib/common/app_pg_error.php");
         }
     }
 

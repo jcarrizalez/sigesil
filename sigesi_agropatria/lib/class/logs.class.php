@@ -9,7 +9,7 @@ class cls_logs {
 	private $log_usuario_id='';
 	private $log_usuario_info='';
 	private $log_usuario_email='';
-	private $log_usuario_compania='';
+	private $log_centro_acopio='';
 	private $log_navegador='';
 	private $data_old='No data';
 	private $data_new='No data';
@@ -283,10 +283,10 @@ class cls_logs {
 	 * @return unknown_type
 	 */
 	private function get_userinfo_log(){
-		$this->log_usuario_info = ($_SESSION['s_first_name'] || $_SESSION['s_last_name'])? $_SESSION['s_first_name']." ".$_SESSION['s_last_name'] : 'N/A';
+		$this->log_usuario_info = ($_SESSION['s_nombre'] || $_SESSION['s_apellido'])? $_SESSION['s_nombre']." ".$_SESSION['s_apellido'] : 'N/A';
 		$this->log_usuario_id = ($_SESSION['s_id'])? (int)$_SESSION['s_id'] : 0;
 		$this->log_usuario_email = ($_SESSION['s_email'])? $_SESSION['s_email'] : 'N/A';
-		$this->log_usuario_compania = ($_SESSION['s_company_name'])? $_SESSION['s_company_name'] : 'N/A';
+		$this->log_centro_acopio = ($_SESSION['s_ca_nombre'])? $_SESSION['s_ca_nombre'] : 'N/A';
 		
 	}
 	
@@ -308,11 +308,11 @@ class cls_logs {
 		$query_log = pg_escape_string( str_ireplace($this->saltodelinea, " ", $query_log) );
 		$comentario = pg_escape_string($comentario);
 		$query="INSERT INTO si_log_consultas 
-			(en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, usuario_compania, session_id, 
+			(en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, 
 			direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) 
 			VALUES 
 			( NOW(), '$log_codigo_id', '".$this->log_usuario_id."', '".$this->log_usuario_info."', 
-			'".$this->log_usuario_email."', '".pg_escape_string($this->log_usuario_compania)."', '".session_id()."', 
+			'".$this->log_usuario_email."', '".pg_escape_string($this->log_centro_acopio)."', '".session_id()."', 
 			'".$_SERVER['REMOTE_ADDR']."', '".pg_escape_string($this->log_navegador)."', 
 			'".$this->table_name."', '".pg_escape_string($this->data_old)."', 
 			'".pg_escape_string($this->data_new)."', '".$query_log."', '$comentario' )";
@@ -337,9 +337,9 @@ class cls_logs {
 		$comentario = pg_escape_string($comentario);
 		$cant = count($this->data_old_del);
 		for($i=0; $i<$cant; $i++){
-			$query="INSERT INTO si_log_consultas  (en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, usuario_compania, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) 
+			$query="INSERT INTO si_log_consultas  (en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) 
 				VALUES  ( NOW(), '$log_codigo_id', '".$this->log_usuario_id."', '".$this->log_usuario_info."', 
-				'".$this->log_usuario_email."', '".pg_escape_string($this->log_usuario_compania)."', '".session_id()."', 
+				'".$this->log_usuario_email."', '".pg_escape_string($this->log_centro_acopio)."', '".session_id()."', 
 				'".$_SERVER['REMOTE_ADDR']."', '".pg_escape_string($this->log_navegador)."', 
 				'".$this->table_name."', '".pg_escape_string($this->data_old_del[$i])."', 
 				'".pg_escape_string($this->data_new)."', '".$query_log."', '$comentario' )";
@@ -360,26 +360,24 @@ class cls_logs {
 	 * @param $max
 	 * @return unknown_type
 	 */
-	function list_consultas($start_date,$end_date,$compania,$usuario,$event,$order = '', $min = '', $max = ''){
+	function list_consultas($finicio, $ffin, $ca, $usuario, $evento, $order = null, $porPagina = null, $inicio = null){
 		$query="SELECT cons.*,cod.* FROM si_log_consultas AS cons, si_log_codigos AS cod 
 			WHERE cons.log_codigo_id=cod.log_codigo_id ";
-		if($start_date){ 
-			$query.=" AND cons.en_fecha >= '$start_date 00:00:01' "; 
+		if($finicio){ 
+			$query.=" AND cons.en_fecha >= '$finicio 00:00:01' "; 
 		}
-		if($end_date){ 
-			$query.=" AND cons.en_fecha <= '$end_date 23:59:59' "; 
+		if($ffin){ 
+			$query.=" AND cons.en_fecha <= '$ffin 23:59:59' "; 
 		}
-		if($compania){ $query.=" AND cons.usuario_compania='$compania' "; }
+		if($ca){ $query.=" AND cons.centro_acopio='$ca' "; }
 		if($usuario){ $query.=" AND cons.usuario_info='$usuario' "; }
-		if($event){ $query.=" AND cod.log_codigo_id='$event' "; }
+		if($evento){ $query.=" AND cod.log_codigo_id='$evento' "; }
 		if (! empty ( $order )) {
 			$query .= " ORDER BY $order ";
 		} else {
 			$query .= " ORDER BY en_fecha DESC ";
 		}
-		if (! empty ( $max )) {
-			$query .= " LIMIT $min,$max ";
-		}
+		$query .= (!empty($porPagina)) ? " LIMIT $porPagina OFFSET $inicio" : "";
 		$this->lista = cls_dbtools::_SQL_tool('SELECT',__METHOD__,$query);
 	}
 	
