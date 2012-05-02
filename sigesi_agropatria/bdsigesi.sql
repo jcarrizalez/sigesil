@@ -4,7 +4,7 @@
 
 -- Dumped from database version 9.1.2
 -- Dumped by pg_dump version 9.1.2
--- Started on 2012-05-01 14:35:28
+-- Started on 2012-05-02 06:38:53
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -1789,7 +1789,7 @@ ALTER TABLE public.si_log_consultas_log_id_seq OWNER TO admin;
 -- Name: si_log_consultas_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_log_consultas_log_id_seq', 46, true);
+SELECT pg_catalog.setval('si_log_consultas_log_id_seq', 23, true);
 
 
 --
@@ -3824,6 +3824,24 @@ INSERT INTO si_analisis_cultivo VALUES (1, 20, 14, 'A', 0.000, 0.000, 'C', 148, 
 -- Data for Name: si_app_error; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
+INSERT INTO si_app_error VALUES ('61470d3ca27ac2ad71', '2012-05-01 22:06:53.896-04:30', 'a:2:{i:0;a:8:{s:4:"file";s:49:"http://localhost/sigesil/admin/parametros.php<br>";s:4:"line";i:6;s:5:"class";s:9:"Parameter";s:8:"function";s:16:"listaParameteros";s:11:"mysql_error";s:185:"ERROR:  el argumento de AND debe ser de tipo boolean, no tipo integer
+LINE 1: SELECT * FROM si_parametros WHERE 1  AND parametro_mostrar="...
+                                          ^";s:5:"query";s:62:"SELECT * FROM si_parametros WHERE 1  AND parametro_mostrar=''1''";s:9:"user_name";s:9:"MCORONADO";s:4:"date";s:19:"2012-05-01 10:06:53";}i:1;a:4:{s:4:"file";s:58:"http://localhost/sigesil/lib/class/parameter.class.php<br>";s:4:"line";i:24;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
+INSERT INTO si_app_error VALUES ('4088c26a35657ee6f0', '2012-05-01 22:07:26.144-04:30', 'a:2:{i:0;a:8:{s:4:"file";s:49:"http://localhost/sigesil/admin/parametros.php<br>";s:4:"line";i:6;s:5:"class";s:9:"Parameter";s:8:"function";s:16:"listaParameteros";s:11:"mysql_error";s:185:"ERROR:  el argumento de AND debe ser de tipo boolean, no tipo integer
+LINE 1: SELECT * FROM si_parametros WHERE 1  AND parametro_mostrar="...
+                                          ^";s:5:"query";s:62:"SELECT * FROM si_parametros WHERE 1  AND parametro_mostrar=''1''";s:9:"user_name";s:9:"MCORONADO";s:4:"date";s:19:"2012-05-01 10:07:26";}i:1;a:4:{s:4:"file";s:58:"http://localhost/sigesil/lib/class/parameter.class.php<br>";s:4:"line";i:24;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
+INSERT INTO si_app_error VALUES ('501f6d491fed10a636', '2012-05-01 22:07:56.421-04:30', 'a:2:{i:0;a:8:{s:4:"file";s:49:"http://localhost/sigesil/admin/parametros.php<br>";s:4:"line";i:6;s:5:"class";s:9:"Parameter";s:8:"function";s:16:"listaParameteros";s:11:"mysql_error";s:185:"ERROR:  el argumento de AND debe ser de tipo boolean, no tipo integer
+LINE 1: SELECT * FROM si_parametros WHERE 1  AND parametro_mostrar="...
+                                          ^";s:5:"query";s:62:"SELECT * FROM si_parametros WHERE 1  AND parametro_mostrar=''1''";s:9:"user_name";s:9:"MCORONADO";s:4:"date";s:19:"2012-05-01 10:07:56";}i:1;a:4:{s:4:"file";s:58:"http://localhost/sigesil/lib/class/parameter.class.php<br>";s:4:"line";i:24;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
+INSERT INTO si_app_error VALUES ('cb7d899e8157ab39a1', '2012-05-01 22:08:00.506-04:30', 'a:2:{i:0;a:8:{s:4:"file";s:49:"http://localhost/sigesil/admin/parametros.php<br>";s:4:"line";i:6;s:5:"class";s:9:"Parameter";s:8:"function";s:16:"listaParameteros";s:11:"mysql_error";s:185:"ERROR:  el argumento de AND debe ser de tipo boolean, no tipo integer
+LINE 1: SELECT * FROM si_parametros WHERE 1  AND parametro_mostrar="...
+                                          ^";s:5:"query";s:62:"SELECT * FROM si_parametros WHERE 1  AND parametro_mostrar=''1''";s:9:"user_name";s:9:"MCORONADO";s:4:"date";s:19:"2012-05-01 10:08:00";}i:1;a:4:{s:4:"file";s:58:"http://localhost/sigesil/lib/class/parameter.class.php<br>";s:4:"line";i:24;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
+INSERT INTO si_app_error VALUES ('2aa2396aa035c654e1', '2012-05-01 22:08:39.049-04:30', 'a:2:{i:0;a:8:{s:4:"file";s:49:"http://localhost/sigesil/admin/parametros.php<br>";s:4:"line";i:6;s:5:"class";s:9:"Parameter";s:8:"function";s:16:"listaParameteros";s:11:"mysql_error";s:185:"ERROR:  el argumento de AND debe ser de tipo boolean, no tipo integer
+LINE 1: SELECT * FROM si_parametros WHERE 1  AND parametro_mostrar="...
+                                          ^";s:5:"query";s:62:"SELECT * FROM si_parametros WHERE 1  AND parametro_mostrar=''1''";s:9:"user_name";s:9:"MCORONADO";s:4:"date";s:19:"2012-05-01 10:08:39";}i:1;a:4:{s:4:"file";s:58:"http://localhost/sigesil/lib/class/parameter.class.php<br>";s:4:"line";i:24;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
+INSERT INTO si_app_error VALUES ('ddb63dc8ea6873dea4', '2012-05-01 22:08:42.549-04:30', 'a:2:{i:0;a:8:{s:4:"file";s:49:"http://localhost/sigesil/admin/parametros.php<br>";s:4:"line";i:6;s:5:"class";s:9:"Parameter";s:8:"function";s:16:"listaParameteros";s:11:"mysql_error";s:185:"ERROR:  el argumento de AND debe ser de tipo boolean, no tipo integer
+LINE 1: SELECT * FROM si_parametros WHERE 1  AND parametro_mostrar="...
+                                          ^";s:5:"query";s:62:"SELECT * FROM si_parametros WHERE 1  AND parametro_mostrar=''1''";s:9:"user_name";s:9:"MCORONADO";s:4:"date";s:19:"2012-05-01 10:08:42";}i:1;a:4:{s:4:"file";s:58:"http://localhost/sigesil/lib/class/parameter.class.php<br>";s:4:"line";i:24;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
 
 
 --
@@ -4167,186 +4185,42 @@ INSERT INTO si_log_codigos VALUES (203, 'Data Eliminada', 0, 'OK');
 -- Data for Name: si_log_consultas; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO si_log_consultas VALUES (2, '2012-04-30', 101, 5, 'N/A', 'N/A', 'N/A', 'qvptig4b5e9149l34b29p126m0', '127.0.0.1', '<div class="float-left-01">
+INSERT INTO si_log_consultas VALUES (15, '2012-05-01', 101, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '9v087qlg7usd58hilk0hm6gap2', '127.0.0.1', '<div class="float-left-01">
 		<h3 class="h-right-bar">User Computer</h3>
 			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Windows<br />NT 6.1 (Windows 7)</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 12.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 12.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-04-30 00:22:20.134-04:30<br />conectado = 1<br />sesion = tjecp5dqp6ubqugdddrg3h3c64<br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''qvptig4b5e9149l34b29p126m0''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''qvptig4b5e9149l34b29p126m0'' WHERE id=''5''', 'User Login');
-INSERT INTO si_log_consultas VALUES (3, '2012-04-30', 101, 5, 'N/A', 'N/A', 'N/A', '8m9o8od4vu96aie63lm66vo6s7', '::1', '<div class="float-left-01">
+', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-01 21:46:03.879-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''9v087qlg7usd58hilk0hm6gap2''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''9v087qlg7usd58hilk0hm6gap2'' WHERE id=''5''', 'User Login');
+INSERT INTO si_log_consultas VALUES (16, '2012-05-01', 101, 2, 'JESUS SILVA', 'N/A', 'ARAURE', '8pgflsduvcn85on7gh57vtokg6', '192.168.1.102', '<div class="float-left-01">
 		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-04-30 02:38:05.868-04:30<br />conectado = 1<br />sesion = qvptig4b5e9149l34b29p126m0<br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''8m9o8od4vu96aie63lm66vo6s7''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''8m9o8od4vu96aie63lm66vo6s7'' WHERE id=''5''', 'User Login');
-INSERT INTO si_log_consultas VALUES (4, '2012-04-30', 201, 5, 'N/A', 'N/A', 'N/A', '8m9o8od4vu96aie63lm66vo6s7', '::1', '<div class="float-left-01">
+			<h4 class="right-bar">Handheld Device:</h4><p class="right-bar">Device Type: sonyericsson</p><h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Smart Move!!!</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">User Agent: Safari 533.1<br />Engine: AppleWebKit v: 533.1</p>	</div>
+', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-04-27 10:37:28.060455-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''8pgflsduvcn85on7gh57vtokg6''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''8pgflsduvcn85on7gh57vtokg6'' WHERE id=''2''', 'User Login');
+INSERT INTO si_log_consultas VALUES (17, '2012-05-01', 202, 2, 'JESUS SILVA', 'N/A', 'ARAURE', '8pgflsduvcn85on7gh57vtokg6', '192.168.1.102', '<div class="float-left-01">
 		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
-', 'si_productor', 'No data', 'id_org = ''1''<br />ced_rif =  ''G0123456''<br />cod_ref =  null<br />nombre =  ''CONSEJO COMUNAL 4''<br />telefono =  null<br />fax =  null<br />email =  null<br />direccion =  null<br />id_sap =  null<br />id_pais =  ''1''<br />coordenadas_utm =  null<br />estatus =  ''T''<br />contacto1_nombre =  null<br />contacto1_telefono =  null<br />contacto1_email =  null<br />contacto2_nombre =  null<br />contacto2_telefono =  null<br />contacto2_email =  null<br />contacto3_nombre =  null<br />contacto3_telefono =  null<br />contacto3_email =  null<br />id_estado =  ''12''<br />id_municipio =  ''134''<br />creado = now()<br />', 'INSERT INTO si_productor  (id_org, ced_rif, cod_ref, nombre, telefono, fax, email, direccion, id_sap, id_pais, coordenadas_utm, estatus, contacto1_nombre, contacto1_telefono, contacto1_email, contacto2_nombre, contacto2_telefono, contacto2_email, contacto3_nombre, contacto3_telefono, contacto3_email, id_estado, id_municipio, creado) VALUES  (''1'', ''G0123456'', null, ''CONSEJO COMUNAL 4'', null, null, null, null, null, ''1'', null, ''T'', null, null, null, null, null, null, null, null, null, ''12'', ''134'',now())', '');
-INSERT INTO si_log_consultas VALUES (5, '2012-04-30', 101, 5, 'N/A', 'N/A', 'N/A', '8m9o8od4vu96aie63lm66vo6s7', '::1', '<div class="float-left-01">
+			<h4 class="right-bar">Handheld Device:</h4><p class="right-bar">Device Type: sonyericsson</p><h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Smart Move!!!</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">User Agent: Safari 533.1<br />Engine: AppleWebKit v: 533.1</p>	</div>
+', 'si_usuarios', 'Register No.0<br />conectado = 1<br />sesion = 8pgflsduvcn85on7gh57vtokg6<br />', 'conectado= 0 , sesion = NULL', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''2'' AND sesion = ''8pgflsduvcn85on7gh57vtokg6''', '');
+INSERT INTO si_log_consultas VALUES (18, '2012-05-01', 102, 2, 'JESUS SILVA', 'N/A', 'ARAURE', '8pgflsduvcn85on7gh57vtokg6', '192.168.1.102', '<div class="float-left-01">
 		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-04-30 08:26:39.882418-04:30<br />conectado = 1<br />sesion = 8m9o8od4vu96aie63lm66vo6s7<br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''8m9o8od4vu96aie63lm66vo6s7''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''8m9o8od4vu96aie63lm66vo6s7'' WHERE id=''5''', 'User Login');
-INSERT INTO si_log_consultas VALUES (6, '2012-04-30', 201, 5, 'N/A', 'N/A', 'N/A', '8m9o8od4vu96aie63lm66vo6s7', '::1', '<div class="float-left-01">
+			<h4 class="right-bar">Handheld Device:</h4><p class="right-bar">Device Type: sonyericsson</p><h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Smart Move!!!</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">User Agent: Safari 533.1<br />Engine: AppleWebKit v: 533.1</p>	</div>
+', 'No data', 'No data', 'No data', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''2'' AND sesion = ''8pgflsduvcn85on7gh57vtokg6'' ', '');
+INSERT INTO si_log_consultas VALUES (19, '2012-05-01', 101, 1, 'JOSE PELUZZO', 'N/A', 'AGROPATRIA', 'sh74mhc7d7bafd0spub113j1a2', '192.168.1.1', '<div class="float-left-01">
 		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
-', 'si_guiarec', 'No data', 'numero_guia = ''12312312''<br />fecha_emision =  ''30-04-2012''<br />contrato =  null<br />kilogramos =  ''30000''<br />id_usuario =  ''5''<br />estatus =  ''P''<br />creado = now()<br />', 'INSERT INTO si_guiarec  (numero_guia, fecha_emision, contrato, kilogramos, id_usuario, estatus, creado) VALUES  (''12312312'', ''30-04-2012'', null, ''30000'', ''5'', ''P'',now())', '');
-INSERT INTO si_log_consultas VALUES (7, '2012-04-30', 201, 5, 'N/A', 'N/A', 'N/A', '8m9o8od4vu96aie63lm66vo6s7', '::1', '<div class="float-left-01">
+			<h4 class="right-bar">Handheld Device:</h4><p class="right-bar">Device Type: sonyericsson</p><h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Smart Move!!!</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">User Agent: Safari 533.1<br />Engine: AppleWebKit v: 533.1</p>	</div>
+', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-04-26 16:36:11.025588-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''sh74mhc7d7bafd0spub113j1a2''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''sh74mhc7d7bafd0spub113j1a2'' WHERE id=''1''', 'User Login');
+INSERT INTO si_log_consultas VALUES (20, '2012-05-01', 202, 1, 'JOSE PELUZZO', 'N/A', 'AGROPATRIA', 'sh74mhc7d7bafd0spub113j1a2', '192.168.1.1', '<div class="float-left-01">
 		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
-', 'si_choferes', 'No data', 'ced_rif = ''V18264067''<br />nombre =  ''JESUS RODRIGUEZ''<br />id_org =  ''1''<br />estatus =  ''T''<br />creado = now()<br />', 'INSERT INTO si_choferes  (ced_rif, nombre, id_org, estatus, creado) VALUES  (''V18264067'', ''JESUS RODRIGUEZ'', ''1'', ''T'',now())', '');
-INSERT INTO si_log_consultas VALUES (8, '2012-04-30', 201, 5, 'N/A', 'N/A', 'N/A', '8m9o8od4vu96aie63lm66vo6s7', '::1', '<div class="float-left-01">
+			<h4 class="right-bar">Handheld Device:</h4><p class="right-bar">Device Type: sonyericsson</p><h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Smart Move!!!</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">User Agent: Safari 533.1<br />Engine: AppleWebKit v: 533.1</p>	</div>
+', 'si_usuarios', 'Register No.0<br />conectado = 1<br />sesion = sh74mhc7d7bafd0spub113j1a2<br />', 'conectado= 0 , sesion = NULL', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''1'' AND sesion = ''sh74mhc7d7bafd0spub113j1a2''', '');
+INSERT INTO si_log_consultas VALUES (21, '2012-05-01', 102, 1, 'JOSE PELUZZO', 'N/A', 'AGROPATRIA', 'sh74mhc7d7bafd0spub113j1a2', '192.168.1.1', '<div class="float-left-01">
 		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
-', 'si_vehiculos', 'No data', 'placa = ''DFG-DFG''<br />marca =  null<br />placa_remolques =  null<br />creado = now()<br />', 'INSERT INTO si_vehiculos  (placa, marca, placa_remolques, creado) VALUES  (''DFG-DFG'', null, null,now())', '');
-INSERT INTO si_log_consultas VALUES (9, '2012-04-30', 201, 5, 'N/A', 'N/A', 'N/A', '8m9o8od4vu96aie63lm66vo6s7', '::1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
-', 'si_recepcion', 'No data', 'numero = ''1''<br />id_cosecha =  ''1''<br />fecha_recepcion =  ''NOW()''<br />carril =  ''1''<br />cant_muestras =  ''2''<br />id_usuario =  ''5''<br />estatus_rec =  ''1''<br />id_centro_acopio =  ''2''<br />id_productor =  ''6''<br />id_guia =  ''5''<br />id_vehiculo =  ''12''<br />id_chofer =  ''8''<br />creado = now()<br />', 'INSERT INTO si_recepcion  (numero, id_cosecha, fecha_recepcion, carril, cant_muestras, id_usuario, estatus_rec, id_centro_acopio, id_productor, id_guia, id_vehiculo, id_chofer, creado) VALUES  (''1'', ''1'', ''NOW()'', ''1'', ''2'', ''5'', ''1'', ''2'', ''6'', ''5'', ''12'', ''8'',now())', '');
-INSERT INTO si_log_consultas VALUES (10, '2012-04-30', 202, 5, 'N/A', 'N/A', 'N/A', '8m9o8od4vu96aie63lm66vo6s7', '::1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />conectado = 1<br />sesion = 8m9o8od4vu96aie63lm66vo6s7<br />', 'conectado= 0 , sesion = NULL', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''8m9o8od4vu96aie63lm66vo6s7''', '');
-INSERT INTO si_log_consultas VALUES (11, '2012-04-30', 102, 5, 'N/A', 'N/A', 'N/A', '8m9o8od4vu96aie63lm66vo6s7', '::1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
-', 'No data', 'No data', 'No data', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''8m9o8od4vu96aie63lm66vo6s7'' ', '');
-INSERT INTO si_log_consultas VALUES (12, '2012-04-30', 101, 5, 'N/A', 'N/A', 'N/A', '8m9o8od4vu96aie63lm66vo6s7', '::1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-04-30 09:30:52.57448-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''8m9o8od4vu96aie63lm66vo6s7''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''8m9o8od4vu96aie63lm66vo6s7'' WHERE id=''5''', 'User Login');
-INSERT INTO si_log_consultas VALUES (13, '2012-04-30', 201, 5, 'N/A', 'N/A', 'N/A', '8m9o8od4vu96aie63lm66vo6s7', '::1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
-', 'si_guiarec', 'No data', 'numero_guia = ''238947289''<br />fecha_emision =  ''30-04-2012''<br />contrato =  null<br />kilogramos =  ''32000''<br />id_usuario =  ''5''<br />estatus =  ''P''<br />creado = now()<br />', 'INSERT INTO si_guiarec  (numero_guia, fecha_emision, contrato, kilogramos, id_usuario, estatus, creado) VALUES  (''238947289'', ''30-04-2012'', null, ''32000'', ''5'', ''P'',now())', '');
-INSERT INTO si_log_consultas VALUES (14, '2012-04-30', 201, 5, 'N/A', 'N/A', 'N/A', '8m9o8od4vu96aie63lm66vo6s7', '::1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
-', 'si_choferes', 'No data', 'ced_rif = ''V18264067''<br />nombre =  ''JESUS RODRIGUEZ''<br />id_org =  ''1''<br />estatus =  ''T''<br />creado = now()<br />', 'INSERT INTO si_choferes  (ced_rif, nombre, id_org, estatus, creado) VALUES  (''V18264067'', ''JESUS RODRIGUEZ'', ''1'', ''T'',now())', '');
-INSERT INTO si_log_consultas VALUES (15, '2012-04-30', 201, 5, 'N/A', 'N/A', 'N/A', '8m9o8od4vu96aie63lm66vo6s7', '::1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
-', 'si_vehiculos', 'No data', 'placa = ''FGH-DFGH''<br />marca =  null<br />placa_remolques =  null<br />creado = now()<br />', 'INSERT INTO si_vehiculos  (placa, marca, placa_remolques, creado) VALUES  (''FGH-DFGH'', null, null,now())', '');
-INSERT INTO si_log_consultas VALUES (16, '2012-04-30', 201, 5, 'N/A', 'N/A', 'N/A', '8m9o8od4vu96aie63lm66vo6s7', '::1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
-', 'si_recepcion', 'No data', 'numero = ''2''<br />id_cosecha =  ''1''<br />fecha_recepcion =  ''NOW()''<br />carril =  ''1''<br />cant_muestras =  ''1''<br />id_usuario =  ''5''<br />estatus_rec =  ''1''<br />id_centro_acopio =  ''2''<br />id_productor =  ''6''<br />id_guia =  ''6''<br />id_vehiculo =  ''13''<br />id_chofer =  ''9''<br />creado = now()<br />', 'INSERT INTO si_recepcion  (numero, id_cosecha, fecha_recepcion, carril, cant_muestras, id_usuario, estatus_rec, id_centro_acopio, id_productor, id_guia, id_vehiculo, id_chofer, creado) VALUES  (''2'', ''1'', ''NOW()'', ''1'', ''1'', ''5'', ''1'', ''2'', ''6'', ''6'', ''13'', ''9'',now())', '');
-INSERT INTO si_log_consultas VALUES (17, '2012-04-30', 101, 5, 'N/A', 'N/A', 'N/A', 'h64nreflr3telq2l34p4n5bah2', '::1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-04-30 10:24:02.735656-04:30<br />conectado = 1<br />sesion = 8m9o8od4vu96aie63lm66vo6s7<br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''h64nreflr3telq2l34p4n5bah2''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''h64nreflr3telq2l34p4n5bah2'' WHERE id=''5''', 'User Login');
-INSERT INTO si_log_consultas VALUES (18, '2012-04-30', 202, 5, 'N/A', 'N/A', 'N/A', 'h64nreflr3telq2l34p4n5bah2', '::1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />conectado = 1<br />sesion = h64nreflr3telq2l34p4n5bah2<br />', 'conectado= 0 , sesion = NULL', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''h64nreflr3telq2l34p4n5bah2''', '');
-INSERT INTO si_log_consultas VALUES (19, '2012-04-30', 102, 5, 'N/A', 'N/A', 'N/A', 'h64nreflr3telq2l34p4n5bah2', '::1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
-', 'No data', 'No data', 'No data', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''h64nreflr3telq2l34p4n5bah2'' ', '');
-INSERT INTO si_log_consultas VALUES (20, '2012-04-30', 101, 5, 'N/A', 'N/A', 'N/A', 'h64nreflr3telq2l34p4n5bah2', '::1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-04-30 11:30:51.207548-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''h64nreflr3telq2l34p4n5bah2''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''h64nreflr3telq2l34p4n5bah2'' WHERE id=''5''', 'User Login');
-INSERT INTO si_log_consultas VALUES (21, '2012-04-30', 101, 5, 'N/A', 'N/A', 'N/A', 'mkrdsft03786k8ifq41631mo53', '::1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-04-30 13:08:00.486149-04:30<br />conectado = 1<br />sesion = h64nreflr3telq2l34p4n5bah2<br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''mkrdsft03786k8ifq41631mo53''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''mkrdsft03786k8ifq41631mo53'' WHERE id=''5''', 'User Login');
-INSERT INTO si_log_consultas VALUES (22, '2012-04-30', 101, 5, 'N/A', 'N/A', 'N/A', 'mkrdsft03786k8ifq41631mo53', '::1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-04-30 14:34:35.008436-04:30<br />conectado = 1<br />sesion = mkrdsft03786k8ifq41631mo53<br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''mkrdsft03786k8ifq41631mo53''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''mkrdsft03786k8ifq41631mo53'' WHERE id=''5''', 'User Login');
-INSERT INTO si_log_consultas VALUES (23, '2012-05-01', 101, 5, 'N/A', 'N/A', 'N/A', '78c0m3cieokmtgolgro8nq0937', '127.0.0.1', '<div class="float-left-01">
+			<h4 class="right-bar">Handheld Device:</h4><p class="right-bar">Device Type: sonyericsson</p><h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Smart Move!!!</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">User Agent: Safari 533.1<br />Engine: AppleWebKit v: 533.1</p>	</div>
+', 'No data', 'No data', 'No data', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''1'' AND sesion = ''sh74mhc7d7bafd0spub113j1a2'' ', '');
+INSERT INTO si_log_consultas VALUES (22, '2012-05-01', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '9v087qlg7usd58hilk0hm6gap2', '127.0.0.1', '<div class="float-left-01">
 		<h3 class="h-right-bar">User Computer</h3>
 			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Windows<br />NT 6.1 (Windows 7)</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 12.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 12.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-04-30 16:19:57.47329-04:30<br />conectado = 1<br />sesion = mkrdsft03786k8ifq41631mo53<br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''78c0m3cieokmtgolgro8nq0937''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''78c0m3cieokmtgolgro8nq0937'' WHERE id=''5''', 'User Login');
-INSERT INTO si_log_consultas VALUES (24, '2012-05-01', 101, 5, 'MARIELY CORONADO', 'N/A', 'N/A', '78c0m3cieokmtgolgro8nq0937', '127.0.0.1', '<div class="float-left-01">
+', 'si_parametros', 'Register No.0<br />parametro_valor = 20<br />', 'parametro_valor=''10''', 'UPDATE si_parametros SET parametro_valor=''10'' WHERE                       id=''2''', '');
+INSERT INTO si_log_consultas VALUES (23, '2012-05-01', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '9v087qlg7usd58hilk0hm6gap2', '127.0.0.1', '<div class="float-left-01">
 		<h3 class="h-right-bar">User Computer</h3>
 			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Windows<br />NT 6.1 (Windows 7)</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 12.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 12.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-01 09:42:20.826-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''78c0m3cieokmtgolgro8nq0937''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''78c0m3cieokmtgolgro8nq0937'' WHERE id=''5''', 'User Login');
-INSERT INTO si_log_consultas VALUES (25, '2012-05-01', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '78c0m3cieokmtgolgro8nq0937', '127.0.0.1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Windows<br />NT 6.1 (Windows 7)</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 12.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 12.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />conectado = 1<br />sesion = 78c0m3cieokmtgolgro8nq0937<br />', 'conectado= 0 , sesion = NULL', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''78c0m3cieokmtgolgro8nq0937''', '');
-INSERT INTO si_log_consultas VALUES (26, '2012-05-01', 102, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '78c0m3cieokmtgolgro8nq0937', '127.0.0.1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Windows<br />NT 6.1 (Windows 7)</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 12.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 12.0</p>	</div>
-', 'No data', 'No data', 'No data', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''78c0m3cieokmtgolgro8nq0937'' ', '');
-INSERT INTO si_log_consultas VALUES (27, '2012-05-01', 101, 5, 'MARIELY CORONADO', 'N/A', 'N/A', '78c0m3cieokmtgolgro8nq0937', '127.0.0.1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Windows<br />NT 6.1 (Windows 7)</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 12.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 12.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-01 10:18:14.26-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''78c0m3cieokmtgolgro8nq0937''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''78c0m3cieokmtgolgro8nq0937'' WHERE id=''5''', 'User Login');
-INSERT INTO si_log_consultas VALUES (28, '2012-05-01', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '78c0m3cieokmtgolgro8nq0937', '127.0.0.1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Windows<br />NT 6.1 (Windows 7)</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 12.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 12.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />conectado = 1<br />sesion = 78c0m3cieokmtgolgro8nq0937<br />', 'conectado= 0 , sesion = NULL', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''78c0m3cieokmtgolgro8nq0937''', '');
-INSERT INTO si_log_consultas VALUES (29, '2012-05-01', 102, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '78c0m3cieokmtgolgro8nq0937', '127.0.0.1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Windows<br />NT 6.1 (Windows 7)</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 12.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 12.0</p>	</div>
-', 'No data', 'No data', 'No data', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''78c0m3cieokmtgolgro8nq0937'' ', '');
-INSERT INTO si_log_consultas VALUES (30, '2012-05-01', 101, 5, 'MARIELY CORONADO', 'N/A', 'N/A', '78c0m3cieokmtgolgro8nq0937', '127.0.0.1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Windows<br />NT 6.1 (Windows 7)</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 12.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 12.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-01 10:18:49.477-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''78c0m3cieokmtgolgro8nq0937''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''78c0m3cieokmtgolgro8nq0937'' WHERE id=''5''', 'User Login');
-INSERT INTO si_log_consultas VALUES (31, '2012-05-01', 101, 5, 'MARIELY CORONADO', 'N/A', 'N/A', 'bb60vjg5ho0a5a6d3iib6m67j2', '127.0.0.1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Windows<br />NT 6.1 (Windows 7)</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 12.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 12.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-01 10:37:58.777-04:30<br />conectado = 1<br />sesion = 78c0m3cieokmtgolgro8nq0937<br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''bb60vjg5ho0a5a6d3iib6m67j2''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''bb60vjg5ho0a5a6d3iib6m67j2'' WHERE id=''5''', 'User Login');
-INSERT INTO si_log_consultas VALUES (32, '2012-05-01', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', 'bb60vjg5ho0a5a6d3iib6m67j2', '127.0.0.1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Windows<br />NT 6.1 (Windows 7)</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 12.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 12.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />conectado = 1<br />sesion = bb60vjg5ho0a5a6d3iib6m67j2<br />', 'conectado= 0 , sesion = NULL', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''bb60vjg5ho0a5a6d3iib6m67j2''', '');
-INSERT INTO si_log_consultas VALUES (33, '2012-05-01', 102, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', 'bb60vjg5ho0a5a6d3iib6m67j2', '127.0.0.1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Windows<br />NT 6.1 (Windows 7)</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 12.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 12.0</p>	</div>
-', 'No data', 'No data', 'No data', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''bb60vjg5ho0a5a6d3iib6m67j2'' ', '');
-INSERT INTO si_log_consultas VALUES (34, '2012-05-01', 101, 5, 'MARIELY CORONADO', 'N/A', 'N/A', 'bb60vjg5ho0a5a6d3iib6m67j2', '127.0.0.1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Windows<br />NT 6.1 (Windows 7)</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 12.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 12.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-01 12:56:36.392-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''bb60vjg5ho0a5a6d3iib6m67j2''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''bb60vjg5ho0a5a6d3iib6m67j2'' WHERE id=''5''', 'User Login');
-INSERT INTO si_log_consultas VALUES (35, '2012-05-01', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', 'bb60vjg5ho0a5a6d3iib6m67j2', '127.0.0.1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Windows<br />NT 6.1 (Windows 7)</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 12.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 12.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />conectado = 1<br />sesion = bb60vjg5ho0a5a6d3iib6m67j2<br />', 'conectado= 0 , sesion = NULL', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''bb60vjg5ho0a5a6d3iib6m67j2''', '');
-INSERT INTO si_log_consultas VALUES (36, '2012-05-01', 102, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', 'bb60vjg5ho0a5a6d3iib6m67j2', '127.0.0.1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Windows<br />NT 6.1 (Windows 7)</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 12.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 12.0</p>	</div>
-', 'No data', 'No data', 'No data', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''bb60vjg5ho0a5a6d3iib6m67j2'' ', '');
-INSERT INTO si_log_consultas VALUES (37, '2012-05-01', 101, 5, 'MARIELY CORONADO', 'N/A', 'N/A', 'bb60vjg5ho0a5a6d3iib6m67j2', '127.0.0.1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Windows<br />NT 6.1 (Windows 7)</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 12.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 12.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-01 13:19:50.292-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''bb60vjg5ho0a5a6d3iib6m67j2''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''bb60vjg5ho0a5a6d3iib6m67j2'' WHERE id=''5''', 'User Login');
-INSERT INTO si_log_consultas VALUES (38, '2012-05-01', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', 'bb60vjg5ho0a5a6d3iib6m67j2', '127.0.0.1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Windows<br />NT 6.1 (Windows 7)</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 12.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 12.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />conectado = 1<br />sesion = bb60vjg5ho0a5a6d3iib6m67j2<br />', 'conectado= 0 , sesion = NULL', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''bb60vjg5ho0a5a6d3iib6m67j2''', '');
-INSERT INTO si_log_consultas VALUES (39, '2012-05-01', 102, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', 'bb60vjg5ho0a5a6d3iib6m67j2', '127.0.0.1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Windows<br />NT 6.1 (Windows 7)</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 12.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 12.0</p>	</div>
-', 'No data', 'No data', 'No data', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''bb60vjg5ho0a5a6d3iib6m67j2'' ', '');
-INSERT INTO si_log_consultas VALUES (40, '2012-05-01', 101, 5, 'MARIELY CORONADO', 'N/A', 'N/A', 'bb60vjg5ho0a5a6d3iib6m67j2', '127.0.0.1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Windows<br />NT 6.1 (Windows 7)</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 12.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 12.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-01 13:53:56.62-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''bb60vjg5ho0a5a6d3iib6m67j2''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''bb60vjg5ho0a5a6d3iib6m67j2'' WHERE id=''5''', 'User Login');
-INSERT INTO si_log_consultas VALUES (41, '2012-05-01', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', 'bb60vjg5ho0a5a6d3iib6m67j2', '127.0.0.1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Windows<br />NT 6.1 (Windows 7)</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 12.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 12.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />conectado = 1<br />sesion = bb60vjg5ho0a5a6d3iib6m67j2<br />', 'conectado= 0 , sesion = NULL', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''bb60vjg5ho0a5a6d3iib6m67j2''', '');
-INSERT INTO si_log_consultas VALUES (42, '2012-05-01', 102, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', 'bb60vjg5ho0a5a6d3iib6m67j2', '127.0.0.1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Windows<br />NT 6.1 (Windows 7)</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 12.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 12.0</p>	</div>
-', 'No data', 'No data', 'No data', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''bb60vjg5ho0a5a6d3iib6m67j2'' ', '');
-INSERT INTO si_log_consultas VALUES (43, '2012-05-01', 101, 5, 'MARIELY CORONADO', 'N/A', 'N/A', 'bb60vjg5ho0a5a6d3iib6m67j2', '127.0.0.1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Windows<br />NT 6.1 (Windows 7)</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 12.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 12.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-01 14:01:49.662-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''bb60vjg5ho0a5a6d3iib6m67j2''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''bb60vjg5ho0a5a6d3iib6m67j2'' WHERE id=''5''', 'User Login');
-INSERT INTO si_log_consultas VALUES (44, '2012-05-01', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', 'bb60vjg5ho0a5a6d3iib6m67j2', '127.0.0.1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Windows<br />NT 6.1 (Windows 7)</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 12.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 12.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />conectado = 1<br />sesion = bb60vjg5ho0a5a6d3iib6m67j2<br />', 'conectado= 0 , sesion = NULL', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''bb60vjg5ho0a5a6d3iib6m67j2''', '');
-INSERT INTO si_log_consultas VALUES (45, '2012-05-01', 102, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', 'bb60vjg5ho0a5a6d3iib6m67j2', '127.0.0.1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Windows<br />NT 6.1 (Windows 7)</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 12.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 12.0</p>	</div>
-', 'No data', 'No data', 'No data', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''bb60vjg5ho0a5a6d3iib6m67j2'' ', '');
-INSERT INTO si_log_consultas VALUES (46, '2012-05-01', 101, 5, 'MARIELY CORONADO', 'N/A', 'N/A', 'bb60vjg5ho0a5a6d3iib6m67j2', '127.0.0.1', '<div class="float-left-01">
-		<h3 class="h-right-bar">User Computer</h3>
-			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Windows<br />NT 6.1 (Windows 7)</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 12.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 12.0</p>	</div>
-', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-01 14:03:40.748-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''bb60vjg5ho0a5a6d3iib6m67j2''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''bb60vjg5ho0a5a6d3iib6m67j2'' WHERE id=''5''', 'User Login');
+', 'si_parametros', 'Register No.0<br />parametro_valor = 10<br />', 'parametro_valor=''20''', 'UPDATE si_parametros SET parametro_valor=''20'' WHERE                       id=''2''', '');
 
 
 --
@@ -4367,7 +4241,6 @@ INSERT INTO si_menu VALUES (15, 'M_Cultivo', 3, NULL, true, 3, NULL, NULL);
 INSERT INTO si_menu VALUES (13, 'M_Programas', 3, NULL, true, 1, NULL, NULL);
 INSERT INTO si_menu VALUES (19, 'M_Silos', 4, NULL, true, 1, NULL, NULL);
 INSERT INTO si_menu VALUES (20, 'M_Usuarios', 4, 'admin/usuarios_listado.php', true, 2, NULL, NULL);
-INSERT INTO si_menu VALUES (22, 'M_Configuracion', 4, NULL, true, 4, NULL, NULL);
 INSERT INTO si_menu VALUES (23, 'M_ConfigCta', 5, NULL, true, 1, NULL, NULL);
 INSERT INTO si_menu VALUES (24, 'M_Organizacion', 1, 'admin/organizacion_listado.php', true, 1, NULL, NULL);
 INSERT INTO si_menu VALUES (25, 'M_Almacenes', 1, 'admin/almacen_listado.php', true, 3, NULL, NULL);
@@ -4378,7 +4251,6 @@ INSERT INTO si_menu VALUES (28, 'M_Romana', 2, 'admin/romana_movimiento.php', tr
 INSERT INTO si_menu VALUES (31, 'M_labPlanta', 2, 'admin/analisis_labplanta.php', true, 4, NULL, NULL);
 INSERT INTO si_menu VALUES (12, 'M_Despacho', 2, 'admin/despacho.php', true, 2, NULL, NULL);
 INSERT INTO si_menu VALUES (18, 'M_Despacho', 3, 'reportes/reporte_despacho.php', true, 6, NULL, NULL);
-INSERT INTO si_menu VALUES (33, 'M_Asociacion', 1, 'admin/asociacion.php', true, 7, NULL, NULL);
 INSERT INTO si_menu VALUES (29, 'M_Chofer', 1, 'admin/chofer_listado.php', true, 10, NULL, NULL);
 INSERT INTO si_menu VALUES (32, 'M_Ordenes', 1, 'admin/ordenes_listado.php', true, 11, NULL, NULL);
 INSERT INTO si_menu VALUES (26, 'M_MenuUsuario', 4, 'admin/menu_usuario_listado.php', true, 5, NULL, NULL);
@@ -4389,6 +4261,7 @@ INSERT INTO si_menu VALUES (1, 'M_Maestros', 0, NULL, true, 1, NULL, NULL);
 INSERT INTO si_menu VALUES (6, 'M_CentrosA', 1, 'admin/centros_acopio_listado.php', true, 2, NULL, NULL);
 INSERT INTO si_menu VALUES (34, 'M_CosechaProductor', 4, 'admin/cosecha_productor.php', true, 6, NULL, NULL);
 INSERT INTO si_menu VALUES (35, 'M_Auditoria', 3, 'reportes/reporte_actividad.php', true, 7, NULL, NULL);
+INSERT INTO si_menu VALUES (22, 'M_Configuracion', 4, 'admin/parametros.php', true, 4, NULL, NULL);
 
 
 --
@@ -4416,7 +4289,6 @@ INSERT INTO si_menu_usuario VALUES (2, 3, 29, 5, 0, 0, 0, 0);
 INSERT INTO si_menu_usuario VALUES (27, 3, 30, 5, 0, 0, 0, 0);
 INSERT INTO si_menu_usuario VALUES (31, 3, 39, 5, 0, 0, 0, 0);
 INSERT INTO si_menu_usuario VALUES (2, 4, 31, 7, 0, 0, 0, 0);
-INSERT INTO si_menu_usuario VALUES (11, 4, 32, 7, 0, 0, 0, 0);
 INSERT INTO si_menu_usuario VALUES (12, 4, 40, 7, 0, 0, 0, 0);
 INSERT INTO si_menu_usuario VALUES (28, 4, 35, 7, 0, 0, 0, 0);
 INSERT INTO si_menu_usuario VALUES (3, 1, 493, 1, 0, 0, 0, 0);
@@ -4486,6 +4358,7 @@ INSERT INTO si_menu_usuario VALUES (34, 5, 566, 1, 0, 0, 0, 0);
 INSERT INTO si_menu_usuario VALUES (5, 5, 567, 1, 0, 0, 0, 0);
 INSERT INTO si_menu_usuario VALUES (23, 5, 568, 1, 0, 0, 0, 0);
 INSERT INTO si_menu_usuario VALUES (35, 5, 569, 1, 0, 0, 0, 0);
+INSERT INTO si_menu_usuario VALUES (11, 4, 32, 7, 1, 1, 0, 0);
 
 
 --
@@ -4880,7 +4753,6 @@ INSERT INTO si_pais VALUES (1, 'VENEZUELA');
 -- Data for Name: si_parametros; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO si_parametros VALUES (2, 'MAX_RESULTS_PAG', '20', 'N&uacute;mero m&aacute;ximo de registos para paginar', 1, '2012-02-07 00:00:00-04:30', '2012-02-07 00:00:00-04:30', NULL, NULL);
 INSERT INTO si_parametros VALUES (1, 'SYSTEM_NAME', 'SIGESIL', 'Nombre de la aplicaci&oacute;n', 1, '2012-02-07 00:00:00-04:30', '2012-02-07 00:00:00-04:30', NULL, NULL);
 INSERT INTO si_parametros VALUES (3, 'LLAVE_PUBLICA', '6LcExc0SAAAAAJQg0dDLm-g8_ckox0vYbS0l5xTD', 'Llave Publica del Recaptcha', 1, '2012-02-17 00:00:00-04:30', NULL, NULL, NULL);
 INSERT INTO si_parametros VALUES (4, 'LLAVE_PRIVADA', '6LcExc0SAAAAAMz3zsKrd6QqHIqhh53z_U5kHdeF', 'Llave Privada', 1, '2012-02-17 00:00:00-04:30', NULL, NULL, NULL);
@@ -4891,6 +4763,7 @@ INSERT INTO si_parametros VALUES (8, 'PV1', 'Peso Vacio 1', 'Peso Vac&iacute;o d
 INSERT INTO si_parametros VALUES (9, 'PV2', 'Peso Vacio 2', 'Peso Vac&iacute;o de la Muestra 2', 1, '2012-03-01 00:00:00-04:30', NULL, NULL, NULL);
 INSERT INTO si_parametros VALUES (10, 'IMPL', 'Impurezas de Laboratorio', 'Impurezas de Laboratorio', 1, '2012-03-01 00:00:00-04:30', NULL, NULL, NULL);
 INSERT INTO si_parametros VALUES (11, 'HUML', 'Humedad de Laboratorio', 'Humedad de Laboratorio', 1, '2012-03-01 00:00:00-04:30', NULL, NULL, NULL);
+INSERT INTO si_parametros VALUES (2, 'MAX_RESULTS_PAG', '20', 'N&uacute;mero m&aacute;ximo de registos para paginar', 1, '2012-02-07 00:00:00-04:30', '2012-02-07 00:00:00-04:30', NULL, NULL);
 
 
 --
@@ -5283,12 +5156,12 @@ INSERT INTO si_transporte VALUES (1, 2, NULL, 'ASOTRAMACHAQ', NULL, NULL, NULL, 
 --
 
 INSERT INTO si_usuarios VALUES (6, 'YELITZA', 'GUZMAN', '13000000', NULL, 'F', 'YGUZMAN', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'MARACAY', NULL, 'YELITZAGUZMAN@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-03-16 11:42:48.981154-04:30', true, 0, NULL, NULL);
-INSERT INTO si_usuarios VALUES (1, 'JOSE', 'PELUZZO', '1234567', '2012-02-12', 'M', 'JPELUZZO', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'Maracay', NULL, 'josepeluzzo@agropatria.co.ve', '2012-02-12 00:00:00-04:30', NULL, true, 0, NULL, '2012-04-26 16:36:11.025588-04:30');
-INSERT INTO si_usuarios VALUES (2, 'JESUS', 'SILVA', '9668397', '1970-09-01', 'M', 'JSILVA', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'MARACAY', NULL, 'JESUSSILVA@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-03-16 11:47:52.212876-04:30', true, 0, NULL, '2012-04-27 10:37:28.060455-04:30');
 INSERT INTO si_usuarios VALUES (3, 'JUAN', 'TABORDA', '13769341', NULL, 'M', 'JTABORDA', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'MARACAY', NULL, 'juantaborda@agropatria.co.ve', '2012-02-13 00:00:00-04:30', '2012-02-17 00:00:00-04:30', true, 0, NULL, '2012-04-18 15:58:22.135194-04:30');
 INSERT INTO si_usuarios VALUES (7, 'JUAN', 'CARRIZALEZ', '15650075', NULL, 'M', 'JUANMC', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', NULL, NULL, NULL, '2012-04-25 09:24:19.641208-04:30', NULL, true, 0, NULL, NULL);
 INSERT INTO si_usuarios VALUES (4, 'JESUS', 'RODRIGUEZ', '18264065', NULL, 'M', 'JRODRIGUEZ', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'CAGUA', NULL, 'jesusrodriguez@agropatria.co.ve', '2012-02-13 00:00:00-04:30', '2012-02-13 00:00:00-04:30', true, 0, NULL, '2012-04-29 10:12:09.635-04:30');
-INSERT INTO si_usuarios VALUES (5, 'MARIELY', 'CORONADO', '16000000', NULL, 'F', 'MCORONADO', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'LA VILLA', NULL, 'MARIELYCORONADO@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-03-16 11:42:37.144713-04:30', true, 1, 'bb60vjg5ho0a5a6d3iib6m67j2', '2012-05-01 14:06:09.452-04:30');
+INSERT INTO si_usuarios VALUES (5, 'MARIELY', 'CORONADO', '16000000', NULL, 'F', 'MCORONADO', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'LA VILLA', NULL, 'MARIELYCORONADO@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-03-16 11:42:37.144713-04:30', true, 1, '9v087qlg7usd58hilk0hm6gap2', '2012-05-01 21:47:32.489-04:30');
+INSERT INTO si_usuarios VALUES (2, 'JESUS', 'SILVA', '9668397', '1970-09-01', 'M', 'JSILVA', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'MARACAY', NULL, 'JESUSSILVA@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-03-16 11:47:52.212876-04:30', true, 0, NULL, '2012-05-01 21:51:37.917-04:30');
+INSERT INTO si_usuarios VALUES (1, 'JOSE', 'PELUZZO', '1234567', '2012-02-12', 'M', 'JPELUZZO', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'Maracay', NULL, 'josepeluzzo@agropatria.co.ve', '2012-02-12 00:00:00-04:30', NULL, true, 0, NULL, '2012-05-01 21:57:05.665-04:30');
 
 
 --
@@ -7039,7 +6912,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2012-05-01 14:35:30
+-- Completed on 2012-05-02 06:38:56
 
 --
 -- PostgreSQL database dump complete

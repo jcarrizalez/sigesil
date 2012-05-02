@@ -4,7 +4,7 @@ class Menu extends Model {
     var $table = 'si_menu';
     
     function menuPorUsuario($idPerfil, $idUsuario = null, $idPadre = null){
-        $query = "SELECT mp.*
+        $query = "SELECT mp.*, mh.nuevo, mh.modificar, mh.eliminar, mh.imprimir
                     FROM si_menu mp
                     INNER JOIN si_menu_usuario mh ON mh.id_menu = mp.id
                     WHERE mh.id_usuario = '$idUsuario' AND mh.id_perfil = '$idPerfil' AND mp.estatus = 't'";
@@ -13,9 +13,9 @@ class Menu extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
-    function asignarMenuUsuario($idM, $idU, $idP){
-        $query = "INSERT INTO si_menu_usuario (id_menu, id_usuario, id_perfil)
-                    VALUES ('$idM', '$idU', '$idP')";
+    function asignarMenuUsuario($idM, $idU, $idP, $nuevo = 0, $modificar = 0, $eliminar = 0, $imprimir = 0){
+        $query = "INSERT INTO si_menu_usuario (id_menu, id_usuario, id_perfil, nuevo, modificar, eliminar, imprimir)
+                    VALUES ('$idM', '$idU', '$idP', '$nuevo', '$modificar', '$eliminar', '$imprimir')";
         $result = $this->_SQL_tool('INSERT', __METHOD__, $query);
         return $result;
     }

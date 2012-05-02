@@ -16,113 +16,11 @@
     $total_registros = $objlogs->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);
 
-    if (!empty($GPC['DownloadXLS'])) {
-        // Creating a workbook
-        $workbook = new Spreadsheet_Excel_Writer();
-
-        // sending HTTP headers
-        $workbook->send('USAGEREPORT -' . date("Y-m-d") . '.xls');
-        $worksheet = & $workbook->addWorksheet($lang['txtrActivityReport']);
-        // Header format
-        $fmtHeader = & $workbook->addFormat();
-        $fmtHeader->setSize(10);
-        $fmtHeader->setAlign('center');
-        $fmtHeader->setColor('white');
-        $fmtHeader->setPattern();
-        $fmtHeader->setFgColor('gray');
-        $fmtHeader->setBold(1);
-        $fmtHeader->setTop(0);
-        $fmtHeader->setBottom(0);
-        $fmtHeader->setLeft(0);
-        $fmtHeader->setRight(0);
-
-        // Title format
-        $fmtTitle = & $workbook->addFormat();
-        $fmtTitle->setSize(12);
-        $fmtTitle->setAlign('left');
-        $fmtTitle->setColor('black');
-        $fmtTitle->setPattern();
-        $fmtTitle->setFgColor('white');
-        $fmtTitle->setBold(1);
-
-        //Celda de procentaje
-        $fmt_porcien = & $workbook->addFormat();
-        $fmt_porcien->setSize(10);
-        $fmt_porcien->setAlign('Right');
-        $fmt_porcien->setNumFormat('0.0"%"');
-
-        //Celda % fondo naraja y texto blanco
-        $fmt_xcien_ow = & $workbook->addFormat();
-        $fmt_xcien_ow->setSize(10);
-        $fmt_xcien_ow->setAlign('center');
-        $fmt_xcien_ow->setColor('white');
-        $fmt_xcien_ow->setPattern();
-        $fmt_xcien_ow->setFgColor('gray');
-        $fmt_xcien_ow->setBold(1);
-        $fmt_xcien_ow->setTop(0);
-        $fmt_xcien_ow->setBottom(0);
-        $fmt_xcien_ow->setLeft(0);
-        $fmt_xcien_ow->setRight(0);
-        $fmt_xcien_ow->setNumFormat('0.0"%"');
-
-        // Date format
-        $fmtDate = & $workbook->addFormat();
-        $fmtDate->setNumFormat('mmm-dd-yy');
-        //$fmtDate->setLocked();
-
-        $strTitle = SYSTEM_NAME . ' REPORT';
-        $worksheet->writeString(1, 0, $strTitle, $fmtTitle);
-        $worksheet->writeString(2, 0, $lang['txt_activity_report'], $fmtrow);
-        $worksheet->writeString(3, 0, 'Date: ' . date("m/d/Y"), $fmtrow);
-
-        //Tama?os de columnas
-        for ($i = 0; $i < 9; $i++) {
-            $worksheet->setColumn(0, $i, 20);
-        }
-
-        // Titulos de Columnas
-        $worksheet->writeString(6, 0, $lang['txtUser'], $fmtHeader);
-        $worksheet->writeString(6, 1, $lang['txtEmailAddress'], $fmtHeader);
-        $worksheet->writeString(6, 2, $lang['txtCompanyName'], $fmtHeader);
-        $worksheet->writeString(6, 3, 'IP', $fmtHeader);
-        $worksheet->writeString(6, 4, $lang['txtDate'], $fmtHeader);
-        $worksheet->writeString(6, 5, $lang['txtEvents'], $fmtHeader);
-        $worksheet->writeString(6, 6, 'ST', $fmtHeader);
-        $worksheet->writeString(6, 7, $lang['txtTables'], $fmtHeader);
-
-        $rowcount = 7;
-        $fmtcount = 0;
-
-        $objlogs->list_consultas($start_date, $end_date, $fltr_compania, $fltr_usuario, $fltr_event_id);
-
-        for ($i = 0, $cant = count($objlogs->lista); $i < $cant; $i++) {
-
-            $worksheet->writeString($rowcount, 0, $objlogs->lista[$i]['usuario_info'], $fmtrow);
-            $worksheet->writeString($rowcount, 1, $objlogs->lista[$i]['usuario_email'], $fmtrow);
-            $worksheet->writeString($rowcount, 2, $objlogs->lista[$i]['centro_acopio'], $fmtrow);
-            $worksheet->writeString($rowcount, 3, $objlogs->lista[$i]['direccion_ip'], $fmtrow);
-            if ($objlogs->lista[$i]['en_fecha'] == '0000-00-00 00:00:00') {
-                $worksheet->writeString($rowcount, 4, "NA", $fmtrow);
-            } else {
-                $fecharevi = $general->fechahora_sql_normal($objlogs->lista[$i]['en_fecha'], true);
-                $worksheet->writeFormula($rowcount, 4, "=DATE(" . $fecharevi[1] . "," . $fecharevi[2] . "," . $fecharevi[3] . ")", $fmtDate);
-            }
-            $worksheet->writeString($rowcount, 5, $objlogs->lista[$i]['log_codigo_nombre_' . $language->currentLanguageShortName], $fmtrow);
-            $worksheet->writeString($rowcount, 6, $objlogs->lista[$i]['log_codigo_tipo'], $fmtrow);
-            $worksheet->writeString($rowcount, 7, $objlogs->lista[$i]['en_tablas'], $fmtrow);
-            $rowcount++;
-        }
-
-        $workbook->close();
-        exit();
-    }
-
-
     require('../lib/common/header.php');
     require('../lib/common/init_calendar.php');
 ?>
 <script language="javascript">
-    //show_div_loader();
+    show_div_loader();
     
     var win = null;
     function openWindow(mypage,myname,w,h,scroll){
@@ -239,15 +137,15 @@
         <td>
             <table align="center" width="100%">
                 <tr align="center" class="titulos_tabla">
-                    <th><?php echo "Usuario"//$lang['txtUser']  ?></th>
-                    <th><?php echo "Correo"//$lang['txtEmailAddress']  ?></th>
-                    <th><?php echo "Centro Acopio"//$lang['txtCompanyName']  ?></th>
+                    <th><?php echo "Usuario" ?></th>
+                    <!--th><?php echo "Correo" ?></th-->
+                    <th><?php echo "Centro Acopio" ?></th>
                     <th>IP</th>
-                    <th><?php echo "Fecha"//$lang['txtDate'] ?></th>
-                    <th><?php echo "Evento"//$lang['txtEvents'] ?></th>
+                    <th><?php echo "Fecha" ?></th>
+                    <th><?php echo "Evento" ?></th>
                     <th>ST</th>
-                    <th><?php echo "Tablas"//$lang['txtTables'] ?></th>
-                    <th><?php echo "Vista"//$lang['txtView'] ?></tdh>
+                    <th><?php echo "Tablas" ?></th>
+                    <th><?php echo "Vista" ?></tdh>
                 </tr>
                 <?php
                     for ($i = 0, $cant = count($objlogs->lista); $i < $cant; $i++) {
@@ -255,14 +153,14 @@
                 ?>
                     <tr class="<?= $classname ?>" onMouseOver="this.className='highlight2'" onMouseOut="this.className='<?= $classname ?>'">
                         <td><?php echo $objlogs->lista[$i]['usuario_info'] ?></td>
-                        <td ><?php echo $objlogs->lista[$i]['usuario_email'] ?></td>
+                        <!--td><?php echo $objlogs->lista[$i]['usuario_email'] ?></td-->
                         <td align="center" ><?php echo $objlogs->lista[$i]['centro_acopio'] ?></td>
-                        <td ><?php echo $objlogs->lista[$i]['direccion_ip'] ?></td>
-                        <td ><?php echo $general->fechahora_sql_normal($objlogs->lista[$i]['en_fecha'], false, 'es') ?></td>
-                        <td ><?php echo $objlogs->lista[$i]['log_codigo_nombre_es'] ?></td>
-                        <td ><?php echo $objlogs->lista[$i]['log_codigo_tipo'] ?></td>
-                        <td ><?php echo $objlogs->lista[$i]['en_tablas'] ?></td>
-                        <td align="center" ><img src="../images/icons/system-search.png" width="16" height="16" title="view" border="0" style="cursor:pointer" onclick="openWindow('view_log.php?id_log=<?php echo $objlogs->lista[$i]['log_id'] ?>','','700','600','visible');return false;"></td>
+                        <td><?php echo $objlogs->lista[$i]['direccion_ip'] ?></td>
+                        <td><?php echo $general->date_sql_screen($objlogs->lista[$i]['en_fecha'], '', 'es', '-') ?></td>
+                        <td><?php echo $objlogs->lista[$i]['log_codigo_nombre_es'] ?></td>
+                        <td><?php echo $objlogs->lista[$i]['log_codigo_tipo'] ?></td>
+                        <td><?php echo $objlogs->lista[$i]['en_tablas'] ?></td>
+                        <td align="center" ><img src="../images/buscar.png" width="16" height="16" title="view" border="0" style="cursor:pointer" onclick="openWindow('ver_log.php?id_log=<?php echo $objlogs->lista[$i]['log_id'] ?>','','700','600','visible');return false;"></td>
                     </tr>
             <?php } ?>
             </table>

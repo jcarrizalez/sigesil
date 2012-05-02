@@ -141,8 +141,6 @@ class Usuario extends Model {
             if (count($arr_detail) == 0)
                 return "usuario_inactivo";
 
-            $this->actualizarUsuarioConectado($arr_user['id']);
-
             $_SESSION['s_perfil_id'] = $arr_detail[0]['id_perfil'];
             $_SESSION['s_org_id'] = $arr_detail[0]['id_org'];
             $_SESSION['s_org_codigo'] = $arr_detail[0]['codigo_org'];
@@ -150,6 +148,8 @@ class Usuario extends Model {
             $_SESSION['s_ca_id'] = $arr_detail[0]['id_ca'];
             $_SESSION['s_ca_codigo'] = $arr_detail[0]['codigo_ca'];
             $_SESSION['s_ca_nombre'] = $arr_detail[0]['nombre_ca'];
+            
+            $this->actualizarUsuarioConectado($arr_user['id']);
 
             return "success";
         }else {

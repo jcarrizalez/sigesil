@@ -18,10 +18,10 @@
 	 * @param $mostrar
 	 * @return unknown_type
 	 */
-	function listaParametros($mostrar = 1, $constantes = ''){
-            $query="SELECT * FROM si_parametros WHERE '1' ";
-            if(!is_null($mostrar)){ $query.=" AND parametro_mostrar = '$mostrar' "; }
-            if(!is_null($constantes)){ $query.=" AND id >= $constantes "; }
+	function listaParameteros($mostrar=1){
+            $query="SELECT * FROM si_parametros WHERE '1'";
+            if(!is_null($mostrar)){ $query.=" AND parametro_mostrar='$mostrar' "; }
+            $query .= " ORDER BY id";
             $this->lista=$this->_SQL_tool($this->SELECT, __METHOD__, $query);
 	}
 	
@@ -45,20 +45,6 @@
 	function findFirst($id){
             $query="SELECT * FROM si_parametros WHERE id='$id' ";
             $this->data=$this->_SQL_tool($this->SELECT_SINGLE, __METHOD__, $query);
-	}
-
-	function lista_trimestres_disponibles($pais_id){
-            $query = "SELECT * FROM quarters WHERE pais_id = '$pais_id' AND 
-                        (date_redeem_limit > DATE_SUB(NOW(),INTERVAL 3 MONTH)) 
-                        ORDER BY date_redeem_limit";
-            $this->lista_qrt=$this->_SQL_tool('SELECT', __METHOD__, $query);
-	}
-        
-	function update_pais($id,$pais_lenguaje,$pais_email){
-            $query="UPDATE paises 
-            SET pais_lenguaje='$pais_lenguaje', pais_email='$pais_email' 
-            WHERE pais_id =  '$id' ";
-            $this->_SQL_tool('UPDATE', __METHOD__, $query);
 	}
 }
 ?>

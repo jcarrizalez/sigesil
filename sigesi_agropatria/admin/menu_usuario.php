@@ -11,7 +11,7 @@
             for($i=0;$i<count($GPC['padre']);$i++){
                 $idMenu = $menu->asignarMenuUsuario($GPC['padre'][$i], $GPC['usuario_id'], $GPC['perfil_id']);
                 foreach($GPC['hijo_'.$GPC['padre'][$i]] as $valor){
-                    $idMenu = $menu->asignarMenuUsuario($valor, $GPC['usuario_id'], $GPC['perfil_id']);
+                    $idMenu = $menu->asignarMenuUsuario($valor, $GPC['usuario_id'], $GPC['perfil_id'], $GPC['accion_'.$valor]['nuevo'], $GPC['accion_'.$valor]['modificar'], $GPC['accion_'.$valor]['eliminar'], $GPC['accion_'.$valor]['imprimir']);
                     if(empty($idMenu))
                         $total++;
                 }
@@ -27,7 +27,13 @@
             $menuUsuarioOpc = $menu->menuPorUsuario($GPC['perfil'], $GPC['id']);
             foreach($menuUsuarioOpc as $valor){
                 $menuUsuario[] = $valor['id'];
+                $acciones[$valor['id']][] = $valor['nuevo'];
+                $acciones[$valor['id']][] = $valor['modificar'];
+                $acciones[$valor['id']][] = $valor['eliminar'];
+                $acciones[$valor['id']][] = $valor['imprimir'];
             }
+            /*Debug::pr($menuUsuario);
+            Debug::pr($acciones);*/
         break;
     }
     require('../lib/common/header.php');
@@ -118,15 +124,18 @@
                     foreach($menuHijo as $hijo){
                         if($hijo['id_padre'] != 0 && $hijo['id_padre'] == $padre['id']){
                             $asignarH = (in_array($hijo['id'], $menuUsuario)) ? 'checked = "check"' : '';
-                            $idPadre = $padre['id'];
+                            $verifn = (!is_null($acciones[$hijo['id']]['nuevo'])) ? 'checked = "check"' : '';
+                            $verifm = (!is_null($acciones[$hijo['id']]['modificar'])) ? 'checked = "check"' : '';
+                            $verife = (!is_null($acciones[$hijo['id']]['eliminar'])) ? 'checked = "check"' : '';
+                            $verifi = (!is_null($acciones[$hijo['id']]['imprimir'])) ? 'checked = "check"' : '';
             ?>
             <tr>
                 <td align="right" width="40"><input name="hijo_<?=$padre['id']?>[]" id="hijo_<?=$padre['id']?>" type="checkbox" <?=$asignarH?> class="marcar_<?=$padre['id']?> desmarPadre" value="<?=$hijo['id']?>"></td>
                 <td><?=$etiqueta[$hijo['nombre']]?></td>
-                <td align="center"><input name="accion_<?=$hijo['id']?>[]" id ="accion_<?=$hijo['id']?>" type="checkbox" class="" value="1" /></td>
-                <td align="center"><input name="accion_<?=$hijo['id']?>[]" id ="accion_<?=$hijo['id']?>" type="checkbox" class="" value="1" /></td>
-                <td align="center"><input name="accion_<?=$hijo['id']?>[]" id ="accion_<?=$hijo['id']?>" type="checkbox" class="" value="1" /></td>
-                <td align="center"><input name="accion_<?=$hijo['id']?>[]" id ="accion_<?=$hijo['id']?>" type="checkbox" class="" value="1" /></td>
+                <td align="center"><input name="accion_<?=$hijo['id']?>[nuevo]" id ="accion_<?=$hijo['id']?>" type="checkbox" <?=$verifn?> class="" value="1" /></td>
+                <td align="center"><input name="accion_<?=$hijo['id']?>[modificar]" id ="accion_<?=$hijo['id']?>" type="checkbox" <?=$verifm?> class="" value="1" /></td>
+                <td align="center"><input name="accion_<?=$hijo['id']?>[eliminar]" id ="accion_<?=$hijo['id']?>" type="checkbox" <?=$verife?> class="" value="1" /></td>
+                <td align="center"><input name="accion_<?=$hijo['id']?>[imprimir]" id ="accion_<?=$hijo['id']?>" type="checkbox" <?=$verifi?> class="" value="1" /></td>
                 </td>
             </tr>
             <?
