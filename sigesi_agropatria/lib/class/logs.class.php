@@ -371,7 +371,8 @@ class cls_logs {
 		}
 		if($ca){ $query.=" AND cons.centro_acopio='$ca' "; }
 		if($usuario){ $query.=" AND cons.usuario_info='$usuario' "; }
-		if($evento){ $query.=" AND cod.log_codigo_id='$evento' "; }
+		//if($evento){ $query.=" AND cod.log_codigo_id='$evento' "; }
+		if($evento){ $query.=" AND cod.log_codigo_nombre_es='$evento' "; }
 		if (! empty ( $order )) {
 			$query .= " ORDER BY $order ";
 		} else {

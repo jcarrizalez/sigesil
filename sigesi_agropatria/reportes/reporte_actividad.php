@@ -55,7 +55,7 @@
                         });
                     </script>
                 </td>
-                <td><?php echo "Empresa"//$lang['txtDealer']  ?></td>
+                <td width="120"><?php echo "Centros de Acopio"//$lang['txtDealer']  ?></td>
                 <td>
                     <select name="centro_acopio" id="centro_acopio" class="select2">
                         <option value=""><?php echo "Todos"//$lang['txt_all']  ?></option>
@@ -102,7 +102,7 @@
                     <select name="evento" id="evento" class="select2">
                         <option value=""><?php echo "Todos"//$lang['txt_all'] ?></option>
                         <?php
-                        $general->get_filers_colum('log_codigo_id', 'log_codigo_nombre_es', 'si_log_codigos');
+                        $general->get_filers_colum('log_codigo_nombre_es', 'log_codigo_nombre_es', 'si_log_codigos');
                             for ($i = 0, $cant = count($general->filter); $i < $cant; $i++) {
                                 $etiqueta_texto = $general->filter[$i]['texto'];
                         ?>

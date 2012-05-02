@@ -5,6 +5,20 @@
  */
 class General {
 
+    function crearAcciones($data, $accion = null, $aparte = 0){
+        $html = new Html();
+        foreach($data as $boton){
+            if($boton['nuevo'] == 1 && $aparte == 1)
+                echo $html->input('Nuevo', 'Nuevo', array('type' => 'button'));
+            if($boton['modificar'] == 1 && $aparte == 0)
+                echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', $accion[1]);
+            if($boton['eliminar'] == 1 && $aparte == 0)
+                echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', $accion[2], array('onclick' => 'return eliminar();'));
+            if($boton['imprimir'] == 1 && $aparte == 0)
+                echo $html->link('<img src="../images/imprimir.png" width="16" height="16" title=Imprimir>', $accion[3]);
+        }
+    }
+    
     function fechaPhp() {
         switch (date('l')) {
             case 'Monday':

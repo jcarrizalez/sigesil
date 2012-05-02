@@ -57,6 +57,9 @@ $validator->printScript();
                 if(cosecha == ''){
                     alert('Debe elegir primero una cosecha');
                     $(this).val('');
+                }else if(asociacion == $(this).val()){
+                    alert('La Cedula/Rif no puede ser igual a la de la Asociacion');
+                    $(this).val('');
                 }else{
                     show_div_loader();
                     $('#tdAon').load('../ajax/cosecha_programa.php?ac=cos_aon&co='+cosecha+'&cpro='+$(this).val());
@@ -70,6 +73,9 @@ $validator->printScript();
             var productor = $('#Data\\[id_productor\\]').val();
             if(cosecha == ''){
                 alert('Debe elegir primero una cosecha');
+                $(this).val('');
+            }else if(productor == $(this).val()){
+                alert('La Cedula/Rif no puede ser igual a la del Productor');
                 $(this).val('');
             }else{
                 show_div_loader();

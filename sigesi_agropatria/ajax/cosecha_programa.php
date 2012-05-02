@@ -39,35 +39,37 @@
         break;
         case 'cos_aon':
             $productor = new Productor();
-            $infoPro = $productor->find(array('id' => $GPC['cpro']));
-            $infoProductores = $cosecha->asignarCosechaProductor($GPC['co'], $infoPro[0]['ced_rif']);
+            //$infoPro = $productor->find(array('id' => $GPC['cpro']));
+            $infoProductores = $cosecha->asignarCosechaProductor($GPC['co'], $GPC['cpro']);
             foreach($infoProductores as $valor){
                 if(!empty($valor['id_asociacion'])){
                     if(!in_array($valor['id_asociacion'], $productores))
-                        $productores[$valor['ced_asociacion']] = $valor['ced_asociacion']. " - " .$valor['asociacion'];
+                        $productores[$valor['id_asociacion']] = $valor['ced_asociacion']. " - " .$valor['asociacion'];
                 }else{
                     if(!in_array($valor['id_productor'], $productores))
-                        $productores[$valor['ced_productor']] = $valor['ced_productor']. " - " .$valor['productor'];
+                        $productores[$valor['id_productor']] = $valor['ced_productor']. " - " .$valor['productor'];
                 }
             }
             echo $html->select('Data.id_asociacion', array('options' => $productores, 'default' => 'Seleccione', 'class' => 'estilo_campos2'));
         break;
         case 'cos_ado':
             $productor = new Productor();
-            $infoPro = $productor->find(array('id' => $GPC['cpro']));
-            $infoProductores = $cosecha->asignarCosechaProductor($GPC['co'], $infoPro[0]['ced_rif'], $GPC['caon']);
+            //$infoPro = $productor->find(array('id' => $GPC['cpro']));
+            $infoProductores = $cosecha->asignarCosechaProductor($GPC['co'], $GPC['cpro'], $GPC['caon']);
             echo "<tr align='center' class='titulos_tabla'><th>&nbsp;</th><th>C&eacute;dula/Rif Asociaci&oacute;n</th><th>Nombre Asociaci&oacute;n</th><th>C&eacute;dula/Rif</th><th>Nombre</th></tr>";
             $i=0;
             foreach($infoProductores as $valor){
                 $clase = $general->obtenerClaseFila($i);
                 if(!empty($valor['id_asociado'])){
+                    if($valor['id_cosecha'] == $GPC['co'] || empty($valor['id_cosecha'])){
                     echo "<tr class='$clase'><td align='center' width='30'>".$html->input('chec_aso[]', $valor['id_asociado'], array('type' => 'checkbox'))."</td>";
                     echo "<td align='center' width='100'>".$valor['ced_asociacion']."</td>";
                     echo "<td>".$valor['asociacion']."</td>";
                     echo "<td align='center' width='100'>".$valor['ced_asociado']."</td>";
                     echo "<td>".$valor['asociado']."</td></tr>";
+                    }
                     //echo $valor['ced_asociado']. " - " .$valor['asociado']."<br/>";
-                }else{
+                }elseif($valor['id_productor'] != $GPC['caon']){
                     echo "<tr class='$clase'><td align='center' width='30'>".$html->input('chec_aso[]', $valor['id_productor'], array('type' => 'checkbox'))."</td>";
                     echo "<td align='center' width='100'>-</td>";
                     echo "<td align='center'>-</td>";

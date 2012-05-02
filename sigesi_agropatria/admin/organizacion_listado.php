@@ -47,18 +47,16 @@
         ?>
     </div>
     <div id="filtro">
-        <!--form name="form1" id="form1" method="POST" action="" enctype="multipart/form-data"-->
-            <table width="100%">
-                <tr id="botones">
-                    <td colspan="3">
-                        <?
-                            echo $html->input('Nuevo', 'Nuevo', array('type' => 'button'));
-                            echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
-                        ?>
-                    </td>
-                </tr>
-            </table>
-        <!--/form-->
+        <table width="100%">
+            <tr id="botones">
+                <td colspan="3">
+                    <?
+                        $general->crearAcciones($acciones, '', 1);
+                        echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
+                    ?>
+                </td>
+            </tr>
+        </table>
     </div><hr/>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
@@ -88,16 +86,8 @@
             <td align="center"><?=$dataOrg['municipio']?></td>
             <td align="center">
                 <?
-                    $url = array(0 => 'organizacion.php?ac=editar&id='.$dataOrg['id'], 'organizacion_listado.php?ac=eliminar&id='.$dataOrg['id']);
-                    $i = 0;
-                    foreach($acciones as $boton){
-                        if($boton == 1)
-                            echo $general->crearBotones($url[$i++]);
-                    }
-                    /*
-                    echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'organizacion.php?ac=editar&id='.$dataOrg['id']);
-                    echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'organizacion_listado.php?ac=eliminar&id='.$dataOrg['id'], array('onclick' => 'return eliminar();'));
-                    */
+                    $urls = array(1 => "organizacion.php?ac=editar&id=".$dataOrg['id'], "organizacion_listado.php?ac=eliminar&id=".$dataOrg['id']);
+                    $general->crearAcciones($acciones, $urls);
                 ?>
             </td>
         </tr>
