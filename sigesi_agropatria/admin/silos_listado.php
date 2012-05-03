@@ -23,7 +23,7 @@
     
     if($GPC['ac'] == 'eliminar'){
         $id = $GPC['id'];
-        $silos->eliminarSilo(1,$id);
+        $silos->desactivarS($id, $GPC['estatus']);
         header('location: silos_listado.php');
         die();
     }
@@ -79,9 +79,7 @@
                 <tr id="botones">
                     <td colspan="3">
                         <?
-                            if($_SESSION['s_perfil_id'] == GERENTES){
-                                echo $html->input('Nuevo', 'Nuevo', array('type' => 'button'));
-                            }
+                            $general->crearAcciones($acciones, '', 1);    
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
                         ?>
                     </td>
@@ -105,9 +103,7 @@
             <th>Nombre</th>
             <th>Coordenadas</th>
             <th>Capacidad (Kg)</th>
-            <? if($_SESSION['s_perfil_id'] == GERENTES){ ?>
             <th>Acci&oacute;n</th>
-            <? } ?>
         </tr>
         <?
             $i=0;
@@ -122,14 +118,12 @@
             <td><?=$dataSilo['nombre']?></td>
             <td><?=$dataSilo['coordenada']?></td>
             <td align="center"><?=$dataSilo['capacidad']?></td>
-            <? if($_SESSION['s_perfil_id'] == GERENTES){ ?>
             <td align="center">
                 <?
-                    echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'silos.php?ac=editar&id='.$dataSilo['id']);
-                    echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'silos_listado.php?ac=eliminar&id='.$dataSilo['id'], array('onclick' => 'return eliminar();'));
+                    $urls = array(1 => 'silos.php?ac=editar&id='.$dataSilo['id'], 'silos_listado.php?ac=eliminar&id='.$dataSilo['id']."&estatus=f");
+                    $general->crearAcciones($acciones, $urls);
                 ?>
             </td>
-            <? } ?>
         </tr>
         <? $i++; } ?>
         <tr>

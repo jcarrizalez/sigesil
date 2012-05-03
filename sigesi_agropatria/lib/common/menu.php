@@ -1,5 +1,5 @@
 <?
-    $armarMenu = $menu->menuPorUsuario($_SESSION['s_perfil_id'], $_SESSION['s_id']);
+    $armarMenu = $menu->menuPorUsuario($_SESSION['s_id']);
 ?>
 <div id="accordion">
     <?

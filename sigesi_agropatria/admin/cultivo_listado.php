@@ -7,11 +7,17 @@
     $nombre = (!empty($GPC['nombre'])) ? $GPC['nombre'] : null;
     $tipo = (!empty($GPC['tipo'])) ? $GPC['tipo'] : null;
     
-    $listadoCultivos = $cultivo->find('', null, '*', '', 'id');
+    $porPagina = MAX_RESULTS_PAG;
+    $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
+    
+    $listadoCultivos = $cultivo->find(array('estatus' => 't'), " LIMIT $porPagina OFFSET $inicio", '*', '', 'id');
+    
+    $total_registros = $cultivo->total_verdadero;
+    $paginador = new paginator($total_registros, $porPagina);
     
     if($GPC['ac'] == 'eliminar'){
         $id = $GPC['id'];
-        $cultivo->eliminarCultivo($id);
+        $cultivo->desactivarCu($id, $GPC['estatus']);
         header('location: cultivo_listado.php');
         die();
     }
@@ -56,9 +62,7 @@
                 <tr id="botones">
                     <td colspan="3">
                         <?
-                            if($_SESSION['s_perfil_id'] == GERENTEG){
-                                echo $html->input('Nuevo', 'Nuevo', array('type' => 'button'));
-                            }
+                            $general->crearAcciones($acciones, '', 1);
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
                         ?>
                     </td>
@@ -66,6 +70,13 @@
             </table>
         <!--/form-->
     </div><hr/>
+    <div id="paginador">
+        <?
+            $paginador->print_page_counter('Pag', 'de');
+            echo "&nbsp;&nbsp;";
+            $paginador->print_paginator('pulldown');
+        ?>
+    </div>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
             <th>C&oacute;digo</th>
@@ -84,8 +95,8 @@
             <td align="center"><?=$dataCultivo['ciclo']?></td>
             <td align="center">
                 <?
-                    echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'cultivo.php?ac=editar&id='.$dataCultivo['id']);
-                    echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'cultivo_listado.php?ac=eliminar&id='.$dataCultivo['id'], array('onclick' => 'return eliminar();'));
+                    $urls = array(1 => 'cultivo.php?ac=editar&id='.$dataCultivo['id'], 'cultivo_listado.php?ac=eliminar&id='.$dataCultivo['id']."&estatus=f");
+                    $general->crearAcciones($acciones, $urls);
                 ?>
             </td>
         </tr>
@@ -95,6 +106,13 @@
             <td colspan="3">&nbsp;</td>
         </tr>
     </table>
+    <div id="paginador">
+        <?
+            $paginador->print_page_counter('Pag', 'de');
+            echo "&nbsp;&nbsp;";
+            $paginador->print_paginator('pulldown');
+        ?>
+    </div>
 <?
     require('../lib/common/footer.php');
 ?>

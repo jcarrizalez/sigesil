@@ -10,16 +10,29 @@
     $cedRif = (!empty($GPC['cedula'])) ? $GPC['nacionalidad'].$GPC['cedula'] : '';
     $listadoChoferes = $chofer->buscarChofer($cedRif, $GPC['nombre'], $porPagina, $inicio);
     
-    $total_registros = $silos->total_verdadero;
+    $total_registros = $chofer->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);
     
+    if($GPC['ac'] == 'eliminar'){
+        $id = $GPC['id'];
+        $chofer->desactivarCh($id, $GPC['estatus']);
+        header('location: chofer_listado.php');
+        die();
+    }
     require('../lib/common/header.php');
 ?>
-<script type="text/javascript">    
+<script type="text/javascript">
+    function eliminar(){
+        if(confirm('¿Desea Eliminar este Chofer?'))
+            return true;
+        else
+            return false;
+    }
+    
     $(document).ready(function(){
-        /*$('#Nuevo').click(function(){
+        $('#Nuevo').click(function(){
            window.location = 'chofer.php';
-        });*/
+        });
         
         $('#Regresar').click(function(){
            history.back();
@@ -65,9 +78,7 @@
                 <tr id="botones">
                     <td colspan="2">
                         <?
-                            /*if($_SESSION['s_perfil_id'] == GERENTES){
-                                echo $html->input('Nuevo', 'Nuevo', array('type' => 'button'));
-                            }*/
+                            $general->crearAcciones($acciones, '', 1);
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
                         ?>
                     </td>
@@ -103,7 +114,10 @@
             <td align="center"><?=$dataChofer['estado']?></td>
             <td align="center"><?=$dataChofer['municipio']?></td>
             <td align="center">
-                <? echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'chofer.php?ac=editar&id='.$dataChofer['id']); ?>
+                <?
+                    $urls = array(1 => 'chofer.php?ac=editar&id='.$dataChofer['id'], 'chofer_listado.php?ac=eliminar&id='.$dataChofer['id']."&estatus=f");
+                    $general->crearAcciones($acciones, $urls);
+                ?>
             </td>
         </tr>
         <? $i++; } ?>

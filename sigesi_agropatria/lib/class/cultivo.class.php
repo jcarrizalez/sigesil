@@ -14,9 +14,10 @@ class Cultivo extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
-    function eliminarCultivo($id) {
-        $query = "DELETE FROM si_cultivo where id = " . $id;
-        $result = $this->_SQL_tool("DELETE", __METHOD__, $query);
+    function desactivarCu($id, $estatus = 't') {
+        $estatus = ($estatus == 't') ? 't' : 'f';
+        $query = "UPDATE $this->table SET estatus = '$estatus', modificado = now() WHERE id = '$id'";
+        return $result = $this->_SQL_tool("UPDATE", __METHOD__, $query);
     }
     
     function buscarTipo($id, $idCA) {

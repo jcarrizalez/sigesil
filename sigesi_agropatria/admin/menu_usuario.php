@@ -17,7 +17,7 @@
                     $eliminar = (isset($GPC['accion_'.$valor]['eliminar'])) ? $GPC['accion_'.$valor]['eliminar'] : 0 ;
                     $imprimir = (isset($GPC['accion_'.$valor]['imprimir'])) ? $GPC['accion_'.$valor]['imprimir'] : 0 ;
                     
-                    $idMenu = $menu->asignarMenuUsuario($valor, $GPC['usuario_id'], $GPC['perfil_id'], $nuevo, $modificar, $eliminar, $imprimir);
+                    $idMenu = $menu->asignarMenuUsuario($valor, $GPC['usuario_id'], $nuevo, $modificar, $eliminar, $imprimir);
                     if(empty($idMenu))
                         $total++;
                 }
@@ -29,7 +29,7 @@
         case 'editar':
             $infoUsuario = $usuario->obtenerDetalleUsuarios($GPC['id']);
             $opcionesMenu = $menu->find('', '', array('id', 'nombre', 'id_padre'), '', 'id_padre, orden');
-            $menuUsuarioOpc = $menu->menuPorUsuario($GPC['perfil'], $GPC['id']);
+            $menuUsuarioOpc = $menu->menuPorUsuario($GPC['id']);
             foreach($menuUsuarioOpc as $valor){
                 $menuUsuario[] = $valor['id'];
                 $acciones[$valor['id']]['nuevo'] = $valor['nuevo'];

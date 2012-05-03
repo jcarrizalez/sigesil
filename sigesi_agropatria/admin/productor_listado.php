@@ -6,11 +6,17 @@
     $id = (!empty($GPC['id'])) ? $GPC['id'] : null;
     $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : $_SESSION['s_ca_id'];
     
-    $listadoProductores = $productor->listadoProductores();    
+    $porPagina = MAX_RESULTS_PAG;
+    $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
+    
+    $listadoProductores = $productor->listadoProductores('', '', $porPagina, $inicio);
+    
+    $total_registros = $productor->total_verdadero;
+    $paginador = new paginator($total_registros, $porPagina);
     
     if($GPC['ac'] == 'eliminar'){
         $id = $GPC['id'];
-        $productor->eliminarProductor($id);
+        $productor->desactivarPro($id, $GPC['estatus']);
         header('location: productor_listado.php');
         die();
     }
@@ -46,11 +52,19 @@
             }
         ?>
     </div>
-    <? //if($_SESSION['s_perfil_id'] == GERENTEG){ ?>    
     <div id="botones">
-        <? echo $html->input('Nuevo', 'Nuevo', array('type' => 'button')); ?>
+        <?
+            $general->crearAcciones($acciones, '', 1);
+            echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
+        ?>
+    </div><hr/>
+    <div id="paginador">
+        <?
+            $paginador->print_page_counter('Pag', 'de');
+            echo "&nbsp;&nbsp;";
+            $paginador->print_paginator('pulldown');
+        ?>
     </div>
-    <? //} ?><hr/>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
             <th>C&eacute;dula / Rif</th>
@@ -58,9 +72,7 @@
             <th>Pa&iacute;s</th>           
             <th>Estado</th>           
             <th>Municipio</th>           
-            <? //if($_SESSION['s_perfil_id'] == GERENTES){ ?>
             <th>Acci&oacute;n</th>
-            <? //} ?>
         </tr>
         <?
             $i=0;
@@ -72,21 +84,29 @@
             <td><?=$dataProductor['nombre']?></td>
             <td><?=$dataProductor['pais']?></td>            
             <td><?=$dataProductor['estado']?></td>            
-            <td><?=$dataProductor['municipio']?></td>            
-            <? //if($_SESSION['s_perfil_id'] == GERENTES){ ?>
+            <td><?=$dataProductor['municipio']?></td>
             <td align="center">
                 <?
-                    echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'productor.php?ac=editar&id='.$dataProductor['id']);
-                    echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'productor_listado.php?ac=eliminar&id='.$dataProductor['id'], array('onclick' => 'return eliminar();'));
+                    $urls = array(1 => 'productor.php?ac=editar&id='.$dataProductor['id'], 'productor_listado.php?ac=eliminar&id='.$dataProductor['id']."&estatus=f");
+                    $general->crearAcciones($acciones, $urls);
                 ?>
             </td>
         </tr>
-        <? $i++; } 
-         //} ?>
+        <?
+                $i++; 
+            }
+        ?>
         <tr>            
             <td colspan="3">&nbsp;</td>
         </tr>
     </table>
+    <div id="paginador">
+        <?
+            $paginador->print_page_counter('Pag', 'de');
+            echo "&nbsp;&nbsp;";
+            $paginador->print_paginator('pulldown');
+        ?>
+    </div>
 <?
     require('../lib/common/footer.php');
 ?>

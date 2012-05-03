@@ -8,10 +8,30 @@
     else
         $idCA = $_SESSION['s_ca_id'];
     
-    $listadoOrdenes = $ordenes->buscarOrden('', $idCA, '', '', $numOrden);
+    $porPagina = MAX_RESULTS_PAG;
+    $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
+    
+    $listadoOrdenes = $ordenes->buscarOrden('', $idCA, '', '', $numOrden, $porPagina, $inicio);
+    
+    $total_registros = $ordenes->total_verdadero;
+    $paginador = new paginator($total_registros, $porPagina);
+    
+    if($GPC['ac'] == 'eliminar'){
+        $id = $GPC['id'];
+        $ordenes->desactivarOr($id, $GPC['estatus']);
+        header('location: ordenes_listado.php');
+        die();
+    }
     require('../lib/common/header.php');
 ?>
-<script type="text/javascript">    
+<script type="text/javascript">
+    function eliminar(){
+        if(confirm('¿Desea Eliminar esta Orden?'))
+            return true;
+        else
+            return false;
+    }
+    
     $(document).ready(function(){
         $('#Nuevo').click(function(){
            window.location = 'ordenes.php';
@@ -43,9 +63,7 @@
                 <tr id="botones">
                     <td colspan="3">
                         <?
-                            if($_SESSION['s_perfil_id'] == GERENTEG || $_SESSION['s_perfil_id'] == ADMING || $_SESSION['s_perfil_id'] == ADMINS){
-                                echo $html->input('Nuevo', 'Nuevo', array('type' => 'button'));
-                            }
+                            $general->crearAcciones($acciones, '', 1);
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
                         ?>
                     </td>
@@ -53,6 +71,13 @@
             </table>
         <!--/form-->
     </div><hr/>
+    <div id="paginador">
+        <?
+            $paginador->print_page_counter('Pag', 'de');
+            echo "&nbsp;&nbsp;";
+            $paginador->print_paginator('pulldown');
+        ?>
+    </div>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
             <th>Centro de Acopio</th>
@@ -80,8 +105,8 @@
             <td align="center"><?=$dataOr['toneladas']?></td>
             <td align="center">
                 <?
-                    echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'ordenes.php?ac=editar&id='.$dataOr['id']);
-                    //echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'centros_acopio_listado.php?ac=eliminar&id='.$dataOr['id'], array('onclick' => 'return eliminar();'));
+                    $urls = array(1 => 'ordenes.php?ac=editar&id='.$dataOr['id'], 'ordenes_listado.php?ac=eliminar&id='.$dataOr['id']."&estatus=f");
+                    $general->crearAcciones($acciones, $urls);
                 ?>
             </td>
         </tr>
@@ -91,6 +116,13 @@
             <td colspan="6">&nbsp;</td>
         </tr>
     </table>
+    <div id="paginador">
+        <?
+            $paginador->print_page_counter('Pag', 'de');
+            echo "&nbsp;&nbsp;";
+            $paginador->print_paginator('pulldown');
+        ?>
+    </div>
 <?
     require('../lib/common/footer.php');
 ?>

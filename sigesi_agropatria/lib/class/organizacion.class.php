@@ -14,5 +14,11 @@ class Organizacion extends Model {
         $query .= " ORDER BY o.nombre";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
+    
+    function eliminarOrg($idO, $estatus = 't'){
+        $estatus = ($estatus == 't') ? 't' : 'f';
+        $query = "UPDATE $this->table SET estatus = '$estatus', modificado = now() WHERE id = '$idO'";
+        return $this->_SQL_tool('UPDATE', __METHOD__, $query);
+    }
 }
 ?>

@@ -14,12 +14,12 @@
     $listaCA = $centro_acopio->find('', '', array('id', 'nombre'), 'list', 'nombre');
     unset($listaCA[1]);
     
-    /*if($GPC['ac'] == 'eliminar'){
+    if($GPC['ac'] == 'eliminar'){
         $id = $GPC['id'];
-        $almacen->eliminarSilo(1,$id);
+        $almacen->desactivarAL($id, $GPC['estatus']);
         header('location: almacen_listado.php');
         die();
-    }*/
+    }
     require('../lib/common/header.php');
 ?>
 <script type="text/javascript">
@@ -86,9 +86,7 @@
                 <tr id="botones">
                     <td colspan="3">
                         <?
-                            if($_SESSION['s_perfil_id'] == GERENTES){
-                                echo $html->input('Nuevo', 'Nuevo', array('type' => 'button'));
-                            }
+                            $general->crearAcciones($acciones, '', 1);
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
                         ?>
                     </td>
@@ -107,9 +105,7 @@
             <th>Pa&iacute;s</th>
             <th>Estado</th>
             <th>Municipio</th>
-            <? if($_SESSION['s_perfil_id'] == GERENTES){ ?>
             <th>Acci&oacute;n</th>
-            <? } ?>
         </tr>
         <?
             $i=0;
@@ -129,9 +125,7 @@
             <td align="center">-</td>
             <td align="center">-</td>
             <td align="center">-</td>
-            <? if($_SESSION['s_perfil_id'] == GERENTES){ ?>
             <td align="center">-</td>
-            <? } ?>
         </tr>
         <tbody id="tbodyPN_<?php echo $i?>" style="display:none">
             <? foreach($listadoAlmacenes as $dataAlmacen) { ?>
@@ -146,14 +140,12 @@
                 <td align="center"><?=$dataAlmacen['pais']?></td>
                 <td align="center"><?=$dataAlmacen['estado']?></td>
                 <td align="center"><?=$dataAlmacen['municipio']?></td>
-                <? if($_SESSION['s_perfil_id'] == GERENTES){ ?>
                 <td align="center">
                     <?
-                        echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'almacen.php?ac=editar&id='.$dataAlmacen['id']);
-                        //echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'almacen_listado.php?ac=eliminar&id='.$dataAlmacen['id'], array('onclick' => 'return eliminar();'));
+                        $urls = array(1 => 'almacen.php?ac=editar&id='.$dataAlmacen['id'], 'almacen_listado.php?ac=eliminar&id='.$dataAlmacen['id']."&estatus=f");
+                        $general->crearAcciones($acciones, $urls);
                     ?>
                 </td>
-                <? } ?>
             </tr>
             <? } ?>
         </tbody>

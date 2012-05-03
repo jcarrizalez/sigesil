@@ -5,9 +5,23 @@
     $silos = new Silos();
     
     $listadoCA = $centro_acopio->buscarCA('', '', '', '', 'codigo');
+    
+    if($GPC['ac'] == 'eliminar'){
+        $id = $GPC['id'];
+        $centro_acopio->desactivarCA($id, $GPC['estatus']);
+        header('location: centros_acopio_listado.php');
+        die();
+    }
     require('../lib/common/header.php');
 ?>
-<script type="text/javascript">    
+<script type="text/javascript">
+    function eliminar(){
+        if(confirm('¿Desea Eliminar este Centro de Acopio?'))
+            return true;
+        else
+            return false;
+    }
+    
     $(document).ready(function(){
         $('#Nuevo').click(function(){
            window.location = 'centros_acopio.php';
@@ -38,7 +52,7 @@
             <tr id="botones">
                 <td colspan="3">
                     <?
-                        echo $html->input('Nuevo', 'Nuevo', array('type' => 'button'));
+                        $general->crearAcciones($acciones, '', 1);
                         echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
                     ?>
                 </td>
@@ -88,8 +102,8 @@
             </td>
             <td align="center">
                 <?
-                    echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'centros_acopio.php?ac=editar&id_ca='.$dataCA['id']);
-                    //echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'centros_acopio_listado.php?ac=eliminar&id='.$dataCA['id'], array('onclick' => 'return eliminar();'));
+                    $urls = array(1 => 'centros_acopio.php?ac=editar&id_ca='.$dataCA['id'], 'centros_acopio_listado.php?ac=eliminar&id='.$dataCA['id']."&estatus=f");
+                    $general->crearAcciones($acciones, $urls);
                 ?>
             </td>
         </tr>

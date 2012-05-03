@@ -15,7 +15,7 @@
     
     if($GPC['ac'] == 'eliminar'){
         $id = $GPC['id'];
-        $programa->eliminarPR($id);
+        $programa->desactivarPr($id, $GPC['estatus']);
         header('location: programa_listado.php');
         die();
     }
@@ -34,6 +34,13 @@
             stylevalues.display = 'none';
             document.getElementById(imgmes).src="../images/mas.png";
         }
+    }
+    
+    function eliminar(){
+        if(confirm('¿Desea Eliminar este Programa?'))
+            return true;
+        else
+            return false;
     }
     
     $(document).ready(function(){
@@ -62,20 +69,16 @@
         ?>
     </div>
     <div id="filtro">
-        <!--form name="form1" id="form1" method="POST" action="" enctype="multipart/form-data"-->
             <table width="100%">
                 <tr id="botones">
                     <td colspan="3">
                         <?
-                            //if($_SESSION['s_perfil_id'] == GERENTES){
-                                echo $html->input('Nuevo', 'Nuevo', array('type' => 'button'));
-                            //}
+                            $general->crearAcciones($acciones, '', 1);
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
                         ?>
                     </td>
                 </tr>
             </table>
-        <!--/form-->
     </div><hr/>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
@@ -90,9 +93,7 @@
             <th>Fecha Inicio</th>
             <th>Fecha Fin</th>
             <th>Estado</th>
-            <? if($_SESSION['s_perfil_id'] == GERENTES){ ?>
             <th>Acci&oacute;n</th>
-            <? } ?>
         </tr>
         <?
             $i=0;
@@ -121,11 +122,12 @@
                         echo $html->link('<img src="../images/deshabilitar.png" width="16" height="16" title=Inactivo>');
                 ?>
             </td>
-            <? if($_SESSION['s_perfil_id'] == GERENTES){ ?>
             <td align="center">
-                <? echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'programa.php?ac=editar&id='.$dataPrograma['id']); ?>
+                <?
+                    $urls = array(1 => 'programa.php?ac=editar&id='.$dataPrograma['id'], 'programa_listado.php?ac=eliminar&id='.$dataPrograma['id']."&estatus=f");
+                    $general->crearAcciones($acciones, $urls);
+                ?>
             </td>
-            <? } ?>
         </tr>
         <tbody id="tbodyPN_<?php echo $i?>" style="display:none">
             <?
@@ -152,11 +154,14 @@
                             echo $html->link('<img src="../images/deshabilitar.png" width="16" height="16" title=Inactivo>');
                     ?>
                 </td>
-                <? if($_SESSION['s_perfil_id'] == GERENTES){ ?>
                 <td align="center">
-                    <? echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'cosecha.php?ac=editar&idP='.$dataPrograma['id'].'&id='.$dataCosecha['id']); ?>
+                    <?
+                        $urls = array(1 => 'cosecha.php?ac=editar&idP='.$dataPrograma['id'].'&id='.$dataCosecha['id']);
+                        $acciones[0]['eliminar'] = 0;
+                        $general->crearAcciones($acciones, $urls);
+                        $acciones[0]['eliminar'] = 1;
+                    ?>
                 </td>
-                <? } ?>
             </tr>
             <?
                 $j++;

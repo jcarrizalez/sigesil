@@ -7,7 +7,7 @@
     
     if($GPC['ac'] == 'eliminar'){
         $id = $GPC['id'];
-        $org->eliminarOrg($id);
+        $org->eliminarOrg($id, $GPC['estatus']);
         header('location: organizacion_listado.php');
         die();
     }
@@ -86,7 +86,7 @@
             <td align="center"><?=$dataOrg['municipio']?></td>
             <td align="center">
                 <?
-                    $urls = array(1 => "organizacion.php?ac=editar&id=".$dataOrg['id'], "organizacion_listado.php?ac=eliminar&id=".$dataOrg['id']);
+                    $urls = array(1 => "organizacion.php?ac=editar&id=".$dataOrg['id'], "organizacion_listado.php?ac=eliminar&id=".$dataOrg['id']."&estatus=f");
                     $general->crearAcciones($acciones, $urls);
                 ?>
             </td>
