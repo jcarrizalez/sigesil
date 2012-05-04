@@ -28,6 +28,12 @@ class Formulas extends Model {
         $query .= (!empty($porPagina)) ? " LIMIT $porPagina OFFSET $inicio" : "";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
+    
+    function desactivarFor($id, $estatus = 't') {
+        $estatus = ($estatus == 't') ? 't' : 'f';
+        $query = "UPDATE $this->table SET estatus = '$estatus', modificado = now() WHERE id = '$id'";
+        return $result = $this->_SQL_tool("UPDATE", __METHOD__, $query);
+    }
 }
 
 ?>

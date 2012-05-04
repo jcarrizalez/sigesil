@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Started on 2012-05-03 16:26:31 VET
+-- Started on 2012-05-04 16:30:05 VET
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -54,7 +54,7 @@ ALTER TABLE public.romana OWNER TO admin;
 
 --
 -- TOC entry 141 (class 1259 OID 34736)
--- Dependencies: 6 140
+-- Dependencies: 140 6
 -- Name: romana_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -69,7 +69,7 @@ CREATE SEQUENCE romana_id_seq
 ALTER TABLE public.romana_id_seq OWNER TO admin;
 
 --
--- TOC entry 2519 (class 0 OID 0)
+-- TOC entry 2520 (class 0 OID 0)
 -- Dependencies: 141
 -- Name: romana_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -78,7 +78,7 @@ ALTER SEQUENCE romana_id_seq OWNED BY romana.id;
 
 
 --
--- TOC entry 2520 (class 0 OID 0)
+-- TOC entry 2521 (class 0 OID 0)
 -- Dependencies: 141
 -- Name: romana_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -103,7 +103,7 @@ CREATE SEQUENCE si_almacenes_id_seq
 ALTER TABLE public.si_almacenes_id_seq OWNER TO admin;
 
 --
--- TOC entry 2521 (class 0 OID 0)
+-- TOC entry 2522 (class 0 OID 0)
 -- Dependencies: 142
 -- Name: si_almacenes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -156,7 +156,7 @@ CREATE SEQUENCE si_analisis_id_seq
 ALTER TABLE public.si_analisis_id_seq OWNER TO admin;
 
 --
--- TOC entry 2522 (class 0 OID 0)
+-- TOC entry 2523 (class 0 OID 0)
 -- Dependencies: 144
 -- Name: si_analisis_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -186,7 +186,7 @@ CREATE TABLE si_analisis (
 ALTER TABLE public.si_analisis OWNER TO admin;
 
 --
--- TOC entry 2523 (class 0 OID 0)
+-- TOC entry 2524 (class 0 OID 0)
 -- Dependencies: 145
 -- Name: TABLE si_analisis; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -214,7 +214,7 @@ CREATE TABLE si_analisis_centro_acopio (
 ALTER TABLE public.si_analisis_centro_acopio OWNER TO admin;
 
 --
--- TOC entry 2524 (class 0 OID 0)
+-- TOC entry 2525 (class 0 OID 0)
 -- Dependencies: 146
 -- Name: TABLE si_analisis_centro_acopio; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -239,7 +239,7 @@ CREATE SEQUENCE si_analisis_centro_acopio_id_seq
 ALTER TABLE public.si_analisis_centro_acopio_id_seq OWNER TO admin;
 
 --
--- TOC entry 2525 (class 0 OID 0)
+-- TOC entry 2526 (class 0 OID 0)
 -- Dependencies: 147
 -- Name: si_analisis_centro_acopio_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -248,7 +248,7 @@ ALTER SEQUENCE si_analisis_centro_acopio_id_seq OWNED BY si_analisis_centro_acop
 
 
 --
--- TOC entry 2526 (class 0 OID 0)
+-- TOC entry 2527 (class 0 OID 0)
 -- Dependencies: 147
 -- Name: si_analisis_centro_acopio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -282,7 +282,7 @@ CREATE TABLE si_analisis_cultivo (
 ALTER TABLE public.si_analisis_cultivo OWNER TO admin;
 
 --
--- TOC entry 2527 (class 0 OID 0)
+-- TOC entry 2528 (class 0 OID 0)
 -- Dependencies: 148
 -- Name: TABLE si_analisis_cultivo; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -293,7 +293,7 @@ P->Laboratorio de Planta';
 
 
 --
--- TOC entry 2528 (class 0 OID 0)
+-- TOC entry 2529 (class 0 OID 0)
 -- Dependencies: 148
 -- Name: COLUMN si_analisis_cultivo.estatus; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -304,7 +304,7 @@ C->Cuarentena';
 
 --
 -- TOC entry 149 (class 1259 OID 34769)
--- Dependencies: 6 148
+-- Dependencies: 148 6
 -- Name: si_analisis_cultivo_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -319,7 +319,7 @@ CREATE SEQUENCE si_analisis_cultivo_id_seq
 ALTER TABLE public.si_analisis_cultivo_id_seq OWNER TO admin;
 
 --
--- TOC entry 2529 (class 0 OID 0)
+-- TOC entry 2530 (class 0 OID 0)
 -- Dependencies: 149
 -- Name: si_analisis_cultivo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -328,12 +328,12 @@ ALTER SEQUENCE si_analisis_cultivo_id_seq OWNED BY si_analisis_cultivo.id;
 
 
 --
--- TOC entry 2530 (class 0 OID 0)
+-- TOC entry 2531 (class 0 OID 0)
 -- Dependencies: 149
 -- Name: si_analisis_cultivo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_analisis_cultivo_id_seq', 66, true);
+SELECT pg_catalog.setval('si_analisis_cultivo_id_seq', 230, true);
 
 
 --
@@ -376,7 +376,7 @@ CREATE SEQUENCE si_analisis_des_id_seq
 ALTER TABLE public.si_analisis_des_id_seq OWNER TO admin;
 
 --
--- TOC entry 2531 (class 0 OID 0)
+-- TOC entry 2532 (class 0 OID 0)
 -- Dependencies: 151
 -- Name: si_analisis_des_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -385,7 +385,7 @@ ALTER SEQUENCE si_analisis_des_id_seq OWNED BY si_analisis_des.id;
 
 
 --
--- TOC entry 2532 (class 0 OID 0)
+-- TOC entry 2533 (class 0 OID 0)
 -- Dependencies: 151
 -- Name: si_analisis_des_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -416,7 +416,7 @@ CREATE TABLE si_analisis_resultado (
 ALTER TABLE public.si_analisis_resultado OWNER TO admin;
 
 --
--- TOC entry 2533 (class 0 OID 0)
+-- TOC entry 2534 (class 0 OID 0)
 -- Dependencies: 152
 -- Name: TABLE si_analisis_resultado; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -426,7 +426,7 @@ COMMENT ON TABLE si_analisis_resultado IS 'Tabla puentre entre Analisis y Proces
 
 --
 -- TOC entry 153 (class 1259 OID 34780)
--- Dependencies: 152 6
+-- Dependencies: 6 152
 -- Name: si_analisis_resultado_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -441,7 +441,7 @@ CREATE SEQUENCE si_analisis_resultado_id_seq
 ALTER TABLE public.si_analisis_resultado_id_seq OWNER TO admin;
 
 --
--- TOC entry 2534 (class 0 OID 0)
+-- TOC entry 2535 (class 0 OID 0)
 -- Dependencies: 153
 -- Name: si_analisis_resultado_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -450,12 +450,12 @@ ALTER SEQUENCE si_analisis_resultado_id_seq OWNED BY si_analisis_resultado.id;
 
 
 --
--- TOC entry 2535 (class 0 OID 0)
+-- TOC entry 2536 (class 0 OID 0)
 -- Dependencies: 153
 -- Name: si_analisis_resultado_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_analisis_resultado_id_seq', 130, true);
+SELECT pg_catalog.setval('si_analisis_resultado_id_seq', 265, true);
 
 
 --
@@ -502,7 +502,7 @@ ALTER TABLE public.si_asociacion OWNER TO admin;
 
 --
 -- TOC entry 156 (class 1259 OID 34794)
--- Dependencies: 6 155
+-- Dependencies: 155 6
 -- Name: si_asociacion_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -517,7 +517,7 @@ CREATE SEQUENCE si_asociacion_id_seq
 ALTER TABLE public.si_asociacion_id_seq OWNER TO admin;
 
 --
--- TOC entry 2536 (class 0 OID 0)
+-- TOC entry 2537 (class 0 OID 0)
 -- Dependencies: 156
 -- Name: si_asociacion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -526,7 +526,7 @@ ALTER SEQUENCE si_asociacion_id_seq OWNED BY si_asociacion.id;
 
 
 --
--- TOC entry 2537 (class 0 OID 0)
+-- TOC entry 2538 (class 0 OID 0)
 -- Dependencies: 156
 -- Name: si_asociacion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -551,7 +551,7 @@ CREATE SEQUENCE si_asociado_id_seq
 ALTER TABLE public.si_asociado_id_seq OWNER TO admin;
 
 --
--- TOC entry 2538 (class 0 OID 0)
+-- TOC entry 2539 (class 0 OID 0)
 -- Dependencies: 157
 -- Name: si_asociado_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -604,7 +604,7 @@ CREATE SEQUENCE si_cargo_id_seq
 ALTER TABLE public.si_cargo_id_seq OWNER TO admin;
 
 --
--- TOC entry 2539 (class 0 OID 0)
+-- TOC entry 2540 (class 0 OID 0)
 -- Dependencies: 159
 -- Name: si_cargo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -647,7 +647,7 @@ CREATE SEQUENCE si_cargo_tipo_id_seq
 ALTER TABLE public.si_cargo_tipo_id_seq OWNER TO admin;
 
 --
--- TOC entry 2540 (class 0 OID 0)
+-- TOC entry 2541 (class 0 OID 0)
 -- Dependencies: 161
 -- Name: si_cargo_tipo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -687,7 +687,7 @@ CREATE SEQUENCE si_centro_acopio_id_seq
 ALTER TABLE public.si_centro_acopio_id_seq OWNER TO admin;
 
 --
--- TOC entry 2541 (class 0 OID 0)
+-- TOC entry 2542 (class 0 OID 0)
 -- Dependencies: 163
 -- Name: si_centro_acopio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -766,7 +766,7 @@ CREATE SEQUENCE si_choferes_id_seq
 ALTER TABLE public.si_choferes_id_seq OWNER TO admin;
 
 --
--- TOC entry 2542 (class 0 OID 0)
+-- TOC entry 2543 (class 0 OID 0)
 -- Dependencies: 166
 -- Name: si_choferes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -775,12 +775,12 @@ ALTER SEQUENCE si_choferes_id_seq OWNED BY si_choferes.id;
 
 
 --
--- TOC entry 2543 (class 0 OID 0)
+-- TOC entry 2544 (class 0 OID 0)
 -- Dependencies: 166
 -- Name: si_choferes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_choferes_id_seq', 9, true);
+SELECT pg_catalog.setval('si_choferes_id_seq', 10, true);
 
 
 --
@@ -800,7 +800,7 @@ CREATE SEQUENCE si_cliente_id_seq
 ALTER TABLE public.si_cliente_id_seq OWNER TO admin;
 
 --
--- TOC entry 2544 (class 0 OID 0)
+-- TOC entry 2545 (class 0 OID 0)
 -- Dependencies: 167
 -- Name: si_cliente_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -863,7 +863,7 @@ CREATE SEQUENCE si_cosecha_id_seq
 ALTER TABLE public.si_cosecha_id_seq OWNER TO admin;
 
 --
--- TOC entry 2545 (class 0 OID 0)
+-- TOC entry 2546 (class 0 OID 0)
 -- Dependencies: 169
 -- Name: si_cosecha_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -918,7 +918,7 @@ ALTER TABLE public.si_cosecha_productor OWNER TO admin;
 
 --
 -- TOC entry 172 (class 1259 OID 34863)
--- Dependencies: 171 6
+-- Dependencies: 6 171
 -- Name: si_cosecha_productor_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -933,7 +933,7 @@ CREATE SEQUENCE si_cosecha_productor_id_seq
 ALTER TABLE public.si_cosecha_productor_id_seq OWNER TO admin;
 
 --
--- TOC entry 2546 (class 0 OID 0)
+-- TOC entry 2547 (class 0 OID 0)
 -- Dependencies: 172
 -- Name: si_cosecha_productor_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -942,12 +942,12 @@ ALTER SEQUENCE si_cosecha_productor_id_seq OWNED BY si_cosecha_productor.id;
 
 
 --
--- TOC entry 2547 (class 0 OID 0)
+-- TOC entry 2548 (class 0 OID 0)
 -- Dependencies: 172
 -- Name: si_cosecha_productor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_cosecha_productor_id_seq', 4, true);
+SELECT pg_catalog.setval('si_cosecha_productor_id_seq', 5, true);
 
 
 --
@@ -967,7 +967,7 @@ CREATE TABLE si_cosecha_silo (
 ALTER TABLE public.si_cosecha_silo OWNER TO admin;
 
 --
--- TOC entry 2548 (class 0 OID 0)
+-- TOC entry 2549 (class 0 OID 0)
 -- Dependencies: 173
 -- Name: TABLE si_cosecha_silo; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -992,7 +992,7 @@ CREATE SEQUENCE si_cosecha_silo_id_seq
 ALTER TABLE public.si_cosecha_silo_id_seq OWNER TO admin;
 
 --
--- TOC entry 2549 (class 0 OID 0)
+-- TOC entry 2550 (class 0 OID 0)
 -- Dependencies: 174
 -- Name: si_cosecha_silo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1001,7 +1001,7 @@ ALTER SEQUENCE si_cosecha_silo_id_seq OWNED BY si_cosecha_silo.id;
 
 
 --
--- TOC entry 2550 (class 0 OID 0)
+-- TOC entry 2551 (class 0 OID 0)
 -- Dependencies: 174
 -- Name: si_cosecha_silo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1043,7 +1043,7 @@ CREATE TABLE si_cuarentena (
 ALTER TABLE public.si_cuarentena OWNER TO admin;
 
 --
--- TOC entry 2551 (class 0 OID 0)
+-- TOC entry 2552 (class 0 OID 0)
 -- Dependencies: 175
 -- Name: TABLE si_cuarentena; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -1078,7 +1078,7 @@ CREATE SEQUENCE si_cuarentena_id_seq
 ALTER TABLE public.si_cuarentena_id_seq OWNER TO admin;
 
 --
--- TOC entry 2552 (class 0 OID 0)
+-- TOC entry 2553 (class 0 OID 0)
 -- Dependencies: 176
 -- Name: si_cuarentena_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1087,7 +1087,7 @@ ALTER SEQUENCE si_cuarentena_id_seq OWNED BY si_cuarentena.id;
 
 
 --
--- TOC entry 2553 (class 0 OID 0)
+-- TOC entry 2554 (class 0 OID 0)
 -- Dependencies: 176
 -- Name: si_cuarentena_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1128,7 +1128,7 @@ CREATE SEQUENCE si_cuarentena_plaga_id_seq
 ALTER TABLE public.si_cuarentena_plaga_id_seq OWNER TO admin;
 
 --
--- TOC entry 2554 (class 0 OID 0)
+-- TOC entry 2555 (class 0 OID 0)
 -- Dependencies: 178
 -- Name: si_cuarentena_plaga_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1137,7 +1137,7 @@ ALTER SEQUENCE si_cuarentena_plaga_id_seq OWNED BY si_cuarentena_plaga.id;
 
 
 --
--- TOC entry 2555 (class 0 OID 0)
+-- TOC entry 2556 (class 0 OID 0)
 -- Dependencies: 178
 -- Name: si_cuarentena_plaga_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1162,7 +1162,7 @@ CREATE SEQUENCE si_cultivo_id_seq
 ALTER TABLE public.si_cultivo_id_seq OWNER TO admin;
 
 --
--- TOC entry 2556 (class 0 OID 0)
+-- TOC entry 2557 (class 0 OID 0)
 -- Dependencies: 179
 -- Name: si_cultivo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1227,7 +1227,7 @@ CREATE SEQUENCE si_cultivo_tipo_id_seq
 ALTER TABLE public.si_cultivo_tipo_id_seq OWNER TO admin;
 
 --
--- TOC entry 2557 (class 0 OID 0)
+-- TOC entry 2558 (class 0 OID 0)
 -- Dependencies: 182
 -- Name: si_cultivo_tipo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1236,7 +1236,7 @@ ALTER SEQUENCE si_cultivo_tipo_id_seq OWNED BY si_cultivo_tipo.id;
 
 
 --
--- TOC entry 2558 (class 0 OID 0)
+-- TOC entry 2559 (class 0 OID 0)
 -- Dependencies: 182
 -- Name: si_cultivo_tipo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1261,7 +1261,7 @@ CREATE SEQUENCE si_denom_tip_id_seq
 ALTER TABLE public.si_denom_tip_id_seq OWNER TO admin;
 
 --
--- TOC entry 2559 (class 0 OID 0)
+-- TOC entry 2560 (class 0 OID 0)
 -- Dependencies: 183
 -- Name: si_denom_tip_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1334,7 +1334,7 @@ CREATE TABLE si_despacho (
 ALTER TABLE public.si_despacho OWNER TO admin;
 
 --
--- TOC entry 2560 (class 0 OID 0)
+-- TOC entry 2561 (class 0 OID 0)
 -- Dependencies: 185
 -- Name: TABLE si_despacho; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -1357,7 +1357,7 @@ Muestra:
 
 --
 -- TOC entry 186 (class 1259 OID 34906)
--- Dependencies: 6 185
+-- Dependencies: 185 6
 -- Name: si_despacho_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -1372,7 +1372,7 @@ CREATE SEQUENCE si_despacho_id_seq
 ALTER TABLE public.si_despacho_id_seq OWNER TO admin;
 
 --
--- TOC entry 2561 (class 0 OID 0)
+-- TOC entry 2562 (class 0 OID 0)
 -- Dependencies: 186
 -- Name: si_despacho_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1381,7 +1381,7 @@ ALTER SEQUENCE si_despacho_id_seq OWNED BY si_despacho.id;
 
 
 --
--- TOC entry 2562 (class 0 OID 0)
+-- TOC entry 2563 (class 0 OID 0)
 -- Dependencies: 186
 -- Name: si_despacho_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1406,12 +1406,12 @@ CREATE SEQUENCE si_ejes_id_seq
 ALTER TABLE public.si_ejes_id_seq OWNER TO admin;
 
 --
--- TOC entry 2563 (class 0 OID 0)
+-- TOC entry 2564 (class 0 OID 0)
 -- Dependencies: 187
 -- Name: si_ejes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_ejes_id_seq', 1, false);
+SELECT pg_catalog.setval('si_ejes_id_seq', 5, true);
 
 
 --
@@ -1447,7 +1447,7 @@ CREATE SEQUENCE si_estado_id_seq
 ALTER TABLE public.si_estado_id_seq OWNER TO admin;
 
 --
--- TOC entry 2564 (class 0 OID 0)
+-- TOC entry 2565 (class 0 OID 0)
 -- Dependencies: 189
 -- Name: si_estado_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1496,7 +1496,7 @@ ALTER TABLE public.si_finca OWNER TO admin;
 
 --
 -- TOC entry 192 (class 1259 OID 34928)
--- Dependencies: 6 191
+-- Dependencies: 191 6
 -- Name: si_finca_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -1511,7 +1511,7 @@ CREATE SEQUENCE si_finca_id_seq
 ALTER TABLE public.si_finca_id_seq OWNER TO admin;
 
 --
--- TOC entry 2565 (class 0 OID 0)
+-- TOC entry 2566 (class 0 OID 0)
 -- Dependencies: 192
 -- Name: si_finca_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1520,7 +1520,7 @@ ALTER SEQUENCE si_finca_id_seq OWNED BY si_finca.id;
 
 
 --
--- TOC entry 2566 (class 0 OID 0)
+-- TOC entry 2567 (class 0 OID 0)
 -- Dependencies: 192
 -- Name: si_finca_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1569,7 +1569,7 @@ CREATE SEQUENCE si_formulas_id_seq
 ALTER TABLE public.si_formulas_id_seq OWNER TO admin;
 
 --
--- TOC entry 2567 (class 0 OID 0)
+-- TOC entry 2568 (class 0 OID 0)
 -- Dependencies: 194
 -- Name: si_formulas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1578,7 +1578,7 @@ ALTER SEQUENCE si_formulas_id_seq OWNED BY si_formulas.id;
 
 
 --
--- TOC entry 2568 (class 0 OID 0)
+-- TOC entry 2569 (class 0 OID 0)
 -- Dependencies: 194
 -- Name: si_formulas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1613,7 +1613,7 @@ CREATE TABLE si_guiarec (
 ALTER TABLE public.si_guiarec OWNER TO admin;
 
 --
--- TOC entry 2569 (class 0 OID 0)
+-- TOC entry 2570 (class 0 OID 0)
 -- Dependencies: 195
 -- Name: TABLE si_guiarec; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -1658,7 +1658,7 @@ CREATE SEQUENCE si_guiarec_det_id_seq
 ALTER TABLE public.si_guiarec_det_id_seq OWNER TO admin;
 
 --
--- TOC entry 2570 (class 0 OID 0)
+-- TOC entry 2571 (class 0 OID 0)
 -- Dependencies: 197
 -- Name: si_guiarec_det_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1667,7 +1667,7 @@ ALTER SEQUENCE si_guiarec_det_id_seq OWNED BY si_guiarec_det.id;
 
 
 --
--- TOC entry 2571 (class 0 OID 0)
+-- TOC entry 2572 (class 0 OID 0)
 -- Dependencies: 197
 -- Name: si_guiarec_det_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1692,7 +1692,7 @@ CREATE SEQUENCE si_guiarec_id_seq
 ALTER TABLE public.si_guiarec_id_seq OWNER TO admin;
 
 --
--- TOC entry 2572 (class 0 OID 0)
+-- TOC entry 2573 (class 0 OID 0)
 -- Dependencies: 198
 -- Name: si_guiarec_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1701,12 +1701,12 @@ ALTER SEQUENCE si_guiarec_id_seq OWNED BY si_guiarec.id;
 
 
 --
--- TOC entry 2573 (class 0 OID 0)
+-- TOC entry 2574 (class 0 OID 0)
 -- Dependencies: 198
 -- Name: si_guiarec_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_guiarec_id_seq', 6, true);
+SELECT pg_catalog.setval('si_guiarec_id_seq', 7, true);
 
 
 --
@@ -1726,7 +1726,7 @@ CREATE SEQUENCE si_log_codigos_log_codigo_id_seq
 ALTER TABLE public.si_log_codigos_log_codigo_id_seq OWNER TO admin;
 
 --
--- TOC entry 2574 (class 0 OID 0)
+-- TOC entry 2575 (class 0 OID 0)
 -- Dependencies: 199
 -- Name: si_log_codigos_log_codigo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1767,12 +1767,12 @@ CREATE SEQUENCE si_log_consultas_log_id_seq
 ALTER TABLE public.si_log_consultas_log_id_seq OWNER TO admin;
 
 --
--- TOC entry 2575 (class 0 OID 0)
+-- TOC entry 2576 (class 0 OID 0)
 -- Dependencies: 201
 -- Name: si_log_consultas_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_log_consultas_log_id_seq', 504, true);
+SELECT pg_catalog.setval('si_log_consultas_log_id_seq', 696, true);
 
 
 --
@@ -1819,7 +1819,7 @@ CREATE SEQUENCE si_menu_id_seq
 ALTER TABLE public.si_menu_id_seq OWNER TO admin;
 
 --
--- TOC entry 2576 (class 0 OID 0)
+-- TOC entry 2577 (class 0 OID 0)
 -- Dependencies: 203
 -- Name: si_menu_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1883,7 +1883,7 @@ CREATE SEQUENCE si_menu_usuario_id_seq
 ALTER TABLE public.si_menu_usuario_id_seq OWNER TO admin;
 
 --
--- TOC entry 2577 (class 0 OID 0)
+-- TOC entry 2578 (class 0 OID 0)
 -- Dependencies: 206
 -- Name: si_menu_usuario_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -1892,7 +1892,7 @@ ALTER SEQUENCE si_menu_usuario_id_seq OWNED BY si_menu_usuario.id;
 
 
 --
--- TOC entry 2578 (class 0 OID 0)
+-- TOC entry 2579 (class 0 OID 0)
 -- Dependencies: 206
 -- Name: si_menu_usuario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1917,7 +1917,7 @@ CREATE SEQUENCE si_municipio_id_seq
 ALTER TABLE public.si_municipio_id_seq OWNER TO admin;
 
 --
--- TOC entry 2579 (class 0 OID 0)
+-- TOC entry 2580 (class 0 OID 0)
 -- Dependencies: 207
 -- Name: si_municipio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -1957,7 +1957,7 @@ CREATE SEQUENCE si_ordenes_id_seq
 ALTER TABLE public.si_ordenes_id_seq OWNER TO admin;
 
 --
--- TOC entry 2580 (class 0 OID 0)
+-- TOC entry 2581 (class 0 OID 0)
 -- Dependencies: 209
 -- Name: si_ordenes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -2026,7 +2026,7 @@ CREATE SEQUENCE si_ordenes_det_id_seq
 ALTER TABLE public.si_ordenes_det_id_seq OWNER TO admin;
 
 --
--- TOC entry 2581 (class 0 OID 0)
+-- TOC entry 2582 (class 0 OID 0)
 -- Dependencies: 212
 -- Name: si_ordenes_det_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -2035,7 +2035,7 @@ ALTER SEQUENCE si_ordenes_det_id_seq OWNED BY si_ordenes_det.id;
 
 
 --
--- TOC entry 2582 (class 0 OID 0)
+-- TOC entry 2583 (class 0 OID 0)
 -- Dependencies: 212
 -- Name: si_ordenes_det_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -2060,7 +2060,7 @@ CREATE SEQUENCE si_organizacion_id_seq
 ALTER TABLE public.si_organizacion_id_seq OWNER TO admin;
 
 --
--- TOC entry 2583 (class 0 OID 0)
+-- TOC entry 2584 (class 0 OID 0)
 -- Dependencies: 213
 -- Name: si_organizacion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -2096,7 +2096,7 @@ CREATE TABLE si_organizacion (
 ALTER TABLE public.si_organizacion OWNER TO admin;
 
 --
--- TOC entry 2584 (class 0 OID 0)
+-- TOC entry 2585 (class 0 OID 0)
 -- Dependencies: 214
 -- Name: TABLE si_organizacion; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -2121,7 +2121,7 @@ CREATE SEQUENCE si_pais_id_seq
 ALTER TABLE public.si_pais_id_seq OWNER TO admin;
 
 --
--- TOC entry 2585 (class 0 OID 0)
+-- TOC entry 2586 (class 0 OID 0)
 -- Dependencies: 215
 -- Name: si_pais_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -2160,7 +2160,7 @@ CREATE SEQUENCE si_parametros_id_seq
 ALTER TABLE public.si_parametros_id_seq OWNER TO admin;
 
 --
--- TOC entry 2586 (class 0 OID 0)
+-- TOC entry 2587 (class 0 OID 0)
 -- Dependencies: 217
 -- Name: si_parametros_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -2206,7 +2206,7 @@ CREATE SEQUENCE si_perfiles_id_seq
 ALTER TABLE public.si_perfiles_id_seq OWNER TO admin;
 
 --
--- TOC entry 2587 (class 0 OID 0)
+-- TOC entry 2588 (class 0 OID 0)
 -- Dependencies: 219
 -- Name: si_perfiles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -2249,7 +2249,7 @@ CREATE TABLE si_plaga (
 ALTER TABLE public.si_plaga OWNER TO admin;
 
 --
--- TOC entry 2588 (class 0 OID 0)
+-- TOC entry 2589 (class 0 OID 0)
 -- Dependencies: 221
 -- Name: TABLE si_plaga; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -2259,7 +2259,7 @@ COMMENT ON TABLE si_plaga IS 'Tabla de Plagas en el Cultivo, se ingresa en el mo
 
 --
 -- TOC entry 222 (class 1259 OID 35035)
--- Dependencies: 6 221
+-- Dependencies: 221 6
 -- Name: si_plaga_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -2274,7 +2274,7 @@ CREATE SEQUENCE si_plaga_id_seq
 ALTER TABLE public.si_plaga_id_seq OWNER TO admin;
 
 --
--- TOC entry 2589 (class 0 OID 0)
+-- TOC entry 2590 (class 0 OID 0)
 -- Dependencies: 222
 -- Name: si_plaga_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -2283,7 +2283,7 @@ ALTER SEQUENCE si_plaga_id_seq OWNED BY si_plaga.id;
 
 
 --
--- TOC entry 2590 (class 0 OID 0)
+-- TOC entry 2591 (class 0 OID 0)
 -- Dependencies: 222
 -- Name: si_plaga_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -2313,7 +2313,7 @@ CREATE TABLE si_producto (
 ALTER TABLE public.si_producto OWNER TO admin;
 
 --
--- TOC entry 2591 (class 0 OID 0)
+-- TOC entry 2592 (class 0 OID 0)
 -- Dependencies: 223
 -- Name: TABLE si_producto; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -2338,7 +2338,7 @@ CREATE SEQUENCE si_producto_id_seq
 ALTER TABLE public.si_producto_id_seq OWNER TO admin;
 
 --
--- TOC entry 2592 (class 0 OID 0)
+-- TOC entry 2593 (class 0 OID 0)
 -- Dependencies: 224
 -- Name: si_producto_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -2347,7 +2347,7 @@ ALTER SEQUENCE si_producto_id_seq OWNED BY si_producto.id;
 
 
 --
--- TOC entry 2593 (class 0 OID 0)
+-- TOC entry 2594 (class 0 OID 0)
 -- Dependencies: 224
 -- Name: si_producto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -2372,7 +2372,7 @@ CREATE SEQUENCE si_productor_id_seq
 ALTER TABLE public.si_productor_id_seq OWNER TO admin;
 
 --
--- TOC entry 2594 (class 0 OID 0)
+-- TOC entry 2595 (class 0 OID 0)
 -- Dependencies: 225
 -- Name: si_productor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -2439,7 +2439,7 @@ CREATE SEQUENCE si_programa_id_seq
 ALTER TABLE public.si_programa_id_seq OWNER TO admin;
 
 --
--- TOC entry 2595 (class 0 OID 0)
+-- TOC entry 2596 (class 0 OID 0)
 -- Dependencies: 227
 -- Name: si_programa_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -2517,7 +2517,7 @@ CREATE SEQUENCE si_proveedor_id_seq
 ALTER TABLE public.si_proveedor_id_seq OWNER TO admin;
 
 --
--- TOC entry 2596 (class 0 OID 0)
+-- TOC entry 2597 (class 0 OID 0)
 -- Dependencies: 230
 -- Name: si_proveedor_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -2526,7 +2526,7 @@ ALTER SEQUENCE si_proveedor_id_seq OWNED BY si_proveedor.id;
 
 
 --
--- TOC entry 2597 (class 0 OID 0)
+-- TOC entry 2598 (class 0 OID 0)
 -- Dependencies: 230
 -- Name: si_proveedor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -2560,7 +2560,7 @@ CREATE TABLE si_punto_entrega (
 ALTER TABLE public.si_punto_entrega OWNER TO admin;
 
 --
--- TOC entry 2598 (class 0 OID 0)
+-- TOC entry 2599 (class 0 OID 0)
 -- Dependencies: 231
 -- Name: TABLE si_punto_entrega; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -2585,7 +2585,7 @@ CREATE SEQUENCE si_punto_entrega_id_seq
 ALTER TABLE public.si_punto_entrega_id_seq OWNER TO admin;
 
 --
--- TOC entry 2599 (class 0 OID 0)
+-- TOC entry 2600 (class 0 OID 0)
 -- Dependencies: 232
 -- Name: si_punto_entrega_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -2594,7 +2594,7 @@ ALTER SEQUENCE si_punto_entrega_id_seq OWNED BY si_punto_entrega.id;
 
 
 --
--- TOC entry 2600 (class 0 OID 0)
+-- TOC entry 2601 (class 0 OID 0)
 -- Dependencies: 232
 -- Name: si_punto_entrega_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -2604,7 +2604,7 @@ SELECT pg_catalog.setval('si_punto_entrega_id_seq', 3, true);
 
 --
 -- TOC entry 233 (class 1259 OID 35076)
--- Dependencies: 2212 6
+-- Dependencies: 2212 2214 6
 -- Name: si_recepcion; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2640,14 +2640,14 @@ CREATE TABLE si_recepcion (
     romana_sal integer,
     peso_acon double precision,
     peso_acon_liq double precision,
-    muestra smallint
+    muestra smallint DEFAULT 0
 );
 
 
 ALTER TABLE public.si_recepcion OWNER TO admin;
 
 --
--- TOC entry 2601 (class 0 OID 0)
+-- TOC entry 2602 (class 0 OID 0)
 -- Dependencies: 233
 -- Name: TABLE si_recepcion; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -2694,7 +2694,7 @@ ALTER TABLE public.si_recepcion_cultivo_tipo OWNER TO admin;
 
 --
 -- TOC entry 235 (class 1259 OID 35083)
--- Dependencies: 6 234
+-- Dependencies: 234 6
 -- Name: si_recepcion_cultivo_tipo_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -2709,7 +2709,7 @@ CREATE SEQUENCE si_recepcion_cultivo_tipo_id_seq
 ALTER TABLE public.si_recepcion_cultivo_tipo_id_seq OWNER TO admin;
 
 --
--- TOC entry 2602 (class 0 OID 0)
+-- TOC entry 2603 (class 0 OID 0)
 -- Dependencies: 235
 -- Name: si_recepcion_cultivo_tipo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -2718,7 +2718,7 @@ ALTER SEQUENCE si_recepcion_cultivo_tipo_id_seq OWNED BY si_recepcion_cultivo_ti
 
 
 --
--- TOC entry 2603 (class 0 OID 0)
+-- TOC entry 2604 (class 0 OID 0)
 -- Dependencies: 235
 -- Name: si_recepcion_cultivo_tipo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -2728,7 +2728,7 @@ SELECT pg_catalog.setval('si_recepcion_cultivo_tipo_id_seq', 1, false);
 
 --
 -- TOC entry 236 (class 1259 OID 35085)
--- Dependencies: 233 6
+-- Dependencies: 6 233
 -- Name: si_recepcion_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -2743,7 +2743,7 @@ CREATE SEQUENCE si_recepcion_id_seq
 ALTER TABLE public.si_recepcion_id_seq OWNER TO admin;
 
 --
--- TOC entry 2604 (class 0 OID 0)
+-- TOC entry 2605 (class 0 OID 0)
 -- Dependencies: 236
 -- Name: si_recepcion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -2752,17 +2752,17 @@ ALTER SEQUENCE si_recepcion_id_seq OWNED BY si_recepcion.id;
 
 
 --
--- TOC entry 2605 (class 0 OID 0)
+-- TOC entry 2606 (class 0 OID 0)
 -- Dependencies: 236
 -- Name: si_recepcion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_recepcion_id_seq', 6, true);
+SELECT pg_catalog.setval('si_recepcion_id_seq', 7, true);
 
 
 --
 -- TOC entry 237 (class 1259 OID 35087)
--- Dependencies: 2215 6
+-- Dependencies: 2216 6
 -- Name: si_recursos; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2781,7 +2781,7 @@ ALTER TABLE public.si_recursos OWNER TO admin;
 
 --
 -- TOC entry 238 (class 1259 OID 35094)
--- Dependencies: 2217 6
+-- Dependencies: 2218 6
 -- Name: si_recursos_etiquetas; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2800,7 +2800,7 @@ ALTER TABLE public.si_recursos_etiquetas OWNER TO admin;
 
 --
 -- TOC entry 239 (class 1259 OID 35101)
--- Dependencies: 238 6
+-- Dependencies: 6 238
 -- Name: si_recursos_etiquetas_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -2815,7 +2815,7 @@ CREATE SEQUENCE si_recursos_etiquetas_id_seq
 ALTER TABLE public.si_recursos_etiquetas_id_seq OWNER TO admin;
 
 --
--- TOC entry 2606 (class 0 OID 0)
+-- TOC entry 2607 (class 0 OID 0)
 -- Dependencies: 239
 -- Name: si_recursos_etiquetas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -2824,7 +2824,7 @@ ALTER SEQUENCE si_recursos_etiquetas_id_seq OWNED BY si_recursos_etiquetas.id;
 
 
 --
--- TOC entry 2607 (class 0 OID 0)
+-- TOC entry 2608 (class 0 OID 0)
 -- Dependencies: 239
 -- Name: si_recursos_etiquetas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -2849,7 +2849,7 @@ CREATE SEQUENCE si_recursos_id_seq
 ALTER TABLE public.si_recursos_id_seq OWNER TO admin;
 
 --
--- TOC entry 2608 (class 0 OID 0)
+-- TOC entry 2609 (class 0 OID 0)
 -- Dependencies: 240
 -- Name: si_recursos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -2858,12 +2858,12 @@ ALTER SEQUENCE si_recursos_id_seq OWNED BY si_recursos.id;
 
 
 --
--- TOC entry 2609 (class 0 OID 0)
+-- TOC entry 2610 (class 0 OID 0)
 -- Dependencies: 240
 -- Name: si_recursos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_recursos_id_seq', 52, true);
+SELECT pg_catalog.setval('si_recursos_id_seq', 54, true);
 
 
 --
@@ -2883,7 +2883,7 @@ CREATE SEQUENCE si_silos_id_seq
 ALTER TABLE public.si_silos_id_seq OWNER TO admin;
 
 --
--- TOC entry 2610 (class 0 OID 0)
+-- TOC entry 2611 (class 0 OID 0)
 -- Dependencies: 241
 -- Name: si_silos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -2893,7 +2893,7 @@ SELECT pg_catalog.setval('si_silos_id_seq', 85, true);
 
 --
 -- TOC entry 242 (class 1259 OID 35107)
--- Dependencies: 2219 2220 6
+-- Dependencies: 2220 2221 6
 -- Name: si_silos; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2916,7 +2916,7 @@ CREATE TABLE si_silos (
 ALTER TABLE public.si_silos OWNER TO admin;
 
 --
--- TOC entry 2611 (class 0 OID 0)
+-- TOC entry 2612 (class 0 OID 0)
 -- Dependencies: 242
 -- Name: TABLE si_silos; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -2944,7 +2944,7 @@ CREATE SEQUENCE si_tolcarom_id_seq
 ALTER TABLE public.si_tolcarom_id_seq OWNER TO admin;
 
 --
--- TOC entry 2612 (class 0 OID 0)
+-- TOC entry 2613 (class 0 OID 0)
 -- Dependencies: 243
 -- Name: si_tolcarom_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -2954,7 +2954,7 @@ SELECT pg_catalog.setval('si_tolcarom_id_seq', 48, true);
 
 --
 -- TOC entry 244 (class 1259 OID 35118)
--- Dependencies: 2221 2222 2223 6
+-- Dependencies: 2222 2223 2224 6
 -- Name: si_tolcarom; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -2974,7 +2974,7 @@ CREATE TABLE si_tolcarom (
 ALTER TABLE public.si_tolcarom OWNER TO admin;
 
 --
--- TOC entry 2613 (class 0 OID 0)
+-- TOC entry 2614 (class 0 OID 0)
 -- Dependencies: 244
 -- Name: TABLE si_tolcarom; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -3013,7 +3013,7 @@ CREATE TABLE si_transporte (
 ALTER TABLE public.si_transporte OWNER TO admin;
 
 --
--- TOC entry 2614 (class 0 OID 0)
+-- TOC entry 2615 (class 0 OID 0)
 -- Dependencies: 245
 -- Name: TABLE si_transporte; Type: COMMENT; Schema: public; Owner: admin
 --
@@ -3038,7 +3038,7 @@ CREATE SEQUENCE si_transporte_id_seq
 ALTER TABLE public.si_transporte_id_seq OWNER TO admin;
 
 --
--- TOC entry 2615 (class 0 OID 0)
+-- TOC entry 2616 (class 0 OID 0)
 -- Dependencies: 246
 -- Name: si_transporte_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -3047,7 +3047,7 @@ ALTER SEQUENCE si_transporte_id_seq OWNED BY si_transporte.id;
 
 
 --
--- TOC entry 2616 (class 0 OID 0)
+-- TOC entry 2617 (class 0 OID 0)
 -- Dependencies: 246
 -- Name: si_transporte_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -3072,7 +3072,7 @@ CREATE SEQUENCE si_usuarios_id_seq
 ALTER TABLE public.si_usuarios_id_seq OWNER TO admin;
 
 --
--- TOC entry 2617 (class 0 OID 0)
+-- TOC entry 2618 (class 0 OID 0)
 -- Dependencies: 247
 -- Name: si_usuarios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -3082,7 +3082,7 @@ SELECT pg_catalog.setval('si_usuarios_id_seq', 7, true);
 
 --
 -- TOC entry 248 (class 1259 OID 35134)
--- Dependencies: 2225 2226 2227 6
+-- Dependencies: 2226 2227 2228 6
 -- Name: si_usuarios; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -3126,7 +3126,7 @@ CREATE SEQUENCE si_usuarios_perfiles_id_seq
 ALTER TABLE public.si_usuarios_perfiles_id_seq OWNER TO admin;
 
 --
--- TOC entry 2618 (class 0 OID 0)
+-- TOC entry 2619 (class 0 OID 0)
 -- Dependencies: 249
 -- Name: si_usuarios_perfiles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
@@ -3136,7 +3136,7 @@ SELECT pg_catalog.setval('si_usuarios_perfiles_id_seq', 7, true);
 
 --
 -- TOC entry 250 (class 1259 OID 35145)
--- Dependencies: 2228 6
+-- Dependencies: 2229 6
 -- Name: si_usuarios_perfiles; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
 --
 
@@ -3176,7 +3176,7 @@ ALTER TABLE public.si_vehiculos OWNER TO admin;
 
 --
 -- TOC entry 252 (class 1259 OID 35152)
--- Dependencies: 251 6
+-- Dependencies: 6 251
 -- Name: si_vehiculos_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -3191,7 +3191,7 @@ CREATE SEQUENCE si_vehiculos_id_seq
 ALTER TABLE public.si_vehiculos_id_seq OWNER TO admin;
 
 --
--- TOC entry 2619 (class 0 OID 0)
+-- TOC entry 2620 (class 0 OID 0)
 -- Dependencies: 252
 -- Name: si_vehiculos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
 --
@@ -3200,12 +3200,12 @@ ALTER SEQUENCE si_vehiculos_id_seq OWNED BY si_vehiculos.id;
 
 
 --
--- TOC entry 2620 (class 0 OID 0)
+-- TOC entry 2621 (class 0 OID 0)
 -- Dependencies: 252
 -- Name: si_vehiculos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_vehiculos_id_seq', 13, true);
+SELECT pg_catalog.setval('si_vehiculos_id_seq', 14, true);
 
 
 --
@@ -3425,7 +3425,7 @@ ALTER TABLE ONLY si_recepcion ALTER COLUMN id SET DEFAULT nextval('si_recepcion_
 
 
 --
--- TOC entry 2214 (class 2604 OID 35178)
+-- TOC entry 2215 (class 2604 OID 35178)
 -- Dependencies: 235 234
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
@@ -3434,7 +3434,7 @@ ALTER TABLE ONLY si_recepcion_cultivo_tipo ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
--- TOC entry 2216 (class 2604 OID 35179)
+-- TOC entry 2217 (class 2604 OID 35179)
 -- Dependencies: 240 237
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
@@ -3443,7 +3443,7 @@ ALTER TABLE ONLY si_recursos ALTER COLUMN id SET DEFAULT nextval('si_recursos_id
 
 
 --
--- TOC entry 2218 (class 2604 OID 35180)
+-- TOC entry 2219 (class 2604 OID 35180)
 -- Dependencies: 239 238
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
@@ -3452,7 +3452,7 @@ ALTER TABLE ONLY si_recursos_etiquetas ALTER COLUMN id SET DEFAULT nextval('si_r
 
 
 --
--- TOC entry 2224 (class 2604 OID 35181)
+-- TOC entry 2225 (class 2604 OID 35181)
 -- Dependencies: 246 245
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
@@ -3461,7 +3461,7 @@ ALTER TABLE ONLY si_transporte ALTER COLUMN id SET DEFAULT nextval('si_transport
 
 
 --
--- TOC entry 2229 (class 2604 OID 35182)
+-- TOC entry 2230 (class 2604 OID 35182)
 -- Dependencies: 252 251
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
@@ -3470,7 +3470,7 @@ ALTER TABLE ONLY si_vehiculos ALTER COLUMN id SET DEFAULT nextval('si_vehiculos_
 
 
 --
--- TOC entry 2457 (class 0 OID 34729)
+-- TOC entry 2458 (class 0 OID 34729)
 -- Dependencies: 140
 -- Data for Name: romana; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3478,7 +3478,7 @@ ALTER TABLE ONLY si_vehiculos ALTER COLUMN id SET DEFAULT nextval('si_vehiculos_
 
 
 --
--- TOC entry 2458 (class 0 OID 34740)
+-- TOC entry 2459 (class 0 OID 34740)
 -- Dependencies: 143
 -- Data for Name: si_almacenes; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3497,7 +3497,7 @@ INSERT INTO si_almacenes (id, id_centro_acopio, nombre, direccion, id_pais, id_e
 
 
 --
--- TOC entry 2459 (class 0 OID 34749)
+-- TOC entry 2460 (class 0 OID 34749)
 -- Dependencies: 145
 -- Data for Name: si_analisis; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3544,7 +3544,7 @@ INSERT INTO si_analisis (id, id_org, nombre, tipo_analisis, estatus, creado, mod
 
 
 --
--- TOC entry 2460 (class 0 OID 34755)
+-- TOC entry 2461 (class 0 OID 34755)
 -- Dependencies: 146
 -- Data for Name: si_analisis_centro_acopio; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3552,7 +3552,7 @@ INSERT INTO si_analisis (id, id_org, nombre, tipo_analisis, estatus, creado, mod
 
 
 --
--- TOC entry 2461 (class 0 OID 34760)
+-- TOC entry 2462 (class 0 OID 34760)
 -- Dependencies: 148
 -- Data for Name: si_analisis_cultivo; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3695,18 +3695,17 @@ INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, r
 INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 22, 11, 'A', 0.000, 0.000, 'R', 140, 0.000, 0.000, 0.000, 0.000, 2);
 INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 23, 11, 'A', 0.000, 0.000, 'R', 141, 0.000, 0.000, 0.000, 0.000, 2);
 INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 24, 11, 'A', 0.000, 0.000, 'R', 142, 0.000, 0.000, 0.000, 0.000, 2);
-INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 1, 12, 'C', 7.000, 7.000, 'R', 144, 8.000, 19.000, 6.000, 9.000, 2);
 INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 20, 5, 'A', 0.000, 0.000, 'C', 84, 0.000, 0.000, 0.000, 0.000, 2);
 INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 20, 8, 'C', 0.000, 0.000, 'C', 117, 0.000, 0.000, 0.000, 0.000, 2);
 INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 20, 11, 'A', 0.000, 0.000, 'C', 143, 0.000, 0.000, 0.000, 0.000, 2);
-INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 2, 12, 'C', 1.000, 1.000, 'R', 145, 0.000, 8.000, 0.000, 7.000, 2);
-INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 13, 12, 'C', 0.000, 0.000, 'R', 146, 0.330, 0.480, 0.330, 0.480, 2);
 INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 20, 13, 'A', 0.000, 0.000, 'R', 147, 0.000, 0.000, 0.000, 0.000, 2);
 INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 1, 15, 'C', 12.000, 12.000, 'R', 149, 12.000, 13.900, 12.000, 13.000, 2);
 INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 2, 15, 'C', 0.000, 0.000, 'R', 150, 0.000, 3.000, 0.000, 3.000, 2);
 INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 3, 15, 'C', 0.000, 0.000, 'R', 151, 0.000, 11.000, 0.000, 11.000, 2);
 INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 4, 15, 'C', 0.000, 0.000, 'R', 152, 0.000, 11.000, 0.000, 11.000, 2);
 INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 5, 15, 'C', 0.000, 0.000, 'R', 153, 0.000, 3.000, 0.000, 3.000, 2);
+INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 2, 12, 'A', 1.000, 1.000, 'R', 145, 0.000, 8.000, 0.000, 7.000, 2);
+INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 13, 12, 'A', 0.000, 0.000, 'R', 146, 0.330, 0.480, 0.330, 0.480, 2);
 INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 6, 15, 'C', 0.000, 0.000, 'R', 154, 0.000, 11.000, 0.000, 11.000, 2);
 INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 7, 15, 'C', 0.000, 0.000, 'R', 155, 0.000, 11.000, 0.000, 15.000, 2);
 INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 8, 15, 'C', 0.000, 0.000, 'R', 156, 0.000, 10.000, 0.000, 10.000, 2);
@@ -3783,10 +3782,15 @@ INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, r
 INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 21, 1, 'A', 0.000, 0.000, 'R', 17, 0.000, 0.000, 0.000, 0.000, 2);
 INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 20, 7, 'A', 0.000, 0.000, 'C', 103, 0.000, 0.000, 0.000, 0.000, 2);
 INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 20, 14, 'A', 0.000, 0.000, 'C', 148, 0.000, 0.000, 0.000, 0.000, 2);
+INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 1, 12, 'A', 7.000, 7.000, 'R', 144, 8.000, 19.000, 6.000, 9.000, 2);
+INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 21, 12, 'A', 0.000, 0.000, 'R', 227, 0.000, 0.000, 0.000, 0.000, 2);
+INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 22, 12, 'A', 0.000, 0.000, 'R', 228, 0.000, 0.000, 0.000, 0.000, 2);
+INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 20, 12, 'A', 0.000, 0.000, 'C', 229, 0.000, 0.000, 0.000, 0.000, 2);
+INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, reduccion_rec, reduccion_des, estatus, id, min_rec, max_rec, min_des, max_des, id_centro_acopio) VALUES (1, 38, 12, 'A', 0.000, 0.000, 'R', 230, 0.000, 0.000, 0.000, 0.000, 2);
 
 
 --
--- TOC entry 2462 (class 0 OID 34771)
+-- TOC entry 2463 (class 0 OID 34771)
 -- Dependencies: 150
 -- Data for Name: si_analisis_des; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3794,111 +3798,158 @@ INSERT INTO si_analisis_cultivo (id_org, id_analisis, id_cultivo, laboratorio, r
 
 
 --
--- TOC entry 2463 (class 0 OID 34777)
+-- TOC entry 2464 (class 0 OID 34777)
 -- Dependencies: 152
 -- Data for Name: si_analisis_resultado; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (131, 2, NULL, 1, 5, '12.000          ', '13.000          ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (132, 2, NULL, 2, 5, '0.000           ', '3.000           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (133, 2, NULL, 3, 5, '0.000           ', '0.000           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (134, 2, NULL, 4, 5, '0.000           ', '0.000           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (135, 2, NULL, 5, 5, '0.000           ', '0.000           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (136, 2, NULL, 6, 5, '0.000           ', '0.000           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (137, 2, NULL, 7, 5, '0.000           ', '0.000           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (138, 2, NULL, 8, 5, '0.000           ', '0.000           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (139, 2, NULL, 9, 5, '0.000           ', '0.000           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (140, 2, NULL, 10, 5, '0.000           ', '0.000           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (141, 2, NULL, 11, 5, '0.000           ', '0.000           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (142, 2, NULL, 12, 5, '0.000           ', '0.000           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (143, 2, NULL, 13, 5, '0.710           ', '0.710           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (144, 2, NULL, 14, 5, '0.000           ', '0.000           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (145, 2, NULL, 15, 5, '0.000           ', '0.000           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (146, 2, NULL, 19, 5, 'NO              ', 'NO              ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (147, 2, NULL, 21, 5, 'A               ', 'A               ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (148, 2, NULL, 22, 5, 'A               ', 'A               ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (149, 2, NULL, 23, 5, 'A               ', 'A               ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (150, 2, NULL, 24, 5, 'A               ', 'A               ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (151, 2, NULL, 20, 5, 'NO              ', 'NO              ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (152, 3, NULL, 1, 5, '12.000          ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (153, 3, NULL, 2, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (154, 3, NULL, 3, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (155, 3, NULL, 4, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (156, 3, NULL, 5, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (157, 3, NULL, 6, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (158, 3, NULL, 7, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (159, 3, NULL, 8, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (160, 3, NULL, 9, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (161, 3, NULL, 10, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (162, 3, NULL, 11, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (163, 3, NULL, 12, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (164, 3, NULL, 13, 5, '0.710           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (165, 3, NULL, 14, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (166, 3, NULL, 15, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (167, 3, NULL, 19, 5, 'NO              ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (168, 3, NULL, 21, 5, 'A               ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (169, 3, NULL, 22, 5, 'A               ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (170, 3, NULL, 23, 5, 'A               ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (171, 3, NULL, 24, 5, 'A               ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (172, 3, NULL, 20, 5, 'NO              ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (173, 4, NULL, 1, 5, '25.000          ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (174, 4, NULL, 2, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (175, 4, NULL, 3, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (176, 4, NULL, 4, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (177, 4, NULL, 5, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (178, 4, NULL, 6, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (179, 4, NULL, 7, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (180, 4, NULL, 8, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (181, 4, NULL, 9, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (182, 4, NULL, 10, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (183, 4, NULL, 11, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (184, 4, NULL, 12, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (185, 4, NULL, 13, 5, '0.710           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (186, 4, NULL, 14, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (187, 4, NULL, 15, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (188, 4, NULL, 19, 5, 'NO              ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (189, 4, NULL, 21, 5, 'A               ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (190, 4, NULL, 22, 5, 'A               ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (191, 4, NULL, 23, 5, 'A               ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (192, 4, NULL, 24, 5, 'A               ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (193, 4, NULL, 20, 5, 'NO              ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (194, 5, NULL, 1, 5, '12.000          ', '12.000          ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (195, 5, NULL, 2, 5, '0.000           ', '0.000           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (196, 5, NULL, 3, 5, '0.000           ', '0.000           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (197, 5, NULL, 4, 5, '0.000           ', '0.000           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (198, 5, NULL, 5, 5, '0.000           ', '0.000           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (199, 5, NULL, 6, 5, '0.000           ', '0.000           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (200, 5, NULL, 7, 5, '0.000           ', '0.000           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (201, 5, NULL, 8, 5, '0.000           ', '0.000           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (202, 5, NULL, 9, 5, '0.000           ', '0.000           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (203, 5, NULL, 10, 5, '0.000           ', '0.000           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (204, 5, NULL, 11, 5, '0.000           ', '0.000           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (205, 5, NULL, 12, 5, '0.000           ', '0.000           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (206, 5, NULL, 13, 5, '0.710           ', '0.710           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (207, 5, NULL, 14, 5, '0.000           ', '0.000           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (208, 5, NULL, 15, 5, '0.000           ', '0.000           ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (209, 5, NULL, 19, 5, 'NO              ', 'NO              ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (210, 5, NULL, 21, 5, 'A               ', 'A               ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (211, 5, NULL, 22, 5, 'A               ', 'A               ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (212, 5, NULL, 23, 5, 'A               ', 'A               ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (213, 5, NULL, 24, 5, 'A               ', 'A               ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (214, 5, NULL, 20, 5, 'NO              ', 'NO              ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (215, 6, NULL, 1, 5, '26.000          ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (216, 6, NULL, 2, 5, '5.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (217, 6, NULL, 3, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (218, 6, NULL, 4, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (219, 6, NULL, 5, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (220, 6, NULL, 6, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (221, 6, NULL, 7, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (222, 6, NULL, 8, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (223, 6, NULL, 9, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (224, 6, NULL, 10, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (225, 6, NULL, 11, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (226, 6, NULL, 12, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (227, 6, NULL, 13, 5, '0.710           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (228, 6, NULL, 14, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (229, 6, NULL, 15, 5, '0.000           ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (230, 6, NULL, 19, 5, 'NO              ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (231, 6, NULL, 21, 5, 'A               ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (232, 6, NULL, 22, 5, 'A               ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (233, 6, NULL, 23, 5, 'A               ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (234, 6, NULL, 24, 5, 'A               ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (235, 6, NULL, 20, 5, 'NO              ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (236, 2, NULL, 19, 5, 'NO              ', 'NO              ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (237, 2, NULL, 21, 5, 'A               ', 'A               ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (238, 2, NULL, 22, 5, 'A               ', 'A               ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (239, 2, NULL, 23, 5, 'A               ', 'A               ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (240, 2, NULL, 24, 5, 'A               ', 'A               ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (241, 2, NULL, 20, 5, 'NO              ', 'NO              ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (242, 3, NULL, 19, 5, 'NO              ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (243, 3, NULL, 21, 5, 'A               ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (244, 3, NULL, 22, 5, 'A               ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (245, 3, NULL, 23, 5, 'A               ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (246, 3, NULL, 24, 5, 'A               ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (247, 3, NULL, 20, 5, 'NO              ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (248, 4, NULL, 19, 5, 'NO              ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (249, 4, NULL, 21, 5, 'A               ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (250, 4, NULL, 22, 5, 'A               ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (251, 4, NULL, 23, 5, 'A               ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (252, 4, NULL, 24, 5, 'A               ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (253, 4, NULL, 20, 5, 'NO              ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (254, 5, NULL, 19, 5, 'NO              ', 'NO              ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (255, 5, NULL, 21, 5, 'A               ', 'A               ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (256, 5, NULL, 22, 5, 'A               ', 'A               ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (257, 5, NULL, 23, 5, 'A               ', 'A               ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (258, 5, NULL, 24, 5, 'A               ', 'A               ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (259, 5, NULL, 20, 5, 'NO              ', 'NO              ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (260, 6, NULL, 19, 5, 'NO              ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (261, 6, NULL, 21, 5, 'A               ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (262, 6, NULL, 22, 5, 'A               ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (263, 6, NULL, 23, 5, 'A               ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (264, 6, NULL, 24, 5, 'A               ', '                ', '                ', 2, 'R ');
+INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (265, 6, NULL, 20, 5, 'NO              ', '                ', '                ', 2, 'R ');
 
 
 --
--- TOC entry 2464 (class 0 OID 34782)
+-- TOC entry 2465 (class 0 OID 34782)
 -- Dependencies: 154
 -- Data for Name: si_app_error; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO si_app_error (apperror_id, apperror_time, apperror_text) VALUES ('61470d3ca27ac2ad71', '2012-05-01 22:06:53.896-04:30', 'a:2:{i:0;a:8:{s:4:"file";s:49:"http://localhost/sigesil/admin/parametros.php<br>";s:4:"line";i:6;s:5:"class";s:9:"Parameter";s:8:"function";s:16:"listaParameteros";s:11:"mysql_error";s:185:"ERROR:  el argumento de AND debe ser de tipo boolean, no tipo integer
-LINE 1: SELECT * FROM si_parametros WHERE 1  AND parametro_mostrar="...
-                                          ^";s:5:"query";s:62:"SELECT * FROM si_parametros WHERE 1  AND parametro_mostrar=''1''";s:9:"user_name";s:9:"MCORONADO";s:4:"date";s:19:"2012-05-01 10:06:53";}i:1;a:4:{s:4:"file";s:58:"http://localhost/sigesil/lib/class/parameter.class.php<br>";s:4:"line";i:24;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
-INSERT INTO si_app_error (apperror_id, apperror_time, apperror_text) VALUES ('4088c26a35657ee6f0', '2012-05-01 22:07:26.144-04:30', 'a:2:{i:0;a:8:{s:4:"file";s:49:"http://localhost/sigesil/admin/parametros.php<br>";s:4:"line";i:6;s:5:"class";s:9:"Parameter";s:8:"function";s:16:"listaParameteros";s:11:"mysql_error";s:185:"ERROR:  el argumento de AND debe ser de tipo boolean, no tipo integer
-LINE 1: SELECT * FROM si_parametros WHERE 1  AND parametro_mostrar="...
-                                          ^";s:5:"query";s:62:"SELECT * FROM si_parametros WHERE 1  AND parametro_mostrar=''1''";s:9:"user_name";s:9:"MCORONADO";s:4:"date";s:19:"2012-05-01 10:07:26";}i:1;a:4:{s:4:"file";s:58:"http://localhost/sigesil/lib/class/parameter.class.php<br>";s:4:"line";i:24;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
-INSERT INTO si_app_error (apperror_id, apperror_time, apperror_text) VALUES ('501f6d491fed10a636', '2012-05-01 22:07:56.421-04:30', 'a:2:{i:0;a:8:{s:4:"file";s:49:"http://localhost/sigesil/admin/parametros.php<br>";s:4:"line";i:6;s:5:"class";s:9:"Parameter";s:8:"function";s:16:"listaParameteros";s:11:"mysql_error";s:185:"ERROR:  el argumento de AND debe ser de tipo boolean, no tipo integer
-LINE 1: SELECT * FROM si_parametros WHERE 1  AND parametro_mostrar="...
-                                          ^";s:5:"query";s:62:"SELECT * FROM si_parametros WHERE 1  AND parametro_mostrar=''1''";s:9:"user_name";s:9:"MCORONADO";s:4:"date";s:19:"2012-05-01 10:07:56";}i:1;a:4:{s:4:"file";s:58:"http://localhost/sigesil/lib/class/parameter.class.php<br>";s:4:"line";i:24;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
-INSERT INTO si_app_error (apperror_id, apperror_time, apperror_text) VALUES ('cb7d899e8157ab39a1', '2012-05-01 22:08:00.506-04:30', 'a:2:{i:0;a:8:{s:4:"file";s:49:"http://localhost/sigesil/admin/parametros.php<br>";s:4:"line";i:6;s:5:"class";s:9:"Parameter";s:8:"function";s:16:"listaParameteros";s:11:"mysql_error";s:185:"ERROR:  el argumento de AND debe ser de tipo boolean, no tipo integer
-LINE 1: SELECT * FROM si_parametros WHERE 1  AND parametro_mostrar="...
-                                          ^";s:5:"query";s:62:"SELECT * FROM si_parametros WHERE 1  AND parametro_mostrar=''1''";s:9:"user_name";s:9:"MCORONADO";s:4:"date";s:19:"2012-05-01 10:08:00";}i:1;a:4:{s:4:"file";s:58:"http://localhost/sigesil/lib/class/parameter.class.php<br>";s:4:"line";i:24;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
-INSERT INTO si_app_error (apperror_id, apperror_time, apperror_text) VALUES ('2aa2396aa035c654e1', '2012-05-01 22:08:39.049-04:30', 'a:2:{i:0;a:8:{s:4:"file";s:49:"http://localhost/sigesil/admin/parametros.php<br>";s:4:"line";i:6;s:5:"class";s:9:"Parameter";s:8:"function";s:16:"listaParameteros";s:11:"mysql_error";s:185:"ERROR:  el argumento de AND debe ser de tipo boolean, no tipo integer
-LINE 1: SELECT * FROM si_parametros WHERE 1  AND parametro_mostrar="...
-                                          ^";s:5:"query";s:62:"SELECT * FROM si_parametros WHERE 1  AND parametro_mostrar=''1''";s:9:"user_name";s:9:"MCORONADO";s:4:"date";s:19:"2012-05-01 10:08:39";}i:1;a:4:{s:4:"file";s:58:"http://localhost/sigesil/lib/class/parameter.class.php<br>";s:4:"line";i:24;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
-INSERT INTO si_app_error (apperror_id, apperror_time, apperror_text) VALUES ('ddb63dc8ea6873dea4', '2012-05-01 22:08:42.549-04:30', 'a:2:{i:0;a:8:{s:4:"file";s:49:"http://localhost/sigesil/admin/parametros.php<br>";s:4:"line";i:6;s:5:"class";s:9:"Parameter";s:8:"function";s:16:"listaParameteros";s:11:"mysql_error";s:185:"ERROR:  el argumento de AND debe ser de tipo boolean, no tipo integer
-LINE 1: SELECT * FROM si_parametros WHERE 1  AND parametro_mostrar="...
-                                          ^";s:5:"query";s:62:"SELECT * FROM si_parametros WHERE 1  AND parametro_mostrar=''1''";s:9:"user_name";s:9:"MCORONADO";s:4:"date";s:19:"2012-05-01 10:08:42";}i:1;a:4:{s:4:"file";s:58:"http://localhost/sigesil/lib/class/parameter.class.php<br>";s:4:"line";i:24;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
-INSERT INTO si_app_error (apperror_id, apperror_time, apperror_text) VALUES ('6c0b3003c4d97058fd', '2012-05-02 08:26:08.440089-04:30', 'a:2:{i:0;a:8:{s:4:"file";s:43:"/var/www/sigesil/admin/menu_usuario.php<br>";s:4:"line";i:14;s:5:"class";s:4:"Menu";s:8:"function";s:18:"asignarMenuUsuario";s:11:"mysql_error";s:205:"ERROR:  la sintaxis de entrada no es válida para integer: «»
-LINE 2: ...                  VALUES ("11", "4", "7", "1", "1", "1", "")
-                                                                    ^";s:5:"query";s:168:"INSERT INTO si_menu_usuario (id_menu, id_usuario, id_perfil, nuevo, modificar, eliminar, imprimir)<br />
-                    VALUES (''11'', ''4'', ''7'', ''1'', ''1'', ''1'', '''')";s:9:"user_name";s:9:"MCORONADO";s:4:"date";s:19:"2012-05-02 08:26:08";}i:1;a:4:{s:4:"file";s:45:"/var/www/sigesil/lib/class/menu.class.php<br>";s:4:"line";i:19;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
-INSERT INTO si_app_error (apperror_id, apperror_time, apperror_text) VALUES ('003cbd1a1ae391239d', '2012-05-02 14:03:17.209739-04:30', 'a:4:{i:0;a:8:{s:4:"file";s:48:"/var/www/sigesil/admin/cosecha_productor.php<br>";s:4:"line";i:31;s:5:"class";N;s:8:"function";s:7:"require";s:11:"mysql_error";s:187:"ERROR:  la sintaxis de entrada no es válida para integer: «»
-LINE 4:                     WHERE mh.id_usuario = "" AND mh.id_perfi...
-                                                  ^";s:5:"query";s:309:"SELECT mp.*, mh.nuevo, mh.modificar, mh.eliminar, mh.imprimir<br />
-                    FROM si_menu mp<br />
-                    INNER JOIN si_menu_usuario mh ON mh.id_menu = mp.id<br />
-                    WHERE mh.id_usuario = '''' AND mh.id_perfil = '''' AND mp.estatus = ''t'' ORDER BY mp.id_padre, mp.orden";s:9:"user_name";N;s:4:"date";s:19:"2012-05-02 02:03:17";}i:1;a:4:{s:4:"file";s:42:"/var/www/sigesil/lib/common/header.php<br>";s:4:"line";i:115;s:5:"class";N;s:8:"function";s:7:"require";}i:2;a:4:{s:4:"file";s:40:"/var/www/sigesil/lib/common/menu.php<br>";s:4:"line";i:2;s:5:"class";s:4:"Menu";s:8:"function";s:14:"menuPorUsuario";}i:3;a:4:{s:4:"file";s:45:"/var/www/sigesil/lib/class/menu.class.php<br>";s:4:"line";i:13;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
-INSERT INTO si_app_error (apperror_id, apperror_time, apperror_text) VALUES ('29815170ef0a14afe1', '2012-05-02 14:09:53.711071-04:30', 'a:2:{i:0;a:8:{s:4:"file";s:46:"/var/www/sigesil/ajax/cosecha_programa.php<br>";s:4:"line";i:57;s:5:"class";s:5:"Model";s:8:"function";s:4:"find";s:11:"mysql_error";s:206:"ERROR:  la sintaxis de entrada no es válida para integer: «G000000»
-LINE 1: ... si_productor Productor where "1" AND Productor.id="G000000"
-                                                              ^";s:5:"query";s:73:"SELECT * FROM si_productor Productor where ''1'' AND Productor.id=''G000000''";s:9:"user_name";s:9:"MCORONADO";s:4:"date";s:19:"2012-05-02 02:09:53";}i:1;a:4:{s:4:"file";s:46:"/var/www/sigesil/lib/class/model.class.php<br>";s:4:"line";i:33;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
-INSERT INTO si_app_error (apperror_id, apperror_time, apperror_text) VALUES ('129219d6e85d2bb65e', '2012-05-02 14:09:53.745278-04:30', 'a:2:{i:0;a:8:{s:4:"file";s:46:"/var/www/sigesil/ajax/cosecha_programa.php<br>";s:4:"line";i:42;s:5:"class";s:5:"Model";s:8:"function";s:4:"find";s:11:"mysql_error";s:206:"ERROR:  la sintaxis de entrada no es válida para integer: «G000000»
-LINE 1: ... si_productor Productor where "1" AND Productor.id="G000000"
-                                                              ^";s:5:"query";s:73:"SELECT * FROM si_productor Productor where ''1'' AND Productor.id=''G000000''";s:9:"user_name";s:9:"MCORONADO";s:4:"date";s:19:"2012-05-02 02:09:53";}i:1;a:4:{s:4:"file";s:46:"/var/www/sigesil/lib/class/model.class.php<br>";s:4:"line";i:33;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
-INSERT INTO si_app_error (apperror_id, apperror_time, apperror_text) VALUES ('9f956e35a6cb9dd4fb', '2012-05-02 14:22:36.543459-04:30', 'a:2:{i:0;a:8:{s:4:"file";s:46:"/var/www/sigesil/ajax/cosecha_programa.php<br>";s:4:"line";i:43;s:5:"class";s:7:"Cosecha";s:8:"function";s:23:"asignarCosechaProductor";s:11:"mysql_error";s:208:"ERROR:  la sintaxis de entrada no es válida para integer: «G000000»
-LINE 8: ...     WHERE "1" AND cp.id_cosecha = "2" AND p.id = "G000000" ...
-                                                             ^";s:5:"query";s:888:"SELECT  p.id AS id_productor, p.ced_rif AS ced_productor, p.nombre AS productor, <br />
-                    p2.id AS id_asociacion, p2.ced_rif AS ced_asociacion, p2.nombre AS asociacion, <br />
-                    p3.id AS id_asociado, p3.ced_rif AS ced_asociado, p3.nombre AS asociado<br />
-                    FROM si_productor p<br />
-                    LEFT JOIN si_cosecha_productor cp ON cp.id_productor = p.id<br />
-                    LEFT JOIN si_productor p2 ON p2.id = cp.id_asociacion<br />
-                    LEFT JOIN si_productor p3 ON p3.id = cp.id_asociado<br />
-                    WHERE ''1'' AND cp.id_cosecha = ''2'' AND p.id = ''G000000'' OR NOT EXISTS (SELECT cp2.id_asociacion FROM si_cosecha_productor cp2 WHERE cp2.id_cosecha = ''2'' AND (cp2.id_productor = p.id OR cp2.id_asociacion = p.id OR cp2.id_asociado = p.id)) ORDER BY p.ced_rif, p2.ced_rif, p3.ced_rif";s:9:"user_name";s:9:"MCORONADO";s:4:"date";s:19:"2012-05-02 02:22:36";}i:1;a:4:{s:4:"file";s:48:"/var/www/sigesil/lib/class/cosecha.class.php<br>";s:4:"line";i:71;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
-INSERT INTO si_app_error (apperror_id, apperror_time, apperror_text) VALUES ('bf8de6b11fba205a1d', '2012-05-02 14:22:36.587078-04:30', 'a:2:{i:0;a:8:{s:4:"file";s:46:"/var/www/sigesil/ajax/cosecha_programa.php<br>";s:4:"line";i:58;s:5:"class";s:7:"Cosecha";s:8:"function";s:23:"asignarCosechaProductor";s:11:"mysql_error";s:208:"ERROR:  la sintaxis de entrada no es válida para integer: «G000000»
-LINE 8: ...     WHERE "1" AND cp.id_cosecha = "2" AND p.id = "G000000" ...
-                                                             ^";s:5:"query";s:888:"SELECT  p.id AS id_productor, p.ced_rif AS ced_productor, p.nombre AS productor, <br />
-                    p2.id AS id_asociacion, p2.ced_rif AS ced_asociacion, p2.nombre AS asociacion, <br />
-                    p3.id AS id_asociado, p3.ced_rif AS ced_asociado, p3.nombre AS asociado<br />
-                    FROM si_productor p<br />
-                    LEFT JOIN si_cosecha_productor cp ON cp.id_productor = p.id<br />
-                    LEFT JOIN si_productor p2 ON p2.id = cp.id_asociacion<br />
-                    LEFT JOIN si_productor p3 ON p3.id = cp.id_asociado<br />
-                    WHERE ''1'' AND cp.id_cosecha = ''2'' AND p.id = ''G000000'' OR NOT EXISTS (SELECT cp2.id_asociacion FROM si_cosecha_productor cp2 WHERE cp2.id_cosecha = ''2'' AND (cp2.id_productor = p.id OR cp2.id_asociacion = p.id OR cp2.id_asociado = p.id)) ORDER BY p.ced_rif, p2.ced_rif, p3.ced_rif";s:9:"user_name";s:9:"MCORONADO";s:4:"date";s:19:"2012-05-02 02:22:36";}i:1;a:4:{s:4:"file";s:48:"/var/www/sigesil/lib/class/cosecha.class.php<br>";s:4:"line";i:71;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
-INSERT INTO si_app_error (apperror_id, apperror_time, apperror_text) VALUES ('4339357169a5bee4a6', '2012-05-02 14:23:21.698812-04:30', 'a:2:{i:0;a:8:{s:4:"file";s:46:"/var/www/sigesil/ajax/cosecha_programa.php<br>";s:4:"line";i:43;s:5:"class";s:7:"Cosecha";s:8:"function";s:23:"asignarCosechaProductor";s:11:"mysql_error";s:208:"ERROR:  la sintaxis de entrada no es válida para integer: «G000000»
-LINE 8: ...     WHERE "1" AND cp.id_cosecha = "2" AND p.id = "G000000" ...
-                                                             ^";s:5:"query";s:888:"SELECT  p.id AS id_productor, p.ced_rif AS ced_productor, p.nombre AS productor, <br />
-                    p2.id AS id_asociacion, p2.ced_rif AS ced_asociacion, p2.nombre AS asociacion, <br />
-                    p3.id AS id_asociado, p3.ced_rif AS ced_asociado, p3.nombre AS asociado<br />
-                    FROM si_productor p<br />
-                    LEFT JOIN si_cosecha_productor cp ON cp.id_productor = p.id<br />
-                    LEFT JOIN si_productor p2 ON p2.id = cp.id_asociacion<br />
-                    LEFT JOIN si_productor p3 ON p3.id = cp.id_asociado<br />
-                    WHERE ''1'' AND cp.id_cosecha = ''2'' AND p.id = ''G000000'' OR NOT EXISTS (SELECT cp2.id_asociacion FROM si_cosecha_productor cp2 WHERE cp2.id_cosecha = ''2'' AND (cp2.id_productor = p.id OR cp2.id_asociacion = p.id OR cp2.id_asociado = p.id)) ORDER BY p.ced_rif, p2.ced_rif, p3.ced_rif";s:9:"user_name";s:9:"MCORONADO";s:4:"date";s:19:"2012-05-02 02:23:21";}i:1;a:4:{s:4:"file";s:48:"/var/www/sigesil/lib/class/cosecha.class.php<br>";s:4:"line";i:71;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
-INSERT INTO si_app_error (apperror_id, apperror_time, apperror_text) VALUES ('b3a06cdf39ceac1096', '2012-05-02 14:23:21.744196-04:30', 'a:2:{i:0;a:8:{s:4:"file";s:46:"/var/www/sigesil/ajax/cosecha_programa.php<br>";s:4:"line";i:58;s:5:"class";s:7:"Cosecha";s:8:"function";s:23:"asignarCosechaProductor";s:11:"mysql_error";s:208:"ERROR:  la sintaxis de entrada no es válida para integer: «G000000»
-LINE 8: ...     WHERE "1" AND cp.id_cosecha = "2" AND p.id = "G000000" ...
-                                                             ^";s:5:"query";s:888:"SELECT  p.id AS id_productor, p.ced_rif AS ced_productor, p.nombre AS productor, <br />
-                    p2.id AS id_asociacion, p2.ced_rif AS ced_asociacion, p2.nombre AS asociacion, <br />
-                    p3.id AS id_asociado, p3.ced_rif AS ced_asociado, p3.nombre AS asociado<br />
-                    FROM si_productor p<br />
-                    LEFT JOIN si_cosecha_productor cp ON cp.id_productor = p.id<br />
-                    LEFT JOIN si_productor p2 ON p2.id = cp.id_asociacion<br />
-                    LEFT JOIN si_productor p3 ON p3.id = cp.id_asociado<br />
-                    WHERE ''1'' AND cp.id_cosecha = ''2'' AND p.id = ''G000000'' OR NOT EXISTS (SELECT cp2.id_asociacion FROM si_cosecha_productor cp2 WHERE cp2.id_cosecha = ''2'' AND (cp2.id_productor = p.id OR cp2.id_asociacion = p.id OR cp2.id_asociado = p.id)) ORDER BY p.ced_rif, p2.ced_rif, p3.ced_rif";s:9:"user_name";s:9:"MCORONADO";s:4:"date";s:19:"2012-05-02 02:23:21";}i:1;a:4:{s:4:"file";s:48:"/var/www/sigesil/lib/class/cosecha.class.php<br>";s:4:"line";i:71;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
-INSERT INTO si_app_error (apperror_id, apperror_time, apperror_text) VALUES ('5a6f11580b2cebe520', '2012-05-03 14:20:42.948759-04:30', 'a:2:{i:0;a:8:{s:4:"file";s:53:"/var/www/sigesil/admin/centros_acopio_listado.php<br>";s:4:"line";i:7;s:5:"class";s:12:"CentroAcopio";s:8:"function";s:8:"buscarCA";s:11:"mysql_error";s:188:"ERROR:  la referencia a la columna «estatus» es ambigua
-LINE 4:                     WHERE "1" AND ca.id <> 1 AND estatus = c...
-                                                         ^";s:5:"query";s:259:"SELECT ca.*, o.nombre AS nombre_org<br />
-                    FROM si_centro_acopio ca<br />
-                    INNER JOIN si_organizacion o ON o.id = ca.id_org <br />
-                    WHERE ''1'' AND ca.id <> 1 AND estatus = ca.estatus = ''t''ORDER BY codigo";s:9:"user_name";s:8:"JPELUZZO";s:4:"date";s:19:"2012-05-03 02:20:42";}i:1;a:4:{s:4:"file";s:54:"/var/www/sigesil/lib/class/centro_acopio.class.php<br>";s:4:"line";i:16;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
-INSERT INTO si_app_error (apperror_id, apperror_time, apperror_text) VALUES ('f9222b28a199164ab2', '2012-05-03 15:53:44.126534-04:30', 'a:2:{i:0;a:8:{s:4:"file";s:46:"/var/www/sigesil/admin/ordenes_listado.php<br>";s:4:"line";i:14;s:5:"class";s:5:"Orden";s:8:"function";s:11:"buscarOrden";s:11:"mysql_error";s:173:"ERROR:  la referencia a la columna «estatus» es ambigua
-LINE 6:                     WHERE "1" AND estatus = "t" ORDER BY id ...
-                                          ^";s:5:"query";s:471:"SELECT o.*, ca.nombre AS nombre_ca, ca.codigo, cl.ced_rif AS ced_cliente, cl.nombre AS nombre_cliente<br />
-                    FROM si_ordenes o<br />
-                    INNER JOIN si_centro_acopio ca ON ca.id = o.id_centro_acopio<br />
-                    INNER JOIN si_cliente cl ON cl.id = o.id_cliente<br />
-                    INNER JOIN si_cultivo cu ON cu.id = o.id_cultivo<br />
-                    WHERE ''1'' AND estatus = ''t'' ORDER BY id DESC LIMIT 20 OFFSET 0";s:9:"user_name";s:8:"JPELUZZO";s:4:"date";s:19:"2012-05-03 03:53:44";}i:1;a:4:{s:4:"file";s:46:"/var/www/sigesil/lib/class/orden.class.php<br>";s:4:"line";i:19;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
 
 
 --
--- TOC entry 2465 (class 0 OID 34788)
+-- TOC entry 2466 (class 0 OID 34788)
 -- Dependencies: 155
 -- Data for Name: si_asociacion; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3906,7 +3957,7 @@ LINE 6:                     WHERE "1" AND estatus = "t" ORDER BY id ...
 
 
 --
--- TOC entry 2466 (class 0 OID 34798)
+-- TOC entry 2467 (class 0 OID 34798)
 -- Dependencies: 158
 -- Data for Name: si_asociado; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3914,7 +3965,7 @@ LINE 6:                     WHERE "1" AND estatus = "t" ORDER BY id ...
 
 
 --
--- TOC entry 2467 (class 0 OID 34807)
+-- TOC entry 2468 (class 0 OID 34807)
 -- Dependencies: 160
 -- Data for Name: si_cargo; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3922,7 +3973,7 @@ LINE 6:                     WHERE "1" AND estatus = "t" ORDER BY id ...
 
 
 --
--- TOC entry 2468 (class 0 OID 34813)
+-- TOC entry 2469 (class 0 OID 34813)
 -- Dependencies: 162
 -- Data for Name: si_cargo_tipo; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3930,7 +3981,7 @@ LINE 6:                     WHERE "1" AND estatus = "t" ORDER BY id ...
 
 
 --
--- TOC entry 2469 (class 0 OID 34820)
+-- TOC entry 2470 (class 0 OID 34820)
 -- Dependencies: 164
 -- Data for Name: si_centro_acopio; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3947,7 +3998,7 @@ INSERT INTO si_centro_acopio (id, id_org, codigo, nombre, rif, telefono, fax, em
 
 
 --
--- TOC entry 2470 (class 0 OID 34833)
+-- TOC entry 2471 (class 0 OID 34833)
 -- Dependencies: 165
 -- Data for Name: si_choferes; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3961,10 +4012,11 @@ INSERT INTO si_choferes (id, id_org, id_pais, id_estado, id_municipio, ced_rif, 
 INSERT INTO si_choferes (id, id_org, id_pais, id_estado, id_municipio, ced_rif, nombre, celular, telefono, direccion, estatus, creado, modificado) VALUES (8, 1, 1, 5, 51, 'V18264068', 'JESUS RODRIGUEZ', NULL, NULL, NULL, true, '2012-04-30 10:14:22.310566-04:30', NULL);
 INSERT INTO si_choferes (id, id_org, id_pais, id_estado, id_municipio, ced_rif, nombre, celular, telefono, direccion, estatus, creado, modificado) VALUES (9, 1, 1, 5, 51, 'V18264069', 'JESUS RODRIGUEZ', NULL, NULL, NULL, true, '2012-04-30 10:34:12.974384-04:30', NULL);
 INSERT INTO si_choferes (id, id_org, id_pais, id_estado, id_municipio, ced_rif, nombre, celular, telefono, direccion, estatus, creado, modificado) VALUES (4, 1, 1, 3, 11, 'V16321654', 'OTRO CHOFER', NULL, NULL, NULL, true, '2012-04-23 14:21:37.597326-04:30', '2012-05-03 15:27:51.959201-04:30');
+INSERT INTO si_choferes (id, id_org, id_pais, id_estado, id_municipio, ced_rif, nombre, celular, telefono, direccion, estatus, creado, modificado) VALUES (10, 1, NULL, NULL, NULL, 'V18264067', 'JESUS RODRIGUEZ', NULL, NULL, NULL, true, '2012-05-04 10:46:21.988047-04:30', NULL);
 
 
 --
--- TOC entry 2471 (class 0 OID 34840)
+-- TOC entry 2472 (class 0 OID 34840)
 -- Dependencies: 168
 -- Data for Name: si_cliente; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3975,7 +4027,7 @@ INSERT INTO si_cliente (id, id_org, id_sap, ced_rif, ref, nombre, telefono, fax,
 
 
 --
--- TOC entry 2472 (class 0 OID 34849)
+-- TOC entry 2473 (class 0 OID 34849)
 -- Dependencies: 170
 -- Data for Name: si_cosecha; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3985,7 +4037,7 @@ INSERT INTO si_cosecha (id, id_programa, id_cultivo, nombre, proyectado, observa
 
 
 --
--- TOC entry 2473 (class 0 OID 34860)
+-- TOC entry 2474 (class 0 OID 34860)
 -- Dependencies: 171
 -- Data for Name: si_cosecha_productor; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -3994,10 +4046,11 @@ INSERT INTO si_cosecha_productor (id, id_cosecha, id_centro_acopio, id_productor
 INSERT INTO si_cosecha_productor (id, id_cosecha, id_centro_acopio, id_productor, id_asociacion, id_asociado, creado, modificado) VALUES (2, 1, 2, 2, 5, 7, '2012-04-29 00:00:00-04:30', NULL);
 INSERT INTO si_cosecha_productor (id, id_cosecha, id_centro_acopio, id_productor, id_asociacion, id_asociado, creado, modificado) VALUES (3, 1, 2, 2, 4, 8, NULL, NULL);
 INSERT INTO si_cosecha_productor (id, id_cosecha, id_centro_acopio, id_productor, id_asociacion, id_asociado, creado, modificado) VALUES (4, 1, 2, 3, 12, 11, NULL, NULL);
+INSERT INTO si_cosecha_productor (id, id_cosecha, id_centro_acopio, id_productor, id_asociacion, id_asociado, creado, modificado) VALUES (5, 2, 2, 10, 0, 0, '2012-05-04 00:00:00-04:30', NULL);
 
 
 --
--- TOC entry 2474 (class 0 OID 34865)
+-- TOC entry 2475 (class 0 OID 34865)
 -- Dependencies: 173
 -- Data for Name: si_cosecha_silo; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -4005,7 +4058,7 @@ INSERT INTO si_cosecha_productor (id, id_cosecha, id_centro_acopio, id_productor
 
 
 --
--- TOC entry 2475 (class 0 OID 34870)
+-- TOC entry 2476 (class 0 OID 34870)
 -- Dependencies: 175
 -- Data for Name: si_cuarentena; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -4013,7 +4066,7 @@ INSERT INTO si_cosecha_productor (id, id_cosecha, id_centro_acopio, id_productor
 
 
 --
--- TOC entry 2476 (class 0 OID 34875)
+-- TOC entry 2477 (class 0 OID 34875)
 -- Dependencies: 177
 -- Data for Name: si_cuarentena_plaga; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -4021,7 +4074,7 @@ INSERT INTO si_cosecha_productor (id, id_cosecha, id_centro_acopio, id_productor
 
 
 --
--- TOC entry 2477 (class 0 OID 34883)
+-- TOC entry 2478 (class 0 OID 34883)
 -- Dependencies: 180
 -- Data for Name: si_cultivo; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -4055,7 +4108,7 @@ INSERT INTO si_cultivo (id, id_org, codigo, nombre, tipificado, ciclo, creado, m
 
 
 --
--- TOC entry 2478 (class 0 OID 34889)
+-- TOC entry 2479 (class 0 OID 34889)
 -- Dependencies: 181
 -- Data for Name: si_cultivo_tipo; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -4073,7 +4126,7 @@ INSERT INTO si_cultivo_tipo (id, id_centro_acopio, id_cultivo, id_analisis, tipo
 
 
 --
--- TOC entry 2479 (class 0 OID 34898)
+-- TOC entry 2480 (class 0 OID 34898)
 -- Dependencies: 184
 -- Data for Name: si_denom_tip; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -4081,7 +4134,7 @@ INSERT INTO si_cultivo_tipo (id, id_centro_acopio, id_cultivo, id_analisis, tipo
 
 
 --
--- TOC entry 2480 (class 0 OID 34902)
+-- TOC entry 2481 (class 0 OID 34902)
 -- Dependencies: 185
 -- Data for Name: si_despacho; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -4094,15 +4147,20 @@ INSERT INTO si_despacho (id, id_centro_acopio, id_cultivo, id_orden, id_cliente,
 
 
 --
--- TOC entry 2481 (class 0 OID 34910)
+-- TOC entry 2482 (class 0 OID 34910)
 -- Dependencies: 188
 -- Data for Name: si_ejes; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
+INSERT INTO si_ejes (id, id_org, nombre, capacidad) VALUES (1, 1, '2 Ejes', 19000);
+INSERT INTO si_ejes (id, id_org, nombre, capacidad) VALUES (2, 1, '3 Ejes', 26000);
+INSERT INTO si_ejes (id, id_org, nombre, capacidad) VALUES (3, 1, '4 Ejes', 39000);
+INSERT INTO si_ejes (id, id_org, nombre, capacidad) VALUES (4, 1, '5 Ejes', 46000);
+INSERT INTO si_ejes (id, id_org, nombre, capacidad) VALUES (5, 1, '6 Ejes', 48000);
 
 
 --
--- TOC entry 2482 (class 0 OID 34917)
+-- TOC entry 2483 (class 0 OID 34917)
 -- Dependencies: 190
 -- Data for Name: si_estado; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -4134,7 +4192,7 @@ INSERT INTO si_estado (id, id_pais, nombre) VALUES (1, 1, 'DISTRITO CAPITAL');
 
 
 --
--- TOC entry 2483 (class 0 OID 34921)
+-- TOC entry 2484 (class 0 OID 34921)
 -- Dependencies: 191
 -- Data for Name: si_finca; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -4142,7 +4200,7 @@ INSERT INTO si_estado (id, id_pais, nombre) VALUES (1, 1, 'DISTRITO CAPITAL');
 
 
 --
--- TOC entry 2484 (class 0 OID 34930)
+-- TOC entry 2485 (class 0 OID 34930)
 -- Dependencies: 193
 -- Data for Name: si_formulas; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -4197,7 +4255,7 @@ INSERT INTO si_formulas (id, id_org, id_centro_acopio, id_cultivo, formula, codi
 
 
 --
--- TOC entry 2485 (class 0 OID 34938)
+-- TOC entry 2486 (class 0 OID 34938)
 -- Dependencies: 195
 -- Data for Name: si_guiarec; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -4207,10 +4265,11 @@ INSERT INTO si_guiarec (id, id_agencia, id_cultivo, id_usuario, numero_guia, kil
 INSERT INTO si_guiarec (id, id_agencia, id_cultivo, id_usuario, numero_guia, kilogramos, placa_remolque, placa_vehiculo, fecha_emision, estatus, cedula_asociado, contrato, creado, modificado) VALUES (4, NULL, NULL, 5, 92374392, 16000, NULL, NULL, '2012-04-03 00:00:00-04:30', 'P', NULL, NULL, '2012-04-29 20:32:39.489-04:30', NULL);
 INSERT INTO si_guiarec (id, id_agencia, id_cultivo, id_usuario, numero_guia, kilogramos, placa_remolque, placa_vehiculo, fecha_emision, estatus, cedula_asociado, contrato, creado, modificado) VALUES (5, NULL, NULL, 5, 12312312, 30000, NULL, NULL, '2012-04-30 00:00:00-04:30', 'P', NULL, NULL, '2012-04-30 10:14:22.310566-04:30', NULL);
 INSERT INTO si_guiarec (id, id_agencia, id_cultivo, id_usuario, numero_guia, kilogramos, placa_remolque, placa_vehiculo, fecha_emision, estatus, cedula_asociado, contrato, creado, modificado) VALUES (6, NULL, NULL, 5, 238947289, 32000, NULL, NULL, '2012-04-30 00:00:00-04:30', 'P', NULL, NULL, '2012-04-30 10:34:12.974384-04:30', NULL);
+INSERT INTO si_guiarec (id, id_agencia, id_cultivo, id_usuario, numero_guia, kilogramos, placa_remolque, placa_vehiculo, fecha_emision, estatus, cedula_asociado, contrato, creado, modificado) VALUES (7, NULL, NULL, 4, 234213412, 15000, NULL, NULL, '2012-05-04 00:00:00-04:30', 'P', NULL, NULL, '2012-05-04 10:46:21.988047-04:30', NULL);
 
 
 --
--- TOC entry 2486 (class 0 OID 34943)
+-- TOC entry 2487 (class 0 OID 34943)
 -- Dependencies: 196
 -- Data for Name: si_guiarec_det; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -4219,7 +4278,7 @@ INSERT INTO si_guiarec_det (id, id_guiarec, subguia, fecha, descripcion) VALUES 
 
 
 --
--- TOC entry 2487 (class 0 OID 34952)
+-- TOC entry 2488 (class 0 OID 34952)
 -- Dependencies: 200
 -- Data for Name: si_log_codigos; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -4233,7 +4292,7 @@ INSERT INTO si_log_codigos (log_codigo_id, log_codigo_nombre_es, log_codigo_crit
 
 
 --
--- TOC entry 2488 (class 0 OID 34958)
+-- TOC entry 2489 (class 0 OID 34958)
 -- Dependencies: 202
 -- Data for Name: si_log_consultas; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -6198,10 +6257,778 @@ INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuar
 		<h3 class="h-right-bar">User Computer</h3>
 			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
 ', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-03 15:04:05.334378-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''fcifmn3b1j5c3en6iv9b0bvjh4''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''fcifmn3b1j5c3en6iv9b0bvjh4'' WHERE id=''5''', 'User Login');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (505, '2012-05-03', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', 'fcifmn3b1j5c3en6iv9b0bvjh4', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />conectado = 1<br />sesion = fcifmn3b1j5c3en6iv9b0bvjh4<br />', 'conectado= 0 , sesion = NULL', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''fcifmn3b1j5c3en6iv9b0bvjh4''', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (506, '2012-05-03', 102, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', 'fcifmn3b1j5c3en6iv9b0bvjh4', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'No data', 'No data', 'No data', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''fcifmn3b1j5c3en6iv9b0bvjh4'' ', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (507, '2012-05-03', 101, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', 'fcifmn3b1j5c3en6iv9b0bvjh4', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-03 15:56:37.433923-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''fcifmn3b1j5c3en6iv9b0bvjh4''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''fcifmn3b1j5c3en6iv9b0bvjh4'' WHERE id=''5''', 'User Login');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (508, '2012-05-03', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', 'fcifmn3b1j5c3en6iv9b0bvjh4', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />conectado = 1<br />sesion = fcifmn3b1j5c3en6iv9b0bvjh4<br />', 'conectado= 0 , sesion = NULL', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''fcifmn3b1j5c3en6iv9b0bvjh4''', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (509, '2012-05-03', 102, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', 'fcifmn3b1j5c3en6iv9b0bvjh4', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'No data', 'No data', 'No data', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''fcifmn3b1j5c3en6iv9b0bvjh4'' ', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (510, '2012-05-04', 101, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', 'jnat65e34glms4obpgmm0pp266', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-03 16:34:59.727685-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''jnat65e34glms4obpgmm0pp266''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''jnat65e34glms4obpgmm0pp266'' WHERE id=''5''', 'User Login');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (511, '2012-05-04', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', 'jnat65e34glms4obpgmm0pp266', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />conectado = 1<br />sesion = jnat65e34glms4obpgmm0pp266<br />', 'conectado= 0 , sesion = NULL', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''jnat65e34glms4obpgmm0pp266''', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (512, '2012-05-04', 102, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', 'jnat65e34glms4obpgmm0pp266', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'No data', 'No data', 'No data', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''jnat65e34glms4obpgmm0pp266'' ', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (513, '2012-05-04', 101, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', 'jnat65e34glms4obpgmm0pp266', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-04 07:37:48.691461-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''jnat65e34glms4obpgmm0pp266''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''jnat65e34glms4obpgmm0pp266'' WHERE id=''5''', 'User Login');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (514, '2012-05-04', 202, 0, 'N/A', 'N/A', 'N/A', 'jnat65e34glms4obpgmm0pp266', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />conectado = 1<br />sesion = jnat65e34glms4obpgmm0pp266<br />', 'conectado= 0 , sesion = NULL', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE sesion = ''jnat65e34glms4obpgmm0pp266''', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (515, '2012-05-04', 102, 0, 'N/A', 'N/A', 'N/A', 'jnat65e34glms4obpgmm0pp266', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'No data', 'No data', 'No data', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE sesion = ''jnat65e34glms4obpgmm0pp266'' ', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (516, '2012-05-04', 101, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', 'jnat65e34glms4obpgmm0pp266', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-04 08:37:59.159808-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''jnat65e34glms4obpgmm0pp266''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''jnat65e34glms4obpgmm0pp266'' WHERE id=''5''', 'User Login');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (517, '2012-05-04', 101, 4, 'JESUS RODRIGUEZ', 'N/A', 'ARAURE', '49a6datro71q4bi6aqaj8qtav1', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-03 15:03:48.098581-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''49a6datro71q4bi6aqaj8qtav1''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''49a6datro71q4bi6aqaj8qtav1'' WHERE id=''4''', 'User Login');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (518, '2012-05-04', 201, 4, 'JESUS RODRIGUEZ', 'N/A', 'ARAURE', '49a6datro71q4bi6aqaj8qtav1', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_guiarec', 'No data', 'numero_guia = ''234213412''<br />fecha_emision =  ''04-05-2012''<br />contrato =  null<br />kilogramos =  ''15000''<br />id_usuario =  ''4''<br />estatus =  ''P''<br />creado = now()<br />', 'INSERT INTO si_guiarec  (numero_guia, fecha_emision, contrato, kilogramos, id_usuario, estatus, creado) VALUES  (''234213412'', ''04-05-2012'', null, ''15000'', ''4'', ''P'',now())', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (519, '2012-05-04', 201, 4, 'JESUS RODRIGUEZ', 'N/A', 'ARAURE', '49a6datro71q4bi6aqaj8qtav1', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_choferes', 'No data', 'ced_rif = ''V18264067''<br />nombre =  ''JESUS RODRIGUEZ''<br />id_org =  ''1''<br />estatus =  ''T''<br />creado = now()<br />', 'INSERT INTO si_choferes  (ced_rif, nombre, id_org, estatus, creado) VALUES  (''V18264067'', ''JESUS RODRIGUEZ'', ''1'', ''T'',now())', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (520, '2012-05-04', 201, 4, 'JESUS RODRIGUEZ', 'N/A', 'ARAURE', '49a6datro71q4bi6aqaj8qtav1', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_vehiculos', 'No data', 'placa = ''ASD-ASD''<br />marca =  ''FORD''<br />placa_remolques =  null<br />creado = now()<br />', 'INSERT INTO si_vehiculos  (placa, marca, placa_remolques, creado) VALUES  (''ASD-ASD'', ''FORD'', null,now())', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (521, '2012-05-04', 201, 4, 'JESUS RODRIGUEZ', 'N/A', 'ARAURE', '49a6datro71q4bi6aqaj8qtav1', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_recepcion', 'No data', 'numero = ''1''<br />id_cosecha =  ''2''<br />fecha_recepcion =  ''NOW()''<br />carril =  ''1''<br />cant_muestras =  ''1''<br />id_usuario =  ''4''<br />estatus_rec =  ''1''<br />id_centro_acopio =  ''2''<br />id_productor =  ''10''<br />id_guia =  ''7''<br />id_vehiculo =  ''14''<br />id_chofer =  ''10''<br />creado = now()<br />', 'INSERT INTO si_recepcion  (numero, id_cosecha, fecha_recepcion, carril, cant_muestras, id_usuario, estatus_rec, id_centro_acopio, id_productor, id_guia, id_vehiculo, id_chofer, creado) VALUES  (''1'', ''2'', ''NOW()'', ''1'', ''1'', ''4'', ''1'', ''2'', ''10'', ''7'', ''14'', ''10'',now())', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (522, '2012-05-04', 202, 4, 'JESUS RODRIGUEZ', 'N/A', 'ARAURE', '49a6datro71q4bi6aqaj8qtav1', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />conectado = 1<br />sesion = 49a6datro71q4bi6aqaj8qtav1<br />', 'conectado= 0 , sesion = NULL', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''4'' AND sesion = ''49a6datro71q4bi6aqaj8qtav1''', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (523, '2012-05-04', 102, 4, 'JESUS RODRIGUEZ', 'N/A', 'ARAURE', '49a6datro71q4bi6aqaj8qtav1', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'No data', 'No data', 'No data', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''4'' AND sesion = ''49a6datro71q4bi6aqaj8qtav1'' ', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (524, '2012-05-04', 101, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '49a6datro71q4bi6aqaj8qtav1', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-04 09:58:54.732423-04:30<br />conectado = 1<br />sesion = jnat65e34glms4obpgmm0pp266<br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''49a6datro71q4bi6aqaj8qtav1''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''49a6datro71q4bi6aqaj8qtav1'' WHERE id=''5''', 'User Login');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (525, '2012-05-04', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '49a6datro71q4bi6aqaj8qtav1', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />conectado = 1<br />sesion = 49a6datro71q4bi6aqaj8qtav1<br />', 'conectado= 0 , sesion = NULL', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''49a6datro71q4bi6aqaj8qtav1''', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (526, '2012-05-04', 102, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '49a6datro71q4bi6aqaj8qtav1', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'No data', 'No data', 'No data', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''49a6datro71q4bi6aqaj8qtav1'' ', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (527, '2012-05-04', 101, 1, 'JOSE PELUZZO', 'N/A', 'AGROPATRIA', '49a6datro71q4bi6aqaj8qtav1', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-03 15:56:08.437963-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''49a6datro71q4bi6aqaj8qtav1''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''49a6datro71q4bi6aqaj8qtav1'' WHERE id=''1''', 'User Login');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (528, '2012-05-04', 101, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-04 11:04:50.519185-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''1nghqa7tukm8jts6occhdqltv6''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''1nghqa7tukm8jts6occhdqltv6'' WHERE id=''5''', 'User Login');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (529, '2012-05-04', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />conectado = 1<br />sesion = 1nghqa7tukm8jts6occhdqltv6<br />', 'conectado= 0 , sesion = NULL', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''1nghqa7tukm8jts6occhdqltv6''', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (530, '2012-05-04', 102, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'No data', 'No data', 'No data', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''1nghqa7tukm8jts6occhdqltv6'' ', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (531, '2012-05-04', 101, 1, 'JOSE PELUZZO', 'N/A', 'AGROPATRIA', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-04 11:51:40.043423-04:30<br />conectado = 1<br />sesion = 49a6datro71q4bi6aqaj8qtav1<br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''1nghqa7tukm8jts6occhdqltv6''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''1nghqa7tukm8jts6occhdqltv6'' WHERE id=''1''', 'User Login');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (532, '2012-05-04', 202, 1, 'JOSE PELUZZO', 'N/A', 'AGROPATRIA', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />conectado = 1<br />sesion = 1nghqa7tukm8jts6occhdqltv6<br />', 'conectado= 0 , sesion = NULL', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''1'' AND sesion = ''1nghqa7tukm8jts6occhdqltv6''', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (533, '2012-05-04', 102, 1, 'JOSE PELUZZO', 'N/A', 'AGROPATRIA', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'No data', 'No data', 'No data', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''1'' AND sesion = ''1nghqa7tukm8jts6occhdqltv6'' ', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (534, '2012-05-04', 105, 0, 'N/A', 'N/A', 'N/A', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'No data', 'No data', 'No data', 'SELECT * FROM si_usuarios WHERE usuario = ''MCORONAD''', 'Login Incorrect=MCORONAD');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (535, '2012-05-04', 101, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-04 13:28:48.312913-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''1nghqa7tukm8jts6occhdqltv6''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''1nghqa7tukm8jts6occhdqltv6'' WHERE id=''5''', 'User Login');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (536, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''1''<br />id_usuario =  ''5''<br />muestra1 =  ''12.000''<br />muestra2 =  ''13.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''1'', ''5'', ''12.000'', ''13.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (537, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''2''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''3.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''2'', ''5'', ''0.000'', ''3.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (538, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''3''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''0.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''3'', ''5'', ''0.000'', ''0.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (539, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''4''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''0.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''4'', ''5'', ''0.000'', ''0.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (540, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''5''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''0.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''5'', ''5'', ''0.000'', ''0.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (541, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''6''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''0.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''6'', ''5'', ''0.000'', ''0.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (542, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''7''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''0.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''7'', ''5'', ''0.000'', ''0.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (543, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''8''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''0.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''8'', ''5'', ''0.000'', ''0.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (544, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''9''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''0.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''9'', ''5'', ''0.000'', ''0.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (545, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''10''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''0.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''10'', ''5'', ''0.000'', ''0.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (546, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''11''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''0.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''11'', ''5'', ''0.000'', ''0.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (547, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''12''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''0.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''12'', ''5'', ''0.000'', ''0.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (548, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''13''<br />id_usuario =  ''5''<br />muestra1 =  ''0.710''<br />muestra2 =  ''0.710''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''13'', ''5'', ''0.710'', ''0.710'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (549, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''14''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''0.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''14'', ''5'', ''0.000'', ''0.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (550, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''15''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''0.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''15'', ''5'', ''0.000'', ''0.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (551, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''19''<br />id_usuario =  ''5''<br />muestra1 =  ''NO''<br />muestra2 =  ''NO''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''19'', ''5'', ''NO'', ''NO'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (552, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''21''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''A''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''21'', ''5'', ''A'', ''A'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (553, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''22''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''A''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''22'', ''5'', ''A'', ''A'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (554, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''23''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''A''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''23'', ''5'', ''A'', ''A'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (555, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''24''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''A''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''24'', ''5'', ''A'', ''A'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (556, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''20''<br />id_usuario =  ''5''<br />muestra1 =  ''NO''<br />muestra2 =  ''NO''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''20'', ''5'', ''NO'', ''NO'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (557, '2012-05-04', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_recepcion', 'Register No.0<br />id = 2<br />estatus_rec = 1<br />muestra = <br />modificado = <br />', 'id = ''2'', estatus_rec = ''3'', muestra = null, modificado=now()', 'UPDATE si_recepcion SET  id = ''2'', estatus_rec = ''3'', muestra = null, modificado=now() WHERE id=2', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (558, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''1''<br />id_usuario =  ''5''<br />muestra1 =  ''12.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''1'', ''5'', ''12.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (559, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''2''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''2'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (560, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''3''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''3'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (561, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''4''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''4'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (562, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''5''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''5'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (563, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''6''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''6'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (564, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''7''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''7'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (565, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''8''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''8'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (566, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''9''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''9'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (567, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''10''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''10'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (568, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''11''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''11'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (569, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''12''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''12'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (570, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''13''<br />id_usuario =  ''5''<br />muestra1 =  ''0.710''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''13'', ''5'', ''0.710'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (571, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''14''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''14'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (572, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''15''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''15'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (573, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''19''<br />id_usuario =  ''5''<br />muestra1 =  ''NO''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''19'', ''5'', ''NO'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (574, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''21''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''21'', ''5'', ''A'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (575, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''22''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''22'', ''5'', ''A'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (576, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''23''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''23'', ''5'', ''A'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (577, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''24''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''24'', ''5'', ''A'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (578, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''20''<br />id_usuario =  ''5''<br />muestra1 =  ''NO''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''20'', ''5'', ''NO'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (579, '2012-05-04', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_recepcion', 'Register No.0<br />id = 3<br />estatus_rec = 1<br />muestra = <br />modificado = <br />', 'id = ''3'', estatus_rec = ''3'', muestra = null, modificado=now()', 'UPDATE si_recepcion SET  id = ''3'', estatus_rec = ''3'', muestra = null, modificado=now() WHERE id=3', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (580, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''1''<br />id_usuario =  ''5''<br />muestra1 =  ''25.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''1'', ''5'', ''25.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (581, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''2''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''2'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (582, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''3''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''3'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (583, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''4''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''4'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (584, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''5''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''5'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (585, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''6''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''6'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (586, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''7''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''7'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (587, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''8''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''8'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (588, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''9''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''9'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (589, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''10''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''10'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (590, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''11''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''11'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (591, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''12''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''12'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (592, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''13''<br />id_usuario =  ''5''<br />muestra1 =  ''0.710''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''13'', ''5'', ''0.710'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (593, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''14''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''14'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (594, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''15''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''15'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (595, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''19''<br />id_usuario =  ''5''<br />muestra1 =  ''NO''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''19'', ''5'', ''NO'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (596, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''21''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''21'', ''5'', ''A'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (597, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''22''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''22'', ''5'', ''A'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (598, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''23''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''23'', ''5'', ''A'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (599, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''24''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''24'', ''5'', ''A'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (600, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''20''<br />id_usuario =  ''5''<br />muestra1 =  ''NO''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''20'', ''5'', ''NO'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (601, '2012-05-04', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_recepcion', 'Register No.0<br />id = 4<br />estatus_rec = 1<br />muestra = <br />modificado = <br />', 'id = ''4'', estatus_rec = ''3'', muestra = null, modificado=now()', 'UPDATE si_recepcion SET  id = ''4'', estatus_rec = ''3'', muestra = null, modificado=now() WHERE id=4', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (602, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''1''<br />id_usuario =  ''5''<br />muestra1 =  ''12.000''<br />muestra2 =  ''12.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''1'', ''5'', ''12.000'', ''12.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (603, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''2''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''0.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''2'', ''5'', ''0.000'', ''0.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (604, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''3''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''0.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''3'', ''5'', ''0.000'', ''0.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (605, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''4''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''0.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''4'', ''5'', ''0.000'', ''0.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (606, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''5''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''0.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''5'', ''5'', ''0.000'', ''0.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (607, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''6''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''0.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''6'', ''5'', ''0.000'', ''0.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (608, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''7''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''0.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''7'', ''5'', ''0.000'', ''0.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (609, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''8''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''0.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''8'', ''5'', ''0.000'', ''0.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (610, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''9''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''0.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''9'', ''5'', ''0.000'', ''0.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (611, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''10''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''0.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''10'', ''5'', ''0.000'', ''0.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (612, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''11''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''0.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''11'', ''5'', ''0.000'', ''0.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (613, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''12''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''0.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''12'', ''5'', ''0.000'', ''0.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (614, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''13''<br />id_usuario =  ''5''<br />muestra1 =  ''0.710''<br />muestra2 =  ''0.710''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''13'', ''5'', ''0.710'', ''0.710'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (615, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''14''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''0.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''14'', ''5'', ''0.000'', ''0.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (616, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''15''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''0.000''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''15'', ''5'', ''0.000'', ''0.000'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (617, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''19''<br />id_usuario =  ''5''<br />muestra1 =  ''NO''<br />muestra2 =  ''NO''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''19'', ''5'', ''NO'', ''NO'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (618, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''21''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''A''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''21'', ''5'', ''A'', ''A'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (619, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''22''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''A''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''22'', ''5'', ''A'', ''A'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (620, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''23''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''A''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''23'', ''5'', ''A'', ''A'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (621, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''24''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''A''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''24'', ''5'', ''A'', ''A'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (622, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''20''<br />id_usuario =  ''5''<br />muestra1 =  ''NO''<br />muestra2 =  ''NO''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''20'', ''5'', ''NO'', ''NO'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (623, '2012-05-04', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_recepcion', 'Register No.0<br />id = 5<br />estatus_rec = 1<br />muestra = <br />modificado = <br />', 'id = ''5'', estatus_rec = ''3'', muestra = null, modificado=now()', 'UPDATE si_recepcion SET  id = ''5'', estatus_rec = ''3'', muestra = null, modificado=now() WHERE id=5', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (624, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''1''<br />id_usuario =  ''5''<br />muestra1 =  ''26.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''1'', ''5'', ''26.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (625, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''2''<br />id_usuario =  ''5''<br />muestra1 =  ''5.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''2'', ''5'', ''5.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (626, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''3''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''3'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (627, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''4''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''4'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (628, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''5''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''5'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (629, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''6''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''6'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (630, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''7''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''7'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (631, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''8''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''8'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (632, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''9''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''9'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (633, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''10''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''10'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (634, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''11''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''11'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (635, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''12''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''12'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (636, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''13''<br />id_usuario =  ''5''<br />muestra1 =  ''0.710''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''13'', ''5'', ''0.710'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (637, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''14''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''14'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (638, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''15''<br />id_usuario =  ''5''<br />muestra1 =  ''0.000''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''15'', ''5'', ''0.000'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (639, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''19''<br />id_usuario =  ''5''<br />muestra1 =  ''NO''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''19'', ''5'', ''NO'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (640, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''21''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''21'', ''5'', ''A'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (641, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''22''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''22'', ''5'', ''A'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (642, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''23''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''23'', ''5'', ''A'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (643, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''24''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''24'', ''5'', ''A'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (644, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''20''<br />id_usuario =  ''5''<br />muestra1 =  ''NO''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''20'', ''5'', ''NO'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (645, '2012-05-04', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_recepcion', 'Register No.0<br />id = 6<br />estatus_rec = 1<br />muestra = <br />modificado = <br />', 'id = ''6'', estatus_rec = ''3'', muestra = null, modificado=now()', 'UPDATE si_recepcion SET  id = ''6'', estatus_rec = ''3'', muestra = null, modificado=now() WHERE id=6', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (646, '2012-05-04', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_recepcion', 'Register No.0<br />romana_ent = <br />peso_01l = <br />peso_02l = <br />id = 2<br />estatus_rec = 3<br />fecha_pel = <br />modificado = 2012-05-04 13:33:47.916652<br />', 'romana_ent = ''5'', peso_01l = ''15780'', peso_02l = ''15000'', id = ''2'', estatus_rec = ''4'', fecha_pel = ''NOW()'', modificado=now()', 'UPDATE si_recepcion SET  romana_ent = ''5'', peso_01l = ''15780'', peso_02l = ''15000'', id = ''2'', estatus_rec = ''4'', fecha_pel = ''NOW()'', modificado=now() WHERE id=2', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (647, '2012-05-04', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_recepcion', 'Register No.0<br />romana_ent = <br />peso_01l = <br />id = 3<br />estatus_rec = 3<br />fecha_pel = <br />modificado = 2012-05-04 13:34:05.28348<br />', 'romana_ent = ''6'', peso_01l = ''32150'', id = ''3'', estatus_rec = ''4'', fecha_pel = ''NOW()'', modificado=now()', 'UPDATE si_recepcion SET  romana_ent = ''6'', peso_01l = ''32150'', id = ''3'', estatus_rec = ''4'', fecha_pel = ''NOW()'', modificado=now() WHERE id=3', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (648, '2012-05-04', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_recepcion', 'Register No.0<br />romana_ent = <br />peso_01l = <br />id = 4<br />estatus_rec = 3<br />fecha_pel = <br />modificado = 2012-05-04 13:34:21.231906<br />', 'romana_ent = ''5'', peso_01l = ''28560'', id = ''4'', estatus_rec = ''4'', fecha_pel = ''NOW()'', modificado=now()', 'UPDATE si_recepcion SET  romana_ent = ''5'', peso_01l = ''28560'', id = ''4'', estatus_rec = ''4'', fecha_pel = ''NOW()'', modificado=now() WHERE id=4', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (649, '2012-05-04', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_recepcion', 'Register No.0<br />romana_ent = <br />peso_01l = <br />peso_02l = <br />id = 5<br />estatus_rec = 3<br />fecha_pel = <br />modificado = 2012-05-04 13:34:47.870103<br />', 'romana_ent = ''5'', peso_01l = ''12000'', peso_02l = ''21658'', id = ''5'', estatus_rec = ''4'', fecha_pel = ''NOW()'', modificado=now()', 'UPDATE si_recepcion SET  romana_ent = ''5'', peso_01l = ''12000'', peso_02l = ''21658'', id = ''5'', estatus_rec = ''4'', fecha_pel = ''NOW()'', modificado=now() WHERE id=5', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (650, '2012-05-04', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_recepcion', 'Register No.0<br />romana_ent = <br />peso_01l = <br />id = 6<br />estatus_rec = 3<br />fecha_pel = <br />modificado = 2012-05-04 13:35:05.153981<br />', 'romana_ent = ''5'', peso_01l = ''23641'', id = ''6'', estatus_rec = ''4'', fecha_pel = ''NOW()'', modificado=now()', 'UPDATE si_recepcion SET  romana_ent = ''5'', peso_01l = ''23641'', id = ''6'', estatus_rec = ''4'', fecha_pel = ''NOW()'', modificado=now() WHERE id=6', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (651, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''19''<br />id_usuario =  ''5''<br />muestra1 =  ''NO''<br />muestra2 =  ''NO''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''19'', ''5'', ''NO'', ''NO'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (652, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''21''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''A''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''21'', ''5'', ''A'', ''A'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (653, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''22''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''A''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''22'', ''5'', ''A'', ''A'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (654, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''23''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''A''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''23'', ''5'', ''A'', ''A'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (655, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''24''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''A''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''24'', ''5'', ''A'', ''A'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (656, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''2''<br />id_analisis =  ''20''<br />id_usuario =  ''5''<br />muestra1 =  ''NO''<br />muestra2 =  ''NO''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''2'', ''20'', ''5'', ''NO'', ''NO'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (657, '2012-05-04', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_recepcion', 'Register No.0<br />id = 2<br />estatus_rec = 4<br />muestra = <br />modificado = 2012-05-04 13:37:14.13116<br />', 'id = ''2'', estatus_rec = ''6'', muestra = null, modificado=now()', 'UPDATE si_recepcion SET  id = ''2'', estatus_rec = ''6'', muestra = null, modificado=now() WHERE id=2', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (658, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''19''<br />id_usuario =  ''5''<br />muestra1 =  ''NO''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''19'', ''5'', ''NO'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (659, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''21''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''21'', ''5'', ''A'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (660, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''22''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''22'', ''5'', ''A'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (661, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''23''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''23'', ''5'', ''A'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (662, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''24''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''24'', ''5'', ''A'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (663, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''3''<br />id_analisis =  ''20''<br />id_usuario =  ''5''<br />muestra1 =  ''NO''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''3'', ''20'', ''5'', ''NO'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (664, '2012-05-04', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_recepcion', 'Register No.0<br />id = 3<br />estatus_rec = 4<br />muestra = <br />modificado = 2012-05-04 13:37:21.860574<br />', 'id = ''3'', estatus_rec = ''6'', muestra = null, modificado=now()', 'UPDATE si_recepcion SET  id = ''3'', estatus_rec = ''6'', muestra = null, modificado=now() WHERE id=3', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (665, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''19''<br />id_usuario =  ''5''<br />muestra1 =  ''NO''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''19'', ''5'', ''NO'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (666, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''21''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''21'', ''5'', ''A'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (667, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''22''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''22'', ''5'', ''A'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (668, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''23''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''23'', ''5'', ''A'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (669, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''24''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''24'', ''5'', ''A'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (670, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''4''<br />id_analisis =  ''20''<br />id_usuario =  ''5''<br />muestra1 =  ''NO''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''4'', ''20'', ''5'', ''NO'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (671, '2012-05-04', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_recepcion', 'Register No.0<br />id = 4<br />estatus_rec = 4<br />muestra = <br />modificado = 2012-05-04 13:37:30.87956<br />', 'id = ''4'', estatus_rec = ''6'', muestra = null, modificado=now()', 'UPDATE si_recepcion SET  id = ''4'', estatus_rec = ''6'', muestra = null, modificado=now() WHERE id=4', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (672, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''19''<br />id_usuario =  ''5''<br />muestra1 =  ''NO''<br />muestra2 =  ''NO''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''19'', ''5'', ''NO'', ''NO'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (673, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''21''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''A''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''21'', ''5'', ''A'', ''A'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (674, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''22''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''A''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''22'', ''5'', ''A'', ''A'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (675, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''23''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''A''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''23'', ''5'', ''A'', ''A'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (676, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''24''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''A''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''24'', ''5'', ''A'', ''A'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (677, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''5''<br />id_analisis =  ''20''<br />id_usuario =  ''5''<br />muestra1 =  ''NO''<br />muestra2 =  ''NO''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''5'', ''20'', ''5'', ''NO'', ''NO'', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (678, '2012-05-04', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_recepcion', 'Register No.0<br />id = 5<br />estatus_rec = 4<br />muestra = <br />modificado = 2012-05-04 13:37:43.509464<br />', 'id = ''5'', estatus_rec = ''6'', muestra = null, modificado=now()', 'UPDATE si_recepcion SET  id = ''5'', estatus_rec = ''6'', muestra = null, modificado=now() WHERE id=5', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (679, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''19''<br />id_usuario =  ''5''<br />muestra1 =  ''NO''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''19'', ''5'', ''NO'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (680, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''21''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''21'', ''5'', ''A'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (681, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''22''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''22'', ''5'', ''A'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (682, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''23''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''23'', ''5'', ''A'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (683, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''24''<br />id_usuario =  ''5''<br />muestra1 =  ''A''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''24'', ''5'', ''A'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (684, '2012-05-04', 201, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_analisis_resultado', 'No data', 'id_recepcion = ''6''<br />id_analisis =  ''20''<br />id_usuario =  ''5''<br />muestra1 =  ''NO''<br />muestra2 =  ''''<br />muestra3 =  ''''<br />id_centro_acopio =  ''2''<br />tipo_mov =  ''R''<br />', 'INSERT INTO si_analisis_resultado (id_recepcion, id_analisis, id_usuario, muestra1, muestra2, muestra3, id_centro_acopio, tipo_mov) VALUES (''6'', ''20'', ''5'', ''NO'', '''', '''', ''2'', ''R'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (685, '2012-05-04', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_recepcion', 'Register No.0<br />id = 6<br />estatus_rec = 4<br />muestra = <br />modificado = 2012-05-04 13:37:53.571476<br />', 'id = ''6'', estatus_rec = ''6'', muestra = null, modificado=now()', 'UPDATE si_recepcion SET  id = ''6'', estatus_rec = ''6'', muestra = null, modificado=now() WHERE id=6', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (686, '2012-05-04', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_recepcion', 'Register No.0<br />romana_sal = <br />peso_01v = <br />peso_02v = <br />id = 2<br />estatus_rec = 6<br />fecha_v = <br />humedad = <br />impureza = <br />humedad_des = <br />impureza_des = <br />peso_acon = <br />modificado = 2012-05-04 13:39:15.094273<br />', 'romana_sal = ''5'', peso_01v = ''7500'', peso_02v = ''10000'', id = ''2'', estatus_rec = ''9'', fecha_v = ''NOW()'', humedad = ''12.5'', impureza = ''1.5'', humedad_des = ''75.455'', impureza_des = ''198.068'', peso_acon = ''13006.477'', modificado=now()', 'UPDATE si_recepcion SET  romana_sal = ''5'', peso_01v = ''7500'', peso_02v = ''10000'', id = ''2'', estatus_rec = ''9'', fecha_v = ''NOW()'', humedad = ''12.5'', impureza = ''1.5'', humedad_des = ''75.455'', impureza_des = ''198.068'', peso_acon = ''13006.477'', modificado=now() WHERE id=2', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (687, '2012-05-04', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_recepcion', 'Register No.0<br />romana_sal = <br />peso_01v = <br />id = 3<br />estatus_rec = 6<br />fecha_v = <br />humedad = <br />impureza = <br />peso_02v = <br />humedad_des = <br />impureza_des = <br />peso_acon = <br />modificado = 2012-05-04 13:39:21.597297<br />', 'romana_sal = ''6'', peso_01v = ''15000'', id = ''3'', estatus_rec = ''9'', fecha_v = ''NOW()'', humedad = ''12'', impureza = null, peso_02v = null, humedad_des = null, impureza_des = null, peso_acon = ''17150'', modificado=now()', 'UPDATE si_recepcion SET  romana_sal = ''6'', peso_01v = ''15000'', id = ''3'', estatus_rec = ''9'', fecha_v = ''NOW()'', humedad = ''12'', impureza = null, peso_02v = null, humedad_des = null, impureza_des = null, peso_acon = ''17150'', modificado=now() WHERE id=3', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (688, '2012-05-04', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_recepcion', 'Register No.0<br />romana_sal = <br />peso_01v = <br />id = 4<br />estatus_rec = 6<br />fecha_v = <br />humedad = <br />impureza = <br />peso_02v = <br />humedad_des = <br />impureza_des = <br />peso_acon = <br />modificado = 2012-05-04 13:39:58.067957<br />', 'romana_sal = ''5'', peso_01v = ''8000'', id = ''4'', estatus_rec = ''9'', fecha_v = ''NOW()'', humedad = ''25'', impureza = null, peso_02v = null, humedad_des = ''3037.273'', impureza_des = null, peso_acon = ''17522.727'', modificado=now()', 'UPDATE si_recepcion SET  romana_sal = ''5'', peso_01v = ''8000'', id = ''4'', estatus_rec = ''9'', fecha_v = ''NOW()'', humedad = ''25'', impureza = null, peso_02v = null, humedad_des = ''3037.273'', impureza_des = null, peso_acon = ''17522.727'', modificado=now() WHERE id=4', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (689, '2012-05-04', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_recepcion', 'Register No.0<br />romana_sal = <br />peso_01v = <br />peso_02v = <br />id = 5<br />estatus_rec = 6<br />fecha_v = <br />humedad = <br />impureza = <br />humedad_des = <br />impureza_des = <br />peso_acon = <br />modificado = 2012-05-04 13:40:09.19292<br />', 'romana_sal = ''6'', peso_01v = ''6000'', peso_02v = ''12000'', id = ''5'', estatus_rec = ''9'', fecha_v = ''NOW()'', humedad = ''12'', impureza = null, humedad_des = null, impureza_des = null, peso_acon = ''15658'', modificado=now()', 'UPDATE si_recepcion SET  romana_sal = ''6'', peso_01v = ''6000'', peso_02v = ''12000'', id = ''5'', estatus_rec = ''9'', fecha_v = ''NOW()'', humedad = ''12'', impureza = null, humedad_des = null, impureza_des = null, peso_acon = ''15658'', modificado=now() WHERE id=5', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (690, '2012-05-04', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_recepcion', 'Register No.0<br />romana_sal = <br />peso_01v = <br />id = 6<br />estatus_rec = 6<br />fecha_v = <br />humedad = <br />impureza = <br />peso_02v = <br />humedad_des = <br />impureza_des = <br />peso_acon = <br />modificado = 2012-05-04 13:40:15.205489<br />', 'romana_sal = ''6'', peso_01v = ''9652'', id = ''6'', estatus_rec = ''9'', fecha_v = ''NOW()'', humedad = ''26'', impureza = ''5'', peso_02v = null, humedad_des = ''2225.523'', impureza_des = ''588.174'', peso_acon = ''11175.303'', modificado=now()', 'UPDATE si_recepcion SET  romana_sal = ''6'', peso_01v = ''9652'', id = ''6'', estatus_rec = ''9'', fecha_v = ''NOW()'', humedad = ''26'', impureza = ''5'', peso_02v = null, humedad_des = ''2225.523'', impureza_des = ''588.174'', peso_acon = ''11175.303'', modificado=now() WHERE id=6', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (691, '2012-05-04', 101, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-04 13:33:07.594144-04:30<br />conectado = 1<br />sesion = 1nghqa7tukm8jts6occhdqltv6<br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''1nghqa7tukm8jts6occhdqltv6''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''1nghqa7tukm8jts6occhdqltv6'' WHERE id=''5''', 'User Login');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (692, '2012-05-04', 101, 1, 'JOSE PELUZZO', 'N/A', 'AGROPATRIA', 'o0h639kctaulibvcn87edqm2j0', '192.168.66.123', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 3.6.3<br />ProductSub: 20100423<br />Engine: Gecko RV: 1.9.2.3</p>	</div>
+', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-04 13:29:02.074-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''o0h639kctaulibvcn87edqm2j0''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''o0h639kctaulibvcn87edqm2j0'' WHERE id=''1''', 'User Login');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (693, '2012-05-04', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />conectado = 1<br />sesion = 1nghqa7tukm8jts6occhdqltv6<br />', 'conectado= 0 , sesion = NULL', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''1nghqa7tukm8jts6occhdqltv6''', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (694, '2012-05-04', 102, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'No data', 'No data', 'No data', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''1nghqa7tukm8jts6occhdqltv6'' ', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (695, '2012-05-04', 101, 1, 'JOSE PELUZZO', 'N/A', 'AGROPATRIA', '1nghqa7tukm8jts6occhdqltv6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-04 15:36:33.706574-04:30<br />conectado = 1<br />sesion = o0h639kctaulibvcn87edqm2j0<br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''1nghqa7tukm8jts6occhdqltv6''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''1nghqa7tukm8jts6occhdqltv6'' WHERE id=''1''', 'User Login');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (696, '2012-05-04', 101, 1, 'JOSE PELUZZO', 'N/A', 'AGROPATRIA', 'o0h639kctaulibvcn87edqm2j0', '192.168.66.123', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 3.6.3<br />ProductSub: 20100423<br />Engine: Gecko RV: 1.9.2.3</p>	</div>
+', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-04 15:57:09.406826-04:30<br />conectado = 1<br />sesion = 1nghqa7tukm8jts6occhdqltv6<br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''o0h639kctaulibvcn87edqm2j0''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''o0h639kctaulibvcn87edqm2j0'' WHERE id=''1''', 'User Login');
 
 
 --
--- TOC entry 2489 (class 0 OID 34967)
+-- TOC entry 2490 (class 0 OID 34967)
 -- Dependencies: 204
 -- Data for Name: si_menu; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -6242,7 +7069,7 @@ INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modifica
 
 
 --
--- TOC entry 2490 (class 0 OID 34972)
+-- TOC entry 2491 (class 0 OID 34972)
 -- Dependencies: 205
 -- Data for Name: si_menu_usuario; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -6325,9 +7152,7 @@ INSERT INTO si_menu_usuario (id_menu, id_usuario, id, nuevo, modificar, eliminar
 INSERT INTO si_menu_usuario (id_menu, id_usuario, id, nuevo, modificar, eliminar, imprimir) VALUES (3, 5, 902, 2, 0, 0, 0);
 INSERT INTO si_menu_usuario (id_menu, id_usuario, id, nuevo, modificar, eliminar, imprimir) VALUES (13, 5, 903, 0, 0, 0, 1);
 INSERT INTO si_menu_usuario (id_menu, id_usuario, id, nuevo, modificar, eliminar, imprimir) VALUES (14, 5, 904, 0, 0, 0, 1);
-INSERT INTO si_menu_usuario (id_menu, id_usuario, id, nuevo, modificar, eliminar, imprimir) VALUES (15, 5, 905, 0, 0, 0, 1);
 INSERT INTO si_menu_usuario (id_menu, id_usuario, id, nuevo, modificar, eliminar, imprimir) VALUES (16, 5, 906, 0, 0, 0, 1);
-INSERT INTO si_menu_usuario (id_menu, id_usuario, id, nuevo, modificar, eliminar, imprimir) VALUES (17, 5, 907, 0, 0, 0, 1);
 INSERT INTO si_menu_usuario (id_menu, id_usuario, id, nuevo, modificar, eliminar, imprimir) VALUES (18, 5, 908, 0, 0, 0, 1);
 INSERT INTO si_menu_usuario (id_menu, id_usuario, id, nuevo, modificar, eliminar, imprimir) VALUES (35, 5, 909, 0, 0, 0, 1);
 INSERT INTO si_menu_usuario (id_menu, id_usuario, id, nuevo, modificar, eliminar, imprimir) VALUES (4, 5, 910, 2, 0, 0, 0);
@@ -6336,13 +7161,15 @@ INSERT INTO si_menu_usuario (id_menu, id_usuario, id, nuevo, modificar, eliminar
 INSERT INTO si_menu_usuario (id_menu, id_usuario, id, nuevo, modificar, eliminar, imprimir) VALUES (34, 5, 913, 0, 0, 0, 0);
 INSERT INTO si_menu_usuario (id_menu, id_usuario, id, nuevo, modificar, eliminar, imprimir) VALUES (5, 5, 914, 2, 0, 0, 0);
 INSERT INTO si_menu_usuario (id_menu, id_usuario, id, nuevo, modificar, eliminar, imprimir) VALUES (23, 5, 915, 0, 1, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, id, nuevo, modificar, eliminar, imprimir) VALUES (15, 5, 905, 0, 0, 0, 1);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, id, nuevo, modificar, eliminar, imprimir) VALUES (17, 5, 907, 0, 0, 0, 1);
 INSERT INTO si_menu_usuario (id_menu, id_usuario, id, nuevo, modificar, eliminar, imprimir) VALUES (34, 2, 838, 0, 0, 0, 0);
 INSERT INTO si_menu_usuario (id_menu, id_usuario, id, nuevo, modificar, eliminar, imprimir) VALUES (5, 2, 839, 2, 0, 0, 0);
 INSERT INTO si_menu_usuario (id_menu, id_usuario, id, nuevo, modificar, eliminar, imprimir) VALUES (23, 2, 840, 0, 1, 0, 0);
 
 
 --
--- TOC entry 2491 (class 0 OID 34983)
+-- TOC entry 2492 (class 0 OID 34983)
 -- Dependencies: 208
 -- Data for Name: si_municipio; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -6689,7 +7516,7 @@ INSERT INTO si_municipio (id, id_estado, nombre) VALUES (155, 13, 'SIMÓN PLANAS
 
 
 --
--- TOC entry 2492 (class 0 OID 34989)
+-- TOC entry 2493 (class 0 OID 34989)
 -- Dependencies: 210
 -- Data for Name: si_ordenes; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -6701,7 +7528,7 @@ INSERT INTO si_ordenes (id, id_centro_acopio, id_cliente, id_cultivo, numero_ord
 
 
 --
--- TOC entry 2493 (class 0 OID 34997)
+-- TOC entry 2494 (class 0 OID 34997)
 -- Dependencies: 211
 -- Data for Name: si_ordenes_det; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -6710,7 +7537,7 @@ INSERT INTO si_ordenes_det (id, id_orden, numero_orden, fecha, descripcion, kilo
 
 
 --
--- TOC entry 2494 (class 0 OID 35004)
+-- TOC entry 2495 (class 0 OID 35004)
 -- Dependencies: 214
 -- Data for Name: si_organizacion; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -6719,7 +7546,7 @@ INSERT INTO si_organizacion (id, nombre, descripcion, rif, telefono, email, dire
 
 
 --
--- TOC entry 2495 (class 0 OID 35013)
+-- TOC entry 2496 (class 0 OID 35013)
 -- Dependencies: 216
 -- Data for Name: si_pais; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -6728,7 +7555,7 @@ INSERT INTO si_pais (id, nombre) VALUES (1, 'VENEZUELA');
 
 
 --
--- TOC entry 2496 (class 0 OID 35019)
+-- TOC entry 2497 (class 0 OID 35019)
 -- Dependencies: 218
 -- Data for Name: si_parametros; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -6747,7 +7574,7 @@ INSERT INTO si_parametros (id, parametro_llave, parametro_valor, descripcion, pa
 
 
 --
--- TOC entry 2497 (class 0 OID 35028)
+-- TOC entry 2498 (class 0 OID 35028)
 -- Dependencies: 220
 -- Data for Name: si_perfiles; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -6764,7 +7591,7 @@ INSERT INTO si_perfiles (id, nombre_perfil, creado, modificado) VALUES (6, 'CALI
 
 
 --
--- TOC entry 2498 (class 0 OID 35032)
+-- TOC entry 2499 (class 0 OID 35032)
 -- Dependencies: 221
 -- Data for Name: si_plaga; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -6780,7 +7607,7 @@ INSERT INTO si_plaga (id, id_org, nombre, estatus, creado, modificado) VALUES (9
 
 
 --
--- TOC entry 2499 (class 0 OID 35037)
+-- TOC entry 2500 (class 0 OID 35037)
 -- Dependencies: 223
 -- Data for Name: si_producto; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -6791,7 +7618,7 @@ INSERT INTO si_producto (id, id_org, codigo, nombre, presentacion, dosis, estatu
 
 
 --
--- TOC entry 2500 (class 0 OID 35044)
+-- TOC entry 2501 (class 0 OID 35044)
 -- Dependencies: 226
 -- Data for Name: si_productor; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -6811,7 +7638,7 @@ INSERT INTO si_productor (id, id_org, id_sap, ced_rif, cod_ref, nombre, telefono
 
 
 --
--- TOC entry 2501 (class 0 OID 35053)
+-- TOC entry 2502 (class 0 OID 35053)
 -- Dependencies: 228
 -- Data for Name: si_programa; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -6821,7 +7648,7 @@ INSERT INTO si_programa (id, id_centro_acopio, nombre, observacion, creado, modi
 
 
 --
--- TOC entry 2502 (class 0 OID 35060)
+-- TOC entry 2503 (class 0 OID 35060)
 -- Dependencies: 229
 -- Data for Name: si_proveedor; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -6829,7 +7656,7 @@ INSERT INTO si_programa (id, id_centro_acopio, nombre, observacion, creado, modi
 
 
 --
--- TOC entry 2503 (class 0 OID 35068)
+-- TOC entry 2504 (class 0 OID 35068)
 -- Dependencies: 231
 -- Data for Name: si_punto_entrega; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -6840,20 +7667,21 @@ INSERT INTO si_punto_entrega (id, id_cliente, id_pais, id_estado, id_municipio, 
 
 
 --
--- TOC entry 2504 (class 0 OID 35076)
+-- TOC entry 2505 (class 0 OID 35076)
 -- Dependencies: 233
 -- Data for Name: si_recepcion; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo, id_chofer, romana_ent, romana_sal, peso_acon, peso_acon_liq, muestra) VALUES (2, 2, 1, NULL, 6, 2, 5, 1, '2012-04-29 19:20:15.965-04:30', 1, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-04-29 19:20:15.965-04:30', NULL, 2, 9, 5, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo, id_chofer, romana_ent, romana_sal, peso_acon, peso_acon_liq, muestra) VALUES (3, 2, 1, NULL, 11, 3, 5, 2, '2012-04-29 20:25:21.751-04:30', 2, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-04-29 20:25:21.751-04:30', NULL, 1, 10, 6, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo, id_chofer, romana_ent, romana_sal, peso_acon, peso_acon_liq, muestra) VALUES (4, 2, 1, NULL, 11, 4, 5, 3, '2012-04-29 20:32:39.489-04:30', 1, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-04-29 20:32:39.489-04:30', NULL, 1, 11, 7, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo, id_chofer, romana_ent, romana_sal, peso_acon, peso_acon_liq, muestra) VALUES (5, 2, 1, NULL, 6, 5, 5, 1, '2012-04-30 10:14:22.310566-04:30', 1, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-04-30 10:14:22.310566-04:30', NULL, 2, 12, 8, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo, id_chofer, romana_ent, romana_sal, peso_acon, peso_acon_liq, muestra) VALUES (6, 2, 1, NULL, 6, 6, 5, 2, '2012-04-30 10:34:12.974384-04:30', 1, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-04-30 10:34:12.974384-04:30', NULL, 1, 13, 9, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo, id_chofer, romana_ent, romana_sal, peso_acon, peso_acon_liq, muestra) VALUES (2, 2, 1, NULL, 6, 2, 5, 1, '2012-04-29 19:20:15.965-04:30', 1, '9', '2012-05-04 13:37:14.13116-04:30', 15780, 15000, NULL, '2012-05-04 13:41:10.488767-04:30', 7500, 10000, 12.5, 1.5, 75.454999999999998, 198.06800000000001, '2012-04-29 19:20:15.965-04:30', '2012-05-04 13:41:10.488767', 2, 9, 5, 5, 5, 13006.477000000001, NULL, 0);
+INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo, id_chofer, romana_ent, romana_sal, peso_acon, peso_acon_liq, muestra) VALUES (3, 2, 1, NULL, 11, 3, 5, 2, '2012-04-29 20:25:21.751-04:30', 2, '9', '2012-05-04 13:37:21.860574-04:30', 32150, NULL, NULL, '2012-05-04 13:41:46.820441-04:30', 15000, NULL, 12, NULL, NULL, NULL, '2012-04-29 20:25:21.751-04:30', '2012-05-04 13:41:46.820441', 1, 10, 6, 6, 6, 17150, NULL, 0);
+INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo, id_chofer, romana_ent, romana_sal, peso_acon, peso_acon_liq, muestra) VALUES (4, 2, 1, NULL, 11, 4, 5, 3, '2012-04-29 20:32:39.489-04:30', 1, '9', '2012-05-04 13:37:30.87956-04:30', 28560, NULL, NULL, '2012-05-04 13:42:01.927864-04:30', 8000, NULL, 25, NULL, 3037.2730000000001, NULL, '2012-04-29 20:32:39.489-04:30', '2012-05-04 13:42:01.927864', 1, 11, 7, 5, 5, 17522.726999999999, NULL, 0);
+INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo, id_chofer, romana_ent, romana_sal, peso_acon, peso_acon_liq, muestra) VALUES (5, 2, 1, NULL, 6, 5, 5, 1, '2012-04-30 10:14:22.310566-04:30', 1, '9', '2012-05-04 13:37:43.509464-04:30', 12000, 21658, NULL, '2012-05-04 13:42:13.898325-04:30', 6000, 12000, 12, NULL, NULL, NULL, '2012-04-30 10:14:22.310566-04:30', '2012-05-04 13:42:13.898325', 2, 12, 8, 5, 6, 15658, NULL, 0);
+INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo, id_chofer, romana_ent, romana_sal, peso_acon, peso_acon_liq, muestra) VALUES (6, 2, 1, NULL, 6, 6, 5, 2, '2012-04-30 10:34:12.974384-04:30', 1, '9', '2012-05-04 13:37:53.571476-04:30', 23641, NULL, NULL, '2012-05-04 13:42:25.260416-04:30', 9652, NULL, 26, 5, 2225.5230000000001, 588.17399999999998, '2012-04-30 10:34:12.974384-04:30', '2012-05-04 13:42:25.260416', 1, 13, 9, 5, 6, 11175.303, NULL, 0);
+INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo, id_chofer, romana_ent, romana_sal, peso_acon, peso_acon_liq, muestra) VALUES (7, 2, 2, NULL, 10, 7, 4, 1, '2012-05-04 10:46:21.988047-04:30', 1, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-05-04 10:46:21.988047-04:30', NULL, 1, 14, 10, NULL, NULL, NULL, NULL, 0);
 
 
 --
--- TOC entry 2505 (class 0 OID 35080)
+-- TOC entry 2506 (class 0 OID 35080)
 -- Dependencies: 234
 -- Data for Name: si_recepcion_cultivo_tipo; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -6861,7 +7689,7 @@ INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_producto
 
 
 --
--- TOC entry 2506 (class 0 OID 35087)
+-- TOC entry 2507 (class 0 OID 35087)
 -- Dependencies: 237
 -- Data for Name: si_recursos; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -6918,10 +7746,12 @@ INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificaci
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (50, 'Boleta Liquidacion', 'reportes', 'imprimir_boleta_liquidacion.php', 0, '2012-03-06 00:00:00-04:30', NULL);
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (51, 'Boleta Rechazo', 'reportes', 'imprimir_boleta_rechazo.php', 0, '2012-03-06 00:00:00-04:30', NULL);
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (52, 'Boleta Tipificacion', 'reportes', 'imprimir_boleta_tipificacion.php', 0, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (53, 'Reporte Despacho', 'reportes', 'reporte_despacho.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (54, 'Reporte Recepcion', 'reportes', 'reporte_recepcion.php', 1, '2012-03-06 00:00:00-04:30', NULL);
 
 
 --
--- TOC entry 2507 (class 0 OID 35094)
+-- TOC entry 2508 (class 0 OID 35094)
 -- Dependencies: 238
 -- Data for Name: si_recursos_etiquetas; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -6978,7 +7808,7 @@ INSERT INTO si_recursos_etiquetas (id, id_recurso, nombre, valor, global, creado
 
 
 --
--- TOC entry 2508 (class 0 OID 35107)
+-- TOC entry 2509 (class 0 OID 35107)
 -- Dependencies: 242
 -- Data for Name: si_silos; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -7065,7 +7895,7 @@ INSERT INTO si_silos (id, id_centro_acopio, id_almacen, nombre, coordenada, codi
 
 
 --
--- TOC entry 2509 (class 0 OID 35118)
+-- TOC entry 2510 (class 0 OID 35118)
 -- Dependencies: 244
 -- Data for Name: si_tolcarom; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -7121,7 +7951,7 @@ INSERT INTO si_tolcarom (id, id_centro_acopio, nombre, numero, tipo, estatus, cr
 
 
 --
--- TOC entry 2510 (class 0 OID 35124)
+-- TOC entry 2511 (class 0 OID 35124)
 -- Dependencies: 245
 -- Data for Name: si_transporte; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -7130,22 +7960,22 @@ INSERT INTO si_transporte (id, id_centro_acopio, rif, nombre, contacto, direccio
 
 
 --
--- TOC entry 2511 (class 0 OID 35134)
+-- TOC entry 2512 (class 0 OID 35134)
 -- Dependencies: 248
 -- Data for Name: si_usuarios; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
 INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (6, 'YELITZA', 'GUZMAN', '13000000', NULL, 'F', 'YGUZMAN', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'MARACAY', NULL, 'YELITZAGUZMAN@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-03-16 11:42:48.981154-04:30', true, 0, NULL, NULL);
-INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (4, 'JESUS', 'RODRIGUEZ', '18264065', NULL, 'M', 'JRODRIGUEZ', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'CAGUA', NULL, 'JESUSRODRIGUEZ@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-02-13 00:00:00-04:30', true, 0, NULL, '2012-05-03 15:03:48.098581-04:30');
-INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (1, 'JOSE', 'PELUZZO', '1234567', '2012-02-12', 'M', 'JPELUZZO', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'Maracay', NULL, 'JOSEPELUZZO@AGROPATRIA.CO.VE', '2012-02-12 00:00:00-04:30', NULL, true, 0, NULL, '2012-05-03 15:56:08.437963-04:30');
-INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (5, 'MARIELY', 'CORONADO', '16538158', NULL, 'F', 'MCORONADO', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'LA VILLA', NULL, 'MARIELYCORONADO@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-03-16 11:42:37.144713-04:30', true, 1, 'fcifmn3b1j5c3en6iv9b0bvjh4', '2012-05-03 15:56:37.433923-04:30');
+INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (5, 'MARIELY', 'CORONADO', '16538158', NULL, 'F', 'MCORONADO', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'LA VILLA', NULL, 'MARIELYCORONADO@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-03-16 11:42:37.144713-04:30', true, 0, NULL, '2012-05-04 15:11:10.125975-04:30');
+INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (1, 'JOSE', 'PELUZZO', '1234567', '2012-02-12', 'M', 'JPELUZZO', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'Maracay', NULL, 'JOSEPELUZZO@AGROPATRIA.CO.VE', '2012-02-12 00:00:00-04:30', NULL, true, 1, 'o0h639kctaulibvcn87edqm2j0', '2012-05-04 16:15:27.69348-04:30');
 INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (2, 'JESUS', 'SILVA', '9668397', '1970-09-01', 'M', 'JSILVA', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'MARACAY', NULL, 'JESUSSILVA@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-03-16 11:47:52.212876-04:30', true, 0, NULL, '2012-05-03 13:26:22.155497-04:30');
 INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (3, 'JUAN', 'TABORDA', '13769341', NULL, 'M', 'JTABORDA', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'MARACAY', NULL, 'JUANTABORDA@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-02-17 00:00:00-04:30', true, 0, NULL, '2012-04-18 15:58:22.135194-04:30');
 INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (7, 'JUAN', 'CARRIZALEZ', '15650075', NULL, 'M', 'JUANMC', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', NULL, NULL, 'JUANCARRIZALEZ@AGROPATRIA.CO.VE', '2012-04-25 09:24:19.641208-04:30', NULL, true, 0, NULL, NULL);
+INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (4, 'JESUS', 'RODRIGUEZ', '18264065', NULL, 'M', 'JRODRIGUEZ', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'CAGUA', NULL, 'JESUSRODRIGUEZ@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-02-13 00:00:00-04:30', true, 0, NULL, '2012-05-04 10:32:26.015077-04:30');
 
 
 --
--- TOC entry 2512 (class 0 OID 35145)
+-- TOC entry 2513 (class 0 OID 35145)
 -- Dependencies: 250
 -- Data for Name: si_usuarios_perfiles; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -7160,7 +7990,7 @@ INSERT INTO si_usuarios_perfiles (id, id_usuario, id_almacen, id_perfil, creado,
 
 
 --
--- TOC entry 2513 (class 0 OID 35149)
+-- TOC entry 2514 (class 0 OID 35149)
 -- Dependencies: 251
 -- Data for Name: si_vehiculos; Type: TABLE DATA; Schema: public; Owner: admin
 --
@@ -7178,10 +8008,11 @@ INSERT INTO si_vehiculos (id, placa, marca, color, capacidad, tara_aprox, chuto,
 INSERT INTO si_vehiculos (id, placa, marca, color, capacidad, tara_aprox, chuto, placa_remolques, creado, modificado) VALUES (11, 'DFG-SDF', 'CHEVROLET', NULL, NULL, NULL, NULL, NULL, '2012-04-29 20:32:39.489-04:30', NULL);
 INSERT INTO si_vehiculos (id, placa, marca, color, capacidad, tara_aprox, chuto, placa_remolques, creado, modificado) VALUES (12, 'DFG-DFG', NULL, NULL, NULL, NULL, NULL, NULL, '2012-04-30 10:14:22.310566-04:30', NULL);
 INSERT INTO si_vehiculos (id, placa, marca, color, capacidad, tara_aprox, chuto, placa_remolques, creado, modificado) VALUES (13, 'FGH-DFGH', NULL, NULL, NULL, NULL, NULL, NULL, '2012-04-30 10:34:12.974384-04:30', NULL);
+INSERT INTO si_vehiculos (id, placa, marca, color, capacidad, tara_aprox, chuto, placa_remolques, creado, modificado) VALUES (14, 'ASD-ASD', 'FORD', NULL, NULL, NULL, NULL, NULL, '2012-05-04 10:46:21.988047-04:30', NULL);
 
 
 --
--- TOC entry 2243 (class 2606 OID 35184)
+-- TOC entry 2244 (class 2606 OID 35184)
 -- Dependencies: 154 154
 -- Name: app_error_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7191,7 +8022,7 @@ ALTER TABLE ONLY si_app_error
 
 
 --
--- TOC entry 2291 (class 2606 OID 35186)
+-- TOC entry 2292 (class 2606 OID 35186)
 -- Dependencies: 200 200
 -- Name: log_codigos_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7201,7 +8032,7 @@ ALTER TABLE ONLY si_log_codigos
 
 
 --
--- TOC entry 2231 (class 2606 OID 35188)
+-- TOC entry 2232 (class 2606 OID 35188)
 -- Dependencies: 143 143
 -- Name: si_alamacenes_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7211,7 +8042,7 @@ ALTER TABLE ONLY si_almacenes
 
 
 --
--- TOC entry 2237 (class 2606 OID 35190)
+-- TOC entry 2238 (class 2606 OID 35190)
 -- Dependencies: 146 146
 -- Name: si_analisis_centro_acopio_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7221,7 +8052,7 @@ ALTER TABLE ONLY si_analisis_centro_acopio
 
 
 --
--- TOC entry 2239 (class 2606 OID 35192)
+-- TOC entry 2240 (class 2606 OID 35192)
 -- Dependencies: 148 148
 -- Name: si_analisis_cultivo_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7231,7 +8062,7 @@ ALTER TABLE ONLY si_analisis_cultivo
 
 
 --
--- TOC entry 2233 (class 2606 OID 35194)
+-- TOC entry 2234 (class 2606 OID 35194)
 -- Dependencies: 145 145 145
 -- Name: si_analisis_id_key; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7241,7 +8072,7 @@ ALTER TABLE ONLY si_analisis
 
 
 --
--- TOC entry 2235 (class 2606 OID 35196)
+-- TOC entry 2236 (class 2606 OID 35196)
 -- Dependencies: 145 145
 -- Name: si_analisis_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7251,7 +8082,7 @@ ALTER TABLE ONLY si_analisis
 
 
 --
--- TOC entry 2241 (class 2606 OID 35198)
+-- TOC entry 2242 (class 2606 OID 35198)
 -- Dependencies: 152 152
 -- Name: si_analisis_resultado_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7261,7 +8092,7 @@ ALTER TABLE ONLY si_analisis_resultado
 
 
 --
--- TOC entry 2245 (class 2606 OID 35200)
+-- TOC entry 2246 (class 2606 OID 35200)
 -- Dependencies: 155 155
 -- Name: si_asociacion_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7271,7 +8102,7 @@ ALTER TABLE ONLY si_asociacion
 
 
 --
--- TOC entry 2247 (class 2606 OID 35202)
+-- TOC entry 2248 (class 2606 OID 35202)
 -- Dependencies: 158 158
 -- Name: si_asociado_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7281,7 +8112,7 @@ ALTER TABLE ONLY si_asociado
 
 
 --
--- TOC entry 2249 (class 2606 OID 35204)
+-- TOC entry 2250 (class 2606 OID 35204)
 -- Dependencies: 160 160
 -- Name: si_cargo_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7291,7 +8122,7 @@ ALTER TABLE ONLY si_cargo
 
 
 --
--- TOC entry 2251 (class 2606 OID 35206)
+-- TOC entry 2252 (class 2606 OID 35206)
 -- Dependencies: 162 162
 -- Name: si_cargo_tipo_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7301,7 +8132,7 @@ ALTER TABLE ONLY si_cargo_tipo
 
 
 --
--- TOC entry 2253 (class 2606 OID 35208)
+-- TOC entry 2254 (class 2606 OID 35208)
 -- Dependencies: 164 164
 -- Name: si_centro_acopio_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7311,7 +8142,7 @@ ALTER TABLE ONLY si_centro_acopio
 
 
 --
--- TOC entry 2255 (class 2606 OID 35210)
+-- TOC entry 2256 (class 2606 OID 35210)
 -- Dependencies: 165 165
 -- Name: si_choferes_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7321,7 +8152,7 @@ ALTER TABLE ONLY si_choferes
 
 
 --
--- TOC entry 2257 (class 2606 OID 35212)
+-- TOC entry 2258 (class 2606 OID 35212)
 -- Dependencies: 168 168
 -- Name: si_cliente_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7331,7 +8162,7 @@ ALTER TABLE ONLY si_cliente
 
 
 --
--- TOC entry 2259 (class 2606 OID 35214)
+-- TOC entry 2260 (class 2606 OID 35214)
 -- Dependencies: 170 170
 -- Name: si_cosecha_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7341,7 +8172,7 @@ ALTER TABLE ONLY si_cosecha
 
 
 --
--- TOC entry 2261 (class 2606 OID 35216)
+-- TOC entry 2262 (class 2606 OID 35216)
 -- Dependencies: 171 171
 -- Name: si_cosecha_productor_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7351,7 +8182,7 @@ ALTER TABLE ONLY si_cosecha_productor
 
 
 --
--- TOC entry 2263 (class 2606 OID 35218)
+-- TOC entry 2264 (class 2606 OID 35218)
 -- Dependencies: 173 173 173 173
 -- Name: si_cosecha_silo_id_cosecha_key; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7361,7 +8192,7 @@ ALTER TABLE ONLY si_cosecha_silo
 
 
 --
--- TOC entry 2265 (class 2606 OID 35220)
+-- TOC entry 2266 (class 2606 OID 35220)
 -- Dependencies: 173 173
 -- Name: si_cosecha_silo_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7371,7 +8202,7 @@ ALTER TABLE ONLY si_cosecha_silo
 
 
 --
--- TOC entry 2267 (class 2606 OID 35222)
+-- TOC entry 2268 (class 2606 OID 35222)
 -- Dependencies: 175 175
 -- Name: si_cuarentena_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7381,7 +8212,7 @@ ALTER TABLE ONLY si_cuarentena
 
 
 --
--- TOC entry 2269 (class 2606 OID 35224)
+-- TOC entry 2270 (class 2606 OID 35224)
 -- Dependencies: 177 177
 -- Name: si_cuarentena_plaga_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7391,7 +8222,7 @@ ALTER TABLE ONLY si_cuarentena_plaga
 
 
 --
--- TOC entry 2271 (class 2606 OID 35226)
+-- TOC entry 2272 (class 2606 OID 35226)
 -- Dependencies: 180 180
 -- Name: si_cultivo_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7401,7 +8232,7 @@ ALTER TABLE ONLY si_cultivo
 
 
 --
--- TOC entry 2273 (class 2606 OID 35228)
+-- TOC entry 2274 (class 2606 OID 35228)
 -- Dependencies: 181 181
 -- Name: si_cultivo_tipo_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7411,7 +8242,7 @@ ALTER TABLE ONLY si_cultivo_tipo
 
 
 --
--- TOC entry 2275 (class 2606 OID 35230)
+-- TOC entry 2276 (class 2606 OID 35230)
 -- Dependencies: 184 184
 -- Name: si_denom_tip_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7421,7 +8252,7 @@ ALTER TABLE ONLY si_denom_tip
 
 
 --
--- TOC entry 2277 (class 2606 OID 35232)
+-- TOC entry 2278 (class 2606 OID 35232)
 -- Dependencies: 185 185
 -- Name: si_despacho_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7431,7 +8262,7 @@ ALTER TABLE ONLY si_despacho
 
 
 --
--- TOC entry 2279 (class 2606 OID 35234)
+-- TOC entry 2280 (class 2606 OID 35234)
 -- Dependencies: 188 188
 -- Name: si_ejes_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7441,7 +8272,7 @@ ALTER TABLE ONLY si_ejes
 
 
 --
--- TOC entry 2281 (class 2606 OID 35236)
+-- TOC entry 2282 (class 2606 OID 35236)
 -- Dependencies: 190 190
 -- Name: si_estado_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7451,7 +8282,7 @@ ALTER TABLE ONLY si_estado
 
 
 --
--- TOC entry 2283 (class 2606 OID 35238)
+-- TOC entry 2284 (class 2606 OID 35238)
 -- Dependencies: 191 191
 -- Name: si_finca_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7461,7 +8292,7 @@ ALTER TABLE ONLY si_finca
 
 
 --
--- TOC entry 2285 (class 2606 OID 35240)
+-- TOC entry 2286 (class 2606 OID 35240)
 -- Dependencies: 193 193
 -- Name: si_formulas_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7471,7 +8302,7 @@ ALTER TABLE ONLY si_formulas
 
 
 --
--- TOC entry 2287 (class 2606 OID 35242)
+-- TOC entry 2288 (class 2606 OID 35242)
 -- Dependencies: 195 195
 -- Name: si_guia_rec_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7481,7 +8312,7 @@ ALTER TABLE ONLY si_guiarec
 
 
 --
--- TOC entry 2289 (class 2606 OID 35244)
+-- TOC entry 2290 (class 2606 OID 35244)
 -- Dependencies: 196 196
 -- Name: si_guiarec_det_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7491,7 +8322,7 @@ ALTER TABLE ONLY si_guiarec_det
 
 
 --
--- TOC entry 2293 (class 2606 OID 35246)
+-- TOC entry 2294 (class 2606 OID 35246)
 -- Dependencies: 202 202
 -- Name: si_log_consultas_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7501,7 +8332,7 @@ ALTER TABLE ONLY si_log_consultas
 
 
 --
--- TOC entry 2295 (class 2606 OID 35248)
+-- TOC entry 2296 (class 2606 OID 35248)
 -- Dependencies: 204 204
 -- Name: si_menu_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7511,7 +8342,7 @@ ALTER TABLE ONLY si_menu
 
 
 --
--- TOC entry 2297 (class 2606 OID 35250)
+-- TOC entry 2298 (class 2606 OID 35250)
 -- Dependencies: 205 205 205
 -- Name: si_menu_usuario_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7521,7 +8352,7 @@ ALTER TABLE ONLY si_menu_usuario
 
 
 --
--- TOC entry 2299 (class 2606 OID 35252)
+-- TOC entry 2300 (class 2606 OID 35252)
 -- Dependencies: 208 208
 -- Name: si_municipio_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7531,7 +8362,7 @@ ALTER TABLE ONLY si_municipio
 
 
 --
--- TOC entry 2303 (class 2606 OID 35254)
+-- TOC entry 2304 (class 2606 OID 35254)
 -- Dependencies: 211 211
 -- Name: si_ordenes_det_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7541,7 +8372,7 @@ ALTER TABLE ONLY si_ordenes_det
 
 
 --
--- TOC entry 2301 (class 2606 OID 35256)
+-- TOC entry 2302 (class 2606 OID 35256)
 -- Dependencies: 210 210
 -- Name: si_ordenes_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7551,7 +8382,7 @@ ALTER TABLE ONLY si_ordenes
 
 
 --
--- TOC entry 2305 (class 2606 OID 35258)
+-- TOC entry 2306 (class 2606 OID 35258)
 -- Dependencies: 214 214
 -- Name: si_org_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7561,7 +8392,7 @@ ALTER TABLE ONLY si_organizacion
 
 
 --
--- TOC entry 2307 (class 2606 OID 35260)
+-- TOC entry 2308 (class 2606 OID 35260)
 -- Dependencies: 216 216
 -- Name: si_pais_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7571,7 +8402,7 @@ ALTER TABLE ONLY si_pais
 
 
 --
--- TOC entry 2309 (class 2606 OID 35262)
+-- TOC entry 2310 (class 2606 OID 35262)
 -- Dependencies: 218 218
 -- Name: si_parametros_pkey1; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7581,7 +8412,7 @@ ALTER TABLE ONLY si_parametros
 
 
 --
--- TOC entry 2311 (class 2606 OID 35264)
+-- TOC entry 2312 (class 2606 OID 35264)
 -- Dependencies: 220 220
 -- Name: si_perfiles_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7591,7 +8422,7 @@ ALTER TABLE ONLY si_perfiles
 
 
 --
--- TOC entry 2313 (class 2606 OID 35266)
+-- TOC entry 2314 (class 2606 OID 35266)
 -- Dependencies: 221 221
 -- Name: si_plaga_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7601,7 +8432,7 @@ ALTER TABLE ONLY si_plaga
 
 
 --
--- TOC entry 2315 (class 2606 OID 35268)
+-- TOC entry 2316 (class 2606 OID 35268)
 -- Dependencies: 223 223
 -- Name: si_producto_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7611,7 +8442,7 @@ ALTER TABLE ONLY si_producto
 
 
 --
--- TOC entry 2317 (class 2606 OID 35270)
+-- TOC entry 2318 (class 2606 OID 35270)
 -- Dependencies: 226 226
 -- Name: si_productor_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7621,7 +8452,7 @@ ALTER TABLE ONLY si_productor
 
 
 --
--- TOC entry 2319 (class 2606 OID 35272)
+-- TOC entry 2320 (class 2606 OID 35272)
 -- Dependencies: 228 228
 -- Name: si_programa_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7631,7 +8462,7 @@ ALTER TABLE ONLY si_programa
 
 
 --
--- TOC entry 2321 (class 2606 OID 35274)
+-- TOC entry 2322 (class 2606 OID 35274)
 -- Dependencies: 229 229
 -- Name: si_proveedor_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7641,7 +8472,7 @@ ALTER TABLE ONLY si_proveedor
 
 
 --
--- TOC entry 2323 (class 2606 OID 35276)
+-- TOC entry 2324 (class 2606 OID 35276)
 -- Dependencies: 231 231
 -- Name: si_punto_entrega_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7651,7 +8482,7 @@ ALTER TABLE ONLY si_punto_entrega
 
 
 --
--- TOC entry 2327 (class 2606 OID 35278)
+-- TOC entry 2328 (class 2606 OID 35278)
 -- Dependencies: 234 234
 -- Name: si_recepcion_cultivo_tipo_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7661,7 +8492,7 @@ ALTER TABLE ONLY si_recepcion_cultivo_tipo
 
 
 --
--- TOC entry 2325 (class 2606 OID 35280)
+-- TOC entry 2326 (class 2606 OID 35280)
 -- Dependencies: 233 233
 -- Name: si_recepcion_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7671,7 +8502,7 @@ ALTER TABLE ONLY si_recepcion
 
 
 --
--- TOC entry 2331 (class 2606 OID 35282)
+-- TOC entry 2332 (class 2606 OID 35282)
 -- Dependencies: 238 238
 -- Name: si_recursos_etiquetas_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7681,7 +8512,7 @@ ALTER TABLE ONLY si_recursos_etiquetas
 
 
 --
--- TOC entry 2329 (class 2606 OID 35284)
+-- TOC entry 2330 (class 2606 OID 35284)
 -- Dependencies: 237 237
 -- Name: si_recursos_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7691,7 +8522,7 @@ ALTER TABLE ONLY si_recursos
 
 
 --
--- TOC entry 2333 (class 2606 OID 35286)
+-- TOC entry 2334 (class 2606 OID 35286)
 -- Dependencies: 242 242
 -- Name: si_silos_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7701,7 +8532,7 @@ ALTER TABLE ONLY si_silos
 
 
 --
--- TOC entry 2335 (class 2606 OID 35288)
+-- TOC entry 2336 (class 2606 OID 35288)
 -- Dependencies: 244 244
 -- Name: si_tolcarom_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7711,7 +8542,7 @@ ALTER TABLE ONLY si_tolcarom
 
 
 --
--- TOC entry 2337 (class 2606 OID 35290)
+-- TOC entry 2338 (class 2606 OID 35290)
 -- Dependencies: 245 245
 -- Name: si_transporte_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7721,7 +8552,7 @@ ALTER TABLE ONLY si_transporte
 
 
 --
--- TOC entry 2343 (class 2606 OID 35292)
+-- TOC entry 2344 (class 2606 OID 35292)
 -- Dependencies: 250 250
 -- Name: si_usuarios_perfiles_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7731,7 +8562,7 @@ ALTER TABLE ONLY si_usuarios_perfiles
 
 
 --
--- TOC entry 2339 (class 2606 OID 35294)
+-- TOC entry 2340 (class 2606 OID 35294)
 -- Dependencies: 248 248
 -- Name: si_usuarios_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7741,7 +8572,7 @@ ALTER TABLE ONLY si_usuarios
 
 
 --
--- TOC entry 2341 (class 2606 OID 35296)
+-- TOC entry 2342 (class 2606 OID 35296)
 -- Dependencies: 248 248
 -- Name: si_usuarios_usuario_key; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7751,7 +8582,7 @@ ALTER TABLE ONLY si_usuarios
 
 
 --
--- TOC entry 2345 (class 2606 OID 35298)
+-- TOC entry 2346 (class 2606 OID 35298)
 -- Dependencies: 251 251
 -- Name: si_vehiculos_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
 --
@@ -7761,8 +8592,8 @@ ALTER TABLE ONLY si_vehiculos
 
 
 --
--- TOC entry 2346 (class 2606 OID 35299)
--- Dependencies: 164 2252 143
+-- TOC entry 2347 (class 2606 OID 35299)
+-- Dependencies: 164 143 2253
 -- Name: si_almacenes_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -7771,8 +8602,8 @@ ALTER TABLE ONLY si_almacenes
 
 
 --
--- TOC entry 2347 (class 2606 OID 35304)
--- Dependencies: 143 190 2280
+-- TOC entry 2348 (class 2606 OID 35304)
+-- Dependencies: 190 143 2281
 -- Name: si_almacenes_id_estado_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -7781,8 +8612,8 @@ ALTER TABLE ONLY si_almacenes
 
 
 --
--- TOC entry 2348 (class 2606 OID 35309)
--- Dependencies: 208 143 2298
+-- TOC entry 2349 (class 2606 OID 35309)
+-- Dependencies: 208 143 2299
 -- Name: si_almacenes_id_municipio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -7791,8 +8622,8 @@ ALTER TABLE ONLY si_almacenes
 
 
 --
--- TOC entry 2349 (class 2606 OID 35314)
--- Dependencies: 216 143 2306
+-- TOC entry 2350 (class 2606 OID 35314)
+-- Dependencies: 143 2307 216
 -- Name: si_almacenes_id_pais_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -7801,8 +8632,8 @@ ALTER TABLE ONLY si_almacenes
 
 
 --
--- TOC entry 2351 (class 2606 OID 35319)
--- Dependencies: 146 2234 145
+-- TOC entry 2352 (class 2606 OID 35319)
+-- Dependencies: 146 145 2235
 -- Name: si_analisis_centro_acopio_id_analisis_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -7811,8 +8642,8 @@ ALTER TABLE ONLY si_analisis_centro_acopio
 
 
 --
--- TOC entry 2352 (class 2606 OID 35324)
--- Dependencies: 146 164 2252
+-- TOC entry 2353 (class 2606 OID 35324)
+-- Dependencies: 164 2253 146
 -- Name: si_analisis_centro_acopio_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -7821,8 +8652,8 @@ ALTER TABLE ONLY si_analisis_centro_acopio
 
 
 --
--- TOC entry 2353 (class 2606 OID 35329)
--- Dependencies: 148 145 2234
+-- TOC entry 2354 (class 2606 OID 35329)
+-- Dependencies: 148 2235 145
 -- Name: si_analisis_cultivo_id_analisis_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -7831,8 +8662,8 @@ ALTER TABLE ONLY si_analisis_cultivo
 
 
 --
--- TOC entry 2354 (class 2606 OID 35334)
--- Dependencies: 214 148 2304
+-- TOC entry 2355 (class 2606 OID 35334)
+-- Dependencies: 214 148 2305
 -- Name: si_analisis_cultivo_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -7841,8 +8672,8 @@ ALTER TABLE ONLY si_analisis_cultivo
 
 
 --
--- TOC entry 2355 (class 2606 OID 35339)
--- Dependencies: 150 145 2234
+-- TOC entry 2356 (class 2606 OID 35339)
+-- Dependencies: 150 145 2235
 -- Name: si_analisis_des_id_analisis_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -7851,8 +8682,8 @@ ALTER TABLE ONLY si_analisis_des
 
 
 --
--- TOC entry 2356 (class 2606 OID 35344)
--- Dependencies: 214 150 2304
+-- TOC entry 2357 (class 2606 OID 35344)
+-- Dependencies: 2305 150 214
 -- Name: si_analisis_des_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -7861,8 +8692,8 @@ ALTER TABLE ONLY si_analisis_des
 
 
 --
--- TOC entry 2350 (class 2606 OID 35349)
--- Dependencies: 145 214 2304
+-- TOC entry 2351 (class 2606 OID 35349)
+-- Dependencies: 214 2305 145
 -- Name: si_analisis_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -7871,8 +8702,8 @@ ALTER TABLE ONLY si_analisis
 
 
 --
--- TOC entry 2357 (class 2606 OID 35354)
--- Dependencies: 145 152 2234
+-- TOC entry 2358 (class 2606 OID 35354)
+-- Dependencies: 145 152 2235
 -- Name: si_analisis_resultado_id_analisis_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -7881,8 +8712,8 @@ ALTER TABLE ONLY si_analisis_resultado
 
 
 --
--- TOC entry 2358 (class 2606 OID 35359)
--- Dependencies: 2276 185 152
+-- TOC entry 2359 (class 2606 OID 35359)
+-- Dependencies: 2277 185 152
 -- Name: si_analisis_resultado_id_despacho_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -7891,8 +8722,8 @@ ALTER TABLE ONLY si_analisis_resultado
 
 
 --
--- TOC entry 2359 (class 2606 OID 35364)
--- Dependencies: 233 152 2324
+-- TOC entry 2360 (class 2606 OID 35364)
+-- Dependencies: 2325 233 152
 -- Name: si_analisis_resultado_id_recepcion_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -7901,8 +8732,8 @@ ALTER TABLE ONLY si_analisis_resultado
 
 
 --
--- TOC entry 2360 (class 2606 OID 35369)
--- Dependencies: 2338 248 152
+-- TOC entry 2361 (class 2606 OID 35369)
+-- Dependencies: 248 152 2339
 -- Name: si_analisis_resultado_id_usuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -7911,8 +8742,8 @@ ALTER TABLE ONLY si_analisis_resultado
 
 
 --
--- TOC entry 2361 (class 2606 OID 35374)
--- Dependencies: 160 143 2230
+-- TOC entry 2362 (class 2606 OID 35374)
+-- Dependencies: 160 143 2231
 -- Name: si_cargo_id_almacen_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -7921,8 +8752,8 @@ ALTER TABLE ONLY si_cargo
 
 
 --
--- TOC entry 2362 (class 2606 OID 35379)
--- Dependencies: 162 160 2250
+-- TOC entry 2363 (class 2606 OID 35379)
+-- Dependencies: 160 162 2251
 -- Name: si_cargo_id_cargo_tipo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -7931,8 +8762,8 @@ ALTER TABLE ONLY si_cargo
 
 
 --
--- TOC entry 2363 (class 2606 OID 35384)
--- Dependencies: 160 248 2338
+-- TOC entry 2364 (class 2606 OID 35384)
+-- Dependencies: 160 2339 248
 -- Name: si_cargo_id_usuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -7941,8 +8772,8 @@ ALTER TABLE ONLY si_cargo
 
 
 --
--- TOC entry 2364 (class 2606 OID 35389)
--- Dependencies: 164 2280 190
+-- TOC entry 2365 (class 2606 OID 35389)
+-- Dependencies: 164 2281 190
 -- Name: si_centro_acopio_id_estado_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -7951,8 +8782,8 @@ ALTER TABLE ONLY si_centro_acopio
 
 
 --
--- TOC entry 2365 (class 2606 OID 35394)
--- Dependencies: 164 208 2298
+-- TOC entry 2366 (class 2606 OID 35394)
+-- Dependencies: 2299 164 208
 -- Name: si_centro_acopio_id_municipio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -7961,8 +8792,8 @@ ALTER TABLE ONLY si_centro_acopio
 
 
 --
--- TOC entry 2366 (class 2606 OID 35399)
--- Dependencies: 2304 164 214
+-- TOC entry 2367 (class 2606 OID 35399)
+-- Dependencies: 164 2305 214
 -- Name: si_centro_acopio_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -7971,8 +8802,8 @@ ALTER TABLE ONLY si_centro_acopio
 
 
 --
--- TOC entry 2367 (class 2606 OID 35404)
--- Dependencies: 164 216 2306
+-- TOC entry 2368 (class 2606 OID 35404)
+-- Dependencies: 216 2307 164
 -- Name: si_centro_acopio_id_pais_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -7981,8 +8812,8 @@ ALTER TABLE ONLY si_centro_acopio
 
 
 --
--- TOC entry 2368 (class 2606 OID 35409)
--- Dependencies: 165 214 2304
+-- TOC entry 2369 (class 2606 OID 35409)
+-- Dependencies: 214 2305 165
 -- Name: si_choferes_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -7991,8 +8822,8 @@ ALTER TABLE ONLY si_choferes
 
 
 --
--- TOC entry 2369 (class 2606 OID 35414)
--- Dependencies: 214 168 2304
+-- TOC entry 2370 (class 2606 OID 35414)
+-- Dependencies: 214 2305 168
 -- Name: si_cliente_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8001,8 +8832,8 @@ ALTER TABLE ONLY si_cliente
 
 
 --
--- TOC entry 2370 (class 2606 OID 35419)
--- Dependencies: 2270 170 180
+-- TOC entry 2371 (class 2606 OID 35419)
+-- Dependencies: 170 180 2271
 -- Name: si_cosecha_id_cultivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8011,8 +8842,8 @@ ALTER TABLE ONLY si_cosecha
 
 
 --
--- TOC entry 2371 (class 2606 OID 35424)
--- Dependencies: 2318 170 228
+-- TOC entry 2372 (class 2606 OID 35424)
+-- Dependencies: 2319 170 228
 -- Name: si_cosecha_id_programa_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8021,8 +8852,8 @@ ALTER TABLE ONLY si_cosecha
 
 
 --
--- TOC entry 2372 (class 2606 OID 35429)
--- Dependencies: 2252 171 164
+-- TOC entry 2373 (class 2606 OID 35429)
+-- Dependencies: 171 164 2253
 -- Name: si_cosecha_productor_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8031,8 +8862,8 @@ ALTER TABLE ONLY si_cosecha_productor
 
 
 --
--- TOC entry 2373 (class 2606 OID 35434)
--- Dependencies: 171 2258 170
+-- TOC entry 2374 (class 2606 OID 35434)
+-- Dependencies: 171 170 2259
 -- Name: si_cosecha_productor_id_cosecha_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8041,8 +8872,8 @@ ALTER TABLE ONLY si_cosecha_productor
 
 
 --
--- TOC entry 2374 (class 2606 OID 35439)
--- Dependencies: 171 226 2316
+-- TOC entry 2375 (class 2606 OID 35439)
+-- Dependencies: 226 171 2317
 -- Name: si_cosecha_productor_id_productor_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8051,8 +8882,8 @@ ALTER TABLE ONLY si_cosecha_productor
 
 
 --
--- TOC entry 2375 (class 2606 OID 35444)
--- Dependencies: 173 170 2258
+-- TOC entry 2376 (class 2606 OID 35444)
+-- Dependencies: 173 170 2259
 -- Name: si_cosecha_silo_id_cosecha_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8061,8 +8892,8 @@ ALTER TABLE ONLY si_cosecha_silo
 
 
 --
--- TOC entry 2376 (class 2606 OID 35449)
--- Dependencies: 180 2270 173
+-- TOC entry 2377 (class 2606 OID 35449)
+-- Dependencies: 2271 180 173
 -- Name: si_cosecha_silo_id_cultivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8071,8 +8902,8 @@ ALTER TABLE ONLY si_cosecha_silo
 
 
 --
--- TOC entry 2377 (class 2606 OID 35454)
--- Dependencies: 2332 173 242
+-- TOC entry 2378 (class 2606 OID 35454)
+-- Dependencies: 2333 242 173
 -- Name: si_cosecha_silo_id_silo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8081,8 +8912,8 @@ ALTER TABLE ONLY si_cosecha_silo
 
 
 --
--- TOC entry 2378 (class 2606 OID 35459)
--- Dependencies: 145 2234 175
+-- TOC entry 2379 (class 2606 OID 35459)
+-- Dependencies: 145 175 2235
 -- Name: si_cuarentena_id_analisis_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8091,8 +8922,8 @@ ALTER TABLE ONLY si_cuarentena
 
 
 --
--- TOC entry 2379 (class 2606 OID 35464)
--- Dependencies: 2252 175 164
+-- TOC entry 2380 (class 2606 OID 35464)
+-- Dependencies: 175 2253 164
 -- Name: si_cuarentena_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8101,8 +8932,8 @@ ALTER TABLE ONLY si_cuarentena
 
 
 --
--- TOC entry 2380 (class 2606 OID 35469)
--- Dependencies: 180 175 2270
+-- TOC entry 2381 (class 2606 OID 35469)
+-- Dependencies: 175 180 2271
 -- Name: si_cuarentena_id_cultivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8111,8 +8942,8 @@ ALTER TABLE ONLY si_cuarentena
 
 
 --
--- TOC entry 2381 (class 2606 OID 35474)
--- Dependencies: 233 175 2324
+-- TOC entry 2382 (class 2606 OID 35474)
+-- Dependencies: 233 2325 175
 -- Name: si_cuarentena_id_recepcion_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8121,8 +8952,8 @@ ALTER TABLE ONLY si_cuarentena
 
 
 --
--- TOC entry 2382 (class 2606 OID 35479)
--- Dependencies: 2338 248 175
+-- TOC entry 2383 (class 2606 OID 35479)
+-- Dependencies: 248 2339 175
 -- Name: si_cuarentena_id_usuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8131,8 +8962,8 @@ ALTER TABLE ONLY si_cuarentena
 
 
 --
--- TOC entry 2383 (class 2606 OID 35484)
--- Dependencies: 175 177 2266
+-- TOC entry 2384 (class 2606 OID 35484)
+-- Dependencies: 175 177 2267
 -- Name: si_cuarentena_plaga_id_cuarentena_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8141,8 +8972,8 @@ ALTER TABLE ONLY si_cuarentena_plaga
 
 
 --
--- TOC entry 2384 (class 2606 OID 35489)
--- Dependencies: 180 2304 214
+-- TOC entry 2385 (class 2606 OID 35489)
+-- Dependencies: 2305 180 214
 -- Name: si_cultivo_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8151,8 +8982,8 @@ ALTER TABLE ONLY si_cultivo
 
 
 --
--- TOC entry 2385 (class 2606 OID 35494)
--- Dependencies: 145 181 2234
+-- TOC entry 2386 (class 2606 OID 35494)
+-- Dependencies: 145 181 2235
 -- Name: si_cultivo_tipo_id_analisis_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8161,8 +8992,8 @@ ALTER TABLE ONLY si_cultivo_tipo
 
 
 --
--- TOC entry 2386 (class 2606 OID 35499)
--- Dependencies: 164 2252 181
+-- TOC entry 2387 (class 2606 OID 35499)
+-- Dependencies: 164 181 2253
 -- Name: si_cultivo_tipo_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8171,8 +9002,8 @@ ALTER TABLE ONLY si_cultivo_tipo
 
 
 --
--- TOC entry 2387 (class 2606 OID 35504)
--- Dependencies: 2270 180 181
+-- TOC entry 2388 (class 2606 OID 35504)
+-- Dependencies: 2271 180 181
 -- Name: si_cultivo_tipo_id_cultivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8181,8 +9012,8 @@ ALTER TABLE ONLY si_cultivo_tipo
 
 
 --
--- TOC entry 2388 (class 2606 OID 35509)
--- Dependencies: 180 2270 184
+-- TOC entry 2389 (class 2606 OID 35509)
+-- Dependencies: 184 2271 180
 -- Name: si_denom_tip_id_cultivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8191,8 +9022,8 @@ ALTER TABLE ONLY si_denom_tip
 
 
 --
--- TOC entry 2389 (class 2606 OID 35514)
--- Dependencies: 214 2304 184
+-- TOC entry 2390 (class 2606 OID 35514)
+-- Dependencies: 2305 214 184
 -- Name: si_denom_tip_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8201,8 +9032,8 @@ ALTER TABLE ONLY si_denom_tip
 
 
 --
--- TOC entry 2390 (class 2606 OID 35519)
--- Dependencies: 2252 185 164
+-- TOC entry 2391 (class 2606 OID 35519)
+-- Dependencies: 185 164 2253
 -- Name: si_despacho_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8211,8 +9042,8 @@ ALTER TABLE ONLY si_despacho
 
 
 --
--- TOC entry 2391 (class 2606 OID 35524)
--- Dependencies: 2256 168 185
+-- TOC entry 2392 (class 2606 OID 35524)
+-- Dependencies: 185 168 2257
 -- Name: si_despacho_id_cliente_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8221,8 +9052,8 @@ ALTER TABLE ONLY si_despacho
 
 
 --
--- TOC entry 2392 (class 2606 OID 35529)
--- Dependencies: 185 2270 180
+-- TOC entry 2393 (class 2606 OID 35529)
+-- Dependencies: 185 180 2271
 -- Name: si_despacho_id_cultivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8231,8 +9062,8 @@ ALTER TABLE ONLY si_despacho
 
 
 --
--- TOC entry 2393 (class 2606 OID 35534)
--- Dependencies: 210 2300 185
+-- TOC entry 2394 (class 2606 OID 35534)
+-- Dependencies: 185 210 2301
 -- Name: si_despacho_id_orden_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8241,8 +9072,8 @@ ALTER TABLE ONLY si_despacho
 
 
 --
--- TOC entry 2394 (class 2606 OID 35539)
--- Dependencies: 185 231 2322
+-- TOC entry 2395 (class 2606 OID 35539)
+-- Dependencies: 185 231 2323
 -- Name: si_despacho_id_punto_entrega_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8251,8 +9082,8 @@ ALTER TABLE ONLY si_despacho
 
 
 --
--- TOC entry 2395 (class 2606 OID 35544)
--- Dependencies: 185 2332 242
+-- TOC entry 2396 (class 2606 OID 35544)
+-- Dependencies: 242 185 2333
 -- Name: si_despacho_id_silo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8261,8 +9092,8 @@ ALTER TABLE ONLY si_despacho
 
 
 --
--- TOC entry 2396 (class 2606 OID 35549)
--- Dependencies: 185 245 2336
+-- TOC entry 2397 (class 2606 OID 35549)
+-- Dependencies: 2337 185 245
 -- Name: si_despacho_id_transporte_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8271,8 +9102,8 @@ ALTER TABLE ONLY si_despacho
 
 
 --
--- TOC entry 2397 (class 2606 OID 35554)
--- Dependencies: 185 2338 248
+-- TOC entry 2398 (class 2606 OID 35554)
+-- Dependencies: 185 2339 248
 -- Name: si_despacho_id_usuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8281,8 +9112,8 @@ ALTER TABLE ONLY si_despacho
 
 
 --
--- TOC entry 2398 (class 2606 OID 35559)
--- Dependencies: 2344 185 251
+-- TOC entry 2399 (class 2606 OID 35559)
+-- Dependencies: 251 185 2345
 -- Name: si_despacho_id_vehiculo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8291,8 +9122,8 @@ ALTER TABLE ONLY si_despacho
 
 
 --
--- TOC entry 2399 (class 2606 OID 35564)
--- Dependencies: 188 214 2304
+-- TOC entry 2400 (class 2606 OID 35564)
+-- Dependencies: 2305 188 214
 -- Name: si_ejes_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8301,8 +9132,8 @@ ALTER TABLE ONLY si_ejes
 
 
 --
--- TOC entry 2400 (class 2606 OID 35569)
--- Dependencies: 2306 216 190
+-- TOC entry 2401 (class 2606 OID 35569)
+-- Dependencies: 2307 190 216
 -- Name: si_estado_id_pais_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8311,8 +9142,8 @@ ALTER TABLE ONLY si_estado
 
 
 --
--- TOC entry 2401 (class 2606 OID 35574)
--- Dependencies: 191 2280 190
+-- TOC entry 2402 (class 2606 OID 35574)
+-- Dependencies: 191 2281 190
 -- Name: si_finca_id_estado_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8321,8 +9152,8 @@ ALTER TABLE ONLY si_finca
 
 
 --
--- TOC entry 2402 (class 2606 OID 35579)
--- Dependencies: 2298 191 208
+-- TOC entry 2403 (class 2606 OID 35579)
+-- Dependencies: 2299 208 191
 -- Name: si_finca_id_municipio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8331,8 +9162,8 @@ ALTER TABLE ONLY si_finca
 
 
 --
--- TOC entry 2403 (class 2606 OID 35584)
--- Dependencies: 191 2304 214
+-- TOC entry 2404 (class 2606 OID 35584)
+-- Dependencies: 214 2305 191
 -- Name: si_finca_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8341,8 +9172,8 @@ ALTER TABLE ONLY si_finca
 
 
 --
--- TOC entry 2404 (class 2606 OID 35589)
--- Dependencies: 216 2306 191
+-- TOC entry 2405 (class 2606 OID 35589)
+-- Dependencies: 216 191 2307
 -- Name: si_finca_id_pais_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8351,8 +9182,8 @@ ALTER TABLE ONLY si_finca
 
 
 --
--- TOC entry 2405 (class 2606 OID 35594)
--- Dependencies: 226 2316 191
+-- TOC entry 2406 (class 2606 OID 35594)
+-- Dependencies: 226 191 2317
 -- Name: si_finca_id_productor_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8361,8 +9192,8 @@ ALTER TABLE ONLY si_finca
 
 
 --
--- TOC entry 2406 (class 2606 OID 35599)
--- Dependencies: 193 2252 164
+-- TOC entry 2407 (class 2606 OID 35599)
+-- Dependencies: 164 193 2253
 -- Name: si_formulas_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8371,8 +9202,8 @@ ALTER TABLE ONLY si_formulas
 
 
 --
--- TOC entry 2407 (class 2606 OID 35604)
--- Dependencies: 2270 180 193
+-- TOC entry 2408 (class 2606 OID 35604)
+-- Dependencies: 180 193 2271
 -- Name: si_formulas_id_cultivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8381,8 +9212,8 @@ ALTER TABLE ONLY si_formulas
 
 
 --
--- TOC entry 2408 (class 2606 OID 35609)
--- Dependencies: 214 2304 193
+-- TOC entry 2409 (class 2606 OID 35609)
+-- Dependencies: 193 2305 214
 -- Name: si_formulas_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8391,8 +9222,8 @@ ALTER TABLE ONLY si_formulas
 
 
 --
--- TOC entry 2409 (class 2606 OID 35614)
--- Dependencies: 248 2338 195
+-- TOC entry 2410 (class 2606 OID 35614)
+-- Dependencies: 248 195 2339
 -- Name: si_guia_rec_id_usuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8401,8 +9232,8 @@ ALTER TABLE ONLY si_guiarec
 
 
 --
--- TOC entry 2410 (class 2606 OID 35619)
--- Dependencies: 196 195 2286
+-- TOC entry 2411 (class 2606 OID 35619)
+-- Dependencies: 195 196 2287
 -- Name: si_guiarec_det_id_guiarec_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8411,8 +9242,8 @@ ALTER TABLE ONLY si_guiarec_det
 
 
 --
--- TOC entry 2411 (class 2606 OID 35624)
--- Dependencies: 200 202 2290
+-- TOC entry 2412 (class 2606 OID 35624)
+-- Dependencies: 200 2291 202
 -- Name: si_log_consultas_log_codigo_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8421,8 +9252,8 @@ ALTER TABLE ONLY si_log_consultas
 
 
 --
--- TOC entry 2412 (class 2606 OID 35629)
--- Dependencies: 205 2294 204
+-- TOC entry 2413 (class 2606 OID 35629)
+-- Dependencies: 204 205 2295
 -- Name: si_menu_usuario_id_menu_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8431,8 +9262,8 @@ ALTER TABLE ONLY si_menu_usuario
 
 
 --
--- TOC entry 2413 (class 2606 OID 35639)
--- Dependencies: 205 2338 248
+-- TOC entry 2414 (class 2606 OID 35639)
+-- Dependencies: 248 205 2339
 -- Name: si_menu_usuario_id_usuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8441,8 +9272,8 @@ ALTER TABLE ONLY si_menu_usuario
 
 
 --
--- TOC entry 2414 (class 2606 OID 35644)
--- Dependencies: 208 2280 190
+-- TOC entry 2415 (class 2606 OID 35644)
+-- Dependencies: 2281 190 208
 -- Name: si_municipio_id_estado_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8451,8 +9282,8 @@ ALTER TABLE ONLY si_municipio
 
 
 --
--- TOC entry 2419 (class 2606 OID 35649)
--- Dependencies: 211 2300 210
+-- TOC entry 2420 (class 2606 OID 35649)
+-- Dependencies: 211 210 2301
 -- Name: si_ordenes_det_id_orden_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8461,8 +9292,8 @@ ALTER TABLE ONLY si_ordenes_det
 
 
 --
--- TOC entry 2415 (class 2606 OID 35654)
--- Dependencies: 2252 164 210
+-- TOC entry 2416 (class 2606 OID 35654)
+-- Dependencies: 164 2253 210
 -- Name: si_ordenes_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8471,8 +9302,8 @@ ALTER TABLE ONLY si_ordenes
 
 
 --
--- TOC entry 2416 (class 2606 OID 35659)
--- Dependencies: 210 2256 168
+-- TOC entry 2417 (class 2606 OID 35659)
+-- Dependencies: 168 2257 210
 -- Name: si_ordenes_id_cliente_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8481,8 +9312,8 @@ ALTER TABLE ONLY si_ordenes
 
 
 --
--- TOC entry 2417 (class 2606 OID 35664)
--- Dependencies: 180 2270 210
+-- TOC entry 2418 (class 2606 OID 35664)
+-- Dependencies: 2271 180 210
 -- Name: si_ordenes_id_cultivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8491,8 +9322,8 @@ ALTER TABLE ONLY si_ordenes
 
 
 --
--- TOC entry 2418 (class 2606 OID 35669)
--- Dependencies: 231 2322 210
+-- TOC entry 2419 (class 2606 OID 35669)
+-- Dependencies: 231 2323 210
 -- Name: si_ordenes_id_punto_entrega_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8501,8 +9332,8 @@ ALTER TABLE ONLY si_ordenes
 
 
 --
--- TOC entry 2420 (class 2606 OID 35674)
--- Dependencies: 190 2280 214
+-- TOC entry 2421 (class 2606 OID 35674)
+-- Dependencies: 2281 214 190
 -- Name: si_organizacion_id_estado_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8511,8 +9342,8 @@ ALTER TABLE ONLY si_organizacion
 
 
 --
--- TOC entry 2421 (class 2606 OID 35679)
--- Dependencies: 214 208 2298
+-- TOC entry 2422 (class 2606 OID 35679)
+-- Dependencies: 214 208 2299
 -- Name: si_organizacion_id_municipio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8521,8 +9352,8 @@ ALTER TABLE ONLY si_organizacion
 
 
 --
--- TOC entry 2422 (class 2606 OID 35684)
--- Dependencies: 214 2306 216
+-- TOC entry 2423 (class 2606 OID 35684)
+-- Dependencies: 216 2307 214
 -- Name: si_organizacion_id_pais_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8531,8 +9362,8 @@ ALTER TABLE ONLY si_organizacion
 
 
 --
--- TOC entry 2423 (class 2606 OID 35689)
--- Dependencies: 221 2304 214
+-- TOC entry 2424 (class 2606 OID 35689)
+-- Dependencies: 214 2305 221
 -- Name: si_plaga_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8541,8 +9372,8 @@ ALTER TABLE ONLY si_plaga
 
 
 --
--- TOC entry 2424 (class 2606 OID 35694)
--- Dependencies: 214 223 2304
+-- TOC entry 2425 (class 2606 OID 35694)
+-- Dependencies: 214 223 2305
 -- Name: si_producto_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8551,8 +9382,8 @@ ALTER TABLE ONLY si_producto
 
 
 --
--- TOC entry 2425 (class 2606 OID 35699)
--- Dependencies: 190 226 2280
+-- TOC entry 2426 (class 2606 OID 35699)
+-- Dependencies: 226 2281 190
 -- Name: si_productor_id_estado_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8561,8 +9392,8 @@ ALTER TABLE ONLY si_productor
 
 
 --
--- TOC entry 2426 (class 2606 OID 35704)
--- Dependencies: 226 208 2298
+-- TOC entry 2427 (class 2606 OID 35704)
+-- Dependencies: 208 226 2299
 -- Name: si_productor_id_municipio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8571,8 +9402,8 @@ ALTER TABLE ONLY si_productor
 
 
 --
--- TOC entry 2427 (class 2606 OID 35709)
--- Dependencies: 226 214 2304
+-- TOC entry 2428 (class 2606 OID 35709)
+-- Dependencies: 2305 226 214
 -- Name: si_productor_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8581,8 +9412,8 @@ ALTER TABLE ONLY si_productor
 
 
 --
--- TOC entry 2428 (class 2606 OID 35714)
--- Dependencies: 216 226 2306
+-- TOC entry 2429 (class 2606 OID 35714)
+-- Dependencies: 226 216 2307
 -- Name: si_productor_id_pais_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8591,8 +9422,8 @@ ALTER TABLE ONLY si_productor
 
 
 --
--- TOC entry 2429 (class 2606 OID 35719)
--- Dependencies: 164 228 2252
+-- TOC entry 2430 (class 2606 OID 35719)
+-- Dependencies: 228 164 2253
 -- Name: si_programa_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8601,8 +9432,8 @@ ALTER TABLE ONLY si_programa
 
 
 --
--- TOC entry 2430 (class 2606 OID 35724)
--- Dependencies: 229 2280 190
+-- TOC entry 2431 (class 2606 OID 35724)
+-- Dependencies: 229 2281 190
 -- Name: si_proveedor_id_estado_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8611,8 +9442,8 @@ ALTER TABLE ONLY si_proveedor
 
 
 --
--- TOC entry 2431 (class 2606 OID 35729)
--- Dependencies: 208 229 2298
+-- TOC entry 2432 (class 2606 OID 35729)
+-- Dependencies: 208 229 2299
 -- Name: si_proveedor_id_municipio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8621,8 +9452,8 @@ ALTER TABLE ONLY si_proveedor
 
 
 --
--- TOC entry 2432 (class 2606 OID 35734)
--- Dependencies: 214 229 2304
+-- TOC entry 2433 (class 2606 OID 35734)
+-- Dependencies: 229 2305 214
 -- Name: si_proveedor_id_org_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8631,8 +9462,8 @@ ALTER TABLE ONLY si_proveedor
 
 
 --
--- TOC entry 2433 (class 2606 OID 35739)
--- Dependencies: 216 2306 229
+-- TOC entry 2434 (class 2606 OID 35739)
+-- Dependencies: 2307 229 216
 -- Name: si_proveedor_id_pais_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8641,8 +9472,8 @@ ALTER TABLE ONLY si_proveedor
 
 
 --
--- TOC entry 2434 (class 2606 OID 35744)
--- Dependencies: 231 2252 164
+-- TOC entry 2435 (class 2606 OID 35744)
+-- Dependencies: 164 2253 231
 -- Name: si_punto_entrega_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8651,8 +9482,8 @@ ALTER TABLE ONLY si_punto_entrega
 
 
 --
--- TOC entry 2435 (class 2606 OID 35749)
--- Dependencies: 2256 168 231
+-- TOC entry 2436 (class 2606 OID 35749)
+-- Dependencies: 168 2257 231
 -- Name: si_punto_entrega_id_cliente_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8661,8 +9492,8 @@ ALTER TABLE ONLY si_punto_entrega
 
 
 --
--- TOC entry 2436 (class 2606 OID 35754)
--- Dependencies: 2280 190 231
+-- TOC entry 2437 (class 2606 OID 35754)
+-- Dependencies: 2281 231 190
 -- Name: si_punto_entrega_id_estado_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8671,8 +9502,8 @@ ALTER TABLE ONLY si_punto_entrega
 
 
 --
--- TOC entry 2437 (class 2606 OID 35759)
--- Dependencies: 231 2298 208
+-- TOC entry 2438 (class 2606 OID 35759)
+-- Dependencies: 2299 231 208
 -- Name: si_punto_entrega_id_municipio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8681,8 +9512,8 @@ ALTER TABLE ONLY si_punto_entrega
 
 
 --
--- TOC entry 2438 (class 2606 OID 35764)
--- Dependencies: 231 216 2306
+-- TOC entry 2439 (class 2606 OID 35764)
+-- Dependencies: 231 2307 216
 -- Name: si_punto_entrega_id_pais_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8691,8 +9522,8 @@ ALTER TABLE ONLY si_punto_entrega
 
 
 --
--- TOC entry 2446 (class 2606 OID 35769)
--- Dependencies: 164 234 2252
+-- TOC entry 2447 (class 2606 OID 35769)
+-- Dependencies: 234 164 2253
 -- Name: si_recepcion_cultivo_tipo_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8701,8 +9532,8 @@ ALTER TABLE ONLY si_recepcion_cultivo_tipo
 
 
 --
--- TOC entry 2447 (class 2606 OID 35774)
--- Dependencies: 234 2270 180
+-- TOC entry 2448 (class 2606 OID 35774)
+-- Dependencies: 180 234 2271
 -- Name: si_recepcion_cultivo_tipo_id_cultivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8711,8 +9542,8 @@ ALTER TABLE ONLY si_recepcion_cultivo_tipo
 
 
 --
--- TOC entry 2448 (class 2606 OID 35779)
--- Dependencies: 2324 234 233
+-- TOC entry 2449 (class 2606 OID 35779)
+-- Dependencies: 234 233 2325
 -- Name: si_recepcion_cultivo_tipo_id_recepcion_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8721,8 +9552,8 @@ ALTER TABLE ONLY si_recepcion_cultivo_tipo
 
 
 --
--- TOC entry 2439 (class 2606 OID 35784)
--- Dependencies: 2252 233 164
+-- TOC entry 2440 (class 2606 OID 35784)
+-- Dependencies: 233 164 2253
 -- Name: si_recepcion_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8731,8 +9562,8 @@ ALTER TABLE ONLY si_recepcion
 
 
 --
--- TOC entry 2440 (class 2606 OID 35789)
--- Dependencies: 233 165 2254
+-- TOC entry 2441 (class 2606 OID 35789)
+-- Dependencies: 165 233 2255
 -- Name: si_recepcion_id_chofer_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8741,8 +9572,8 @@ ALTER TABLE ONLY si_recepcion
 
 
 --
--- TOC entry 2441 (class 2606 OID 35794)
--- Dependencies: 233 2258 170
+-- TOC entry 2442 (class 2606 OID 35794)
+-- Dependencies: 170 2259 233
 -- Name: si_recepcion_id_cosecha_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8751,8 +9582,8 @@ ALTER TABLE ONLY si_recepcion
 
 
 --
--- TOC entry 2442 (class 2606 OID 35799)
--- Dependencies: 233 195 2286
+-- TOC entry 2443 (class 2606 OID 35799)
+-- Dependencies: 233 195 2287
 -- Name: si_recepcion_id_guia_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8761,8 +9592,8 @@ ALTER TABLE ONLY si_recepcion
 
 
 --
--- TOC entry 2443 (class 2606 OID 35804)
--- Dependencies: 2316 233 226
+-- TOC entry 2444 (class 2606 OID 35804)
+-- Dependencies: 233 2317 226
 -- Name: si_recepcion_id_productor_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8771,8 +9602,8 @@ ALTER TABLE ONLY si_recepcion
 
 
 --
--- TOC entry 2444 (class 2606 OID 35809)
--- Dependencies: 242 2332 233
+-- TOC entry 2445 (class 2606 OID 35809)
+-- Dependencies: 233 242 2333
 -- Name: si_recepcion_id_silo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8781,8 +9612,8 @@ ALTER TABLE ONLY si_recepcion
 
 
 --
--- TOC entry 2445 (class 2606 OID 35814)
--- Dependencies: 248 233 2338
+-- TOC entry 2446 (class 2606 OID 35814)
+-- Dependencies: 233 2339 248
 -- Name: si_recepcion_id_usuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8791,8 +9622,8 @@ ALTER TABLE ONLY si_recepcion
 
 
 --
--- TOC entry 2449 (class 2606 OID 35819)
--- Dependencies: 237 2328 238
+-- TOC entry 2450 (class 2606 OID 35819)
+-- Dependencies: 2329 238 237
 -- Name: si_recursos_etiquetas_id_recurso_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8801,8 +9632,8 @@ ALTER TABLE ONLY si_recursos_etiquetas
 
 
 --
--- TOC entry 2450 (class 2606 OID 35824)
--- Dependencies: 242 143 2230
+-- TOC entry 2451 (class 2606 OID 35824)
+-- Dependencies: 143 2231 242
 -- Name: si_silos_id_almacen_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8811,8 +9642,8 @@ ALTER TABLE ONLY si_silos
 
 
 --
--- TOC entry 2451 (class 2606 OID 35829)
--- Dependencies: 164 2252 242
+-- TOC entry 2452 (class 2606 OID 35829)
+-- Dependencies: 2253 242 164
 -- Name: si_silos_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8821,8 +9652,8 @@ ALTER TABLE ONLY si_silos
 
 
 --
--- TOC entry 2452 (class 2606 OID 35834)
--- Dependencies: 244 164 2252
+-- TOC entry 2453 (class 2606 OID 35834)
+-- Dependencies: 2253 244 164
 -- Name: si_tolcarom_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8831,8 +9662,8 @@ ALTER TABLE ONLY si_tolcarom
 
 
 --
--- TOC entry 2453 (class 2606 OID 35839)
--- Dependencies: 164 2252 245
+-- TOC entry 2454 (class 2606 OID 35839)
+-- Dependencies: 2253 164 245
 -- Name: si_transporte_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8841,8 +9672,8 @@ ALTER TABLE ONLY si_transporte
 
 
 --
--- TOC entry 2454 (class 2606 OID 35844)
--- Dependencies: 143 2230 250
+-- TOC entry 2455 (class 2606 OID 35844)
+-- Dependencies: 250 143 2231
 -- Name: si_usuarios_perfiles_id_almacen_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8851,8 +9682,8 @@ ALTER TABLE ONLY si_usuarios_perfiles
 
 
 --
--- TOC entry 2455 (class 2606 OID 35849)
--- Dependencies: 220 2310 250
+-- TOC entry 2456 (class 2606 OID 35849)
+-- Dependencies: 250 220 2311
 -- Name: si_usuarios_perfiles_id_perfil_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8861,8 +9692,8 @@ ALTER TABLE ONLY si_usuarios_perfiles
 
 
 --
--- TOC entry 2456 (class 2606 OID 35854)
--- Dependencies: 248 2338 250
+-- TOC entry 2457 (class 2606 OID 35854)
+-- Dependencies: 250 2339 248
 -- Name: si_usuarios_perfiles_id_usuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
 --
 
@@ -8871,7 +9702,7 @@ ALTER TABLE ONLY si_usuarios_perfiles
 
 
 --
--- TOC entry 2518 (class 0 OID 0)
+-- TOC entry 2519 (class 0 OID 0)
 -- Dependencies: 6
 -- Name: public; Type: ACL; Schema: -; Owner: postgres
 --
@@ -8882,7 +9713,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2012-05-03 16:26:32 VET
+-- Completed on 2012-05-04 16:30:06 VET
 
 --
 -- PostgreSQL database dump complete

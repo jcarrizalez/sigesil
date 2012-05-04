@@ -46,7 +46,6 @@ class Despacho extends Model {
                     LEFT JOIN si_punto_entrega pe ON pe.id = d.id_punto_entrega 
                     WHERE '1'";
         $query .= (!empty($id)) ? " AND d.id = '$id'" : '';
-        //VERIFICAR EL ORDEN DE LOS CAMPOS
         $query .= (!empty($numeroOrden)) ? " AND o.numero_orden = '$numeroOrden'" : '';
         $query .= (!empty($id)) ? " AND d.id = '$id'" : '';
         $query .= (!empty($idCa)) ? " AND d.id_centro_acopio = '$idCa'" : '';
@@ -57,11 +56,10 @@ class Despacho extends Model {
         if(!empty($fdesde) || !empty($fhasta)){
             $fdesde = (!empty($fdesde)) ? "'$fdesde'" : 'now()::date';
             $fhasta = (!empty($fhasta)) ? "'$fhasta'" : 'now()::date';
-            $query .= " AND d.fecha_des::date BETWEEN $fdesde AND $fhasta";
+            $query .= " AND d.modificado::date BETWEEN $fdesde AND $fhasta";
         }
-        $query .= " ORDER BY d.fecha_des, d.numero";
+        $query .= " ORDER BY d.modificado, d.numero";
         $query .= (!empty($porPagina)) ? " LIMIT $porPagina OFFSET $inicio" : "";
-        //die($query);
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
@@ -75,7 +73,7 @@ class Despacho extends Model {
         if(!empty($fdesde) || !empty($fhasta)){
             $fdesde = (!empty($fdesde)) ? "'$fdesde'" : 'now()::date';
             $fhasta = (!empty($fhasta)) ? "'$fhasta'" : 'now()::date';
-            $query .= " AND d.fecha_des::date BETWEEN $fdesde AND $fhasta";
+            $query .= " AND d.modificado::date BETWEEN $fdesde AND $fhasta";
         }
         $query .= (!empty($idCA)) ? " AND d.id_centro_acopio = '$idCA'" : '';
         $query .= " GROUP BY o.numero_orden, c.codigo, c.nombre, cl.ced_rif, cl.nombre, o.fecha_emision 

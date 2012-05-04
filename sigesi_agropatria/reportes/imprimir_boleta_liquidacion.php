@@ -202,12 +202,14 @@
 </table>
 <table border="0" width="800" style="padding-top: 35px;" class="centrar">
     <tr align="center">
-        <td>_______________________________</td>
-        <td>_______________________________</td>
+        <td><?=str_repeat('_',30)?></td>
+        <td><?=str_repeat('_',30)?></td>
+        <td><?=str_repeat('_',30)?></td>
     </tr>
     <tr align="center">
-        <td>Transportista</td>
-        <td>Por el Silo</td>
+        <td>Fiscal</td>
+        <td>Analista</td>
+        <td>Productor/Conductor</td>
     </tr>
 </table>
 <?

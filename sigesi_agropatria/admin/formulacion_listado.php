@@ -20,9 +20,22 @@
     $total_registros = $formulas->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);
     
+    if($GPC['ac'] == 'eliminar'){
+        $id = $GPC['id'];
+        $formulas->desactivarFor($id, $GPC['estatus']);
+        header('location: formulacion_listado.php');
+        die();
+    }
     require('../lib/common/header.php');
 ?>
-<script type="text/javascript">    
+<script type="text/javascript">
+    function eliminar(){
+        if(confirm('¿Desea Eliminar esta Formula?'))
+            return true;
+        else
+            return false;
+    }
+    
     $(document).ready(function(){
         $('#Nuevo').click(function(){
            window.location = 'formulacion.php';
@@ -57,7 +70,6 @@
                     <td colspan="2">
                         <?
                             echo $html->select('id_ca',array('options'=>$listaCA, 'selected' => $GPC['id_ca'], 'default' => 'Seleccione'));
-                            echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
                         ?>
                     </td>
                 </tr>
@@ -65,9 +77,8 @@
                 <tr id="botones">
                     <td colspan="3">
                         <?
-                            if($_SESSION['s_perfil_id'] == GERENTES){
-                                echo $html->input('Nuevo', 'Nuevo', array('type' => 'button'));
-                            }
+                            $general->crearAcciones($acciones, '', 1);
+                            echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
                         ?>
                     </td>
@@ -91,9 +102,7 @@
             <th width="1">C&oacute;digo</th>
             <th>Formula</th>
             <th>Condici&oacute;n</th>
-            <? //if($_SESSION['s_perfil_id'] == GERENTES){ ?>
             <th width="1">Acci&oacute;n</th>
-            <? //} ?>
         </tr>
         <?
             $i=0;
@@ -108,14 +117,12 @@
             <td align="center"><?=$dataFormula['codigo']?></td>
             <td><?=$dataFormula['formula']?></td>
             <td align="center"><?=$dataFormula['condicion']?></td>
-            <? //if($_SESSION['s_perfil_id'] == GERENTES){ ?>
             <td align="center">
                 <?
-                    echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'formulacion.php?ac=editar&id='.$dataFormula['id']);
-                    echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'formulacion_listado.php?ac=eliminar&id='.$dataFormula['id'], array('onclick' => 'return eliminar();'));
+                    $urls = array(1 => 'formulacion.php?ac=editar&id='.$dataFormula['id'], 'formulacion_listado.php?ac=eliminar&id='.$dataFormula['id'].'&estatus=f');
+                    $general->crearAcciones($acciones, $urls);
                 ?>
             </td>
-            <? //} ?>
         </tr>
         <? $i++; } ?>
         <tr>

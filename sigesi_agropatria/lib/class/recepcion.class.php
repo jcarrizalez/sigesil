@@ -79,8 +79,8 @@ class Recepcion extends Model {
         $query .= (!empty($estatus)) ? " AND rec.estatus_rec = '$estatus'" : "";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
-    
-    function listadoRecepcion($id=null, $idCa=null, $idCo=null, $idSilo=null, $entradaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null){
+
+    function listadoRecepcion($id=null, $idCa=null, $idCo=null, $idSilo=null, $entradaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null, $idPro=null){
         $query = "SELECT r.*, 
                     (SELECT t1.nombre FROM si_tolcarom t1 WHERE t1.id = r.romana_ent) AS romana_ent, 
                     (SELECT t2.nombre FROM si_tolcarom t2 WHERE t2.id = r.romana_sal) AS romana_sal, 
@@ -108,12 +108,13 @@ class Recepcion extends Model {
         $query .= (!empty($idSilo)) ? " AND r.id_silo = '$idSilo'" : '';
         $query .= (!empty($entradaNum)) ? " AND r.numero = '$entradaNum'" : '';
         $query .= (!empty($estatus)) ? " AND r.estatus_rec IN ($estatus)" : '';
+        $query .= (!empty($idPro)) ? " AND p.id = '$idPro'" : '';
         if(!empty($fdesde) || !empty($fhasta)){
             $fdesde = (!empty($fdesde)) ? "'".$fdesde." 00:00:00'" : 'now()::date';
             $fhasta = (!empty($fhasta)) ? "'".$fhasta." 23:59:59'" : 'now()::date';
-            $query .= " AND d.fecha_recepcion BETWEEN $fdesde AND $fhasta";
+            $query .= " AND r.modificado BETWEEN $fdesde AND $fhasta";
         }
-        $query .= " ORDER BY r.fecha_recepcion, r.numero";
+        $query .= " ORDER BY r.modificado, r.numero";
         $query .= (!empty($porPagina)) ? " LIMIT $porPagina OFFSET $inicio" : "";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
@@ -123,6 +124,26 @@ class Recepcion extends Model {
         $query .= (!empty($Num)) ? " AND r.numero = '$Num'" : '';
         $query .= (!empty($Num)) ? " AND to_char(r.fecha_recepcion, 'yyyy-mm-dd') = '$Fecha'" : '';        
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);    
+    }
+    
+    function recepcionesReporteGeneral($fdesde=null, $fhasta=null, $idCA=null){
+        $query = "SELECT '('||co.codigo||') '||co.nombre AS cosecha, '('||cu.codigo||') '||cu.nombre AS cultivo, p.id, p.ced_rif, p.nombre AS nombre_productor
+                    FROM si_recepcion r
+                    INNER JOIN si_guiarec g ON g.id = r.id_guia
+                    INNER JOIN si_cosecha co ON co.id = r.id_cosecha
+                    INNER JOIN si_cosecha_productor cp ON cp.id_cosecha = co.id
+                    INNER JOIN si_productor p ON p.id = cp.id_productor
+                    INNER JOIN si_cultivo cu ON cu.id = co.id_cultivo
+                    WHERE '1' AND r.estatus_rec = '9'";
+        if(!empty($fdesde) || !empty($fhasta)){
+            $fdesde = (!empty($fdesde)) ? "'$fdesde'" : 'now()::date';
+            $fhasta = (!empty($fhasta)) ? "'$fhasta'" : 'now()::date';
+            $query .= " AND r.modificado::date BETWEEN $fdesde AND $fhasta";
+        }
+        $query .= (!empty($idCA)) ? " AND r.id_centro_acopio = '$idCA'" : '';
+        $query .= " GROUP BY co.codigo, co.nombre, cu.codigo, cu.nombre, p.id, p.ced_rif, p.nombre, co.fecha_inicio
+                    ORDER BY co.codigo, co.fecha_inicio";
+        return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 }
 

@@ -38,7 +38,7 @@ if(count($listadoDespachosdatos)<1)
 {
 $ban=0;
 }
-$reporte_='RECEPCIONES_DESDE_'.$arrays[0].'_HASTA_'.$arrays[1];
+$reporte_='DESPACHOS_DESDE_'.$arrays[0].'_HASTA_'.$arrays[1];
 }
 else
 $reporte_='REPORTE_SIN_DATOS';
@@ -53,9 +53,9 @@ class HOJASOL extends tcpdf{
 
     function setearTitulo($fdesde, $fhasta){
         if($fdesde == $fhasta)
-            $this->titulo = "LISTADO DE RECEPCIONES PARA LA FECHA $fdesde";
+            $this->titulo = "LISTADO DE DESPACHOS PARA LA FECHA $fdesde";
         else
-            $this->titulo = "LISTADO DE RECEPCIONES DESDE $fdesde HASTA $fhasta";
+            $this->titulo = "LISTADO DE DESPACHOS DESDE $fdesde HASTA $fhasta";
     }
    
     function mayus($let) { return strtr(strtoupper($let),"àèìòùáéíóúçñäëïöü","ÀÈÌÒÙÁÉÍÓÚÇÑÄËÏÖÜ");}
@@ -122,23 +122,17 @@ $suma_despachos_general=0;
 for($j=0; $j<count($listadoDespachosdatos); $j++)
 {
 $listadoDespachos = $despacho2->listadoDespacho('', $centro_acopio, '', '', '', "'5'",$arrays[0],$arrays[1],'','',$listadoDespachosdatos[$j]['numero_orden']);
-
-$t='<table border="0" cellpadding="0" cellspacing="0">';
-if(isset($listadoDespachos[0]['cliente_nombre']))
-$t.='<tr align="left"><td width="65px"><b> Entidad    : </b></td><td>'.$listadoDespachos[0]['cliente_nombre'].' </td></tr>';
-if(isset($listadoDespachos[0]['cliente_nombre']))
-$t.='<tr align="left"><td width="65px"><b> Asociado   : </b></td><td>'.$listadoDespachos[0]['cliente_nombre'].' </td></tr>';
-if(isset($listadoDespachos[0]['cliente_nombre']))
-$t.='<tr align="left"><td width="65px"><b> Productor  : </b></td><td>'.$listadoDespachos[0]['cliente_nombre'].' <b>RIF:</b> '.$listadoDespachos[0]['ced_cliente'].' </td></tr>';
-
 $t.='
+<table border="0" cellpadding="0" cellspacing="0">
+<tr align="left"><td width="60px"><b> Cliente    :</b></td><td>'.$listadoDespachosdatos[$j]['nombre_cliente'].' <b> RIF: </b>'.$listadoDespachosdatos[$j]['ced_rif'].' </td></tr>
+<tr align="left"><td width="60px"><b> Cultivo    :</b></td><td>'.$listadoDespachosdatos[$j]['cultivo'].'   </td></tr>
 </table>
 <br />
 
 <table border="0" cellpadding="0" cellspacing="0" width="100px" bordercolor="#000000">
 <tr bgcolor="#FFFFFF" align="right">
-<td width="80px"><b>Entrada #</b></td>
-<td width="80px"><b>Guia</b></td>
+<td width="80px"><b>Despacho #</b></td>
+<td width="80px"><b>Orden</b></td>
 <td width="75px"><b>Fecha</b></td>
 <td width="65px"><b>Placa</b></td>
 <td width="85px"><b>Peso Bruto</b></td>
@@ -180,7 +174,7 @@ $pacondicionado_=$pdf->decimales($pacondicionado);
 $hum=$listadoDespachos[$i]['humedad'];
 $fecha_des=$general->date_sql_screen($listadoDespachos[$i]['fecha_des'],'','es','-');
 $fecha_des_d=$general->date_sql_screen($listadoDespachos[$i]['fecha_des'],'','es','');
-$despacho="R".$listadoDespachos[$i]['numero']."-".$fecha_des_d;
+$despacho="D".$listadoDespachos[$i]['numero']."-".$fecha_des_d;
 $suma_despachos+=$i;
 
 $t.='

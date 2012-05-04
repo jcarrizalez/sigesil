@@ -54,11 +54,6 @@
     $menu = new Menu();
     
     $etiqueta = $lenguaje->etiquetasPorPagina($_SERVER['PHP_SELF']);
-    
-    if(!empty($_SESSION['s_id'])){
-        $infoPagina = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 1);
-        $acciones = $menu->accionesPagina($_SESSION['s_id'], $infoPagina);
-    }
 
     if (file_exists(APPROOT.'lib/common/verificar_login.php')){
         $usuario = new Usuario();
@@ -66,6 +61,11 @@
 	if ($requerido[0]['pagina_requerida'] > 0){
             require_once(APPROOT.'lib/common/verificar_login.php');
         }
+    }
+    
+    if(!empty($_SESSION['s_id'])){
+        $infoPagina = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 1);
+        $acciones = $menu->accionesPagina($_SESSION['s_id'], $infoPagina);
     }
     //habilitamos el error handler
     if ((DEBUG) and (Debug::$config['Handler'])){

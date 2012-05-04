@@ -2,15 +2,23 @@
 require_once('../lib/core.lib.php');
 include('../lib/class/tcpdf/config/lang/spa.php');
 include('../lib/class/tcpdf/tcpdf.php');
-$despacho = new Despacho();
+$recepcion = new Recepcion();
 
 if(isset($GPC['id']))
 {
+
 	$arrays=explode('_',$GPC['id']);
+/*
 	if(isset($arrays[0]) and isset($arrays[1]) and isset($arrays[2]))
-		$ban=1;
+		$ban=0; //1
 	else
 		$ban=0;
+*/
+echo 'ddddd';
+//$listadoRecepciones = $recepcion->listadoRecepciones('', $centro_acopio, '', '', '', "'9'",$arrays[1],$arrays[2],'','',$arrays[0]);
+$listadoRecepciones = $recepcion->listadoRecepciones('', '', '', '', '', "'9'",$arrays[1],$arrays[2],'','',$arrays[0]);
+Debug::pr($listadoRecepciones);
+*/
 }
 else
 $ban=0;
@@ -26,7 +34,12 @@ $centro_acopio=$arrays[3];
 else
 $centro_acopio='';
 
-$listadoDespachos = $despacho->listadoDespacho('', $centro_acopio, '', '', '', "'5'",$arrays[1],$arrays[2],'','',$arrays[0]);
+//$listadoDespachos = $despacho->listadoDespacho('', $centro_acopio, '', '', '', "'5'",$arrays[1],$arrays[2],'','',$arrays[0]);
+
+$listadoRecepciones = $recepcion->listadoRecepciones('', $centro_acopio, '', '', '', "'9'",$arrays[1],$arrays[2],'','',$arrays[0]);
+Debug::pr($listadoRecepciones);
+
+
 $reporte_=$listadoDespachos[0]['cliente_nombre'].'_'.$listadoDespachos[0]['ced_cliente'];
 }
 else
@@ -38,9 +51,9 @@ class HOJASOL extends tcpdf{
 
     function setearTitulo($fdesde, $fhasta){
         if($fdesde == $fhasta)
-            $this->titulo = "LISTADO DE DESPACHOS PARA LA FECHA $fdesde";
+            $this->titulo = "LISTADO DE RECEPCIONES PARA LA FECHA $fdesde";
         else
-            $this->titulo = "LISTADO DE DESPACHOS DESDE $fdesde HASTA $fhasta";
+            $this->titulo = "LISTADO DE RECEPCIONES DESDE $fdesde HASTA $fhasta";
     }
    
     function mayus($let) { return strtr(strtoupper($let),"àèìòùáéíóúçñäëïöü","ÀÈÌÒÙÁÉÍÓÚÇÑÄËÏÖÜ");}
@@ -93,17 +106,22 @@ $pdf->SetFont('helvetica','',8);
 if($ban==1)
 {
 
-$t='
-<table border="0" cellpadding="0" cellspacing="0">
-<tr align="left"><td width="60px"><b> Cliente    : </b></td><td>'.$listadoDespachos[0]['cliente_nombre'].' <b>RIF:</b> '.$listadoDespachos[0]['ced_cliente'].' </td></tr>
-<tr align="left"><td width="60px"><b> Cultivo    : </b></td><td>'.$listadoDespachos[0]['cultivo_codigo'].' - '.$listadoDespachos[0]['cultivo_nombre'].'   </td></tr>
+$t='<table border="0" cellpadding="0" cellspacing="0">';
+if(isset($listadoDespachos[0]['cliente_nombre']))
+$t.='<tr align="left"><td width="65px"><b> Entidad    : </b></td><td>'.$listadoDespachos[0]['cliente_nombre'].' </td></tr>';
+if(isset($listadoDespachos[0]['cliente_nombre']))
+$t.='<tr align="left"><td width="65px"><b> Asociado   : </b></td><td>'.$listadoDespachos[0]['cliente_nombre'].' </td></tr>';
+if(isset($listadoDespachos[0]['cliente_nombre']))
+$t.='<tr align="left"><td width="65px"><b> Productor  : </b></td><td>'.$listadoDespachos[0]['cliente_nombre'].' <b>RIF:</b> '.$listadoDespachos[0]['ced_cliente'].' </td></tr>';
+
+$t.='
 </table>
 <br />
 
 <table border="0" cellpadding="0" cellspacing="0" width="100px" bordercolor="#000000">
 <tr bgcolor="#FFFFFF" align="right">
-<td width="80px"><b>Despacho #</b></td>
-<td width="80px"><b>Orden</b></td>
+<td width="80px"><b>Entrada #</b></td>
+<td width="80px"><b>Guia</b></td>
 <td width="75px"><b>Fecha</b></td>
 <td width="65px"><b>Placa</b></td>
 <td width="85px"><b>Peso Bruto</b></td>
@@ -154,7 +172,7 @@ $suma_despachos+=$i;
 
 
 
-$despacho="D".$listadoDespachos[$i]['numero']."-".$fecha_des_d;
+$despacho="R".$listadoDespachos[$i]['numero']."-".$fecha_des_d;
 
 
 $t.='

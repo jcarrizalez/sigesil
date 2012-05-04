@@ -1,7 +1,7 @@
 <?
     require_once('../lib/core.lib.php');
     
-    $despacho = new Despacho();
+    $recepcion = new Recepcion();
     $centro_acopio = new CentroAcopio();
     
     if($_SESSION['s_perfil_id'] == GERENTEG)
@@ -18,14 +18,14 @@
     $porPagina = MAX_RESULTS_PAG;
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
     
-    $listadoDespachos = $despacho->despachosReporteGeneral($fdesde, $fhasta, $idCA);
+    $listadoRecepciones = $recepcion->recepcionesReporteGeneral($fdesde, $fhasta, $idCA);
     
-    $total_registros = $despacho->total_verdadero;
+    $total_registros = $recepcion->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);
     
     switch($GPC['ac']){
         case 'Pdf':
-            header('location: pdf_listado_despachos_todo.php?id='.$fdesde."_".$fhasta."_".$idCA);
+            header('location: pdf_listado_recepciones_todo.php?id='.$fdesde."_".$fhasta."_".$idCA);
             die();
         break;
         case 'Excel':
@@ -47,7 +47,7 @@
     });
 </script>
     <div id="titulo_modulo">
-        REPORTE DESPACHO<br/><hr/>
+        REPORTE RECEPCI&Oacute;N<br/><hr/>
     </div>
     <div id="mensajes">
         <?
@@ -126,10 +126,9 @@
     </div>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
-            <th>Orden</th>
             <th>Cultivo</th>
-            <th>Cedula/Rif Cliente</th>
-            <th>Cliente</th>
+            <th>Cedula/Rif Productor</th>
+            <th>Productor</th>
             <th>Accion</th>
         </tr>
         <?
@@ -138,12 +137,12 @@
             $totalPesoTara = 0;
             $totalPesoNeto = 0;
             $totalPesoAcon = 0;
-            foreach($listadoDespachos as $dataDespacho){
+            foreach($listadoRecepciones as $dataRecepcion){
                 $clase = $general->obtenerClaseFila($i);
-                $pesoBruto = $dataDespacho['peso_01l'] + $dataDespacho['peso_02l'];
-                $pesoTara = $dataDespacho['peso_01v'] + $dataDespacho['peso_02v'];
+                $pesoBruto = $dataRecepcion['peso_01l'] + $dataRecepcion['peso_02l'];
+                $pesoTara = $dataRecepcion['peso_01v'] + $dataRecepcion['peso_02v'];
                 $pesoNeto = $pesoBruto - $pesoTara;
-                $pesoAcon = ($pesoNeto - ($dataDespacho['humedad_des'] + $dataDespacho['impureza_des']));
+                $pesoAcon = ($pesoNeto - ($dataRecepcion['humedad_des'] + $dataRecepcion['impureza_des']));
 
                 $totalPesoBruto += $pesoBruto;
                 $totalPesoTara += $pesoTara;
@@ -152,13 +151,13 @@
                 $idCA = (!empty($idCA)) ? "_$idCA" : '';
         ?>
         <tr class="<?=$clase?>">
-            <td align="center"><?=$dataDespacho['numero_orden']?></td>
-            <td align="center"><?=$dataDespacho['cultivo']?></td>
-            <td align="center"><?=$dataDespacho['ced_rif']?></td>
-            <td align="center"><?=$dataDespacho['nombre_cliente']?></td>
+            <td align="center"><?=$dataRecepcion['cultivo']?></td>
+            <td align="center"><?=$dataRecepcion['ced_rif']?></td>
+            <td align="center"><?=$dataRecepcion['nombre_productor']?></td>
+            
             <td align="center">
                 <?
-                    $urls = array(3 => '../reportes/pdf_listado_despachos_individual.php?id='.$dataDespacho['numero_orden'].'_'.$fdesde.'_'.$fhasta.$idCA);
+                    $urls = array(3 => '../reportes/pdf_listado_recepciones_individual.php?id='.$dataRecepcion['id'].'_'.$fdesde.'_'.$fhasta.$idCA);
                     $general->crearAcciones($acciones, $urls);
                 ?>
             </td>

@@ -21,7 +21,6 @@
             $recepcion = new Recepcion();
             $guia = new Guia();
             $productor = new Productor();
-            $asociado = new Asociado();
             $vehiculo = new Vehiculo();
             $chofer = new Chofer();
             
