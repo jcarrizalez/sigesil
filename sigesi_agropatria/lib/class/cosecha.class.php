@@ -71,24 +71,17 @@ class Cosecha extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
-    function guardarCosechaProductor($idCo, $idCa, $idPr, $idAson, $idAdo, $idRec){
-        $query = "SELECT * 
-                    FROM si_cosecha_productor 
+    function eliminarCosechaProductor($idCo, $idCa, $idPr, $idAson = 0){
+        $query = "DELETE FROM si_cosecha_productor 
                     WHERE id_cosecha = '$idCo' AND id_centro_acopio = '$idCa' 
-                    AND id_productor = '$idPr' AND id_asociacion = '$idAson' AND id_asociado = '$idAdo' AND id_recepcion = '$idRec'";
-        $existe = $this->_SQL_tool($this->SELECT, __METHOD__, $query);
-        
-        if(empty($existe)){
-            $query = "INSERT INTO si_cosecha_productor (id_cosecha, id_centro_acopio, id_productor, id_asociacion, id_asociado, id_recepcion)
-                        VALUES ('$idCo', '$idCa', '$idPr', '$aso', '$idRec')";
-            $result = $this->_SQL_tool('INSERT', __METHOD__, $query);
-            return $result;
-        }/*else{
-            $query = "UPDATE si_cosecha_productor SET VALUES id_productor = '$idPr'
-                        AND id_asociacion = '$idAson' AND id_asociado = '$idAdo'";
-            $result = $this->_SQL_tool('UPDATE', __METHOD__, $query);
-            return $result;
-        }*/
+                    AND id_productor = '$idPr' AND id_asociacion = '$idAson'";
+        return $this->_SQL_tool('DELETE', __METHOD__, $query);
+    }
+    
+    function guardarCosechaProductor($idCo, $idCa, $idPr, $idAson = 0, $idAdo = 0){
+        $query = "INSERT INTO si_cosecha_productor (id_cosecha, id_centro_acopio, id_productor, id_asociacion, id_asociado, creado)
+                    VALUES ('$idCo', '$idCa', '$idPr', '$idAson', '$idAdo', now())";
+        return $this->_SQL_tool('INSERT', __METHOD__, $query);
     }
 }
 ?>

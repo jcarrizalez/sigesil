@@ -7,7 +7,7 @@ $cultivo = new Cultivo();
 $idCA = $_SESSION['s_ca_id'];
 $listaCultivos = $cultivo->find('', '', 'id, nombre', 'list', 'codigo');
 
-$listaMov = array(1 => 'Recepci&oacute;n', 2 => 'Despacho');
+$listaMov = array(1 => 'Recepci&oacute;n', 2 => 'Despacho', 3 => 'Ambos');
 $listaCondicion = array(1 => 'Si', 2 => 'No');
 $listaTipo = array(1 => 'An&aacute;lisis', 2 => 'Otro');
 $parametros->listaParametros(1, 6);
@@ -16,7 +16,7 @@ $formulas->listaFormulas(1, '');
 switch ($GPC['ac']) {
     case 'guardar':
         if (!empty($GPC['Formula'])) {
-            
+
             $GPC['Formula']['id_org'] = $_SESSION['s_org_id'];
             $GPC['Formula']['id_centro_acopio'] = $_SESSION['s_ca_id'];
             $GPC['Formula']['codigo'] = $GPC['codigo_1'];

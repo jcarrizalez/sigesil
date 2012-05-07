@@ -186,7 +186,12 @@ $validator->printScript();
             var co = $('#Recepcion\\[id_cosecha\\]').val();
             var verif = np+ced.val();
             var prod = $('#nacion').val()+$('#ced_rif_productor').val();
-            var aon = $('#nacion2').val()+$('#ced_rif_asociacion').val();
+            
+            if($('#ced_rif_asociacion').val() != '')
+                var aon = $('#nacion2').val()+$('#ced_rif_asociacion').val();
+            else
+                var aon = '';
+            
             if(verif == aon){
                 ced.attr('value', '');
                 alert('La Cedula no puede ser igual a la de la Asociacion');

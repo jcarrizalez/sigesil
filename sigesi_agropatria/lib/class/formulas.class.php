@@ -18,12 +18,13 @@ class Formulas extends Model {
         $this->listaF = $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
-    function formulaCultivo($idCa = null, $idCu = null, $orden = null, $porPagina=null, $inicio=null){
+    function formulaCultivo($idCa = null, $idCu = null, $orden = null, $mov = null, $porPagina=null, $inicio=null){
         $query = "SELECT *
                     FROM si_formulas
                     WHERE '1'";
         $query .= (!empty($idCa)) ? " AND (id_centro_acopio = '$idCa' OR id_centro_acopio = '1')" : '';
         $query .= (!empty($idCu)) ? " AND (id_cultivo = '$idCu' OR id_cultivo IS NULL)" : '';
+        $query .= (!empty($mov)) ? " AND (id_mov = '$mov' OR id_mov = '3')" : "";
         $query .= (!empty($orden)) ? " $orden" : " ORDER BY id_cultivo, id_analisis, id";
         $query .= (!empty($porPagina)) ? " LIMIT $porPagina OFFSET $inicio" : "";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);

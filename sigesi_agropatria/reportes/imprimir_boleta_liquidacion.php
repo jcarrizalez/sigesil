@@ -40,14 +40,14 @@
         <td id="titulo_reporte" colspan="6">CONSTANCIA DE RECEPCI&Oacute;N</td>
     </tr>
     <tr>
-        <td colspan="6">GUIA UNICA DE MOVILIZACION MAT: <?=$dataMovimiento[0]['numero_guia']?></td>
+        <td colspan="6">GUIA INSAI: <?=$dataMovimiento[0]['numero_guia']?></td>
     </tr>
     <tr>
         <td width="150">ENTRADA Nro:</td>
         <td><?=$numero?></td>
         <td align="right">FECHA:</td>
         <td><?=$general->date_sql_screen($dataMovimiento[0]['modificado'],'','es','-')?></td>
-        <td align="right">NUMERO DE GUIA:</td>
+        <td align="right">SUBGUIAS:</td>
         <td>
             <?
                 foreach($dataSubGuias as $valor){
@@ -146,6 +146,7 @@
     <? } ?>
 </table>
 <table border="0" width="800" style="padding-top: 20px;">
+    <? if($dataMovimiento[0]['cultivo_codigo'] != 12){ ?>
     <tr>
         <td width="20">&nbsp;</td>
         <td>PESO BRUTO TOTAL Kgrs</td>
@@ -199,6 +200,118 @@
         <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_acon'] * 1000) / 1000, 3);?></td>
         <td>&nbsp;</td>
     </tr>
+    <?
+        }else{
+            if(!empty($dataMovimiento[0]['peso_02l'])){
+    ?>
+    <tr>
+        <td colspan="3">&nbsp;</td>
+        <td>MOTRIZ</td>
+        <td>REMOLQUE</td>
+        <td>&nbsp;</td>
+    </tr>
+    <?
+            }
+    ?>
+    <tr>
+        <td width="20">&nbsp;</td>
+        <td>PESO BRUTO TOTAL Kgrs</td>
+        <td>----------------------------------------------------------------------------------------></td>
+        <? if(empty($dataMovimiento[0]['peso_02l'])){ ?>
+        <td width="1" align="right"><?=$general->formato_numero(round($pesoBruto * 1000) / 1000, 3);?></td>
+        <? }else{ ?>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_01l'] * 1000) / 1000, 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_02l'] * 1000) / 1000, 3);?></td>
+        <? } ?>
+        <td width="20">&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>PESO DEL VEHICULO Kgrs</td>
+        <td>----------------------------------------------------------------------------------------></td>
+        <? if(empty($dataMovimiento[0]['peso_02l'])){ ?>
+        <td width="1" align="right"><?=$general->formato_numero(round($pesoTara * 1000) / 1000, 3);?></td>
+        <? }else{ ?>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_01v'] * 1000) / 1000, 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_02v'] * 1000) / 1000, 3);?></td>
+        <? } ?>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <? if($GPC['mov'] == 'rec'){ ?>
+        <td>PESO NETO RECIBIDO Kgrs</td>
+        <? }else{ ?>
+        <td>NETO DESPACHADO Kgrs</td>
+        <? } ?>
+        <td>----------------------------------------------------------------------------------------></td>
+        <? if(empty($dataMovimiento[0]['peso_02l'])){ ?>
+        <td width="1" align="right"><?=$general->formato_numero(round($pesoNeto * 1000) / 1000, 3);?></td>
+        <? }else{ ?>
+        <td width="1" align="right"><?=$general->formato_numero(round(($dataMovimiento[0]['peso_01l']-$dataMovimiento[0]['peso_01v']) * 1000) / 1000, 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round(($dataMovimiento[0]['peso_02l']-$dataMovimiento[0]['peso_02v']) * 1000) / 1000, 3);?></td>
+        <? } ?>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <?
+            if(empty($dataMovimiento[0]['peso_02l'])){
+                $humedad = $general->formato_numero($dataMovimiento[0]['humedad'], 3)."%";
+                $impureza = $general->formato_numero($dataMovimiento[0]['impureza'], 3)."%";
+            }else{
+                $humedad = $general->formato_numero($dataMovimiento[0]['humedad'], 3)."% &nbsp;&nbsp;&nbsp; M2%";
+                $impureza = $general->formato_numero($dataMovimiento[0]['impureza'], 3)."% &nbsp;&nbsp;&nbsp; M2%";
+            }
+        ?>
+        <td>DESC. POR HUMEDAD: <?=$humedad;?></td>
+        <td>----------------------------------------------------------------------------------------></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['humedad_des'] * 1000) / 1000, 3);?></td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>DESC. POR IMPUREZAS: <?=$impureza;?></td>
+        <td>----------------------------------------------------------------------------------------></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['impureza_des'] * 1000) / 1000, 3);?></td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td colspan="4">FRANQUICIA: 14.000</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>DESCUENTO:</td>
+        <td>----------------------------------------------------------------------------------------></td>
+        <? if(empty($dataMovimiento[0]['peso_02l'])){ ?>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['impureza_des'] * 1000) / 1000, 3);?></td>
+        <? }else{ ?>
+        <td width="1" align="right"><?=$general->formato_numero(round(0 * 1000) / 1000, 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round(0 * 1000) / 1000, 3);?></td>
+        <? } ?>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="4">&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <? if($GPC['mov'] == 'rec'){ ?>
+        <td>PESO NETO A LIQUIDAR Kgrs</td>
+        <? }else{ ?>
+        <td>NETO ACONDICIONADO Kgrs</td>
+        <? } ?>
+        <td>----------------------------------------------------------------------------------------></td>
+        <? if(empty($dataMovimiento[0]['peso_02l'])){ ?>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_acon'] * 1000) / 1000, 3);?></td>
+        <? }else{ ?>
+        <td width="1" align="right"><?='PNA M1'//$general->formato_numero(round(0 * 1000) / 1000, 3);?></td>
+        <td width="1" align="right"><?='PNA M2'//$general->formato_numero(round(0 * 1000) / 1000, 3);?></td>
+        <? } ?>
+        <td>&nbsp;</td>
+    </tr>
+    <? } ?>
 </table>
 <table border="0" width="800" style="padding-top: 35px;" class="centrar">
     <tr align="center">

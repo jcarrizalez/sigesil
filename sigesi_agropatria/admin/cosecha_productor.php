@@ -1,7 +1,6 @@
 <?
     require_once('../lib/core.lib.php');
 
-    $productor = new Productor();
     $cosecha = new Cosecha();
 
     $listadoCosechas = $cosecha->infoCosechaCultivo($idCA);
@@ -12,14 +11,21 @@
 
 switch ($GPC['ac']) {
     case 'guardar':
-        if (!empty($GPC['Programa']['codigo']) && !empty($GPC['Programa']['nombre']) && !empty($GPC['Programa']['estatus'])) {
-            $GPC['Programa']['id_centro_acopio'] = $_SESSION['s_ca_id'];
-            $cosecha->_begin_tool();
-            $cosecha->save($GPC['Programa']);
+        $guarda = false;
+        if (!empty($GPC['id_cosecha']) && !empty($GPC['id_productor'])) {
+            $GPC['id_asociacion'] = (!empty($GPC['id_asociacion'])) ? $GPC['id_asociacion'] : 0;
             
+            $cosecha->eliminarCosechaProductor($GPC['id_cosecha'], $_SESSION['s_ca_id'], $GPC['id_productor'], $GPC['id_asociacion']);
+            if(count($GPC['id_asociado']) > 0){
+                for($i=0; $i<count($GPC['id_asociado']); $i++){
+                    $cosecha->guardarCosechaProductor($GPC['id_cosecha'], $_SESSION['s_ca_id'], $GPC['id_productor'], $GPC['id_asociacion'], $GPC['id_asociado'][$i]);
+                }
+            }else
+                $cosecha->guardarCosechaProductor($GPC['id_cosecha'], $_SESSION['s_ca_id'], $GPC['id_productor'], $GPC['id_asociacion']);
+            
+            $guarda = true;
         }
-        if (!empty($programaID)) {
-            $cosecha->_commit_tool();
+        if ($guarda) {
             header("location: cosecha_productor.php?msg=exitoso");
             die();
         } else {
@@ -33,8 +39,8 @@ require('../lib/common/init_calendar.php');
 
 $validator = new Validator('form1');
 $validator->printIncludes();
-$validator->setRules('Data.id_cosecha', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('Data.id_productor', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('id_cosecha', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('id_productor', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->printScript();
 ?>
 <script type="text/javascript">
@@ -43,34 +49,36 @@ $validator->printScript();
     }
     
     $(document).ready(function(){
-        $('#Data\\[id_cosecha\\]').change(function(){
+        $('#id_cosecha').change(function(){
             if($(this).val() != ''){
                 show_div_loader();
+                $('#id_productor').val('');
+                $('#id_asociacion').val('');
                 $('#tdPro').load('../ajax/cosecha_programa.php?ac=cos_pro&co='+$(this).val());
                 $('#asociados').html('');
             }
         });
-        $('#Data\\[id_productor\\]').live('change', function(){
-            var cosecha = $('#Data\\[id_cosecha\\]').val();
-            var asociacion = $('#Data\\[id_asociacion\\]').val();
+        $('#id_productor').live('change', function(){
+            var cosecha = $('#id_cosecha').val();
+            $("#id_asociacion")[0].selectedIndex = 0;
             if($(this).val() != ''){
                 if(cosecha == ''){
                     alert('Debe elegir primero una cosecha');
                     $(this).val('');
-                }else if(asociacion == $(this).val()){
-                    alert('La Cedula/Rif no puede ser igual a la de la Asociacion');
-                    $(this).val('');
                 }else{
                     show_div_loader();
                     $('#tdAon').load('../ajax/cosecha_programa.php?ac=cos_aon&co='+cosecha+'&cpro='+$(this).val());
-                    $('#asociados').load('../ajax/cosecha_programa.php?ac=cos_ado&co='+cosecha+'&cpro='+$(this).val()+'&caon='+asociacion);
+                    $('#asociados').load('../ajax/cosecha_programa.php?ac=cos_ado&co='+cosecha+'&cpro='+$(this).val());
                 }
+            }else{
+                $('#id_asociacion').val('');
+                $('#asociados').html('');
             }
         });
         
-        $('#Data\\[id_asociacion\\]').live('change', function(){
-            var cosecha = $('#Data\\[id_cosecha\\]').val();
-            var productor = $('#Data\\[id_productor\\]').val();
+        $('#id_asociacion').live('change', function(){
+            var cosecha = $('#id_cosecha').val();
+            var productor = $('#id_productor').val();
             if(cosecha == ''){
                 alert('Debe elegir primero una cosecha');
                 $(this).val('');
@@ -85,25 +93,35 @@ $validator->printScript();
     });
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
-    <? echo $html->input('Programa.id', $infoPrograma[0]['id'], array('type' => 'hidden')); ?>
-    <? echo $html->input('numeroCosecha', 1, array('type' => 'hidden')); ?>
     <div id="titulo_modulo">
         ASIGNAR PRODUCTORES POR COSECHA<br/><hr/>
+    </div>
+    <div id="mensajes">
+        <?
+            switch($GPC['msg']){
+                case 'exitoso':
+                    echo "<span class='msj_verde'>Registro Guardado !</span>";
+                break;
+                case 'error':
+                    echo "<span class='msj_rojo'>Ocurri&oacute; un Problema !</span>";
+                break;
+            }
+        ?>
     </div>
     <fieldset>
         <legend>Datos del Productor</legend>
         <table align="center" border="0" cellpadding="0" cellspacing="0">
             <tr>
                 <td><span class="msj_rojo">* </span>Cosecha </td>
-                <td><? echo $html->select('Data.id_cosecha', array('options' => $cosechas, 'default' => 'Seleccione', 'class' => 'estilo_campos2')) ?></td>
+                <td><? echo $html->select('id_cosecha', array('options' => $cosechas, 'default' => 'Seleccione', 'class' => 'estilo_campos2')) ?></td>
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>Productor </td>
-                <td id="tdPro"><? echo $html->select('Data.id_productor', array('options' => $productores, 'default' => 'Seleccione', 'class' => 'estilo_campos2')) ?></td>
+                <td id="tdPro"><? echo $html->select('id_productor', array('default' => 'Seleccione', 'class' => 'estilo_campos2')) ?></td>
             </tr>
             <tr>
                 <td>Asociaci&oacute;n </td>
-                <td id="tdAon"><? echo $html->select('Data.id_asociacion', array('options' => $productores, 'default' => 'Seleccione', 'class' => 'estilo_campos2')) ?></td>
+                <td id="tdAon"><? echo $html->select('id_asociacion', array('default' => 'Seleccione', 'class' => 'estilo_campos2')) ?></td>
             </tr>
         </table>
     </fieldset>

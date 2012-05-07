@@ -34,8 +34,15 @@
                 
                 if(($GPC['mov'] == 'rec' && ($GPC['Recepcion']['estatus_rec'] == '9')) || ($GPC['mov'] == 'des' && ($GPC['Recepcion']['estatus'] == '5'))){
                     //CALCULAR LOS PESOS PARA GUARDARLOS
-                    $orden = " ORDER BY id_centro_acopio DESC, id_cultivo, id_analisis";
-                    $formulas = $formula->formulaCultivo($_SESSION['s_ca_id'], trim(substr($GPC['cultivo'], 0, 2)), $orden);
+                    
+                    if($GPC['mov'] == 'rec')
+                        $for_mov = 1;
+                    elseif($GPC['mov'] == 'des')
+                        $for_mov = 2;
+                    else
+                        $for_mov = 3;
+                    $orden = " ORDER BY id_centro_acopio DESC, id_cultivo, id_analisis, id";
+                    $formulas = $formula->formulaCultivo($_SESSION['s_ca_id'], trim(substr($GPC['cultivo'], 0, 2)), $orden, $for_mov);
                     
                     if($GPC['mov'] == 'rec'){
                         $infoMovimiento = $recepcion->find(array('id' => $id));

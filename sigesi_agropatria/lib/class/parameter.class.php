@@ -18,12 +18,12 @@
 	 * @param $mostrar
 	 * @return unknown_type
 	 */
-	function listaParameteros($mostrar=1){
-            $query="SELECT * FROM si_parametros WHERE '1'";
-            if(!is_null($mostrar)){ $query.=" AND parametro_mostrar='$mostrar' "; }
-            $query .= " ORDER BY id";
+	function listaParametros($mostrar = 1, $constantes = ''){
+            $query="SELECT * FROM si_parametros WHERE '1' ";
+            if(!is_null($mostrar)){ $query.=" AND parametro_mostrar = '$mostrar' "; }
+            if(!is_null($constantes)){ $query.=" AND id >= $constantes "; }
             $this->lista=$this->_SQL_tool($this->SELECT, __METHOD__, $query);
-	}
+        }
 	
 	/**
 	 * Actualiza los valores de un parametro
