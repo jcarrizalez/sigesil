@@ -159,14 +159,14 @@
                         $totalH = str_replace($reservadas, $pesos, $humImp[0]);
                         if ($evaluar->evaluate('y(x) = ' . $totalH))
                             $pesoH = $evaluar->e("y(0)");
-                        $GPC['Recepcion']['humedad_des'] = round($pesoH * 1000) / 1000;
+                        $GPC['Recepcion']['humedad_des'] = round($pesoH);
                         $pesos[] = $GPC['Recepcion']['humedad_des'];
 
                         //CALCULO DE LA IMPUREZA
                         $totalI = str_replace($reservadas, $pesos, $humImp[1]);
                         if ($evaluar->evaluate('y(x) = ' . $totalI))
                             $pesoI = $evaluar->e("y(0)");
-                        $GPC['Recepcion']['impureza_des'] = round($pesoI * 1000) / 1000;
+                        $GPC['Recepcion']['impureza_des'] = round($pesoI);
                         $pesos[] = $GPC['Recepcion']['impureza_des'];
                     }
 
@@ -182,7 +182,7 @@
                             $pesoA = $evaluar->e("y(0)");
                     }
                     
-                    $GPC['Recepcion']['peso_acon'] = round($pesoA * 1000) / 1000;
+                    $GPC['Recepcion']['peso_acon'] = round($pesoA);
                     
                     if($GPC['mov'] == 'rec'){
                         unset($GPC['Recepcion']['pesoLleno1']);

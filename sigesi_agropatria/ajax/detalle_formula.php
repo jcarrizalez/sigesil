@@ -277,27 +277,27 @@
             ?>
             <tr>
                 <td>Peso Bruto Total Kgrs</td>
-                <td><? echo $html->input('pesoBruto', $general->formato_numero(round($pesoL * 1000) / 1000, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('pesoBruto', $general->formato_numero(round($pesoL), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Peso del Veh&iacute;culo Kgrs</td>
-                <td><? echo $html->input('pesoVehiculo', $general->formato_numero(round($pesoV * 1000) / 1000, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('pesoVehiculo', $general->formato_numero(round($pesoV), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Peso Neto Recibido Kgrs</td>
-                <td><? echo $html->input('pesoRecibido', $general->formato_numero(round($pesoN * 1000) / 1000, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('pesoRecibido', $general->formato_numero(round($pesoN), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Desc. por Humedad Kgrs</td>
-                <td><? echo $html->input('descHumedad', $general->formato_numero(round($pesoH * 1000) / 1000, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('descHumedad', $general->formato_numero(round($pesoH), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Desc. por Impurezas Kgrs</td>
-                <td><? echo $html->input('descImpurezas', $general->formato_numero(round($pesoI * 1000) / 1000, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('descImpurezas', $general->formato_numero(round($pesoI), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Peso Neto a Liquidar Kgrs</td>
-                <td><? echo $html->input('netoAcondicionado', $general->formato_numero(round($pesoA * 1000) / 1000, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('netoAcondicionado', $general->formato_numero(round($pesoA), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <?
                 if (($pesoL < 0) || ($pesoV < 0) || ($pesoN < 0) || ($pesoH < 0) || ($pesoI < 0) || ($pesoA < 0)){
@@ -328,27 +328,23 @@
             $orden = " ORDER BY id_centro_acopio DESC, id_cultivo, id_analisis, id";
             $formulas = $formula->formulaCultivo($_SESSION['s_ca_id'], $GPC['id_cultivo'], $orden, $id);
 
-            if($GPC['humedad2'] != ''){
-                $sumHum = $GPC['humedad1'] + $GPC['humedad2'];
-                $promHum = $sumHum/2;
-            }else{
-                $sumHum = $GPC['humedad1'];
-                $promHum = $sumHum;
-            }
-            
-            if($GPC['impureza2'] != ''){
-                $sumImp = $GPC['impureza1'] + $GPC['impureza2'];
-                $promImp = $sumImp/2;
-            }else{
-                $sumImp = $GPC['impureza1'];
-                $promImp = $sumImp;
-            }
+            //PROMEDIANDO LOS VALORES DE HUMEDAD E IMPUREZA
+            $sumHum = (!empty($GPC['humedad2'])) ? $GPC['humedad1'] + $GPC['humedad2'] : $GPC['humedad1'];
+            $promHum = (!empty($GPC['humedad2'])) ? $sumHum/2 : $sumHum;
+            $sumImp = (!empty($GPC['impureza2'])) ? $GPC['impureza1'] + $GPC['impureza2'] : $GPC['impureza1'];
+            $promImp = (!empty($GPC['impureza2'])) ? $sumImp/2 : $sumImp;
 
             //VARIABLES A USAR PARA LOS CALCULOS
             $reservadas = array('PL1', 'PL2', 'PV1', 'PV2', 'HUML', 'IMPL', 'PHUM', 'PIMP');
             $GPC['peso_02l'] = (!empty($GPC['peso_02l'])) ? $GPC['peso_02l'] : 0;
             $GPC['peso_02v'] = (!empty($GPC['peso_02v'])) ? $GPC['peso_02v'] : 0;
-            $pesos = array($GPC['peso_01l'], $GPC['peso_02l'], $GPC['peso_01v'], $GPC['peso_02v'], $promHum, $promImp);
+            
+            if($id == 1 || $id == 3)
+                $pesos = array($GPC['peso_01l'], $GPC['peso_02l'], $GPC['peso_01v'], $GPC['peso_02v'], $promHum, $promImp);
+            else{
+                $pesos = array($GPC['peso_01l'], 0, $GPC['peso_01v'], 0, $GPC['humedad1'], $GPC['impureza1']);
+                $pesos2 = array(0, $GPC['peso_02l'], 0, $GPC['peso_02v'], $GPC['humedad2'], $GPC['impureza2']);
+            }
 
             //ALMACENAR FORMULAS EN ARREGLO
             $otra = false;
@@ -392,21 +388,6 @@
             if(empty($otraFormula) && $otra)
                 $otraFormula[] = $formulaAplicar['PN'];
 
-            //CALCULO DEL PESO BRUTO
-            $totalB = str_replace($reservadas, $pesos, $formulaAplicar['PL']);
-            if ($evaluar->evaluate('y(x) = ' . $totalB))
-                $pesoL = $evaluar->e("y(0)");
-
-            //CALCULO DE LA TARA
-            $totalV = str_replace($reservadas, $pesos, $formulaAplicar['PV']);
-            if ($evaluar->evaluate('y(x) = ' . $totalV))
-                $pesoV = $evaluar->e("y(0)");
-
-            //CALCULO DEL PESO NETO
-            $totalN = str_replace($reservadas, $pesos, $formulaAplicar['PN']);
-            if ($evaluar->evaluate('y(x) = ' . $totalN))
-                $pesoN = $evaluar->e("y(0)");
-
             //CALCULO DE LA HUMEDAD Y LA IMPUREZA
             if(!empty($humImp)){
                 //CALCULO DE LA IMPUREZA
@@ -423,42 +404,143 @@
             }
 
             if(!empty($otraFormula)){
-                //PESO ACONDICIONADO, PARA EL CASO DE CULTIVOS QUE NO APLIQUEN EL CALCULO DE HUMEDAD E IMPUREZA
+                //PESO ACONDICIONADO Y PESO ACONDICIONADO A LIQUIDAR, PARA EL CASO DE CULTIVOS CON OTRA FORMULACION
                 $totalA = str_replace($reservadas, $pesos, $otraFormula[0]);
                 if ($evaluar->evaluate('y(x) = ' . $totalA))
                 $pesoA = $evaluar->e("y(0)");
+                
+                if(!empty($otraFormula[1])){
+                    $totalAl = str_replace($reservadas, $pesos, $otraFormula[1]);
+                    if ($evaluar->evaluate('y(x) = ' . $totalAl))
+                    $pesoAl = $evaluar->e("y(0)");
+                }
             }else{
-                //PESO ACONDICIONADO, PARA EL CASO DE CULTIVOS QUE APLIQUEN EL CALCULO DE HUMEDAD E IMPUREZA
-                $totalA = str_replace($reservadas, $pesos, $formulaAplicar['PA']);
-                if ($evaluar->evaluate('y(x) = ' . $totalA))
-                    $pesoA = $evaluar->e("y(0)");
+                //PESO ACONDICIONADO A LIQUIDAR, PARA EL CASO DE CULTIVOS CON FORMULACION POR HUMEDAD E IMPUREZAS
+                $totalAl = str_replace($reservadas, $pesos, $formulaAplicar['PA']);
+                if ($evaluar->evaluate('y(x) = ' . $totalAl))
+                    $pesoAl = $evaluar->e("y(0)");
             }
+            
+            $label = ($id == 1 || $id == 3) ? '' : 'Motriz';
+
+            //CALCULO DEL PESO NETO
+            $totalN = str_replace($reservadas, $pesos, $formulaAplicar['PN']);
+            if ($evaluar->evaluate('y(x) = ' . $totalN))
+                $pesoN = $evaluar->e("y(0)");
+
+            //PESO ACONDICIONADO Y PESO ACONDICIONADO A LIQUIDAR, PARA EL CASO DE CULTIVOS CON OTRA FORMULACION
+            $totalA = str_replace($reservadas, $pesos, $otraFormula[0]);
+            if ($evaluar->evaluate('y(x) = ' . $totalA))
+                $pesoA = $evaluar->e("y(0)");
+
+            $totalAl = str_replace($reservadas, $pesos, $otraFormula[1]);
+            if ($evaluar->evaluate('y(x) = ' . $totalAl))
+                $pesoAl = $evaluar->e("y(0)");
             ?>
             <tr>
-                <td>Peso Bruto Total Kgrs</td>
-                <td><? echo $html->input('pesoBruto', $general->formato_numero(round($pesoL * 1000) / 1000, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td>Peso Neto Recibido <?=$label?> Kgrs</td>
+                <td><? echo $html->input('pesoRecibido1', $general->formato_numero(round($pesoN), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
+            <? if($GPC['id_cultivo'] == 12){ ?>
             <tr>
-                <td>Peso del Veh&iacute;culo Kgrs</td>
-                <td><? echo $html->input('pesoVehiculo', $general->formato_numero(round($pesoV * 1000) / 1000, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
-            </tr>
-            <tr>
-                <td>Peso Neto Recibido Kgrs</td>
-                <td><? echo $html->input('pesoRecibido', $general->formato_numero(round($pesoN * 1000) / 1000, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
-            </tr>
-            <tr>
-                <td>Desc. por Humedad Kgrs</td>
-                <td><? echo $html->input('descHumedad', $general->formato_numero(round($pesoH * 1000) / 1000, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
-            </tr>
-            <tr>
-                <td>Desc. por Impurezas Kgrs</td>
-                <td><? echo $html->input('descImpurezas', $general->formato_numero(round($pesoI * 1000) / 1000, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
-            </tr>
-            <tr>
-                <td>Peso Neto a Liquidar Kgrs</td>
-                <td><? echo $html->input('netoAcondicionado', $general->formato_numero(round($pesoA * 1000) / 1000, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td>Peso Neto Acondicionado <?=$label?> Kgrs</td>
+                <td><? echo $html->input('netoAcondicionado1', $general->formato_numero(round($pesoA), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <?
+                }
+                if($GPC['id_cultivo'] != 12){
+            ?>
+            <tr>
+                <td>Desc. por Humedad <?=$label?> Kgrs</td>
+                <td><? echo $html->input('descHumedad1', $general->formato_numero(round($pesoH), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+            </tr>
+            <tr>
+                <td>Desc. por Impureza <?=$label?> Kgrs</td>
+                <td><? echo $html->input('descImpurezas1', $general->formato_numero(round($pesoI), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+            </tr>
+            <? } ?>
+            <tr>
+                <td>Peso Neto a Liquidar <?=$label?> Kgrs</td>
+                <td><? echo $html->input('netoAcondicionado1', $general->formato_numero(round($pesoAl), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+            </tr>
+            <?
+                if($GPC['humedad2'] != '' && $GPC['peso_02l'] != '' && $id == 2){
+                    //CALCULO DE LA HUMEDAD Y LA IMPUREZA
+                    if(!empty($humImp)){
+                        //CALCULO DE LA IMPUREZA
+                        $totalH2 = str_replace($reservadas, $pesos2, $humImp[0]);
+                        if ($evaluar->evaluate('y(x) = ' . $totalH2))
+                            $pesoH2 = $evaluar->e("y(0)");
+                        $pesos2[] = $pesoH2;
+
+                        //CALCULO DE LA IMPUREZA
+                        $totalI2 = str_replace($reservadas, $pesos2, $humImp[1]);
+                        if ($evaluar->evaluate('y(x) = ' . $totalI2))
+                            $pesoI2 = $evaluar->e("y(0)");
+                        $pesos2[] = $pesoI2;
+                    }
+                    
+                    if(!empty($otraFormula)){
+                        //PESO ACONDICIONADO Y PESO ACONDICIONADO A LIQUIDAR, PARA EL CASO DE CULTIVOS CON OTRA FORMULACION
+                        $totalA2 = str_replace($reservadas, $pesos2, $otraFormula[0]);
+                        if ($evaluar->evaluate('y(x) = ' . $totalA2))
+                        $pesoA2 = $evaluar->e("y(0)");
+
+                        if(!empty($otraFormula[1])){
+                            $totalAl2 = str_replace($reservadas, $pesos2, $otraFormula[1]);
+                            if ($evaluar->evaluate('y(x) = ' . $totalAl2))
+                            $pesoAl2 = $evaluar->e("y(0)");
+                        }
+                    }else{
+                        //PESO ACONDICIONADO A LIQUIDAR, PARA EL CASO DE CULTIVOS CON OTRA FORMULACION
+                        $totalAl2 = str_replace($reservadas, $pesos2, $formulaAplicar['PA']);
+                        if ($evaluar->evaluate('y(x) = ' . $totalAl2))
+                            $pesoAl2 = $evaluar->e("y(0)");
+                    }
+                    
+                    //CALCULO DEL PESO NETO
+                    $totalN2 = str_replace($reservadas, $pesos2, $formulaAplicar['PN']);
+                    if ($evaluar->evaluate('y(x) = ' . $totalN2))
+                        $pesoN2 = $evaluar->e("y(0)");
+                    
+                    //PESO ACONDICIONADO Y PESO ACONDICIONADO A LIQUIDAR, PARA EL CASO DE CULTIVOS CON OTRA FORMULACION
+                    $totalA2 = str_replace($reservadas, $pesos2, $otraFormula[0]);
+                    if ($evaluar->evaluate('y(x) = ' . $totalA2))
+                        $pesoA2 = $evaluar->e("y(0)");
+                    
+                    $totalAl2 = str_replace($reservadas, $pesos2, $otraFormula[1]);
+                    if ($evaluar->evaluate('y(x) = ' . $totalAl2))
+                        $pesoAl2 = $evaluar->e("y(0)");
+            ?>
+            <tr>
+                <td>Peso Neto Recibido Remolque Kgrs</td>
+                <td><? echo $html->input('pesoRecibido2', $general->formato_numero(round($pesoN2), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+            </tr>
+            <? if($GPC['id_cultivo'] == 12){ ?>
+            <tr>
+                <td>Peso Neto Acondicionado Remolque Kgrs</td>
+                <td><? echo $html->input('netoAcondicionado2', $general->formato_numero(round($pesoA2), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+            </tr>
+            <?
+                }
+                if($GPC['id_cultivo'] != 12){
+            ?>
+            <tr>
+                <td>Desc. por Humedad Remolque Kgrs</td>
+                <td><? echo $html->input('descHumedad2', $general->formato_numero(round($pesoH2), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+            </tr>
+            <tr>
+                <td>Desc. por Impureza Remolque Kgrs</td>
+                <td><? echo $html->input('descImpurezas2', $general->formato_numero(round($pesoI2), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+            </tr>
+            <? } ?>
+            <tr>
+                <td>Peso Neto a Liquidar Remolque Kgrs</td>
+                <td><? echo $html->input('netoAcondicionado2', $general->formato_numero(round($pesoAl2), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+            </tr>
+            <?
+                    }
+
                 if (($pesoL < 0) || ($pesoV < 0) || ($pesoN < 0) || ($pesoH < 0) || ($pesoI < 0) || ($pesoA < 0)){
             ?>
             <tr class="error" align="center">

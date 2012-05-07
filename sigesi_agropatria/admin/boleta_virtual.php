@@ -42,34 +42,34 @@
             <td><? echo $html->input('humedad1', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
         </tr>
         <tr>
-            <td>%Humedad Remolque/Batea</td>
-            <td><? echo $html->input('humedad2', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
-        </tr>
-        <tr>
             <td>%Impureza Motriz</td>
             <td><? echo $html->input('impureza1', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
-        </tr>
-        <tr>
-            <td>%Impureza Remolque/Batea</td>
-            <td><? echo $html->input('impureza2', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
         </tr>
         <tr>
             <td>Peso Lleno Motriz Kgrs</td>
             <td><? echo $html->input('peso_01l', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
         </tr>
         <tr>
-            <td>Peso Lleno Remolque/Batea Kgrs</td>
-            <td><? echo $html->input('peso_02l', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
-        </tr>
-        <tr>
             <td>Peso Vac&iacute;o Motriz Kgrs</td>
             <td><? echo $html->input('peso_01v', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
+        </tr>
+        <tr>
+            <td>%Humedad Remolque/Batea</td>
+            <td><? echo $html->input('humedad2', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
+        </tr>
+        <tr>
+            <td>%Impureza Remolque/Batea</td>
+            <td><? echo $html->input('impureza2', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
+        </tr>
+        <tr>
+            <td>Peso Lleno Remolque/Batea Kgrs</td>
+            <td><? echo $html->input('peso_02l', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
         </tr>
         <tr>
             <td>Peso Vac&iacute;o Remolque/Batea Kgrs</td>
             <td><? echo $html->input('peso_02v', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
         </tr>
-        <tbody id="resultado" class="verif_resul"></tbody>
+        <tbody id="resultado"></tbody>
         <tr>
             <td>&nbsp;</td>
         </tr>
