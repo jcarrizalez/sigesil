@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Started on 2012-05-07 16:25:26 VET
+-- Started on 2012-05-08 16:29:08 VET
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -1737,7 +1737,7 @@ ALTER TABLE public.si_log_consultas_log_id_seq OWNER TO admin;
 -- Name: si_log_consultas_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_log_consultas_log_id_seq', 117, true);
+SELECT pg_catalog.setval('si_log_consultas_log_id_seq', 126, true);
 
 
 --
@@ -2793,7 +2793,7 @@ ALTER SEQUENCE si_recursos_id_seq OWNED BY si_recursos.id;
 -- Name: si_recursos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_recursos_id_seq', 54, true);
+SELECT pg_catalog.setval('si_recursos_id_seq', 55, true);
 
 
 --
@@ -3954,6 +3954,24 @@ LINE 4:                     WHERE mh.id_usuario = "" AND mp.estatus ...
                     FROM si_menu mp<br />
                     INNER JOIN si_menu_usuario mh ON mh.id_menu = mp.id<br />
                     WHERE mh.id_usuario = '''' AND mp.estatus = ''t'' ORDER BY mp.id_padre, mp.orden";s:9:"user_name";N;s:4:"date";s:19:"2012-05-07 01:44:31";}i:1;a:4:{s:4:"file";s:42:"/var/www/sigesil/lib/common/header.php<br>";s:4:"line";i:115;s:5:"class";N;s:8:"function";s:7:"require";}i:2;a:4:{s:4:"file";s:40:"/var/www/sigesil/lib/common/menu.php<br>";s:4:"line";i:2;s:5:"class";s:4:"Menu";s:8:"function";s:14:"menuPorUsuario";}i:3;a:4:{s:4:"file";s:45:"/var/www/sigesil/lib/class/menu.class.php<br>";s:4:"line";i:13;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
+INSERT INTO si_app_error (apperror_id, apperror_time, apperror_text) VALUES ('288c5b24b6b0d63da6', '2012-05-08 09:11:11.310859-04:30', 'a:4:{i:0;a:8:{s:4:"file";s:45:"/var/www/sigesil/admin/boleta_virtual.php<br>";s:4:"line";i:3;s:5:"class";N;s:8:"function";s:7:"require";s:11:"mysql_error";s:187:"ERROR:  la sintaxis de entrada no es válida para integer: «»
+LINE 4:                     WHERE mh.id_usuario = "" AND mp.estatus ...
+                                                  ^";s:5:"query";s:287:"SELECT mp.*, mh.nuevo, mh.modificar, mh.eliminar, mh.imprimir<br />
+                    FROM si_menu mp<br />
+                    INNER JOIN si_menu_usuario mh ON mh.id_menu = mp.id<br />
+                    WHERE mh.id_usuario = '''' AND mp.estatus = ''t'' ORDER BY mp.id_padre, mp.orden";s:9:"user_name";N;s:4:"date";s:19:"2012-05-08 09:11:11";}i:1;a:4:{s:4:"file";s:42:"/var/www/sigesil/lib/common/header.php<br>";s:4:"line";i:115;s:5:"class";N;s:8:"function";s:7:"require";}i:2;a:4:{s:4:"file";s:40:"/var/www/sigesil/lib/common/menu.php<br>";s:4:"line";i:2;s:5:"class";s:4:"Menu";s:8:"function";s:14:"menuPorUsuario";}i:3;a:4:{s:4:"file";s:45:"/var/www/sigesil/lib/class/menu.class.php<br>";s:4:"line";i:13;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
+INSERT INTO si_app_error (apperror_id, apperror_time, apperror_text) VALUES ('76f0880ffeacdeda3c', '2012-05-08 11:09:31.191223-04:30', 'a:4:{i:0;a:8:{s:4:"file";s:45:"/var/www/sigesil/admin/boleta_virtual.php<br>";s:4:"line";i:3;s:5:"class";N;s:8:"function";s:7:"require";s:11:"mysql_error";s:187:"ERROR:  la sintaxis de entrada no es válida para integer: «»
+LINE 4:                     WHERE mh.id_usuario = "" AND mp.estatus ...
+                                                  ^";s:5:"query";s:287:"SELECT mp.*, mh.nuevo, mh.modificar, mh.eliminar, mh.imprimir<br />
+                    FROM si_menu mp<br />
+                    INNER JOIN si_menu_usuario mh ON mh.id_menu = mp.id<br />
+                    WHERE mh.id_usuario = '''' AND mp.estatus = ''t'' ORDER BY mp.id_padre, mp.orden";s:9:"user_name";N;s:4:"date";s:19:"2012-05-08 11:09:31";}i:1;a:4:{s:4:"file";s:42:"/var/www/sigesil/lib/common/header.php<br>";s:4:"line";i:115;s:5:"class";N;s:8:"function";s:7:"require";}i:2;a:4:{s:4:"file";s:40:"/var/www/sigesil/lib/common/menu.php<br>";s:4:"line";i:2;s:5:"class";s:4:"Menu";s:8:"function";s:14:"menuPorUsuario";}i:3;a:4:{s:4:"file";s:45:"/var/www/sigesil/lib/class/menu.class.php<br>";s:4:"line";i:13;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
+INSERT INTO si_app_error (apperror_id, apperror_time, apperror_text) VALUES ('8efaf1e473474a926f', '2012-05-08 15:01:02.430658-04:30', 'a:4:{i:0;a:8:{s:4:"file";s:47:"/var/www/sigesil/admin/capturar_ejemplo.php<br>";s:4:"line";i:3;s:5:"class";N;s:8:"function";s:7:"require";s:11:"mysql_error";s:187:"ERROR:  la sintaxis de entrada no es válida para integer: «»
+LINE 4:                     WHERE mh.id_usuario = "" AND mp.estatus ...
+                                                  ^";s:5:"query";s:287:"SELECT mp.*, mh.nuevo, mh.modificar, mh.eliminar, mh.imprimir<br />
+                    FROM si_menu mp<br />
+                    INNER JOIN si_menu_usuario mh ON mh.id_menu = mp.id<br />
+                    WHERE mh.id_usuario = '''' AND mp.estatus = ''t'' ORDER BY mp.id_padre, mp.orden";s:9:"user_name";N;s:4:"date";s:19:"2012-05-08 03:01:02";}i:1;a:4:{s:4:"file";s:42:"/var/www/sigesil/lib/common/header.php<br>";s:4:"line";i:115;s:5:"class";N;s:8:"function";s:7:"require";}i:2;a:4:{s:4:"file";s:40:"/var/www/sigesil/lib/common/menu.php<br>";s:4:"line";i:2;s:5:"class";s:4:"Menu";s:8:"function";s:14:"menuPorUsuario";}i:3;a:4:{s:4:"file";s:45:"/var/www/sigesil/lib/class/menu.class.php<br>";s:4:"line";i:13;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
 
 
 --
@@ -4778,6 +4796,42 @@ INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuar
 		<h3 class="h-right-bar">User Computer</h3>
 			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
 ', 'No data', 'No data', 'No data', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''5'' AND sesion = ''7rki8re0dcias268mgmpas0qi0'' ', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (118, '2012-05-08', 101, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '0f2kksltljl7tmhn19emj6r142', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-07 16:04:31.043685-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''0f2kksltljl7tmhn19emj6r142''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''0f2kksltljl7tmhn19emj6r142'' WHERE id=''5''', 'User Login');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (119, '2012-05-08', 202, 0, 'N/A', 'N/A', 'N/A', '0f2kksltljl7tmhn19emj6r142', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />conectado = 1<br />sesion = 0f2kksltljl7tmhn19emj6r142<br />', 'conectado= 0 , sesion = NULL', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE sesion = ''0f2kksltljl7tmhn19emj6r142''', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (120, '2012-05-08', 102, 0, 'N/A', 'N/A', 'N/A', '0f2kksltljl7tmhn19emj6r142', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'No data', 'No data', 'No data', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE sesion = ''0f2kksltljl7tmhn19emj6r142'' ', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (121, '2012-05-08', 101, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '0f2kksltljl7tmhn19emj6r142', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-08 07:41:20.513982-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''0f2kksltljl7tmhn19emj6r142''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''0f2kksltljl7tmhn19emj6r142'' WHERE id=''5''', 'User Login');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (122, '2012-05-08', 101, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', 'qrkamj7oea0ml52jc1qcj8qc30', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-08 09:11:21.64471-04:30<br />conectado = 1<br />sesion = 0f2kksltljl7tmhn19emj6r142<br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''qrkamj7oea0ml52jc1qcj8qc30''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''qrkamj7oea0ml52jc1qcj8qc30'' WHERE id=''5''', 'User Login');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (123, '2012-05-08', 101, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', 'qrkamj7oea0ml52jc1qcj8qc30', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-08 11:10:36.55002-04:30<br />conectado = 1<br />sesion = qrkamj7oea0ml52jc1qcj8qc30<br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''qrkamj7oea0ml52jc1qcj8qc30''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''qrkamj7oea0ml52jc1qcj8qc30'' WHERE id=''5''', 'User Login');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (124, '2012-05-08', 101, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '5ioghjn3n8sgl34mqesdhhdt13', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-05-08 13:08:52.558439-04:30<br />conectado = 1<br />sesion = qrkamj7oea0ml52jc1qcj8qc30<br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''5ioghjn3n8sgl34mqesdhhdt13''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''5ioghjn3n8sgl34mqesdhhdt13'' WHERE id=''5''', 'User Login');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (125, '2012-05-08', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '5ioghjn3n8sgl34mqesdhhdt13', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_recepcion', 'Register No.0<br />romana_ent = <br />peso_01l = <br />id = 6<br />estatus_rec = 3<br />fecha_pel = 2012-05-04 13:37:53.571476-04:30<br />modificado = 2012-05-04 13:42:25.260416<br />', 'romana_ent = ''5'', peso_01l = ''25061'', id = ''6'', estatus_rec = ''4'', fecha_pel = ''NOW()'', modificado=now()', 'UPDATE si_recepcion SET  romana_ent = ''5'', peso_01l = ''25061'', id = ''6'', estatus_rec = ''4'', fecha_pel = ''NOW()'', modificado=now() WHERE id=6', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (126, '2012-05-08', 202, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', '5ioghjn3n8sgl34mqesdhhdt13', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_recepcion', 'Register No.0<br />romana_ent = <br />peso_01l = <br />id = 6<br />estatus_rec = 3<br />fecha_pel = 2012-05-08 15:52:29.723711-04:30<br />modificado = 2012-05-08 15:52:29.723711<br />', 'romana_ent = ''5'', peso_01l = ''28604'', id = ''6'', estatus_rec = ''4'', fecha_pel = ''NOW()'', modificado=now()', 'UPDATE si_recepcion SET  romana_ent = ''5'', peso_01l = ''28604'', id = ''6'', estatus_rec = ''4'', fecha_pel = ''NOW()'', modificado=now() WHERE id=6', '');
 
 
 --
@@ -5434,9 +5488,9 @@ INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_producto
 INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo, id_chofer, romana_ent, romana_sal, peso_acon, peso_acon_liq, muestra) VALUES (4, 2, 1, NULL, 11, 4, 5, 3, '2012-04-29 20:32:39.489-04:30', 1, '9', '2012-05-04 13:37:30.87956-04:30', 28560, NULL, NULL, '2012-05-04 13:42:01.927864-04:30', 8000, NULL, 25, NULL, 3037.2730000000001, NULL, '2012-04-29 20:32:39.489-04:30', '2012-05-04 13:42:01.927864', 1, 11, 7, 5, 5, 17522.726999999999, NULL, 0);
 INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo, id_chofer, romana_ent, romana_sal, peso_acon, peso_acon_liq, muestra) VALUES (5, 2, 1, NULL, 6, 5, 5, 1, '2012-04-30 10:14:22.310566-04:30', 1, '9', '2012-05-04 13:37:43.509464-04:30', 12000, 21658, NULL, '2012-05-04 13:42:13.898325-04:30', 6000, 12000, 12, NULL, NULL, NULL, '2012-04-30 10:14:22.310566-04:30', '2012-05-04 13:42:13.898325', 2, 12, 8, 5, 6, 15658, NULL, 0);
 INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo, id_chofer, romana_ent, romana_sal, peso_acon, peso_acon_liq, muestra) VALUES (7, 2, 2, NULL, 10, 7, 4, 1, '2012-05-04 10:46:21.988047-04:30', 1, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-05-04 10:46:21.988047-04:30', NULL, 1, 14, 10, NULL, NULL, NULL, NULL, 0);
-INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo, id_chofer, romana_ent, romana_sal, peso_acon, peso_acon_liq, muestra) VALUES (6, 2, 1, NULL, 6, 6, 5, 2, '2012-04-30 10:34:12.974384-04:30', 1, '6', '2012-05-04 13:37:53.571476-04:30', 23641, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-04-30 10:34:12.974384-04:30', '2012-05-04 13:42:25.260416', 1, 13, 9, 5, NULL, NULL, NULL, 0);
 INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo, id_chofer, romana_ent, romana_sal, peso_acon, peso_acon_liq, muestra) VALUES (9, 2, 3, NULL, 7, 9, 5, 2, '2012-05-07 00:28:45.32-04:30', 1, '6', '2012-05-07 00:33:37.086-04:30', 47350, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-05-07 00:28:45.32-04:30', '2012-05-07 00:37:26.028', 1, 16, 12, 5, NULL, NULL, NULL, NULL);
 INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo, id_chofer, romana_ent, romana_sal, peso_acon, peso_acon_liq, muestra) VALUES (8, 2, 3, NULL, 6, 8, 5, 1, '2012-05-07 00:27:33.587-04:30', 1, '6', '2012-05-07 00:33:25.61-04:30', 47350, 49000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-05-07 00:27:33.587-04:30', '2012-05-07 00:37:00.485', 2, 15, 11, 5, NULL, NULL, NULL, NULL);
+INSERT INTO si_recepcion (id, id_centro_acopio, id_cosecha, id_silo, id_productor, id_guia, id_usuario, numero, fecha_recepcion, carril, estatus_rec, fecha_pel, peso_01l, peso_02l, tolva, fecha_v, peso_01v, peso_02v, humedad, impureza, humedad_des, impureza_des, creado, modificado, cant_muestras, id_vehiculo, id_chofer, romana_ent, romana_sal, peso_acon, peso_acon_liq, muestra) VALUES (6, 2, 1, NULL, 6, 6, 5, 2, '2012-04-30 10:34:12.974384-04:30', 1, '4', '2012-05-08 16:15:45.254656-04:30', 28604, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2012-04-30 10:34:12.974384-04:30', '2012-05-08 16:15:45.254656', 1, 13, 9, 5, NULL, NULL, NULL, 0);
 
 
 --
@@ -5507,6 +5561,7 @@ INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificaci
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (52, 'Boleta Tipificacion', 'reportes', 'imprimir_boleta_tipificacion.php', 0, '2012-03-06 00:00:00-04:30', NULL);
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (53, 'Reporte Despacho', 'reportes', 'reporte_despacho.php', 1, '2012-03-06 00:00:00-04:30', NULL);
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (54, 'Reporte Recepcion', 'reportes', 'reporte_recepcion.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (55, 'Boleta Virtual', 'admin', 'boleta_virtual.php', 1, '2012-03-06 00:00:00-04:30', NULL);
 
 
 --
@@ -5731,7 +5786,7 @@ INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, u
 INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (7, 'JUAN', 'CARRIZALEZ', '15650075', NULL, 'M', 'JUANMC', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', NULL, NULL, 'JUANCARRIZALEZ@AGROPATRIA.CO.VE', '2012-04-25 09:24:19.641208-04:30', NULL, true, 0, NULL, NULL);
 INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (4, 'JESUS', 'RODRIGUEZ', '18264065', NULL, 'M', 'JRODRIGUEZ', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'CAGUA', NULL, 'JESUSRODRIGUEZ@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-02-13 00:00:00-04:30', true, 0, NULL, '2012-05-04 10:32:26.015077-04:30');
 INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (1, 'JOSE', 'PELUZZO', '1234567', '2012-02-12', 'M', 'JPELUZZO', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'Maracay', NULL, 'JOSEPELUZZO@AGROPATRIA.CO.VE', '2012-02-12 00:00:00-04:30', NULL, true, 0, NULL, '2012-05-07 15:23:56.972766-04:30');
-INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (5, 'MARIELY', 'CORONADO', '16538158', NULL, 'F', 'MCORONADO', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'LA VILLA', NULL, 'MARIELYCORONADO@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-03-16 11:42:37.144713-04:30', true, 0, NULL, '2012-05-07 16:04:31.043685-04:30');
+INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso) VALUES (5, 'MARIELY', 'CORONADO', '16538158', NULL, 'F', 'MCORONADO', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'LA VILLA', NULL, 'MARIELYCORONADO@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-03-16 11:42:37.144713-04:30', true, 1, '5ioghjn3n8sgl34mqesdhhdt13', '2012-05-08 15:01:13.297139-04:30');
 
 
 --
@@ -7465,7 +7520,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2012-05-07 16:25:27 VET
+-- Completed on 2012-05-08 16:29:09 VET
 
 --
 -- PostgreSQL database dump complete
