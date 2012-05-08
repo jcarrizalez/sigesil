@@ -1,0 +1,41 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides: capturar_romana ttyS1
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Inicia y detiene la captura de la romana.
+### END INIT INFO
+
+set -e
+. /lib/lsb/init-functions
+
+[ -f /usr/bin/python ] || exit 0
+[ -f /usr/local/sbin/capturar_romana_ttyS1.py ] || exit 0
+
+# Vea como se llama
+case "$1" in
+  start)
+    echo "Iniciando lectura de romana " 
+    touch /var/run/capturar_romana_ttyS1
+    /usr/local/sbin/capturar_romana_ttyS1.py &
+     echo "hecho"
+    ;;
+  stop)
+    echo "Deteniendo la lectura de Romana "
+    pkill -9 -f capturar_romana_ttyS1.py
+    echo "hecho" 
+    rm /var/run/capturar_romana_ttyS1
+    ;;
+  restart|reload)
+    $0 stop
+    $0 start
+    ;;
+  *)
+    echo " Uso: /etc/init.d/capturar_romana_ttyS1.py {start|stop|restart|reload}"
+    exit 1
+    ;;
+esac
+
+exit 0
