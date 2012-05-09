@@ -148,7 +148,8 @@
                 $listadoC[$valor['cosecha_id']] = "(".$valor['cosecha_codigo'].") ".$valor['cultivo_nombre'];
             }
             
-            $listadoRomana = $movimiento->listadoRecepcion('', $idCA, $GPC['cosecha'], null, null, $estatus, null, null, $porPagina, $inicio);
+            $orden = " ORDER BY r.creado, r.numero";
+            $listadoRomana = $movimiento->listadoRecepcion('', $idCA, $GPC['cosecha'], null, null, $estatus, null, null, $porPagina, $inicio, null, $orden);
 
             $total_registros = $movimiento->total_verdadero;
             $paginador = new paginator($total_registros, $porPagina);

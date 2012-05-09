@@ -43,7 +43,7 @@
     });
 </script>
     <div id="titulo_modulo">
-        ORDENES<br/><hr/>
+        ORDENES DE DESPACHO<br/><hr/>
     </div>
     <div id="mensajes">
         <?

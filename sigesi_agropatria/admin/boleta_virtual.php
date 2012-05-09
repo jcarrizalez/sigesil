@@ -4,7 +4,7 @@
     
     $cultivo = new Cultivo();
 
-    $listaMov = array(1 => 'Recepci&oacute;n', 2 => 'Despacho', 3 => 'Ambos');
+    $listaMov = array(1 => 'Recepci&oacute;n', 2 => 'Despacho');
     $listaCultivos = $cultivo->find('', '', 'id, nombre', 'list', 'codigo');
 
 ?>

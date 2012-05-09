@@ -160,14 +160,14 @@
                         if ($evaluar->evaluate('y(x) = ' . $totalH))
                             $pesoH = $evaluar->e("y(0)");
                         $GPC['Recepcion']['humedad_des'] = round($pesoH);
-                        $pesos[] = $GPC['Recepcion']['humedad_des'];
+                        $pesos[] = round($GPC['Recepcion']['humedad_des']);
 
                         //CALCULO DE LA IMPUREZA
                         $totalI = str_replace($reservadas, $pesos, $humImp[1]);
                         if ($evaluar->evaluate('y(x) = ' . $totalI))
                             $pesoI = $evaluar->e("y(0)");
                         $GPC['Recepcion']['impureza_des'] = round($pesoI);
-                        $pesos[] = $GPC['Recepcion']['impureza_des'];
+                        $pesos[] = round($GPC['Recepcion']['impureza_des']);
                     }
 
                     if(!empty($otraFormula)){
@@ -183,23 +183,20 @@
                     }
                     
                     $GPC['Recepcion']['peso_acon'] = round($pesoA);
-                    
-                    if($GPC['mov'] == 'rec'){
+                    Debug::pr($GPC['Recepcion']);die('no guarda');
+                    /*if($GPC['mov'] == 'rec'){
                         unset($GPC['Recepcion']['pesoLleno1']);
                         unset($GPC['Recepcion']['pesoLleno2']);
+                        $recepcion->save($GPC['Recepcion']);
+                        $idMovimiento = $recepcion->id;
                     }else{
                         $GPC['Recepcion']['peso_01l'] = $GPC['Recepcion']['pesoLleno1'];
                         $GPC['Recepcion']['peso_02l'] = $GPC['Recepcion']['pesoLleno2'];
                         unset($GPC['Recepcion']['pesoLleno1']);
                         unset($GPC['Recepcion']['pesoLleno2']);
-                    }
-                    if($GPC['mov'] == 'rec'){
-                        $recepcion->save($GPC['Recepcion']);
-                        $idMovimiento = $recepcion->id;
-                    }else{
                         $despacho->save($GPC['Recepcion']);
                         $idMovimiento = $despacho->id;
-                    }
+                    }*/
                     
                 }elseif($GPC['mov'] == 'rec' && ($GPC['Recepcion']['estatus_rec'] == '4')){
                     //RECEPCION PESO LLENO
@@ -223,7 +220,7 @@
                 header("location: ".DOMAIN_ROOT."admin/romana_listado.php?msg=error&mov=".$GPC['mov']);
                 die();
             }
-            break;
+        break;
         case 'pesar':
             $romana = new Tolcarom();
             
@@ -236,7 +233,7 @@
             $vehiculo = (!empty($infoMovimiento[0]['marca'])) ? $infoMovimiento[0]['marca']."/" : "Sin Marca/";
             $vehiculo .= $infoMovimiento[0]['placa'];
             $cultivo = trim($infoMovimiento[0]['cultivo_codigo'])." ".trim($infoMovimiento[0]['cultivo_nombre']);
-            //Debug::pr($infoMovimiento);
+            //Debug::pr($general->formato_numero(round($infoMovimiento[0]['peso_acon']),3));
             break;
     }
     
@@ -271,7 +268,7 @@
             $('#id_municipio').load('../ajax/division_pol.php?ac=mcpos&idE=' + $(this).val());
         });
         
-        $('.verifPeso').blur(function(){
+        $('.verifPeso').live('blur', function(){
             if($(this).val() != ''){
                 var form = $('#form1').serialize();
                 $("#resultado").load('../ajax/detalle_formula.php?ac=pesoromana&formula='+form);
@@ -301,9 +298,23 @@
         
         $(".capturar").live('click', function() {
             var id = $(this).attr('id').substring(5);
-            td = '#capturarPeso'+id;
-            var status = $('#estatus').val();
-            $(td).load("../ajax/detalle_formula.php?ac=pesar&status="+status+"&boton="+id);
+            var tipo_mov = $('#mov').val();
+            var romana;
+            
+            if(typeof($('#Recepcion\\[romana_ent\\]').val()) != 'undefined' && $('#Recepcion\\[romana_ent\\]').val() != '')
+                romana = $('#Recepcion\\[romana_ent\\]').val();
+            
+            if(typeof($('#Recepcion\\[romana_sal\\]').val()) != 'undefined' && $('#Recepcion\\[romana_sal\\]').val() != '')
+                romana = $('#Recepcion\\[romana_sal\\]').val();
+            
+            romana = (romana != '' && typeof(romana) != 'undefined') ? romana : '';
+            
+            if((tipo_mov == 'rec' || tipo_mov == 'des') && romana != ''){
+                td = '#capturarPeso'+id;
+                var status = $('#estatus').val();
+                $(td).load("../ajax/detalle_formula.php?ac=pesar&status=<?=$GPC['mov']?>-"+status+"-"+romana+"&boton="+id);
+            }else
+                alert('Seleccione la Romana');
         });
     });
 </script>
