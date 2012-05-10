@@ -1,5 +1,6 @@
 <?php
 require_once('../lib/core.lib.php');
+
 $analisis = new Analisis();
 $Rec = new Recepcion();
 $despacho = new Despacho();
@@ -27,6 +28,8 @@ $T1='I';
 $T2='I';
 $T3='I';
 $estipo=false;
+$idRec='';
+$idDes='';
 
 if (!empty($GPC['mov']))
     $_SESSION['s_mov']=$GPC['mov'];
@@ -45,14 +48,21 @@ switch ($GPC['ac']) {
                 $InfoCosecha = $cosecha->find(array('id' => $GPC['id_cosecha']));
                 $idCultivo=$InfoCosecha[0]['id_cultivo'];
                 $infoMov = $Rec->listadoAnalisis($idCA, $idCultivo, $id);
+                $idRec=$GPC['id'];
             } elseif ($GPC['mov']=='des') {
                 $infoMov = $despacho->listadoDespacho($GPC['id'], $idCA);
-                $idCultivo=$infoMov[0]['id_cultivo'];                
-            }          
+                $idCultivo=$infoMov[0]['id_cultivo'];
+                $idDes=$GPC['id'];
+            }
+            $listadoR=$analisis->listadoResultados($idRec, $idDes);            
             $laboratorio=($_SESSION['s_lab']=='C')? $laboratorio="'C','A'": $laboratorio="'A'";
             $listadoAnalisis = $analisis->buscarAC(null, $idCultivo, $idCA, $laboratorio);
             $cantidad = count($listadoAnalisis);
             $infoCultivo=$cultivo->find(array('id' => $idCultivo));
+        }      
+        if (count($listadoR)) {
+            header("location: analisis_resultado_listado.php?msg=error");
+            die();
         }
         break;
     case 'guardar':
@@ -158,8 +168,8 @@ switch ($GPC['ac']) {
                     else
                         $Muestra=3;
                     if ($_SESSION['s_mov']=='rec') {
-                        if ($_SESSION['s_lab']=='C')
-                            $estatus = '2';
+                        if ($_SESSION['s_lab']=='C') 
+                            $estatus = 11; // Se asigna Estatus de Pendiente por Aprobar Cuarentena
                         elseif ($_SESSION['s_lab']=='P')
                                 $estatus = '2';
                     } elseif ($_SESSION['s_mov']=='des')
@@ -412,9 +422,15 @@ switch ($GPC['ac']) {
                     for ($j = 1; $j <= $cant_muestras; $j++) {
                         switch ($dataAnalisis['tipo_analisis']) {
                             case '1':
-                                ?>                    
-                                <td align="center"><? echo $html->input('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', '', array('type' => 'text', 'length' => '6', 'class' => 'cuadricula positive', 'onChange' => "valoresMinMax(this.value," . $dataAnalisis['min_rec'] . "," . $dataAnalisis['max_rec'] . "," . $dataAnalisis['codigo'] . "," . $j . ",'" . $dataAnalisis['estatus'] . "', this)")); ?></td>
-                <!--                                    <td align="center"><? echo $html->input('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', '', array('type' => 'text', 'length' => '6', 'class' => 'cuadricula positive')); ?></td>-->
+                                ?>
+                                <td align="center">
+                                <? 
+                                if ($GPC['mov']=='rec')
+                                    echo $html->input('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', '', array('type' => 'text', 'length' => '6', 'class' => 'cuadricula positive', 'onChange' => "valoresMinMax(this.value," . $dataAnalisis['min_rec'] . "," . $dataAnalisis['max_rec'] . "," . $dataAnalisis['codigo'] . "," . $j . ",'" . $dataAnalisis['estatus'] . "', this)"));
+                                elseif ($GPC['mov']=='des')
+                                    echo $html->input('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', '', array('type' => 'text', 'length' => '6', 'class' => 'cuadricula positive', 'onChange' => "valoresMinMax(this.value," . $dataAnalisis['min_des'] . "," . $dataAnalisis['max_des'] . "," . $dataAnalisis['codigo'] . "," . $j . ",'" . $dataAnalisis['estatus'] . "', this)"));
+                                ?>
+                                </td>
                                 <?
                                 break;
                             case '2':
@@ -424,17 +440,29 @@ switch ($GPC['ac']) {
                                 break;
                             case '3':
                                 ?>
-                                <td align="center"><?
+                                <td align="center">
+                                <?
                                 if ($dataAnalisis['estatus'] == 'C')
-                                    echo $html->select('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', array('options' => $booleano, 'class' => 'cuadricula booleano 40tna', 'onChange' => "valoresMinMax(this.value," . $dataAnalisis['min_rec'] . "," . $dataAnalisis['max_rec'] . "," . $dataAnalisis['codigo'] . "," . $j . ",'" . $dataAnalisis['estatus'] . "', this)"));
+                                    if ($GPC['mov']=='rec')
+                                        echo $html->select('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', array('options' => $booleano, 'class' => 'cuadricula booleano 40tna', 'onChange' => "valoresMinMax(this.value," . $dataAnalisis['min_rec'] . "," . $dataAnalisis['max_rec'] . "," . $dataAnalisis['codigo'] . "," . $j . ",'" . $dataAnalisis['estatus'] . "', this)"));
+                                    elseif ($GPC['mov']=='des')
+                                            echo $html->select('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', array('options' => $booleano, 'class' => 'cuadricula booleano 40tna', 'onChange' => "valoresMinMax(this.value," . $dataAnalisis['min_des'] . "," . $dataAnalisis['max_des'] . "," . $dataAnalisis['codigo'] . "," . $j . ",'" . $dataAnalisis['estatus'] . "', this)"));
                                 if ($dataAnalisis['estatus'] == 'R')
-                                    echo $html->select('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', array('options' => $booleano, 'class' => 'cuadricula booleano', 'onChange' => "valoresMinMax(this.value," . $dataAnalisis['min_rec'] . "," . $dataAnalisis['max_rec'] . "," . $dataAnalisis['codigo'] . "," . $j . ",'" . $dataAnalisis['estatus'] . "', this)"));?></td>
+                                    if ($GPC['mov']=='rec')
+                                        echo $html->select('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', array('options' => $booleano, 'class' => 'cuadricula booleano', 'onChange' => "valoresMinMax(this.value," . $dataAnalisis['min_rec'] . "," . $dataAnalisis['max_rec'] . "," . $dataAnalisis['codigo'] . "," . $j . ",'" . $dataAnalisis['estatus'] . "', this)"));
+                                    elseif ($GPC['mov']=='des')
+                                        echo $html->select('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', array('options' => $booleano, 'class' => 'cuadricula booleano', 'onChange' => "valoresMinMax(this.value," . $dataAnalisis['min_des'] . "," . $dataAnalisis['max_des'] . "," . $dataAnalisis['codigo'] . "," . $j . ",'" . $dataAnalisis['estatus'] . "', this)"));
+                                ?>
+                                </td>
                                 <?
                                 break;
                             }
                         }
                         if ($dataAnalisis['tipo_analisis'] == 1) {
-                            echo '<td align="center" width="100">' . $dataAnalisis['min_rec'] . " / " . $dataAnalisis['max_rec'] . '</td>';
+                            if ($GPC['mov']=='rec')
+                                echo '<td align="center" width="100">' . $dataAnalisis['min_rec'] . " / " . $dataAnalisis['max_rec'] . '</td>';
+                            else 
+                                echo '<td align="center" width="100">' . $dataAnalisis['min_des'] . " / " . $dataAnalisis['max_des'] . '</td>';
                         } else {
                             ?>
                         <td align="center">&nbsp;</td>

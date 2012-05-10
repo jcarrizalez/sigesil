@@ -1,4 +1,5 @@
 <?php
+    require_once('../lib/core.lib.php');
     //cuarentena_pendiente.php?ac=editar&id=7
     $Ctna = new Cuarentena();
     $recepcion = new Recepcion();
@@ -6,29 +7,85 @@
     $cultivo = new Cultivo();
     $vehiculo = new Vehiculo();
     
+    $listaCultivo = $cultivo->find('', null, array('id', 'nombre'), 'list', 'id');
+    
     switch ($GPC['ac']) {
         case 'editar':
             if (!empty($GPC['id'])) {
-                $infoRecepcion=$recepcion->find(array('id' => $id));
-                $infoCtna = $Ctna->find(array('id_recepcion' => $id));
+                $infoRecepcion=$recepcion->find(array('id' => $GPC['id']));
+                $idRec=$infoRecepcion[0]['id'];
+                $infoCtna = $Ctna->find(array('id_recepcion' => $idRec));
                 $idCuarentena=$infoCtna[0]['id'];
-                $infoVehiculo = $vehiculo->find(array('id' => $infoRecepcion[0]['id_vehiculo']));
-                $infoGuia = $guia->find(array('id' => $infoRecepcion[0]['id_guia']));
             }            
             break;
+        case 'Aprobar':
+            if (!empty($GPC['id'])) {
+                $infoRecepcion=$recepcion->find(array('id' => $GPC['id']));
+                $idRec=$infoRecepcion[0]['id'];
+                $infoCtna = $Ctna->find(array('id_recepcion' => $idRec));
+                $idCuarentena=$infoCtna[0]['id'];
+                
+                if (!empty($idCuarentena)) {
+                    $GPC['Cuarentena']['id']=$idCuarentena;
+                    $Ctna->save($GPC['Cuarentena']);
+                    $GPC['Recepcion']['id']=$idRec;
+                    $GPC['Recepcion']['estatus_rec']=2;
+                    $recepcion->save($GPC['Recepcion']);
+                }
+            }            
+            break;
+        case 'Rechazar':
+            if (!empty($GPC['id'])) {
+                $infoRecepcion=$recepcion->find(array('id' => $GPC['id']));
+                $idRec=$infoRecepcion[0]['id'];
+                $infoCtna = $Ctna->find(array('id_recepcion' => $idRec));
+                $idCuarentena=$infoCtna[0]['id'];
+                
+                if (!empty($idCuarentena)) {                    
+                    $GPC['Cuarentena']['id']=$idCuarentena;
+                    $Ctna->save($GPC['Cuarentena']);
+                    $GPC['Recepcion']['id']=$idRec;
+                    $GPC['Recepcion']['estatus_rec']=11;
+                    $recepcion->save($GPC['Recepcion']);
+                }
+            }
+            break;
     }
-    //$infoRecepcion
-    //$infoGuia
-    //$infoVehiculo
-//* Número de Guía
-//* Fecha de Emisión
-//* Kilogramos Guía 
+    require('../lib/common/header.php');
 ?>
-<form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
+<script type="text/javascript">
+    function cancelar(){
+        window.location = 'cuarentena_pendiente_listado.php';
+    }
+    
+    $(document).ready(function(){
+        $('#Cuarentena\\observa_admon\\').focus();
+        $('#Aprobar').click(function(){
+            $('#ac').val('Aprobar');
+        });
+        $('#Rechazar').click(function(){
+            $('#ac').val('Rechazar');
+        });
+        $("#form1").submit(function(){
+            valido=false;
+            if ($('#ac').val()=='' && $('#Cuarentena\\[observa_admon\\]').val()=='') {
+                alert('Faltan datos');
+                return valido;
+            }
+            else if ($('#ac').val()=='Rechazar' && confirm('Seguro Desea Rechazar'))                     
+                    valido=true;
+                else if ($('#ac').val()=='Aprobar' && confirm('Seguro Desea Aprobar'))
+                        valido=true;
+            return valido;
+        });
+    });
+</script>
+<form name="form1" id="form1" method="POST" action="" enctype="multipart/form-data">
     <? 
+    echo $html->input('ac', '', array('type' => 'hidden')); 
     echo $html->input('id', $GPC['id'], array('type' => 'hidden')); ?>
     <div id="titulo_modulo">
-        CUARENTENA<br/><hr/>
+        CUARENTENA PENDIENTE<br/><hr/>
     </div>    
     <fieldset>    
         <legend>Datos de la Recepcion</legend>
@@ -42,7 +99,7 @@
             </tr>
             <tr>
                 <td>Cultivo</td>
-                <td colspan="4"><? echo $html->select('Cuarentena.id_cultivo', array('options' => $listaCultivos, 'selected' => $infoCtna[0]['id_cultivo'], 'readOnly' => true)); ?></td>
+                <td colspan="4"><? echo $html->select('Cuarentena.id_cultivo', array('options' => $listaCultivo, 'selected' => $infoCtna[0]['id_cultivo'], 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Kilogramos Aprox.</td>
@@ -65,9 +122,31 @@
         </table>        
     </fieldset>
     <fieldset>    
-        <legend>Observaciones</legend>
+        <legend>Administracion</legend>
         <table align="center" border="0">
             <tr>
+                <td align="left">Observacion</td>
+                <td align="center">
+                <textarea name="Cuarentena[observa_admon]" cols="50" rows="2" id="Cuarentena[observa_admon]"><?=$infoCtna[0]['observa_admon']?></textarea></td>
+                </td>
             </tr>
-        </table>        
+        </table>
     </fieldset>
+    <table align="center" border="0">
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>                
+                <?
+                echo $html->input('Aprobar', 'Aprobar', array('type' => 'submit'));
+                echo $html->input('Rechazar', 'Rechazar', array('type' => 'submit'));
+                echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()'));
+                ?>
+            </td>
+        </tr>        
+    </table>
+    </fieldset>
+<?
+require('../lib/common/footer.php');
+?>

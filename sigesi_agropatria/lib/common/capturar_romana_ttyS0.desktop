@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=capturar_romana_ttyS0
+GenericName=Capturar Romana por el Puerto ttySO
+Comment=Script que levanta un Servidor Web que retorna una lectura por llamado
+Exec=/usr/local/sbin/capturar_romana_ttyS0.py &
+Terminal=false
+Type=Application
+X-GNOME-Autostart-enabled=true
