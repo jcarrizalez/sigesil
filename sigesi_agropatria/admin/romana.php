@@ -13,7 +13,7 @@
         case 'guardar':
             $GPC['Recepcion']['id'] = $GPC['id'];
             if (!empty($GPC['Recepcion']['id']) && (!empty($GPC['Recepcion']['romana_ent']) || !empty($GPC['Recepcion']['romana_sal'])) && (!empty($GPC['Recepcion']['peso_01l']) || !empty($GPC['Recepcion']['peso_01v']))) {
-                $formula = new Formulas();
+                /*$formula = new Formulas();
                 $evaluar = new LaMermelex();
                 $resultados = new Analisis();
                 $evaluar->suppress_errors = true;
@@ -180,11 +180,260 @@
                         $totalA = str_replace($reservadas, $pesos, $formulaAplicar['PA']);
                         if ($evaluar->evaluate('y(x) = ' . $totalA))
                             $pesoA = $evaluar->e("y(0)");
+                    }*/
+                $formula = new Formulas();
+                $evaluar = new LaMermelex();
+                $resultados = new Analisis();
+                    $cultivo = new Cultivo();
+                $evaluar->suppress_errors = true;
+
+                if($GPC['mov'] == 'rec' && $GPC['estatus'] == '3'){
+                    $GPC['Recepcion']['estatus_rec'] = ++$GPC['estatus'];
+                    $GPC['Recepcion']['fecha_pel'] = "now()";
+                }elseif($GPC['mov'] == 'rec' && $GPC['estatus'] == '6'){
+                    $GPC['Recepcion']['estatus_rec'] = $GPC['estatus']+3;
+                    $GPC['Recepcion']['fecha_v'] = "now()";
+                }elseif($GPC['mov'] == 'des' && $GPC['estatus'] == '1'){
+                    $GPC['Recepcion']['estatus'] = ++$GPC['estatus'];
+                    $GPC['Recepcion']['fecha_v'] = "now()";
+                }elseif($GPC['mov'] == 'des' && $GPC['estatus'] == '3'){
+                    $GPC['Recepcion']['estatus'] = $GPC['estatus']+2;
+                    $GPC['Recepcion']['fecha_pel'] = "now()";
+                }
+
+                if(($GPC['mov'] == 'rec' && ($GPC['Recepcion']['estatus_rec'] == '9')) || ($GPC['mov'] == 'des' && ($GPC['Recepcion']['estatus'] == '5'))){
+                    //CALCULAR LOS PESOS PARA GUARDARLOS
+
+                    if($GPC['mov'] == 'rec')
+                        $for_mov = 1;
+                    elseif($GPC['mov'] == 'des')
+                        $for_mov = 2;
+                    else
+                        $for_mov = 3;
+
+                    $GPC['cod_cul'] = trim(substr($GPC['cultivo'], 0, 2));
+                        $infoCultivo = $cultivo->find(array('codigo' => $GPC['cod_cul']), null, 'id');
+                        $orden = " ORDER BY id_centro_acopio DESC, id_cultivo, id_analisis, id";
+                        $formulas = $formula->formulaCultivo($_SESSION['s_ca_id'], $infoCultivo[0]['id'], $orden, $for_mov);
+
+                    if($GPC['mov'] == 'rec'){
+                        $infoMovimiento = $recepcion->find(array('id' => $id));
+                        $infoResultados = $resultados->listadoResultados($id, '', '', "'1', '2'");
+                    }else{
+                        $infoMovimiento = $despacho->find(array('id' => $id));
+                        $infoResultados = $resultados->listadoResultados('', $id, '', "'1', '2'");
+                    }
+
+                    if(!empty($infoResultados)){
+                        foreach($infoResultados as $valor){
+                            if($valor['codigo'] == 1){
+                                if($infoMovimiento[0]['muestra'] == 0){
+                                    $sumHum = (!empty($valor['muestra1'])) ? $valor['muestra1'] : 0;
+                                    $sumHum2 = (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                                    $sumHumT = $sumHum + $sumHum2;
+                                }elseif($infoMovimiento[0]['muestra'] == 1){
+                                    $sumHumT = (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                                }elseif($infoMovimiento[0]['muestra'] == 2){
+                                    $sumHumT = (!empty($valor['muestra1'])) ? $valor['muestra1'] : 0;
+                                }
+                            }else{
+                                if($infoMovimiento[0]['muestra'] == 0){
+                                    $sumImp = (!empty($valor['muestra1'])) ? $valor['muestra1'] : 0;
+                                    $sumImp2 = (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                                    $sumImpT = $sumImp + $sumImp2;
+                                }elseif($infoMovimiento[0]['muestra'] == 1){
+                                    $sumImpT = (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                                }elseif($infoMovimiento[0]['muestra'] == 2){
+                                    $sumImpT = (!empty($valor['muestra1'])) ? $valor['muestra1'] : 0;
+                                }
+                            }
+                        }
+                    }else{
+                        $sumHumT = 0;
+                        $sumImpT = 0;
+                    }
+
+                    //PROMEDIO PARA LA HUMEDAD
+                    if($infoMovimiento[0]['muestra'] == 0)
+                        $promHum = $sumHumT/$GPC['cant_m'];
+                    else
+                        $promHum = $sumHumT;
+
+                    //PROMEDIO PARA LA IMPUREZA
+                    if($infoMovimiento[0]['muestra'] == 0)
+                        $promImp = $sumImpT/$GPC['cant_m'];
+                    else
+                        $promImp = $sumImpT;
+
+                    //VARIABLES A USAR PARA LOS CALCULOS
+                    $reservadas = array('PL1', 'PL2', 'PV1', 'PV2', 'HUML', 'IMPL', 'PHUM', 'PIMP');
+                    $GPC['Recepcion']['pesoLleno2'] = (!empty($GPC['Recepcion']['pesoLleno2'])) ? $GPC['Recepcion']['pesoLleno2'] : 0;
+                    $GPC['Recepcion']['peso_02v'] = (!empty($GPC['Recepcion']['peso_02v'])) ? $GPC['Recepcion']['peso_02v'] : 0;
+
+                    if($GPC['mov'] == 'rec')
+                        $pesos = array($GPC['Recepcion']['pesoLleno1'], $GPC['Recepcion']['pesoLleno2'], $GPC['Recepcion']['peso_01v'], $GPC['Recepcion']['peso_02v'], $promHum, $promImp);
+                    else{
+                        $pesos = array($GPC['Recepcion']['pesoLleno1'], 0, $GPC['Recepcion']['peso_01v'], 0, $sumHum, $sumImp);
+                        $pesos2 = array(0, $GPC['Recepcion']['pesoLleno2'], 0, $GPC['Recepcion']['peso_02v'], $sumHum2, $sumImp2);
+                    }
+
+                    //ALMACENAR FORMULAS EN ARREGLO
+                    $otra = false;
+                    foreach($formulas as $valor){
+                        if($valor['codigo'] == 'PL12')
+                            $formulaAplicar['PL'] = $valor['formula'];
+                        elseif($valor['codigo'] == 'PV12')
+                            $formulaAplicar['PV'] = $valor['formula'];
+                        elseif($valor['codigo'] == 'PN')
+                            $formulaAplicar['PN'] = $valor['formula'];
+                        elseif($valor['codigo'] == 'PA')
+                            $formulaAplicar['PA'] = $valor['formula'];
+                        else{
+                            if(empty($valor['condicion']))
+                                $humImp[] = $valor['formula'];
+                            else{
+                                if($valor['id_analisis'] == 1){
+                                    $rango = split('<',$valor['condicion']);
+                                    if(($promHum >= $rango[0]) && ($promHum < $rango[1]))
+                                        $humImp[] = $valor['formula'];
+                                }elseif($valor['id_analisis'] == 2){
+                                    $rango = split('<',$valor['condicion']);
+                                    if(($promImp >= $rango[0]) && ($promImp < $rango[1]))
+                                        $humImp[] = $valor['formula'];
+                                }else{
+                                    $rango = split('=',$valor['condicion']);
+                                    $rangoEvaluar = split('<', $rango[1]);
+                                    $calculoFormula = str_replace($reservadas, $pesos, $rango[0]);
+                                    if ($evaluar->evaluate('y(x) = ' . $calculoFormula)){
+                                        $condicionFormula = $evaluar->e("y(0)");
+                                    }
+                                    if(($condicionFormula >= $rangoEvaluar[0]) && ($condicionFormula <= $rangoEvaluar[1]))
+                                        $otraFormula[] = $valor['formula'];
+                                    else
+                                        $otra = true;
+                                }
+                            }
+                        }
+                    }
+
+                    if(empty($otraFormula) && $otra){
+                        $otraFormula[0] = $formulaAplicar['PN'];
+                        $otraFormula[1] = $formulaAplicar['PN'];
+                    }
+
+                    //CALCULO DE LA HUMEDAD Y LA IMPUREZA
+                    if(!empty($humImp)){
+                        //CALCULO DE LA IMPUREZA
+                        $totalH = str_replace($reservadas, $pesos, $humImp[0]);
+                        if ($evaluar->evaluate('y(x) = ' . $totalH))
+                            $pesoH = $evaluar->e("y(0)");
+                        $pesos[] = $pesoH;
+
+                        //CALCULO DE LA IMPUREZA
+                        $totalI = str_replace($reservadas, $pesos, $humImp[1]);
+                        if ($evaluar->evaluate('y(x) = ' . $totalI))
+                            $pesoI = $evaluar->e("y(0)");
+                        $pesos[] = $pesoI;
+                    }
+
+                    if(!empty($otraFormula)){
+                        //PESO ACONDICIONADO Y PESO ACONDICIONADO A LIQUIDAR, PARA EL CASO DE CULTIVOS CON OTRA FORMULACION
+                        $totalA = str_replace($reservadas, $pesos, $otraFormula[0]);
+                        if ($evaluar->evaluate('y(x) = ' . $totalA))
+                        $pesoA = $evaluar->e("y(0)");
+
+                        if(!empty($otraFormula[1])){
+                            $totalAl = str_replace($reservadas, $pesos, $otraFormula[1]);
+                            if ($evaluar->evaluate('y(x) = ' . $totalAl))
+                            $pesoAl = $evaluar->e("y(0)");
+                        }
+                    }else{
+                        //PESO ACONDICIONADO A LIQUIDAR, PARA EL CASO DE CULTIVOS CON FORMULACION POR HUMEDAD E IMPUREZAS
+                        $totalAl = str_replace($reservadas, $pesos, $formulaAplicar['PA']);
+                        if ($evaluar->evaluate('y(x) = ' . $totalAl))
+                            $pesoAl = $evaluar->e("y(0)");
+                    }
+
+                    //CALCULO DEL PESO NETO
+                    $totalN = str_replace($reservadas, $pesos, $formulaAplicar['PN']);
+                    if ($evaluar->evaluate('y(x) = ' . $totalN))
+                        $pesoN = $evaluar->e("y(0)");
+
+                    //PESO ACONDICIONADO Y PESO ACONDICIONADO A LIQUIDAR, PARA EL CASO DE CULTIVOS CON OTRA FORMULACION
+                    $totalA = str_replace($reservadas, $pesos, $otraFormula[0]);
+                    if ($evaluar->evaluate('y(x) = ' . $totalA))
+                        $pesoA = $evaluar->e("y(0)");
+
+                    $totalAl = str_replace($reservadas, $pesos, $otraFormula[1]);
+                    if ($evaluar->evaluate('y(x) = ' . $totalAl))
+                        $pesoAl = $evaluar->e("y(0)");
+
+                    if($GPC['mov'] == 'des' && ($sumHum2 != '' || $sumImp2 != '' || $GPC['Recepcion']['pesoLleno2'] != '' || $GPC['Recepcion']['peso_02v'] != '')){
+                        //CALCULO DE LA HUMEDAD Y LA IMPUREZA
+                        if(!empty($humImp)){
+                            //CALCULO DE LA IMPUREZA
+                            $totalH2 = str_replace($reservadas, $pesos2, $humImp[0]);
+                            if ($evaluar->evaluate('y(x) = ' . $totalH2))
+                                $pesoH2 = $evaluar->e("y(0)");
+                            $pesos2[] = $pesoH2;
+
+                            //CALCULO DE LA IMPUREZA
+                            $totalI2 = str_replace($reservadas, $pesos2, $humImp[1]);
+                            if ($evaluar->evaluate('y(x) = ' . $totalI2))
+                                $pesoI2 = $evaluar->e("y(0)");
+                            $pesos2[] = $pesoI2;
+                        }
+
+                        if(!empty($otraFormula)){
+                            //PESO ACONDICIONADO Y PESO ACONDICIONADO A LIQUIDAR, PARA EL CASO DE CULTIVOS CON OTRA FORMULACION
+                            $totalA2 = str_replace($reservadas, $pesos2, $otraFormula[0]);
+                            if ($evaluar->evaluate('y(x) = ' . $totalA2))
+                            $pesoA2 = $evaluar->e("y(0)");
+
+                            if(!empty($otraFormula[1])){
+                                $totalAl2 = str_replace($reservadas, $pesos2, $otraFormula[1]);
+                                if ($evaluar->evaluate('y(x) = ' . $totalAl2))
+                                $pesoAl2 = $evaluar->e("y(0)");
+                            }
+                        }else{
+                            //PESO ACONDICIONADO A LIQUIDAR, PARA EL CASO DE CULTIVOS CON FORMULACION POR HUMEDAD E IMPUREZAS
+                            $totalAl2 = str_replace($reservadas, $pesos2, $formulaAplicar['PA']);
+                            if ($evaluar->evaluate('y(x) = ' . $totalAl2))
+                                $pesoAl2 = $evaluar->e("y(0)");
+                        }
+
+                        //CALCULO DEL PESO NETO
+                        $totalN2 = str_replace($reservadas, $pesos2, $formulaAplicar['PN']);
+                        if ($evaluar->evaluate('y(x) = ' . $totalN2))
+                            $pesoN2 = $evaluar->e("y(0)");
+
+                        //PESO ACONDICIONADO Y PESO ACONDICIONADO A LIQUIDAR, PARA EL CASO DE CULTIVOS CON OTRA FORMULACION
+                        $totalA2 = str_replace($reservadas, $pesos2, $otraFormula[0]);
+                        if ($evaluar->evaluate('y(x) = ' . $totalA2))
+                            $pesoA2 = $evaluar->e("y(0)");
+
+                        $totalAl2 = str_replace($reservadas, $pesos2, $otraFormula[1]);
+                        if ($evaluar->evaluate('y(x) = ' . $totalAl2))
+                            $pesoAl2 = $evaluar->e("y(0)");
+                    }
+                
+                    
+                    $GPC['Recepcion']['humedad'] = $sumHum;
+                    $GPC['Recepcion']['impureza'] = $sumImp;
+                    $GPC['Recepcion']['humedad_des'] = round($pesoH);
+                    $GPC['Recepcion']['impureza_des'] = round($pesoI);
+                    $GPC['Recepcion']['peso_acon'] = round($pesoA);
+                    $GPC['Recepcion']['peso_acon_liq'] = round($pesoAl);
+                    if($GPC['mov'] == 'des'){
+                        $GPC['Recepcion']['humedad2'] = $sumHum2;
+                        $GPC['Recepcion']['impureza2'] = $sumImp2;
+                        $GPC['Recepcion']['humedad_des2'] = round($pesoH2);
+                        $GPC['Recepcion']['impureza_des2'] = round($pesoI2);
+                        $GPC['Recepcion']['peso_acon2'] = round($pesoA2);
+                        $GPC['Recepcion']['peso_acon_liq2'] = round($pesoAl2);
                     }
                     
-                    $GPC['Recepcion']['peso_acon'] = round($pesoA);
-                    Debug::pr($GPC['Recepcion']);die('no guarda');
-                    /*if($GPC['mov'] == 'rec'){
+                    if($GPC['mov'] == 'rec'){
                         unset($GPC['Recepcion']['pesoLleno1']);
                         unset($GPC['Recepcion']['pesoLleno2']);
                         $recepcion->save($GPC['Recepcion']);
@@ -196,7 +445,7 @@
                         unset($GPC['Recepcion']['pesoLleno2']);
                         $despacho->save($GPC['Recepcion']);
                         $idMovimiento = $despacho->id;
-                    }*/
+                    }
                     
                 }elseif($GPC['mov'] == 'rec' && ($GPC['Recepcion']['estatus_rec'] == '4')){
                     //RECEPCION PESO LLENO
@@ -211,7 +460,8 @@
                 }
             }
             if (!empty($idMovimiento) && (($GPC['mov'] == 'rec' && $GPC['Recepcion']['estatus_rec'] == '9') || ($GPC['mov'] == 'des' && $GPC['Recepcion']['estatus'] == '5'))) {
-                header("location: ".DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_liquidacion&redir=romana_listado&id_rec=$idMovimiento&mov=".$GPC['mov']);
+                //header("location: ".DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_liquidacion&redir=romana_listado&id_rec=$idMovimiento&mov=".$GPC['mov']);
+                header("location: ".DOMAIN_ROOT."admin/romana_listado.php?msg=exitoso&mov=".$GPC['mov']);
                 die();
             } elseif (!empty($idMovimiento) && (($GPC['mov'] == 'rec' && $GPC['Recepcion']['estatus_rec'] == '4') || ($GPC['mov'] == 'des' && $GPC['Recepcion']['estatus'] == '2'))){
                 header("location: ".DOMAIN_ROOT."admin/romana_listado.php?msg=exitoso&mov=".$GPC['mov']);
@@ -393,7 +643,7 @@
             <td>Peso Lleno <?=$pesar?> Kgrs</td>
             <td id="capturarPeso1">
                 <?
-                    echo $html->input('Recepcion.peso_01l', '', array('type' => 'text', 'class' => 'estilo_campos2 positive'));
+                    echo $html->input('Recepcion.peso_01l', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 positive'));
                     echo $html->input('pesar1', 'PESAR', array('type' => 'button', 'class' => 'capturar'));
                 ?>
             </td>
@@ -407,7 +657,7 @@
             <td>Peso Lleno <?=$pesar?> Kgrs</td>
             <td id="capturarPeso1">
                 <?
-                    echo $html->input('Recepcion.peso_01l', '', array('type' => 'text', 'class' => 'estilo_campos2 positive'));
+                    echo $html->input('Recepcion.peso_01l', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 positive'));
                     echo $html->input('pesar1', 'PESAR', array('type' => 'button', 'class' => 'capturar'));
                 ?>
             </td>
@@ -476,7 +726,7 @@
             <td>Peso Vac&iacute;o <?=$pesar?> Kgrs</td>
             <td id="capturarPeso1">
                 <?
-                    echo $html->input('Recepcion.peso_01v', '', array('type' => 'text', 'class' => 'estilo_campos2 positive verifPeso'));
+                    echo $html->input('Recepcion.peso_01v', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 positive verifPeso'));
                     echo $html->input('pesar'.$i, 'PESAR', array('type' => 'button', 'class' => 'capturar'));
                 ?>
             </td>
@@ -492,7 +742,7 @@
         </tr>
         <tr>
             <td>Peso Vac&iacute;o <?=$pesar?> Kgrs</td>
-            <td><? echo $html->input('Recepcion.peso_01v', '', array('type' => 'text', 'class' => 'estilo_campos2 positive verifPeso')); ?></td>
+            <td><? echo $html->input('Recepcion.peso_01v', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 positive verifPeso')); ?></td>
         </tr>
         <?
                             }else{
@@ -527,7 +777,7 @@
             <td>Peso Vacio <?=$pesar?> Kgrs</td>
             <td id="capturarPeso<?=$i?>">
                 <?
-                    echo $html->input('Recepcion.peso_0'.$i.'v', '', array('type' => 'text', 'class' => 'estilo_campos2 positive'));
+                    echo $html->input('Recepcion.peso_0'.$i.'v', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 positive'));
                     echo $html->input('pesar'.$i, 'PESAR', array('type' => 'button', 'class' => 'capturar'));
                 ?>
             </td>
@@ -556,7 +806,7 @@
             <td>Peso Lleno <?=$pesar?> Kgrs</td>
             <td id="capturarPeso<?=$i?>">
                 <?
-                    echo $html->input("Recepcion.pesoLleno$i", '', array('type' => 'text', 'class' => 'estilo_campos2 positive verifPeso'));
+                    echo $html->input("Recepcion.pesoLleno$i", '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 positive verifPeso'));
                     echo $html->input('pesar'.$i, 'PESAR', array('type' => 'button', 'class' => 'capturar'));
                 ?>
             </td>
