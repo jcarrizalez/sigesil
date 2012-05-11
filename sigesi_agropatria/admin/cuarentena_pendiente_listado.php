@@ -6,7 +6,7 @@
 
     $porPagina = MAX_RESULTS_PAG;
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
-    $estatus='';
+    $estatus=2;
     
     $idCosecha='';
     $numEntrada='';
@@ -106,9 +106,7 @@
             <td align="center"><?=$general->date_sql_screen($dataRecepcion['creado'], '', $lang="es", $sep="-")?></td>
             <td align="center"><?
             //=$dataRecepcion['estatus_rec']
-            echo '<img src="../images/cuarentena.png" width="16" height="16" title=Cuarentena>';
-            echo ' ';
-            echo '<img src="../images/preguntar.png" width="16" height="16" title=Preguntar>';
+            echo '<img src="../images/cuarentena.png" width="16" height="16" title=Cuarentena>';            
             ?></td>
             <td align="center">
                 <?

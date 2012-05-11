@@ -16,7 +16,7 @@
                 $idRec=$infoRecepcion[0]['id'];
                 $infoCtna = $Ctna->find(array('id_recepcion' => $idRec));
                 $idCuarentena=$infoCtna[0]['id'];
-            }            
+            }
             break;
         case 'Aprobar':
             if (!empty($GPC['id'])) {
@@ -26,13 +26,22 @@
                 $idCuarentena=$infoCtna[0]['id'];
                 
                 if (!empty($idCuarentena)) {
+                    $Ctna->_begin_tool();
                     $GPC['Cuarentena']['id']=$idCuarentena;
                     $Ctna->save($GPC['Cuarentena']);
                     $GPC['Recepcion']['id']=$idRec;
-                    $GPC['Recepcion']['estatus_rec']=2;
+                    $GPC['Recepcion']['estatus_rec']=11;
                     $recepcion->save($GPC['Recepcion']);
+                    $Ctna->_commit_tool();
                 }
-            }            
+            }
+            if (!empty($idCuarentena)) {
+                header('location: '.DOMAIN_ROOT.'admin/cuarentena_pendiente_listado?existoso');
+                die();
+            } else {
+                header('location: '.DOMAIN_ROOT.'admin/cuarentena_pendiente_listado?error');
+                die();
+            }
             break;
         case 'Rechazar':
             if (!empty($GPC['id'])) {
@@ -41,15 +50,24 @@
                 $infoCtna = $Ctna->find(array('id_recepcion' => $idRec));
                 $idCuarentena=$infoCtna[0]['id'];
                 
-                if (!empty($idCuarentena)) {                    
+                if (!empty($idCuarentena)) {
+                    $Ctna->_begin_tool();
                     $GPC['Cuarentena']['id']=$idCuarentena;
                     $Ctna->save($GPC['Cuarentena']);
                     $GPC['Recepcion']['id']=$idRec;
-                    $GPC['Recepcion']['estatus_rec']=11;
+                    $GPC['Recepcion']['estatus_rec']=12;
                     $recepcion->save($GPC['Recepcion']);
+                    $Ctna->_commit_tool();
                 }
             }
-            break;
+            if (!empty($idCuarentena)) {
+                header('location: '.DOMAIN_ROOT.'admin/cuarentena_pendiente_listado.php?existoso');
+                die();
+            } else {
+                header('location: '.DOMAIN_ROOT.'admin/cuarentena_pendiente_listado.php?error');
+                die();
+            }
+            break;            
     }
     require('../lib/common/header.php');
 ?>

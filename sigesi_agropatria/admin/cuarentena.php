@@ -504,74 +504,85 @@ $validator->printScript();
             </tr>
         </table>        
     </fieldset> 
-<fieldset>    
-    <legend>Datos de los Insectos</legend>    
+    <fieldset>    
+        <legend>Administracion</legend>
         <table align="center" border="0">
             <tr>
-                <td align="center colspan="2">Tipos de Insectos</td>
-                <?
-                if ($soloLectura) {
-                ?>
-                    <td align="left"><? echo $html->select('tipoInsecto', array('options' => range(0,count($listaPlagas)), 'selected'=>count($listaCP), 'readOnly' => $soloLectura)); ?></td>                
-                <?
-                } else {
-                ?>                     
-                <td align="left">                    
-                <? 
-                $opciones=range(0,count($listaPlagas));
-                $opciones[0]='SELECCIONE';
-                echo $html->select('tipoInsecto', array('options' => $opciones, 'selected'=>count($listaCP))); ?>
+                <td align="left">Observacion</td>
+                <td align="center">
+                <textarea name="Cuarentena[observa_admon]" cols="50" rows="2" id="Cuarentena[observa_admon]" readonly="readonly"><?=$infoCtna[0]['observa_admon']?></textarea></td>
                 </td>
+            </tr>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>Datos de los Insectos</legend>
+            <table align="center" border="0">
+                <tr>
+                    <td align="center colspan="2">Tipos de Insectos</td>
+                    <?
+                    if ($soloLectura) {
+                    ?>
+                        <td align="left"><? echo $html->select('tipoInsecto', array('options' => range(0,count($listaPlagas)), 'selected'=>count($listaCP), 'readOnly' => $soloLectura)); ?></td>                
+                    <?
+                    } else {
+                    ?>                     
+                    <td align="left">                    
+                    <? 
+                    $opciones=range(0,count($listaPlagas));
+                    $opciones[0]='SELECCIONE';
+                    echo $html->select('tipoInsecto', array('options' => $opciones, 'selected'=>count($listaCP))); ?>
+                    </td>
+                    <? 
+                    }
+                    ?>
+                </tr>
+                </table> 
+        <div id="insectos">
+            <table align="center" border="0">
+                <tr align="center" class="titulos_tabla">
+                <? if (!empty($listaCP)) { ?>
+                    <th>Insecto</th>
+                    <th>Muestra</th>
+                    <th>Valor</th>
+                </tr>
+                <? }
+                $i=0;
+                foreach($listaCP as $dataCP) {
+                    $clase = $general->obtenerClaseFila($i); 
+                ?>
+                <tr class="<?=$clase?>">
+                    <td>
+                    <? 
+                    if ($soloLectura)
+                        echo $html->select('dataCP_id_'.$i, array('options' => $listaPlagas, 'selected' => $dataCP['id_plaga'], 'default' =>'Seleccione', 'readOnly' => true, 'class'=>'plaga')); 
+                    else
+                        echo $html->select('dataCP_id_'.$i, array('options' => $listaPlagas, 'selected' => $dataCP['id_plaga'], 'default' =>'Seleccione', 'class'=>'plaga')); 
+                    ?>
+                    </td>                    
+                    <td>
+                    <?
+                    if ($soloLectura)
+                        echo $html->select('esContable_'.$i, array('options' => array('C'=>'CONTABLE','I'=>'INCONTABLE'), 'selected' => (($dataCP['cantidad'] >= 0) ? 'C': 'I'), 'default' =>'Seleccione', 'readOnly' => $soloLectura,'class' => 'contable'));
+                    else
+                        echo $html->select('esContable_'.$i, array('options' => array('C'=>'CONTABLE','I'=>'INCONTABLE'), 'selected' => (($dataCP['cantidad'] >= 0) ? 'C': 'I'), 'default' =>'Seleccione', 'class' => 'contable'));
+                    ?>
+                    </td>
+                    <td>
+                    <?                
+                        if ($dataCP['cantidad'] >= 0)                        
+                            echo $html->input('dataCP_cantidad_'.$i, $dataCP['cantidad'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'class' => 'estilo_campos cuadricula positive'));
+                        else
+                            echo $html->input('dataCP_cantidad_'.$i, '', array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'class' => 'estilo_campos cuadricula positive'));
+                    ?>      
+                    </td>
+                </tr>
                 <? 
+                $i++;
                 }
                 ?>
-            </tr>
-            </table> 
-    <div id="insectos">
-        <table align="center" border="0">
-            <tr align="center" class="titulos_tabla">
-            <? if (!empty($listaCP)) { ?>
-                <th>Insecto</th>
-                <th>Muestra</th>
-                <th>Valor</th>
-            </tr>
-            <? }
-            $i=0;
-            foreach($listaCP as $dataCP) {
-                $clase = $general->obtenerClaseFila($i); 
-            ?>
-            <tr class="<?=$clase?>">
-                <td>
-                <? 
-                if ($soloLectura)
-                    echo $html->select('dataCP_id_'.$i, array('options' => $listaPlagas, 'selected' => $dataCP['id_plaga'], 'default' =>'Seleccione', 'readOnly' => true, 'class'=>'plaga')); 
-                else
-                    echo $html->select('dataCP_id_'.$i, array('options' => $listaPlagas, 'selected' => $dataCP['id_plaga'], 'default' =>'Seleccione', 'class'=>'plaga')); 
-                ?>
-                </td>                    
-                <td>
-                <?
-                if ($soloLectura)
-                    echo $html->select('esContable_'.$i, array('options' => array('C'=>'CONTABLE','I'=>'INCONTABLE'), 'selected' => (($dataCP['cantidad'] >= 0) ? 'C': 'I'), 'default' =>'Seleccione', 'readOnly' => $soloLectura,'class' => 'contable'));
-                else
-                    echo $html->select('esContable_'.$i, array('options' => array('C'=>'CONTABLE','I'=>'INCONTABLE'), 'selected' => (($dataCP['cantidad'] >= 0) ? 'C': 'I'), 'default' =>'Seleccione', 'class' => 'contable'));
-                ?>
-                </td>
-                <td>
-                <?                
-                    if ($dataCP['cantidad'] >= 0)                        
-                        echo $html->input('dataCP_cantidad_'.$i, $dataCP['cantidad'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'class' => 'estilo_campos cuadricula positive'));
-                    else
-                        echo $html->input('dataCP_cantidad_'.$i, '', array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'class' => 'estilo_campos cuadricula positive'));
-                ?>      
-                </td>
-            </tr>
-            <? 
-            $i++;
-            }
-            ?>
-        </table>
-    </div>
+            </table>
+        </div>
     </fieldset>
     <div id="fumigacion">
     <fieldset sytle="display: block">    

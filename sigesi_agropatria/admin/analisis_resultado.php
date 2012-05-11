@@ -169,7 +169,7 @@ switch ($GPC['ac']) {
                         $Muestra=3;
                     if ($_SESSION['s_mov']=='rec') {
                         if ($_SESSION['s_lab']=='C') 
-                            $estatus = 11; // Se asigna Estatus de Pendiente por Aprobar Cuarentena
+                            $estatus = 2; // Se asigna Estatus de Pendiente por Aprobar Cuarentena
                         elseif ($_SESSION['s_lab']=='P')
                                 $estatus = '2';
                     } elseif ($_SESSION['s_mov']=='des')

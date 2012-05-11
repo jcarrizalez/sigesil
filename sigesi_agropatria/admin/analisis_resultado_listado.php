@@ -25,7 +25,7 @@ else
 switch ($GPC['mov']) {
     case 'rec':
         $recepcion = new Recepcion();
-        $estatus=($_SESSION['s_lab']=='C')? "'1','2'": "'4','5'";        
+        $estatus=($_SESSION['s_lab']=='C')? "'1','11','12'": "'4','5'";        
         $listadoM=$recepcion->listadoRecepcion(null, $idCA, null, null, null, $estatus);
         break;
     case 'des':
@@ -169,13 +169,20 @@ require('../lib/common/init_calendar.php');
         switch ($GPC['mov']) {
             case 'rec':
                 switch ($dataMov['estatus_rec']) {
-                    case '1':
-                    case '4':
+                    case 1:
+                    case 4:
                         echo '<img src="../images/reloj.png" width="16" height="16" title=Espera />';
                         break;
-                    case '2':
+                    case 11:
                         echo '<img src="../images/cuarentena.png" width="16" height="16" title=Cuarentena />';
+                        echo ' ';
+                        echo '<img src="../images/habilitar.png" width="16" height="16" title=Aprobado />';
                         break;
+                    case 12:
+                        echo '<img src="../images/cuarentena.png" width="16" height="16" title=Cuarentena />';
+                        echo ' ';
+                        echo '<img src="../images/deshabilitar.png" width="16" height="16" title=Rechazado />';
+
                 }
                 break;
             case 'des':
@@ -193,18 +200,19 @@ require('../lib/common/init_calendar.php');
         switch ($GPC['mov']) {            
             case 'rec':
                 switch ($dataMov['estatus_rec']) {
-                    case '1':
-                    case '4':
+                    case 1:
+                    case 4:
                         echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Nuevo>', 'analisis_resultado.php?ac=nuevo&id='.$dataMov['id'].'&cant_muestras='.$dataMov['cant_muestras'].'&id_cosecha='.$dataMov['id_cosecha']); 
                         break;
-                    case '2':
-                    case '6':
+                    case 11:
+                    case 12:
+                    case 6:
                         echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'cuarentena.php?ac=editar&id='.$dataMov['id']); 
                     break;                
                 }
             case 'des':
                 switch ($dataMov['estatus']) {
-                    case '2':                    
+                    case 2:                    
                         echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Nuevo>', 'analisis_resultado.php?ac=nuevo&id='.$dataMov['id'].'&cant_muestras='.$dataMov['cant_muestras'].'&id_cosecha='.$dataMov['id_cosecha']); 
                         break;             
                 }                
