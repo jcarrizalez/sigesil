@@ -173,8 +173,9 @@ switch ($GPC['ac']) {
             if (!empty($id_analisis)) {
                 if ($_SESSION['s_mov']=='rec') {
                     $GPC['Recepcion']['id'] = $GPC['id'];
-                    $GPC['Recepcion']['estatus_rec'] = $estatus;                    
-                    $GPC['Recepcion']['muestra'] = $Muestra;
+                    $GPC['Recepcion']['estatus_rec'] = $estatus;
+                    if ($Muestra!=0)
+                        $GPC['Recepcion']['muestra'] = $Muestra;
                     $Rec->save($GPC['Recepcion']);                    
                 } elseif ($_SESSION['s_mov']=='des') {
                     $GPC['Despacho']['id'] = $GPC['id'];
