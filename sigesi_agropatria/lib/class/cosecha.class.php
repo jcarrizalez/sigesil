@@ -26,7 +26,7 @@ class Cosecha extends Model {
                     INNER JOIN si_cultivo cu ON cu.id = co.id_cultivo
                     WHERE '1'";
         
-        $query.=(!empty($idCo)) ? " AND pr.id_centro_acopio = '$idCA'" : '';
+        $query.=(!empty($idCA)) ? " AND pr.id_centro_acopio = '$idCA'" : '';
         $query.=(!empty($idCo)) ? " AND co.id = '$idCo'" : '';
         $query.=(!empty($idP)) ? " AND pr.id = '$idP'" : '';
         $query.=(!empty($idCu)) ? " AND cu.id = '$idCu'" : '';

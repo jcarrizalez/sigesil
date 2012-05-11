@@ -140,6 +140,7 @@
  * @version 5.9.149
  */
 
+
 // Main configuration file. Define the K_TCPDF_EXTERNAL_CONFIG constant to skip this file.
 require_once(dirname(__FILE__).'/config/tcpdf_config.php');
 
@@ -3315,9 +3316,11 @@ class TCPDF {
 			$this->x = $margin;
 		}
 	}
-	public function decimales($n)
+	public function decimales($n,$d=null)
 		{
-		 return number_format($n, 2, ",", ".");
+			if($d!=null) $c=$d;
+			else $c=$d;
+		 return number_format($n, $c, ",", ".");
 		}
 
 	/**
@@ -6901,6 +6904,7 @@ class TCPDF {
 		// get the number of characters
 		$nb = count($chars);
 		// replacement for SHY character (minus symbol)
+
 		$shy_replacement = 45;
 		$shy_replacement_char = $this->unichr($shy_replacement);
 		// widht for SHY replacement
@@ -17758,6 +17762,7 @@ class TCPDF {
 	 * Please remove any reference to this method.
 	 * @param $s (string) Empty parameter.
 	 * @deprecated deprecated since version 5.9.089 (2011-06-13)
+
 	 * @public
 	 */
 	public function AliasNumPage($s='') {}
@@ -18151,6 +18156,7 @@ class TCPDF {
 	/**
 	 * Paints color transition registration bars
 	 * @param $x (float) abscissa of the top left corner of the rectangle.
+
 	 * @param $y (float) ordinate of the top left corner of the rectangle.
 	 * @param $w (float) width of the rectangle.
 	 * @param $h (float) height of the rectangle.

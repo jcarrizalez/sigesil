@@ -8,17 +8,29 @@ if(isset($GPC['id']))
 {
 
 	$arrays=explode('_',$GPC['id']);
+
+if(isset($arrays[4])
+$idCA=$arrays[4];
+else
+$idCA='';
+
+echo "('', $idCA, ".$arrays[1].", '', '', '9',".$arrays[2].",".$arrays[3].",'','',."$arrays[0].")";
 /*
 	if(isset($arrays[0]) and isset($arrays[1]) and isset($arrays[2]))
 		$ban=0; //1
 	else
 		$ban=0;
 */
-echo 'ddddd';
+//header('location: pdf_listado_recepciones_todo.php?id='.$fdesde."_".$fhasta."_".$idCA."_".$idCo);
+//$urls = array(3 => '../reportes/pdf_listado_recepciones_individual.php?id='.$dataRecepcion['id'].'_'.$dataRecepcion['id_co'].'_'.$fdesde.'_'.$fhasta.$idCA);
+//$dataRecepcion['id'] = ID DEL CLIENTE
 //$listadoRecepciones = $recepcion->listadoRecepciones('', $centro_acopio, '', '', '', "'9'",$arrays[1],$arrays[2],'','',$arrays[0]);
-$listadoRecepciones = $recepcion->listadoRecepciones('', '', '', '', '', "'9'",$arrays[1],$arrays[2],'','',$arrays[0]);
-Debug::pr($listadoRecepciones);
-*/
+
+
+
+
+//$listadoRecepciones = $recepcion->listadoRecepcion('', $idCA, $arrays[1], '', '', "'9'",$arrays[2],$arrays[3],'','',$arrays[0]);
+//Debug::pr($listadoRecepciones);
 }
 else
 $ban=0;
@@ -36,11 +48,11 @@ $centro_acopio='';
 
 //$listadoDespachos = $despacho->listadoDespacho('', $centro_acopio, '', '', '', "'5'",$arrays[1],$arrays[2],'','',$arrays[0]);
 
-$listadoRecepciones = $recepcion->listadoRecepciones('', $centro_acopio, '', '', '', "'9'",$arrays[1],$arrays[2],'','',$arrays[0]);
-Debug::pr($listadoRecepciones);
+//$listadoRecepciones = $recepcion->listadoRecepciones('', $centro_acopio, '', '', '', "'9'",$arrays[1],$arrays[2],'','',$arrays[0]);
+//Debug::pr($listadoRecepciones);
 
 
-$reporte_=$listadoDespachos[0]['cliente_nombre'].'_'.$listadoDespachos[0]['ced_cliente'];
+//$reporte_=$listadoDespachos[0]['cliente_nombre'].'_'.$listadoDespachos[0]['ced_cliente'];
 }
 else
 $reporte_='REPORTE_SIN_DATOS';

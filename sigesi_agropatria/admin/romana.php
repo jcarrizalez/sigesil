@@ -8,6 +8,10 @@
     
     $recepcion = new Recepcion();
     $despacho = new Despacho();
+    $listadoEjes = $recepcion->toneladasPorEje();
+    foreach($listadoEjes as $valor){
+        $listaEjes[$valor['id']] = $valor['nombre'];
+    }
 
     switch ($GPC['ac']) {
         case 'guardar':
@@ -514,8 +518,14 @@
     $(document).ready(function(){
         $('.positive').numeric();
         
-        $('#id_estado').change(function(){
-            $('#id_municipio').load('../ajax/division_pol.php?ac=mcpos&idE=' + $(this).val());
+        $('#cant_ejes').change(function(){
+            var opc = $(this).val();
+            if(opc != '')
+                $('#pesoEjes').load('../ajax/detalle_formula.php?ac=ejes&opc='+opc);
+            else{
+                $('#pesoEjes').html('');
+                alert('Elija la Cantidad de Ejes');
+            }
         });
         
         $('.verifPeso').live('blur', function(){
@@ -611,7 +621,7 @@
                 if($infoMovimiento[0]['estatus_rec'] == '3'){
         ?>
         <tr>
-            <td>Romana de Entrada</td>
+            <td><span class="msj_rojo">* </span>Romana de Entrada</td>
             <td><? echo $html->select('Recepcion.romana_ent', array('options' => $listaRomanas, 'default' => 'Seleccione', 'class' => 'estilo_campos2')); ?></td>
         </tr>
         <?
@@ -620,7 +630,7 @@
                         if($infoMovimiento[0]['muestra'] == 0){
         ?>
         <tr>
-            <td>Peso Lleno <?=$pesar?> Kgrs</td>
+            <td><span class="msj_rojo">* </span>Peso Lleno <?=$pesar?> Kgrs</td>
             <td id="capturarPeso<?=$i?>">
                 <?
                     echo $html->input('Recepcion.peso_0'.$i.'l', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 positive'));
@@ -640,7 +650,7 @@
                             }else{
         ?>
         <tr>
-            <td>Peso Lleno <?=$pesar?> Kgrs</td>
+            <td><span class="msj_rojo">* </span>Peso Lleno <?=$pesar?> Kgrs</td>
             <td id="capturarPeso1">
                 <?
                     echo $html->input('Recepcion.peso_01l', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 positive'));
@@ -654,7 +664,7 @@
                             if($i == 1){
         ?>
         <tr>
-            <td>Peso Lleno <?=$pesar?> Kgrs</td>
+            <td><span class="msj_rojo">* </span>Peso Lleno <?=$pesar?> Kgrs</td>
             <td id="capturarPeso1">
                 <?
                     echo $html->input('Recepcion.peso_01l', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 positive'));
@@ -681,7 +691,7 @@
             <td><? echo $html->input('romana_ent', $infoMovimiento[0]['romana_ent'], array('type' => 'text', 'class' => 'estilo_campos2', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
-            <td>Romana de Salida</td>
+            <td><span class="msj_rojo">* </span>Romana de Salida</td>
             <td><? echo $html->select('Recepcion.romana_sal', array('options' => $listaRomanas, 'default' => 'Seleccione', 'class' => 'estilo_campos2')); ?></td>
         </tr>
         <?
@@ -694,7 +704,7 @@
             <td><? echo $html->input("Recepcion.pesoLleno$i", $infoMovimiento[0]['peso_0'.$i.'l'], array('type' => 'text', 'class' => 'estilo_campos2', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
-            <td>Peso Vac&iacute;o <?=$pesar?> Kgrs</td>
+            <td><span class="msj_rojo">* </span>Peso Vac&iacute;o <?=$pesar?> Kgrs</td>
             <td id="capturarPeso<?=$i?>">
                 <?
                     echo $html->input('Recepcion.peso_0'.$i.'v', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 positive verifPeso'));
@@ -723,7 +733,7 @@
             <td><? echo $html->input("Recepcion.pesoLleno1", $infoMovimiento[0]['peso_01l'], array('type' => 'text', 'class' => 'estilo_campos2 positive', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
-            <td>Peso Vac&iacute;o <?=$pesar?> Kgrs</td>
+            <td><span class="msj_rojo">* </span>Peso Vac&iacute;o <?=$pesar?> Kgrs</td>
             <td id="capturarPeso1">
                 <?
                     echo $html->input('Recepcion.peso_01v', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 positive verifPeso'));
@@ -766,7 +776,12 @@
                 if($infoMovimiento[0]['estatus_rec'] == '1'){
         ?>
         <tr>
-            <td>Romana de Entrada</td>
+            <td>Cantidad de Ejes</td>
+            <td><? echo $html->select('cant_ejes', array('options' => $listaEjes, 'default' => 'Seleccione', 'class' => 'estilo_campos2')); ?></td>
+        </tr>
+        <tbody id="pesoEjes"></tbody>
+        <tr>
+            <td><span class="msj_rojo">* </span>Romana de Entrada</td>
             <td><? echo $html->select('Recepcion.romana_ent', array('options' => $listaRomanas, 'default' => 'Seleccione', 'class' => 'estilo_campos2')); ?></td>
         </tr>
         <?
@@ -774,7 +789,7 @@
                         $pesar = ($i == 1) ? 'Motriz' : 'Remolque';
         ?>
         <tr>
-            <td>Peso Vacio <?=$pesar?> Kgrs</td>
+            <td><span class="msj_rojo">* </span>Peso Vacio <?=$pesar?> Kgrs</td>
             <td id="capturarPeso<?=$i?>">
                 <?
                     echo $html->input('Recepcion.peso_0'.$i.'v', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 positive'));
@@ -791,7 +806,7 @@
             <td><? echo $html->input('romana_ent', $infoMovimiento[0]['romana_ent'], array('type' => 'text', 'class' => 'estilo_campos2', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
-            <td>Romana de Salida</td>
+            <td><span class="msj_rojo">* </span>Romana de Salida</td>
             <td><? echo $html->select('Recepcion.romana_sal', array('options' => $listaRomanas, 'default' => 'Seleccione', 'class' => 'estilo_campos2')); ?></td>
         </tr>
         <?
@@ -799,7 +814,7 @@
                         $pesar = ($i == 1) ? 'Motriz' : 'Remolque';
         ?>
         <tr>
-            <td>Peso Vac&iacute;o <?=$pesar?> Kgrs</td>
+            <td><span class="msj_rojo">* </span>Peso Vac&iacute;o <?=$pesar?> Kgrs</td>
             <td><? echo $html->input('Recepcion.peso_0'.$i.'v', $infoMovimiento[0]['peso_0'.$i.'v'], array('type' => 'text', 'class' => 'estilo_campos2 positive', 'readOnly' => true)); ?></td>
         </tr>
         <tr>

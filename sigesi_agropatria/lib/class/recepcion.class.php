@@ -4,16 +4,17 @@ class Recepcion extends Model {
 
     var $table = 'si_recepcion';
 
+    function toneladasPorEje($id=null){
+        $query = "SELECT * FROM si_ejes WHERE '1'";
+        $query .= (!empty($id)) ? " AND id = '$id'" : "";
+        return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
+    }
+    
     function recepcionesDia($idCA) {
         $query = "SELECT COUNT(*) AS total
                 FROM si_recepcion
                 WHERE id_centro_acopio = '$idCA' 
                 AND fecha_recepcion BETWEEN '".date('Y-m-d 00:00:00')."' AND '".date('Y-m-d 23:59:59')."'";
-        return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
-    }
-    
-    function recepcionDetalle($id){
-        $query = "";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 
@@ -90,6 +91,8 @@ class Recepcion extends Model {
                     g.numero_guia,
                     /*s.codigo AS codigo_silo, s.nombre AS silo_nombre,*/
                     p.ced_rif AS ced_productor, p.nombre AS productor_nombre,
+                    p2.ced_rif AS ced_asociacion, p2.nombre AS asociacion_nombre,
+                    p3.ced_rif AS ced_asociado, p3.nombre AS asociado_nombre,
                     ch.ced_rif AS ced_chofer, ch.nombre AS chofer_nombre,
                     v.placa, v.marca, v.color, v.capacidad, v.tara_aprox, v.chuto, v.placa_remolques
                     FROM si_recepcion r
@@ -98,6 +101,8 @@ class Recepcion extends Model {
                     INNER JOIN si_cultivo cu ON cu.id = co.id_cultivo
                     /*INNER JOIN si_silos s ON s.id = r.id_silo*/
                     INNER JOIN si_productor p ON p.id = r.id_productor
+                    LEFT JOIN si_productor p2 ON p2.id = r.id_asociacion
+                    LEFT JOIN si_productor p3 ON p3.id = r.id_asociado
                     INNER JOIN si_guiarec g ON g.id = r.id_guia
                     INNER JOIN si_choferes ch ON ch.id = r.id_chofer
                     INNER JOIN si_vehiculos v ON v.id = r.id_vehiculo
@@ -126,23 +131,23 @@ class Recepcion extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);    
     }
     
-    function recepcionesReporteGeneral($fdesde=null, $fhasta=null, $idCA=null){
-        $query = "SELECT '('||co.codigo||') '||co.nombre AS cosecha, '('||cu.codigo||') '||cu.nombre AS cultivo, p.id, p.ced_rif, p.nombre AS nombre_productor
-                    FROM si_recepcion r
-                    INNER JOIN si_guiarec g ON g.id = r.id_guia
-                    INNER JOIN si_cosecha co ON co.id = r.id_cosecha
-                    INNER JOIN si_cosecha_productor cp ON cp.id_cosecha = co.id
-                    INNER JOIN si_productor p ON p.id = cp.id_productor
+    function recepcionesReporteGeneral($fdesde=null, $fhasta=null, $idCA=null, $idCo=null){
+        $query = "SELECT co.id AS id_co, '('||co.codigo||') '||co.nombre AS cosecha, '('||cu.codigo||') '||cu.nombre AS cultivo, p.id, p.ced_rif, p.nombre AS productor
+                    FROM si_productor p
+                    INNER JOIN si_recepcion r ON r.id_productor = p.id
+                    INNER JOIN si_cosecha_productor cp ON cp.id_productor = r.id_productor
+                    INNER JOIN si_cosecha co ON co.id = cp.id_cosecha
                     INNER JOIN si_cultivo cu ON cu.id = co.id_cultivo
                     WHERE '1' AND r.estatus_rec = '9'";
+        $query .= (!empty($idCA)) ? " AND r.id_centro_acopio = '$idCA'" : '';
+        $query .= (!empty($idCo)) ? " AND cp.id_cosecha = '$idCo'" : '';
         if(!empty($fdesde) || !empty($fhasta)){
             $fdesde = (!empty($fdesde)) ? "'$fdesde'" : 'now()::date';
             $fhasta = (!empty($fhasta)) ? "'$fhasta'" : 'now()::date';
             $query .= " AND r.modificado::date BETWEEN $fdesde AND $fhasta";
         }
-        $query .= (!empty($idCA)) ? " AND r.id_centro_acopio = '$idCA'" : '';
-        $query .= " GROUP BY co.codigo, co.nombre, cu.codigo, cu.nombre, p.id, p.ced_rif, p.nombre, co.fecha_inicio
-                    ORDER BY co.codigo, co.fecha_inicio";
+        $query .= " GROUP BY co.id, co.codigo, co.nombre, cu.codigo, cu.nombre, p.id, p.ced_rif, p.nombre
+                    ORDER BY cu.codigo, p.ced_rif, p.nombre";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 }

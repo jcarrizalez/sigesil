@@ -3,11 +3,19 @@
     
     $recepcion = new Recepcion();
     $centro_acopio = new CentroAcopio();
+    $cosecha = new Cosecha();
     
     if($_SESSION['s_perfil_id'] == GERENTEG)
         $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : null;
     else
         $idCA = $_SESSION['s_ca_id'];
+    
+    $idCo = $GPC['id_cosecha'];
+    $listadoCosechas = $cosecha->infoCosechaCultivo($idCA);
+    
+    foreach($listadoCosechas as $valor){
+        $listadoC[$valor['cosecha_id']] = "(".$valor['cosecha_codigo'].") ".$valor['cultivo_nombre'];
+    }
     
     $listaCA = $centro_acopio->find('', '', array('id', 'nombre'), 'list', 'id');
     unset($listaCA[1]);
@@ -18,20 +26,19 @@
     $porPagina = MAX_RESULTS_PAG;
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
     
-    $listadoRecepciones = $recepcion->recepcionesReporteGeneral($fdesde, $fhasta, $idCA);
+    $listadoRecepciones = $recepcion->recepcionesReporteGeneral($fdesde, $fhasta, $idCA, $idCo);
     
     $total_registros = $recepcion->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);
     
     switch($GPC['ac']){
         case 'Pdf':
-            header('location: pdf_listado_recepciones_todo.php?id='.$fdesde."_".$fhasta."_".$idCA);
+            $idCA = (!empty($idCA)) ? $idCA : 'vacio';
+            $idCo = (!empty($idCo)) ? $idCo : 'vacio';
+            header('location: pdf_listado_recepciones_todo.php?id='.$fdesde."_".$fhasta."_".$idCA."_".$idCo);
             die();
         break;
         case 'Excel':
-            
-        break;
-        case 'Buscar':
             
         break;
     }
@@ -99,11 +106,15 @@
                     <td width="110">Centro de Acopio:</td>
                     <td colspan="2">
                         <?
-                            echo $html->select('id_ca',array('options'=>$listaCA, 'selected' => $GPC['id_ca'], 'default' => 'Seleccione'));
+                            echo $html->select('id_ca',array('options'=>$listaCA, 'selected' => $GPC['id_ca'], 'default' => 'Todos'));
                         ?>
                     </td>
                 </tr>
                 <? } ?>
+                <tr>
+                    <td>Cosecha </td>
+                    <td><? echo $html->select('id_cosecha',array('options'=>$listadoC, 'selected' => $GPC['id_cosecha'], 'default' => 'Todos'))?></td>
+                </tr>
                 <tr id="botones">
                     <td colspan="4" style="padding-top: 20px;">
                         <?
@@ -126,6 +137,7 @@
     </div>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
+            <th>Cosecha</th>
             <th>Cultivo</th>
             <th>Cedula/Rif Productor</th>
             <th>Productor</th>
@@ -137,6 +149,7 @@
             $totalPesoTara = 0;
             $totalPesoNeto = 0;
             $totalPesoAcon = 0;
+            $idCA = (!empty($idCA)) ? "_$idCA" : '';
             foreach($listadoRecepciones as $dataRecepcion){
                 $clase = $general->obtenerClaseFila($i);
                 $pesoBruto = $dataRecepcion['peso_01l'] + $dataRecepcion['peso_02l'];
@@ -148,16 +161,16 @@
                 $totalPesoTara += $pesoTara;
                 $totalPesoNeto += $pesoNeto;
                 $totalPesoAcon += $pesoAcon;
-                $idCA = (!empty($idCA)) ? "_$idCA" : '';
         ?>
         <tr class="<?=$clase?>">
+            <td align="center"><?=$dataRecepcion['cosecha']?></td>
             <td align="center"><?=$dataRecepcion['cultivo']?></td>
             <td align="center"><?=$dataRecepcion['ced_rif']?></td>
-            <td align="center"><?=$dataRecepcion['nombre_productor']?></td>
+            <td align="center"><?=$dataRecepcion['productor']?></td>
             
             <td align="center">
                 <?
-                    $urls = array(3 => '../reportes/pdf_listado_recepciones_individual.php?id='.$dataRecepcion['id'].'_'.$fdesde.'_'.$fhasta.$idCA);
+                    $urls = array(3 => '../reportes/pdf_listado_recepciones_individual.php?id='.$dataRecepcion['id'].'_'.$dataRecepcion['id_co'].'_'.$fdesde.'_'.$fhasta.$idCA);
                     $general->crearAcciones($acciones, $urls);
                 ?>
             </td>

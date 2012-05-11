@@ -117,13 +117,24 @@
                 }
             }
         break;
+        case 'ejes':
+            $recepcion = new Recepcion();
+            $aprox = $recepcion->toneladasPorEje($GPC['opc']);
+            ?>
+            <tr>
+                <td>Peso Recomendado</td>
+                <td id=""><? echo $html->input('pesoAprox', $aprox[0]['capacidad'], array('type' => 'text', 'class' => 'estilo_campos2', 'readOnly' => true)); ?></td>
+            </tr>
+            <?
+        break;
         case 'pesar':
             $romana = new Tolcarom();
             
             $movimiento = split('-', $GPC['status']);
             $infoRomana = $romana->find(array('id' => $movimiento[2]), null, 'parametros');
             //$peso=file_get_contents($infoRomana[0]['parametros']);
-            $peso = "13500K";
+            $peso = rand(5000, 50000)."K";
+            //$peso = "13500K";
             //$peso = ($peso < 0 || $peso == '') ? '0K' : $peso;
             switch($movimiento[0]){
                 case 'rec':

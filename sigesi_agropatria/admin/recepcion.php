@@ -50,8 +50,9 @@
             $vehiculo->save($GPC['Vehiculo']);
             $idVehiculo = $vehiculo->id;
             
-            $idProductor = (!empty($GPC['id_asociado'])) ? $GPC['id_asociado'] : $GPC['id_productor'];
-            $GPC['Recepcion']['id_productor'] = $idProductor;
+            $GPC['Recepcion']['id_productor'] = $GPC['id_productor'];
+            $GPC['Recepcion']['id_asociacion'] = (!empty($GPC['id_asociacion'])) ? $GPC['id_asociacion'] : 0;
+            $GPC['Recepcion']['id_asociado'] = (!empty($GPC['id_asociado'])) ? $GPC['id_asociado'] : 0;
             $GPC['Recepcion']['id_guia'] = $idGuia;
             $GPC['Recepcion']['id_vehiculo'] = $idVehiculo;
             $GPC['Recepcion']['id_chofer'] = $idChofer;
