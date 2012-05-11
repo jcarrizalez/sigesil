@@ -48,21 +48,14 @@ switch ($GPC['ac']) {
                 $InfoCosecha = $cosecha->find(array('id' => $GPC['id_cosecha']));
                 $idCultivo=$InfoCosecha[0]['id_cultivo'];
                 $infoMov = $Rec->listadoAnalisis($idCA, $idCultivo, $id);
-                $idRec=$GPC['id'];
             } elseif ($GPC['mov']=='des') {
                 $infoMov = $despacho->listadoDespacho($GPC['id'], $idCA);
                 $idCultivo=$infoMov[0]['id_cultivo'];
-                $idDes=$GPC['id'];
-            }
-            $listadoR=$analisis->listadoResultados($idRec, $idDes);            
+            }            
             $laboratorio=($_SESSION['s_lab']=='C')? $laboratorio="'C','A'": $laboratorio="'A'";
             $listadoAnalisis = $analisis->buscarAC(null, $idCultivo, $idCA, $laboratorio);
             $cantidad = count($listadoAnalisis);
             $infoCultivo=$cultivo->find(array('id' => $idCultivo));
-        }      
-        if (count($listadoR)) {
-            header("location: analisis_resultado_listado.php?msg=error");
-            die();
         }
         break;
     case 'guardar':
