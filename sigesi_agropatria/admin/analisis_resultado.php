@@ -364,8 +364,7 @@ switch ($GPC['ac']) {
     }
     ?>
     </div>
-<form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
-    <? echo $html->input('cantA',  $cantidad, array('type' => 'hidden')); ?>
+<form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">    
     <fieldset>
         <legend>Datos de la Muestra</legend>
         <table align="center" width="100%" border="0">
@@ -482,8 +481,9 @@ switch ($GPC['ac']) {
     if (!empty($IdCosecha))
         echo $html->input('cosecha', $IdCosecha, array('type' => 'hidden'));
     echo $html->input('es_cuarentena', '0_0:', array('type' => 'hidden'));
-    echo $html->input('es_rechazado', '0_0:', array('type' => 'hidden'));    
-    ?>    
+    echo $html->input('es_rechazado', '0_0:', array('type' => 'hidden'));
+    echo $html->input('cantA',  $cantidad, array('type' => 'hidden'));
+    ?>
 </form>    
 <?
 require('../lib/common/footer.php');

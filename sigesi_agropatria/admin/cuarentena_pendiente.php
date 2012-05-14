@@ -29,17 +29,19 @@
                     $Ctna->_begin_tool();
                     $GPC['Cuarentena']['id']=$idCuarentena;
                     $Ctna->save($GPC['Cuarentena']);
+                    $idCuarentena=$Ctna->id;
                     $GPC['Recepcion']['id']=$idRec;
                     $GPC['Recepcion']['estatus_rec']=11;
                     $recepcion->save($GPC['Recepcion']);
+                    $idRec=$recepcion->id;
                     $Ctna->_commit_tool();
                 }
             }
-            if (!empty($idCuarentena)) {
-                header('location: '.DOMAIN_ROOT.'admin/cuarentena_pendiente_listado?existoso');
+            if (!empty($idCuarentena) && !empty($idRec)) {
+                header("location: ".DOMAIN_ROOT."admin/cuarentena_pendiente_listado.php?msg=exitoso");
                 die();
             } else {
-                header('location: '.DOMAIN_ROOT.'admin/cuarentena_pendiente_listado?error');
+                header("location: ".DOMAIN_ROOT."admin/cuarentena_pendiente_listado.php?msg=error");
                 die();
             }
             break;
@@ -54,20 +56,22 @@
                     $Ctna->_begin_tool();
                     $GPC['Cuarentena']['id']=$idCuarentena;
                     $Ctna->save($GPC['Cuarentena']);
+                    $idCuarentena=$Ctna->id;
                     $GPC['Recepcion']['id']=$idRec;
                     $GPC['Recepcion']['estatus_rec']=12;
                     $recepcion->save($GPC['Recepcion']);
+                    $idRec=$recepcion->id;
                     $Ctna->_commit_tool();
                 }
             }
-            if (!empty($idCuarentena)) {
-                header('location: '.DOMAIN_ROOT.'admin/cuarentena_pendiente_listado.php?existoso');
+            if (!empty($idCuarentena) && !empty($idRec)) {
+                header("location: ".DOMAIN_ROOT."admin/cuarentena_pendiente_listado.php?ac=exitoso");
                 die();
             } else {
-                header('location: '.DOMAIN_ROOT.'admin/cuarentena_pendiente_listado.php?error');
+                header("location: ".DOMAIN_ROOT."admin/cuarentena_pendiente_listado.php?ac=error");
                 die();
-            }
-            break;            
+            }            
+            break;
     }
     require('../lib/common/header.php');
 ?>

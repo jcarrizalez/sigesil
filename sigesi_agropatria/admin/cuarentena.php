@@ -184,7 +184,10 @@ switch ($GPC['ac']) {
         $Ctna->_rollback_tool();
         header("location: analisis_resultado_listado.php?msg=error");
         die();
-    break;
+        break;
+    default:
+        header("location: analisis_resultado_listado.php?msg=error");
+        break;
 }
 
 require('../lib/common/header.php');
@@ -199,6 +202,7 @@ $validator->setRules('Cuarentena.fecha_cultivo', array('required' => array('valu
 $validator->setRules('Cuarentena.hora_trab', array('required' => array('value' => true, 'message' => '')));
 $validator->setRules('Cuarentena.fecha_lib', array('required' => array('value' => true, 'message' => '')));
 $validator->setRules('Cuarentena.hora_lib', array('required' => array('value' => true, 'message' => '')));
+$validator->setRules('Cuarentena\\[observa_lab\\]', array('required' => array('value' => true, 'message' => '')));
 $validator->printScript();
 ?>
 <script type="text/javascript">
@@ -510,8 +514,7 @@ $validator->printScript();
             <tr>
                 <td align="left">Observacion</td>
                 <td align="center">
-                <textarea name="Cuarentena[observa_admon]" cols="50" rows="2" id="Cuarentena[observa_admon]" readonly="readonly"><?=$infoCtna[0]['observa_admon']?></textarea></td>
-                </td>
+                    <textarea name="Cuarentena[observa_admon]" cols="50" rows="2" id="Cuarentena[observa_admon]" readonly="true"><?=$infoCtna[0]['observa_admon']?></textarea></td>
             </tr>
         </table>
     </fieldset>
@@ -637,8 +640,27 @@ $validator->printScript();
                 <td><? echo $html->input('Cuarentena.hora_lib', $infoCtna[0]['hora_lib'], array('type' => 'text', 'readOnly' => true, 'class' => 'crproductor')); ?></td>                
             </tr>               
         </table>
-    </fieldset>
+    </fieldset>        
     </div>
+    <fieldset>    
+        <legend>Laboratorio</legend>
+        <table align="center" border="0">
+            <tr>
+                <td align="left">Observacion</td>
+                <td align="center">
+                <?
+                    if ($soloLectura) {
+                ?>
+                    <textarea name="Cuarentena[observa_lab]" cols="50" rows="2" id="Cuarentena[observa_lab]" readonly=<?=!$soloLectura;?>><?=$infoCtna[0]['observa_lab']?></textarea></td>
+                <?
+                    } else {
+                ?>
+                        <textarea name="Cuarentena[observa_lab]" cols="50" rows="2" id="Cuarentena[observa_lab]"><?=$infoCtna[0]['observa_lab']?></textarea></td>
+                <? } ?>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
     <table align="center" border="0">
         <tr>
             <td>&nbsp;</td>
