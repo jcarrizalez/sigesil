@@ -38,7 +38,7 @@
     REPORTE DE ACTIVIDAD<br/><hr/>
 </div>
 <div id="filtro">
-    <form name="form1" id="form1" method="POST" action="#" enctype="multipart/form-data">
+    <form name="form1" id="form1" method="GET" action="#" enctype="multipart/form-data">
         <table width="100%" border="0">
             <tr>
                 <td width="1">Desde </td>

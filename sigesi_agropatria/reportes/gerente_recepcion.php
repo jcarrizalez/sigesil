@@ -3,16 +3,16 @@
     
     $recepcion = new Recepcion();
     $centro_acopio = new CentroAcopio();
-    $programa = new Programa();
+    $cosecha = new Cosecha();
     
     if($_SESSION['s_perfil_id'] == GERENTEG)
         $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : null;
     else
         $idCA = $_SESSION['s_ca_id'];
     
-    $listadoProgramas = $programa->buscarProgramaCA(null, $idCA);
-    foreach($listadoProgramas as $valor){
-        $listadoP[$valor['id']] = $valor['nombre'];
+    $listadoCosecha = $cosecha->buscarCosechaP(null, null, null, null, $idCA);
+    foreach($listadoCosecha as $valor){
+        $listadoC[$valor['id']] = $valor['codigo'];
     }
     
     $listaCA = $centro_acopio->find('', '', array('id', 'nombre'), 'list', 'id');
@@ -28,10 +28,11 @@
                             'Rechazo Planta', 
                             'Liquidado');
 
+    $guia = (!empty($GPC['guia'])) ? $GPC['guia'] : '';
+    $idCo = (!empty($GPC['id_cosecha'])) ? $GPC['id_cosecha'] : '';
     $entrada = (!empty($GPC['entrada'])) ? $GPC['entrada'] : '';
     $contrato = (!empty($GPC['contrato'])) ? $GPC['contrato'] : '';
     $productor = (!empty($GPC['productor'])) ? $GPC['productor'] : '';
-    $idP = (!empty($GPC['id_programa'])) ? $GPC['id_programa'] : '';
     $placa = (!empty($GPC['placa'])) ? $GPC['placa'] : '';
     $estatus = (!empty($GPC['estatus'])) ? $GPC['estatus'] : '';
     $fliq = (!empty($GPC['fecha_liq'])) ? $general->fecha_normal_sql($GPC['fecha_liq'], 'es') : '';
@@ -40,9 +41,9 @@
     $porPagina = MAX_RESULTS_PAG;
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
     
-                                    //listadoRecepcion($id=null, $idCa=null, $idCo=null, $idSilo=null, $entradaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null, $idPro=null, $order=null, $contrato=null, $productor=null, $idP=null, $placa=null, $fechaLiq=null, $fechaRec=null){
+                                    //listadoRecepcion($id=null, $idCa=null, $idCo=null, $idSilo=null, $entradaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null, $idPro=null, $order=null, $contrato=null, $productor=null, $idP=null, $placa=null, $fechaLiq=null, $fechaRec=null, $idAon=null){
     //$idCA, $entrada, $contrato, $productor, $programa, $placa, $estatus, $fliq, $frec
-    $listadoRecepciones = $recepcion->listadoRecepcion(null, $idCA, null, null, $entrada, $estatus, null, null, $porPagina, $inicio, null, null, $contrato, $productor, $idP, $placa, $fliq, $frec);
+    $listadoRecepciones = $recepcion->listadoRecepcion(null, $idCA, $idCo, null, $entrada, $estatus, null, null, $porPagina, $inicio, null, null, $contrato, $productor, null, $placa, $fliq, $frec);
     
     $total_registros = $recepcion->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);
@@ -82,20 +83,8 @@
     <div id="titulo_modulo">
         CONSULTA DEL GERENTE - RECEPCI&Oacute;N<br/><hr/>
     </div>
-    <div id="mensajes">
-        <?
-            switch($GPC['msg']){
-                case 'exitoso':
-                    echo "<span class='msj_verde'>Registro Guardado !</span>";
-                break;
-                case 'error':
-                    echo "<span class='msj_rojo'>Ocurri&oacute; un Problema !</span>";
-                break;
-            }
-        ?>
-    </div>
     <div id="filtro">
-        <form name="form1" id="form1" method="POST" action="#" enctype="multipart/form-data">
+        <form name="form1" id="form1" method="GET" action="#" enctype="multipart/form-data">
             <table width="100%" border="0">
                 <tr>
                     <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
@@ -106,6 +95,10 @@
                     <td><? echo $html->select('id_agencia',array('options'=>$listaCA, 'selected' => $idAg, 'default' => 'Todos', 'class' => 'inputGrilla')); ?></td-->
                 </tr>
                 <tr>
+                    <td>Guia</td>
+                    <td colspan="3"><? echo $html->input('guia', $guia, array('type' => 'text', 'class' => 'inputGrilla')); ?></td>
+                </tr>
+                <tr>
                     <td width="125">Entrada</td>
                     <td><? echo $html->input('entrada', $entrada, array('type' => 'text', 'class' => 'inputGrilla')); ?></td>
                     <td width="90">Contrato</td>
@@ -114,8 +107,8 @@
                 <tr>
                     <td>Productor</td>
                     <td><? echo $html->input('productor', $productor, array('type' => 'text', 'class' => 'inputGrilla')); ?></td>
-                    <td>Programa</td>
-                    <td><? echo $html->select('id_programa',array('options'=>$listadoP, 'selected' => $idP, 'default' => 'Todos', 'class' => 'inputGrilla'))?></td>
+                    <td>Cosecha</td>
+                    <td><? echo $html->select('id_cosecha',array('options'=>$listadoC, 'selected' => $idCo, 'default' => 'Todas', 'class' => 'inputGrilla'))?></td>
                 </tr>
                 <tr>
                     <td>Placa Veh&iacute;culo</td>
@@ -173,13 +166,15 @@
             $paginador->print_paginator('pulldown');
         ?>
     </div>
-    <table align="center" width="100%">
+    <table align="center" width="100%" border="0">
         <tr align="center" class="titulos_tabla">
-            <th>Entrada Nro</th>
-            <th>Cultivo</th>
-            <th>Cedula/Rif Productor</th>
+            <th width="100">Entrada Nro</th>
+            <th width="140">Cedula/Rif Productor</th>
             <th>Productor</th>
-            <th>Estatus</th>
+            <th width="1">Cosecha</th>
+            <th width="1">Cultivo</th>
+            <th width="1">Estatus</th>
+            <th width="1">Accion</th>
             <th>Accion</th>
         </tr>
         <?
@@ -196,9 +191,10 @@
         ?>
         <tr class="<?=$clase?>">
             <td align="center"><?=$numEntrada?></td>
-            <td align="center"><?="(".$dataRecepcion['cultivo_codigo'].") ".$dataRecepcion['cultivo_nombre']?></td>
             <td align="center"><?=$dataRecepcion['ced_productor']?></td>
             <td align="center"><?=$dataRecepcion['productor_nombre']?></td>
+            <td align="center"><?=$dataRecepcion['cosecha_codigo']?></td>
+            <td align="center"><?=$dataRecepcion['cultivo_codigo']?></td>
             <td>
                 <?
                     switch($dataRecepcion['estatus_rec']){
@@ -206,6 +202,8 @@
                             echo $estatus = 'Lab. Central';
                         break;
                         case 2:
+                        case 10:
+                        case 11:
                             echo $estatus = 'Cuarentena Central';
                         break;
                         case 3:
@@ -215,6 +213,8 @@
                             echo $estatus = 'Lab. Planta';
                         break;
                         case 5:
+                        case 12:
+                        case 13:
                             echo $estatus = 'Cuarentena Planta';
                         break;
                         case 6:
@@ -233,16 +233,11 @@
                 ?>
             </td>
             <td align="center">
-                <img src="../images/buscar.png" width="16" height="16" title="Detalle" border="0" style="cursor:pointer" onclick="openWindow('reporte_recepcion_detalle.php?id=<?php echo $dataRecepcion['id'] ?>','','1200','500','visible');return false;">
-                <?
-                    $urls = array(3 => '../reportes/pdf_listado_recepciones_individual.php?id='.$dataRecepcion['id'].'_'.$dataRecepcion['id_co'].$idCA);
-                    $general->crearAcciones($acciones, $urls);
-                ?>
+                <img src="../images/buscar.png" width="16" height="16" title="Detalle" border="0" style="cursor:pointer" onclick="openWindow('gerente_recepcion_detalle.php?id=<?php echo $dataRecepcion['id'] ?>','','1200','500','visible');return false;">
             </td>
         </tr>
         <? $i++; } ?>
         <tr>
-            
             <td colspan="6">&nbsp;</td>
         </tr>
     </table>

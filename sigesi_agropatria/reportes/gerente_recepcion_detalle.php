@@ -8,6 +8,21 @@
     $pesoLleno = round($detalleRecepcion[0]['peso_01l'] + $detalleRecepcion[0]['peso_02l']);
     $pesoVacio = round($detalleRecepcion[0]['peso_01v'] + $detalleRecepcion[0]['peso_02v']);
     $pesoAcondicionado = (!empty($detalleRecepcion[0]['peso_acon'])) ? round($detalleRecepcion[0]['peso_acon']) : 0;
+    
+    switch($GPC['ac']){
+        case 'Resultados':
+            header("location: ".DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_recepcion&id_rec=".$GPC['id']."&re=true");
+            die();
+        break;
+        case 'Liquidacion':
+            header('location: pdf_listado_recepciones_todo.php?id='.$fliq."_".$frec."_".$idCA."_".$idCo);
+            die();
+        break;
+        case 'Rechazo':
+            header('location: pdf_listado_recepciones_todo.php?id='.$fliq."_".$frec."_".$idCA."_".$idCo);
+            die();
+        break;
+    }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -25,10 +40,9 @@
     </head>
     <body>
         <div id="titulo_modulo">
-            Detalle de la Recepci&oacute;n<br/><input name="submit" type="submit" onclick="closeMessage()" value="<?="Cerrar"?>" /><hr/>
+            Detalle de la Recepci&oacute;n<br/><input id="cerrar" name="cerrar" type="button" onclick="closeMessage()" value="<?="Cerrar"?>" /><hr/>
         </div>
         <table align="center" border="0" cellspacing="0">
-        <!--table align="center" width="95%"-->
             <tr align="center" class="titulos_tabla borde_th_reporte">
                 <th>Centro de Acopio</th>
                 <th>Programa</th>
@@ -92,6 +106,26 @@
                 <td><?php echo $general->formato_numero(round($pesoAcondicionado), 3) ?></td>
                 <td><?php echo $general->formato_numero(round($detalleRecepcion[0]['peso_acon_liq']), 3) ?></td>
                 <td><?php echo $general->date_sql_screen($detalleRecepcion[0]['fecha_v'], '', 'es', '-') ?></td>
+            </tr>
+            <tr>
+                <td id="titulo_modulo" colspan="20" align="center" style="padding-top: 50px;">REIMPRIMIR</td>
+            </tr>
+            <tr>
+                <td colspan="20" align="center">
+                    <form name="form1" id="form1" method="POST" action="#" enctype="multipart/form-data">
+                    <?
+                        echo $html->input('id', $detalleRecepcion[0]['id'], array('type' => 'hidden'));
+                        if($detalleRecepcion[0]['estatus_rec'] <= 9){
+                            echo $html->input('ac', 'Resultados', array('type' => 'submit'));
+                            echo $html->input('ac', 'Liquidacion', array('type' => 'submit'));
+                        }
+                        if($detalleRecepcion[0]['estatus_rec'] == 7 && $detalleRecepcion[0]['estatus_rec'] == 8){
+                            echo $html->input('ac', 'Resultados', array('type' => 'submit'));
+                            echo $html->input('ac', 'Rechazo', array('type' => 'submit'));
+                        }
+                    ?>
+                    </form>
+                </td>
             </tr>
         </table>
     </body>

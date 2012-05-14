@@ -134,7 +134,8 @@ for($i=0; $i<count($listadoDespachos); $i++)
 $pesobruto=($listadoDespachos[$i]['peso_01l']+$listadoDespachos[$i]['peso_02l']);	
 $suma_peso_bruto+=$pesobruto;	
 $pesobruto_=$pdf->decimales($pesobruto,3);
-$tara=$pesobruto=($listadoDespachos[$i]['peso_01v']+$listadoDespachos[$i]['peso_02v']);
+//$tara=$pesobruto-($listadoDespachos[$i]['peso_01v']+$listadoDespachos[$i]['peso_02v']);
+$tara=($listadoDespachos[$i]['peso_01v']+$listadoDespachos[$i]['peso_02v']);
 $pesoneto=($pesobruto-$tara);
 
 

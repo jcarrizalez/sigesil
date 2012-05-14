@@ -16,6 +16,7 @@
 ?>
 <script type="text/javascript">
     window.print();
+    window.close();
 </script>
 <? } ?>
 <table id="tabla_reporte" border="0" width="800">

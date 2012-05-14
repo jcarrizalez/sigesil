@@ -64,18 +64,6 @@
     <div id="titulo_modulo">
         CONSULTA DEL GERENTE - DESPACHO<br/><hr/>
     </div>
-    <div id="mensajes">
-        <?
-            switch($GPC['msg']){
-                case 'exitoso':
-                    echo "<span class='msj_verde'>Registro Guardado !</span>";
-                break;
-                case 'error':
-                    echo "<span class='msj_rojo'>Ocurri&oacute; un Problema !</span>";
-                break;
-            }
-        ?>
-    </div>
     <div id="filtro">
         <form name="form1" id="form1" method="POST" action="#" enctype="multipart/form-data">
             <table width="100%" border="0">

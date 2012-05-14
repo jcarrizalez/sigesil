@@ -18,34 +18,36 @@
     }
     
     $imprimir = file_get_contents($url);
-    $mpdf=new mPDF('c');
-    $mpdf->SetDisplayMode('fullpage');
-    $mpdf->SetTopMargin(0);
-    $stylesheet = file_get_contents(DOMAIN_ROOT.'css/reportes.css');
-    $mpdf->WriteHTML($stylesheet,1);
-    //$mpdf->WriteHTML('<pagebreak sheet-size="216mm 139.5mm" />');
-    $mpdf->WriteHTML($imprimir);
-    $archivo=$GPC['reporte'].time().'.pdf';
-    $mpdf->Output($archivo,'F');
-    
-    /* SENTENCIA PARA IMPRESION INDICANDO LA IMPRESORA A TRAVES DEL PARAMETRO -P DEL LPR
-     * $parametros="-P HP-LaserJet-p1606dn";
-     * exec("lpr $parametros $archivo");
-     */
-    
-    exec("lpr $archivo");
-    exec("rm $archivo");
-    
-    if(!empty($GPC['redir'])){
-        if(!empty($_SESSION['s_mov']) && !empty($_SESSION['s_lab']))
-            $redir = $GPC['redir'].'.php?mov='.$_SESSION['s_mov'].'&lab='.$_SESSION['s_lab'];
-        elseif(!empty($GPC['mov']))
-            $redir = $GPC['redir'].'.php?mov='.$GPC['mov'];
-        else{
-            $redir = $GPC['redir'].'.php';            
-        }
-        header("location: ".DOMAIN_ROOT."admin/$redir");
-        die();
-    }
+    if(empty($GPC['re'])){
+        $mpdf=new mPDF('c');
+        $mpdf->SetDisplayMode('fullpage');
+        $mpdf->SetTopMargin(0);
+        $stylesheet = file_get_contents(DOMAIN_ROOT.'css/reportes.css');
+        $mpdf->WriteHTML($stylesheet,1);
+        //$mpdf->WriteHTML('<pagebreak sheet-size="216mm 139.5mm" />');
+        $mpdf->WriteHTML($imprimir);
+        $archivo=$GPC['reporte'].time().'.pdf';
+        $mpdf->Output($archivo,'F');
 
+        /* SENTENCIA PARA IMPRESION INDICANDO LA IMPRESORA A TRAVES DEL PARAMETRO -P DEL LPR
+        * $parametros="-P HP-LaserJet-p1606dn";
+        * exec("lpr $parametros $archivo");
+        */
+
+        exec("lpr $archivo");
+        exec("rm $archivo");
+
+        if(!empty($GPC['redir'])){
+            if(!empty($_SESSION['s_mov']) && !empty($_SESSION['s_lab']))
+                $redir = $GPC['redir'].'.php?mov='.$_SESSION['s_mov'].'&lab='.$_SESSION['s_lab'];
+            elseif(!empty($GPC['mov']))
+                $redir = $GPC['redir'].'.php?mov='.$GPC['mov'];
+            else{
+                $redir = $GPC['redir'].'.php';            
+            }
+            header("location: ".DOMAIN_ROOT."admin/$redir");
+            die();
+        }
+    }else
+        echo $imprimir;
 ?>
