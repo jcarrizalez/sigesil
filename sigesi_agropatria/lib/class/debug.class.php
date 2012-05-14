@@ -176,8 +176,8 @@ class Debug {
 	}
 
         function printLables() {
-            $test = new Language();
-            $l = $test->getLabelsOfCurrentPage($_SERVER['PHP_SELF']);
+            $test = new Lenguaje();
+            $l = $test->etiquetasPorPagina($_SERVER['PHP_SELF']);
             //checke if the tag exist into the file
 $filename= APPROOT.$_SERVER['PHP_SELF'];
 if (file_exists($filename)){

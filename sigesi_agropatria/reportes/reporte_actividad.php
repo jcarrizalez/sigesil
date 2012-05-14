@@ -160,7 +160,7 @@
                         <td><?php echo $objlogs->lista[$i]['log_codigo_nombre_es'] ?></td>
                         <td><?php echo $objlogs->lista[$i]['log_codigo_tipo'] ?></td>
                         <td><?php echo $objlogs->lista[$i]['en_tablas'] ?></td>
-                        <td align="center" ><img src="../images/buscar.png" width="16" height="16" title="view" border="0" style="cursor:pointer" onclick="openWindow('ver_log.php?id_log=<?php echo $objlogs->lista[$i]['log_id'] ?>','','700','600','visible');return false;"></td>
+                        <td align="center" ><img src="../images/buscar.png" width="16" height="16" title="Detalle" border="0" style="cursor:pointer" onclick="openWindow('ver_log.php?id_log=<?php echo $objlogs->lista[$i]['log_id'] ?>','','700','600','visible');return false;"></td>
                     </tr>
             <?php } ?>
             </table>

@@ -19,15 +19,17 @@
             $recepcion = new Recepcion();
             $cantRecepcion = $recepcion->recepcionesDia($_SESSION['s_ca_id']);
             $numeroRecepcion = ++$cantRecepcion[0]['total'];
+            $numeroRecepcion = ($numeroRecepcion < 10) ? '0'.$numeroRecepcion : $numeroRecepcion;
             echo "Entrada Nro R$numeroRecepcion-".date('dmY');
-            echo $html->input('Recepcion.numero', $numeroRecepcion, array('type' => 'hidden', 'class' => 'estilo_campos'));
+            //echo $html->input('Recepcion.numero', $numeroRecepcion, array('type' => 'hidden', 'class' => 'estilo_campos'));
         break;
         case 'cantidad2':
             $despacho = new Despacho();
             $cantSalida = $despacho->despachosDia($_SESSION['s_ca_id']);
             $numeroSalida = ++$cantSalida[0]['total'];
+            $numeroSalida = ($numeroSalida < 10) ? '0'.$numeroSalida : $numeroSalida;
             echo "Salida Nro D$numeroSalida-".date('dmY');
-            echo $html->input('Despacho.numero', $numeroSalida, array('type' => 'hidden', 'class' => 'estilo_campos'));
+            //echo $html->input('Despacho.numero', $numeroSalida, array('type' => 'hidden', 'class' => 'estilo_campos'));
         break;
         case 'cos_pro':
             $infoProductores = $cosecha->asignarCosechaProductor($GPC['co']);

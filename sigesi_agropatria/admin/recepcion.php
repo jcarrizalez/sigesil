@@ -24,6 +24,9 @@
             $vehiculo = new Vehiculo();
             $chofer = new Chofer();
             
+            $cantRecepcion = $recepcion->recepcionesDia($_SESSION['s_ca_id']);
+            $numeroRecepcion = ++$cantRecepcion[0]['total'];
+            
             $GPC['Guia']['id_usuario'] = $_SESSION['s_id'];
             $GPC['Guia']['estatus'] = 'P';
             $GPC['Chofer']['id_org'] = $_SESSION['s_org_id'];
@@ -32,6 +35,7 @@
             $GPC['Recepcion']['id_usuario'] = $_SESSION['s_id'];
             $GPC['Recepcion']['estatus_rec'] = 1;
             $GPC['Recepcion']['id_centro_acopio'] = $_SESSION['s_ca_id'];
+            $GPC['Recepcion']['numero'] = $numeroRecepcion;
             $GPC['Recepcion']['fecha_recepcion'] = 'now()';
             
             $recepcion->_begin_tool();

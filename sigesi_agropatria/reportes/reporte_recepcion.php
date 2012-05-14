@@ -113,7 +113,7 @@
                 <? } ?>
                 <tr>
                     <td>Cosecha </td>
-                    <td><? echo $html->select('id_cosecha',array('options'=>$listadoC, 'selected' => $GPC['id_cosecha'], 'default' => 'Todos'))?></td>
+                    <td><? echo $html->select('id_cosecha',array('options'=>$listadoC, 'selected' => $GPC['id_cosecha'], 'default' => 'Todas'))?></td>
                 </tr>
                 <tr id="botones">
                     <td colspan="4" style="padding-top: 20px;">

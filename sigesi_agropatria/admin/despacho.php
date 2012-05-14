@@ -16,6 +16,9 @@
             $despacho = new Despacho();
             $transporte = new Transporte();
             $ptoEntrega = new PuntosEntrega();
+            
+            $cantSalida = $despacho->despachosDia($_SESSION['s_ca_id']);
+            $numeroSalida = ++$cantSalida[0]['total'];
 
             $despacho->_begin_tool();
             
@@ -44,6 +47,7 @@
             }
             
             $GPC['Despacho']['id_centro_acopio'] = $_SESSION['s_ca_id'];
+            $GPC['Despacho']['numero'] = $numeroSalida;
             $GPC['Despacho']['id_usuario'] = $_SESSION['s_id'];
             $GPC['Despacho']['id_transporte'] = $idTransporte;
             $GPC['Despacho']['id_punto_entrega'] = $idPtoEntrega;

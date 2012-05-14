@@ -409,6 +409,17 @@ img{
     color: #FFFFFF;
 }
 
+.borde_th_reporte th{
+    border-right: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    border-top: 1px solid #000000;
+}
+
+.borde_td_reporte td{
+    border-right: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+}
+
 .primeraclase{
     background-color:#FFF;
     border:1px solid #FFF;

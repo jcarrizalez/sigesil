@@ -81,14 +81,15 @@ class Recepcion extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 
-    function listadoRecepcion($id=null, $idCa=null, $idCo=null, $idSilo=null, $entradaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null, $idPro=null, $order=null){
+    function listadoRecepcion($id=null, $idCa=null, $idCo=null, $idSilo=null, $entradaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null, $idPro=null, $order=null, $contrato=null, $productor=null, $idP=null, $placa=null, $fechaLiq=null, $fechaRec=null){
         $query = "SELECT r.*, 
                     (SELECT t1.nombre FROM si_tolcarom t1 WHERE t1.id = r.romana_ent) AS romana_ent, 
                     (SELECT t2.nombre FROM si_tolcarom t2 WHERE t2.id = r.romana_sal) AS romana_sal, 
                     ca.codigo AS ca_codigo, ca.nombre AS centro_acopio, 
-                    co.codigo AS cosecha_codigo, 
+                    pr.id AS id_programa, pr.nombre AS programa, 
+                    co.id AS id_co, co.codigo AS cosecha_codigo, co.nombre AS cosecha, 
                     cu.codigo AS cultivo_codigo, cu.nombre AS cultivo_nombre,
-                    g.numero_guia,
+                    g.numero_guia, g.contrato, 
                     /*s.codigo AS codigo_silo, s.nombre AS silo_nombre,*/
                     p.ced_rif AS ced_productor, p.nombre AS productor_nombre,
                     p2.ced_rif AS ced_asociacion, p2.nombre AS asociacion_nombre,
@@ -98,6 +99,7 @@ class Recepcion extends Model {
                     FROM si_recepcion r
                     INNER JOIN si_centro_acopio ca ON ca.id = r.id_centro_acopio
                     INNER JOIN si_cosecha co ON co.id = r.id_cosecha
+                    INNER JOIN si_programa pr ON pr.id = co.id_programa
                     INNER JOIN si_cultivo cu ON cu.id = co.id_cultivo
                     /*INNER JOIN si_silos s ON s.id = r.id_silo*/
                     INNER JOIN si_productor p ON p.id = r.id_productor
@@ -114,6 +116,12 @@ class Recepcion extends Model {
         $query .= (!empty($entradaNum)) ? " AND r.numero = '$entradaNum'" : '';
         $query .= (!empty($estatus)) ? " AND r.estatus_rec IN ($estatus)" : '';
         $query .= (!empty($idPro)) ? " AND p.id = '$idPro'" : '';
+        $query .= (!empty($contrato)) ? " AND g.contrato = '$contrato'" : '';
+        $query .= (!empty($productor)) ? " AND p.nombre ILIKE '%$productor%'" : '';
+        $query .= (!empty($idP)) ? " AND pr.id = '$idP'" : '';
+        $query .= (!empty($placa)) ? " AND v.placa = '$placa'" : '';
+        $query .= (!empty($fechaLiq)) ? " AND r.fecha_v::date = '$fechaLiq'" : '';
+        $query .= (!empty($fechaRec)) ? " AND r.fecha_recepcion::date = '$fechaRec'" : '';
         if(!empty($fdesde) || !empty($fhasta)){
             $fdesde = (!empty($fdesde)) ? "'".$fdesde." 00:00:00'" : 'now()::date';
             $fhasta = (!empty($fhasta)) ? "'".$fhasta." 23:59:59'" : 'now()::date';
