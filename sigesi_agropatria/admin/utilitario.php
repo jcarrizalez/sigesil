@@ -4,12 +4,10 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $('#Recepcion').click(function(){
-            //$('#ac').val($(this).attr('id'));
-            window.location='<?=DOMAIN_ROOT?>admin/utilitario_despacho_listado.php';
-        });
-        $('#Despacho').click(function(){
-            //$('#ac').val($(this).attr('id'));
             window.location='<?=DOMAIN_ROOT?>admin/utilitario_recepcion_listado.php';
+        });
+        $('#Despacho').click(function(){            
+            window.location='<?=DOMAIN_ROOT?>admin/utilitario_despacho_listado.php';
         });
     });
 </script>

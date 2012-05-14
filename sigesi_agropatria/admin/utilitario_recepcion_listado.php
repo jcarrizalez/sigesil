@@ -6,7 +6,7 @@
     
     $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : null;
     $listadoEstatus = array('1' => '(1) Laboratorio Central', '2' => '(2) Curentena Admon', '3' => '(3) Romana Lleno', '4' => '(4) Tolvas', '5' => '(5) Ctna Tolva','6' => '(6) Romana Vacio', '7' => '(7) Rechazo Central', '9' => '(9) Recibido',  '11' => '(11) Ctna Aprobado',  '12' => '(12) Ctna Rechazado');
-    $estatus = (!empty($GPC['estatus'])) ? "'".$GPC['estatus']."'" : "''";
+    $estatus = (!empty($GPC['estatus'])) ? "'".$GPC['estatus']."'" : null;
     $fdesde = (!empty($GPC['fecha_inicio'])) ? $general->fecha_normal_sql($GPC['fecha_inicio'], 'es') : date('Y-m-d');
     $fhasta = (!empty($GPC['fecha_fin'])) ? $general->fecha_normal_sql($GPC['fecha_fin'], 'es') : date('Y-m-d');
 
@@ -114,7 +114,11 @@
             <td align="center"><?=$dataMov['numero_guia']?></td>
             <td align="center"><?=$general->date_sql_screen($dataMov['fecha_recepcion'], '', 'es', '-')?></td>
             <td align="center">
-                <? echo $html->link('<img src="../images/peso1.png" width="16" height="16" title=Pesar>', 'romana.php?ac=pesar&id='.$dataMov['id'].'&mov='.$GPC['mov']); ?>
+                <? //echo $html->link('<img src="../images/peso1.png" width="16" height="16" title=Pesar>', 'romana.php?ac=pesar&id='.$dataMov['id'].'&mov='.$GPC['mov']); ?>
+                <?
+                    $urls = array(1 => 'utilitario_recepcion.php?ac=editar&id='.$dataMov['id']);
+                    $general->crearAcciones($acciones, $urls);
+                ?>
             </td>
         </tr>
         <? $i++; } ?>
