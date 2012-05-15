@@ -6,6 +6,7 @@
     $cultivo = new Cultivo();
     $productor = new Productor();
     $movimiento = new Recepcion();
+    $vehiculo = new Vehiculo();
     
     switch ($GPC['ac']) {
         case 'cosecha':
@@ -48,18 +49,29 @@
             }
         break;
         case 'recepcion':
-            if (!empty($GPC['numero']) && !empty($GPC['fecha'])) {
-                $infoMov=$movimiento->find(array('numero' => $GPC['numero'], 'fecha_recepcion' => $general->fecha_normal_sql($GPC['fecha'])));
+            if (!empty($GPC['numero']) && !empty($GPC['fecha']) && !empty($GPC['tipo'])) {
+                //$infoMov=$movimiento->listadoRecepcion(null, $idCa, $idCo, null, $GPC['numero'], null, $GPC['fecha'], $GPC['fecha']);
+                $infoMov=$movimiento->listadoRecepcion(null, null, null, null, $GPC['numero'], null, $GPC['fecha'], $GPC['fecha']);
                 $numero=$infoMov[0]['numero'];
-                if (empty($numero)) 
-                    echo "<span>ENTRADA DISPONIBLE</span>";
+
+                if ($GPC['tipo']=='n')
+                    if (!empty($numero)) 
+                        echo "<span>ENTRADA OCUPADA!!!</span>";
+                    else
+                        echo "<span>ENTRADA DISPONIBLE!!!</span>";
                 else
-                    echo "<span>ENTRADA DISPONIBLE!!!</span>";
+                    if (!empty($numero))
+                            echo "<span>LA RECEPCION EXISTE!!!</span>";
             }
         break;
         case 'vehiculo':
             if (!empty($GPC['placa'])) {
-                echo "<span>error</span>";
+                $infoVehiculo=$vehiculo->buscar(trim($GPC['placa']));
+                $idVehiculo=$infoVehiculo[0]['id'];
+                if (empty($idVehiculo)) 
+                    echo "<span>EL VEHICULO NO EXISTE!!!</span>";
+                else 
+                    echo "<span>".$infoVehiculo[0]['marca'].' '.$infoVehiculo[0]['color']."</span>";
             }
         break;
     }
