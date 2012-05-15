@@ -81,7 +81,7 @@ class Recepcion extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 
-    function listadoRecepcion($id=null, $idCa=null, $idCo=null, $idSilo=null, $entradaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null, $idPro=null, $order=null, $contrato=null, $productor=null, $idP=null, $placa=null, $fechaLiq=null, $fechaRec=null, $idAon=null, $guia=null){
+    function listadoRecepcion($id=null, $idCa=null, $idCo=null, $idSilo=null, $entradaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null, $idPro=null, $order=null, $contrato=null, $productor=null, $idP=null, $placa=null, $fechaLiq=null, $fechaRec=null, $idAon=null, $guia=null, $idAdo=null){
         $query = "SELECT r.*, 
                     (SELECT t1.nombre FROM si_tolcarom t1 WHERE t1.id = r.romana_ent) AS romana_ent, 
                     (SELECT t2.nombre FROM si_tolcarom t2 WHERE t2.id = r.romana_sal) AS romana_sal, 
@@ -120,7 +120,8 @@ class Recepcion extends Model {
         $query .= (!empty($productor)) ? " AND p.nombre ILIKE '%$productor%'" : '';
         $query .= (!empty($idP)) ? " AND pr.id = '$idP'" : '';
         $query .= (!empty($idAon)) ? " AND r.id_asociacion = '$idAon'" : '';
-        $query .= (!empty($guia)) ? " AND g.numero_guia ILIKE '%$guia%'" : '';
+        $query .= (!empty($idAdo)) ? " AND r.id_asociado = '$idAdo'" : '';
+        $query .= (!empty($guia)) ? " AND g.numero_guia::text ILIKE '%$guia%'" : '';
         $query .= (!empty($placa)) ? " AND v.placa ILIKE '%$placa%'" : '';
         $query .= (!empty($placaR)) ? " AND v.placa_remolques ILIKE '%$placaR%'" : '';
         $query .= (!empty($fechaLiq)) ? " AND r.fecha_v::date = '$fechaLiq'" : '';
@@ -135,8 +136,8 @@ class Recepcion extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
-    function recepcionPdf($fdesde=null, $fhasta=null, $estatus=null, $idCo=null, $idPro=null, $idAon=null, $idCa=null) {
-        $query = "SELECT id_productor, id_asociacion FROM si_recepcion WHERE '1'";
+    function recepcionPdf($fdesde=null, $fhasta=null, $estatus=null, $idCo=null, $idPro=null, $idAon=null, $idCa=null, $idAdo=null) {
+        $query = "SELECT id_productor, id_asociacion, id_asociado FROM si_recepcion WHERE '1'";
         if(!empty($fdesde) || !empty($fhasta)){
             $fdesde = (!empty($fdesde)) ? "'".$fdesde." 00:00:00'" : 'now()::date';
             $fhasta = (!empty($fhasta)) ? "'".$fhasta." 23:59:59'" : 'now()::date';
@@ -146,9 +147,10 @@ class Recepcion extends Model {
         $query .= (!empty($idCo)) ? " AND id_cosecha = '$idCo'" : '';
         $query .= (!empty($idPro)) ? " AND id_productor = '$idPro'" : '';
         $query .= (!empty($idAon)) ? " AND id_asociacion = '$idAon'" : '';
+        $query .= (!empty($idAdo)) ? " AND id_asociado = '$idAdo'" : '';
         $query .= (!empty($idCa)) ? " AND id_centro_acopio = '$idCa'" : '';
-        $query .= " GROUP BY id_productor, id_asociacion
-                    ORDER BY id_productor, id_asociacion";
+        $query .= " GROUP BY id_productor, id_asociacion, id_asociado
+                    ORDER BY id_productor, id_asociacion, id_asociado";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     

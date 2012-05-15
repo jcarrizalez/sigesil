@@ -212,7 +212,12 @@
             ?>
                 <tr>
                     <td><span class="msj_rojo">* </span>Nombres y Apellidos </td>
-                    <td><? echo $html->input('Chofer.nombre', $infoChofer[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td>
+                        <?
+                            echo $html->input('Chofer.nombre', $infoChofer[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos'));
+                            echo $html->input('Chofer.id', $infoChofer[0]['id'], array('type' => 'hidden'));
+                        ?>
+                    </td>
                 </tr>
             <?
                 if($choNuevo){

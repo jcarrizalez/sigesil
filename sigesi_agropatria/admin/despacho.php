@@ -48,6 +48,7 @@
             
             $GPC['Despacho']['id_centro_acopio'] = $_SESSION['s_ca_id'];
             $GPC['Despacho']['numero'] = $numeroSalida;
+            $GPC['Despacho']['id_vehiculo'] = $GPC['Vehiculo']['id'];
             $GPC['Despacho']['id_usuario'] = $_SESSION['s_id'];
             $GPC['Despacho']['id_transporte'] = $idTransporte;
             $GPC['Despacho']['id_punto_entrega'] = $idPtoEntrega;

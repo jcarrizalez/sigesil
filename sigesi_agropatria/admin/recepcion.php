@@ -51,19 +51,19 @@
             
             $chofer->save($GPC['Chofer']);
             $idChofer = $chofer->id;
-            $vehiculo->save($GPC['Vehiculo']);
-            $idVehiculo = $vehiculo->id;
+            /*$vehiculo->save($GPC['Vehiculo']);
+            $idVehiculo = $vehiculo->id;*/
             
             $GPC['Recepcion']['id_productor'] = $GPC['id_productor'];
             $GPC['Recepcion']['id_asociacion'] = (!empty($GPC['id_asociacion'])) ? $GPC['id_asociacion'] : 0;
             $GPC['Recepcion']['id_asociado'] = (!empty($GPC['id_asociado'])) ? $GPC['id_asociado'] : 0;
             $GPC['Recepcion']['id_guia'] = $idGuia;
-            $GPC['Recepcion']['id_vehiculo'] = $idVehiculo;
+            $GPC['Recepcion']['id_vehiculo'] = $GPC['Vehiculo']['id'];
             $GPC['Recepcion']['id_chofer'] = $idChofer;
             $recepcion->save($GPC['Recepcion']);
             $idRecepcion = $recepcion->id;
             
-            if(!empty($idGuia) && !empty($idChofer) && !empty($idVehiculo) && !empty($idRecepcion)){
+            if(!empty($idGuia) && !empty($idChofer) && !empty($idRecepcion)){
                 $recepcion->_commit_tool();
                 header("location: ".DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_recepcion&redir=recepcion&id_rec=$idRecepcion");
                 die();

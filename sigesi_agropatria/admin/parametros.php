@@ -3,7 +3,7 @@
     require('../lib/common/header.php');
     
     $parametros = new Parameter();
-    $parametros->listaParameteros();
+    $parametros->listaParametros();
 ?>
 
 <script language="javascript">

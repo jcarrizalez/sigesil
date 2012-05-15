@@ -159,7 +159,7 @@
                     <td>
                         <?
                             echo $html->input('Vehiculo.placa', $infoVehiculo[0]['placa'], array('type' => 'text', 'class' => 'estilo_campos'));
-                            echo $html->input('Despacho.id_vehiculo', $infoVehiculo[0]['id'], array('type' => 'hidden'));
+                            echo $html->input('Vehiculo.id', $infoVehiculo[0]['id'], array('type' => 'hidden'));
                         ?>
                     </td>
                 </tr>

@@ -31,8 +31,8 @@
     require(APPROOT."lib/class/autoloader.class.php");
     Autoloader::Register();
     
-    ini_set("session.cookie_lifetime", 10800);
-    ini_set("session.gc_maxlifetime", 10800);
+    /*ini_set("session.cookie_lifetime", 10800);
+    ini_set("session.gc_maxlifetime", 10800);*/
     define('GERENTEG',1);
     define('GERENTES',2);
     define('ADMING',3);
