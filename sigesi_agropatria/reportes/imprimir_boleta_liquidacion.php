@@ -192,12 +192,12 @@
     <tr>
         <td>&nbsp;</td>
         <? if($GPC['mov'] == 'rec'){ ?>
-        <td>PESO NETO A LIQUIDAR Kgrs</td>
+        <td>PESO ACONDICIONADO A LIQUIDAR Kgrs</td>
         <? }else{ ?>
-        <td>NETO ACONDICIONADO Kgrs</td>
+        <td>PESO ACONDICIONADO Kgrs</td>
         <? } ?>
         <td align="right">----------------------------------------------------------------------------------------></td>
-        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_acon']), 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_acon_liq']), 3);?></td>
         <td>&nbsp;</td>
     </tr>
     <?
@@ -298,13 +298,13 @@
     <tr>
         <td>&nbsp;</td>
         <? if($GPC['mov'] == 'rec'){ ?>
-        <td>PESO NETO A LIQUIDAR Kgrs</td>
+        <td>PESO ACONDICIONADO A LIQUIDAR Kgrs</td>
         <? }else{ ?>
-        <td>NETO ACONDICIONADO Kgrs</td>
+        <td>PESO ACONDICIONADO Kgrs</td>
         <? } ?>
         <td>----------------------------------------------------------------------------------------></td>
         <? if(empty($dataMovimiento[0]['peso_02l'])){ ?>
-        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_acon']), 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_acon_liq']), 3);?></td>
         <? }else{ ?>
         <td width="1" align="right"><?='PNA M1'//$general->formato_numero(round(0), 3);?></td>
         <td width="1" align="right"><?='PNA M2'//$general->formato_numero(round(0), 3);?></td>

@@ -11,7 +11,7 @@
  * 		de descarga del archivo; seria mucho mas interesante que generase un registro que pueda ser
  * 		consultado en otro momento
  */
-class descarga {
+class Descarga {
 
 	/**
 	 * @var string. El nombre del archivo en el servidor
@@ -127,7 +127,7 @@ class descarga {
 	 */
 	private function verify_download($file_on_server){
 		$partes_archivo = pathinfo($file_on_server);
-		if(in_array($partes_archivo['extension'], cls_file_download::$ALLOWED_FILES)){
+		if(in_array($partes_archivo['extension'], Descarga::$ALLOWED_FILES)){
 			if(is_file($file_on_server)){
 				return true;
 			} else{
@@ -243,7 +243,7 @@ class descarga {
 	 * @return string	La ruta absoluta del archivo en el servidor
 	 */
 	public function get_full_path(){
-		return $this->filepath.'\\'.$this->filename_server;
+		return $this->filepath.'/'.$this->filename_server;
 	}
 
 	/**
@@ -252,7 +252,7 @@ class descarga {
 	 * @static
 	 * @example			Si el dialogo de descarga se va a llamar desde un boton, entonces debe llamarse
 	 * 					el metodo como parte de su evento click:<p>
-	 * 					&lt;input type="button" onclick="&lt;?=cls_file_download::print_ajax_downloader_caller(); ?&gt;"&gt;
+	 * 					&lt;input type="button" onclick="&lt;?=Descarga::print_ajax_downloader_caller(); ?&gt;"&gt;
 	 * @return string	La llamada a la funcion JavaScript
 	 */
 	public static function print_ajax_downloader_caller(){
@@ -268,7 +268,7 @@ class descarga {
 	 * 									mencionados scripts y los parametros que se les pasan.<br>
 	 * 									Como ejemplo: Si desde report_funds_by_bu se quiere habilitar la
 	 * 									descarga del reporte generado por report_funds_by_bu_xls, la llamada a
-	 * 									la funcion deberia ser <code>cls_file_download::print_ajax_downloader(array('report_funds_by_bu_xls' => array('xls', 'xlsx')));</code>
+	 * 									la funcion deberia ser <code>Descarga::print_ajax_downloader(array('report_funds_by_bu_xls' => array('xls', 'xlsx')));</code>
 	 * @return string					El codigo HTML necesario
 	 */
 	public static function print_ajax_downloader($formats_per_script, $param1=null){

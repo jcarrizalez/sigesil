@@ -137,7 +137,10 @@ class Recepcion extends Model {
     }
     
     function recepcionPdf($fdesde=null, $fhasta=null, $estatus=null, $idCo=null, $idPro=null, $idAon=null, $idCa=null, $idAdo=null) {
+if(isset($idAdo) and $idAdo!=null)
         $query = "SELECT id_productor, id_asociacion, id_asociado FROM si_recepcion WHERE '1'";
+else
+        $query = "SELECT id_productor, id_asociacion FROM si_recepcion WHERE '1'";
         if(!empty($fdesde) || !empty($fhasta)){
             $fdesde = (!empty($fdesde)) ? "'".$fdesde." 00:00:00'" : 'now()::date';
             $fhasta = (!empty($fhasta)) ? "'".$fhasta." 23:59:59'" : 'now()::date';
@@ -147,10 +150,16 @@ class Recepcion extends Model {
         $query .= (!empty($idCo)) ? " AND id_cosecha = '$idCo'" : '';
         $query .= (!empty($idPro)) ? " AND id_productor = '$idPro'" : '';
         $query .= (!empty($idAon)) ? " AND id_asociacion = '$idAon'" : '';
-        $query .= (!empty($idAdo)) ? " AND id_asociado = '$idAdo'" : '';
+   //     $query .= (!empty($idAdo)) ? " AND id_asociado = '$idAdo'" : '';
         $query .= (!empty($idCa)) ? " AND id_centro_acopio = '$idCa'" : '';
+if(isset($idAdo) and $idAdo!=null){
         $query .= " GROUP BY id_productor, id_asociacion, id_asociado
                     ORDER BY id_productor, id_asociacion, id_asociado";
+}
+else{
+        $query .= " GROUP BY id_productor, id_asociacion
+                    ORDER BY id_productor, id_asociacion";
+}
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
@@ -171,7 +180,7 @@ class Recepcion extends Model {
                     INNER JOIN si_cultivo cu ON cu.id = co.id_cultivo
                     WHERE '1' AND r.estatus_rec = '9'";
         $query .= (!empty($idCA)) ? " AND r.id_centro_acopio = '$idCA'" : '';
-        $query .= (!empty($idCo)) ? " AND cp.id_cosecha = '$idCo'" : '';
+        $query .= (!empty($idCo)) ? " AND r.id_cosecha = '$idCo'" : '';
         if(!empty($fdesde) || !empty($fhasta)){
             $fdesde = (!empty($fdesde)) ? "'$fdesde'" : 'now()::date';
             $fhasta = (!empty($fhasta)) ? "'$fhasta'" : 'now()::date';

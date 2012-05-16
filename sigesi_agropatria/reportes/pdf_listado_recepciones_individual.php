@@ -13,48 +13,50 @@ if(isset($GPC['id']))
 	$ban = 1;
 	$idPro=$arrays[0];
 	$idCo=$arrays[1];
-	$fdesde=$arrays[2];
-	$fhasta=$arrays[3];
+	$fdesde_=$arrays[2];
+	$fhasta_=$arrays[3];
+$reporte_='RECEPCIONES_'.$fdesde_.'_al_'.$fhasta_;
   }
 	else
 	{		$ban = 0;
+	$reporte_='REPORTE_SIN_DATOS';
   }
 
 	if(isset($arrays[4]))
-	{	$idCA_ = 1;
-	$idCa=$arrays[4];
+	{	//$idCA_ = 1;
+	$idCA_=$arrays[4];
   }
 	else
-	{	$idCA_ = 0;
+	{	$idCA_ = null;
   }
 
 }
 else
 {
 		$ban = 0;
-   	$idCA_ = 0;
+   	$idCA_ = null;
+$reporte_='REPORTE_SIN_DATOS';
 }
 
 //	echo '<br />'.$ban;
 $sistema='AGROPATRIA C.A.';
 
-$reSporte_='REPORTE_SIN_DATOS';
+
 
 	if($ban==1)
 	{
+
 //echo 'idCA_='.$idCA_;
-		if($idCA_==1)
-		{ //echo '1';
-			$listadoAsociaciones = $recepcion->recepcionPdf($fdesde, $fhasta, '9', $idCo, $idPro, '', $idCa);
-echo 'catn1='.count($listadoAsociaciones);
-		}
-		else
-		{ //echo'0';
-//echo "recepcionPdf(".$fdesde.", ".$fhasta.", '9', ".$idCo.", ".$idPro.", '', '');";
-			$listadoAsociaciones = $recepcion->recepcionPdf($fdesde, $fhasta, '9', $idCo, $idPro, '', '');
-//	Debug::pr($listadoAsociaciones);
-//echo 'catn0='.count($listadoAsociaciones);
-		}
+//		if($idCA_==1)
+//		{ //echo '1';
+    //  echo "recepcionPdf(".$fdesde_.", ".$fhasta_.", '9', ".$idCo.", ".$idPro.", '', ".$idCA_.")";
+			$listadoAsociaciones = $recepcion->recepcionPdf($fdesde_, $fhasta_, '9', $idCo, $idPro, '', $idCA_);
+//echo 'catn1='.count($listadoAsociaciones);
+//		}
+//		else
+//		{ 
+//			$listadoAsociaciones = $recepcion->recepcionPdf($fdesde_, $fhasta_, '9', $idCo, $idPro, '', '');
+//		}
 
 	//echo 'ff';
   }
@@ -65,9 +67,9 @@ class HOJASOL extends tcpdf{
 
     function setearTitulo($fdesde, $fhasta){
         if($fdesde == $fhasta)
-            $this->titulo = "LISTADO DE DESPACHOS PARA LA FECHA $fdesde";
+            $this->titulo = "LISTADO DE RECEPCIONES PARA LA FECHA $fdesde";
         else
-            $this->titulo = "LISTADO DE DESPACHOS DESDE $fdesde HASTA $fhasta";
+            $this->titulo = "LISTADO DE RECEPCIONES DESDE $fdesde HASTA $fhasta";
     }
    
     function mayus($let) { return strtr(strtoupper($let),"àèìòùáéíóúçñäëïöü","ÀÈÌÒÙÁÉÍÓÚÇÑÄËÏÖÜ");}
@@ -91,8 +93,8 @@ class HOJASOL extends tcpdf{
    
 
 $pdf = new HOJASOL('L', PDF_UNIT, 'LETTER', true, 'UTF-8', false);
-$fdesde = $general->date_sql_screen($arrays[1], '', 'es', '-');
-$fhasta = $general->date_sql_screen($arrays[2], '', 'es', '-');
+$fdesde = $general->date_sql_screen($fdesde_, '', 'es', '-');
+$fhasta = $general->date_sql_screen($fhasta_, '', 'es', '-');
 $pdf->setearTitulo($fdesde, $fhasta);
 
 $pdf->SetAutoPageBreak(true,9.5);
@@ -119,158 +121,389 @@ $pdf->SetFont('helvetica','',8);
 
 if($ban==1)
 {
+$t='';
+//	Debug::pr($listadoAsociaciones);
 
-$t='
+			$Productor = $recepcion->listadoRecepcion('', $idCA_, $idCo, '', '', '9', $fdesde_, $fhasta_, '', '', $idPro, '', '', '', '', '', '', '');
+
+			$t.='<table border="0" cellpadding="0" cellspacing="0">
+			<tr align="left"><td width="70px"><b> Productor: </b></td><td>'.$Productor[0]['productor_nombre'].' <b>&nbsp;&nbsp;RIF:</b> '.$Productor[0]['ced_productor'].' </td></tr>
+			</table>
+			<br />';
+
+for($i=0; $i<count($listadoAsociaciones); $i++)
+{																																	// 		FORLISTADOASOCIADOS
+			if(isset($listadoAsociaciones[$i]['id_asociacion']))				
+			{																														//		IFA
+	$listadoAcion = $recepcion->listadoRecepcion('', $idCA_, $idCo, '', '', '9', $fdesde_, $fhasta_, '', '', $idPro, '', '', '', '', '', '', '', $listadoAsociaciones[$i]['id_asociacion'],'','');
+//Debug::pr($listadoAcion);
+
+			$t.='
 <table border="0" cellpadding="0" cellspacing="0">
-<tr align="left"><td width="60px"><b> Cliente    : </b></td><td>$listadoDespachos[0]["cliente_nombre"] <b>RIF:</b> $listadoDespachos[0]["ced_cliente"] </td></tr>
-<tr align="left"><td width="60px"><b> Cultivo    : </b></td><td>($listadoDespachos[0]["cultivo_codigo"]) $listadoDespachos[0]["cultivo_nombre"]   </td></tr>
-</table>
-<br />
+	<tr align="center"><td width="890px"><b> Asociacion : </b>'.$listadoAcion[0]['asociacion_nombre'].' <b>&nbsp;&nbsp;RIF:</b> '.$listadoAcion[0]['ced_asociacion'].' </td></tr>
+			</table>
+			';
+      $listadoProductores = $recepcion->recepcionPdf($fdesde_, $fhasta_, '9', $idCo, $idPro, $listadoAsociaciones[$i]['id_asociacion'],$idCA_,'vacio');
+	//		Debug::pr($listadoProductores);
+  //    echo count($listadoProductores);
 
-<table border="0" cellpadding="0" cellspacing="0" width="100px" bordercolor="#000000">
-<tr bgcolor="#FFFFFF" align="right">
-<td width="80px"><b>Entrada #</b></td>
-<td width="80px"><b>Orden</b></td>
-<td width="75px"><b>Fecha</b></td>
-<td width="65px"><b>Placa</b></td>
-<td width="85px"><b>Peso Bruto</b></td>
-<td width="65px"><b>Tara</b></td>
-<td width="90px"><b>Peso Neto</b></td>
-<td width="55px"><b> %Hum</b></td>
-<td width="75px"><b>Dcto Hum.</b></td>
-<td width="55px"><b>%Imp.</b></td>
-<td width="70px"><b>Dcto Imp.</b></td>
-<td width="5px">&nbsp;</td>
-<td width="105px"><b>P. Acondicionado</b></td>
-</tr>';
+for($j=0; $j<count($listadoProductores); $j++)
+{																																	//   FORPRODUCTORES
+
+			$listadoRecepciones_ = $recepcion->listadoRecepcion('',$idCA_, $idCo, '', '', '9', $fdesde_, $fhasta_, '', '', $idPro, '', '', '', '', '', '', '', $listadoAsociaciones[$i]['id_asociacion'],'',$listadoProductores[$j]['id_asociado']);
+//Debug::pr($listadoRecepciones_);
+
+			$t.='<table border="0" cellpadding="0" cellspacing="0">
+			<tr align="left"><td width="70px"><b> Asociado : </b></td><td>'.$listadoRecepciones_[$j]['asociado_nombre'].' <b>&nbsp;&nbsp;RIF:</b> '.$listadoRecepciones_[$j]['ced_asociado'].' </td></tr>
+			</table>
+			';
+
+
+      $t.='<table border="0" cellpadding="0" cellspacing="0" width="100px" bordercolor="#000000">
+					<tr bgcolor="#FFFFFF" align="right">
+					<td width="80px"><b>Entrada #</b></td>
+					<td width="80px"><b>Orden</b></td>
+					<td width="75px"><b>Fecha</b></td>
+					<td width="65px"><b>Placa</b></td>
+					<td width="85px"><b>Peso Bruto</b></td>
+					<td width="65px"><b>Tara</b></td>
+					<td width="90px"><b>Peso Neto</b></td>
+					<td width="55px"><b> %Hum</b></td>
+					<td width="75px"><b>Dcto Hum.</b></td>
+					<td width="55px"><b>%Imp.</b></td>
+					<td width="70px"><b>Dcto Imp.</b></td>
+					<td width="5px">&nbsp;</td>
+					<td width="105px"><b>P. Acondicionado</b></td>
+					</tr>';
+
 
 $suma_peso_bruto=0;
 $suma_dcto_hum=0;
 $suma_dcto_imp=0;
 $suma_pacondicionado=0;
-$suma_despachos=1;
 
 
-for($i=0; $i<count($listadoAsociaciones); $i++)
-//for($i=0; $i<5; $i++)
+
+
+
+
+for($z=0; $z<count($listadoRecepciones_); $z++)     //   FORRECPCUIONES
 {
-	Debug::pr($listadoAsociaciones);
+
+				$suma_entrada=1;
+				$pesobruto=($listadoRecepciones_[$z]['peso_01l']+$listadoRecepciones_[$z]['peso_02l']);	
+				$suma_peso_bruto+=$pesobruto;	
+				$pesobruto_=$pdf->decimales($pesobruto,3);
+				$tara=($listadoRecepciones_[$z]['peso_01v']+$listadoRecepciones_[$z]['peso_02v']);
+				$pesoneto=($pesobruto-$tara);
+
+					if(isset($listadoRecepciones_[$z]['placa_remolques']))
+					{$placa=$listadoRecepciones_[$z]['placa'].'/'.$listadoRecepciones_[$z]['placa_remolques'];}
+					else
+					{$placa=$listadoRecepciones_[$z]['placa'];}
+
+				$dcto_hum=$listadoRecepciones_[$z]['humedad_des'];	
+				$suma_dcto_hum+=$dcto_hum;	
+				$dcto_hum_=$pdf->decimales($dcto_hum,3);
+				$dcto_imp=$listadoRecepciones_[$z]['impureza_des'];	
+				$suma_dcto_imp+=$dcto_imp;	
+				$dcto_imp_=$pdf->decimales($dcto_imp,3);
+				$pacondicionado=$listadoRecepciones_[$z]['peso_acon_liq'];	
+				$suma_pacondicionado+=$pacondicionado;	
+				$pacondicionado_=$pdf->decimales($pacondicionado,3);
+				$hum=$listadoRecepciones_[$z]['humedad'];
+				$suma_entrada+=$j;
+
+				$fecha_rep=$general->date_sql_screen($listadoRecepciones_[$z]['fecha_recepcion'],'','es','-');
+				$fecha_rep_d=$general->date_sql_screen($listadoRecepciones_[$z]['fecha_recepcion'],'','es','');
+				$entrada="R".$listadoRecepciones_[$z]['numero']."-".$fecha_rep_d;
+
+				$t.='<tr bgcolor="#FFFFFF" align="right">
+				<td width="80px" align="right">'.$entrada.' &nbsp;</td>
+				<td width="80px"align="right">'.$listadoRecepciones_[$z]['numero_guia'].' &nbsp;</td>
+				<td width="75px" align="right">'.$fecha_rep.'</td>
+				<td width="65px" align="right">'.$listadoRecepciones_[$z]['placa'].'</td>
+				<td width="85px" align="right">'.$pesobruto_.' &nbsp;</td>
+				<td width="65px" align="right">'.$pdf->decimales($tara,3).' &nbsp;</td>
+				<td width="90px" align="right">'.$pdf->decimales($pesoneto,3).' &nbsp;</td>
+				<td width="55px" align="right">'.$pdf->decimales($hum,3).' &nbsp;</td>
+				<td width="75px" align="right">'.$dcto_hum_.' &nbsp;</td>
+				<td width="55px" align="right">'.$listadoRecepciones_[$z]['impureza'].' &nbsp;</td>
+				<td width="70px" align="right">'.$dcto_imp_.' &nbsp;</td>
+				<td width="5px">&nbsp;</td>
+				<td width="105px" align="right">'.$pacondicionado_.' &nbsp;</td>
+				</tr>';
 
 
 
-		echo '<br />id_asociacion = '.$listadoAsociaciones[$i]['id_asociacion'];
-		if($idCA==1)
-		{
-		 // aqui va todo pero con centro de acopio
-		}
-		else
-		{
 
-			if(isset($listadoAsociaciones[$i]['id_asociacion']))
-			{
-			echo '<br />existe';
-			echo "<br />desde: $fdesde";
-			echo "<br />hasta: $hasta";
-			$listadoRecepciones = $recepcion->listadoRecepcion('', '', $idCo, '', '', '9', $fdesde, $fhasta, '', '', $idPro, '', '', '', '', '', '', '', $listadoAsociaciones[$i]['id_asociacion']);
-	    echo '<br />cantexiste='.count($listadoRecepciones);
-	//	echo '<br />'.$listadoRecepciones[$i]['id_productor'];
 
-			}
+
+
+
+
+}          //   FORRECPCUIONES
+
+$t.='</table>';
+
+if($suma_entrada>1)        //   IFB
+{
+	$t.='
+	<table border="0" cellpadding="0" cellspacing="2" width="100px">
+	<tr>
+	<td width="80px" align="right"><b>Cantidad: '.$suma_entrada.'</b> &nbsp;</td>
+	<td width="221px" align="right"><div><b>Total: &nbsp;&nbsp;&nbsp;&nbsp;</b></div></td>
+	<td width="77px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_peso_bruto,3).'</b> &nbsp;</div></td>
+	<td width="65px" align="right">&nbsp;</td>
+	<td width="90px" align="right">&nbsp;</td>
+	<td width="55px" align="right">&nbsp;</td>
+	<td width="68px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_dcto_hum,3).'</b> &nbsp;</div></td>
+	<td width="55px" align="right">&nbsp;</td>
+	<td width="67px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_dcto_imp,3).'</b> &nbsp;</div></td>
+	<td width="5px">&nbsp;</td>
+	<td width="100px" align="right"><div style="border-top: 1px solid #000000;"><b>'.$pdf->decimales($suma_pacondicionado,3).' </b>&nbsp;</div></td>
+	</tr>
+	</table>
+	';
+}        //   IFB
+$t.='<br />';                  
+
+
+
+
+
+$suma_peso_bruto_general+=$suma_peso_bruto;
+$suma_dcto_hum_general+=$suma_dcto_hum;
+$suma_dcto_imp_general+=$suma_dcto_imp;
+$suma_pacondicionado_general+=$suma_pacondicionado;
+$suma_entrada_general+=$suma_entrada;
+
+
+
+
+
+
+}							//   FORPRODUCTORES
+
+
+
+			$t.='<br />';
+
+
+
+			}			//		IFA
 			else
-			{
+			{				// 		ELSEA
 
-   		echo '<br />no existe';
-			$listadoRecepciones = $recepcion->listadoRecepcion('', '', $idCo, '', '', '9', $fdesde, $fhasta, '', '', $idPro, '', '', '', '', '', '', '','');
-			echo '<br />cantnoexiste='.count($listadoRecepciones);
-			echo '<br />'.$listadoRecepciones[$i]['id_productor'];
 
-			}
-		Debug::pr($listadoRecepciones);
-//gregorya
-
-		}
+      $listadoProductores = $recepcion->recepcionPdf($fdesde_, $fhasta_, '9', $idCo, $idPro, 0,$idCA_,'vacio');
+	//		Debug::pr($listadoProductores);
+  //    echo count($listadoProductores);
 
 
 
+for($j=0; $j<count($listadoProductores); $j++)
+{																																	//   FORPRODUCTORES
+
+			$listadoRecepciones_ = $recepcion->listadoRecepcion('',$idCA_, $idCo, '', '', '9', $fdesde_, $fhasta_, '', '', $idPro, '', '', '', '', '', '', '', $listadoAsociaciones[$i]['id_asociacion'],'',$listadoProductores[$j]['id_asociado']);
+//Debug::pr($listadoRecepciones_);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
- /*
-	if($i%2==0) $class="#FFFFFF";
-	else $class="#FFFFFF";
-$pesobruto=($listadoDespachos[$i]['peso_01l']+$listadoDespachos[$i]['peso_02l']);	
-$suma_peso_bruto+=$pesobruto;	
-$pesobruto_=$pdf->decimales($pesobruto,3);
-$tara=$pesobruto=($listadoDespachos[$i]['peso_01v']+$listadoDespachos[$i]['peso_02v']);
-$pesoneto=($pesobruto-$tara);
-
-
-$dcto_hum=$listadoDespachos[$i]['humedad_des'];	
-$suma_dcto_hum+=$dcto_hum;	
-$dcto_hum_=$pdf->decimales($dcto_hum,3);
-$dcto_imp=$listadoDespachos[$i]['impureza_des'];	
-$suma_dcto_imp+=$dcto_imp;	
-$dcto_imp_=$pdf->decimales($dcto_imp,3);
-$pacondicionado=$listadoDespachos[$i]['peso_acon'];	
-$suma_pacondicionado+=$pacondicionado;	
-$pacondicionado_=$pdf->decimales($pacondicionado,3);
-$hum=$listadoDespachos[$i]['humedad'];
-$fecha_des=$general->date_sql_screen($listadoDespachos[$i]['fecha_des'],'','es','-');
-$fecha_des_d=$general->date_sql_screen($listadoDespachos[$i]['fecha_des'],'','es','');
-$suma_despachos+=$i;
-
-
-
-$despacho="D".$listadoDespachos[$i]['numero']."-".$fecha_des_d;
-*/
-
-$t.='
-<tr bgcolor="'.$class.'">
-<td width="80px" align="right">$despacho &nbsp;</td>
-<td width="80px"align="right">$listadoDespachos[$i]["numero_guia"] &nbsp;</td>
-<td width="75px" align="right">$fecha_des</td>
-<td width="65px" align="right">$listadoDespachos[$i]["placa"]</td>
-<td width="85px" align="right">$pesobruto_ &nbsp;</td>
-<td width="65px" align="right">$pdf->decimales($tara,3) &nbsp;</td>
-<td width="90px" align="right">$pdf->decimales($pesoneto,3) &nbsp;</td>
-<td width="55px" align="right">$pdf->decimales($hum,3) &nbsp;</td>
-<td width="75px" align="right">$dcto_hum_ &nbsp;</td>
-<td width="55px" align="right">$listadoDespachos[$i]["impureza"] &nbsp;</td>
-<td width="70px" align="right">$dcto_imp_ &nbsp;</td>
-<td width="5px">&nbsp;</td>
-<td width="105px" align="right">$pacondicionado_ &nbsp;</td>
-</tr>
-';
+if($listadoRecepciones_[$j]['asociado_nombre']!=null)
+{
+			$t.='<table border="0" cellpadding="0" cellspacing="0">
+			<tr align="left"><td width="70px"><b> Asociado : </b></td><td>'.$listadoRecepciones_[$j]['asociado_nombre'].' <b>&nbsp;&nbsp;RIF:</b> '.$listadoRecepciones_[$j]['ced_asociado'].' </td></tr>
+			</table>
+			';
 }
-$t.='
-</table>
+
+
+
+      $t.='<table border="0" cellpadding="0" cellspacing="0" width="100px" bordercolor="#000000">
+					<tr bgcolor="#FFFFFF" align="right">
+					<td width="80px"><b>Entrada #</b></td>
+					<td width="80px"><b>Orden</b></td>
+					<td width="75px"><b>Fecha</b></td>
+					<td width="65px"><b>Placa</b></td>
+					<td width="85px"><b>Peso Bruto</b></td>
+					<td width="65px"><b>Tara</b></td>
+					<td width="90px"><b>Peso Neto</b></td>
+					<td width="55px"><b> %Hum</b></td>
+					<td width="75px"><b>Dcto Hum.</b></td>
+					<td width="55px"><b>%Imp.</b></td>
+					<td width="70px"><b>Dcto Imp.</b></td>
+					<td width="5px">&nbsp;</td>
+					<td width="105px"><b>P. Acondicionado</b></td>
+					</tr>';
+
+
+$suma_peso_bruto=0;
+$suma_dcto_hum=0;
+$suma_dcto_imp=0;
+$suma_pacondicionado=0;
+
+
+
+
+
+
+for($z=0; $z<count($listadoRecepciones_); $z++)     //   FORRECPCUIONES
+{
+
+				$suma_entrada=1;
+				$pesobruto=($listadoRecepciones_[$z]['peso_01l']+$listadoRecepciones_[$z]['peso_02l']);	
+				$suma_peso_bruto+=$pesobruto;	
+				$pesobruto_=$pdf->decimales($pesobruto,3);
+				$tara=($listadoRecepciones_[$z]['peso_01v']+$listadoRecepciones_[$z]['peso_02v']);
+				$pesoneto=($pesobruto-$tara);
+
+					if(isset($listadoRecepciones_[$z]['placa_remolques']))
+					{$placa=$listadoRecepciones_[$z]['placa'].'/'.$listadoRecepciones_[$z]['placa_remolques'];}
+					else
+					{$placa=$listadoRecepciones_[$z]['placa'];}
+
+				$dcto_hum=$listadoRecepciones_[$z]['humedad_des'];	
+				$suma_dcto_hum+=$dcto_hum;	
+				$dcto_hum_=$pdf->decimales($dcto_hum,3);
+				$dcto_imp=$listadoRecepciones_[$z]['impureza_des'];	
+				$suma_dcto_imp+=$dcto_imp;	
+				$dcto_imp_=$pdf->decimales($dcto_imp,3);
+				$pacondicionado=$listadoRecepciones_[$z]['peso_acon_liq'];	
+				$suma_pacondicionado+=$pacondicionado;	
+				$pacondicionado_=$pdf->decimales($pacondicionado,3);
+				$hum=$listadoRecepciones_[$z]['humedad'];
+				$suma_entrada+=$j;
+
+				$fecha_rep=$general->date_sql_screen($listadoRecepciones_[$z]['fecha_recepcion'],'','es','-');
+				$fecha_rep_d=$general->date_sql_screen($listadoRecepciones_[$z]['fecha_recepcion'],'','es','');
+				$entrada="R".$listadoRecepciones_[$z]['numero']."-".$fecha_rep_d;
+
+				$t.='<tr bgcolor="#FFFFFF" align="right">
+				<td width="80px" align="right">'.$entrada.' &nbsp;</td>
+				<td width="80px"align="right">'.$listadoRecepciones_[$z]['numero_guia'].' &nbsp;</td>
+				<td width="75px" align="right">'.$fecha_rep.'</td>
+				<td width="65px" align="right">'.$listadoRecepciones_[$z]['placa'].'</td>
+				<td width="85px" align="right">'.$pesobruto_.' &nbsp;</td>
+				<td width="65px" align="right">'.$pdf->decimales($tara,3).' &nbsp;</td>
+				<td width="90px" align="right">'.$pdf->decimales($pesoneto,3).' &nbsp;</td>
+				<td width="55px" align="right">'.$pdf->decimales($hum,3).' &nbsp;</td>
+				<td width="75px" align="right">'.$dcto_hum_.' &nbsp;</td>
+				<td width="55px" align="right">'.$listadoRecepciones_[$z]['impureza'].' &nbsp;</td>
+				<td width="70px" align="right">'.$dcto_imp_.' &nbsp;</td>
+				<td width="5px">&nbsp;</td>
+				<td width="105px" align="right">'.$pacondicionado_.' &nbsp;</td>
+				</tr>';
+
+
+
+
+
+
+
+
+
+}          //   FORRECPCUIONES
+
+$t.='</table>';
+
+if($suma_entrada>1)        //   IFB
+{
+	$t.='
+	<table border="0" cellpadding="0" cellspacing="2" width="100px">
+	<tr>
+	<td width="80px" align="right"><b>Cantidad: '.$suma_entrada.'</b> &nbsp;</td>
+	<td width="221px" align="right"><div><b>Total: &nbsp;&nbsp;&nbsp;&nbsp;</b></div></td>
+	<td width="77px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_peso_bruto,3).'</b> &nbsp;</div></td>
+	<td width="65px" align="right">&nbsp;</td>
+	<td width="90px" align="right">&nbsp;</td>
+	<td width="55px" align="right">&nbsp;</td>
+	<td width="68px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_dcto_hum,3).'</b> &nbsp;</div></td>
+	<td width="55px" align="right">&nbsp;</td>
+	<td width="67px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_dcto_imp,3).'</b> &nbsp;</div></td>
+	<td width="5px">&nbsp;</td>
+	<td width="100px" align="right"><div style="border-top: 1px solid #000000;"><b>'.$pdf->decimales($suma_pacondicionado,3).' </b>&nbsp;</div></td>
+	</tr>
+	</table>
+	';
+}        //   IFB
+$t.='<br />';                  
+
+
+
+
+
+$suma_peso_bruto_general+=$suma_peso_bruto;
+$suma_dcto_hum_general+=$suma_dcto_hum;
+$suma_dcto_imp_general+=$suma_dcto_imp;
+$suma_pacondicionado_general+=$suma_pacondicionado;
+$suma_entrada_general+=$suma_entrada;
+
+
+
+
+
+
+}							//   FORPRODUCTORES
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			}				//		ELSEA
+
+
+
+}		// 		FORLISTADOASOCIADOS
+
+
+$t.='</table> <br /> <br />
+
 <table border="0" cellpadding="0" cellspacing="2" width="100px">
 <tr>
-<td width="80px" align="right"><b>Cantidad: $suma_despachos</b> &nbsp;</td>
+<td width="80px" align="right"><b>Cantidad: '.$suma_entrada_general.'</b> &nbsp;</td>
 <td width="221px" align="right"><div><b>Total: &nbsp;&nbsp;&nbsp;&nbsp;</b></div></td>
-<td width="77px" align="right"><div style="border-top: 1px solid #000000 ;"><b>$pdf->decimales($suma_peso_bruto,3)</b> &nbsp;</div></td>
+<td width="77px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_peso_bruto_general,3).'</b> &nbsp;</div></td>
 <td width="65px" align="right">&nbsp;</td>
 <td width="90px" align="right">&nbsp;</td>
 <td width="55px" align="right">&nbsp;</td>
-<td width="68px" align="right"><div style="border-top: 1px solid #000000 ;"><b>$pdf->decimales($suma_dcto_hum,3)</b> &nbsp;</div></td>
+<td width="68px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_dcto_hum_general,3).'</b> &nbsp;</div></td>
 <td width="55px" align="right">&nbsp;</td>
-<td width="67px" align="right"><div style="border-top: 1px solid #000000 ;"><b>$pdf->decimales($suma_dcto_imp,3)</b> &nbsp;</div></td>
+<td width="67px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_dcto_imp_general,3).'</b> &nbsp;</div></td>
 <td width="5px">&nbsp;</td>
-<td width="100px" align="right"><div style="border-top: 1px solid #000000;"><b>$pdf->decimales($suma_pacondicionado,3) </b>&nbsp;</div></td>
+<td width="100px" align="right"><div style="border-top: 1px solid #000000;"><b>'.$pdf->decimales($suma_pacondicionado_general,3).' </b>&nbsp;</div></td>
 </tr>
 </table>
+
 ';
 $pdf->writeHTMLCell(200, 0, 18, 30, $t, 0, 1, 0, true, 'J',true);
 }
@@ -286,7 +519,7 @@ $pdf->writeHTMLCell(200, 0, 15, 30, $t, 0, 1, 0, true, 'C',true);
 
 
 $pdf->Ln(4);
-$pdf->Output($reporte_.'_'.date('d-m-Y').'.pdf', 'I');
+$pdf->Output($reporte_.'_.pdf', 'I');
 ?>
 
 
