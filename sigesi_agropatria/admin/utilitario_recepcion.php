@@ -23,17 +23,17 @@
             if (!empty($GPC['id'])) {
                 $infoMov=$movimiento->listadoRecepcion($GPC['id']);
                 $listaCarril=$carril->listaTolcarom($idCA, "'2'");
-                $listaCo = $cosecha->find(array('id'=>$infoMov[0]['id_cosecha']), '', array('id', 'nombre'), 'list', 'id');
-                
+                $listaCo = $cosecha->find('', '', array('id', 'nombre'), 'list', 'id');
                 $listaP = $productor->find(array('ced_rif'=>$infoMov[0]['ced_productor']), '', array('ced_rif', 'nombre'), 'list', 'ced_rif');
-                $listaAon = $productor->find(array('ced_rif'=>$infoMov[0]['id_asociacion']), '', array('ced_rif', 'nombre'), 'list', 'ced_rif');
-                $listaAdo = $productor->find(array('ced_rif'=>$infoMov[0]['id_asociado']), '', array('ced_rif', 'nombre'), 'list', 'ced_rif');
+                $listaAon = $productor->find(array('ced_rif'=>$infoMov[0]['ced_asociacion']), '', array('ced_rif', 'nombre'), 'list', 'ced_rif');
                 
-                if (empty($listaAon))
-                    $listaAon[0]="";
+                $listaAdo = $productor->find(array('ced_rif'=>$infoMov[0]['ced_asociado']), '', array('ced_rif', 'nombre'), 'list', 'ced_rif');
                 
-                if (empty($listaAdo))
-                    $listaAdo[0]="";
+//                if (empty($listaAon))
+//                    $listaAon[0]="";
+//                
+//                if (empty($listaAdo))
+//                    $listaAdo[0]="";
                 
                 foreach($listadoE as $clave=>$valor) {
                     if ($clave <= $infoMov[0]['estatus_rec'])
@@ -46,12 +46,19 @@
             }
             break;
         case 'guardar':
-            if (!empty($GPC['id'])) {
-                $infoMov=$movimiento->find(array('id' => $GPC['id']));
-                $id=$infoMov[0]['id'];
-            }
+            $infoMov=$movimiento->find(array('id' => $GPC['id']));
+            $id=$infoMov[0]['id'];
+            //$movimiento->_begin_tool();
+            debug::pr($GPC['Recepcion'], true);
+            $movimiento->save($GPC['Recepcion']);                
+            //$movimiento->_commit_tool();
+            if (empty($movimiento->id)) {
+                header("location: ".DOMAIN_ROOT."admin/utilitario_recepcion_listado.php?msg=error");
+                die();
+            }                
         default:
-            header("location: ".DOMAIN_ROOT."admin/utilitario_recepcion_listado.php?msg=error");
+            //header("location: ".DOMAIN_ROOT."admin/utilitario_recepcion_listado.php?msg=error");
+            debug::pr($GPC['ac']);
             die();
             break;
     }
@@ -66,32 +73,43 @@
     $(document).ready(function(){
         $('.positive').numeric();        
         
-        $('#Recepcion\\[id_cosecha\\]').click(function(){
-            alert($(this).attr('id'));
-            $('#cultivo_nombre').load('../ajax/detalle_utilitario.php?ac=cosecha&codigo='+$('#Recepcion\\[id_cosecha\\]').val());
-        });
+//        $('#Recepcion\\[id_cosecha\\]').click(function(){
+//            $('#cultivo_nombre').load('../ajax/detalle_utilitario.php?ac=cosecha&codigo='+$(this).val());
+//        });
+
+//        $('#Recepcion\\[id_cosecha\\]').click(function(){
+//            $('#cultivo_nombre').load('../ajax/detalle_utilitario.php?ac=cosecha&codigo='+$('#Recepcion\\[id_cosecha\\]').val());
+//        });
         
-        $('#Recepcion\\[productor\\]').click(function(){
+        $('#Recepcion\\[id_cosecha\\]').change(function() {
             $('#productor_nombre').load('../ajax/detalle_utilitario.php?ac=productor&cosecha='+$('#Recepcion\\[id_cosecha\\]').val());
+            $('#asociacion_nombre').load('../ajax/detalle_utilitario.php?ac=asociacion&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[productor\\]').val());
+            $('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[productor\\]').val()+'&cedRifAon='+$('#Recepcion_asociacion').val());
+        });
+
+        $('#Recepcion\\[productor\\]').live('change', function() {
+            $('#asociacion_nombre').load('../ajax/detalle_utilitario.php?ac=asociacion&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[productor\\]').val());
+            $('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[productor\\]').val()+'&cedRifAon='+$('#Recepcion_asociacion').val());
         });
         
-        $('#Recepcion\\[id_asociacion\\]').change(function(){
-            $('#asociacion_nombre').load('../ajax/detalle_utilitario.php?ac=asociacion&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[productor\\]').val()+'&cedRif='+$('#Recepcion_asociacion').val());
+        $('#Recepcion\\[id_asociacion\\]').live('change', function() {
+            $('#asociacion_nombre').load('../ajax/detalle_utilitario.php?ac=asociacion&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[productor\\]').val());
         });
         
-        $('#Recepcion\\[id_asociado\\]').change(function(){
-            $('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[productor\\]').val()+'&cedRifAon='+$('#Recepcion_asociacion').val()+'&cedRif='+$('#Recepcion_asociado').val());
+        $('#Recepcion\\[id_asociado\\]').live('change', function() {
+            $('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[productor\\]').val()+'&cedRifAon='+$('#Recepcion_asociacion').val());
         });
         
-        $('#Recepcion\\[numero\\]').change(function(){
+        $('#Recepcion\\[numero\\]').live('change',function() {
             $('#numero_msg').load('../ajax/detalle_utilitario.php?ac=recepcion&numero='+$('#Recepcion\\[numero\\]').val()+"&fecha="+$('#Recepcion\\[fecha_recepcion\\]').val()+"&tipo=n");
+            alert($('#numero_msg').val());
         });
         
-        $('#Recepcion\\[fecha_recepcion\\]').change(function(){
+        $('#Recepcion\\[fecha_recepcion\\]').live('change', function() {
             $('#fecha_msg').load('../ajax/detalle_utilitario.php?ac=recepcion&fecha='+$('#Recepcion\\[fecha_recepcion\\]').val()+"&numero="+$('#Recepcion\\[numero\\]').val()+"&tipo=f");
         });
         
-        $('#Recepcion_placa').change(function(){
+        $('#Recepcion_placa').live('change', function() {
             $('#vehiculo_descrip').load('../ajax/detalle_utilitario.php?ac=vehiculo&placa='+$('#Recepcion_placa').val());
         });
     });
@@ -106,7 +124,7 @@
         <tr>
             <td>Cosecha</td>
             <td id='cultivo_nombre' width="230px">                
-            <? echo $html->select('Recepcion.id_cosecha', array('options' => $listaCo, 'selected' => $infoMov[0]['id_codigo'], 'class' => 'crproductor')); ?>
+            <? echo $html->select('Recepcion.id_cosecha', array('options' => $listaCo, 'selected' => $infoMov[0]['id_codigo'], 'class' => 'estilo_campos')); ?>
             </td>
             <td width="130px">
             </td>
@@ -114,35 +132,35 @@
         <tr>
             <td>Productor</td>
             <td id="productor_nombre">
-            <? 
-                echo $html->select('Recepcion.productor', array('options' => $listaP, 'selected' => $infoMov[0]['ced_rif'])); 
-            ?>
+            <? echo $html->select('Recepcion.productor', array('options' => $listaP, 'selected' => $infoMov[0]['ced_rif'], 'class'=>'estilo_campos')); ?>
             </td>
             <td width="130px"></td>
         </tr>
         <tr>
             <td>Asociacion</td>
-            <td>
+            <td id="asociacion_nombre" width="130px">
             <?
-                echo $html->select('Recepcion.id_asociacion', array('options' => $listaAon, 'selected' => $infoMov[0]['id_asociacion'])); 
+                echo $html->select('Recepcion.id_asociacion', array('options' => $listaAon, 'selected' => $infoMov[0]['id_asociacion'], 'class'=>'estilo_campos')); 
                 //echo $html->input('Recepcion_asociacion', $infoMov[0]['ced_asociacion'], array('type' => 'text', 'class' => 'crproductor')); ?>
             </td>
-            <td id="asociacion_nombre" width="130px"></td>
+            <td ></td>
         </tr>
         <tr>
             <td>Asociado</td>
             <td>
             <? 
-            echo $html->select('Recepcion.id_asociado', array('options' => $listaAdo, 'selected' => $infoMov[0]['id_asociado']));
+            echo $html->select('Recepcion.id_asociado', array('options' => $listaAdo, 'selected' => $infoMov[0]['id_asociado'], 'class'=>'estilo_campos'));
             //echo $html->input('Recepcion_asociado', $infoMov[0]['ced_asociado'], array('type' => 'text', 'class' => 'crproductor')); ?>
             <td id="asociado_nombre" width="130px"></td>
         </tr>
         <tr>
             <td>Nro Entrada</td>
-            <td><? echo $html->input('Recepcion.numero', $infoMov[0]['numero'], array('type' => 'text', 'class' => 'crproductor')); ?></td>
-            <td width="230x">
-                <div id="numero_msg">                  
-                </div>
+            <td>
+            <? 
+                echo $html->input('Recepcion.numero', $infoMov[0]['numero'], array('type' => 'text', 'class' => 'crproductor'));
+                
+            ?>
+                <div id='numero_msg'></div>
             </td>
         </tr>
         <tr>
@@ -207,7 +225,7 @@
             <td><? //echo $html->input('Recepcion.estatus_rec', $infoMov[0]['estatus_rec'], array('type' => 'text', 'class' => 'crproductor')); ?></td>
         </tr>
     </table>
-    <? echo $html->input('id_cosecha', $infoMov[0]['id_co'], array('type' => 'hidden')); ?>
+    <? //echo $html->input('id_cosecha', $infoMov[0]['id_co'], array('type' => 'hidden')); ?>
     </fieldset>
     <table align="center" border="0">
         <tr>

@@ -11,33 +11,44 @@
     switch ($GPC['ac']) {
         case 'cosecha':
             $listaCo = $cosecha->find('', '', array('id', 'nombre'), 'list', 'id');
-            echo $html->select('Recepcion_codigo', array('options' => $listaCo, 'class' => 'crproductor'));
+            echo $html->select('Recepcion_codigo', array('options' => $listaCo, 'class' => 'estilo_campos'));
         break;
         case 'productor':
             if (!empty($GPC['cosecha'])) {
-                $listaProductor = $cosecha->buscarCosechaProductor($GPC['cosecha']);
-                foreach($listaProductor as $clave=>$valor)
-                    $listaP[$clave]=$valor;
-                
-                //echo $html->select('Recepcion.productor', array('options' => $listaP, 'class' => 'crproductor'));
+                if (is_numeric($GPC['cosecha'])) {
+                    $idCosecha=$GPC['cosecha'];
+                    $listaProductor = $cosecha->buscarCosechaProductor($idCosecha);
+                    foreach($listaProductor as $dataPro)
+                        $listaP[$dataPro['ced_productor']]=$dataPro['productor'];
+                    echo $html->select('Recepcion.productor', array('options' => $listaP, 'class' => 'estilo_campos'));
+                }                
             }
         break;
         case 'asociacion':
-            if (!empty($GPC['cedRif'])) {
-                $infoAsociacion = $cosecha->buscarCosechaProductor($GPC['cosecha'], $GPC['cedRifP'], $GPC['cedRif']);
-                if (!empty($infoAsociacion)) 
-                    echo "<span>".$infoAsociacion[0]['asociacion']."</span>";
-                else
-                    echo "<span>LA ASOCACION NO EXISTE!!!</span>";
+            if (!empty($GPC['cosecha']) && !empty($GPC['cedRifP'])) {
+                if (is_numeric($GPC['cosecha'])) {                
+                    $idCosecha=$GPC['cosecha'];
+                    $cedRifP=(is_numeric($GPC['cedRifP'])) ? $GPC['cedRifP']: '';            
+                    $listAsociacion = $cosecha->buscarCosechaProductor($idCosecha, $cedRifP);
+                    foreach($listAsociacion as $datAon)
+                        $listAon[$datAon['ced_asociacion']]=$datAon['asociacion'];
+                    if (!empty($listAon))
+                        echo $html->select('Recepcion.asociacion', array('options' => $listAon, 'class' => 'estilo_campos'));
+                 }
             }
         break;
         case 'asociado':
-            if (!empty($GPC['cedRif'])) {
-                $infoAsociado = $cosecha->buscarCosechaProductor($GPC['cosecha'], $GPC['cedRifP'], $GPC['cedRifAon'], $GPC['cedRif']);
-                if (!empty($infoAsociado))
-                    echo "<span>".$infoAsociado[0]['asociado']."</span>";
-                else
-                    echo "<span>EL ASOCACIADO NO EXISTE!!!</span>";
+            if (!empty($GPC['cosecha']) && !empty($GPC['cedRifP']) && !empty($GPC['cedRifAon']) && !empty($GPC['cedRifAdo'])) {
+                if (is_numeric($GPC['cosecha'])) {
+                    $idCosecha=$GPC['cosecha'];
+                    $cedRifP=($GPC['cedRifP']=='undefined') ? $GPC['cedRifP']: null;
+                    $cedRifAon=($GPC['cedRifAon']=='undefined') ? $GPC['cedRifAon']: null;
+                    $listAsociado = $cosecha->buscarCosechaProductor($idCosecha, $cedRifP, $cedRifAon);
+                    foreach($listAsociado as $datAdo)
+                        $listAdo[$datAdo['ced_asociacion']]=$datAdo['asociacion'];
+                    if (!empty($listAdo))
+                        echo $html->select('Recepcion.asociacion', array('options' => $listAdo, 'class' => 'estilo_campos'));
+                }
             }
         break;
         case 'recepcion':
@@ -45,17 +56,18 @@
                 //$infoMov=$movimiento->listadoRecepcion(null, $idCa, $idCo, null, $GPC['numero'], null, $GPC['fecha'], $GPC['fecha']);                
                 $infoMov=$movimiento->listadoRecepcion(null, null, null, null, $GPC['numero'], null, $general->fecha_normal_sql($GPC['fecha']), $GPC['fecha']);
                 $numero=$infoMov[0]['numero'];
+                echo $html->input('', "ENTRADA OCUPADA!!!", array('type' => 'text'));
 
-                if ($GPC['tipo']=='n')
-                    if (!empty($numero)) 
-                        echo "<span>ENTRADA OCUPADA!!!</span>";
-                    else
-                        echo "<span>ENTRADA DISPONIBLE!!!</span>";
-                else
-                    if (!empty($numero))
-                            echo "<span>LA RECEPCION EXISTE!!!</span>";
-                    else
-                        echo "<span>ENTRADA DISPONIBLE!!!</span>";
+//                if ($GPC['tipo']=='n')
+//                    if (!empty($numero)) 
+//                        echo $html->input('numero_msg', "ENTRADA OCUPADA!!!", array('type' => 'text'));
+//                    else
+//                        echo $html->input('numero_msg', "ENTRADA DISPONIBLE!!!", array('type' => 'text'));
+//                else
+//                    if (!empty($numero)) 
+//                        echo $html->input('numero_msg', "ENTRADA OCUPADA!!!", array('type' => 'text'));
+//                    else
+//                        echo $html->input('numero_msg', "ENTRADA DISPONIBLE!!!", array('type' => 'text'));
             }
         break;
         case 'vehiculo':
