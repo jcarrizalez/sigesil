@@ -19,6 +19,47 @@ class General {
         }
     }
     
+    function estatus($estatus, $mov){
+        if($mov == 'rec'){
+            switch($estatus){
+                case 1:
+                    $resultado = 'Lab. Central';
+                break;
+                case 2:
+                case 10:
+                case 11:
+                    $resultado = 'Cuarentena Central';
+                break;
+                case 3:
+                    $resultado = 'Romana Lleno';
+                break;
+                case 4:
+                    $resultado = 'Lab. Planta';
+                break;
+                case 5:
+                case 12:
+                case 13:
+                    $resultado = 'Cuarentena Planta';
+                break;
+                case 6:
+                    $resultado = 'Romana Vacío';
+                break;
+                case 7:
+                    $resultado = 'Rechazo Central';
+                break;
+                case 8:
+                    $resultado = 'Rechazo Planta';
+                break;
+                case 9:
+                    $resultado = 'Liquidado';
+                break;
+            }
+        }else{
+            
+        }
+        return $resultado;
+    }
+    
     function fechaPhp() {
         switch (date('l')) {
             case 'Monday':

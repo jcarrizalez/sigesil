@@ -50,7 +50,8 @@ class Descarga {
 	 * @staticvar
 	 * @var array. Vector con las extensiones de archivos permitidas para descargas; funciona como una lista blanca
 	 */
-	private static $ALLOWED_FILES = array('doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx', 'zip');
+	//private static $ALLOWED_FILES = array('doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx', 'zip');
+        private static $ALLOWED_FILES = array('doc', 'docx', 'pdf', 'ppt', 'pptx', 'xls', 'xlsx', 'ods', 'zip');
 
 	/**
 	 * Inicializacion del objeto; los tres parametros son requeridos
@@ -106,6 +107,9 @@ class Descarga {
 			case 'zip':
 				return 'application/zip';
 				break;
+                        case 'ods':
+                                return 'application/vnd.oasis.opendocument.spreadsheet';
+                                break;
 
 			default:
 				return false;

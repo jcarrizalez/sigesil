@@ -2,6 +2,7 @@
     require_once('../lib/core.lib.php');
 
     $cosecha = new Cosecha();
+    $idCA = $_SESSION['s_ca_id'];
 
     $listadoCosechas = $cosecha->infoCosechaCultivo($idCA);
     

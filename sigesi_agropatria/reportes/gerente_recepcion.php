@@ -41,198 +41,259 @@
     $porPagina = MAX_RESULTS_PAG;
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
     
-    $orden = ' ORDER BY r.creado, numero';
+    $orden = ($_SESSION['s_perfil_id'] == GERENTEG) ? ' ORDER BY r.id_centro_acopio, r.creado, numero' : ' ORDER BY r.creado, numero';
     $listadoRecepciones = $recepcion->listadoRecepcion(null, $idCA, $idCo, null, $entrada, $estatus, null, null, $porPagina, $inicio, null, $orden, $contrato, $productor, null, $placa, $fliq, $frec, null, $guia);
-    
     $total_registros = $recepcion->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);
     
-    switch($GPC['ac']){
+    /*switch($GPC['ac']){
         case 'Pdf':
             $idCA = (!empty($idCA)) ? $idCA : 'vacio';
             $idCo = (!empty($idCo)) ? $idCo : 'vacio';
             header('location: pdf_listado_recepciones_todo.php?id='.$fliq."_".$frec."_".$idCA."_".$idCo);
             die();
         break;
-        case 'Excel':
-            $formato = 'xlsx';
-            
-            $filename_client = "Prize_Redemption_".date("m_d_Y");
-            $filename_server = md5(date("Ymdhis").rand());
-            if($formato=='xls'){
-                $filename_client .= '.xls';
-                $filename_server .= '.xls';
-            } else if($formato=='xlsx'){
-                $filename_client .= '.xlsx';
-                $filename_server .= '.xlsx';
-            }
+    }*/
+    
+    if(!empty($GPC['exportar'])){
+        $formato = ($GPC['exportar'] == 'Excel') ? 'xlsx' : 'ods';
 
-            require_once APPROOT.'lib/class/PHPExcel/PHPExcel.php';
-            require_once APPROOT.'lib/class/PHPExcel/PHPExcel/IOFactory.php';
-            $workbook = new PHPExcel();
-            $activeWorksheet = $workbook->getActiveSheet();
-            $activeWorksheet->setTitle("General Report");
+        $filename_client = "Consulta_Gerente_Recepcion_".date("d_m_Y");
+        $filename_server = md5(date("dmYhis").rand());
+        if($formato=='xlsx'){
+            $filename_client .= '.xlsx';
+            $filename_server .= '.xlsx';
+        }else{
+            $filename_client .= '.ods';
+            $filename_server .= '.ods';
+        }
 
-            $activeWorksheet->getDefaultStyle()->applyFromArray(
-                array('font' => array('name' => 'arial',
-                'size' => 10))
-            );
+        require_once APPROOT.'lib/class/PHPExcel/PHPExcel.php';
+        require_once APPROOT.'lib/class/PHPExcel/PHPExcel/IOFactory.php';
+        $workbook = new PHPExcel();
+        $activeWorksheet = $workbook->getActiveSheet();
+        $activeWorksheet->setTitle("General Report");
 
-            $activeWorksheet->getStyle('A1')->applyFromArray(
-                array('font' => array('bold' => false,
-                'size' => 10))
-            );
-            $activeWorksheet->getStyle('A2')->applyFromArray(
-                array('font' => array('bold' => true,
-                'size' => 11))
-            );
-            $activeWorksheet->getStyle('A3')->applyFromArray(
-                array('font' => array('bold' => true,
-                'size' => 10,
-                'color' => array('rgb' => '9D9D9D')))
-            );
+        $activeWorksheet->getDefaultStyle()->applyFromArray(
+            array('font' => array('name' => 'arial',
+            'size' => 10))
+        );
 
-            $arrStyleTitle = array('fill' => array('type' => PHPExcel_Style_Fill::FILL_SOLID,
-                'startcolor' => array('rgb' => '9D9D9D')),
-                'font' => array('bold' => true,
-                'color' => array('argb' => PHPExcel_Style_Color::COLOR_WHITE)),
-                'alignment' => array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER));
+        $activeWorksheet->getStyle('A1')->applyFromArray(
+            array('font' => array('bold' => true,
+            'size' => 12,
+            'color' => array('rgb' => '8B0000')))
+        );
+        $activeWorksheet->getStyle('A2')->applyFromArray(
+            array('font' => array('bold' => true,
+            'size' => 11))
+        );
+        $activeWorksheet->getStyle('A3')->applyFromArray(
+            array('font' => array('bold' => false,
+            'size' => 10))
+        );
+        $activeWorksheet->getStyle('A4')->applyFromArray(
+            array('font' => array('bold' => false,
+            'size' => 10))
+        );
 
-            $arrStyleTitle2 = array('fill' => array('type' => PHPExcel_Style_Fill::FILL_SOLID,
-                'startcolor' => array('rgb' => 'D3D3D3')),
-                'font' => array('bold' => true,
-                'color' => array('argb' => PHPExcel_Style_Color::COLOR_BLACK)),
-                'alignment' => array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER));
+        $arrStyleTitle = array('fill' => array('type' => PHPExcel_Style_Fill::FILL_SOLID,
+            'startcolor' => array('rgb' => '04B486')),
+            'font' => array('bold' => true,
+            'color' => array('argb' => PHPExcel_Style_Color::COLOR_WHITE)),
+            'alignment' => array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER));
 
-            $arrStyleTitle3 = array('fill' => array('type' => PHPExcel_Style_Fill::FILL_SOLID,
-                'startcolor' => array('rgb' => 'D3D3D3')),
-                'font' => array('bold' => true));
-            
-            $activeWorksheet->getColumnDimension('A')->setWidth(15); // Region
-            $activeWorksheet->getColumnDimension('B')->setWidth(15);
-            $activeWorksheet->getColumnDimension('C')->setWidth(15);
-            $activeWorksheet->getColumnDimension('D')->setWidth(15);
-            $activeWorksheet->getColumnDimension('E')->setWidth(30);
-            $activeWorksheet->getColumnDimension('F')->setWidth(15); // Address
-            $activeWorksheet->getColumnDimension('G')->setWidth(30); // Postal Code
-            $activeWorksheet->getColumnDimension('H')->setWidth(30);
-            $activeWorksheet->getColumnDimension('I')->setWidth(30); // State
-            $activeWorksheet->getColumnDimension('Z')->setWidth(20); // Telephone Number
-            $activeWorksheet->getColumnDimension('J')->setWidth(30);
-            $activeWorksheet->getColumnDimension('K')->setWidth(30);
-            $activeWorksheet->getColumnDimension('L')->setWidth(15);
-            $activeWorksheet->getColumnDimension('M')->setWidth(15);
-            $activeWorksheet->getColumnDimension('N')->setWidth(18);
-            $activeWorksheet->getColumnDimension('O')->setWidth(30);
-            $activeWorksheet->getColumnDimension('P')->setWidth(15);
-            $activeWorksheet->getColumnDimension('Q')->setWidth(18);
-            $activeWorksheet->getColumnDimension('R')->setWidth(15);
-            $activeWorksheet->getColumnDimension('S')->setWidth(15);
-            $activeWorksheet->getColumnDimension('T')->setWidth(15);
-            $activeWorksheet->getColumnDimension('U')->setWidth(30);
-            $activeWorksheet->getColumnDimension('V')->setWidth(15);
-            $activeWorksheet->getColumnDimension('W')->setWidth(30);
-            $activeWorksheet->getColumnDimension('X')->setWidth(15);
-            $activeWorksheet->getColumnDimension('Y')->setWidth(18);
-            $activeWorksheet->getColumnDimension('AA')->setWidth(18);
-            $activeWorksheet->getColumnDimension('AB')->setWidth(45);
-            $activeWorksheet->getColumnDimension('AC')->setWidth(40);
-            $activeWorksheet->getColumnDimension('AD')->setWidth(40);
+        $activeWorksheet->getColumnDimension('A')->setWidth(20); //Centro de Acopio
+        $activeWorksheet->getColumnDimension('B')->setWidth(20); //Programa
+        $activeWorksheet->getColumnDimension('C')->setWidth(15); //Cosecha
+        $activeWorksheet->getColumnDimension('D')->setWidth(15); //Cultivo
+        $activeWorksheet->getColumnDimension('E')->setWidth(15); //Nro Entrada
+        $activeWorksheet->getColumnDimension('F')->setWidth(17); //Fecha Recepcion
+        $activeWorksheet->getColumnDimension('G')->setWidth(10); //Estatus
+        $activeWorksheet->getColumnDimension('H')->setWidth(15); //Guia
+        //$activeWorksheet->getColumnDimension('I')->setWidth(15); //SubGuias
+        $activeWorksheet->getColumnDimension('I')->setWidth(20); //Ced/Rif Productor
+        $activeWorksheet->getColumnDimension('J')->setWidth(35); //Productor
+        $activeWorksheet->getColumnDimension('K')->setWidth(20); //Ced/Rif Asociacion
+        $activeWorksheet->getColumnDimension('L')->setWidth(35); //Asociacion
+        $activeWorksheet->getColumnDimension('M')->setWidth(20); //Ced/Rif Asociado
+        $activeWorksheet->getColumnDimension('N')->setWidth(35); //Asociado
+        $activeWorksheet->getColumnDimension('O')->setWidth(15); //Vehiculo
+        $activeWorksheet->getColumnDimension('P')->setWidth(15); //Placa Motriz
+        $activeWorksheet->getColumnDimension('Q')->setWidth(15); //Placa Remolque
+        $activeWorksheet->getColumnDimension('R')->setWidth(20); //Cedula Chofer
+        $activeWorksheet->getColumnDimension('S')->setWidth(35); //Chofer
+        $activeWorksheet->getColumnDimension('T')->setWidth(20); //Peso Lleno Motriz
+        $activeWorksheet->getColumnDimension('U')->setWidth(20); //Peso Lleno Remolque
+        $activeWorksheet->getColumnDimension('V')->setWidth(20); //Peso Bruto
+        $activeWorksheet->getColumnDimension('W')->setWidth(20); //Peso Vacio Motriz
+        $activeWorksheet->getColumnDimension('X')->setWidth(20); //Peso Vacio Remolque
+        $activeWorksheet->getColumnDimension('Y')->setWidth(20); //Peso Tara
+        $activeWorksheet->getColumnDimension('Z')->setWidth(15); //% Humedad
+        $activeWorksheet->getColumnDimension('AA')->setWidth(15); //Humedad Desc
+        $activeWorksheet->getColumnDimension('AB')->setWidth(15); //% Impureza
+        $activeWorksheet->getColumnDimension('AC')->setWidth(15); //Impureza Desc
+        $activeWorksheet->getColumnDimension('AD')->setWidth(20); //Peso Acond
+        $activeWorksheet->getColumnDimension('AE')->setWidth(20); //Peso Acon Liq.
+        $activeWorksheet->getColumnDimension('AF')->setWidth(17); //Fecha Liquidacion
 
-            //Titulo del reporte
-            $activeWorksheet->setCellValue('A1', "GROWANDWIN");
-            $activeWorksheet->setCellValue('A2', "PRIZE REDEMPTION");
-            $activeWorksheet->setCellValue('A3', date("m-d-Y h:i:sa"));
+        //Titulo del reporte
+        $activeWorksheet->setCellValue('A1', "AGROPATRIA - SIGESIL");
+        $activeWorksheet->setCellValue('A2', "CONSULTA DEL GERENTE - RECEPCION");
+        $activeWorksheet->setCellValue('A3', "Fecha: ".date("d-m-Y"));
+        $activeWorksheet->setCellValue('A4', "Hora: ".date("h:i"));
 
-            /*indice pata inprimir los titulos de la columnas de reporte*/
-            $index_title=5;
-            $index_detail=0;
-            /*linea de titulo del detalle*/
-            $j=0;
-            $titulos = array('Region','Country','Company Name','Company Type','Profile','Address','Postal Code','City','State','Telephone Number','First Name','Last Name','E-mail',
-            'Prize Redeemed', 'Prize Status','Winpoints','Date Redeemed','Nro Control','Fecha Revision',
-            'Fecha Factura Optime', 'Nro Orden Compra','Fecha Compra','Proveedor','Nro Orden Proveedor','Fecha Recibido',
-            'Fecha Despacho','Courier','Tracking Number','Fecha de Entrega','Comentario');
-            foreach($titulos as $columnTitle){
-                $activeWorksheet->setCellValueByColumnAndRow($j, $index_title, $columnTitle);
-                $oColumn = $activeWorksheet->getCellByColumnAndRow($j, $index_title)->getColumn();
-                $oRow = $activeWorksheet->getCellByColumnAndRow($j, $index_title)->getRow();
-                $activeWorksheet->getStyle($oColumn.$oRow)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);;
-                $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray($arrStyleTitle);
-                $j++;
-            }
+        /*indice pata inprimir los titulos de la columnas de reporte*/
+        $index_title=6;
+        $index_detail=0;
+        /*linea de titulo del detalle*/
+        $j=0;
+            $titulos = array('Centro de Acopio','Programa','Cosecha','Cultivo','Nro Entrada','Fecha Recepcion','Estatus',
+                'Guia','Ced/Rif Productor','Productor','Ced/Rif Asociacion','Asociacion',
+                'Ced/Rif Asociado', 'Asociado','Vehiculo','Placa Motriz','Placa Remolque','Cedula Chofer',
+                'Chofer', 'Peso Lleno Motriz','Peso Lleno Remolque','Peso Bruto','Peso Vacio Motriz','Peso Vacio Remolque',
+                'Peso Tara','% Humedad','Humedad Desc','% Impureza','Impureza Desc', 'Peso Acond', 'Peso Acon Liq.', 'Fecha Liquidacion');
+        foreach($titulos as $columnTitle){
+            $activeWorksheet->setCellValueByColumnAndRow($j, $index_title, $columnTitle);
+            $oColumn = $activeWorksheet->getCellByColumnAndRow($j, $index_title)->getColumn();
+            $oRow = $activeWorksheet->getCellByColumnAndRow($j, $index_title)->getRow();
+            $activeWorksheet->getStyle($oColumn.$oRow)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);;
+            $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray($arrStyleTitle);
+            $j++;
+        }
 
-            $fila = 7;
+        $fila = 7;
+        
+        $orden = ($_SESSION['s_perfil_id'] == GERENTEG) ? ' ORDER BY r.id_centro_acopio, r.creado, numero' : ' ORDER BY r.creado, numero';
+        $listadoRecepciones = $recepcion->listadoRecepcion(null, $idCA, $idCo, null, $entrada, $estatus, null, null, null, null, null, $orden, $contrato, $productor, null, $placa, $fliq, $frec, null, $guia);
+        $totalRegistros = count($listadoRecepciones);
+        if(!empty($listadoRecepciones)){
+            $registro = 1;
+            foreach($listadoRecepciones as $recepcion){
+                $valores = array();
+                $valores[] = "(".$recepcion['ca_codigo'].") ".$recepcion['centro_acopio'];
+                $valores[] = $recepcion['programa'];
+                $valores[] = $recepcion['cosecha_codigo'];
+                $valores[] = "(".$recepcion['cultivo_codigo'].") ".$recepcion['cultivo_nombre'];
+                $numero = ($recepcion['numero'] < 10) ? '0'.$recepcion['numero'] : $recepcion['numero'];
+                $numEntrada = "R".$numero.$general->date_sql_screen($recepcion['fecha_recepcion'], '', 'es', null);
+                $valores[] = $numEntrada;
+                $valores[] = $general->date_sql_screen($recepcion['fecha_recepcion'], '', 'es', '-');
+                $valores[] = $general->estatus($recepcion['estatus_rec'], 'rec');
+                $valores[] = $recepcion['numero_guia'];
+                //$valores[]= $recepcion['subGuias'];
+                $valores[] = $recepcion['ced_productor'];
+                $valores[] = $recepcion['productor_nombre'];
+                $valores[] = $recepcion['ced_asociacion'];
+                $valores[] = $recepcion['asociacion_nombre'];
+                $valores[] = $recepcion['ced_asociado'];
+                $valores[] = $recepcion['asociado_nombre'];
+                $valores[] = $recepcion['marca'];
+                $valores[] = $recepcion['placa'];
+                $valores[] = $recepcion['placa_remolques'];
+                $valores[] = $recepcion['ced_chofer'];
+                $valores[] = $recepcion['chofer_nombre'];
+                $valores[] = (!empty($recepcion['peso_01l'])) ? $recepcion['peso_01l'] : 0;
+                $valores[] = (!empty($recepcion['peso_02l'])) ? $recepcion['peso_02l'] : 0;
+                $totalL = $recepcion['peso_01l'] + $recepcion['peso_02l'];
+                $valores[] = $totalL;
+                $valores[] = (!empty($recepcion['peso_01v'])) ? $recepcion['peso_01v'] : 0;
+                $valores[] = (!empty($recepcion['peso_02v'])) ? $recepcion['peso_02v'] : o;
+                $totalV = $recepcion['peso_01v'] + $recepcion['peso_02v'];
+                $valores[] = $totalV;
+                $valores[] = (!empty($recepcion['humedad'])) ? $recepcion['humedad'] : 0;
+                $valores[] = (!empty($recepcion['humedad_des'])) ? $recepcion['humedad_des'] : 0;
+                $valores[] = (!empty($recepcion['impureza'])) ? $recepcion['impureza'] : 0;
+                $valores[] = (!empty($recepcion['impureza_des'])) ? $recepcion['impureza_des'] : 0;
+                $valores[] = (!empty($recepcion['peso_acon'])) ? $recepcion['peso_acon'] : 0;
+                $valores[] = (!empty($recepcion['peso_acon_liq'])) ? $recepcion['peso_acon_liq'] : 0;
+                $valores[] = $general->date_sql_screen($recepcion['fecha_v'], '', 'es', '-');
 
-            /*$arrPurchases = $objCatalogs->count_status_premio($cbregion,$fltr_compania, '1,2,4,5,6,7,8,9', $start_date , $end_date, 'purchases.purchase_id', $fyear, $cbquarter,$_SESSION['GAW_language']['value'],'','',$cbcountry);////REQUESTED total;
-            //Llenar la primera hoja
-            if(!empty($arrPurchases)){
-                foreach($arrPurchases as $purchase){
-                    $valores = array();
-                    $valores[]= iconv('ISO-8859-1//TRANSLIT', 'UTF-8', $purchase['region_description']);
-                    $valores[]= iconv('ISO-8859-1//TRANSLIT', 'UTF-8', $purchase['country_name']);
-                    $valores[]= iconv('ISO-8859-1//TRANSLIT', 'UTF-8', $purchase['company_name']);
-                    $valores[]= iconv('ISO-8859-1//TRANSLIT', 'UTF-8', $purchase['company_type_name']);
-                    $valores[]= iconv('ISO-8859-1//TRANSLIT', 'UTF-8', $purchase['profile_user']);
-                    $valores[]= iconv('ISO-8859-1//TRANSLIT', 'UTF-8', $purchase['address']);	//Address ADDED
-                    $valores[]= iconv('ISO-8859-1//TRANSLIT', 'UTF-8', $purchase['postal_code']);	//Postal Code ADDED
-                    $valores[]= iconv('ISO-8859-1//TRANSLIT', 'UTF-8', $purchase['city']);
-                    $valores[]= iconv('ISO-8859-1//TRANSLIT', 'UTF-8', $purchase['state']);	//State Code ADDED
-                    $valores[]=iconv('ISO-8859-1//TRANSLIT', 'UTF-8', $purchase['shipping_phone']); //PHONE ADD
-                    $valores[]=iconv('ISO-8859-1//TRANSLIT', 'UTF-8', $purchase['user_first_name']);
-                    $valores[]=iconv('ISO-8859-1//TRANSLIT', 'UTF-8', $purchase['user_last_name']);
-                    $valores[]=iconv('ISO-8859-1//TRANSLIT', 'UTF-8', $purchase['user_email']);
-                    $valores[]=iconv('ISO-8859-1//TRANSLIT', 'UTF-8', $purchase['prize_name']);
-                    $valores[]=iconv('ISO-8859-1//TRANSLIT', 'UTF-8', $purchase['purchase_status_name']);
-                    $valores[]=$purchase['purchase_total_points'];
-                    $valores[]=$obj_general->date_sql_screen($purchase['purchase_date'],false,$_SESSION['GAW_language']['value']);
-                    $valores[]=$purchase['purchase_control_num'];
-                    $valores[]= $obj_general->date_sql_screen($purchase['tracking_revision_date'],false,$_SESSION['GAW_language']['value']);
-                    $valores[]= $obj_general->date_sql_screen($purchase['tracking_optime_date_invoice'],false,$_SESSION['GAW_language']['value']);
-                    $valores[]=($purchase['tracking_optime_invoice_num']) ? $purchase['tracking_optime_invoice_num'].'-PO' : ' ';
-                    $valores[]=$obj_general->date_sql_screen($purchase['tracking_purchase_date'],false,$_SESSION['GAW_language']['value']);
-                    $valores[]=iconv('ISO-8859-1//TRANSLIT', 'UTF-8', $purchase['tracking_provider']);
-                    $valores[]=iconv('ISO-8859-1//TRANSLIT', 'UTF-8', $purchase['tracking_provider_order_num']);
-                    $valores[]=$obj_general->date_sql_screen($purchase['tracking_date_received'],false,$_SESSION['GAW_language']['value']);
-                    $valores[]=$obj_general->date_sql_screen($purchase['tracking_sent_date'],false,$_SESSION['GAW_language']['value']);
-                    $valores[]=iconv('ISO-8859-1//TRANSLIT', 'UTF-8', $purchase['tracking_sent_courier']);
-                    $valores[]=$purchase['tracking_sent_number'];
-                    $valores[]=$obj_general->date_sql_screen($purchase['tracking_date_delivered'],false,$_SESSION['GAW_language']['value']);
-                    $valores[]=iconv('ISO-8859-1//TRANSLIT', 'UTF-8', $purchase['tracking_coment']);
-
-                    $columna = 0;
-                    foreach($valores as $valor){
-                        $activeWorksheet->setCellValueByColumnAndRow($columna, $fila, $valor);
-                        $columna++;
+                $columna = 0;
+                foreach($valores as $valor){
+                    $activeWorksheet->setCellValueByColumnAndRow($columna, $fila, $valor);
+                    $columna++;
+                }
+                $fila++;
+                
+                //TOTALES POR CENTRO DE ACOPIO
+                $totalesCA[0] = 'Total del Centro de Acopio: ';
+                $totalesCA[1] += $recepcion['peso_01l'];
+                $totalesCA[2] += $recepcion['peso_02l'];
+                $totalesCA[3] += $recepcion['peso_01l'] + $recepcion['peso_02l'];
+                $totalesCA[4] += $recepcion['peso_01v'];
+                $totalesCA[5] += $recepcion['peso_02v'];
+                $totalesCA[6] += $recepcion['peso_01v'] + $recepcion['peso_02v'];
+                $totalesCA[7] += $recepcion['humedad'];
+                $totalesCA[8] += $recepcion['humedad_des'];
+                $totalesCA[9] += $recepcion['impureza'];
+                $totalesCA[10] += $recepcion['impureza_des'];
+                $totalesCA[11] += $recepcion['peso_acon'];
+                $totalesCA[12] += $recepcion['peso_acon_liq'];
+                
+                if(((!empty($caDiferente) && $caDiferente != $recepcion['id_centro_acopio'])) || $registro >= $totalRegistros){
+                    $columnaTotalCA = 18;
+                    foreach($totalesCA as $valor){
+                        $activeWorksheet->setCellValueByColumnAndRow($columnaTotalCA, $fila, $valor);
+                        $oColumn = $activeWorksheet->getCellByColumnAndRow($columnaTotalCA, $fila)->getColumn();
+                        $oRow = $activeWorksheet->getCellByColumnAndRow($columnaTotalCA, $fila)->getRow();
+                        $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray(array('font' => array('bold' => true, 'size' => 10)));
+                        $columnaTotalCA++;
                     }
 
+                    //TOTALES
+                    $totales[0] = 'Total: ';
+                    $totales[1] += $totalesCA[1];
+                    $totales[2] += $totalesCA[2];
+                    $totales[3] += $totalesCA[3];
+                    $totales[4] += $totalesCA[4];
+                    $totales[5] += $totalesCA[5];
+                    $totales[6] += $totalesCA[6];
+                    $totales[7] += $totalesCA[7];
+                    $totales[8] += $totalesCA[8];
+                    $totales[9] += $totalesCA[9];
+                    $totales[10] += $totalesCA[10];
+                    $totales[11] += $totalesCA[11];
+                    $totales[12] += $totalesCA[12];
+                    
                     $fila++;
                 }
-            }*/
-
-            chdir(APPROOT.'temp_files');
-
-            if($formato=='xls'){
-                $writer_name = 'Excel5';
-            } else if($formato=='xlsx'){
-                $writer_name = 'Excel2007';
+                $caDiferente = $recepcion['id_centro_acopio'];
+                $registro++;
             }
-
-            $writer = PHPExcel_IOFactory::createWriter($workbook, $writer_name);
-            $writer->save($filename_server);
-            system('chmod 777 '.APPROOT.'temp_files/*');
-            $descarga = new Descarga(APPROOT.'temp_files/'.$filename_server, $filename_client, $_SERVER['PHP_SELF']);
-            $resultado = $descarga->download_file();
-
-            if($resultado!=1){
-                header("location: $referer?download_error=1");
+            $fila++;
+            $columnaTotal = 18;
+            foreach($totales as $valor){
+                $activeWorksheet->setCellValueByColumnAndRow($columnaTotal, $fila, $valor);
+                $oColumn = $activeWorksheet->getCellByColumnAndRow($columnaTotal, $fila)->getColumn();
+                $oRow = $activeWorksheet->getCellByColumnAndRow($columnaTotal, $fila)->getRow();
+                $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray(array('font' => array('bold' => true, 'size' => 10)));
+                $columnaTotal++;
             }
-            exit;
-        break;
+        }
+        
+        chdir(APPROOT.'temp_files');
+
+        if($formato=='xlsx'){
+            $writer_name = 'Excel2007';
+        } else {
+            $writer_name = 'Excel5';
+        }
+
+        $writer = PHPExcel_IOFactory::createWriter($workbook, $writer_name);
+        $writer->save($filename_server);
+        //system('chmod 777 '.APPROOT.'temp_files/*');
+        $descarga = new Descarga(APPROOT.'temp_files/'.$filename_server, $filename_client, $_SERVER['PHP_SELF']);
+        //Quitar el true para que no elimine los archivos temporales
+        $resultado = $descarga->download_file(true);
+
+        if($resultado!=1){
+            header("location: $referer?download_error=1");
+        }
+        exit;
     }
     
     function array_sum_key($arr, $index = null, $field = null){
-        //MODIFICAR LA BUSQUEDA POR INDEX
         if(!is_array($arr) || sizeof($arr) < 1){
             return 0;
         }
@@ -242,12 +303,10 @@
                 $ret += (isset( $data[$index])) ? $data[$index] : 0;
             }elseif(isset($field)){
                 if($data[$field] == $index) $ret++;
-                //echo "$data[$field] == $index: $ret<br/>";
             }else{
                 $ret += $data;
             }
         }
-        //echo "$index - $ret<br/>";
         return $ret;
     }
 
@@ -466,8 +525,9 @@
                         <?
                             echo $html->input('leyenda', 'Estatus', array('type' => 'button'));
                             echo $html->input('ac', 'Buscar', array('type' => 'submit'));
-                            echo $html->input('ac', 'Excel', array('type' => 'submit'));
-                            echo $html->input('ac', 'Pdf', array('type' => 'submit'));
+                            echo $html->input('exportar', 'Excel', array('type' => 'submit'));
+                            echo $html->input('exportar', 'Calc', array('type' => 'submit'));
+                            //echo $html->input('ac', 'Pdf', array('type' => 'submit'));
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
                         ?>
                     </td>
@@ -487,8 +547,6 @@
             <th colspan="7"></th>
             <th align="center" colspan="2">
                 <? echo $html->input('anterior', '<', array('type' => 'button')); ?>
-            <!--/th>
-            <th-->
                 <? echo $html->input('siguiente', '>', array('type' => 'button')); ?>
             </th>
         </tr>

@@ -3,12 +3,12 @@
     
     $usuario = new Usuario();
     
-    if($_SESSION['s_perfil_id'] == GERENTES)
-        $idCA = $_SESSION['s_ca_id'];
-    else
+    if($_SESSION['s_perfil_id'] == GERENTEG)
         $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : null;
+    else
+        $idCA = $_SESSION['s_ca_id'];
     
-    $listadoUsuarios = $usuario->obtenerTodosUsuarios('', $idCA, '', '', '', 'u.nombre');
+    $listadoUsuarios = $usuario->obtenerTodosUsuarios('', $idCA, '', '', '', 'ca.codigo, u.nombre');
     
     require('../lib/common/header.php');
 ?>
@@ -55,11 +55,13 @@
     <? } ?><hr/>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
+            <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+            <th>Centro de Acopio</th>
+            <? } ?>
             <th>Nombres</th>
             <th>Apellidos</th>
             <th>Usuario</th>
             <th>Perfil</th>
-            <th>Email</th>
             <th>Estatus</th>
             <th>Acci&oacute;n</th>
         </tr>
@@ -69,11 +71,13 @@
             $clase = $general->obtenerClaseFila($i);
         ?>
         <tr class="<?=$clase?>">
-            <td align="center"><?=$dataUsuario['nombre']?></td>
-            <td align="center"><?=$dataUsuario['apellido']?></td>
-            <td align="center"><?=$dataUsuario['usuario']?></td>
-            <td align="center"><?=$dataUsuario['perfil']?></td>
-            <td align="center" style="text-transform: lowercase;"><?=$dataUsuario['email']?></td>
+            <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+            <td><?="(".$dataUsuario['codigo_ca'].") ".$dataUsuario['nombre_ca']?></td>
+            <? } ?>
+            <td><?=$dataUsuario['nombre']?></td>
+            <td><?=$dataUsuario['apellido']?></td>
+            <td><?=$dataUsuario['usuario']?></td>
+            <td><?=$dataUsuario['perfil']?></td>
             <td align="center">
                 <?
                     if($dataUsuario['estatus'] == 't'){
