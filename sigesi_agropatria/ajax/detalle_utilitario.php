@@ -20,7 +20,7 @@
                     $listaProductor = $cosecha->buscarCosechaProductor($idCosecha);
                     foreach($listaProductor as $dataPro)
                         $listaP[$dataPro['ced_productor']]=$dataPro['productor'];
-                    echo $html->select('Recepcion.productor', array('options' => $listaP, 'class' => 'estilo_campos'));
+                    echo $html->select('Recepcion.ced_productor', array('options' => $listaP, 'class' => 'estilo_campos'));
                 }                
             }
         break;
@@ -33,7 +33,7 @@
                     foreach($listAsociacion as $datAon)
                         $listAon[$datAon['ced_asociacion']]=$datAon['asociacion'];
                     if (!empty($listAon))
-                        echo $html->select('Recepcion.asociacion', array('options' => $listAon, 'class' => 'estilo_campos'));
+                        echo $html->select('Recepcion.ced_asociacion', array('options' => $listAon, 'class' => 'estilo_campos'));
                  }
             }
         break;
@@ -47,7 +47,7 @@
                     foreach($listAsociado as $datAdo)
                         $listAdo[$datAdo['ced_asociacion']]=$datAdo['asociacion'];
                     if (!empty($listAdo))
-                        echo $html->select('Recepcion.asociacion', array('options' => $listAdo, 'class' => 'estilo_campos'));
+                        echo $html->select('Recepcion.ced_asociacion', array('options' => $listAdo, 'class' => 'estilo_campos'));
                 }
             }
         break;

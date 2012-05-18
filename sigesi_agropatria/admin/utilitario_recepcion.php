@@ -46,10 +46,27 @@
             }
             break;
         case 'guardar':
-            $infoMov=$movimiento->find(array('id' => $GPC['id']));
-            $id=$infoMov[0]['id'];
+//            $infoMov=$movimiento->find(array('id' => $GPC['id']));
+//            $id=$infoMov[0]['id'];
             //$movimiento->_begin_tool();
             debug::pr($GPC['Recepcion'], true);
+            $ced_productor=$GPC['ced_productor'];
+            $ced_asociacion=$GPC['ced_asociacion'];
+            $ced_asociado=$GPC['ced_asociado'];
+
+//                [id_cosecha] => 1
+//    [productor] => V12789456
+//    [numero] => 1
+//    [fecha_recepcion] => 14-05-2012
+//    [peso_01l] => 49026
+//    [peso_01v] => 
+//    [peso_02l] => 
+//    [peso_02v] => 
+//    [humedad_des] => 
+//    [impureza_des] => 
+//    [carril] => 1
+//    [estatus_rec] => 1
+            
             $movimiento->save($GPC['Recepcion']);                
             //$movimiento->_commit_tool();
             if (empty($movimiento->id)) {
@@ -83,21 +100,21 @@
         
         $('#Recepcion\\[id_cosecha\\]').change(function() {
             $('#productor_nombre').load('../ajax/detalle_utilitario.php?ac=productor&cosecha='+$('#Recepcion\\[id_cosecha\\]').val());
-            $('#asociacion_nombre').load('../ajax/detalle_utilitario.php?ac=asociacion&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[productor\\]').val());
-            $('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[productor\\]').val()+'&cedRifAon='+$('#Recepcion_asociacion').val());
+            $('#asociacion_nombre').load('../ajax/detalle_utilitario.php?ac=asociacion&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val());
+            $('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val()+'&cedRifAon='+$('#Recepcion_asociacion').val());
         });
 
-        $('#Recepcion\\[productor\\]').live('change', function() {
-            $('#asociacion_nombre').load('../ajax/detalle_utilitario.php?ac=asociacion&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[productor\\]').val());
-            $('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[productor\\]').val()+'&cedRifAon='+$('#Recepcion_asociacion').val());
+        $('#Recepcion\\[ced_productor\\]').live('change', function() {
+            $('#asociacion_nombre').load('../ajax/detalle_utilitario.php?ac=asociacion&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val());
+            $('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val()+'&cedRifAon='+$('#Recepcion_asociacion').val());
         });
         
-        $('#Recepcion\\[id_asociacion\\]').live('change', function() {
-            $('#asociacion_nombre').load('../ajax/detalle_utilitario.php?ac=asociacion&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[productor\\]').val());
+        $('#Recepcion\\[ced_asociacion\\]').live('change', function() {
+            $('#asociacion_nombre').load('../ajax/detalle_utilitario.php?ac=asociacion&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val());
         });
         
-        $('#Recepcion\\[id_asociado\\]').live('change', function() {
-            $('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[productor\\]').val()+'&cedRifAon='+$('#Recepcion_asociacion').val());
+        $('#Recepcion\\[ced_asociado\\]').live('change', function() {
+            $('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val()+'&cedRifAon='+$('#Recepcion_asociacion').val());
         });
         
         $('#Recepcion\\[numero\\]').live('change',function() {
@@ -132,7 +149,7 @@
         <tr>
             <td>Productor</td>
             <td id="productor_nombre">
-            <? echo $html->select('Recepcion.productor', array('options' => $listaP, 'selected' => $infoMov[0]['ced_rif'], 'class'=>'estilo_campos')); ?>
+            <? echo $html->select('Recepcion.ced_productor', array('options' => $listaP, 'selected' => $infoMov[0]['ced_rif'], 'class'=>'estilo_campos')); ?>
             </td>
             <td width="130px"></td>
         </tr>
@@ -140,7 +157,7 @@
             <td>Asociacion</td>
             <td id="asociacion_nombre" width="130px">
             <?
-                echo $html->select('Recepcion.id_asociacion', array('options' => $listaAon, 'selected' => $infoMov[0]['id_asociacion'], 'class'=>'estilo_campos')); 
+                echo $html->select('Recepcion.ced_asociacion', array('options' => $listaAon, 'selected' => $infoMov[0]['ced_asociacion'], 'class'=>'estilo_campos')); 
                 //echo $html->input('Recepcion_asociacion', $infoMov[0]['ced_asociacion'], array('type' => 'text', 'class' => 'crproductor')); ?>
             </td>
             <td ></td>
@@ -149,7 +166,7 @@
             <td>Asociado</td>
             <td>
             <? 
-            echo $html->select('Recepcion.id_asociado', array('options' => $listaAdo, 'selected' => $infoMov[0]['id_asociado'], 'class'=>'estilo_campos'));
+            echo $html->select('Recepcion.ced_asociado', array('options' => $listaAdo, 'selected' => $infoMov[0]['ced_asociado'], 'class'=>'estilo_campos'));
             //echo $html->input('Recepcion_asociado', $infoMov[0]['ced_asociado'], array('type' => 'text', 'class' => 'crproductor')); ?>
             <td id="asociado_nombre" width="130px"></td>
         </tr>
