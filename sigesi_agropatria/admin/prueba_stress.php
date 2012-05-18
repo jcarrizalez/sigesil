@@ -160,7 +160,7 @@
     require('../lib/common/header.php');
 ?>
 <div id="titulo_modulo">
-    PRUEBA DE ESTRES<br/><hr/>
+    PRUEBA DE STRESS<br/><hr/>
 </div>
 <div id="mensajes">
     <?

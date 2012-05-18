@@ -48,10 +48,9 @@ class Analisis extends Model {
                 FROM si_analisis_cultivo ac 
                 INNER JOIN si_analisis a ON a.id=ac.id_analisis and a.id_org=ac.id_org
                 WHERE '1'";
-    $query .= (!empty($id)) ? " AND a.id = '$Id'" : "";        
+    $query .= (!empty($id)) ? " AND a.id = '$id'" : "";        
     $query .= (!empty($IdCultivo)) ? " AND ac.id_cultivo = '$IdCultivo'" : "";
-    $query .= (!empty($IdCA)) ? " AND ac.id_centro_acopio = '$IdCA'" : "";
-    $query .= (!empty($IdCA)) ? " AND ac.id_centro_acopio = '$IdCA'" : "";
+    $query .= (!empty($idCA)) ? " AND ac.id_centro_acopio = '$idCA'" : "";
     $query .= (!empty($laboratorio)) ? " AND ac.laboratorio IN ($laboratorio)" : "";    
     $query .= " ORDER BY cast(a.codigo as int)";
     return $this->_SQL_tool($this->SELECT, __METHOD__, $query); 
