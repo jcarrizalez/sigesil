@@ -137,8 +137,10 @@ class Recepcion extends Model {
     }
     
     function recepcionPdf($fdesde=null, $fhasta=null, $estatus=null, $idCo=null, $idPro=null, $idAon=null, $idCa=null, $idAdo=null) {
-if(isset($idAdo) and $idAdo!=null)
+if(isset($idAdo) and $idAdo=='asociado')
         $query = "SELECT id_productor, id_asociacion, id_asociado FROM si_recepcion WHERE '1'";
+else if(isset($idAdo) and $idAdo=='productor')
+        $query = "SELECT id_productor FROM si_recepcion WHERE '1'";
 else
         $query = "SELECT id_productor, id_asociacion FROM si_recepcion WHERE '1'";
         if(!empty($fdesde) || !empty($fhasta)){
@@ -152,9 +154,13 @@ else
         $query .= (!empty($idAon)) ? " AND id_asociacion = '$idAon'" : '';
    //     $query .= (!empty($idAdo)) ? " AND id_asociado = '$idAdo'" : '';
         $query .= (!empty($idCa)) ? " AND id_centro_acopio = '$idCa'" : '';
-if(isset($idAdo) and $idAdo!=null){
+if(isset($idAdo) and $idAdo=='asociado'){
         $query .= " GROUP BY id_productor, id_asociacion, id_asociado
                     ORDER BY id_productor, id_asociacion, id_asociado";
+}
+else if(isset($idAdo) and $idAdo=='productor'){
+        $query .= " GROUP BY id_productor
+                    ORDER BY id_productor";
 }
 else{
         $query .= " GROUP BY id_productor, id_asociacion

@@ -51,8 +51,6 @@
             
             $chofer->save($GPC['Chofer']);
             $idChofer = $chofer->id;
-            /*$vehiculo->save($GPC['Vehiculo']);
-            $idVehiculo = $vehiculo->id;*/
             
             $GPC['Recepcion']['id_productor'] = $GPC['id_productor'];
             $GPC['Recepcion']['id_asociacion'] = (!empty($GPC['id_asociacion'])) ? $GPC['id_asociacion'] : 0;
