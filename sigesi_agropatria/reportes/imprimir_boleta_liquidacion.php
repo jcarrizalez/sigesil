@@ -19,7 +19,7 @@
         $dataMovimiento = $despacho->listadoDespacho($id_rec);
         $dataSubOrdenes = $subOrdenes->buscarSubOrden($dataMovimiento[0]['id_orden']);
     }
-    
+
     $pesoBruto = $dataMovimiento[0]['peso_01l']+$dataMovimiento[0]['peso_02l'];
     $pesoTara = $dataMovimiento[0]['peso_01v']+$dataMovimiento[0]['peso_02v'];
     $pesoNeto = ($pesoBruto-$pesoTara);
@@ -47,6 +47,7 @@
         <td><?=$numero?></td>
         <td align="right">FECHA:</td>
         <td><?=$general->date_sql_screen($dataMovimiento[0]['modificado'],'','es','-')?></td>
+        <? if(!empty($dataSubGuias)){ ?>
         <td align="right">SUBGUIAS:</td>
         <td>
             <?
@@ -56,6 +57,7 @@
                     echo substr($guiastotal, 0, -2);
             ?>
         </td>
+        <? } ?>
     </tr>
     <tr>
         <td>COSECHA:</td>
@@ -69,10 +71,20 @@
         <td>NOMBRE:</td>
         <td colspan="5"><?=$dataMovimiento[0]['productor_nombre']?></td>
     </tr>
+    <? if(!empty($dataMovimiento[0]['ced_asociacion'])){ ?>
+    <tr>
+        <td>ASOCIACI&Oacute;N:</td>
+        <td colspan="5"><?=$dataMovimiento[0]['ced_asociacion']. " " .$dataMovimiento[0]['asociacion_nombre']?></td>
+    </tr>
+    <?    
+        }
+        if(!empty($dataMovimiento[0]['ced_asociado'])){
+    ?>
     <tr>
         <td>ASOCIADO:</td>
         <td colspan="5"><?=$dataMovimiento[0]['ced_asociado']. " " .$dataMovimiento[0]['asociado_nombre']?></td>
     </tr>
+    <? } ?>
     <tr>
         <td>PRODUCTO:</td>
         <td colspan="5"><?=$dataMovimiento[0]['cultivo_codigo']. " " .$dataMovimiento[0]['cultivo_nombre']?></td>
@@ -146,7 +158,7 @@
     <? } ?>
 </table>
 <table border="0" width="800" style="padding-top: 20px;">
-    <? if($dataMovimiento[0]['cultivo_codigo'] != 12){ ?>
+    <? if($GPC['mov'] == 'rec'){ ?>
     <tr>
         <td width="20">&nbsp;</td>
         <td>PESO BRUTO TOTAL Kgrs</td>
@@ -172,6 +184,7 @@
         <td width="1" align="right"><?=$general->formato_numero(round($pesoNeto), 3);?></td>
         <td>&nbsp;</td>
     </tr>
+    <? if($dataMovimiento[0]['cultivo_codigo'] != 12){ ?>
     <tr>
         <td>&nbsp;</td>
         <td>DESC. POR HUMEDAD: <?=$general->formato_numero($dataMovimiento[0]['humedad'], 3);?>% Kgrs</td>
@@ -186,9 +199,28 @@
         <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['impureza_des']), 3);?></td>
         <td>&nbsp;</td>
     </tr>
+    <? }else{ ?>
+    <tr>
+        <td>&nbsp;</td>
+        <td>HUMEDAD: <?=$general->formato_numero($dataMovimiento[0]['humedad'], 3);?>% Kgrs</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>IMPUREZA: <?=$general->formato_numero($dataMovimiento[0]['impureza'], 3);?>% Kgrs</td>
+    </tr>
+    <? } ?>
     <tr>
         <td colspan="4">&nbsp;</td>
     </tr>
+    <? if(!empty($dataMovimiento[0]['peso_acon'])){ ?>
+    <tr>
+        <td>&nbsp;</td>
+        <td>PESO ACONDICIONADO Kgrs</td>
+        <td align="right">----------------------------------------------------------------------------------------></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_acon']), 3);?></td>
+        <td>&nbsp;</td>
+    </tr>
+    <? } ?>
     <tr>
         <td>&nbsp;</td>
         <? if($GPC['mov'] == 'rec'){ ?>
