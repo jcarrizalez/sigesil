@@ -35,25 +35,18 @@
     $productor = (!empty($GPC['productor'])) ? $GPC['productor'] : '';
     $placa = (!empty($GPC['placa'])) ? $GPC['placa'] : '';
     $estatus = (!empty($GPC['estatus'])) ? $GPC['estatus'] : '';
-    $fliq = (!empty($GPC['fecha_liq'])) ? $general->fecha_normal_sql($GPC['fecha_liq'], 'es') : '';
-    $frec = (!empty($GPC['fecha_rec'])) ? $general->fecha_normal_sql($GPC['fecha_rec'], 'es') : '';
+    $fliqD = (!empty($GPC['fecha_liqD'])) ? $general->fecha_normal_sql($GPC['fecha_liqD'], 'es') : '';
+    $fliqH = (!empty($GPC['fecha_liqH'])) ? $general->fecha_normal_sql($GPC['fecha_liqH'], 'es') : '';
+    $frecD = (!empty($GPC['fecha_recD'])) ? $general->fecha_normal_sql($GPC['fecha_recD'], 'es') : '';
+    $frecH = (!empty($GPC['fecha_recH'])) ? $general->fecha_normal_sql($GPC['fecha_recH'], 'es') : '';
     
     $porPagina = MAX_RESULTS_PAG;
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
     
     $orden = ($_SESSION['s_perfil_id'] == GERENTEG) ? ' ORDER BY r.id_centro_acopio, r.creado, numero' : ' ORDER BY r.creado, numero';
-    $listadoRecepciones = $recepcion->listadoRecepcion(null, $idCA, $idCo, null, $entrada, $estatus, null, null, $porPagina, $inicio, null, $orden, $contrato, $productor, null, $placa, $fliq, $frec, null, $guia);
+    $listadoRecepciones = $recepcion->listadoRecepcion(null, $idCA, $idCo, null, $entrada, $estatus, null, null, $porPagina, $inicio, null, $orden, $contrato, $productor, null, $placa, $fliqD, $fliqH, $frecD, $frecH, null, $guia);
     $total_registros = $recepcion->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);
-    
-    /*switch($GPC['ac']){
-        case 'Pdf':
-            $idCA = (!empty($idCA)) ? $idCA : 'vacio';
-            $idCo = (!empty($idCo)) ? $idCo : 'vacio';
-            header('location: pdf_listado_recepciones_todo.php?id='.$fliq."_".$frec."_".$idCA."_".$idCo);
-            die();
-        break;
-    }*/
     
     if(!empty($GPC['exportar'])){
         $formato = ($GPC['exportar'] == 'Excel') ? 'xlsx' : 'ods';
@@ -165,7 +158,7 @@
         $fila = 7;
         
         $orden = ($_SESSION['s_perfil_id'] == GERENTEG) ? ' ORDER BY r.id_centro_acopio, r.creado, numero' : ' ORDER BY r.creado, numero';
-        $listadoRecepciones = $recepcion->listadoRecepcion(null, $idCA, $idCo, null, $entrada, $estatus, null, null, null, null, null, $orden, $contrato, $productor, null, $placa, $fliq, $frec, null, $guia);
+        $listadoRecepciones = $recepcion->listadoRecepcion(null, $idCA, $idCo, null, $entrada, $estatus, null, null, null, null, null, $orden, $contrato, $productor, null, $placa, $fliqD, $fliqh, $frecD, $frecH, null, $guia);
         $totalRegistros = count($listadoRecepciones);
         if(!empty($listadoRecepciones)){
             $registro = 1;
@@ -318,6 +311,7 @@
     $tRomanaV = array_sum_key($listadoRecepciones,'6', 'estatus_rec');
     $tRechazo = array_sum_key($listadoRecepciones,'7', 'estatus_rec');
     $tRechazo += array_sum_key($listadoRecepciones,'8', 'estatus_rec');
+    $tRechazo += array_sum_key($listadoRecepciones,'14', 'estatus_rec');
     $tLiquidado = array_sum_key($listadoRecepciones,'9', 'estatus_rec');
     
     require('../lib/common/header.php');
@@ -463,58 +457,88 @@
                 <tr>
                     <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
                     <td>Centro de Acopio</td>
-                    <td><? echo $html->select('id_ca',array('options'=>$listaCA, 'selected' => $idCA, 'default' => 'Todos', 'class' => 'inputGrilla')); ?></td>
+                    <td><? echo $html->select('id_ca',array('options'=>$listaCA, 'selected' => $idCA, 'default' => 'Todos', 'class' => 'inputLogin')); ?></td>
                     <? } ?>
                     <!--td>Agencia</td>
-                    <td><? echo $html->select('id_agencia',array('options'=>$listaCA, 'selected' => $idAg, 'default' => 'Todos', 'class' => 'inputGrilla')); ?></td-->
+                    <td><? echo $html->select('id_agencia',array('options'=>$listaCA, 'selected' => $idAg, 'default' => 'Todos', 'class' => 'inputLogin')); ?></td-->
                 </tr>
                 <tr>
                     <td>Guia</td>
-                    <td colspan="3"><? echo $html->input('guia', $guia, array('type' => 'text', 'class' => 'inputGrilla')); ?></td>
+                    <td colspan="3"><? echo $html->input('guia', $guia, array('type' => 'text', 'class' => 'inputLogin')); ?></td>
                 </tr>
                 <tr>
-                    <td width="125">Entrada</td>
-                    <td><? echo $html->input('entrada', $entrada, array('type' => 'text', 'class' => 'inputGrilla')); ?></td>
-                    <td width="90">Contrato</td>
-                    <td><? echo $html->input('contrato', $contrato, array('type' => 'text', 'class' => 'inputGrilla')); ?></td>
+                    <td width="150">Entrada</td>
+                    <td><? echo $html->input('entrada', $entrada, array('type' => 'text', 'class' => 'inputLogin')); ?></td>
+                    <td width="150">Contrato</td>
+                    <td><? echo $html->input('contrato', $contrato, array('type' => 'text', 'class' => 'inputLogin')); ?></td>
                 </tr>
                 <tr>
                     <td>Productor</td>
-                    <td><? echo $html->input('productor', $productor, array('type' => 'text', 'class' => 'inputGrilla')); ?></td>
+                    <td><? echo $html->input('productor', $productor, array('type' => 'text', 'class' => 'inputLogin')); ?></td>
                     <td>Cosecha</td>
-                    <td><? echo $html->select('id_cosecha',array('options'=>$listadoC, 'selected' => $idCo, 'default' => 'Todas', 'class' => 'inputGrilla'))?></td>
+                    <td><? echo $html->select('id_cosecha',array('options'=>$listadoC, 'selected' => $idCo, 'default' => 'Todas', 'class' => 'inputLogin'))?></td>
                 </tr>
                 <tr>
                     <td>Placa Veh&iacute;culo</td>
-                    <td><? echo $html->input('placa', $placa, array('type' => 'text', 'class' => 'inputGrilla')); ?></td>
+                    <td><? echo $html->input('placa', $placa, array('type' => 'text', 'class' => 'inputLogin')); ?></td>
                     <td>Estatus</td>
-                    <td><? echo $html->select('estatus',array('options'=>$listadoE, 'selected' => $estatus, 'default' => 'Todos', 'class' => 'inputGrilla'))?></td>
+                    <td><? echo $html->select('estatus',array('options'=>$listadoE, 'selected' => $estatus, 'default' => 'Todos', 'class' => 'inputLogin'))?></td>
                 </tr>
                 <tr>
-                    <td width="1">Fecha de Recepci&oacute;n</td>
+                    <td width="1">Fecha Recepci&oacute;n Desde</td>
                     <td>
-                        <? echo $html->input('fecha_rec', $general->date_sql_screen($frec, '', 'es', '-'), array('type' => 'text', 'class' => 'inputGrilla', 'readOnly' => true)); ?>
-                        <img src="../images/calendario.png" id="frec" width="16" height="16" style="cursor:pointer" />
+                        <? echo $html->input('fecha_recD', $general->date_sql_screen($frecD, '', 'es', '-'), array('type' => 'text', 'class' => 'inputLogin', 'readOnly' => true)); ?>
+                        <img src="../images/calendario.png" id="frecD" width="16" height="16" style="cursor:pointer" />
                         <script>
                             Calendar.setup({
-                                trigger    : "frec",
-                                inputField : "fecha_rec",
+                                trigger    : "frecD",
+                                inputField : "fecha_recD",
                                 dateFormat: "%d-%m-%Y",
-                                selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($GPC['fecha_rec']));?>),
+                                selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($GPC['fecha_recD']));?>),
                                 onSelect   : function() { this.hide() }
                             });
                         </script>
                     </td>
-                    <td>Fecha de Liq</td>
+                    <td width="1">Fecha Recepci&oacute;n Hasta</td>
                     <td width="240">
-                        <? echo $html->input('fecha_liq', $general->date_sql_screen($fliq, '', 'es', '-'), array('type' => 'text', 'class' => 'inputGrilla', 'readOnly' => true)); ?>
-                        <img src="../images/calendario.png" id="fliq" width="16" height="16" style="cursor:pointer" />
+                        <? echo $html->input('fecha_recH', $general->date_sql_screen($frecH, '', 'es', '-'), array('type' => 'text', 'class' => 'inputLogin', 'readOnly' => true)); ?>
+                        <img src="../images/calendario.png" id="frecH" width="16" height="16" style="cursor:pointer" />
                         <script>
                             Calendar.setup({
-                                trigger    : "fliq",
-                                inputField : "fecha_liq",
+                                trigger    : "frecH",
+                                inputField : "fecha_recH",
                                 dateFormat: "%d-%m-%Y",
-                                selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($GPC['fecha_liq']));?>),
+                                selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($GPC['fecha_recH']));?>),
+                                onSelect   : function() { this.hide() }
+                            });
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Fecha Liquidaci&oacute;n Desde</td>
+                    <td>
+                        <? echo $html->input('fecha_liqD', $general->date_sql_screen($fliqD, '', 'es', '-'), array('type' => 'text', 'class' => 'inputLogin', 'readOnly' => true)); ?>
+                        <img src="../images/calendario.png" id="fliqD" width="16" height="16" style="cursor:pointer" />
+                        <script>
+                            Calendar.setup({
+                                trigger    : "fliqD",
+                                inputField : "fecha_liqD",
+                                dateFormat: "%d-%m-%Y",
+                                selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($GPC['fecha_liqD']));?>),
+                                onSelect   : function() { this.hide() }
+                            });
+                        </script>
+                    </td>
+                    <td>Fecha Liquidaci&oacute;n Hasta</td>
+                    <td width="240">
+                        <? echo $html->input('fecha_liqD', $general->date_sql_screen($fliqD, '', 'es', '-'), array('type' => 'text', 'class' => 'inputLogin', 'readOnly' => true)); ?>
+                        <img src="../images/calendario.png" id="fliqD" width="16" height="16" style="cursor:pointer" />
+                        <script>
+                            Calendar.setup({
+                                trigger    : "fliqD",
+                                inputField : "fecha_liqD",
+                                dateFormat: "%d-%m-%Y",
+                                selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($GPC['fecha_liqD']));?>),
                                 onSelect   : function() { this.hide() }
                             });
                         </script>
@@ -527,7 +551,6 @@
                             echo $html->input('ac', 'Buscar', array('type' => 'submit'));
                             echo $html->input('exportar', 'Excel', array('type' => 'submit'));
                             echo $html->input('exportar', 'Calc', array('type' => 'submit'));
-                            //echo $html->input('ac', 'Pdf', array('type' => 'submit'));
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
                         ?>
                     </td>
@@ -645,6 +668,7 @@
                             echo $html->link('<img src="../images/deshabilitar.png" width="16" height="16">').' Central';
                         break;
                         case 8:
+                        case 14:
                             echo $html->link('<img src="../images/deshabilitar.png" width="16" height="16">');
                         break;
                         case 9:

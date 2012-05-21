@@ -93,9 +93,7 @@
             <th>Orden</th>
             <th>Fecha Despacho</th>
             <th>Peso</th>
-            <? //if($_SESSION['s_perfil_id'] == ROMANERO){ ?>
             <th width="1">Acci&oacute;n</th>
-            <? //} ?>
         </tr>
         <?
             $i=0;
@@ -110,15 +108,12 @@
             <? } ?>
             <td align="center"><?=$numero?></td>
             <td align="center"><?="(".trim($dataRomana['cultivo_codigo']).") ".$dataRomana['cultivo_nombre']?></td>
-            <!--td align="center"><?=$dataRomana['numero']?></td-->
             <td align="center"><?=$dataRomana['numero_guia']?></td>
             <td align="center"><?=$general->date_sql_screen($dataRomana['fecha_des'], '', 'es', '-')?></td>
             <td align="center"><?=$tipo?></td>
-            <? //if($_SESSION['s_perfil_id'] == ROMANERO){ ?>
             <td align="center">
                 <? echo $html->link('<img src="../images/peso1.png" width="16" height="16" title=Pesar>', 'romana.php?ac=pesar&id='.$dataRomana['id'].'&mov='.$GPC['mov']); ?>
             </td>
-            <? //} ?>
         </tr>
         <? $i++; } ?>
         <tr>
@@ -141,7 +136,7 @@
             $cosecha = new Cosecha();
             
             $listadoEstatus = array('3' => 'Romana Lleno', '6' => 'Romana Vac&iacute;o');
-            $estatus = (!empty($GPC['estatus'])) ? "'".$GPC['estatus']."'" : "'3', '6'";
+            $estatus = (!empty($GPC['estatus'])) ? "'".$GPC['estatus']."'" : "'3', '6', '8'";
             
             $listadoCosechas = $cosecha->infoCosechaCultivo($idCA);
             foreach($listadoCosechas as $valor){
@@ -220,9 +215,7 @@
             <th>Guia</th>
             <th>Fecha Recepci&oacute;n</th>
             <th>Peso</th>
-            <? //if($_SESSION['s_perfil_id'] == ROMANERO){ ?>
             <th width="1">Acci&oacute;n</th>
-            <? //} ?>
         </tr>
         <?
             $i=0;
@@ -237,15 +230,12 @@
             <? } ?>
             <td align="center"><?=$numero?></td>
             <td align="center"><?=$dataRomana['cosecha_codigo']?></td>
-            <!--td align="center"><?=$dataRomana['numero']?></td-->
             <td align="center"><?=$dataRomana['numero_guia']?></td>
             <td align="center"><?=$general->date_sql_screen($dataRomana['fecha_recepcion'], '', 'es', '-')?></td>
             <td align="center"><?=$tipo?></td>
-            <? //if($_SESSION['s_perfil_id'] == ROMANERO){ ?>
             <td align="center">
                 <? echo $html->link('<img src="../images/peso1.png" width="26" height="20" title=Pesar>', 'romana.php?ac=pesar&id='.$dataRomana['id'].'&mov='.$GPC['mov']); ?>
             </td>
-            <? //} ?>
         </tr>
         <? $i++; } ?>
         <tr>

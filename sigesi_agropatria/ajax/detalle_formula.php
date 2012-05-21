@@ -134,13 +134,13 @@
             $infoRomana = $romana->find(array('id' => $movimiento[2]), null, 'parametros');
             //$peso=file_get_contents($infoRomana[0]['parametros']);
             $peso = rand(5000, 50000)."K";
-            //$peso = "13500K";
-            //$peso = ($peso < 0 || $peso == '') ? '0K' : $peso;
+            $peso = "37047K";
+            $peso = ($peso < 0 || $peso == '') ? '0K' : $peso;
             switch($movimiento[0]){
                 case 'rec':
                     if($movimiento[1] == 3)
                         echo $html->input('Recepcion.peso_0'.$GPC['boton'].'l', round(substr($peso, 0, -1)), array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 positive'));
-                    elseif($movimiento[1] == 6){
+                    elseif(in_array($movimiento[1], array(6, 8))){
                         echo $html->input('Recepcion.peso_0'.$GPC['boton'].'v', round(substr($peso, 0, -1)), array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 positive verifPeso'));
                         ?>
                             <script type="text/javascript">
@@ -306,13 +306,13 @@
                     //CALCULO DE LA IMPUREZA
                     $totalH = str_replace($reservadas, $pesos, $humImp[0]);
                     if ($evaluar->evaluate('y(x) = ' . $totalH))
-                        $pesoH = $evaluar->e("y(0)");
+                        $pesoH = ($GPC['estatus'] != 8) ? $evaluar->e("y(0)") : 0;
                     $pesos[] = $pesoH;
 
                     //CALCULO DE LA IMPUREZA
                     $totalI = str_replace($reservadas, $pesos, $humImp[1]);
                     if ($evaluar->evaluate('y(x) = ' . $totalI))
-                        $pesoI = $evaluar->e("y(0)");
+                        $pesoI = ($GPC['estatus'] != 8) ? $evaluar->e("y(0)") : 0;
                     $pesos[] = $pesoI;
                 }
                 
@@ -350,6 +350,9 @@
 
                 $movimiento = ($GPC['mov'] == 'rec') ? 'Recibido' : 'Despachado Motriz';
                 $label = ($GPC['mov'] == 'rec') ? '' : 'Motriz';
+                
+                $pesoA = ($GPC['estatus'] != 8) ? $pesoA : $pesoN;
+                $pesoAl = ($GPC['estatus'] != 8) ? $pesoAl : $pesoN;
             ?>
             <tr>
                 <td>Peso Neto <?=$movimiento?> Kgrs</td>

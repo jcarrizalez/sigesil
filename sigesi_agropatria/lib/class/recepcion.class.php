@@ -81,7 +81,7 @@ class Recepcion extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 
-    function listadoRecepcion($id=null, $idCa=null, $idCo=null, $idSilo=null, $entradaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null, $idPro=null, $order=null, $contrato=null, $productor=null, $idP=null, $placa=null, $fechaLiq=null, $fechaRec=null, $idAon=null, $guia=null, $idAdo=null){
+    function listadoRecepcion($id=null, $idCa=null, $idCo=null, $idSilo=null, $entradaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null, $idPro=null, $order=null, $contrato=null, $productor=null, $idP=null, $placa=null, $fechaLiqD=null, $fechaLiqH=null, $fechaRecD=null, $fechaRecH=null, $idAon=null, $guia=null, $idAdo=null){
         $query = "SELECT r.*, 
                     (SELECT t1.nombre FROM si_tolcarom t1 WHERE t1.id = r.romana_ent) AS romana_ent, 
                     (SELECT t2.nombre FROM si_tolcarom t2 WHERE t2.id = r.romana_sal) AS romana_sal, 
@@ -124,8 +124,20 @@ class Recepcion extends Model {
         $query .= (!empty($guia)) ? " AND g.numero_guia::text ILIKE '%$guia%'" : '';
         $query .= (!empty($placa)) ? " AND v.placa ILIKE '%$placa%'" : '';
         $query .= (!empty($placaR)) ? " AND v.placa_remolques ILIKE '%$placaR%'" : '';
-        $query .= (!empty($fechaLiq)) ? " AND r.fecha_v::date = '$fechaLiq'" : '';
-        $query .= (!empty($fechaRec)) ? " AND r.fecha_recepcion::date = '$fechaRec'" : '';
+        
+        //$query .= (!empty($fechaLiqD)) ? " AND r.fecha_v::date = '$fechaLiqD'" : '';
+        if(!empty($fechaLiqD) || !empty($fechaLiqH)){
+            $fechaLiqD = (!empty($fechaLiqD)) ? "'".$fechaLiqD." 00:00:00'" : 'now()::date';
+            $fechaLiqH = (!empty($fechaLiqH)) ? "'".$fechaLiqH." 23:59:59'" : 'now()::date';
+            $query .= " AND r.fecha_v::date BETWEEN $fechaLiqD AND $fechaLiqH";
+        }
+        //$query .= (!empty($fechaRecD)) ? " AND r.fecha_recepcion::date = '$fechaRec'" : '';
+        if(!empty($fechaRecD) || !empty($fechaRecH)){
+            $fechaRecD = (!empty($fechaRecD)) ? "'".$fechaRecD." 00:00:00'" : 'now()::date';
+            $fechaRecH = (!empty($fechaRecH)) ? "'".$fechaRecH." 23:59:59'" : 'now()::date';
+            $query .= " AND r.fecha_recepcion::date BETWEEN $fechaRecD AND $fechaRecH";
+        }
+        
         if(!empty($fdesde) || !empty($fhasta)){
             $fdesde = (!empty($fdesde)) ? "'".$fdesde." 00:00:00'" : 'now()::date';
             $fhasta = (!empty($fhasta)) ? "'".$fhasta." 23:59:59'" : 'now()::date';
