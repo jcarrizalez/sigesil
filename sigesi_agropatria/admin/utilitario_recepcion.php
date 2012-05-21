@@ -6,10 +6,11 @@
     $productor = new Productor();
     $vehiculo = new Vehiculo();
     $guia= new Guia();
+    $carril = new Tolcarom();
     /*$cosecha = new Cosecha();
     $vehiculo = new Vehiculo();
     $cultivo = new Cultivo();
-    $carril = new Tolcarom();
+
      */
     
     $carril = new Tolcarom();
@@ -22,19 +23,17 @@
         case 'editar':
             if (!empty($GPC['id'])) {
                 $infoMov=$movimiento->listadoRecepcion($GPC['id']);
-                $listaCarril=$carril->listaTolcarom($idCA, "'2'");
                 $listaCo = $cosecha->find('', '', array('id', 'nombre'), 'list', 'id');
                 $listaP = $productor->find(array('ced_rif'=>$infoMov[0]['ced_productor']), '', array('ced_rif', 'nombre'), 'list', 'ced_rif');
-                $listaAon = $productor->find(array('ced_rif'=>$infoMov[0]['ced_asociacion']), '', array('ced_rif', 'nombre'), 'list', 'ced_rif');
-                
+                $listaAon = $productor->find(array('ced_rif'=>$infoMov[0]['ced_asociacion']), '', array('ced_rif', 'nombre'), 'list', 'ced_rif');                
                 $listaAdo = $productor->find(array('ced_rif'=>$infoMov[0]['ced_asociado']), '', array('ced_rif', 'nombre'), 'list', 'ced_rif');
-                
-//                if (empty($listaAon))
-//                    $listaAon[0]="";
-//                
-//                if (empty($listaAdo))
-//                    $listaAdo[0]="";
-                
+                $listaCarril = $carril->listaTolcarom($_SESSION['s_ca_id'], "'2'");
+                $listaGuia = $guia->find('', '', array('id', 'numero_guia'), 'list', 'id');
+                $listaSubGuia = $guia->buscarSubGuias($infoMov[0]['id_guia']);
+
+                foreach($listaCarril as $dataCarril) {
+                    $listaC[$dataCarril['numero']]=$dataCarril['nombre'];
+                }
                 foreach($listadoE as $clave=>$valor) {
                     if ($clave <= $infoMov[0]['estatus_rec'])
                         $listadoEstatus[$clave]=$valor;
@@ -46,33 +45,26 @@
             }
             break;
         case 'guardar':
-//            $infoMov=$movimiento->find(array('id' => $GPC['id']));
-//            $id=$infoMov[0]['id'];
-            //$movimiento->_begin_tool();
-            debug::pr($GPC['Recepcion'], true);
-            $ced_productor=$GPC['ced_productor'];
-            $ced_asociacion=$GPC['ced_asociacion'];
-            $ced_asociado=$GPC['ced_asociado'];
-
-//                [id_cosecha] => 1
-//    [productor] => V12789456
-//    [numero] => 1
-//    [fecha_recepcion] => 14-05-2012
-//    [peso_01l] => 49026
-//    [peso_01v] => 
-//    [peso_02l] => 
-//    [peso_02v] => 
-//    [humedad_des] => 
-//    [impureza_des] => 
-//    [carril] => 1
-//    [estatus_rec] => 1
-            
-            $movimiento->save($GPC['Recepcion']);                
-            //$movimiento->_commit_tool();
-            if (empty($movimiento->id)) {
-                header("location: ".DOMAIN_ROOT."admin/utilitario_recepcion_listado.php?msg=error");
+            $movimiento->_begin_tool();
+            $infoProductor = $productor->find(array('ced_rif' => $GPC['Recepcion']['ced_productor']));
+            $GPC['Recepcion']['id_productor']=$infoProductor[0]['id'];            
+            $infoAsociacion = $productor->find(array('ced_rif' => $GPC['Recepcion']['ced_asociacion']));
+            $GPC['Recepcion']['id_asociacion']=$infoAsociacion[0]['id'];
+            $infoAsociado = $productor->find(array('ced_rif' => $GPC['Recepcion']['ced_asociado']));
+            $GPC['Recepcion']['id_asociado']=$infoAsociacion[0]['id'];           
+            $ced_asociado=$GPC['Recepcion']['ced_asociado'];
+            $GPC['Recepcion']['fecha_recepcion']=$general->fecha_normal_sql($GPC['Recepcion']['fecha_recepcion']);            
+            unset($GPC['Recepcion']['ced_productor']);
+            unset($GPC['Recepcion']['ced_asociacion']);
+            unset($GPC['Recepcion']['ced_asociado']);
+            $movimiento->save($GPC['Recepcion']);
+            if (!empty($movimiento->id)) {
+                $movimiento->_commit_tool();
+                header("location: ".DOMAIN_ROOT."admin/utilitario_recepcion_listado.php?msg=exitoso");
                 die();
-            }                
+            }
+            header("location: ".DOMAIN_ROOT."admin/utilitario_recepcion_listado.php?msg=error");
+            $movimiento->_rollback_tool();
         default:
             //header("location: ".DOMAIN_ROOT."admin/utilitario_recepcion_listado.php?msg=error");
             debug::pr($GPC['ac']);
@@ -89,15 +81,7 @@
     
     $(document).ready(function(){
         $('.positive').numeric();        
-        
-//        $('#Recepcion\\[id_cosecha\\]').click(function(){
-//            $('#cultivo_nombre').load('../ajax/detalle_utilitario.php?ac=cosecha&codigo='+$(this).val());
-//        });
-
-//        $('#Recepcion\\[id_cosecha\\]').click(function(){
-//            $('#cultivo_nombre').load('../ajax/detalle_utilitario.php?ac=cosecha&codigo='+$('#Recepcion\\[id_cosecha\\]').val());
-//        });
-        
+       
         $('#Recepcion\\[id_cosecha\\]').change(function() {
             $('#productor_nombre').load('../ajax/detalle_utilitario.php?ac=productor&cosecha='+$('#Recepcion\\[id_cosecha\\]').val());
             $('#asociacion_nombre').load('../ajax/detalle_utilitario.php?ac=asociacion&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val());
@@ -110,16 +94,12 @@
         });
         
         $('#Recepcion\\[ced_asociacion\\]').live('change', function() {
-            $('#asociacion_nombre').load('../ajax/detalle_utilitario.php?ac=asociacion&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val());
-        });
-        
-        $('#Recepcion\\[ced_asociado\\]').live('change', function() {
-            $('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val()+'&cedRifAon='+$('#Recepcion_asociacion').val());
+            $('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val());
         });
         
         $('#Recepcion\\[numero\\]').live('change',function() {
-            $('#numero_msg').load('../ajax/detalle_utilitario.php?ac=recepcion&numero='+$('#Recepcion\\[numero\\]').val()+"&fecha="+$('#Recepcion\\[fecha_recepcion\\]').val()+"&tipo=n");
-            alert($('#numero_msg').val());
+            $('#numero_msg').load('../ajax/detalle_utilitario.php?ac=recepcion&numero='+$('#Recepcion\\[numero\\]').val()+"&fecha="+$('#Recepcion\\[fecha_recepcion\\]').val()+"&tipo=n&co="+$('#Recepcion\\[id_cosecha\\]').val()+"&ca=<?=$idCA?>"+"&id=<?=$GPC['id']?>");
+            alert($('#msg').val());
         });
         
         $('#Recepcion\\[fecha_recepcion\\]').live('change', function() {
@@ -129,19 +109,64 @@
         $('#Recepcion_placa').live('change', function() {
             $('#vehiculo_descrip').load('../ajax/detalle_utilitario.php?ac=vehiculo&placa='+$('#Recepcion_placa').val());
         });
+        
+        $('#Recepcion\\[id_guia]\\').live('change', function() {
+            $('#vehiculo_descrip').load('../ajax/detalle_utilitario.php?ac=vehiculo&placa='+$('#Recepcion_placa').val());
+        });
     });
 </script>
 <div id="titulo_modulo">
     UTILITARIO - RECEPCION<br/><hr/>
 </div>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
-    <fieldset id="cosecha_unica">
+    <fieldset>
+        <legend>Datos de la Guia</legend>        
+            <table align="center" border="0">
+                <tr>
+                    <td width="130px">Guia Nro. 1</td>
+                    <td width="230px">
+                    <?=$html->input('Recepcion.id_guia', $infoMov[0]['id_guia'], array('type' => 'text', 'class' => 'crproductor')); ?>
+                    </td>
+                </tr>
+            </table>
+            <table align="center" border="0" id='guia_nombre'>
+            <?
+                $i=1;
+                foreach($listaSubGuia as $subguia) {
+                    $i++;
+            ?>
+                <tr>
+                    <td>Guia Nro. <?=$i?></td>
+                    <td>
+                        <?=$html->input('Guia.subguia'.$i, $subguia['subguia'], array('type' => 'text', 'class' => 'crproductor', 'readOnly'=>true)); ?>
+                    </td>
+                </tr>
+            <?
+                }
+            ?>
+                <tr>
+                    <td width="130px">Fecha de emision</td>
+                    <td width="230px"><?=$html->input('Guia.placa', $listaGuia[0]['fecha_emision'], array('type' => 'text', 'class' => 'crproductor', 'readOnly'=>true)); ?></td>
+                </tr>
+                <tr>
+                    <td width="130px">Placa del Vehiculo</td>
+                    <td width="230px"><?=$html->input('Guia.placa', $infoMov[0]['placa'], array('type' => 'text', 'class' => 'crproductor', 'readOnly'=>true)); ?></td>
+                </tr>
+                <tr>
+                    <td>Contrato</td>
+                    <td>
+                        <?=$html->input('Guia.contrato', $infoMov[0]['contrato'], array('type' => 'text', 'class' => 'crproductor', 'readOnly'=>true)); ?>
+                    </td>
+                </tr>
+            </table>
+    </fieldset>
+    <fieldset>
         <legend>Datos de la Recepcion</legend>
     <table align="center" border="0">
         <tr>
             <td>Cosecha</td>
             <td id='cultivo_nombre' width="230px">                
-            <? echo $html->select('Recepcion.id_cosecha', array('options' => $listaCo, 'selected' => $infoMov[0]['id_codigo'], 'class' => 'estilo_campos')); ?>
+            <? echo $html->select('Recepcion.id_cosecha', array('options' => $listaCo, 'selected' => $infoMov[0]['id_cosecha'],  'default'=>'Seleccione', 'class' => 'estilo_campos')); ?>
             </td>
             <td width="130px">
             </td>
@@ -149,16 +174,14 @@
         <tr>
             <td>Productor</td>
             <td id="productor_nombre">
-            <? echo $html->select('Recepcion.ced_productor', array('options' => $listaP, 'selected' => $infoMov[0]['ced_rif'], 'class'=>'estilo_campos')); ?>
+            <? echo $html->select('Recepcion.ced_productor', array('options' => $listaP, 'selected' => $infoMov[0]['ced_productor'],  'default'=>'Seleccione', 'class'=>'estilo_campos')); ?>
             </td>
             <td width="130px"></td>
         </tr>
         <tr>
             <td>Asociacion</td>
             <td id="asociacion_nombre" width="130px">
-            <?
-                echo $html->select('Recepcion.ced_asociacion', array('options' => $listaAon, 'selected' => $infoMov[0]['ced_asociacion'], 'class'=>'estilo_campos')); 
-                //echo $html->input('Recepcion_asociacion', $infoMov[0]['ced_asociacion'], array('type' => 'text', 'class' => 'crproductor')); ?>
+                <?echo $html->select('Recepcion.ced_asociacion', array('options' => $listaAon, 'selected' => $infoMov[0]['ced_asociacion'],  'default'=>'Seleccione', 'class'=>'estilo_campos')); ?>
             </td>
             <td ></td>
         </tr>
@@ -166,18 +189,16 @@
             <td>Asociado</td>
             <td>
             <? 
-            echo $html->select('Recepcion.ced_asociado', array('options' => $listaAdo, 'selected' => $infoMov[0]['ced_asociado'], 'class'=>'estilo_campos'));
-            //echo $html->input('Recepcion_asociado', $infoMov[0]['ced_asociado'], array('type' => 'text', 'class' => 'crproductor')); ?>
+                echo $html->select('Recepcion.ced_asociado', array('options' => $listaAdo, 'selected' => $infoMov[0]['ced_asociado'],  'default'=>'Seleccione', 'class'=>'estilo_campos'));
+            ?>
             <td id="asociado_nombre" width="130px"></td>
         </tr>
         <tr>
             <td>Nro Entrada</td>
             <td>
             <? 
-                echo $html->input('Recepcion.numero', $infoMov[0]['numero'], array('type' => 'text', 'class' => 'crproductor'));
-                
+                echo $html->input('Recepcion.numero', $infoMov[0]['numero'], array('type' => 'text', 'class' => 'crproductor positive'));
             ?>
-                <div id='numero_msg'></div>
             </td>
         </tr>
         <tr>
@@ -189,7 +210,7 @@
                         trigger    : "femision",
                         inputField : "Recepcion[fecha_recepcion]",
                         dateFormat: "%d-%m-%Y",
-                        selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($infoMov[0]['Recepcion[fecha_recepcion]']));?>),
+                        selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($infoMov[0]['fecha_recepcion']));?>),
                         onSelect   : function() { this.hide() }
                     });
                 </script>
@@ -199,15 +220,6 @@
                 </div>
             </td>
         </tr>        
-        <tr>
-            <td>Placa del Vehiculo</td>
-            <td><? echo $html->input('Recepcion_placa', $infoMov[0]['placa'], array('type' => 'text', 'class' => 'crproductor')); ?></td>
-            <td width="130px">
-                <div id="vehiculo_descrip">
-                    <span><? echo $infoVeh[0]['marca'].' '.$infoMov[0]['color']; ?></span>
-                </div>
-            </td>
-        </tr>
         <tr>
             <td>Peso lleno 1</td>
             <td><? echo $html->input('Recepcion.peso_01l', $infoMov[0]['peso_01l'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
@@ -234,19 +246,18 @@
         </tr>
         <tr>
             <td>Nro Carril</td>
-            <td><? echo $html->input('Recepcion.carril', $infoMov[0]['carril'], array('type' => 'text', 'class' => 'crproductor')); ?></td>
+            <td><? echo $html->select('Recepcion.carril', array('options' => $listaC, 'selected' => $infoMov[0]['carril'],  'default'=>'Seleccione', 'class'=>'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td>Estatus</td>
-            <td><? echo $html->select('Recepcion.estatus_rec',array('options'=>$listadoEstatus, 'selected' => $infoMov[0]['estatus_rec'], 'default' => 'Seleccione'));?></td>
-            <td><? //echo $html->input('Recepcion.estatus_rec', $infoMov[0]['estatus_rec'], array('type' => 'text', 'class' => 'crproductor')); ?></td>
+            <td><? echo $html->select('Recepcion.estatus_rec',array('options'=>$listadoEstatus, 'selected' => $infoMov[0]['estatus_rec'],  'default'=>'Seleccione', 'default' => 'Seleccione'));?></td>
         </tr>
     </table>
-    <? //echo $html->input('id_cosecha', $infoMov[0]['id_co'], array('type' => 'hidden')); ?>
+    <? echo $html->input('Recepcion.id', $GPC['id'], array('type' => 'hidden')); ?>
     </fieldset>
-    <table align="center" border="0">
+    <table align="center" border="1">
         <tr>
-            <td>&nbsp;</td>
+            <td id='numero_msg'>&nbsp;</td>
         </tr>
         <tr align="center">            
             <td colspan="3">

@@ -3,16 +3,31 @@
     
     $movimiento = new Recepcion();
     $cultivo = new Cultivo();
+    $cosecha = new Cosecha();
     
     $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : null;
     $listadoEstatus = array('1' => '(1) Laboratorio Central', '2' => '(2) Curentena Admon', '3' => '(3) Romana Lleno', '4' => '(4) Tolvas', '5' => '(5) Ctna Tolva','6' => '(6) Romana Vacio', '7' => '(7) Rechazo Central', '9' => '(9) Recibido',  '11' => '(11) Ctna Aprobado',  '12' => '(12) Ctna Rechazado');
     $estatus = (!empty($GPC['estatus'])) ? "'".$GPC['estatus']."'" : null;
     $fdesde = (!empty($GPC['fecha_inicio'])) ? $general->fecha_normal_sql($GPC['fecha_inicio'], 'es') : date('Y-m-d');
     $fhasta = (!empty($GPC['fecha_fin'])) ? $general->fecha_normal_sql($GPC['fecha_fin'], 'es') : date('Y-m-d');
-
-    $listadoCultivo = $cultivo->find('', '', array('id, nombre'), 'list', 'codigo');
+    //$listadoCultivo = $cultivo->find('', '', array('id, nombre'), 'list', 'codigo');
     
-    $listadoMov = $movimiento->listadoRecepcion(null, $idCa, null, null, null, $estatus, $fdesde, $fhasta, $porPagina, $inicio);
+    //$listadoCultivo = $cultivo->find('', '', "id, '('||codigo||') - '||nombre AS nombre", 'list', 'id');
+    $idCu=(!empty($GPC['cultivo'])) ? $GPC['cultivo']: null;
+    
+    $listadoCosecha=$cosecha->infoCosechaCultivo($idCA, null, null, $idCu, null, null, null);
+
+//    debug::pr($listadoCosecha, true);
+    $idCo=$listadoCosecha[0]['cosecha_id'];
+    
+    foreach($listadoCosecha as $dataCosecha) {
+        $listadoCultivo[$dataCosecha['cosecha_id']]="(".$dataCosecha['cosecha_codigo'].") ".$dataCosecha['cosecha_nombre'];
+        //+':';
+        //echo '<br>';
+    }
+//    print_r($listadoCosecha);
+    
+    $listadoMov = $movimiento->listadoRecepcion(null, $idCa, $infoCosecha[0]['id'], null, null, $estatus, $fdesde, $fhasta, $porPagina, $inicio);
     
     $total_registros = $despacho->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);

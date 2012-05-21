@@ -65,9 +65,9 @@ switch ($GPC['ac']) {
             $GPC['Cuarentena']['fecha_cultivo']=$general->fecha_normal_sql($GPC['Cuarentena']['fecha_cultivo'],'es');
             $GPC['Cuarentena']['fecha_lib']=$general->fecha_normal_sql($GPC['Cuarentena']['fecha_lib'],'es');
             if ($_SESSION['s_mov']=='rec')
-                if ($_SESSION['s_lab']=='C')
+                if ($_SESSION['s_lab']=='C') {
                     $GPC['Cuarentena']['estatus']='2'; //Se fija el estatus 2 la primera vez que se registra
-                else if ($_SESSION['s_lab']=='P') 
+                } else if ($_SESSION['s_lab']=='P') 
                     $GPC['Cuarentena']['estatus']='5'; //Se fija el estatus 2 la primera vez que se registra
             if (empty($infoCtna[0]['estatus'])) {
                 $Ctna->save($GPC['Cuarentena']);
