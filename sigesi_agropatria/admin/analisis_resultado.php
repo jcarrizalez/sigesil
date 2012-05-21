@@ -9,7 +9,7 @@ $cultivo=new Cultivo();
 $tipificacion = new Recultipo();
 
 
-$idCA = $_SESSION['s_id_ca'];
+$idCA = $_SESSION['s_ca_id'];
 $id = $GPC['id'];
 $IdCosecha = $GPC['id_cosecha'];
 $idORG = $_SESSION['s_org_id'];
