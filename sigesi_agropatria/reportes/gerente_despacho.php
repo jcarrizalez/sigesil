@@ -39,7 +39,7 @@
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
     
     $order = ($_SESSION['s_perfil_id'] == GERENTEG) ? ' ORDER BY r.id_centro_acopio, r.creado, numero' : ' ORDER BY r.creado, numero';
-    //$listadoDespachos = $despacho->listadoRecepcion(null, $idCA, $idCo, null, $entrada, $estatus, null, null, $porPagina, $inicio, null, $order, $contrato, $productor, null, $placa, $fliqD, $fliqH, $frecD, $frecH, null, $guia);
+    $listadoDespachos = $despacho->listadoDespacho(null, $idCA, $cultivo, null, $salida, $estatus, null, null, $porPagina, $inicio, $orden, $order, $cliente, $placa, $fliqD, $fliqH, $fdesD, $fdesH);
     $total_registros = $despacho->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);
     

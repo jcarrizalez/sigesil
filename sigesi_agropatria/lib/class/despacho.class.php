@@ -21,9 +21,7 @@ class Despacho extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
-    function listadoDespacho($id=null, $idCa=null, $idCu=null, $idSilo=null, $salidaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null, $numeroOrden = null, $orden=null){
-    //QUERY ORIGINAL
-    //function listadoDespacho($id=null, $idCa=null, $idCu=null, $idSilo=null, $salidaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null){
+    function listadoDespacho($id=null, $idCa=null, $idCu=null, $idSilo=null, $salidaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null, $numeroOrden=null, $orden=null, $cliente=null, $placa=null, $fliqD=null, $fliqH=null, $fdesD=null, $fdesH=null){
         $query = "SELECT d.*, 
                     d.fecha_des AS fecha_recepcion, d.estatus AS estatus_rec, 
                     (SELECT t1.nombre FROM si_tolcarom t1 WHERE t1.id = d.romana_ent) AS romana_ent, 
