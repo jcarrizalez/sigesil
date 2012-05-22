@@ -6,7 +6,7 @@
 
     $porPagina = MAX_RESULTS_PAG;
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
-    $estatus=2;
+    $estatus="'2','5'";
     
     $idCosecha='';
     $numEntrada='';

@@ -7,6 +7,7 @@
     $productor = new Productor();
     $movimiento = new Recepcion();
     $vehiculo = new Vehiculo();
+    $guia= new Guia();
     
     switch ($GPC['ac']) {
         case 'cosecha':
@@ -59,23 +60,45 @@
                 $infoMov=$movimiento->listadoRecepcion(null, $GPC['ca'], null, null, $GPC['numero'], null, null, null, null, null, null, null, null, null, null, null, null, date("Y-m-d", strtotime($GPC['fecha'])));
                 //debug::pr($infoMov, true);
                 if (!empty($infoMov)) {
-                    if ($GPC['tipo']=='n')
-                        echo $html->input('msg', "ENTRADA OCUPADA", array('type' => 'text', 'style' => 'display: block'));
+                    if ($GPC['tipo']=='n') {
+                        echo $html->input('msg', "0", array('type' => 'text', 'style' => 'display: block'));//Entrada Ocupada
+                    }
                 } else {
-                    echo $html->input('msg', "ENTRADA DISPONIBLE!!!", array('type' => 'text', 'style' => 'display: block'));
+                    echo $html->input('msg', "1", array('type' => 'text', 'style' => 'display: block'));//Entrada Disponible
                 }
                 
             }
         break;
-        case 'vehiculo':
-            if (!empty($GPC['placa'])) {
-                $infoVehiculo=$vehiculo->buscar(trim($GPC['placa']));
-                $idVehiculo=$infoVehiculo[0]['id'];
-                if (empty($idVehiculo)) 
-                    echo "<span>EL VEHICULO NO EXISTE!!!</span>";
-                else 
-                    echo "<span>".$infoVehiculo[0]['marca'].' '.$infoVehiculo[0]['color']."</span>";
-            }
+        case 'guia':            
+            $listaSubGuia = $guia->buscarSubGuias($GPC['idguia']);
+                $i=1;
+                foreach($listaSubGuia as $subguia) {
+                    $i++;
+            ?>
+                <tr>
+                    <td>Guia Nro. <?=$i?></td>
+                    <td>
+                        <?=$html->input('Guia.subguia'.$i, $subguia['subguia'], array('type' => 'text', 'class' => 'crproductor', 'readOnly'=>true)); ?>
+                    </td>
+                </tr>
+            <?
+                }
+            ?>
+                <tr>
+                    <td width="130px">Fecha de emision</td>
+                    <td width="230px"><?=$html->input('Guia.placa', $listaGuia[0]['fecha_emision'], array('type' => 'text', 'class' => 'crproductor', 'readOnly'=>true)); ?></td>
+                </tr>
+                <tr>
+                    <td width="130px">Placa del Vehiculo</td>
+                    <td width="230px"><?=$html->input('Guia.placa', $infoMov[0]['placa'], array('type' => 'text', 'class' => 'crproductor', 'readOnly'=>true)); ?></td>
+                </tr>
+                <tr>
+                    <td>Contrato</td>
+                    <td>
+                        <?=$html->input('Guia.contrato', $infoMov[0]['contrato'], array('type' => 'text', 'class' => 'crproductor', 'readOnly'=>true)); ?>
+                    </td>
+                </tr>
+            <?
         break;
     }
 ?>

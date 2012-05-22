@@ -25,8 +25,9 @@ else
 switch ($GPC['mov']) {
     case 'rec':
         $recepcion = new Recepcion();
-        $estatus=($_SESSION['s_lab']=='C')? "'1','11','12'": "'4','5'";        
-        $listadoM=$recepcion->listadoRecepcion(null, $idCA, null, null, null, $estatus);
+        $estatus=($_SESSION['s_lab']=='C')? "'1','10','11'": "'4','12','13'";
+        $orden = " ORDER BY r.fecha_recepcion , r.id";
+        $listadoM=$recepcion->listadoRecepcion(null, $idCA, null, null, null, $estatus, null, null, null, null, null, $orden);
         break;
     case 'des':
         $despacho= new Despacho();

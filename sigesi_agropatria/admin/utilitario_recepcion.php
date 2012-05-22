@@ -80,8 +80,8 @@
     }
     
     $(document).ready(function(){
-        $('.positive').numeric();        
-       
+        $('.positive').numeric();
+        
         $('#Recepcion\\[id_cosecha\\]').change(function() {
             $('#productor_nombre').load('../ajax/detalle_utilitario.php?ac=productor&cosecha='+$('#Recepcion\\[id_cosecha\\]').val());
             $('#asociacion_nombre').load('../ajax/detalle_utilitario.php?ac=asociacion&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val());
@@ -99,7 +99,6 @@
         
         $('#Recepcion\\[numero\\]').live('change',function() {
             $('#numero_msg').load('../ajax/detalle_utilitario.php?ac=recepcion&numero='+$('#Recepcion\\[numero\\]').val()+"&fecha="+$('#Recepcion\\[fecha_recepcion\\]').val()+"&tipo=n&co="+$('#Recepcion\\[id_cosecha\\]').val()+"&ca=<?=$idCA?>"+"&id=<?=$GPC['id']?>");
-            alert($('#msg').val());
         });
         
         $('#Recepcion\\[fecha_recepcion\\]').live('change', function() {
@@ -110,22 +109,22 @@
             $('#vehiculo_descrip').load('../ajax/detalle_utilitario.php?ac=vehiculo&placa='+$('#Recepcion_placa').val());
         });
         
-        $('#Recepcion\\[id_guia]\\').live('change', function() {
-            $('#vehiculo_descrip').load('../ajax/detalle_utilitario.php?ac=vehiculo&placa='+$('#Recepcion_placa').val());
-        });
+//        $('#Recepcion\\[numero_guia\\]').live('change', function() {
+            //$('#guia_nombre').load
+//        });
     });
 </script>
 <div id="titulo_modulo">
     UTILITARIO - RECEPCION<br/><hr/>
 </div>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
-    <fieldset>
+<!--    <fieldset>
         <legend>Datos de la Guia</legend>        
             <table align="center" border="0">
                 <tr>
                     <td width="130px">Guia Nro. 1</td>
                     <td width="230px">
-                    <?=$html->input('Recepcion.id_guia', $infoMov[0]['id_guia'], array('type' => 'text', 'class' => 'crproductor')); ?>
+                    <?=$html->input('Recepcion.numero_guia', $infoMov[0]['numero_guia'], array('type' => 'text', 'class' => 'crproductor')); ?>
                     </td>
                 </tr>
             </table>
@@ -159,7 +158,7 @@
                     </td>
                 </tr>
             </table>
-    </fieldset>
+    </fieldset>-->
     <fieldset>
         <legend>Datos de la Recepcion</legend>
     <table align="center" border="0">
