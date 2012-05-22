@@ -66,7 +66,7 @@
         require_once APPROOT.'lib/class/PHPExcel/PHPExcel/IOFactory.php';
         $workbook = new PHPExcel();
         $activeWorksheet = $workbook->getActiveSheet();
-        $activeWorksheet->setTitle("General Report");
+        $activeWorksheet->setTitle("Reporte Gerente");
 
         $activeWorksheet->getDefaultStyle()->applyFromArray(
             array('font' => array('name' => 'arial',

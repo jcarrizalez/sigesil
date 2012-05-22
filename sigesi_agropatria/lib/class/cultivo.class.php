@@ -10,7 +10,7 @@ class Cultivo extends Model {
         $query.=(!empty($id)) ? " AND cul.id = $id" : '';
         $query.=(!empty($nombre)) ? " AND sp_ascii(nombre) ILIKE sp_ascii('%$nombre%')" : '';
         $query.=(!empty($tipo)) ? " AND cul.id_tipo_cultivo = $tipo" : '';
-        $query.= " ORDER BY cul.id";
+        $query.= " ORDER BY cul.codigo";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     

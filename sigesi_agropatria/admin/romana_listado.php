@@ -22,7 +22,8 @@
         
         $listadoCultivo = $cultivo->find('', '', array('id, nombre'), 'list', 'codigo');
         
-        $listadoRomana = $movimiento->listadoDespacho('', $idCA, $GPC['cultivo'], null, null, $estatus, null, null, $porPagina, $inicio);
+        $order = " ORDER BY d.creado, d.numero";
+        $listadoRomana = $movimiento->listadoDespacho('', $idCA, $GPC['cultivo'], null, null, $estatus, null, null, $porPagina, $inicio, null, $order);
 
         $total_registros = $movimiento->total_verdadero;
         $paginador = new paginator($total_registros, $porPagina);

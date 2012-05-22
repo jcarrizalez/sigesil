@@ -21,7 +21,7 @@ class Despacho extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
-    function listadoDespacho($id=null, $idCa=null, $idCu=null, $idSilo=null, $salidaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null, $numeroOrden = null){
+    function listadoDespacho($id=null, $idCa=null, $idCu=null, $idSilo=null, $salidaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null, $numeroOrden = null, $orden=null){
     //QUERY ORIGINAL
     //function listadoDespacho($id=null, $idCa=null, $idCu=null, $idSilo=null, $salidaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null){
         $query = "SELECT d.*, 
@@ -58,7 +58,7 @@ class Despacho extends Model {
             $fhasta = (!empty($fhasta)) ? "'$fhasta'" : 'now()::date';
             $query .= " AND d.modificado::date BETWEEN $fdesde AND $fhasta";
         }
-        $query .= " ORDER BY d.modificado, d.numero";
+        $query .= (!empty($orden)) ? $orden : " ORDER BY d.modificado, d.numero";
         $query .= (!empty($porPagina)) ? " LIMIT $porPagina OFFSET $inicio" : "";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
