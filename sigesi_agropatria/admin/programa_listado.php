@@ -6,10 +6,10 @@
     
     $id = (!empty($GPC['id_programa'])) ? $GPC['id_programa'] : null;
     
-    if($_SESSION['s_perfil_id'] == GERENTES)
-        $id_CA = $_SESSION['s_ca_id'];
-    else
+    if($_SESSION['s_perfil_id'] == GERENTEG)
         $id_CA = (!empty($GPC['id_centro_acopio'])) ? $GPC['id_centro_acopio'] : null;
+    else
+        $id_CA = $_SESSION['s_ca_id'];
     
     $listadoProgramas = $programa->buscarProgramaCA($id, $id_CA);
     

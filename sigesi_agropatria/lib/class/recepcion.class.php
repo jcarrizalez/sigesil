@@ -124,20 +124,16 @@ class Recepcion extends Model {
         $query .= (!empty($guia)) ? " AND g.numero_guia::text ILIKE '%$guia%'" : '';
         $query .= (!empty($placa)) ? " AND v.placa ILIKE '%$placa%'" : '';
         $query .= (!empty($placaR)) ? " AND v.placa_remolques ILIKE '%$placaR%'" : '';
-        
-        //$query .= (!empty($fechaLiqD)) ? " AND r.fecha_v::date = '$fechaLiqD'" : '';
         if(!empty($fechaLiqD) || !empty($fechaLiqH)){
             $fechaLiqD = (!empty($fechaLiqD)) ? "'".$fechaLiqD." 00:00:00'" : 'now()::date';
             $fechaLiqH = (!empty($fechaLiqH)) ? "'".$fechaLiqH." 23:59:59'" : 'now()::date';
             $query .= " AND r.fecha_v::date BETWEEN $fechaLiqD AND $fechaLiqH";
         }
-        //$query .= (!empty($fechaRecD)) ? " AND r.fecha_recepcion::date = '$fechaRec'" : '';
         if(!empty($fechaRecD) || !empty($fechaRecH)){
             $fechaRecD = (!empty($fechaRecD)) ? "'".$fechaRecD." 00:00:00'" : 'now()::date';
             $fechaRecH = (!empty($fechaRecH)) ? "'".$fechaRecH." 23:59:59'" : 'now()::date';
             $query .= " AND r.fecha_recepcion::date BETWEEN $fechaRecD AND $fechaRecH";
         }
-        
         if(!empty($fdesde) || !empty($fhasta)){
             $fdesde = (!empty($fdesde)) ? "'".$fdesde." 00:00:00'" : 'now()::date';
             $fhasta = (!empty($fhasta)) ? "'".$fhasta." 23:59:59'" : 'now()::date';

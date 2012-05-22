@@ -228,6 +228,7 @@ else
                 <div id="menu">
                     <div id="boton_inicio">
                         <a href="<?=DOMAIN_ROOT?>pages/principal.php"><img alt="Inicio" title="Inicio" src="../images/inicio.png" /></a>
+                        <!--a href="<?=DOMAIN_ROOT?>admin/prueba_estres.php"><img alt="Prueba" title="Prueba" src="../images/estadisticas.png" /></a-->
                         <? /*if($_SESSION['s_perfil_id'] != GERENTEG){ ?>
                         <a href="#"><img id="estadisticas" alt="Estadistica" title="Estadistica" src="../images/estadisticas.png" /></a>
                         <? }*/ ?>

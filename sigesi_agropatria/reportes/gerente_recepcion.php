@@ -37,8 +37,9 @@
     $estatus = (!empty($GPC['estatus'])) ? $GPC['estatus'] : '';
     $fliqD = (!empty($GPC['fecha_liqD'])) ? $general->fecha_normal_sql($GPC['fecha_liqD'], 'es') : '';
     $fliqH = (!empty($GPC['fecha_liqH'])) ? $general->fecha_normal_sql($GPC['fecha_liqH'], 'es') : '';
-    $frecD = (!empty($GPC['fecha_recD'])) ? $general->fecha_normal_sql($GPC['fecha_recD'], 'es') : '';
-    $frecH = (!empty($GPC['fecha_recH'])) ? $general->fecha_normal_sql($GPC['fecha_recH'], 'es') : '';
+
+    $frecD = (!empty($GPC['fecha_recD'])) ? $GPC['fecha_recD'] : date("d-m-Y", time() - 86400);
+    $frecH = (!empty($GPC['fecha_recH'])) ? $GPC['fecha_recH'] : date("d-m-Y");
     
     $porPagina = MAX_RESULTS_PAG;
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
@@ -305,9 +306,13 @@
 
     $tLabC = array_sum_key($listadoRecepciones, '1', 'estatus_rec');
     $tCuarentenaC = array_sum_key($listadoRecepciones,'2', 'estatus_rec');
+    $tCuarentenaC += array_sum_key($listadoRecepciones,'10', 'estatus_rec');
+    $tCuarentenaC += array_sum_key($listadoRecepciones,'11', 'estatus_rec');
     $tRomanaL = array_sum_key($listadoRecepciones,'3', 'estatus_rec');
     $tLabP = array_sum_key($listadoRecepciones,'4', 'estatus_rec');
     $tCuarentenaP = array_sum_key($listadoRecepciones,'5', 'estatus_rec');
+    $tCuarentenaP += array_sum_key($listadoRecepciones,'12', 'estatus_rec');
+    $tCuarentenaP += array_sum_key($listadoRecepciones,'13', 'estatus_rec');
     $tRomanaV = array_sum_key($listadoRecepciones,'6', 'estatus_rec');
     $tRechazo = array_sum_key($listadoRecepciones,'7', 'estatus_rec');
     $tRechazo += array_sum_key($listadoRecepciones,'8', 'estatus_rec');
@@ -487,28 +492,28 @@
                 <tr>
                     <td width="1">Fecha Recepci&oacute;n Desde</td>
                     <td>
-                        <? echo $html->input('fecha_recD', $general->date_sql_screen($frecD, '', 'es', '-'), array('type' => 'text', 'class' => 'inputLogin', 'readOnly' => true)); ?>
+                        <? echo $html->input('fecha_recD', $frecD, array('type' => 'text', 'class' => 'inputLogin', 'readOnly' => true)); ?>
                         <img src="../images/calendario.png" id="frecD" width="16" height="16" style="cursor:pointer" />
                         <script>
                             Calendar.setup({
                                 trigger    : "frecD",
                                 inputField : "fecha_recD",
                                 dateFormat: "%d-%m-%Y",
-                                selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($GPC['fecha_recD']));?>),
+                                selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($frecD));?>),
                                 onSelect   : function() { this.hide() }
                             });
                         </script>
                     </td>
                     <td width="1">Fecha Recepci&oacute;n Hasta</td>
                     <td width="240">
-                        <? echo $html->input('fecha_recH', $general->date_sql_screen($frecH, '', 'es', '-'), array('type' => 'text', 'class' => 'inputLogin', 'readOnly' => true)); ?>
+                        <? echo $html->input('fecha_recH', $frecH, array('type' => 'text', 'class' => 'inputLogin', 'readOnly' => true)); ?>
                         <img src="../images/calendario.png" id="frecH" width="16" height="16" style="cursor:pointer" />
                         <script>
                             Calendar.setup({
                                 trigger    : "frecH",
                                 inputField : "fecha_recH",
                                 dateFormat: "%d-%m-%Y",
-                                selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($GPC['fecha_recH']));?>),
+                                selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($frecH));?>),
                                 onSelect   : function() { this.hide() }
                             });
                         </script>
@@ -531,14 +536,14 @@
                     </td>
                     <td>Fecha Liquidaci&oacute;n Hasta</td>
                     <td width="240">
-                        <? echo $html->input('fecha_liqD', $general->date_sql_screen($fliqD, '', 'es', '-'), array('type' => 'text', 'class' => 'inputLogin', 'readOnly' => true)); ?>
-                        <img src="../images/calendario.png" id="fliqD" width="16" height="16" style="cursor:pointer" />
+                        <? echo $html->input('fecha_liqH', $general->date_sql_screen($fliqH, '', 'es', '-'), array('type' => 'text', 'class' => 'inputLogin', 'readOnly' => true)); ?>
+                        <img src="../images/calendario.png" id="fliqH" width="16" height="16" style="cursor:pointer" />
                         <script>
                             Calendar.setup({
-                                trigger    : "fliqD",
-                                inputField : "fecha_liqD",
+                                trigger    : "fliqH",
+                                inputField : "fecha_liqH",
                                 dateFormat: "%d-%m-%Y",
-                                selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($GPC['fecha_liqD']));?>),
+                                selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($GPC['fecha_liqH']));?>),
                                 onSelect   : function() { this.hide() }
                             });
                         </script>
