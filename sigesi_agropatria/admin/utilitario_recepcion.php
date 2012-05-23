@@ -102,7 +102,7 @@
         });
         
         $('#Recepcion\\[fecha_recepcion\\]').live('change', function() {
-            $('#fecha_msg').load('../ajax/detalle_utilitario.php?ac=recepcion&fecha='+$('#Recepcion\\[fecha_recepcion\\]').val()+"&numero="+$('#Recepcion\\[numero\\]').val()+"&tipo=f");
+            $('#fecha_msg').load('../ajax/detalle_utilitario.php?ac=recepcion&numero='+$('#Recepcion\\[numero\\]').val()+"&fecha="+$('#Recepcion\\[fecha_recepcion\\]').val()+"&tipo=f&co="+$('#Recepcion\\[id_cosecha\\]').val()+"&ca=<?=$idCA?>"+"&id=<?=$GPC['id']?>");
         });
         
         $('#Recepcion_placa').live('change', function() {
@@ -161,28 +161,24 @@
     </fieldset>-->
     <fieldset>
         <legend>Datos de la Recepcion</legend>
-    <table align="center" border="0">
+    <table align="center" border="1">
         <tr>
             <td>Cosecha</td>
-            <td id='cultivo_nombre' width="230px">                
+            <td colspan="2" id='cultivo_nombre' width="230px">                
             <? echo $html->select('Recepcion.id_cosecha', array('options' => $listaCo, 'selected' => $infoMov[0]['id_cosecha'],  'default'=>'Seleccione', 'class' => 'estilo_campos')); ?>
-            </td>
-            <td width="130px">
             </td>
         </tr>
         <tr>
             <td>Productor</td>
-            <td id="productor_nombre">
+            <td colspan="2" id="productor_nombre">
             <? echo $html->select('Recepcion.ced_productor', array('options' => $listaP, 'selected' => $infoMov[0]['ced_productor'],  'default'=>'Seleccione', 'class'=>'estilo_campos')); ?>
             </td>
-            <td width="130px"></td>
         </tr>
         <tr>
             <td>Asociacion</td>
-            <td id="asociacion_nombre" width="130px">
+            <td colspan="2" id="asociacion_nombre" width="130px">
                 <?echo $html->select('Recepcion.ced_asociacion', array('options' => $listaAon, 'selected' => $infoMov[0]['ced_asociacion'],  'default'=>'Seleccione', 'class'=>'estilo_campos')); ?>
             </td>
-            <td ></td>
         </tr>
         <tr>
             <td>Asociado</td>
@@ -194,15 +190,12 @@
         </tr>
         <tr>
             <td>Nro Entrada</td>
-            <td>
-            <? 
-                echo $html->input('Recepcion.numero', $infoMov[0]['numero'], array('type' => 'text', 'class' => 'crproductor positive'));
-            ?>
-            </td>
+            <td><? echo $html->input('Recepcion.numero', $infoMov[0]['numero'], array('type' => 'text', 'class' => 'crproductor positive')); ?></td>
+            <td id='numero_msg'></td>
         </tr>
         <tr>
             <td>Fecha de Recepcion</td>
-            <td><? echo $html->input('Recepcion.fecha_recepcion', $general->date_sql_screen($infoMov[0]['fecha_recepcion'], '', 'es', '-'), array('type' => 'text', 'class' => 'crproductor')); ?>
+            <td><? echo $html->input('Recepcion.fecha_recepcion', $general->date_sql_screen($infoMov[0]['fecha_recepcion'], '', 'es', '-'), array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?>
                 <img src="../images/calendario.png" id="femision" width="16" height="16" style="cursor:pointer" />
                 <script>
                     Calendar.setup({
@@ -210,15 +203,12 @@
                         inputField : "Recepcion[fecha_recepcion]",
                         dateFormat: "%d-%m-%Y",
                         selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($infoMov[0]['fecha_recepcion']));?>),
-                        onSelect   : function() { this.hide() }
+                        onSelect   : function() { $('#Recepcion\\[fecha_recepcion\\]').change();this.hide() }
                     });
                 </script>
             </td>
-            <td width="130px">
-                <div id="fecha_msg">                  
-                </div>
-            </td>
-        </tr>        
+            <td id="fecha_msg"></td>
+        </tr>
         <tr>
             <td>Peso lleno 1</td>
             <td><? echo $html->input('Recepcion.peso_01l', $infoMov[0]['peso_01l'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
@@ -256,7 +246,7 @@
     </fieldset>
     <table align="center" border="1">
         <tr>
-            <td id='numero_msg'>&nbsp;</td>
+            <td>&nbsp;</td>
         </tr>
         <tr align="center">            
             <td colspan="3">

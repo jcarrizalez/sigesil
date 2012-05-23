@@ -56,17 +56,48 @@
         break;
         case 'recepcion':
             if (!empty($GPC['numero']) && !empty($GPC['fecha']) && !empty($GPC['tipo']) && !empty($GPC['ca'])  && !empty($GPC['co']) && !empty($GPC['id'])) {
-                //$infoMov=$movimiento->listadoRecepcion(null, $GPC['ca'], $GPC['co'], null, $GPC['numero'], null, null, null, null, null, $idPro, null, null, null, null, null, null, $general->fecha_normal_sql($GPC['fecha']));
-                $infoMov=$movimiento->listadoRecepcion(null, $GPC['ca'], null, null, $GPC['numero'], null, null, null, null, null, null, null, null, null, null, null, null, date("Y-m-d", strtotime($GPC['fecha'])));
-                //debug::pr($infoMov, true);
-                if (!empty($infoMov)) {
-                    if ($GPC['tipo']=='n') {
-                        echo $html->input('msg', "0", array('type' => 'text', 'style' => 'display: block'));//Entrada Ocupada
+                $infoMov=$movimiento->listadoRecepcion(null, null, null, null, $GPC['numero'], null, null, null, null, null, null, null, null, null, null, null, null, null, date("Y-m-d", strtotime($GPC['fecha'])));
+                if ($GPC['tipo']=='n') {
+                    if (!empty($infoMov[0]['id'])) {
+                            if ($infoMov[0]['id']==$GPC['id']) {
+                                echo "<span id='msg1' style='display: none'>0</span>";  
+                                echo "<script>";
+                                echo "alert('NUMERO DE ENTRADA DISPONIBLE')";
+                                echo "</script>";
+
+                            } else {
+                                echo "<span id='msg1' style='display: none'>1</span>";  
+                                echo "<script>";
+                                echo "alert('NUMERO DE ENTRADA OCUPADO')";
+                                echo "</script>";
+                            }
+                    } else {
+                        echo "<script>";
+                        echo "alert('NUMERO DE ENTRADA DISPONIBLE')";
+                        echo "</script>";
+                        echo "<span id='msg1' style='display: none'>0</span>";                    
                     }
-                } else {
-                    echo $html->input('msg', "1", array('type' => 'text', 'style' => 'display: block'));//Entrada Disponible
-                }
-                
+                } elseif ($GPC['tipo']=='f') {
+                    if (!empty($infoMov[0]['id'])) {
+                            if ($infoMov[0]['id']==$GPC['id']) {
+                                echo "<span id='msg1' style='display: block'>0</span>";  
+                                echo "<script>";
+                                echo "alert('FECHA DE ENTRADA DISPONIBLE')";
+                                echo "</script>";
+
+                            } else {
+                                echo "<span id='msg1' style='display: block'>1</span>";  
+                                echo "<script>";
+                                echo "alert('FECHA DE ENTRADA OCUPADO')";
+                                echo "</script>";
+                            }
+                    } else {
+                        echo "<script>";
+                        echo "alert('FECHA DE ENTRADA DISPONIBLE')";
+                        echo "</script>";
+                        echo "<span id='msg1' style='display: block'>0</span>";                    
+                    }
+                } 
             }
         break;
         case 'guia':            
