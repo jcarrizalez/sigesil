@@ -4,7 +4,6 @@
     $recepcion = new Recepcion();
     
     $detalleRecepcion = $recepcion->listadoRecepcion($GPC['id']);
-    //Debug::pr($detalleRecepcion);
     $pesoLleno = round($detalleRecepcion[0]['peso_01l'] + $detalleRecepcion[0]['peso_02l']);
     $pesoVacio = round($detalleRecepcion[0]['peso_01v'] + $detalleRecepcion[0]['peso_02v']);
     $pesoAcondicionado = (!empty($detalleRecepcion[0]['peso_acon'])) ? round($detalleRecepcion[0]['peso_acon']) : 0;

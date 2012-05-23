@@ -158,7 +158,6 @@
 
         $fila = 7;
         
-        $orden = ($_SESSION['s_perfil_id'] == GERENTEG) ? ' ORDER BY r.id_centro_acopio, r.creado, numero' : ' ORDER BY r.creado, numero';
         $listadoRecepciones = $recepcion->listadoRecepcion(null, $idCA, $idCo, null, $entrada, $estatus, null, null, null, null, null, $orden, $contrato, $productor, null, $placa, $fliqD, $fliqh, $frecD, $frecH, null, $guia);
         $totalRegistros = count($listadoRecepciones);
         if(!empty($listadoRecepciones)){
@@ -276,7 +275,6 @@
 
         $writer = PHPExcel_IOFactory::createWriter($workbook, $writer_name);
         $writer->save($filename_server);
-        //system('chmod 777 '.APPROOT.'temp_files/*');
         $descarga = new Descarga(APPROOT.'temp_files/'.$filename_server, $filename_client, $_SERVER['PHP_SELF']);
         //Quitar el true para que no elimine los archivos temporales
         $resultado = $descarga->download_file(true);
@@ -579,7 +577,7 @@
             </th>
         </tr>
         <tr align="center" class="titulos_tabla">
-            <th width="100">Entrada Nro</th>
+            <th width="1">Entrada Nro</th>
             <th width="1">Cedula/Rif</th>
             <th>Productor</th>
             <th width="1">Guia</th>
@@ -592,10 +590,10 @@
             <th style="display: none;">Peso Vac&iacute;o R</th>
             <th style="display: none;">Peso Bruto</th>
             <th style="display: none;">Tara del Veh&iacute;culo</th>
-            <th style="display: none;">Humedad %</th>
-            <th style="display: none;">Humedad Desc</th>
-            <th style="display: none;">Impureza %</th>
-            <th style="display: none;">Impureza Desc</th>
+            <th style="display: none;">% Humd</th>
+            <th style="display: none;">Desc Hum</th>
+            <th style="display: none;">% Imp</th>
+            <th style="display: none;">Desc Imp</th>
             <th style="display: none;">Peso Acon.</th>
             <th style="display: none;">Peso Acon. Liq.</th>
             <th width="1">Accion</th>

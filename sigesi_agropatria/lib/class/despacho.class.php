@@ -50,7 +50,19 @@ class Despacho extends Model {
         $query .= (!empty($idCu)) ? " AND d.id_cultivo = '$idCu'" : '';
         $query .= (!empty($idSilo)) ? " AND d.id_silo = '$idSilo'" : '';
         $query .= (!empty($salidaNum)) ? " AND d.numero = '$salidaNum'" : '';
+        $query .= (!empty($cliente)) ? " AND cl.nombre ILIKE '%$cliente%'" : '';
+        $query .= (!empty($placa)) ? " AND v.placa ILIKE '%$placa%'" : '';
         $query .= (!empty($estatus)) ? " AND d.estatus IN ($estatus)" : '';
+        if(!empty($fliqD) || !empty($fliqH)){
+            $fliqD = (!empty($fliqD)) ? "'".$fliqD." 00:00:00'" : 'now()::date';
+            $fliqH = (!empty($fliqH)) ? "'".$fliqH." 23:59:59'" : 'now()::date';
+            $query .= " AND d.fecha_pel::date BETWEEN $fliqD AND $fliqH";
+        }
+        if(!empty($fdesD) || !empty($fdesH)){
+            $fdesD = (!empty($fdesD)) ? "'".$fdesD." 00:00:00'" : 'now()::date';
+            $fdesH = (!empty($fdesH)) ? "'".$fdesH." 23:59:59'" : 'now()::date';
+            $query .= " AND d.fecha_des::date BETWEEN $fdesD AND $fdesH";
+        }
         if(!empty($fdesde) || !empty($fhasta)){
             $fdesde = (!empty($fdesde)) ? "'$fdesde'" : 'now()::date';
             $fhasta = (!empty($fhasta)) ? "'$fhasta'" : 'now()::date';

@@ -8,14 +8,15 @@ BaseHTTPRequestHandler, HTTPServer
 class Capturar(BaseHTTPRequestHandler):
     def do_GET(self):
         try:
-            f = open('/dev/ttyS0','r')
+	    #f = open('/dev/ttyS0','r')
             self.send_response(200)
             self.send_header('Content-type', 'text/html')
             self.end_headers()
-            dato=f.read(15)
-            dato=dato.split()[1]
-            self.wfile.write(dato)
-            f.close()
+            #dato=f.read(15)
+            #dato=dato.split()[1]
+            #self.wfile.write(dato)
+            #f.close()
+	    self.wfile.write(random.randint(10000, 40000)) #Genera numeros aleatorios para hacer pruebas
         except IOError:
             self.send_error(404, 'File Not Found: %s' % self.path)
 try:

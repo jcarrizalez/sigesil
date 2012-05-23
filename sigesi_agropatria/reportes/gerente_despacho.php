@@ -32,13 +32,14 @@
     $estatus = (!empty($GPC['estatus'])) ? $GPC['estatus'] : '';
     $fliqD = (!empty($GPC['fecha_liqD'])) ? $general->fecha_normal_sql($GPC['fecha_liqD'], 'es') : '';
     $fliqH = (!empty($GPC['fecha_liqH'])) ? $general->fecha_normal_sql($GPC['fecha_liqH'], 'es') : '';
+    
     $fdesD = (!empty($GPC['fecha_desD'])) ? $GPC['fecha_desD'] : date("d-m-Y", time() - 86400);
     $fdesH = (!empty($GPC['fecha_desH'])) ? $GPC['fecha_desH'] : date("d-m-Y");
     
     $porPagina = MAX_RESULTS_PAG;
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
     
-    $order = ($_SESSION['s_perfil_id'] == GERENTEG) ? ' ORDER BY r.id_centro_acopio, r.creado, numero' : ' ORDER BY r.creado, numero';
+    $order = ($_SESSION['s_perfil_id'] == GERENTEG) ? ' ORDER BY d.id_centro_acopio, d.creado, d.numero' : ' ORDER BY d.creado, d.numero';
     $listadoDespachos = $despacho->listadoDespacho(null, $idCA, $cultivo, null, $salida, $estatus, null, null, $porPagina, $inicio, $orden, $order, $cliente, $placa, $fliqD, $fliqH, $fdesD, $fdesH);
     $total_registros = $despacho->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);
@@ -151,8 +152,7 @@
 
         $fila = 7;
         
-        $order = ($_SESSION['s_perfil_id'] == GERENTEG) ? ' ORDER BY r.id_centro_acopio, r.creado, numero' : ' ORDER BY r.creado, numero';
-        $listadoDespachos = $despacho->listadoRecepcion(null, $idCA, $idCo, null, $entrada, $estatus, null, null, null, null, null, $order, $contrato, $productor, null, $placa, $fliqD, $fliqh, $frecD, $frecH, null, $guia);
+        $listadoDespachos = $despacho->listadoDespacho(null, $idCA, $cultivo, null, $salida, $estatus, null, null, $porPagina, $inicio, $orden, $order, $cliente, $placa, $fliqD, $fliqH, $fdesD, $fdesH);
         $totalRegistros = count($listadoDespachos);
         if(!empty($listadoDespachos)){
             $registro = 1;
@@ -268,7 +268,6 @@
 
         $writer = PHPExcel_IOFactory::createWriter($workbook, $writer_name);
         $writer->save($filename_server);
-        //system('chmod 777 '.APPROOT.'temp_files/*');
         $descarga = new Descarga(APPROOT.'temp_files/'.$filename_server, $filename_client, $_SERVER['PHP_SELF']);
         //Quitar el true para que no elimine los archivos temporales
         $resultado = $descarga->download_file(true);
@@ -296,14 +295,11 @@
         return $ret;
     }
 
-    $tLabC = array_sum_key($listadoDespachos, '1', 'estatus_rec');
-    $tCuarentenaC = array_sum_key($listadoDespachos,'2', 'estatus_rec');
-    $tRomanaL = array_sum_key($listadoDespachos,'3', 'estatus_rec');
-    $tLabP = array_sum_key($listadoDespachos,'4', 'estatus_rec');
-    $tCuarentenaP = array_sum_key($listadoDespachos,'5', 'estatus_rec');
-    $tRomanaV = array_sum_key($listadoDespachos,'6', 'estatus_rec');
-    $tRechazo = array_sum_key($listadoDespachos,'7', 'estatus_rec');
-    $tLiquidado = array_sum_key($listadoDespachos,'9', 'estatus_rec');
+    $tRomanaV = array_sum_key($listadoDespachos,'1', 'estatus');
+    $tLabC = array_sum_key($listadoDespachos, '2', 'estatus');
+    $tRomanaL = array_sum_key($listadoDespachos,'3', 'estatus');
+    $tRechazo = array_sum_key($listadoDespachos,'4', 'estatus');
+    $tLiquidado = array_sum_key($listadoDespachos,'5', 'estatus');
     
     require('../lib/common/header.php');
     require('../lib/common/init_calendar.php');
@@ -328,7 +324,7 @@
         $('#anterior').click(function(){
             $('#siguiente').attr('disabled', false);
             var siguiente = $('#campos').val();
-            if(siguiente > 8){
+            if(siguiente > 6){
                 $('td:nth-child('+siguiente+'),th:nth-child('+siguiente+')').hide();
                 siguiente++;
                 $('td:nth-child('+siguiente+'),th:nth-child('+siguiente+')').hide();
@@ -338,13 +334,13 @@
                 siguiente++;
                 $('td:nth-child('+siguiente+'),th:nth-child('+siguiente+')').show();
             }
-            if(siguiente == 9) $('#anterior').attr('disabled', true);
+            if(siguiente == 7) $('#anterior').attr('disabled', true);
         });
         
         $('#siguiente').click(function(){
             $('#anterior').attr('disabled', false);
             var siguiente = $('#campos').val();
-            if(siguiente < 18){
+            if(siguiente < 22){
                 $('td:nth-child('+siguiente+'),th:nth-child('+siguiente+')').hide();
                 siguiente++;
                 $('td:nth-child('+siguiente+'),th:nth-child('+siguiente+')').hide();
@@ -354,7 +350,7 @@
                 siguiente++;
                 $('td:nth-child('+siguiente+'),th:nth-child('+siguiente+')').show();
             }
-            if(siguiente == 19) $('#siguiente').attr('disabled', true);
+            if(siguiente == 23) $('#siguiente').attr('disabled', true);
         });
         
         // Funcion que abre los Dialogos
@@ -388,14 +384,14 @@
                     <? echo $html->link('<img src="../images/peso1.png" width="16" height="16">'); ?>
                     Romana Vac&iacute;o
                 </th>
-                <td align="center"><?=$tLabC?></td>
+                <td align="center"><?=$tRomanaV?></td>
             </tr>
             <tr>
                 <th style="vertical-align: middle !important">
                     <? echo $html->link('<img src="../images/reloj.png" width="16" height="16">'); ?>
                     Lab. Central
                 </th>
-                <td align="center"><?=$tCuarentenaC?></td>
+                <td align="center"><?=$tLabC?></td>
             </tr>
             <tr>
                 <th style="vertical-align: middle !important">
@@ -409,20 +405,20 @@
                     <? echo $html->link('<img src="../images/deshabilitar.png" width="16" height="16">'); ?>
                     Rechazado
                 </th>
-                <td align="center"><?=$tLabP?></td>
+                <td align="center"><?=$tRechazo?></td>
             </tr>
             <tr>
                 <th style="vertical-align: middle !important">
                     <? echo $html->link('<img src="../images/habilitar.png" width="16" height="16">'); ?>
                     Despachado
                 </th>
-                <td align="center"><?=$tCuarentenaP?></td>
+                <td align="center"><?=$tLiquidado?></td>
             </tr>
         </table>
     </div>
     <div id="filtro">
         <form name="form1" id="form1" method="GET" action="#">
-            <? echo $html->input('campos', '8', array('type' => 'hidden')); ?>
+            <? echo $html->input('campos', '6', array('type' => 'hidden')); ?>
             <table width="100%" border="0">
                 <tr>
                     <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
@@ -451,7 +447,7 @@
                 <tr>
                     <td width="1">Fecha Despacho Desde</td>
                     <td>
-                        <? echo $html->input('fecha_desD', $frecD, array('type' => 'text', 'class' => 'inputLogin', 'readOnly' => true)); ?>
+                        <? echo $html->input('fecha_desD', $fdesD, array('type' => 'text', 'class' => 'inputLogin', 'readOnly' => true)); ?>
                         <img src="../images/calendario.png" id="fdesD" width="16" height="16" style="cursor:pointer" />
                         <script>
                             Calendar.setup({
@@ -531,32 +527,37 @@
     </div>
     <table align="center" width="100%" border="0">
         <tr>
-            <th colspan="7"></th>
+            <th colspan="5"></th>
             <th align="center" colspan="2">
                 <? echo $html->input('anterior', '<', array('type' => 'button')); ?>
                 <? echo $html->input('siguiente', '>', array('type' => 'button')); ?>
             </th>
         </tr>
         <tr align="center" class="titulos_tabla">
-            <th width="100">Entrada Nro</th>
-            <th width="1">Cedula/Rif</th>
-            <th>Productor</th>
-            <th width="1">Guia</th>
-            <th width="1">Cosecha</th>
-            <th width="1">Cultivo</th>
+            <th width="1">Salida Nro</th>
+            <!--th width="1">Cedula/Rif</th-->
+            <th>Cliente</th>
+            <th width="1">Orden</th>
+            <th>Cultivo</th>
             <th width="60">Estatus</th>
-            <th>Peso Lleno M</th>
-            <th>Peso Lleno R</th>
-            <th style="display: none;">Peso Vac&iacute;o M</th>
-            <th style="display: none;">Peso Vac&iacute;o R</th>
+            <th>Peso Vac&iacute;o M</th>
+            <th>Peso Vac&iacute;o R</th>
+            <th style="display: none;">Peso Lleno M</th>
+            <th style="display: none;">Peso Lleno R</th>
             <th style="display: none;">Peso Bruto</th>
             <th style="display: none;">Tara del Veh&iacute;culo</th>
-            <th style="display: none;">Humedad %</th>
-            <th style="display: none;">Humedad Desc</th>
-            <th style="display: none;">Impureza %</th>
-            <th style="display: none;">Impureza Desc</th>
-            <th style="display: none;">Peso Acon.</th>
-            <th style="display: none;">Peso Acon. Liq.</th>
+            <th style="display: none;">% Hum M</th>
+            <th style="display: none;">% Hum R</th>
+            <th style="display: none;">Desc Hum M</th>
+            <th style="display: none;">Desc Hum R</th>
+            <th style="display: none;">% Imp M</th>
+            <th style="display: none;">% Imp R</th>
+            <th style="display: none;">Desc Imp M</th>
+            <th style="display: none;">Desc Imp R</th>
+            <th style="display: none;">Peso Acon. M</th>
+            <th style="display: none;">Peso Acon. R</th>
+            <th style="display: none;">Peso Acon. Liq. M</th>
+            <th style="display: none;">Peso Acon. Liq. R</th>
             <th width="1">Accion</th>
         </tr>
         <?
@@ -580,107 +581,108 @@
                 $clase = $general->obtenerClaseFila($i);
                 $numero = ($dataDespacho['numero'] < 10) ? '0'.$dataDespacho['numero'] : $dataDespacho['numero'];
                 $numSalida = "D".$numero.$general->date_sql_screen($dataDespacho['fecha_des'], '', 'es', null);
-                $pesoBruto = $dataDespacho['peso_01l'] + $dataDespacho['peso_02l'];
-                $pesoTara = $dataDespacho['peso_01v'] + $dataDespacho['peso_02v'];
-                
-                $totalPesoLM += $dataDespacho['peso_01l'];
-                $totalPesoLR += $dataDespacho['peso_02l'];
                 $totalPesoVM += $dataDespacho['peso_01v'];
                 $totalPesoVR += $dataDespacho['peso_02v'];
+                $totalPesoLM += $dataDespacho['peso_01l'];
+                $totalPesoLR += $dataDespacho['peso_02l'];
+                $pesoBruto = $dataDespacho['peso_01l'] + $dataDespacho['peso_02l'];
+                $pesoTara = $dataDespacho['peso_01v'] + $dataDespacho['peso_02v'];
                 $totalPesoBruto += $pesoBruto;
                 $totalPesoTara += $pesoTara;
                 $totalH += $dataDespacho['humedad'];
+                $totalH2 += $dataDespacho['humedad2'];
                 $totalHD += $dataDespacho['humedad_des'];
+                $totalHD2 += $dataDespacho['humedad_des2'];
                 $totalI += $dataDespacho['impureza'];
+                $totalI2 += $dataDespacho['impureza2'];
                 $totalID += $dataDespacho['impureza_des'];
+                $totalID2 += $dataDespacho['impureza_des2'];
                 $totalPesoAcon += $dataDespacho['peso_acon'];
+                $totalPesoAcon2 += $dataDespacho['peso_acon2'];
                 $totalPesoAconL += $dataDespacho['peso_acon_liq'];
+                $totalPesoAconL2 += $dataDespacho['peso_acon_liq2'];
         ?>
         <tr class="<?=$clase?>">
             <td align="center"><?=$numSalida?></td>
-            <td align="center"><?=$dataDespacho['ced_productor']?></td>
-            <td align="center"><?=$dataDespacho['productor_nombre']?></td>
+            <!--td align="center"><?=$dataDespacho['ced_cliente']?></td-->
+            <td align="center"><?=$dataDespacho['cliente_nombre']?></td>
             <td align="center"><?=$dataDespacho['numero_guia']?></td>
-            <td align="center"><?=$dataDespacho['cosecha_codigo']?></td>
-            <td align="center"><?=$dataDespacho['cultivo_codigo']?></td>
+            <td align="center"><?="(".$dataDespacho['cultivo_codigo'].") ".$dataDespacho['cultivo_nombre']?></td>
             <td align="center">
                 <?
                     switch($dataDespacho['estatus_rec']){
                         case 1:
-                            echo $html->link('<img src="../images/reloj.png" width="16" height="16">').' Central';
+                            echo $html->link('<img src="../images/peso1.png" width="16" height="16">').' Vac&iacute;o';
                         break;
                         case 2:
-                        case 10:
-                        case 11:
-                            echo $html->link('<img src="../images/cuarentena.png" width="16" height="16">').' Central';
+                            echo $html->link('<img src="../images/reloj.png" width="16" height="16">').' Central';
                         break;
                         case 3:
                             echo $html->link('<img src="../images/peso1.png" width="16" height="16">').' Lleno';
                         break;
                         case 4:
-                            echo $html->link('<img src="../images/reloj.png" width="16" height="16">').' Planta';
-                        break;
-                        case 5:
-                        case 12:
-                        case 13:
-                            echo $html->link('<img src="../images/cuarentena.png" width="16" height="16">').' Planta';
-                        break;
-                        case 6:
-                            echo $html->link('<img src="../images/peso1.png" width="16" height="16">').' Vac&iacute;o';
-                        break;
-                        case 7:
-                            echo $html->link('<img src="../images/deshabilitar.png" width="16" height="16">').' Central';
-                        break;
-                        case 8:
-                        case 14:
                             echo $html->link('<img src="../images/deshabilitar.png" width="16" height="16">');
                         break;
-                        case 9:
+                        case 5:
                             echo $html->link('<img src="../images/habilitar.png" width="16" height="16">');
                         break;
                     }
                     
                     $humedad = (!empty($dataDespacho['humedad'])) ? $dataDespacho['humedad'] : 0;
+                    $humedad2 = (!empty($dataDespacho['humedad2'])) ? $dataDespacho['humedad2'] : 0;
                     $impureza = (!empty($dataDespacho['impureza'])) ? $dataDespacho['impureza'] : 0;
+                    $impureza2 = (!empty($dataDespacho['impureza2'])) ? $dataDespacho['impureza2'] : 0;
                 ?>
             </td>
-            <td align="right"><?=$general->formato_numero(round($dataDespacho['peso_01l']), 3)?></td>
-            <td align="right"><?=$general->formato_numero(round($dataDespacho['peso_02l']), 3)?></td>
-            <td align="right" style="display: none"><?=$general->formato_numero(round($dataDespacho['peso_01v']), 3)?></td>
-            <td align="right" style="display: none"><?=$general->formato_numero(round($dataDespacho['peso_02v']), 3)?></td>
+            
+            <td align="right"><?=$general->formato_numero(round($dataDespacho['peso_01v']), 3)?></td>
+            <td align="right"><?=$general->formato_numero(round($dataDespacho['peso_02v']), 3)?></td>
+            <td align="right" style="display: none"><?=$general->formato_numero(round($dataDespacho['peso_01l']), 3)?></td>
+            <td align="right" style="display: none"><?=$general->formato_numero(round($dataDespacho['peso_02l']), 3)?></td>
             <td align="right" style="display: none"><?=$general->formato_numero(round($pesoBruto), 3)?></td>
             <td align="right" style="display: none"><?=$general->formato_numero(round($pesoTara), 3)?></td>
             <td align="right" style="display: none"><?=$humedad?></td>
+            <td align="right" style="display: none"><?=$humedad2?></td>
             <td align="right" style="display: none"><?=$general->formato_numero(round($dataDespacho['humedad_des']), 3)?></td>
+            <td align="right" style="display: none"><?=$general->formato_numero(round($dataDespacho['humedad_des2']), 3)?></td>
             <td align="right" style="display: none"><?=$impureza?></td>
+            <td align="right" style="display: none"><?=$impureza2?></td>
             <td align="right" style="display: none"><?=$general->formato_numero(round($dataDespacho['impureza_des']), 3)?></td>
+            <td align="right" style="display: none"><?=$general->formato_numero(round($dataDespacho['impureza_des2']), 3)?></td>
             <td align="right" style="display: none"><?=$general->formato_numero(round($dataDespacho['peso_acon']), 3)?></td>
+            <td align="right" style="display: none"><?=$general->formato_numero(round($dataDespacho['peso_acon2']), 3)?></td>
             <td align="right" style="display: none"><?=$general->formato_numero(round($dataDespacho['peso_acon_liq']), 3)?></td>
+            <td align="right" style="display: none"><?=$general->formato_numero(round($dataDespacho['peso_acon_liq2']), 3)?></td>
             <td align="center">
-                <img src="../images/buscar.png" width="16" height="16" title="Detalle" border="0" style="cursor:pointer" onclick="openWindow('gerente_recepcion_detalle.php?id=<?php echo $dataDespacho['id'] ?>','','1200','500','visible');return false;">
+                <img src="../images/buscar.png" width="16" height="16" title="Detalle" border="0" style="cursor:pointer" onclick="openWindow('gerente_despacho_detalle.php?id=<?php echo $dataDespacho['id'] ?>','','1200','500','visible');return false;">
             </td>
         </tr>
         <? $i++; } ?>
         <tr align="right">
             <th></th>
-            <th></th>
-            <th></th>
+            <!--th></th-->
             <th></th>
             <th></th>
             <th></th>
             <th>Total:</th>
-            <th><?=$general->formato_numero(round($totalPesoLM), 3)?></th>
-            <th><?=$general->formato_numero(round($totalPesoLR), 3)?></th>
-            <th style="display: none"><?=$general->formato_numero(round($totalPesoVM), 3)?></th>
-            <th style="display: none"><?=$general->formato_numero(round($totalPesoVR), 3)?></th>
+            <th><?=$general->formato_numero(round($totalPesoVM), 3)?></th>
+            <th><?=$general->formato_numero(round($totalPesoVR), 3)?></th>
+            <th style="display: none"><?=$general->formato_numero(round($totalPesoLM), 3)?></th>
+            <th style="display: none"><?=$general->formato_numero(round($totalPesoLR), 3)?></th>
             <th style="display: none"><?=$general->formato_numero(round($totalPesoBruto), 3)?></th>
             <th style="display: none"><?=$general->formato_numero(round($totalPesoTara), 3)?></th>
             <th style="display: none"><?=$general->formato_numero(round($totalH), 3)?></th>
+            <th style="display: none"><?=$general->formato_numero(round($totalH2), 3)?></th>
             <th style="display: none"><?=$general->formato_numero(round($totalHD), 3)?></th>
+            <th style="display: none"><?=$general->formato_numero(round($totalHD2), 3)?></th>
             <th style="display: none"><?=$general->formato_numero(round($totalI), 3)?></th>
+            <th style="display: none"><?=$general->formato_numero(round($totalI2), 3)?></th>
             <th style="display: none"><?=$general->formato_numero(round($totalID), 3)?></th>
+            <th style="display: none"><?=$general->formato_numero(round($totalID2), 3)?></th>
             <th style="display: none"><?=$general->formato_numero(round($totalPesoAcon), 3)?></th>
+            <th style="display: none"><?=$general->formato_numero(round($totalPesoAcon2), 3)?></th>
             <th style="display: none"><?=$general->formato_numero(round($totalPesoAconL), 3)?></th>
+            <th style="display: none"><?=$general->formato_numero(round($totalPesoAconL2), 3)?></th>
         </tr>
         <tr>
             <td colspan="6">&nbsp;</td>
