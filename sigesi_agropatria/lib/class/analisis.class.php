@@ -55,5 +55,14 @@ class Analisis extends Model {
     $query .= " ORDER BY cast(a.codigo as int)";
     return $this->_SQL_tool($this->SELECT, __METHOD__, $query); 
     }
+    
+    function borrarResultados($idRecepcion=null, $idDespacho=null)
+    {
+        $query = "DELETE si_analisis_resultado WHERE '1'";
+        $query .= (!empty($id)) ? " AND a.id = '$idRecepcion'" : "";
+        $query .= (!empty($id)) ? " AND a.id = '$idDespacho'" : "";
+        return $this->_SQL_tool('DELETE', __METHOD__, $query);
+    }
+    
 }
 ?>

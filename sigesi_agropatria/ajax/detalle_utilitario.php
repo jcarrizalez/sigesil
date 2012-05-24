@@ -60,13 +60,13 @@
                 if ($GPC['tipo']=='n') {
                     if (!empty($infoMov[0]['id'])) {
                             if ($infoMov[0]['id']==$GPC['id']) {
-                                echo "<span id='msg1' style='display: none'>0</span>";  
+                                echo "<span id='msg1' style='display: block'>0</span>";  
                                 echo "<script>";
                                 echo "alert('NUMERO DE ENTRADA DISPONIBLE')";
                                 echo "</script>";
 
                             } else {
-                                echo "<span id='msg1' style='display: none'>1</span>";  
+                                echo "<span id='msg1' style='display: block'>1</span>";  
                                 echo "<script>";
                                 echo "alert('NUMERO DE ENTRADA OCUPADO')";
                                 echo "</script>";
@@ -75,7 +75,7 @@
                         echo "<script>";
                         echo "alert('NUMERO DE ENTRADA DISPONIBLE')";
                         echo "</script>";
-                        echo "<span id='msg1' style='display: none'>0</span>";                    
+                        echo "<span id='msg1' style='display: block'>0</span>";                    
                     }
                 } elseif ($GPC['tipo']=='f') {
                     if (!empty($infoMov[0]['id'])) {

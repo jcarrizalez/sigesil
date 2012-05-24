@@ -7,14 +7,17 @@
     $vehiculo = new Vehiculo();
     $guia= new Guia();
     $carril = new Tolcarom();
+    $analisis = new Analisis();
+    $rectipo = new Recultipo();
     /*$cosecha = new Cosecha();
     $vehiculo = new Vehiculo();
     $cultivo = new Cultivo();
-
      */
     
     $carril = new Tolcarom();
     
+    $esResultado=true;
+    $esTipo=true;
     $idCA=(!empty($_SESSION['s_ca_id'])) ? $_SESSION['s_ca_id']: null;
     
     $listadoE = array('1' => '(1) Lab.Central', '2' => '(2) Ctna Lab.Central', '3' => '(3) Romana Lleno', '4' => '(4) Tolvas', '5' => '(5) Ctna Tolva','6' => '(6) Romana Vacio', '7' => '(7) Rechazo Central', '9' => '(9) Recibido',  '11' => '(11) Ctna Lab. Central - Apro.',  '12' => '(12) Ctna Lab. Central-Rech');
@@ -45,26 +48,86 @@
             }
             break;
         case 'guardar':
-            $movimiento->_begin_tool();
-            $infoProductor = $productor->find(array('ced_rif' => $GPC['Recepcion']['ced_productor']));
-            $GPC['Recepcion']['id_productor']=$infoProductor[0]['id'];            
-            $infoAsociacion = $productor->find(array('ced_rif' => $GPC['Recepcion']['ced_asociacion']));
-            $GPC['Recepcion']['id_asociacion']=$infoAsociacion[0]['id'];
-            $infoAsociado = $productor->find(array('ced_rif' => $GPC['Recepcion']['ced_asociado']));
-            $GPC['Recepcion']['id_asociado']=$infoAsociacion[0]['id'];           
-            $ced_asociado=$GPC['Recepcion']['ced_asociado'];
-            $GPC['Recepcion']['fecha_recepcion']=$general->fecha_normal_sql($GPC['Recepcion']['fecha_recepcion']);            
-            unset($GPC['Recepcion']['ced_productor']);
-            unset($GPC['Recepcion']['ced_asociacion']);
-            unset($GPC['Recepcion']['ced_asociado']);
-            $movimiento->save($GPC['Recepcion']);
-            if (!empty($movimiento->id)) {
-                $movimiento->_commit_tool();
-                header("location: ".DOMAIN_ROOT."admin/utilitario_recepcion_listado.php?msg=exitoso");
+            if (!empty($GPC['Recepcion']['id_cosecha']) && !empty($GPC['Recepcion']['ced_productor']) && !empty($GPC['Recepcion']['fecha_recepcion'])) {
+                $movimiento->_begin_tool();                
+                $infoProductor = $productor->find(array('ced_rif' => $GPC['Recepcion']['ced_productor']));
+                $GPC['Recepcion']['id_productor']=$infoProductor[0]['id'];
+
+                if (!empty($GPC['Recepcion']['ced_asociacion'])) {
+                    $infoAsociacion = $productor->find(array('ced_rif' => $GPC['Recepcion']['ced_asociacion']));
+                    $GPC['Recepcion']['id_asociacion']=$infoAsociacion[0]['id'];                    
+                }
+                
+                if (!empty($GPC['Recepcion']['ced_asociado'])) {
+                    $infoAsociado = $productor->find(array('ced_rif' => $GPC['Recepcion']['ced_asociado']));
+                    $GPC['Recepcion']['id_asociado']=$infoAsociacion[0]['id'];
+                }
+                    
+                //$ced_asociado=$GPC['Recepcion']['ced_asociado'];                
+                $GPC['Recepcion']['fecha_recepcion']=$general->fecha_normal_sql($GPC['Recepcion']['fecha_recepcion']);
+                
+                
+                $infoMovimiento = $movimiento->find(array('id'=>$GPC['Recepcion']['id']));
+                
+                unset($GPC['Recepcion']['ced_productor']);
+                unset($GPC['Recepcion']['ced_asociacion']);
+                unset($GPC['Recepcion']['ced_asociado']);
+                
+                if (!empty($infoMovimiento[0]['id'])) {
+                    if ($infoMovimiento[0]['estatus_rec']!=$GPC['Recepcion']['estatus_rec']) {
+                        switch ($GPC['Recepcion']['estatus_rec']) {
+                            case 14:
+                            case 13:
+                            case 12:
+                            case 11:
+                            case 10:
+                            case 9:
+                            case 8:
+                            case 7:
+                            case 6:
+                            case 5:
+                            case 4:
+                            case 3:
+                            case 1:
+                                $GPC['Recepcion']['muestra']=0;
+                                $GPC['Recepcion']['estatus_rec']=$GPC['Recepcion']['estatus_rec'];
+                                $esResultado=$analisis->borrarResultados($infoMovimiento[0]['id']);
+                                $esTipo=$rectipo->borrar($infoMovimiento[0]['id']);
+                                break;
+                            case 2:
+                                $GPC['Recepcion']['fecha_pel']='0000-00-00';
+                                $GPC['Recepcion']['fecha_pel']='0000-00-00';
+                                $GPC['Recepcion']['peso_01l']=0.001;
+                                $GPC['Recepcion']['tolva']=0.001;
+                                $GPC['Recepcion']['fecha_v']=='0000-00-00';
+                                $GPC['Recepcion']['peso_01v']=0.001;
+                                $GPC['Recepcion']['peso_02v']=0.001;
+                                $GPC['Recepcion']['humedad']=0.001;
+                                $GPC['Recepcion']['impureza']=0.001;
+                                $GPC['Recepcion']['humedad_des']=0.001;
+                                $GPC['Recepcion']['impureza_des']=0.001;
+                                $GPC['Recepcion']['romana_ent']=0.001;
+                                $GPC['Recepcion']['romana_sal']=0.001;
+                                $GPC['Recepcion']['peso_acon']=0.001;
+                                $GPC['Recepcion']['peso_acon_liq']=0.001;
+                                break;
+                        }                        
+                    }
+                }
+                if (!empty($infoMovimiento[0]['id'])) {
+                    if (($esResultado==true) || ($esTipo==true)) {
+                        $movimiento->save($GPC['Recepcion']);
+                        $movimiento->_commit_tool();
+                    }
+                    header("location: ".DOMAIN_ROOT."admin/utilitario_recepcion_listado.php?msg=exitoso");
+                    die();
+                }
+                header("location: ".DOMAIN_ROOT."admin/utilitario_recepcion_listado.php?msg=error");
                 die();
+                $movimiento->_rollback_tool();
             }
             header("location: ".DOMAIN_ROOT."admin/utilitario_recepcion_listado.php?msg=error");
-            $movimiento->_rollback_tool();
+            die();
         default:
             //header("location: ".DOMAIN_ROOT."admin/utilitario_recepcion_listado.php?msg=error");
             debug::pr($GPC['ac']);
@@ -186,7 +249,7 @@
             <? 
                 echo $html->select('Recepcion.ced_asociado', array('options' => $listaAdo, 'selected' => $infoMov[0]['ced_asociado'],  'default'=>'Seleccione', 'class'=>'estilo_campos'));
             ?>
-            <td id="asociado_nombre" width="130px"></td>
+            <td id="asociado_nombre" ></td>
         </tr>
         <tr>
             <td>Nro Entrada</td>

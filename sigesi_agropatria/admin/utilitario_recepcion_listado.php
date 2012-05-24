@@ -10,6 +10,8 @@
     $estatus = (!empty($GPC['estatus'])) ? "'".$GPC['estatus']."'" : null;
     $fdesde = (!empty($GPC['fecha_inicio'])) ? $general->fecha_normal_sql($GPC['fecha_inicio'], 'es') : date('Y-m-d');
     $fhasta = (!empty($GPC['fecha_fin'])) ? $general->fecha_normal_sql($GPC['fecha_fin'], 'es') : date('Y-m-d');
+    $numEntrada=(!empty($GPC['numEntrada'])) ? $GPC['numEntrada']: null;
+   
     //$listadoCultivo = $cultivo->find('', '', array('id, nombre'), 'list', 'codigo');
     
     //$listadoCultivo = $cultivo->find('', '', "id, '('||codigo||') - '||nombre AS nombre", 'list', 'id');
@@ -27,7 +29,7 @@
     }
 //    print_r($listadoCosecha);
     
-    $listadoMov = $movimiento->listadoRecepcion(null, $idCa, $infoCosecha[0]['id'], null, null, $estatus, $fdesde, $fhasta, $porPagina, $inicio);
+    $listadoMov = $movimiento->listadoRecepcion(null, $idCa, $infoCosecha[0]['id'], null,$numEntrada, $estatus, $fdesde, $fhasta, $porPagina, $inicio);
     
     $total_registros = $despacho->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);
@@ -88,19 +90,23 @@
                     <td>
                         <? echo $html->select('cultivo',array('options'=>$listadoCultivo, 'selected' => $GPC['cultivo'], 'default' => 'Seleccione'));?>
                     </td>
+                    <td>Numero</td>
+                    <td><?=$html->input('numEntrada', $numEntrada, array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'class' => 'crproductor positive'));?> </td>
                 </tr>
                 <tr>
                     <td width="60">Estatus</td>
                     <td colspan="2">
                         <?
                             echo $html->select('estatus',array('options'=>$listadoEstatus, 'selected' => $GPC['estatus'], 'default' => 'Seleccione'));
-                            echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
                         ?>
                     </td>
                 </tr>
                 <tr id="botones">
                     <td colspan="4">
-                        <? echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();')); ?>
+                        <? 
+                        echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
+                        echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();')); 
+                        ?>
                     </td>
                 </tr>
             </table>
