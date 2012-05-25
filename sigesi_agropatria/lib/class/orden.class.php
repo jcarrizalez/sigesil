@@ -4,7 +4,6 @@ class Orden extends Model {
     var $table = 'si_ordenes';
     
     function buscarOrden($id = null, $idCA = null, $idCl = null, $idCu = null, $numOrden = null, $porPagina=null, $inicio=null){
-        //$query = "SELECT o.*, ca.nombre AS nombre_ca, ca.codigo, cl.nombre AS nombre_cliente
         $query = "SELECT o.*, ca.nombre AS nombre_ca, ca.codigo, cl.ced_rif AS ced_cliente, cl.nombre AS nombre_cliente
                     FROM si_ordenes o
                     INNER JOIN si_centro_acopio ca ON ca.id = o.id_centro_acopio
@@ -12,8 +11,10 @@ class Orden extends Model {
                     INNER JOIN si_cultivo cu ON cu.id = o.id_cultivo
                     WHERE '1' AND (o.estatus = 't' OR o.estatus = 'N')";
         $query .= (!empty($id)) ? " AND o.id = '$id'" : "";
-        $query .= (!empty($numero)) ? " AND o.numero_orden = '$numero'" : "";
         $query .= (!empty($idCA)) ? " AND o.id_centro_acopio = '$idCA'" : "";
+        $query .= (!empty($idCl)) ? " AND cl.id = '$idCl'" : "";
+        $query .= (!empty($idCu)) ? " AND cu.id = '$idCu'" : "";
+        $query .= (!empty($numero)) ? " AND o.numero_orden = '$numero'" : "";
         $query .= " ORDER BY id DESC";
         $query .= (!empty($porPagina)) ? " LIMIT $porPagina OFFSET $inicio" : "";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);

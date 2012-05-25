@@ -5,7 +5,7 @@
     
     $listaCR = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
     $listaCantM = array(1 => 1, 2, 3, 4);
-    $pesoPartes = array(1 => 'Una Parte', 2 => 'Dos Partes');
+    $pesoPartes = array(1 => 'Una Muestra', 2 => 'Dos Muestras');
     $listaCarriles = array(1 => 1, 2 => 2);
     $idCA = $_SESSION['s_ca_id'];
     
@@ -63,7 +63,7 @@
             
             if(!empty($idGuia) && !empty($idChofer) && !empty($idRecepcion)){
                 $recepcion->_commit_tool();
-                header("location: ".DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_recepcion&redir=recepcion&id_rec=$idRecepcion");
+                header("location: ".DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_recepcion&redir=recepcion&id_rec=$idRecepcion&ca=".$_SESSION['s_ca_id']);
                 die();
             }else{
                 header("location: recepcion.php?msg=error");
@@ -448,7 +448,7 @@ $validator->printScript();
                 <td><? echo $html->select('Recepcion.carril', array('options'=>$listaCarriles, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
-                <td><span class="msj_rojo">* </span>¿C&oacute;mo desea pesar?</td>
+                <td><span class="msj_rojo">* </span>¿Cant. de Muestras a An&aacute;lizar?</td>
                 <td><? echo $html->select('Recepcion.cant_muestras', array('options'=>$pesoPartes, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
             </tr>
         </table>

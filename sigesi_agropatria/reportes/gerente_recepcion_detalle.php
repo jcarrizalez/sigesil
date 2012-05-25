@@ -3,7 +3,7 @@
     
     $recepcion = new Recepcion();
     
-    $detalleRecepcion = $recepcion->listadoRecepcion($GPC['id']);
+    $detalleRecepcion = $recepcion->listadoRecepcion($GPC['id'], $GPC['ca']);
     $pesoLleno = round($detalleRecepcion[0]['peso_01l'] + $detalleRecepcion[0]['peso_02l']);
     $pesoVacio = round($detalleRecepcion[0]['peso_01v'] + $detalleRecepcion[0]['peso_02v']);
     $pesoAcondicionado = (!empty($detalleRecepcion[0]['peso_acon'])) ? round($detalleRecepcion[0]['peso_acon']) : 0;
@@ -34,6 +34,16 @@
                 ventana = window.self;
                 ventana.opener = window.self;
                 ventana.close();
+            }
+            
+            function abrirPopup(){
+                var ancho;
+                var alto;
+                ancho = (screen.width/2)-(850/2);
+                alto = (screen.height/2)-(500/2);
+                url = 'analisis_popup.php?id_rec=<?=$detalleRecepcion[0]['id']?>&ca=<?=$detalleRecepcion[0]['ca_id']?>';
+                titulo = "Resultados de An&aacute;lisis";
+                ventana = window.open(url,titulo,"status=no,toolbar=0,menubar=no,resizable=0,scrollbars=1,width=850,left="+ancho+",height=500,top="+alto);
             }
         </script>
     </head>
@@ -106,6 +116,7 @@
                 <td><?php echo $general->formato_numero(round($detalleRecepcion[0]['peso_acon_liq']), 3) ?></td>
                 <td><?php echo $general->date_sql_screen($detalleRecepcion[0]['fecha_v'], '', 'es', '-') ?></td>
             </tr>
+            <? if($detalleRecepcion[0]['estatus_rec'] > 1){ ?>
             <tr>
                 <td id="titulo_modulo" colspan="20" align="center" style="padding-top: 50px;">REIMPRIMIR</td>
             </tr>
@@ -114,18 +125,22 @@
                     <form name="form1" id="form1" method="POST" action="#" enctype="multipart/form-data">
                     <?
                         echo $html->input('id', $detalleRecepcion[0]['id'], array('type' => 'hidden'));
-                        if($detalleRecepcion[0]['estatus_rec'] <= 9){
+                        
+                        if($detalleRecepcion[0]['estatus_rec'] > 1){
+                            echo $html->input('Ver', 'Ver Resultados', array('type' => 'button', 'onClick' => 'javascript:abrirPopup()'));
                             echo $html->input('ac', 'Resultados', array('type' => 'submit'));
-                            echo $html->input('ac', 'Liquidacion', array('type' => 'submit'));
                         }
-                        if($detalleRecepcion[0]['estatus_rec'] == 7 && $detalleRecepcion[0]['estatus_rec'] == 8){
-                            echo $html->input('ac', 'Resultados', array('type' => 'submit'));
+                        
+                        if(in_array($detalleRecepcion[0]['estatus_rec'], array(7, 8)))
                             echo $html->input('ac', 'Rechazo', array('type' => 'submit'));
-                        }
+                        
+                        if($detalleRecepcion[0]['estatus_rec'] == 9)
+                            echo $html->input('ac', 'Liquidacion', array('type' => 'submit'));
                     ?>
                     </form>
                 </td>
             </tr>
+            <? } ?>
         </table>
     </body>
 </html>

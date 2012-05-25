@@ -93,41 +93,42 @@
             'alignment' => array('horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER));
 
         $activeWorksheet->getColumnDimension('A')->setWidth(20); //Centro de Acopio
-        $activeWorksheet->getColumnDimension('B')->setWidth(20); //Programa
-        $activeWorksheet->getColumnDimension('C')->setWidth(15); //Cosecha
-        $activeWorksheet->getColumnDimension('D')->setWidth(15); //Cultivo
-        $activeWorksheet->getColumnDimension('E')->setWidth(15); //Nro Entrada
-        $activeWorksheet->getColumnDimension('F')->setWidth(17); //Fecha Recepcion
-        $activeWorksheet->getColumnDimension('G')->setWidth(10); //Estatus
-        $activeWorksheet->getColumnDimension('H')->setWidth(15); //Guia
-        $activeWorksheet->getColumnDimension('I')->setWidth(20); //Ced/Rif Productor
-        $activeWorksheet->getColumnDimension('J')->setWidth(35); //Productor
-        $activeWorksheet->getColumnDimension('K')->setWidth(20); //Ced/Rif Asociacion
-        $activeWorksheet->getColumnDimension('L')->setWidth(35); //Asociacion
-        $activeWorksheet->getColumnDimension('M')->setWidth(20); //Ced/Rif Asociado
-        $activeWorksheet->getColumnDimension('N')->setWidth(35); //Asociado
-        $activeWorksheet->getColumnDimension('O')->setWidth(15); //Vehiculo
-        $activeWorksheet->getColumnDimension('P')->setWidth(15); //Placa Motriz
-        $activeWorksheet->getColumnDimension('Q')->setWidth(15); //Placa Remolque
-        $activeWorksheet->getColumnDimension('R')->setWidth(20); //Cedula Chofer
-        $activeWorksheet->getColumnDimension('S')->setWidth(35); //Chofer
-        $activeWorksheet->getColumnDimension('T')->setWidth(20); //Peso Lleno Motriz
-        $activeWorksheet->getColumnDimension('U')->setWidth(20); //Peso Lleno Remolque
-        $activeWorksheet->getColumnDimension('V')->setWidth(20); //Peso Bruto
-        $activeWorksheet->getColumnDimension('W')->setWidth(20); //Peso Vacio Motriz
-        $activeWorksheet->getColumnDimension('X')->setWidth(20); //Peso Vacio Remolque
-        $activeWorksheet->getColumnDimension('Y')->setWidth(20); //Peso Tara
-        $activeWorksheet->getColumnDimension('Z')->setWidth(15); //% Humedad
-        $activeWorksheet->getColumnDimension('AA')->setWidth(15); //Humedad Desc
-        $activeWorksheet->getColumnDimension('AB')->setWidth(15); //% Impureza
-        $activeWorksheet->getColumnDimension('AC')->setWidth(15); //Impureza Desc
-        $activeWorksheet->getColumnDimension('AD')->setWidth(20); //Peso Acond
-        $activeWorksheet->getColumnDimension('AE')->setWidth(20); //Peso Acon Liq.
+        $activeWorksheet->getColumnDimension('B')->setWidth(15); //Cultivo
+        $activeWorksheet->getColumnDimension('C')->setWidth(15); //Nro Salida
+        $activeWorksheet->getColumnDimension('D')->setWidth(17); //Fecha Despacho
+        $activeWorksheet->getColumnDimension('E')->setWidth(10); //Estatus
+        $activeWorksheet->getColumnDimension('F')->setWidth(15); //Orden
+        $activeWorksheet->getColumnDimension('G')->setWidth(20); //Ced/Rif Cliente
+        $activeWorksheet->getColumnDimension('H')->setWidth(35); //Cliente
+        $activeWorksheet->getColumnDimension('I')->setWidth(15); //Vehiculo
+        $activeWorksheet->getColumnDimension('J')->setWidth(15); //Placa Motriz
+        $activeWorksheet->getColumnDimension('K')->setWidth(15); //Placa Remolque
+        $activeWorksheet->getColumnDimension('L')->setWidth(20); //Cedula Chofer
+        $activeWorksheet->getColumnDimension('M')->setWidth(35); //Chofer
+        $activeWorksheet->getColumnDimension('N')->setWidth(20); //Peso Lleno Motriz
+        $activeWorksheet->getColumnDimension('O')->setWidth(20); //Peso Lleno Remolque
+        $activeWorksheet->getColumnDimension('P')->setWidth(20); //Peso Bruto
+        $activeWorksheet->getColumnDimension('Q')->setWidth(20); //Peso Vacio Motriz
+        $activeWorksheet->getColumnDimension('R')->setWidth(20); //Peso Vacio Remolque
+        $activeWorksheet->getColumnDimension('S')->setWidth(20); //Peso Tara
+        $activeWorksheet->getColumnDimension('T')->setWidth(15); //% Humedad Motriz
+        $activeWorksheet->getColumnDimension('U')->setWidth(15); //% Humedad Remolque
+        $activeWorksheet->getColumnDimension('V')->setWidth(15); //Humedad Desc Motriz
+        $activeWorksheet->getColumnDimension('W')->setWidth(15); //Humedad Desc Remolque
+        $activeWorksheet->getColumnDimension('X')->setWidth(15); //% Impureza Motriz
+        $activeWorksheet->getColumnDimension('Y')->setWidth(15); //% Impureza Remolque
+        $activeWorksheet->getColumnDimension('Z')->setWidth(15); //Impureza Desc Motriz
+        $activeWorksheet->getColumnDimension('AA')->setWidth(15); //Impureza Desc Remolque
+        $activeWorksheet->getColumnDimension('AB')->setWidth(20); //Peso Acond Motriz
+        $activeWorksheet->getColumnDimension('AC')->setWidth(20); //Peso Acond Remolque
+        $activeWorksheet->getColumnDimension('AD')->setWidth(20); //Peso Acon Liq. Motriz
+        $activeWorksheet->getColumnDimension('AE')->setWidth(20); //Peso Acon Liq. Remolque
         $activeWorksheet->getColumnDimension('AF')->setWidth(17); //Fecha Liquidacion
 
         //Titulo del reporte
-        $activeWorksheet->setCellValue('A1', "AGROPATRIA - SIGESIL");
-        $activeWorksheet->setCellValue('A2', "CONSULTA DEL GERENTE - RECEPCION");
+        $centroAcopio = ($_SESSION['s_perfil_id'] == GERENTEG) ? 'TODOS ': $_SESSION['s_ca_nombre'];
+        $activeWorksheet->setCellValue('A1', "AGROPATRIA - $centroAcopio");
+        $activeWorksheet->setCellValue('A2', "CONSULTA DEL GERENTE - DESPACHO");
         $activeWorksheet->setCellValue('A3', "Fecha: ".date("d-m-Y"));
         $activeWorksheet->setCellValue('A4', "Hora: ".date("h:i"));
 
@@ -136,11 +137,12 @@
         $index_detail=0;
         /*linea de titulo del detalle*/
         $j=0;
-            $titulos = array('Centro de Acopio','Programa','Cosecha','Cultivo','Nro Entrada','Fecha Recepcion','Estatus',
-                'Guia','Ced/Rif Productor','Productor','Ced/Rif Asociacion','Asociacion',
-                'Ced/Rif Asociado', 'Asociado','Vehiculo','Placa Motriz','Placa Remolque','Cedula Chofer',
+            $titulos = array('Centro de Acopio','Cultivo','Nro Salida','Fecha Despacho','Estatus',
+                'Orden','Ced/Rif Cliente','Cliente','Vehiculo','Placa Motriz','Placa Remolque','Cedula Chofer',
                 'Chofer', 'Peso Lleno Motriz','Peso Lleno Remolque','Peso Bruto','Peso Vacio Motriz','Peso Vacio Remolque',
-                'Peso Tara','% Humedad','Humedad Desc','% Impureza','Impureza Desc', 'Peso Acond', 'Peso Acon Liq.', 'Fecha Liquidacion');
+                'Peso Tara','% Humedad Motriz','% Humedad Remolque','Humedad Desc Motriz','Humedad Desc Remolque',
+                '% Impureza Motriz','% Impureza Remolque','Impureza Desc Motriz','Impureza Desc Remolque','Peso Acond Motriz','Peso Acond Remolque',
+                'Peso Acon Liq. Motriz','Peso Acon Liq. Remolque','Fecha Liquidacion');
         foreach($titulos as $columnTitle){
             $activeWorksheet->setCellValueByColumnAndRow($j, $index_title, $columnTitle);
             $oColumn = $activeWorksheet->getCellByColumnAndRow($j, $index_title)->getColumn();
@@ -155,25 +157,56 @@
         $listadoDespachos = $despacho->listadoDespacho(null, $idCA, $cultivo, null, $salida, $estatus, null, null, $porPagina, $inicio, $orden, $order, $cliente, $placa, $fliqD, $fliqH, $fdesD, $fdesH);
         $totalRegistros = count($listadoDespachos);
         if(!empty($listadoDespachos)){
-            $registro = 1;
+            $cant = 0;
             foreach($listadoDespachos as $despacho){
+                $cant++;
+                
+                if($caDiferente != '' && $caDiferente != $despacho['id_centro_acopio']){
+                    $columnaTotalCA = 12;
+                    foreach($totalesCA as $valor){
+                        $activeWorksheet->setCellValueByColumnAndRow($columnaTotalCA, $fila, $valor);
+                        $oColumn = $activeWorksheet->getCellByColumnAndRow($columnaTotalCA, $fila)->getColumn();
+                        $oRow = $activeWorksheet->getCellByColumnAndRow($columnaTotalCA, $fila)->getRow();
+                        $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray(array('font' => array('bold' => true, 'size' => 10)));
+                        $columnaTotalCA++;
+                    }
+
+                    //TOTALES
+                    $totales[0] = 'Total: ';
+                    $totales[1] += $totalesCA[1];
+                    $totales[2] += $totalesCA[2];
+                    $totales[3] += $totalesCA[3];
+                    $totales[4] += $totalesCA[4];
+                    $totales[5] += $totalesCA[5];
+                    $totales[6] += $totalesCA[6];
+                    $totales[7] += $totalesCA[7];
+                    $totales[8] += $totalesCA[7];
+                    $totales[9] += $totalesCA[8];
+                    $totales[10] += $totalesCA[8];
+                    $totales[11] += $totalesCA[9];
+                    $totales[12] += $totalesCA[9];
+                    $totales[13] += $totalesCA[10];
+                    $totales[14] += $totalesCA[10];
+                    $totales[15] += $totalesCA[11];
+                    $totales[16] += $totalesCA[11];
+                    $totales[17] += $totalesCA[12];
+                    $totales[18] += $totalesCA[12];
+                    unset($totalesCA);
+                    $fila++; $fila++;
+                }
+                $caDiferente = $despacho['id_centro_acopio'];
+                
                 $valores = array();
                 $valores[] = "(".$despacho['ca_codigo'].") ".$despacho['centro_acopio'];
-                $valores[] = $despacho['programa'];
-                $valores[] = $despacho['cosecha_codigo'];
                 $valores[] = "(".$despacho['cultivo_codigo'].") ".$despacho['cultivo_nombre'];
                 $numero = ($despacho['numero'] < 10) ? '0'.$despacho['numero'] : $despacho['numero'];
-                $numSalida = "R".$numero.$general->date_sql_screen($despacho['fecha_recepcion'], '', 'es', null);
+                $numSalida = "R".$numero.$general->date_sql_screen($despacho['fecha_des'], '', 'es', null);
                 $valores[] = $numSalida;
-                $valores[] = $general->date_sql_screen($despacho['fecha_recepcion'], '', 'es', '-');
-                $valores[] = $general->estatus($despacho['estatus_rec'], 'rec');
+                $valores[] = $general->date_sql_screen($despacho['fecha_des'], '', 'es', '-');
+                $valores[] = $general->estatus($despacho['estatus'], 'rec');
                 $valores[] = $despacho['numero_guia'];
-                $valores[] = $despacho['ced_productor'];
-                $valores[] = $despacho['productor_nombre'];
-                $valores[] = $despacho['ced_asociacion'];
-                $valores[] = $despacho['asociacion_nombre'];
-                $valores[] = $despacho['ced_asociado'];
-                $valores[] = $despacho['asociado_nombre'];
+                $valores[] = $despacho['ced_cliente'];
+                $valores[] = $despacho['cliente_nombre'];
                 $valores[] = $despacho['marca'];
                 $valores[] = $despacho['placa'];
                 $valores[] = $despacho['placa_remolques'];
@@ -184,16 +217,22 @@
                 $totalL = $despacho['peso_01l'] + $despacho['peso_02l'];
                 $valores[] = $totalL;
                 $valores[] = (!empty($despacho['peso_01v'])) ? $despacho['peso_01v'] : 0;
-                $valores[] = (!empty($despacho['peso_02v'])) ? $despacho['peso_02v'] : o;
+                $valores[] = (!empty($despacho['peso_02v'])) ? $despacho['peso_02v'] : 0;
                 $totalV = $despacho['peso_01v'] + $despacho['peso_02v'];
                 $valores[] = $totalV;
                 $valores[] = (!empty($despacho['humedad'])) ? $despacho['humedad'] : 0;
+                $valores[] = (!empty($despacho['humedad2'])) ? $despacho['humedad2'] : 0;
                 $valores[] = (!empty($despacho['humedad_des'])) ? $despacho['humedad_des'] : 0;
+                $valores[] = (!empty($despacho['humedad_des2'])) ? $despacho['humedad_des2'] : 0;
                 $valores[] = (!empty($despacho['impureza'])) ? $despacho['impureza'] : 0;
+                $valores[] = (!empty($despacho['impureza2'])) ? $despacho['impureza2'] : 0;
                 $valores[] = (!empty($despacho['impureza_des'])) ? $despacho['impureza_des'] : 0;
+                $valores[] = (!empty($despacho['impureza_des2'])) ? $despacho['impureza_des2'] : 0;
                 $valores[] = (!empty($despacho['peso_acon'])) ? $despacho['peso_acon'] : 0;
+                $valores[] = (!empty($despacho['peso_acon2'])) ? $despacho['peso_acon2'] : 0;
                 $valores[] = (!empty($despacho['peso_acon_liq'])) ? $despacho['peso_acon_liq'] : 0;
-                $valores[] = $general->date_sql_screen($despacho['fecha_v'], '', 'es', '-');
+                $valores[] = (!empty($despacho['peso_acon_liq2'])) ? $despacho['peso_acon_liq2'] : 0;
+                $valores[] = $general->date_sql_screen($despacho['fecha_pel'], '', 'es', '-');
 
                 $columna = 0;
                 foreach($valores as $valor){
@@ -203,7 +242,7 @@
                 $fila++;
                 
                 //TOTALES POR CENTRO DE ACOPIO
-                $totalesCA[0] = 'Total del Centro de Acopio: ';
+                $totalesCA[0] = 'Total del Centro de Acopio: '.$despacho['centro_acopio'];
                 $totalesCA[1] += $despacho['peso_01l'];
                 $totalesCA[2] += $despacho['peso_02l'];
                 $totalesCA[3] += $despacho['peso_01l'] + $despacho['peso_02l'];
@@ -211,14 +250,20 @@
                 $totalesCA[5] += $despacho['peso_02v'];
                 $totalesCA[6] += $despacho['peso_01v'] + $despacho['peso_02v'];
                 $totalesCA[7] += $despacho['humedad'];
-                $totalesCA[8] += $despacho['humedad_des'];
-                $totalesCA[9] += $despacho['impureza'];
-                $totalesCA[10] += $despacho['impureza_des'];
-                $totalesCA[11] += $despacho['peso_acon'];
-                $totalesCA[12] += $despacho['peso_acon_liq'];
+                $totalesCA[8] += $despacho['humedad2'];
+                $totalesCA[9] += $despacho['humedad_des'];
+                $totalesCA[10] += $despacho['humedad_des2'];
+                $totalesCA[11] += $despacho['impureza'];
+                $totalesCA[12] += $despacho['impureza2'];
+                $totalesCA[13] += $despacho['impureza_des'];
+                $totalesCA[14] += $despacho['impureza_des2'];
+                $totalesCA[15] += $despacho['peso_acon'];
+                $totalesCA[16] += $despacho['peso_acon2'];
+                $totalesCA[17] += $despacho['peso_acon_liq'];
+                $totalesCA[18] += $despacho['peso_acon_liq2'];
                 
-                if(((!empty($caDiferente) && $caDiferente != $despacho['id_centro_acopio'])) || $registro >= $totalRegistros){
-                    $columnaTotalCA = 18;
+                if($totalRegistros == $cant){
+                    $columnaTotalCA = 12;
                     foreach($totalesCA as $valor){
                         $activeWorksheet->setCellValueByColumnAndRow($columnaTotalCA, $fila, $valor);
                         $oColumn = $activeWorksheet->getCellByColumnAndRow($columnaTotalCA, $fila)->getColumn();
@@ -241,14 +286,17 @@
                     $totales[10] += $totalesCA[10];
                     $totales[11] += $totalesCA[11];
                     $totales[12] += $totalesCA[12];
-                    
+                    $totales[13] += $totalesCA[13];
+                    $totales[14] += $totalesCA[14];
+                    $totales[15] += $totalesCA[15];
+                    $totales[16] += $totalesCA[16];
+                    $totales[17] += $totalesCA[17];
+                    $totales[18] += $totalesCA[18];
                     $fila++;
                 }
-                $caDiferente = $despacho['id_centro_acopio'];
-                $registro++;
             }
             $fila++;
-            $columnaTotal = 18;
+            $columnaTotal = 12;
             foreach($totales as $valor){
                 $activeWorksheet->setCellValueByColumnAndRow($columnaTotal, $fila, $valor);
                 $oColumn = $activeWorksheet->getCellByColumnAndRow($columnaTotal, $fila)->getColumn();

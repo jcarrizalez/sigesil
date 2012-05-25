@@ -2,16 +2,28 @@
     require_once('../lib/core.lib.php');
     
     $ordenes = new Orden();
+    $centro_acopio = new CentroAcopio();
+    $objCultivo = new Cultivo();
     
     if($_SESSION['s_perfil_id'] == GERENTEG)
         $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : null;
     else
         $idCA = $_SESSION['s_ca_id'];
     
+    $idCultivo = (!empty($GPC['id_cultivo'])) ? $GPC['id_cultivo'] : '';
+    
+    $listaCA = $centro_acopio->find('', '', array('id', 'nombre'), 'list', 'id');
+    unset($listaCA[1]);
+    
+    $listadoCultivos = $objCultivo->buscarCultivo();
+    foreach($listadoCultivos as $valor){
+        $listadoC[$valor['id']] = "(".$valor['codigo'].") ".$valor['nombre'];
+    }
+    
     $porPagina = MAX_RESULTS_PAG;
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
     
-    $listadoOrdenes = $ordenes->buscarOrden('', $idCA, '', '', $numOrden, $porPagina, $inicio);
+    $listadoOrdenes = $ordenes->buscarOrden('', $idCA, '', $idCultivo, $numOrden, $porPagina, $inicio);
     
     $total_registros = $ordenes->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);
@@ -58,18 +70,29 @@
         ?>
     </div>
     <div id="filtro">
-        <!--form name="form1" id="form1" method="POST" action="" enctype="multipart/form-data"-->
-            <table width="100%">
+        <form name="form1" id="form1" method="GET" action="#">
+            <table width="100%" border="0">
+                <tr>
+                    <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+                    <td>Centro de Acopio</td>
+                    <td><? echo $html->select('id_ca',array('options'=>$listaCA, 'selected' => $idCA, 'default' => 'Todos', 'class' => 'estilo_campos2')); ?></td>
+                    <? } ?>
+                </tr>
+                <tr>
+                    <td width="130">Cultivo</td>
+                    <td><? echo $html->select('id_cultivo',array('options'=>$listadoC, 'selected' => $idCultivo, 'default' => 'Todos', 'class' => 'estilo_campos2'))?></td>
+                </tr>
                 <tr id="botones">
-                    <td colspan="3">
+                    <td colspan="2">
                         <?
+                            echo $html->input('ac', 'Buscar', array('type' => 'submit'));
                             $general->crearAcciones($acciones, '', 1);
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
                         ?>
                     </td>
                 </tr>
             </table>
-        <!--/form-->
+        </form>
     </div><hr/>
     <div id="paginador">
         <?
@@ -80,7 +103,10 @@
     </div>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
+            <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
             <th>Centro de Acopio</th>
+            <? } ?>
+            <th>C&eacute;dula/Rif</th>
             <th>Cliente</th>
             <th>Cultivo</th>
             <th>Nro Orden</th>
@@ -96,8 +122,11 @@
                 $clase = $general->obtenerClaseFila($i);
         ?>
         <tr class="<?=$clase?>">
+            <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
             <td align="center"><?="(".$dataOr['codigo'].") ".$dataOr['nombre_ca']?></td>
+            <? } ?>
             <td align="center"><?=$dataOr['ced_cliente']?></td>
+            <td align="center"><?=$dataOr['nombre_cliente']?></td>
             <td align="center"><?=$dataOr['id_cultivo']?></td>
             <td align="center"><?=$dataOr['numero_orden']?></td>
             <td align="center"><?=$dataOr['cod_verificacion']?></td>

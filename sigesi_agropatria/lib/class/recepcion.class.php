@@ -81,11 +81,12 @@ class Recepcion extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 
+           //listadoRecepcion($id=null, $idCa=null, $idCo=null, $idSilo=null, $entradaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null, $idPro=null, $order=null, $contrato=null, $productor=null, $idP=null, $placa=null, $fechaLiq=null, $fechaRec=null, $idAon=null, $guia=null, $idAdo=null){
     function listadoRecepcion($id=null, $idCa=null, $idCo=null, $idSilo=null, $entradaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null, $idPro=null, $order=null, $contrato=null, $productor=null, $idP=null, $placa=null, $fechaLiqD=null, $fechaLiqH=null, $fechaRecD=null, $fechaRecH=null, $idAon=null, $guia=null, $idAdo=null){
         $query = "SELECT r.*, 
                     (SELECT t1.nombre FROM si_tolcarom t1 WHERE t1.id = r.romana_ent) AS romana_ent, 
                     (SELECT t2.nombre FROM si_tolcarom t2 WHERE t2.id = r.romana_sal) AS romana_sal, 
-                    ca.codigo AS ca_codigo, ca.nombre AS centro_acopio, 
+                    ca.id AS ca_id, ca.codigo AS ca_codigo, ca.nombre AS centro_acopio, 
                     pr.id AS id_programa, pr.nombre AS programa, 
                     co.id AS id_co, co.codigo AS cosecha_codigo, co.nombre AS cosecha, 
                     cu.codigo AS cultivo_codigo, cu.nombre AS cultivo_nombre,
@@ -185,13 +186,14 @@ else{
     }
     
     function recepcionesReporteGeneral($fdesde=null, $fhasta=null, $idCA=null, $idCo=null){
-        $query = "SELECT co.id AS id_co, '('||co.codigo||') '||co.nombre AS cosecha, '('||cu.codigo||') '||cu.nombre AS cultivo, p.id, p.ced_rif, p.nombre AS productor
+        $query = "SELECT co.id AS id_co, '('||co.codigo||') '||co.nombre AS cosecha, cu.codigo codigo_cultivo, cu.nombre AS cultivo, p.id, p.ced_rif, p.nombre AS productor, ca.codigo, ca.nombre AS nombre_ca 
                     FROM si_productor p
                     INNER JOIN si_recepcion r ON r.id_productor = p.id
                     /*INNER JOIN si_cosecha_productor cp ON cp.id_productor = r.id_productor*/
                     /*INNER JOIN si_cosecha co ON co.id = cp.id_cosecha*/
                     INNER JOIN si_cosecha co ON co.id = r.id_cosecha
                     INNER JOIN si_cultivo cu ON cu.id = co.id_cultivo
+                    INNER JOIN si_centro_acopio ca ON ca.id = r.id_centro_acopio
                     WHERE '1' AND r.estatus_rec = '9'";
         $query .= (!empty($idCA)) ? " AND r.id_centro_acopio = '$idCA'" : '';
         $query .= (!empty($idCo)) ? " AND r.id_cosecha = '$idCo'" : '';
@@ -200,7 +202,7 @@ else{
             $fhasta = (!empty($fhasta)) ? "'$fhasta'" : 'now()::date';
             $query .= " AND r.modificado::date BETWEEN $fdesde AND $fhasta";
         }
-        $query .= " GROUP BY co.id, co.codigo, co.nombre, cu.codigo, cu.nombre, p.id, p.ced_rif, p.nombre
+        $query .= " GROUP BY co.id, co.codigo, co.nombre, cu.codigo, cu.nombre, p.id, p.ced_rif, p.nombre, ca.codigo, ca.nombre
                     ORDER BY cu.codigo, p.ced_rif, p.nombre";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }

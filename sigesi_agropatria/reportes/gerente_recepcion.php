@@ -161,8 +161,39 @@
         $listadoRecepciones = $recepcion->listadoRecepcion(null, $idCA, $idCo, null, $entrada, $estatus, null, null, null, null, null, $orden, $contrato, $productor, null, $placa, $fliqD, $fliqh, $frecD, $frecH, null, $guia);
         $totalRegistros = count($listadoRecepciones);
         if(!empty($listadoRecepciones)){
-            $registro = 1;
+            $cant = 0;
             foreach($listadoRecepciones as $recepcion){
+                $cant++;
+                
+                if($caDiferente != '' && $caDiferente != $recepcion['id_centro_acopio']){
+                    $columnaTotalCA = 18;
+                    foreach($totalesCA as $valor){
+                        $activeWorksheet->setCellValueByColumnAndRow($columnaTotalCA, $fila, $valor);
+                        $oColumn = $activeWorksheet->getCellByColumnAndRow($columnaTotalCA, $fila)->getColumn();
+                        $oRow = $activeWorksheet->getCellByColumnAndRow($columnaTotalCA, $fila)->getRow();
+                        $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray(array('font' => array('bold' => true, 'size' => 10)));
+                        $columnaTotalCA++;
+                    }
+
+                    //TOTALES
+                    $totales[0] = 'Total: ';
+                    $totales[1] += $totalesCA[1];
+                    $totales[2] += $totalesCA[2];
+                    $totales[3] += $totalesCA[3];
+                    $totales[4] += $totalesCA[4];
+                    $totales[5] += $totalesCA[5];
+                    $totales[6] += $totalesCA[6];
+                    $totales[7] += $totalesCA[7];
+                    $totales[8] += $totalesCA[8];
+                    $totales[9] += $totalesCA[9];
+                    $totales[10] += $totalesCA[10];
+                    $totales[11] += $totalesCA[11];
+                    $totales[12] += $totalesCA[12];
+                    unset($totalesCA);
+                    $fila++; $fila++;
+                }
+                $caDiferente = $recepcion['id_centro_acopio'];
+                
                 $valores = array();
                 $valores[] = "(".$recepcion['ca_codigo'].") ".$recepcion['centro_acopio'];
                 $valores[] = $recepcion['programa'];
@@ -191,7 +222,7 @@
                 $totalL = $recepcion['peso_01l'] + $recepcion['peso_02l'];
                 $valores[] = $totalL;
                 $valores[] = (!empty($recepcion['peso_01v'])) ? $recepcion['peso_01v'] : 0;
-                $valores[] = (!empty($recepcion['peso_02v'])) ? $recepcion['peso_02v'] : o;
+                $valores[] = (!empty($recepcion['peso_02v'])) ? $recepcion['peso_02v'] : 0;
                 $totalV = $recepcion['peso_01v'] + $recepcion['peso_02v'];
                 $valores[] = $totalV;
                 $valores[] = (!empty($recepcion['humedad'])) ? $recepcion['humedad'] : 0;
@@ -210,7 +241,7 @@
                 $fila++;
                 
                 //TOTALES POR CENTRO DE ACOPIO
-                $totalesCA[0] = 'Total del Centro de Acopio: ';
+                $totalesCA[0] = 'Total del Centro de Acopio: '.$recepcion['centro_acopio'];
                 $totalesCA[1] += $recepcion['peso_01l'];
                 $totalesCA[2] += $recepcion['peso_02l'];
                 $totalesCA[3] += $recepcion['peso_01l'] + $recepcion['peso_02l'];
@@ -224,7 +255,7 @@
                 $totalesCA[11] += $recepcion['peso_acon'];
                 $totalesCA[12] += $recepcion['peso_acon_liq'];
                 
-                if(((!empty($caDiferente) && $caDiferente != $recepcion['id_centro_acopio'])) || $registro >= $totalRegistros){
+                if($totalRegistros == $cant){
                     $columnaTotalCA = 18;
                     foreach($totalesCA as $valor){
                         $activeWorksheet->setCellValueByColumnAndRow($columnaTotalCA, $fila, $valor);
@@ -248,11 +279,8 @@
                     $totales[10] += $totalesCA[10];
                     $totales[11] += $totalesCA[11];
                     $totales[12] += $totalesCA[12];
-                    
                     $fila++;
                 }
-                $caDiferente = $recepcion['id_centro_acopio'];
-                $registro++;
             }
             $fila++;
             $columnaTotal = 18;
@@ -696,7 +724,7 @@
             <td align="right" style="display: none"><?=$general->formato_numero(round($dataRecepcion['peso_acon']), 3)?></td>
             <td align="right" style="display: none"><?=$general->formato_numero(round($dataRecepcion['peso_acon_liq']), 3)?></td>
             <td align="center">
-                <img src="../images/buscar.png" width="16" height="16" title="Detalle" border="0" style="cursor:pointer" onclick="openWindow('gerente_recepcion_detalle.php?id=<?php echo $dataRecepcion['id'] ?>','','1200','500','visible');return false;">
+                <img src="../images/buscar.png" width="16" height="16" title="Detalle" border="0" style="cursor:pointer" onclick="openWindow('gerente_recepcion_detalle.php?id=<?php echo $dataRecepcion['id'] ?>&ca=<?php echo $dataRecepcion['ca_id']?>','','1200','500','visible');return false;">
             </td>
         </tr>
         <? $i++; } ?>

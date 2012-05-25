@@ -1,7 +1,7 @@
-<?php
-    require_once("../lib/core.lib.php");
-    require_once("../lib/common/header_reportes.php");
-        
+<?
+    require_once('../lib/core.lib.php');
+    require('../lib/common/header_popup.php');
+    
     $id_rec = $GPC['id_rec'];
     $ca = $GPC['ca'];
     $recepcion = new Recepcion();
@@ -11,16 +11,18 @@
     $dataRecepcion = $recepcion->listadoAnalisis($ca, null, $id_rec);
     $listadoAnalisis = $AnalisisRes->buscarAC(null, $dataRecepcion[0]['id_cultivo'], $ca);
     $data = $AnalisisRes->listadoResultados($id_rec);
-    $numero = "R".$dataRecepcion[0]['numero']."-".$general->date_sql_screen($dataRecepcion[0]['fecha_recepcion'], '', 'es', '');
     
-    if(!empty($dataRecepcion[0]['id_rec'])) {
-        if(!empty($GPC['reimprimir'])){
+    $numero = "R".$dataRecepcion[0]['numero']."-".$general->date_sql_screen($dataRecepcion[0]['fecha_recepcion'], '', 'es', '');
 ?>
-<script type="text/javascript">
-    window.print();
-    window.close();
+<script language="javascript">
+    $(document).ready(function(){
+        $('#Cerrar').click(function(){
+            ventana = window.self;
+            ventana.opener = window.self;
+            ventana.close();
+        });
+    });
 </script>
-<? } ?>
 <table id="tabla_reporte" border="0" width="800">
     <tr>
         <td id="titulo_reporte">RESULTADOS DE ANALISIS</td>
@@ -57,12 +59,10 @@
         <? } ?>
     </tr>
     <? $j++; } ?>
-    
+    <tr>
+        <td align="center" colspan="4"><? echo $html->input('Cerrar', 'Cerrar', array('type' => 'button')); ?></td>
+    </tr>
 </table>
 <?
-    }else{
-        header('location: ../admin/recepcion.php');
-        die();
-    }
-    require_once("../lib/common/footer_reportes.php");
+    require('../lib/common/footer_popup.php');
 ?>

@@ -63,14 +63,6 @@ $validator->printScript();
             <td><? echo $html->input('Vehiculo.tara_aprox', '', array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
         </tr>
         <tr>
-            <td>Chuto </td>
-            <td><? echo $html->input('Vehiculo.chuto', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-        </tr>
-        <tr>
-            <td>Placa Remolques </td>
-            <td><? echo $html->input('Vehiculo.placa_remolques', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-        </tr>
-        <tr>
             <td>&nbsp;</td>
         </tr>
         <tr align="center">

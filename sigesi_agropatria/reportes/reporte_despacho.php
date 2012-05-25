@@ -28,12 +28,9 @@
             header('location: pdf_listado_despachos_todo.php?id='.$fdesde."_".$fhasta."_".$idCA);
             die();
         break;
-        case 'Excel':
+        /*case 'Excel':
             
-        break;
-        case 'Buscar':
-            
-        break;
+        break;*/
     }
     
     require('../lib/common/header.php');
@@ -108,7 +105,7 @@
                     <td colspan="4" style="padding-top: 20px;">
                         <?
                             echo $html->input('ac', 'Buscar', array('type' => 'submit'));
-                            echo $html->input('ac', 'Excel', array('type' => 'submit'));
+                            //echo $html->input('ac', 'Excel', array('type' => 'submit'));
                             echo $html->input('ac', 'Pdf', array('type' => 'submit'));
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
                         ?>

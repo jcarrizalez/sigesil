@@ -31,7 +31,7 @@
     $total_registros = $recepcion->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);
     
-    switch($GPC['ac']){
+    /*switch($GPC['ac']){
         case 'Pdf':
             $idCA = (!empty($idCA)) ? $idCA : 'vacio';
             $idCo = (!empty($idCo)) ? $idCo : 'vacio';
@@ -41,7 +41,7 @@
         case 'Excel':
             
         break;
-    }
+    }*/
     
     require('../lib/common/header.php');
     require('../lib/common/init_calendar.php');
@@ -119,8 +119,8 @@
                     <td colspan="4" style="padding-top: 20px;">
                         <?
                             echo $html->input('ac', 'Buscar', array('type' => 'submit'));
-                            echo $html->input('ac', 'Excel', array('type' => 'submit'));
-                            echo $html->input('ac', 'Pdf', array('type' => 'submit'));
+                            /*echo $html->input('ac', 'Excel', array('type' => 'submit'));
+                            echo $html->input('ac', 'Pdf', array('type' => 'submit'));*/
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
                         ?>
                     </td>
@@ -137,6 +137,9 @@
     </div>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
+            <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+            <th>Centro de Acopio</th>
+            <? } ?>
             <th>Cosecha</th>
             <th>Cultivo</th>
             <th>Cedula/Rif Productor</th>
@@ -163,10 +166,13 @@
                 $totalPesoAcon += $pesoAcon;
         ?>
         <tr class="<?=$clase?>">
-            <td align="center"><?=$dataRecepcion['cosecha']?></td>
-            <td align="center"><?=$dataRecepcion['cultivo']?></td>
+            <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+            <td><?="(".$dataRecepcion['codigo'].") ".$dataRecepcion['nombre_ca']?></td>
+            <? } ?>
+            <td><?=$dataRecepcion['cosecha']?></td>
+            <td align="center"><?=$dataRecepcion['codigo_cultivo']?></td>
             <td align="center"><?=$dataRecepcion['ced_rif']?></td>
-            <td align="center"><?=$dataRecepcion['productor']?></td>
+            <td><?=$dataRecepcion['productor']?></td>
             
             <td align="center">
                 <?
