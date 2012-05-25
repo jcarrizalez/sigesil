@@ -15,7 +15,6 @@
      */
     
     $carril = new Tolcarom();
-    
     $esResultado=true;
     $esTipo=true;
     $idCA=(!empty($_SESSION['s_ca_id'])) ? $_SESSION['s_ca_id']: null;
@@ -73,41 +72,154 @@
                 unset($GPC['Recepcion']['ced_asociacion']);
                 unset($GPC['Recepcion']['ced_asociado']);
                 
+                $movimiento->_begin_tool();
+                
                 if (!empty($infoMovimiento[0]['id'])) {
                     if ($infoMovimiento[0]['estatus_rec']!=$GPC['Recepcion']['estatus_rec']) {
                         switch ($GPC['Recepcion']['estatus_rec']) {
                             case 14:
-                            case 13:
-                            case 12:
-                            case 11:
-                            case 10:
-                            case 9:
-                            case 8:
-                            case 7:
-                            case 6:
-                            case 5:
-                            case 4:
-                            case 3:
-                            case 1:
-                                $GPC['Recepcion']['muestra']=0;
-                                $GPC['Recepcion']['estatus_rec']=$GPC['Recepcion']['estatus_rec'];
-                                $esResultado=$analisis->borrarResultados($infoMovimiento[0]['id']);
-                                $esTipo=$rectipo->borrar($infoMovimiento[0]['id']);
                                 break;
-                            case 2:
-                                $GPC['Recepcion']['fecha_pel']='0000-00-00';
-                                $GPC['Recepcion']['fecha_pel']='0000-00-00';
+                            case 13:
+                                break;
+                            case 12:
+                                $GPC['Recepcion']['fecha_pel']='1900-01-01';
                                 $GPC['Recepcion']['peso_01l']=0.001;
-                                $GPC['Recepcion']['tolva']=0.001;
-                                $GPC['Recepcion']['fecha_v']=='0000-00-00';
+                                $GPC['Recepcion']['peso_02l']=0.001;
+                                $GPC['Recepcion']['tolva']=-1;
+                                $GPC['Recepcion']['fecha_v']=='1900-01-01';
                                 $GPC['Recepcion']['peso_01v']=0.001;
                                 $GPC['Recepcion']['peso_02v']=0.001;
                                 $GPC['Recepcion']['humedad']=0.001;
                                 $GPC['Recepcion']['impureza']=0.001;
                                 $GPC['Recepcion']['humedad_des']=0.001;
                                 $GPC['Recepcion']['impureza_des']=0.001;
-                                $GPC['Recepcion']['romana_ent']=0.001;
-                                $GPC['Recepcion']['romana_sal']=0.001;
+                                $GPC['Recepcion']['romana_ent']=-1;
+                                $GPC['Recepcion']['romana_sal']=-1;
+                                $GPC['Recepcion']['peso_acon']=0.001;
+                                $GPC['Recepcion']['peso_acon_liq']=0.001;
+                                break;
+                            case 11:
+                                $GPC['Recepcion']['fecha_pel']='1900-01-01';
+                                $GPC['Recepcion']['peso_01l']=0.001;
+                                $GPC['Recepcion']['peso_02l']=0.001;
+                                $GPC['Recepcion']['tolva']=-1;
+                                $GPC['Recepcion']['fecha_v']=='1900-01-01';
+                                $GPC['Recepcion']['peso_01v']=0.001;
+                                $GPC['Recepcion']['peso_02v']=0.001;
+                                $GPC['Recepcion']['humedad']=0.001;
+                                $GPC['Recepcion']['impureza']=0.001;
+                                $GPC['Recepcion']['humedad_des']=0.001;
+                                $GPC['Recepcion']['impureza_des']=0.001;
+                                $GPC['Recepcion']['romana_ent']=-1;
+                                $GPC['Recepcion']['romana_sal']=-1;
+                                $GPC['Recepcion']['peso_acon']=0.001;
+                                $GPC['Recepcion']['peso_acon_liq']=0.001;
+                                break;
+                            case 10:
+                                $GPC['Recepcion']['fecha_pel']='1900-01-01';
+                                $GPC['Recepcion']['peso_01l']=0.001;
+                                $GPC['Recepcion']['peso_02l']=0.001;
+                                $GPC['Recepcion']['tolva']=-1;
+                                $GPC['Recepcion']['fecha_v']=='1900-01-01';
+                                $GPC['Recepcion']['peso_01v']=0.001;
+                                $GPC['Recepcion']['peso_02v']=0.001;
+                                $GPC['Recepcion']['humedad']=0.001;
+                                $GPC['Recepcion']['impureza']=0.001;
+                                $GPC['Recepcion']['humedad_des']=0.001;
+                                $GPC['Recepcion']['impureza_des']=0.001;
+                                $GPC['Recepcion']['romana_ent']=-1;
+                                $GPC['Recepcion']['romana_sal']=-1;
+                                $GPC['Recepcion']['peso_acon']=0.001;
+                                $GPC['Recepcion']['peso_acon_liq']=0.001;
+                            case 9:
+                                break;
+                            case 8:
+                                break;
+                            case 7:
+                                break;
+                            case 6:
+                                $GPC['Recepcion']['peso_02l']=0.001;
+                                $GPC['Recepcion']['tolva']=-1;
+                                $GPC['Recepcion']['fecha_v']=='1900-01-01';
+                                $GPC['Recepcion']['peso_01v']=0.001;
+                                $GPC['Recepcion']['peso_02v']=0.001;
+                                $GPC['Recepcion']['humedad']=0.001;
+                                $GPC['Recepcion']['impureza']=0.001;
+                                $GPC['Recepcion']['humedad_des']=0.001;
+                                $GPC['Recepcion']['impureza_des']=0.001;
+                                $GPC['Recepcion']['romana_sal']=-1;
+                                $GPC['Recepcion']['peso_acon']=0.001;
+                                $GPC['Recepcion']['peso_acon_liq']=0.001;
+                                break;
+                            case 5:
+                                break;
+                            case 4:
+                                $GPC['Recepcion']['peso_02l']=0.001;
+                                $GPC['Recepcion']['tolva']=-1;
+                                $GPC['Recepcion']['fecha_v']=='1900-01-01';
+                                $GPC['Recepcion']['peso_01v']=0.001;
+                                $GPC['Recepcion']['peso_02v']=0.001;
+                                $GPC['Recepcion']['humedad']=0.001;
+                                $GPC['Recepcion']['impureza']=0.001;
+                                $GPC['Recepcion']['humedad_des']=0.001;
+                                $GPC['Recepcion']['impureza_des']=0.001;
+                                $GPC['Recepcion']['romana_ent']=-1;
+                                $GPC['Recepcion']['romana_sal']=-1;
+                                $GPC['Recepcion']['peso_acon']=0.001;
+                                $GPC['Recepcion']['peso_acon_liq']=0.001;
+                                break;
+                            case 3:
+                                $GPC['Recepcion']['fecha_pel']='1900-01-01';
+                                $GPC['Recepcion']['peso_01l']=0.001;
+                                $GPC['Recepcion']['peso_02l']=0.001;
+                                $GPC['Recepcion']['tolva']=-1;
+                                $GPC['Recepcion']['fecha_v']=='1900-01-01';
+                                $GPC['Recepcion']['peso_01v']=0.001;
+                                $GPC['Recepcion']['peso_02v']=0.001;
+                                $GPC['Recepcion']['humedad']=0.001;
+                                $GPC['Recepcion']['impureza']=0.001;
+                                $GPC['Recepcion']['humedad_des']=0.001;
+                                $GPC['Recepcion']['impureza_des']=0.001;
+                                $GPC['Recepcion']['romana_ent']=-1;
+                                $GPC['Recepcion']['romana_sal']=-1;
+                                $GPC['Recepcion']['peso_acon']=0.001;
+                                $GPC['Recepcion']['peso_acon_liq']=0.001;
+                                break;
+                            case 1:
+                                $GPC['Recepcion']['fecha_pel']='1900-01-01';
+                                $GPC['Recepcion']['peso_01l']=0.001;
+                                $GPC['Recepcion']['peso_02l']=0.001;
+                                $GPC['Recepcion']['tolva']-1;
+                                $GPC['Recepcion']['fecha_v']=='1900-01-01';
+                                $GPC['Recepcion']['peso_01v']=0.001;
+                                $GPC['Recepcion']['peso_02v']=0.001;
+                                $GPC['Recepcion']['humedad']=0.001;
+                                $GPC['Recepcion']['impureza']=0.001;
+                                $GPC['Recepcion']['humedad_des']=0.001;
+                                $GPC['Recepcion']['impureza_des']=0.001;
+                                $GPC['Recepcion']['romana_ent']=-1;
+                                $GPC['Recepcion']['romana_sal']=-1;
+                                $GPC['Recepcion']['peso_acon']=0.001;
+                                $GPC['Recepcion']['peso_acon_liq']=0.001;
+                                $GPC['Recepcion']['muestra']=0;
+                                $GPC['Recepcion']['estatus_rec']=$GPC['Recepcion']['estatus_rec'];
+                                $esResultado=$analisis->borrarResultados($infoMovimiento[0]['id']);
+                                $esTipo=$rectipo->borrar($infoMovimiento[0]['id']);
+                                break;
+                            case 2:
+                                $GPC['Recepcion']['fecha_pel']='1900-01-01';
+                                $GPC['Recepcion']['peso_01l']=0.001;
+                                $GPC['Recepcion']['peso_02l']=0.001;
+                                $GPC['Recepcion']['tolva']=-1;
+                                $GPC['Recepcion']['fecha_v']=='1900-01-01';
+                                $GPC['Recepcion']['peso_01v']=0.001;
+                                $GPC['Recepcion']['peso_02v']=0.001;
+                                $GPC['Recepcion']['humedad']=0.001;
+                                $GPC['Recepcion']['impureza']=0.001;
+                                $GPC['Recepcion']['humedad_des']=0.001;
+                                $GPC['Recepcion']['impureza_des']=0.001;
+                                $GPC['Recepcion']['romana_ent']=-1;
+                                $GPC['Recepcion']['romana_sal']=-1;
                                 $GPC['Recepcion']['peso_acon']=0.001;
                                 $GPC['Recepcion']['peso_acon_liq']=0.001;
                                 break;
@@ -118,6 +230,8 @@
                     if (($esResultado==true) || ($esTipo==true)) {
                         $movimiento->save($GPC['Recepcion']);
                         $movimiento->_commit_tool();
+                    } else {
+                        $movimiento->_rollback_tool();
                     }
                     header("location: ".DOMAIN_ROOT."admin/utilitario_recepcion_listado.php?msg=exitoso");
                     die();
@@ -165,16 +279,30 @@
         });
         
         $('#Recepcion\\[fecha_recepcion\\]').live('change', function() {
-            $('#fecha_msg').load('../ajax/detalle_utilitario.php?ac=recepcion&numero='+$('#Recepcion\\[numero\\]').val()+"&fecha="+$('#Recepcion\\[fecha_recepcion\\]').val()+"&tipo=f&co="+$('#Recepcion\\[id_cosecha\\]').val()+"&ca=<?=$idCA?>"+"&id=<?=$GPC['id']?>");
+            $('#numero_msg').load('../ajax/detalle_utilitario.php?ac=recepcion&numero='+$('#Recepcion\\[numero\\]').val()+"&fecha="+$('#Recepcion\\[fecha_recepcion\\]').val()+"&tipo=f&co="+$('#Recepcion\\[id_cosecha\\]').val()+"&ca=<?=$idCA?>"+"&id=<?=$GPC['id']?>");
         });
         
         $('#Recepcion_placa').live('change', function() {
             $('#vehiculo_descrip').load('../ajax/detalle_utilitario.php?ac=vehiculo&placa='+$('#Recepcion_placa').val());
         });
         
-//        $('#Recepcion\\[numero_guia\\]').live('change', function() {
-            //$('#guia_nombre').load
-//        });
+        $("#form1").submit(function() {
+            var isFormValid = true;
+            $("#form1 :input").each(function(){                 
+                if ($('#msg1').val()==1) {
+                    isFormValid = false;
+                    alert('EL NUMERO DE ENTRADA YA EXISTE!!!');
+                    $('#Recepcion\\[numero\\]').focus();
+                    return isFormValid;
+                }
+            });
+            if (isFormValid==true)
+                 if (confirm('SEGURO DESEAR GUARDAR?'))
+                    isFormValid=true;
+                 else
+                    isFormValid=false;
+            return isFormValid;
+        });
     });
 </script>
 <div id="titulo_modulo">
@@ -224,7 +352,7 @@
     </fieldset>-->
     <fieldset>
         <legend>Datos de la Recepcion</legend>
-    <table align="center" border="1">
+    <table align="center" border="0">
         <tr>
             <td>Cosecha</td>
             <td colspan="2" id='cultivo_nombre' width="230px">                
@@ -254,7 +382,7 @@
         <tr>
             <td>Nro Entrada</td>
             <td><? echo $html->input('Recepcion.numero', $infoMov[0]['numero'], array('type' => 'text', 'class' => 'crproductor positive')); ?></td>
-            <td id='numero_msg'></td>
+            <td id='numero_msg'><? echo $html->input('msg1',0, array('type' => 'text', 'style'=>'display: none'));?></td>
         </tr>
         <tr>
             <td>Fecha de Recepcion</td>
@@ -307,7 +435,7 @@
     </table>
     <? echo $html->input('Recepcion.id', $GPC['id'], array('type' => 'hidden')); ?>
     </fieldset>
-    <table align="center" border="1">
+    <table align="center" border="0">
         <tr>
             <td>&nbsp;</td>
         </tr>

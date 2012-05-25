@@ -58,9 +58,9 @@ class Analisis extends Model {
     
     function borrarResultados($idRecepcion=null, $idDespacho=null)
     {
-        $query = "DELETE si_analisis_resultado WHERE '1'";
-        $query .= (!empty($id)) ? " AND a.id = '$idRecepcion'" : "";
-        $query .= (!empty($id)) ? " AND a.id = '$idDespacho'" : "";
+        $query = "DELETE FROM si_analisis_resultado WHERE '1'";
+        $query .= (!empty($idRecepcion)) ? " AND id_recepcion = '$idRecepcion'" : "";
+        $query .= (!empty($idDespacho)) ? " AND id_despacho = '$idDespacho'" : "";
         return $this->_SQL_tool('DELETE', __METHOD__, $query);
     }
     

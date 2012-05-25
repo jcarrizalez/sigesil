@@ -11,25 +11,18 @@
     $fdesde = (!empty($GPC['fecha_inicio'])) ? $general->fecha_normal_sql($GPC['fecha_inicio'], 'es') : date('Y-m-d');
     $fhasta = (!empty($GPC['fecha_fin'])) ? $general->fecha_normal_sql($GPC['fecha_fin'], 'es') : date('Y-m-d');
     $numEntrada=(!empty($GPC['numEntrada'])) ? $GPC['numEntrada']: null;
-   
-    //$listadoCultivo = $cultivo->find('', '', array('id, nombre'), 'list', 'codigo');
-    
-    //$listadoCultivo = $cultivo->find('', '', "id, '('||codigo||') - '||nombre AS nombre", 'list', 'id');
-    $idCu=(!empty($GPC['cultivo'])) ? $GPC['cultivo']: null;
-    
-    $listadoCosecha=$cosecha->infoCosechaCultivo($idCA, null, null, $idCu, null, null, null);
+    $idCo=(!empty($GPC['cosecha'])) ? $GPC['cosecha']: null;
+    //echo "idCo: ".$idCo;   
+    $listadoCosecha=$cosecha->infoCosechaCultivo($idCA, $idCo, null, null, null, null, null);
+    //infoCosechaCultivo($idCA=null, $idCo=null, $idP=null, $idCu=null, $codigoCo=null, $codigoP=null, $codigoCu=null, $stausCo='t', $statusP='t'){
 
-//    debug::pr($listadoCosecha, true);
     $idCo=$listadoCosecha[0]['cosecha_id'];
     
     foreach($listadoCosecha as $dataCosecha) {
-        $listadoCultivo[$dataCosecha['cosecha_id']]="(".$dataCosecha['cosecha_codigo'].") ".$dataCosecha['cosecha_nombre'];
-        //+':';
-        //echo '<br>';
+        $listadoC[$dataCosecha['cosecha_id']]="(".$dataCosecha['cosecha_codigo'].") ".$dataCosecha['cosecha_nombre'];
     }
-//    print_r($listadoCosecha);
     
-    $listadoMov = $movimiento->listadoRecepcion(null, $idCa, $infoCosecha[0]['id'], null,$numEntrada, $estatus, $fdesde, $fhasta, $porPagina, $inicio);
+    $listadoMov = $movimiento->listadoRecepcion(null, $idCa, $idCo, null,$numEntrada, $estatus, $fdesde, $fhasta, $porPagina, $inicio);
     
     $total_registros = $despacho->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);
@@ -86,9 +79,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td width="60">Cultivo</td>
+                    <td width="60">cosecha</td>
                     <td>
-                        <? echo $html->select('cultivo',array('options'=>$listadoCultivo, 'selected' => $GPC['cultivo'], 'default' => 'Seleccione'));?>
+                        <? echo $html->select('cosecha',array('options'=>$listadoC, 'selected' => $GPC['cosecha'], 'default' => 'Seleccione'));?>
                     </td>
                     <td>Numero</td>
                     <td><?=$html->input('numEntrada', $numEntrada, array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'class' => 'crproductor positive'));?> </td>
