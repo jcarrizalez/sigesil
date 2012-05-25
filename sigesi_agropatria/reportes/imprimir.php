@@ -19,6 +19,9 @@
     
     $imprimir = file_get_contents($url);
     if(empty($GPC['re'])){
+        $impresora = new Impresora();
+        $detalleImpresora = $impresora->buscarImpresora(null, $_SESSION['s_ca_id'], $GPC['status']);
+        
         $mpdf=new mPDF('c');
         $mpdf->SetDisplayMode('fullpage');
         $mpdf->SetTopMargin(0);
@@ -29,12 +32,12 @@
         $archivo=$GPC['reporte'].time().'.pdf';
         $mpdf->Output($archivo,'F');
 
-        /* SENTENCIA PARA IMPRESION INDICANDO LA IMPRESORA A TRAVES DEL PARAMETRO -P DEL LPR
-        * $parametros="-P HP-LaserJet-p1606dn";
-        * exec("lpr $parametros $archivo");
-        */
+        //SENTENCIA PARA IMPRESION INDICANDO LA IMPRESORA A TRAVES DEL PARAMETRO -P DEL LPR
+        $parametros = $detalleImpresora[0]['nombre'];
+        $parametros .= (!empty($detalleImpresora[0]['parametros'])) ? $detalleImpresora[0]['parametros'] : '';
+        exec("lpr $parametros $archivo");
 
-        exec("lpr $archivo");
+        //exec("lpr $archivo");
         exec("rm $archivo");
 
         if(!empty($GPC['redir'])){

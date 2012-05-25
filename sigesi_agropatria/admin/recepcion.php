@@ -63,7 +63,7 @@
             
             if(!empty($idGuia) && !empty($idChofer) && !empty($idRecepcion)){
                 $recepcion->_commit_tool();
-                header("location: ".DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_recepcion&redir=recepcion&id_rec=$idRecepcion&ca=".$_SESSION['s_ca_id']);
+                header("location: ".DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_recepcion&redir=recepcion&id_rec=$idRecepcion&ca=".$_SESSION['s_ca_id']."&status=1");
                 die();
             }else{
                 header("location: recepcion.php?msg=error");

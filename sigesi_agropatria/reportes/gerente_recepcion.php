@@ -366,35 +366,67 @@
         });
         
         $('#anterior').click(function(){
-            $('#siguiente').attr('disabled', false);
             var siguiente = $('#campos').val();
-            if(siguiente > 8){
-                $('td:nth-child('+siguiente+'),th:nth-child('+siguiente+')').hide();
+            if(siguiente > 9){
+                $('#siguiente').attr('disabled', false);
+                if(siguiente == 17){
+                    for(i = 1; i <= 3; i++){
+                        $('#tbl_data td:nth-child('+siguiente+'),th:nth-child('+siguiente+')').hide();
+                        siguiente++;
+                    }
+                    siguiente = siguiente-10;
+                    $('#campos').val(siguiente);
+                    for(i = 1; i <= 7; i++){
+                        $('#tbl_data td:nth-child('+siguiente+'),th:nth-child('+siguiente+')').show();
+                        siguiente++;
+                    }
+                }else{
+                    for(i = 1; i <= 7; i++){
+                        $('#tbl_data td:nth-child('+siguiente+'),th:nth-child('+siguiente+')').hide();
+                        siguiente++;
+                    }
+                    siguiente = siguiente-14;
+                    $('#campos').val(siguiente);
+                    for(i = 1; i <= 7; i++){
+                        $('#tbl_data td:nth-child('+siguiente+'),th:nth-child('+siguiente+')').show();
+                        siguiente++;
+                    }
+                }
+                /*$('td:nth-child('+siguiente+'),th:nth-child('+siguiente+')').hide();
                 siguiente++;
                 $('td:nth-child('+siguiente+'),th:nth-child('+siguiente+')').hide();
                 siguiente = siguiente-3;
                 $('#campos').val(siguiente);
                 $('td:nth-child('+siguiente+'),th:nth-child('+siguiente+')').show();
                 siguiente++;
-                $('td:nth-child('+siguiente+'),th:nth-child('+siguiente+')').show();
+                $('td:nth-child('+siguiente+'),th:nth-child('+siguiente+')').show();*/
             }
-            if(siguiente == 9) $('#anterior').attr('disabled', true);
+            if(siguiente == 10) $('#anterior').attr('disabled', true);
         });
         
         $('#siguiente').click(function(){
-            $('#anterior').attr('disabled', false);
             var siguiente = $('#campos').val();
             if(siguiente < 18){
-                $('td:nth-child('+siguiente+'),th:nth-child('+siguiente+')').hide();
+                $('#anterior').attr('disabled', false);
+                for(i = 1; i <= 7; i++){
+                    $('#tbl_data td:nth-child('+siguiente+'),th:nth-child('+siguiente+')').hide();
+                    siguiente++;
+                }
+                $('#campos').val(siguiente);
+                for(i = 1; i <= 7; i++){
+                    $('#tbl_data td:nth-child('+siguiente+'),th:nth-child('+siguiente+')').show();
+                    siguiente++;
+                }
+                /*$('td:nth-child('+siguiente+'),th:nth-child('+siguiente+')').hide();
                 siguiente++;
                 $('td:nth-child('+siguiente+'),th:nth-child('+siguiente+')').hide();
                 siguiente++;
                 $('td:nth-child('+siguiente+'),th:nth-child('+siguiente+')').show();
                 $('#campos').val(siguiente);
                 siguiente++;
-                $('td:nth-child('+siguiente+'),th:nth-child('+siguiente+')').show();
+                $('td:nth-child('+siguiente+'),th:nth-child('+siguiente+')').show();*/
             }
-            if(siguiente == 19) $('#siguiente').attr('disabled', true);
+            if(siguiente == 24) $('#siguiente').attr('disabled', true);
         });
         
         // Funcion que abre los Dialogos
@@ -483,8 +515,8 @@
     </div>
     <div id="filtro">
         <form name="form1" id="form1" method="GET" action="#">
-            <? echo $html->input('campos', '8', array('type' => 'hidden')); ?>
-            <table width="100%" border="0">
+            <? echo $html->input('campos', '3', array('type' => 'text')); ?>
+            <table width="100%" border="0" id="tbl_filtros">
                 <tr>
                     <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
                     <td>Centro de Acopio</td>
@@ -596,18 +628,17 @@
             $paginador->print_paginator('pulldown');
         ?>
     </div>
-    <table align="center" width="100%" border="0">
+    <table align="center" width="100%" border="0" id="tbl_data">
         <tr>
-            <th colspan="7"></th>
-            <th align="center" colspan="2">
+            <th align="right" colspan="10">
                 <? echo $html->input('anterior', '<', array('type' => 'button')); ?>
                 <? echo $html->input('siguiente', '>', array('type' => 'button')); ?>
             </th>
         </tr>
         <tr align="center" class="titulos_tabla">
-            <th width="1">Entrada Nro</th>
             <th width="1">Cedula/Rif</th>
-            <th>Productor</th>
+            <th width="125">Productor</th>
+            <th width="1">Entrada Nro</th>
             <th width="1">Guia</th>
             <th width="1">Cosecha</th>
             <th width="1">Cultivo</th>
@@ -617,7 +648,7 @@
             <th style="display: none;">Peso Vac&iacute;o M</th>
             <th style="display: none;">Peso Vac&iacute;o R</th>
             <th style="display: none;">Peso Bruto</th>
-            <th style="display: none;">Tara del Veh&iacute;culo</th>
+            <th style="display: none;">Tara Veh&iacute;culo</th>
             <th style="display: none;">% Humd</th>
             <th style="display: none;">Desc Hum</th>
             <th style="display: none;">% Imp</th>
@@ -664,9 +695,9 @@
                 $totalPesoAconL += $dataRecepcion['peso_acon_liq'];
         ?>
         <tr class="<?=$clase?>">
-            <td align="center"><?=$numEntrada?></td>
             <td align="center"><?=$dataRecepcion['ced_productor']?></td>
             <td align="center"><?=$dataRecepcion['productor_nombre']?></td>
+            <td align="center"><?=$numEntrada?></td>
             <td align="center"><?=$dataRecepcion['numero_guia']?></td>
             <td align="center"><?=$dataRecepcion['cosecha_codigo']?></td>
             <td align="center"><?=$dataRecepcion['cultivo_codigo']?></td>
@@ -730,12 +761,12 @@
         <? $i++; } ?>
         <tr align="right">
             <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
             <th>Total:</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
             <th><?=$general->formato_numero(round($totalPesoLM), 3)?></th>
             <th><?=$general->formato_numero(round($totalPesoLR), 3)?></th>
             <th style="display: none"><?=$general->formato_numero(round($totalPesoVM), 3)?></th>
@@ -748,6 +779,7 @@
             <th style="display: none"><?=$general->formato_numero(round($totalID), 3)?></th>
             <th style="display: none"><?=$general->formato_numero(round($totalPesoAcon), 3)?></th>
             <th style="display: none"><?=$general->formato_numero(round($totalPesoAconL), 3)?></th>
+            <th></th>
         </tr>
         <tr>
             <td colspan="6">&nbsp;</td>
