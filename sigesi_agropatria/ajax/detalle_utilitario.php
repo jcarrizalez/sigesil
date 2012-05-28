@@ -8,6 +8,7 @@
     $movimiento = new Recepcion();
     $vehiculo = new Vehiculo();
     $guia= new Guia();
+    $chofer = new Chofer();
     
     switch ($GPC['ac']) {
         case 'cosecha':
@@ -22,37 +23,39 @@
                     foreach($listaProductor as $dataPro)
                         $listaP[$dataPro['ced_productor']]=$dataPro['productor'];
                     echo $html->select('Recepcion.ced_productor', array('options' => $listaP, 'default' => 'Seleccione', 'class' => 'estilo_campos'));
-                }                
-            }
+                }   
+            } else 
+                echo $html->select('Recepcion.ced_productor', array('default' => 'Seleccione', 'class' => 'estilo_campos'));
         break;
         case 'asociacion':
             if (!empty($GPC['cosecha']) && !empty($GPC['cedRifP'])) {
-                if (is_numeric($GPC['cosecha'])) {                
+                if (is_numeric($GPC['cosecha'])) {
                     $idCosecha=$GPC['cosecha'];
                     $cedRifP=(is_numeric($GPC['cedRifP'])) ? $GPC['cedRifP']: '';            
                     $listAsociacion = $cosecha->buscarCosechaProductor($idCosecha, $cedRifP);
                     foreach($listAsociacion as $datAon)
                         $listAon[$datAon['ced_asociacion']]=$datAon['asociacion'];
-                    //$listAon['null']='Seleccione';
                     if (!empty($listAon))
                         echo $html->select('Recepcion.ced_asociacion', array('options' => $listAon, 'default' => 'Seleccione',  'class' => 'estilo_campos'));
                  }
-            }
+            } else
+                echo $html->select('Recepcion.ced_asociacion', array('default' => 'Seleccione',  'class' => 'estilo_campos'));
         break;
         case 'asociado':
-            if (!empty($GPC['cosecha']) && !empty($GPC['cedRifP']) && !empty($GPC['cedRifAon']) && !empty($GPC['cedRifAdo'])) {
+            if (!empty($GPC['cosecha']) && !empty($GPC['cedRifP']) && !empty($GPC['cedRifAon'])) {
                 if (is_numeric($GPC['cosecha'])) {
                     $idCosecha=$GPC['cosecha'];
                     $cedRifP=($GPC['cedRifP']=='undefined') ? $GPC['cedRifP']: null;
                     $cedRifAon=($GPC['cedRifAon']=='undefined') ? $GPC['cedRifAon']: null;
                     $listAsociado = $cosecha->buscarCosechaProductor($idCosecha, $cedRifP, $cedRifAon);
                     foreach($listAsociado as $datAdo)
-                        $listAdo[$datAdo['ced_asociacion']]=$datAdo['asociacion'];
+                        $listAdo[$datAdo['ced_asociado']]=$datAdo['asociado'];
                     $listAdo['null']='Seleccione';
                     if (!empty($listAdo))
-                        echo $html->select('Recepcion.ced_asociacion', array('options' => $listAdo, 'default' => 'Seleccione', 'class' => 'estilo_campos'));
+                        echo $html->select('Recepcion.ced_asociado', array('options' => $listAdo, 'default' => 'Seleccione', 'class' => 'estilo_campos'));
                 }
-            }
+            } else
+                echo $html->select('Recepcion.ced_asociado', array('default' => 'Seleccione', 'class' => 'estilo_campos'));
         break;
         case 'recepcion':
             if (!empty($GPC['numero']) && !empty($GPC['fecha']) && !empty($GPC['tipo']) && !empty($GPC['ca'])  && !empty($GPC['co']) && !empty($GPC['id'])) {
@@ -60,43 +63,43 @@
                 if ($GPC['tipo']=='n') {
                     if (!empty($infoMov[0]['id'])) {
                             if ($infoMov[0]['id']==$GPC['id']) {
-                                echo $html->input('msg1',0, array('type' => 'text', 'style'=>'display: none'));
+                                echo $html->input('msg1',0, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
                                 echo "<script>";
                                 echo "alert('NUMERO DE ENTRADA DISPONIBLE')";
                                 echo "</script>";
 
                             } else {
-                                echo $html->input('msg1',1, array('type' => 'text', 'style'=>'display: none'));
+                                echo $html->input('msg1',1, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
                                 echo "<script>";
                                 echo "alert('NUMERO DE ENTRADA OCUPADO')";
                                 echo "</script>";
                             }
                     } else {
-                        echo $html->input('msg1',0, array('type' => 'text', 'style'=>'display: none'));
+                        echo $html->input('msg1',0, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
                         echo "<script>";
                         echo "alert('NUMERO DE ENTRADA DISPONIBLE')";
                         echo "</script>";
                     }
                 } elseif ($GPC['tipo']=='f') {
                     if (!empty($infoMov[0]['id'])) {
-                            if ($infoMov[0]['id']==$GPC['id']) {
-                                echo $html->input('msg1',0, array('type' => 'text', 'style'=>'display: none'));
-                                echo "<script>";
-                                echo "alert('FECHA DE ENTRADA DISPONIBLE')";
-                                echo "</script>";
+                        if ($infoMov[0]['id']==$GPC['id']) {
+                            echo $html->input('msg1',0, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
+                            echo "<script>";
+                            echo "alert('FECHA DE ENTRADA DISPONIBLE')";
+                            echo "</script>";
 
-                            } else {
-                                echo $html->input('msg1',1, array('type' => 'text', 'style'=>'display: none'));
-                                echo "<script>";
-                                echo "alert('FECHA DE ENTRADA OCUPADO')";
-                                echo "</script>";
-                            }
-                    } else {
-                        echo $html->input('msg1',0, array('type' => 'text', 'style'=>'display: none'));
+                        } else {
+                            echo $html->input('msg1',1, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
+                            echo "<script>";
+                            echo "alert('FECHA DE ENTRADA OCUPADO')";
+                            echo "</script>";
+                        }
+                   } else {
+                        echo $html->input('msg1',0, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
                         echo "<script>";
                         echo "alert('FECHA DE ENTRADA DISPONIBLE')";
                         echo "</script>";
-                    }
+                   }
                 } 
             }
         break;
@@ -130,6 +133,40 @@
                     </td>
                 </tr>
             <?
+        break;
+        case 'chofer':
+            if (!empty($GPC['cedC'])) {
+                $infoChofer = $chofer->find(array('ced_rif' => $GPC['cedC']));
+                if (!empty($infoChofer[0]['id'])) {
+                    echo "<span class='crproductor'>".$infoChofer[0]['nombre']."</span>";
+                    echo $html->input('msg2', 0, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
+                } else {
+                    echo "<span class='crproductor'>EL CHOFER NO EXISTE!!!</span>";
+                    echo $html->input('msg2', 1, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
+                }
+            } else {
+                echo "<td colspan='3'>";
+                echo "<span class='crproductor'>EL CHOFER NO EXISTE!!!</span>";
+                echo $html->input('msg2', 1, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
+                echo "</td>";
+            }
+        break;
+        case 'vehiculo':
+            if (!empty($GPC['placa'])) {
+                $infoVehiculo = $vehiculo->buscar($GPC['placa']);
+                if (!empty($infoVehiculo[0]['id'])) {
+                    echo "<span class='crproductor'>".$infoVehiculo[0]['marca']."</span>";
+                    echo $html->input('msg3', 0, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
+                } else {
+                    echo "<span class='crproductor'>EL VEHICULO NO EXISTE!!!</span>";
+                    echo $html->input('msg3', 1, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
+                }
+            } else {
+                echo "<td colspan='3'>";
+                echo "<span class='crproductor'>EL VEHICULO NO EXISTE!!!</span>";
+                echo $html->input('msg3', 1, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
+                echo "</td>";
+            }            
         break;
     }
 ?>

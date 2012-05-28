@@ -8,24 +8,30 @@
     $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : null;
     $listadoEstatus = array('1' => '(1) Laboratorio Central', '2' => '(2) Curentena Admon', '3' => '(3) Romana Lleno', '4' => '(4) Tolvas', '5' => '(5) Ctna Tolva','6' => '(6) Romana Vacio', '7' => '(7) Rechazo Central', '9' => '(9) Recibido',  '11' => '(11) Ctna Aprobado',  '12' => '(12) Ctna Rechazado');
     $estatus = (!empty($GPC['estatus'])) ? "'".$GPC['estatus']."'" : null;
-    $fdesde = (!empty($GPC['fecha_inicio'])) ? $general->fecha_normal_sql($GPC['fecha_inicio'], 'es') : date('Y-m-d');
-    $fhasta = (!empty($GPC['fecha_fin'])) ? $general->fecha_normal_sql($GPC['fecha_fin'], 'es') : date('Y-m-d');
+    $fdesde = (!empty($GPC['fecha_inicio'])) ? $general->fecha_normal_sql($GPC['fecha_inicio'], 'es') : '';
+    $fhasta = (!empty($GPC['fecha_fin'])) ? $general->fecha_normal_sql($GPC['fecha_fin'], 'es') : '';
     $numEntrada=(!empty($GPC['numEntrada'])) ? $GPC['numEntrada']: null;
     $idCo=(!empty($GPC['cosecha'])) ? $GPC['cosecha']: null;
-    //echo "idCo: ".$idCo;   
+    
     $listadoCosecha=$cosecha->infoCosechaCultivo($idCA, $idCo, null, null, null, null, null);
-    //infoCosechaCultivo($idCA=null, $idCo=null, $idP=null, $idCu=null, $codigoCo=null, $codigoP=null, $codigoCu=null, $stausCo='t', $statusP='t'){
-
     $idCo=$listadoCosecha[0]['cosecha_id'];
-    
+
     foreach($listadoCosecha as $dataCosecha) {
-        $listadoC[$dataCosecha['cosecha_id']]="(".$dataCosecha['cosecha_codigo'].") ".$dataCosecha['cosecha_nombre'];
+        $listadoC[$dataCosecha['cosecha_id']]=$dataCosecha['cultivo_nombre'];
     }
-    
-    $listadoMov = $movimiento->listadoRecepcion(null, $idCa, $idCo, null,$numEntrada, $estatus, $fdesde, $fhasta, $porPagina, $inicio);
-    
-    $total_registros = $despacho->total_verdadero;
-    $paginador = new paginator($total_registros, $porPagina);
+
+    if (!empty($numEntrada) && (!empty($fdesde) || !empty($fhasta))) {
+        if (empty($fdesde))
+            $fdesde=$fhasta;
+        elseif (empty($fhasta))
+            $fhasta=$fdesde;
+        
+        //$listadoMov = $movimiento->listadoRecepcion(null, $idCa, $idCo, null,$numEntrada, $estatus,null, null, $porPagina, $inicio);
+        $listadoMov = $movimiento->listadoRecepcion(null, $idCa, $idCo, null, $numEntrada, $estatus, null, null, $porPagina, $inicio, null, null, null, null, null, null, null, null, $fdesde, $fhasta);
+
+        $total_registros = $despacho->total_verdadero;
+        $paginador = new paginator($total_registros, $porPagina);
+    }
 
     require('../lib/common/header.php');
     require('../lib/common/init_calendar.php');
@@ -79,7 +85,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td width="60">cosecha</td>
+                    <td width="60">Cosecha</td>
                     <td>
                         <? echo $html->select('cosecha',array('options'=>$listadoC, 'selected' => $GPC['cosecha'], 'default' => 'Todas'));?>
                     </td>
