@@ -10,6 +10,8 @@
     $analisis = new Analisis();
     $rectipo = new Recultipo();
     $chofer = new Chofer();
+    $Ctna = new Cuarentena();
+    $CtnaPlaga = new CuarentenaPlaga();
     /*$cosecha = new Cosecha();
     $vehiculo = new Vehiculo();
     $cultivo = new Cultivo();
@@ -229,6 +231,11 @@
                                 $GPC['Recepcion']['romana_sal']=-1;
                                 $GPC['Recepcion']['peso_acon']=0.000;
                                 $GPC['Recepcion']['peso_acon_liq']=0.000;
+                                $esResultado=$analisis->borrarResultados($infoMovimiento[0]['id']);                                    
+                                $listaT=$rectipo->find(array('id_recepcion'=>$infoMovimiento[0]['id'], 'id_centro_acopio'=>$infoMovimiento[0]['id_centro_acopio']));
+                                $esTipo=$rectipo->borrar($infoMovimiento[0]['id']);
+                                $Ctna->borrar($infoMovimiento[0]['id']);
+                                $CtnaPlaga->borrar($infoMovimiento[0]['id']);
                                 $GPC['Recepcion']['estatus_rec']=$GPC['Recepcion']['estatus_rec'];
                                 break;
                             case 5:
@@ -245,6 +252,11 @@
                                 $GPC['Recepcion']['romana_sal']=-1;
                                 $GPC['Recepcion']['peso_acon']=0.000;
                                 $GPC['Recepcion']['peso_acon_liq']=0.000;
+                                $esResultado=$analisis->borrarResultados($infoMovimiento[0]['id']);                                    
+                                $listaT=$rectipo->find(array('id_recepcion'=>$infoMovimiento[0]['id'], 'id_centro_acopio'=>$infoMovimiento[0]['id_centro_acopio']));
+                                $esTipo=$rectipo->borrar($infoMovimiento[0]['id']);
+                                $Ctna->borrar($infoMovimiento[0]['id']);
+                                $CtnaPlaga->borrar($infoMovimiento[0]['id']);
                                 $GPC['Recepcion']['estatus_rec']=$GPC['Recepcion']['estatus_rec'];
                                 break;
                             case 4:
@@ -261,7 +273,13 @@
                                 $GPC['Recepcion']['romana_sal']=-1;
                                 $GPC['Recepcion']['peso_acon']=0.000;
                                 $GPC['Recepcion']['peso_acon_liq']=0.000;
+                                $esResultado=$analisis->borrarResultados($infoMovimiento[0]['id']);                                    
+                                $listaT=$rectipo->find(array('id_recepcion'=>$infoMovimiento[0]['id'], 'id_centro_acopio'=>$infoMovimiento[0]['id_centro_acopio']));
+                                $esTipo=$rectipo->borrar($infoMovimiento[0]['id']);
+                                $Ctna->borrar($infoMovimiento[0]['id']);
+                                $CtnaPlaga->borrar($infoMovimiento[0]['id']);
                                 $GPC['Recepcion']['estatus_rec']=$GPC['Recepcion']['estatus_rec'];
+                                
                                 break;
                             case 3:
                                 $GPC['Recepcion']['fecha_pel']='';
@@ -285,14 +303,14 @@
                                 $GPC['Recepcion']['fecha_pel']='';
                                 $GPC['Recepcion']['peso_01l']=0.000;
                                 $GPC['Recepcion']['peso_02l']=0.000;
-                                $GPC['Recepcion']['tolva']-1;
+                                $GPC['Recepcion']['tolva']-1;//?
                                 $GPC['Recepcion']['fecha_v']=='';
                                 $GPC['Recepcion']['peso_01v']=0.000;
                                 $GPC['Recepcion']['peso_02v']=0.000;
                                 $GPC['Recepcion']['humedad']=0.000;
                                 $GPC['Recepcion']['impureza']=0.000;
-                                $GPC['Recepcion']['humedad_des']=0.000;
-                                $GPC['Recepcion']['impureza_des']=0.000;
+                                $GPC['Recepcion']['humedad_des']=0.000;//?
+                                $GPC['Recepcion']['impureza_des']=0.000;//?
                                 $GPC['Recepcion']['romana_ent']=-1;
                                 $GPC['Recepcion']['romana_sal']=-1;
                                 $GPC['Recepcion']['peso_acon']=0.000;
@@ -302,19 +320,21 @@
                                 $esResultado=$analisis->borrarResultados($infoMovimiento[0]['id']);                                    
                                 $listaT=$rectipo->find(array('id_recepcion'=>$infoMovimiento[0]['id'], 'id_centro_acopio'=>$infoMovimiento[0]['id_centro_acopio']));
                                 $esTipo=$rectipo->borrar($infoMovimiento[0]['id']);
+                                $Ctna->borrar($infoMovimiento[0]['id']);
+                                $CtnaPlaga->borrar($infoMovimiento[0]['id']);
                                 break;
                             case 2:
                                 $GPC['Recepcion']['fecha_pel']='';
                                 $GPC['Recepcion']['peso_01l']=0.000;
                                 $GPC['Recepcion']['peso_02l']=0.000;
-                                $GPC['Recepcion']['tolva']=-1;
+                                $GPC['Recepcion']['tolva']=-1;//?
                                 $GPC['Recepcion']['fecha_v']=='';
                                 $GPC['Recepcion']['peso_01v']=0.000;
                                 $GPC['Recepcion']['peso_02v']=0.000;
                                 $GPC['Recepcion']['humedad']=0.000;
                                 $GPC['Recepcion']['impureza']=0.000;
-                                $GPC['Recepcion']['humedad_des']=0.000;
-                                $GPC['Recepcion']['impureza_des']=0.000;
+                                $GPC['Recepcion']['humedad_des']=0.000;//?
+                                $GPC['Recepcion']['impureza_des']=0.000;//?
                                 $GPC['Recepcion']['romana_ent']=-1;
                                 $GPC['Recepcion']['romana_sal']=-1;
                                 $GPC['Recepcion']['peso_acon']=0.000;
@@ -423,43 +443,6 @@
     UTILITARIO - RECEPCION<br/><hr/>
 </div>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
-    <fieldset>
-        <legend>Datos de la Guia</legend>        
-            <table align="center" border="0">
-                <tr>
-                    <td width="130px">Guia Nro. 1</td>
-                    <td width="230px">
-                    <?=$html->input('Recepcion.numero_guia', $infoMov[0]['numero_guia'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => 'true')); ?>
-                    </td>
-                </tr>
-            </table>
-            <table align="center" border="0" id='guia_nombre'>
-            <?
-                $i=1;
-                foreach($listaSubGuia as $subguia) {
-                    $i++;
-            ?>
-                <tr>
-                    <td>Guia Nro. <?=$i?></td>
-                    <td>
-                        <?=$html->input('Guia.subguia_'.$i, $subguia['subguia'], array('type' => 'text', 'class' => 'crproductor', 'readOnly'=>true)); ?>
-                    </td>
-                </tr>
-            <?
-                }
-            ?>
-                <tr>
-                    <td width="130px">Fecha de emision</td>
-                    <td width="230px"><?=$html->input('Guia.placa', $listaGuia[0]['fecha_emision'], array('type' => 'text', 'class' => 'crproductor', 'readOnly'=>true)); ?></td>
-                </tr>
-                <tr>
-                    <td>Contrato</td>
-                    <td>
-                        <?=$html->input('Guia.contrato', $infoMov[0]['contrato'], array('type' => 'text', 'class' => 'crproductor', 'readOnly'=>true)); ?>
-                    </td>
-                </tr>
-            </table>
-    </fieldset>
     <fieldset>
         <legend>Datos de la Recepcion</legend>
     <table align="center" border="0">

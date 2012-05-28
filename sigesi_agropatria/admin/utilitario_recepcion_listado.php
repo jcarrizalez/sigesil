@@ -25,8 +25,7 @@
             $fdesde=$fhasta;
         elseif (empty($fhasta))
             $fhasta=$fdesde;
-        
-        //$listadoMov = $movimiento->listadoRecepcion(null, $idCa, $idCo, null,$numEntrada, $estatus,null, null, $porPagina, $inicio);
+
         $listadoMov = $movimiento->listadoRecepcion(null, $idCa, $idCo, null, $numEntrada, $estatus, null, null, $porPagina, $inicio, null, null, null, null, null, null, null, null, $fdesde, $fhasta);
 
         $total_registros = $despacho->total_verdadero;

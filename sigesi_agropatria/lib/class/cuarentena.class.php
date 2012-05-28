@@ -46,6 +46,13 @@ class Cuarentena extends Model {
         $query .= (!empty($idCtna)) ? " AND c.id = '$idCtna'" : "";
         $query .= (!empty($idRec)) ? " AND c.id_recepcion = '$idRec'" : "";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
-    }       
+    }
+
+    function borrar($idRecepcion)
+    {
+        $query = "DELETE FROM si_cuarentena WHERE '1'";
+        $query .= (!empty($idRecepcion)) ? " AND id = '$idRecepcion'" : "";
+        return $this->_SQL_tool('DELETE', __METHOD__, $query);
+    }
 }
 ?>
