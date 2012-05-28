@@ -109,9 +109,9 @@
                 if ($evaluar->evaluate('y(x) = ' . $GPC['formula_eval'])) {
                     $total = $evaluar->e("y(0)");
                     if($total < 0)
-                        echo "<tr><th class='error' align='center'><h3>El resultado es: " . number_format($total, 3) . "</h3></th></tr>";
+                        echo "<tr><th class='error' align='center'><h3>El resultado es: " . number_format($total, 2) . "</h3></th></tr>";
                     else
-                        echo "<tr><th class='msj_verde' align='center'><h3>El resultado es: " . number_format($total, 3) . "</h3></th></tr>";
+                        echo "<tr><th class='msj_verde' align='center'><h3>El resultado es: " . number_format($total, 2) . "</h3></th></tr>";
                 } else {
                     echo "<tr><th class='error' align='center'><h3>No se puede evaluar la funci&oacute;n: " . $evaluar->last_error . "</h3></th></tr>";
                 }
@@ -133,7 +133,7 @@
             $movimiento = split('-', $GPC['status']);
             $infoRomana = $romana->find(array('id' => $movimiento[2]), null, 'parametros');
             $peso=file_get_contents($infoRomana[0]['parametros']);
-            //$peso = rand(5000, 50000)."K";
+            $peso = rand(5000, 50000)."K";
             //$peso = "37047K";
             $peso = ($peso < 0 || $peso == '') ? '0K' : $peso;
             switch($movimiento[0]){
@@ -289,15 +289,17 @@
                                 }
                                 if(($condicionFormula >= $rangoEvaluar[0]) && ($condicionFormula <= $rangoEvaluar[1]))
                                     $otraFormula[] = $valor['formula'];
-                                else
+                                else{
+                                    $otraFormula[] = $valor['formula'];
                                     $otra = true;
+                                }
                             }
                         }
                     }
                 }
                 
-                if(empty($otraFormula) && $otra){
-                    $otraFormula[0] = $formulaAplicar['PN'];
+                if($otra){
+                    //$otraFormula[0] = $formulaAplicar['PN'];
                     $otraFormula[1] = $formulaAplicar['PN'];
                 }
                 
@@ -356,26 +358,26 @@
             ?>
             <tr>
                 <td>Peso Neto <?=$movimiento?> Kgrs</td>
-                <td><? echo $html->input('pesoRecibido1', $general->formato_numero(round($pesoN), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('pesoRecibido1', $general->formato_numero(round($pesoN), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <? if($infoCultivo[0]['id'] == 12){ ?>
             <tr>
                 <td>Peso Neto Acondicionado <?=$label?> Kgrs</td>
-                <td><? echo $html->input('netoAcondicionado1', $general->formato_numero(round($pesoA), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('netoAcondicionado1', $general->formato_numero(round($pesoA), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <? }else{ ?>
             <tr>
                 <td>Desc. por Humedad <?=$label?> Kgrs</td>
-                <td><? echo $html->input('descHumedad1', $general->formato_numero(round($pesoH), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('descHumedad1', $general->formato_numero(round($pesoH), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Desc. por Impureza <?=$label?> Kgrs</td>
-                <td><? echo $html->input('descImpurezas1', $general->formato_numero(round($pesoI), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('descImpurezas1', $general->formato_numero(round($pesoI), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <? } ?>
             <tr>
                 <td>Peso Neto a Liquidar <?=$label?> Kgrs</td>
-                <td><? echo $html->input('netoAcondicionadoL1', $general->formato_numero(round($pesoAl), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('netoAcondicionadoL1', $general->formato_numero(round($pesoAl), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <?
                 if($GPC['mov'] == 'des' && ($sumHum2 != '' || $sumImp2 != '' || $GPC['Recepcion']['pesoLleno2'] != '' || $GPC['Recepcion']['peso_02v'] != '')){
@@ -428,26 +430,26 @@
             ?>
             <tr>
                 <td>Peso Neto Despachado Remolque Kgrs</td>
-                <td><? echo $html->input('pesoRecibido2', $general->formato_numero(round($pesoN2), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('pesoRecibido2', $general->formato_numero(round($pesoN2), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <? if($infoCultivo[0]['id'] == 12){ ?>
             <tr>
                 <td>Peso Neto Acondicionado Remolque Kgrs</td>
-                <td><? echo $html->input('netoAcondicionado2', $general->formato_numero(round($pesoA2), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('netoAcondicionado2', $general->formato_numero(round($pesoA2), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <? }else{ ?>
             <tr>
                 <td>Desc. por Humedad Remolque Kgrs</td>
-                <td><? echo $html->input('descHumedad2', $general->formato_numero(round($pesoH2), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('descHumedad2', $general->formato_numero(round($pesoH2), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Desc. por Impureza Remolque Kgrs</td>
-                <td><? echo $html->input('descImpurezas2', $general->formato_numero(round($pesoI2), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('descImpurezas2', $general->formato_numero(round($pesoI2), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <? } ?>
             <tr>
                 <td>Peso Neto a Liquidar Remolque Kgrs</td>
-                <td><? echo $html->input('netoAcondicionadoL2', $general->formato_numero(round($pesoAl2), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('netoAcondicionadoL2', $general->formato_numero(round($pesoAl2), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <?
                 }
@@ -530,15 +532,17 @@
                             }
                             if(($condicionFormula >= $rangoEvaluar[0]) && ($condicionFormula <= $rangoEvaluar[1]))
                                 $otraFormula[] = $valor['formula'];
-                            else
+                            else{
+                                $otraFormula[] = $valor['formula'];
                                 $otra = true;
+                            }
                         }
                     }
                 }
             }
 
-            if(empty($otraFormula) && $otra){
-                $otraFormula[0] = $formulaAplicar['PN'];
+            if($otra){
+                //$otraFormula[0] = $formulaAplicar['PN'];
                 $otraFormula[1] = $formulaAplicar['PN'];
             }
 
@@ -594,26 +598,26 @@
             ?>
             <tr>
                 <td>Peso Neto <?=$movimiento?> Kgrs</td>
-                <td><? echo $html->input('pesoRecibido1', $general->formato_numero(round($pesoN), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('pesoRecibido1', $general->formato_numero(round($pesoN), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <? if($GPC['id_cultivo'] == 12){ ?>
             <tr>
                 <td>Peso Neto Acondicionado <?=$label?> Kgrs</td>
-                <td><? echo $html->input('netoAcondicionado1', $general->formato_numero(round($pesoA), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('netoAcondicionado1', $general->formato_numero(round($pesoA), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <? }else{ ?>
             <tr>
                 <td>Desc. por Humedad <?=$label?> Kgrs</td>
-                <td><? echo $html->input('descHumedad1', $general->formato_numero(round($pesoH), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('descHumedad1', $general->formato_numero(round($pesoH), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Desc. por Impureza <?=$label?> Kgrs</td>
-                <td><? echo $html->input('descImpurezas1', $general->formato_numero(round($pesoI), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('descImpurezas1', $general->formato_numero(round($pesoI), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <? } ?>
             <tr>
                 <td>Peso Neto a Liquidar <?=$label?> Kgrs</td>
-                <td><? echo $html->input('netoAcondicionadoL1', $general->formato_numero(round($pesoAl), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('netoAcondicionadoL1', $general->formato_numero(round($pesoAl), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <?
             if($id == 2 && ($GPC['humedad2'] != '' || $GPC['impureza2'] != '' || $GPC['peso_02l'] != '' || $GPC['peso_02v'] != '')){
@@ -666,26 +670,26 @@
             ?>
             <tr>
                 <td>Peso Neto Despachado Remolque Kgrs</td>
-                <td><? echo $html->input('pesoRecibido2', $general->formato_numero(round($pesoN2), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('pesoRecibido2', $general->formato_numero(round($pesoN2), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <? if($GPC['id_cultivo'] == 12){ ?>
             <tr>
                 <td>Peso Neto Acondicionado Remolque Kgrs</td>
-                <td><? echo $html->input('netoAcondicionado2', $general->formato_numero(round($pesoA2), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('netoAcondicionado2', $general->formato_numero(round($pesoA2), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <? }else{ ?>
             <tr>
                 <td>Desc. por Humedad Remolque Kgrs</td>
-                <td><? echo $html->input('descHumedad2', $general->formato_numero(round($pesoH2), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('descHumedad2', $general->formato_numero(round($pesoH2), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Desc. por Impureza Remolque Kgrs</td>
-                <td><? echo $html->input('descImpurezas2', $general->formato_numero(round($pesoI2), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('descImpurezas2', $general->formato_numero(round($pesoI2), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <? } ?>
             <tr>
                 <td>Peso Neto a Liquidar Remolque Kgrs</td>
-                <td><? echo $html->input('netoAcondicionadoL2', $general->formato_numero(round($pesoAl2), 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><? echo $html->input('netoAcondicionadoL2', $general->formato_numero(round($pesoAl2), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <?
             }

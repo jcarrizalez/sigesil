@@ -148,15 +148,17 @@
                                     }
                                     if(($condicionFormula >= $rangoEvaluar[0]) && ($condicionFormula <= $rangoEvaluar[1]))
                                         $otraFormula[] = $valor['formula'];
-                                    else
+                                    else{
+                                        $otraFormula[] = $valor['formula'];
                                         $otra = true;
+                                    }
                                 }
                             }
                         }
                     }
 
-                    if(empty($otraFormula) && $otra){
-                        $otraFormula[0] = $formulaAplicar['PN'];
+                    if($otra){
+                        //$otraFormula[0] = $formulaAplicar['PN'];
                         $otraFormula[1] = $formulaAplicar['PN'];
                     }
 
@@ -321,7 +323,6 @@
             $vehiculo = (!empty($infoMovimiento[0]['marca'])) ? $infoMovimiento[0]['marca']."/" : "Sin Marca/";
             $vehiculo .= $infoMovimiento[0]['placa'];
             $cultivo = trim($infoMovimiento[0]['cultivo_codigo'])." ".trim($infoMovimiento[0]['cultivo_nombre']);
-            //Debug::pr($general->formato_numero(round($infoMovimiento[0]['peso_acon']),3));
             break;
     }
     
