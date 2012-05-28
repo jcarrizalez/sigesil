@@ -81,7 +81,6 @@ class Recepcion extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 
-           //listadoRecepcion($id=null, $idCa=null, $idCo=null, $idSilo=null, $entradaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null, $idPro=null, $order=null, $contrato=null, $productor=null, $idP=null, $placa=null, $fechaLiq=null, $fechaRec=null, $idAon=null, $guia=null, $idAdo=null){
     function listadoRecepcion($id=null, $idCa=null, $idCo=null, $idSilo=null, $entradaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null, $idPro=null, $order=null, $contrato=null, $productor=null, $idP=null, $placa=null, $fechaLiqD=null, $fechaLiqH=null, $fechaRecD=null, $fechaRecH=null, $idAon=null, $guia=null, $idAdo=null){
         $query = "SELECT r.*, 
                     (SELECT t1.nombre FROM si_tolcarom t1 WHERE t1.id = r.romana_ent) AS romana_ent, 

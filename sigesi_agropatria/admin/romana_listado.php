@@ -56,14 +56,14 @@
                 <tr>
                     <td width="60">Cultivo</td>
                     <td>
-                        <? echo $html->select('cultivo',array('options'=>$listadoCultivo, 'selected' => $GPC['cultivo'], 'default' => 'Seleccione'));?>
+                        <? echo $html->select('cultivo',array('options'=>$listadoCultivo, 'selected' => $GPC['cultivo'], 'default' => 'Todos'));?>
                     </td>
                 </tr>
                 <tr>
                     <td width="60">Estatus</td>
                     <td>
                         <?
-                            echo $html->select('estatus',array('options'=>$listadoEstatus, 'selected' => $GPC['estatus'], 'default' => 'Seleccione'));
+                            echo $html->select('estatus',array('options'=>$listadoEstatus, 'selected' => $GPC['estatus'], 'default' => 'Todos'));
                             echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
                         ?>
                     </td>
@@ -178,14 +178,14 @@
                 <tr>
                     <td width="60">Cosecha</td>
                     <td>
-                        <? echo $html->select('cosecha',array('options'=>$listadoC, 'selected' => $GPC['cosecha'], 'default' => 'Seleccione'));?>
+                        <? echo $html->select('cosecha',array('options'=>$listadoC, 'selected' => $GPC['cosecha'], 'default' => 'Todas'));?>
                     </td>
                 </tr>
                 <tr>
                     <td width="60">Estatus</td>
                     <td>
                         <?
-                            echo $html->select('estatus',array('options'=>$listadoEstatus, 'selected' => $GPC['estatus'], 'default' => 'Seleccione'));
+                            echo $html->select('estatus',array('options'=>$listadoEstatus, 'selected' => $GPC['estatus'], 'default' => 'Todos'));
                             echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
                         ?>
                     </td>

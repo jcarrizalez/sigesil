@@ -3,14 +3,15 @@
 class Cultivo extends Model {
     var $table = 'si_cultivo';
     
-    function buscarCultivo($id=null, $nombre=null, $tipo=null){
+    function buscarCultivo($id=null, $codigo=null, $nombre=null, $porPagina=null, $inicio=null){
         $query = "SELECT cul.*
                     FROM si_cultivo cul
                     WHERE '1'";
         $query.=(!empty($id)) ? " AND cul.id = $id" : '';
+        $query.=(!empty($codigo)) ? " AND cul.codigo = $codigo" : '';
         $query.=(!empty($nombre)) ? " AND sp_ascii(nombre) ILIKE sp_ascii('%$nombre%')" : '';
-        $query.=(!empty($tipo)) ? " AND cul.id_tipo_cultivo = $tipo" : '';
         $query.= " ORDER BY cul.codigo";
+        $query .= (!empty($porPagina)) ? " LIMIT $porPagina OFFSET $inicio" : "";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     

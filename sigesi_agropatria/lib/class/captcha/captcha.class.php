@@ -25,7 +25,7 @@ class Captcha{
             //Rellenado de la imagen
             imagefilledrectangle($NewImage, 0, 0, 200, 70, $blanco);
             $fuente = $_SERVER['DOCUMENT_ROOT'].'/sigesil/lib/class/captcha/Hotel_Coral_Essex.ttf'; // Aqui podemos cambiar de fuente entre otras mas cosas
-            imagettftext($NewImage, 30, 5, 35, 60, $rojo, $fuente, $ResultStr);	
+            imagettftext($NewImage, 25, 5, 20, 60, $rojo, $fuente, $ResultStr);	
             $_SESSION['captcha_val'] = $ResultStr;// carry the data through session
             header("Content-type: image/gif");// out out the image 
             imagegif($NewImage);//Output image to browser 

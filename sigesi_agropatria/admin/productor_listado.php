@@ -9,7 +9,7 @@
     $porPagina = MAX_RESULTS_PAG;
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
     
-    $listadoProductores = $productor->listadoProductores('', '', $porPagina, $inicio);
+    $listadoProductores = $productor->listadoProductores('', '', '', '', '', '', $porPagina, $inicio);
     
     $total_registros = $productor->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);

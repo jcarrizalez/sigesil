@@ -70,7 +70,7 @@
                     <td width="110">Centro de Acopio:</td>
                     <td colspan="2">
                         <?
-                            echo $html->select('id_ca',array('options'=>$listaCA, 'selected' => $GPC['id_ca'], 'default' => 'Seleccione'));
+                            echo $html->select('id_ca',array('options'=>$listaCA, 'selected' => $GPC['id_ca'], 'default' => 'Todos'));
                             echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
                         ?>
                     </td>

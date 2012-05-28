@@ -4,6 +4,44 @@ if(file_exists(APPROOT.'lib/core.lib.php'))
 else 
     require_once('../lib/core.lib.php');
 
+    $nombreCA = $_SESSION['s_ca_nombre'];
+    $codigoCA = $_SESSION['s_ca_codigo'];
+    $usuario = $_SESSION['s_usuario'];
+    $nombre_completo = $_SESSION['s_nombre'] . " " . $_SESSION['s_apellido'];
+
+    $sexo = ($_SESSION['s_sexo'] == "F") ? "Bienvenida " : "Bienvenido ";
+    $perfil_usuario = $_SESSION['s_perfil_id'];
+
+    switch ($perfil_usuario) {
+        case GERENTEG:
+            $perfil = " GERENTE GENERAL";
+        break;
+        case GERENTES:
+            $perfil = " GERENTE DE SILO";
+        break;
+        case ADMING:
+            $perfil = " ADMINISTRADOR GENERAL";
+        break;
+        case ADMINS:
+            $perfil = " ADMINISTRADOR DE SILO";
+        break;
+        case CALIDADG:
+            $perfil = " CALIDAD GENERAL";
+        break;
+        case CALIDADS:
+            $perfil = " CALIDAD DE SILO";
+        break;
+        case ROMANERO:
+            $perfil = " ROMANERO";
+        break;
+        case RECEPCION:
+            $perfil = " RECEPCION";
+        break;
+        case DESPACHO:
+            $perfil = " DESPACHO";
+        break;
+    }
+
     /*if($_SESSION['s_perfil_id'] != GERENTEG){
         $recepcion2 = new Recepcion();
 
@@ -224,7 +262,20 @@ else
             <div id="cabecera"></div>
             <div id="cabecera2"></div>
             <div id="global">
-                <div id="global_sep"></div>
+                <div id="global_sep">
+                    <div id="datos_usuario">
+                        <table border="0" cellpadding="0" cellspacing="0" align="right">
+                            <tr>
+                                <th>Centro Acopio:</th>
+                                <td><?="&nbsp;($codigoCA)"?></td>
+                                <th style="padding-left: 5px;">Usuario:</th>
+                                <td><?="&nbsp;$usuario"?></td>
+                                <th style="padding-left: 5px;">Perfil:</th>
+                                <td><?="&nbsp;$perfil"?></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
                 <div id="menu">
                     <div id="boton_inicio">
                         <a href="<?=DOMAIN_ROOT?>pages/principal.php"><img alt="Inicio" title="Inicio" src="../images/inicio.png" /></a>

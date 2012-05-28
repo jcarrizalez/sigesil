@@ -81,7 +81,7 @@
                 <tr>
                     <td width="60">cosecha</td>
                     <td>
-                        <? echo $html->select('cosecha',array('options'=>$listadoC, 'selected' => $GPC['cosecha'], 'default' => 'Seleccione'));?>
+                        <? echo $html->select('cosecha',array('options'=>$listadoC, 'selected' => $GPC['cosecha'], 'default' => 'Todas'));?>
                     </td>
                     <td>Numero</td>
                     <td><?=$html->input('numEntrada', $numEntrada, array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'class' => 'crproductor positive'));?> </td>
@@ -90,7 +90,7 @@
                     <td width="60">Estatus</td>
                     <td colspan="2">
                         <?
-                            echo $html->select('estatus',array('options'=>$listadoEstatus, 'selected' => $GPC['estatus'], 'default' => 'Seleccione'));
+                            echo $html->select('estatus',array('options'=>$listadoEstatus, 'selected' => $GPC['estatus'], 'default' => 'Todos'));
                         ?>
                     </td>
                 </tr>

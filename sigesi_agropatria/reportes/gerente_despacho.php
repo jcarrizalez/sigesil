@@ -466,7 +466,6 @@
     </div>
     <div id="filtro">
         <form name="form1" id="form1" method="GET" action="#">
-            <? echo $html->input('campos', '6', array('type' => 'hidden')); ?>
             <table width="100%" border="0">
                 <tr>
                     <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
@@ -564,6 +563,7 @@
                     </td>
                 </tr>
             </table>
+            <? echo $html->input('campos', '6', array('type' => 'hidden')); ?>
         </form>
     </div><hr/>
     <div id="paginador">

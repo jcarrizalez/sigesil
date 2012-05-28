@@ -1,44 +1,6 @@
 <?
-require_once('../lib/core.lib.php');
-require('../lib/common/header.php');
-
-$nombreCA = $_SESSION['s_ca_nombre'];
-$codigoCA = $_SESSION['s_ca_codigo'];
-$usuario = $_SESSION['s_usuario'];
-$nombre_completo = $_SESSION['s_nombre'] . " " . $_SESSION['s_apellido'];
-$perfil_usuario = $_SESSION['s_perfil_id'];
-
-switch ($perfil_usuario) {
-    case GERENTEG:
-        $perfil = " GERENTE GENERAL";
-    break;
-    case GERENTES:
-        $perfil = " GERENTE DE SILO";
-    break;
-    case ADMING:
-        $perfil = " ADMINISTRADOR GENERAL";
-    break;
-    case ADMINS:
-        $perfil = " ADMINISTRADOR DE SILO";
-    break;
-    case CALIDADG:
-        $perfil = " CALIDAD GENERAL";
-    break;
-    case CALIDADS:
-        $perfil = " CALIDAD DE SILO";
-    break;
-    case ROMANERO:
-        $perfil = " ROMANERO";
-    break;
-    case RECEPCION:
-        $perfil = " RECEPCION";
-    break;
-    case DESPACHO:
-        $perfil = " DESPACHO";
-    break;
-}
-
-$sexo = ($_SESSION['s_sexo'] == "F") ? "Bienvenida " : "Bienvenido ";
+    require_once('../lib/core.lib.php');
+    require('../lib/common/header.php');
 ?>
 <div id="titulo_principal">
     <?=$sexo." al Sistema de Gesti&oacute;n de Silos<br/> (".SYSTEM_NAME.")" ?>

@@ -12,7 +12,7 @@
     
     $listadoCosecha = $cosecha->buscarCosechaP(null, null, null, null, $idCA);
     foreach($listadoCosecha as $valor){
-        $listadoC[$valor['id']] = $valor['codigo'];
+        $listadoC[$valor['id']] = "(".$valor['ca_codigo'].") ".$valor['codigo'];
     }
     
     $listaCA = $centro_acopio->find('', '', array('id', 'nombre'), 'list', 'id');
@@ -515,7 +515,6 @@
     </div>
     <div id="filtro">
         <form name="form1" id="form1" method="GET" action="#">
-            <? echo $html->input('campos', '3', array('type' => 'text')); ?>
             <table width="100%" border="0" id="tbl_filtros">
                 <tr>
                     <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
@@ -619,6 +618,7 @@
                     </td>
                 </tr>
             </table>
+            <? echo $html->input('campos', '3', array('type' => 'hidden')); ?>
         </form>
     </div><hr/>
     <div id="paginador">

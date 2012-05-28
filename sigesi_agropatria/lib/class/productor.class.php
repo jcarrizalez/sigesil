@@ -3,7 +3,7 @@
 class Productor extends Model {
     var $table = 'si_productor';
     
-    function listadoProductores($id=null, $idOrg=null, $porPagina=null, $inicio=null){
+    function listadoProductores($id=null, $idOrg=null, $cedrif=null, $nombre=null, $idE=null, $idM=null, $porPagina=null, $inicio=null){
         $query = "SELECT p.id, p.*, pa.nombre AS pais, e.nombre AS estado, m.nombre AS municipio 
                 FROM si_productor p
                 INNER JOIN si_organizacion o ON p.id_org = o.id
@@ -12,7 +12,11 @@ class Productor extends Model {
                 INNER JOIN si_municipio m ON m.id = p.id_municipio
                     WHERE '1' AND p.estatus = 't'";
         $query.=(!empty($id)) ? " AND p.id = '$id'" : '';
-        $query.=(!empty($idORG)) ? " AND p.id_org = '$idOrg'" : '';
+        $query.=(!empty($idOrg)) ? " AND p.id_org = '$idOrg'" : '';
+        $query.=(!empty($cedrif)) ? " AND p.ced_rif ILIKE '%$cedrif%'" : '';
+        $query.=(!empty($nombre)) ? " AND p.nombre ILIKE '%$nombre%'" : '';
+        $query.=(!empty($idE)) ? " AND e.id = '$idE'" : '';
+        $query.=(!empty($idM)) ? " AND m.id = '$idM'" : '';
         $query.= " ORDER BY p.id";
         $query .= (!empty($porPagina)) ? " LIMIT $porPagina OFFSET $inicio" : "";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);

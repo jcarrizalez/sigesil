@@ -3,18 +3,23 @@
 class Cosecha extends Model {
     var $table = 'si_cosecha';
     
-    function buscarCosechaP($id=null, $idP=null, $statusC=null, $statusP=null, $idCa=null){
-        $query = "SELECT co.id, co.codigo, co.id_programa, co.nombre AS nombre_cosecha, co.proyectado, co.area_siembra, co.estatus, co.fecha_inicio, co.fecha_fin, cu.nombre AS nombre_cultivo
+    function buscarCosechaP($id=null, $idP=null, $statusC=null, $statusP=null, $idCa=null, $codCo=null, $nombre=null, $porPagina=null, $inicio=null){
+        $query = "SELECT co.id, co.codigo, co.id_programa, co.nombre AS nombre_cosecha, co.proyectado, co.area_siembra, co.estatus, co.fecha_inicio, 
+                    co.fecha_fin, cu.codigo AS co_cultivo, cu.nombre AS nombre_cultivo, ca.codigo AS ca_codigo, ca.nombre AS ca_nombre
                     FROM si_cosecha co
                     INNER JOIN si_programa pr ON pr.id = co.id_programa
                     INNER JOIN si_cultivo cu ON cu.id = co.id_cultivo
+                    INNER JOIN si_centro_acopio ca ON ca.id = pr.id_centro_acopio
                     WHERE '1'";
         $query.=(!empty($id)) ? " AND co.id = '$id'" : '';
         $query.=(!empty($idP)) ? " AND pr.id = '$idP'" : '';
         $query.=(!empty($statusC)) ? " AND co.estatus = '$statusC'" : '';
         $query.=(!empty($statusP)) ? " AND pr.estatus = '$statusP'" : '';
         $query.=(!empty($idCa)) ? " AND pr.id_centro_acopio = '$idCa'" : '';
+        $query.=(!empty($codCo)) ? " AND co.codigo = '$codCo'" : '';
+        $query.=(!empty($nombre)) ? " AND co.nombre ILIKE '%$nombre%'" : '';
         $query.= " ORDER BY pr.id, co.id";
+        $query .= (!empty($porPagina)) ? " LIMIT $porPagina OFFSET $inicio" : "";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     

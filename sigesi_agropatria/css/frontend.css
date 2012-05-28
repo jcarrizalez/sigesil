@@ -169,6 +169,7 @@ img{
 
 #global_sep{
     padding-top: 12px;
+    padding-bottom: 22px;
 }
 
 #menu{
@@ -181,6 +182,11 @@ img{
     border: none;
     width: 32px;
     height: 37px;
+}
+
+#datos_usuario{
+    padding-right: 20px;
+    font-size: 12px;
 }
 
 #lista_accordion{
