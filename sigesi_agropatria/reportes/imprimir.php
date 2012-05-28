@@ -33,9 +33,9 @@
         $mpdf->Output($archivo,'F');
 
         //SENTENCIA PARA IMPRESION INDICANDO LA IMPRESORA A TRAVES DEL PARAMETRO -P DEL LPR
-        $parametros = $detalleImpresora[0]['nombre'];
-        $parametros .= (!empty($detalleImpresora[0]['parametros'])) ? $detalleImpresora[0]['parametros'] : '';
-        exec("lpr $parametros $archivo");
+        $nombreImpresora = $detalleImpresora[0]['nombre'];
+        $parametros = (!empty($detalleImpresora[0]['parametros'])) ? $detalleImpresora[0]['parametros'] : '';
+        exec("lpr -P $nombreImpresora $parametros $archivo");
 
         //exec("lpr $archivo");
         exec("rm $archivo");

@@ -16,8 +16,10 @@
     
     require('../lib/common/header.php');
 ?>
-<script type="text/javascript">    
-    $(document).ready(function(){        
+<script type="text/javascript">
+    show_div_loader();
+    
+    $(document).ready(function(){
         $('#Regresar').click(function(){
            history.back();
         });

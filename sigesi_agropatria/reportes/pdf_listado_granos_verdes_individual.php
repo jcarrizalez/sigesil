@@ -212,7 +212,7 @@ for($z=0; $z<count($listadoRecepciones_); $z++)     //   FORRECPCUIONES
 /*
 				$pacondicionado=$listadoRecepciones_[$z]['peso_acon_liq'];	
 				$suma_pacondicionado+=$pacondicionado;	
-				$pacondicionado_=$pdf->decimales($pacondicionado,3);
+				$pacondicionado_=$pdf->decimales($pacondicionado,2);
 */
 				$suma_entrada+=$j;
 
@@ -232,7 +232,7 @@ for($z=0; $z<count($listadoRecepciones_); $z++)     //   FORRECPCUIONES
 				$DesxHum=(($pesoneto*$grs_cuatro)/$_100_Ha); //Des x Hum kg
 				$DesxImp=(($pesoneto-$DesxHum)*$imp_100); //Des x Imp Kg
 				$pesoacond=($pesoneto-$DesxHum-$DesxImp); //peso acond
-				$pacondicionado=$pdf->decimales($pesoacond,3);
+				$pacondicionado=$pdf->decimales($pesoacond,2);
 				$suma_pacondicionado+=$pesoacond;
 
 
@@ -261,7 +261,7 @@ for($z=0; $z<count($listadoRecepciones_); $z++)     //   FORRECPCUIONES
 				<td align="right">'.$fecha_rep.'</td>
 				<td align="right">'.$listadoRecepciones_[$z]['placa'].'</td>
 				<td>&nbsp;</td>
-				<td align="right">'.$pdf->decimales($pesoneto,3).' </td>
+				<td align="right">'.$pdf->decimales($pesoneto,2).' </td>
 				<td>&nbsp;</td>
 				<td align="right">'.$hum.' </td>
 				<td>&nbsp;</td>
@@ -287,15 +287,15 @@ if($suma_entrada>0)        //   IFB
 					<td width="75px" align="right"><b>Cantidad: '.$suma_entrada.'</b> &nbsp;</td>
 	        <td width="142px" align="right"><div><b>Total: &nbsp;&nbsp;&nbsp;&nbsp;</b></div></td>
 					<td width="10px">&nbsp;</td>
-					<td width="70px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_pesoneto,3).'</b></div></td>
+					<td width="70px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_pesoneto,2).'</b></div></td>
 					<td width="15px">&nbsp;</td>
-					<td width="52px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_hum,3).'</b></div></td>
+					<td width="52px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_hum,2).'</b></div></td>
 					<td width="10px">&nbsp;</td>
-					<td width="50px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_imp,3).'</b></div></td>
+					<td width="50px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_imp,2).'</b></div></td>
 					<td width="10px">&nbsp;</td>
-					<td width="85px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_grano_verde,3).'</b></div></td>
+					<td width="85px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_grano_verde,2).'</b></div></td>
 					<td width="10px">&nbsp;</td>
-					<td width="101px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_pacondicionado,3).'</b></div></td>
+					<td width="101px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_pacondicionado,2).'</b></div></td>
 
 					</tr>
 					</table>
@@ -401,7 +401,7 @@ for($z=0; $z<count($listadoRecepciones_); $z++)     //   FORRECPCUIONES
 /*
 				$pacondicionado=$listadoRecepciones_[$z]['peso_acon_liq'];	
 				$suma_pacondicionado+=$pacondicionado;	
-				$pacondicionado_=$pdf->decimales($pacondicionado,3);
+				$pacondicionado_=$pdf->decimales($pacondicionado,2);
 */
 
 				$hum=$listadoRecepciones_[$z]['humedad'];
@@ -422,7 +422,7 @@ for($z=0; $z<count($listadoRecepciones_); $z++)     //   FORRECPCUIONES
 				$DesxHum=(($pesoneto*$grs_cuatro)/$_100_Ha); //Des x Hum kg
 				$DesxImp=(($pesoneto-$DesxHum)*$imp_100); //Des x Imp Kg
 				$pesoacond=($pesoneto-$DesxHum-$DesxImp); //peso acond
-				$pacondicionado=$pdf->decimales($pesoacond,3);
+				$pacondicionado=$pdf->decimales($pesoacond,2);
 				$suma_pacondicionado+=$pesoacond;
 
 
@@ -431,7 +431,7 @@ for($z=0; $z<count($listadoRecepciones_); $z++)     //   FORRECPCUIONES
 				<td align="right">'.$fecha_rep.'</td>
 				<td align="right">'.$listadoRecepciones_[$z]['placa'].'</td>
 				<td>&nbsp;</td>
-				<td align="right">'.$pdf->decimales($pesoneto,3).' </td>
+				<td align="right">'.$pdf->decimales($pesoneto,2).' </td>
 				<td>&nbsp;</td>
 				<td align="right">'.$hum.' </td>
 				<td>&nbsp;</td>
@@ -456,15 +456,15 @@ if($suma_entrada>1)        //   IFB
 					<tr bgcolor="#FFFFFF" align="right">
 					<td width="75px" align="right"><b>Cantidad: '.$suma_entrada.'</b> &nbsp;</td>
 	        <td width="142px" align="right"><div><b>Total: &nbsp;&nbsp;&nbsp;&nbsp;</b></div></td>
-	        <td width="64px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_peso_bruto,3).'</b> </div></td>
+	        <td width="64px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_peso_bruto,2).'</b> </div></td>
 					<td width="15px">&nbsp;</td>
-					<td width="52px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_hum,3).'</b></div></td>
+					<td width="52px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_hum,2).'</b></div></td>
 					<td width="10px">&nbsp;</td>
-					<td width="50px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_imp,3).'</b></div></td>
+					<td width="50px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_imp,2).'</b></div></td>
 					<td width="10px">&nbsp;</td>
-					<td width="85px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_grano_verde,3).'</b></div></td>
+					<td width="85px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_grano_verde,2).'</b></div></td>
 					<td width="10px">&nbsp;</td>
-					<td width="100px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_pacondicionado,3).'</b></div></td>
+					<td width="100px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_pacondicionado,2).'</b></div></td>
 					</tr>
 					</table>
 					';
@@ -503,15 +503,15 @@ $suma_pacondicionado_general=$suma_pacondicionado;
 					<td width="75px" align="right"><b>Cantidad: '.$suma_entrada_general.'</b> &nbsp;</td>
 	        <td width="150px" align="right"><div><b>Total General: &nbsp;&nbsp;&nbsp;&nbsp;</b></div></td>
 					<td width="10px">&nbsp;</td>
-					<td width="60px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_pesoneto_general,3).'</b></div></td>
+					<td width="60px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_pesoneto_general,2).'</b></div></td>
 					<td width="15px">&nbsp;</td>
-					<td width="52px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_hum_general,3).'</b></div></td>
+					<td width="52px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_hum_general,2).'</b></div></td>
 					<td width="10px">&nbsp;</td>
-					<td width="50px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_imp_general,3).'</b></div></td>
+					<td width="50px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_imp_general,2).'</b></div></td>
 					<td width="10px">&nbsp;</td>
-					<td width="85px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_grano_verde_general,3).'</b></div></td>
+					<td width="85px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_grano_verde_general,2).'</b></div></td>
 					<td width="10px">&nbsp;</td>
-					<td width="101px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_pacondicionado_general,3).'</b></div></td>
+					<td width="101px" align="right"><div style="border-top: 1px solid #000000 ;"><b>'.$pdf->decimales($suma_pacondicionado_general,2).'</b></div></td>
 					</tr>
 					</table>
 					';
