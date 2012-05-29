@@ -372,44 +372,82 @@
         $('.positive').numeric();
         
         $('#Recepcion\\[id_cosecha\\]').change(function() {
+            if ($(this).val()=='') {
+                $('#Guardar').attr('disabled', 'disabled');
+                alert('Se debe elegir una Cosecha!!!');
+            } else
+                $('#Guardar').removeAttr('disabled');  
             $('#productor_nombre').load('../ajax/detalle_utilitario.php?ac=productor&cosecha='+$('#Recepcion\\[id_cosecha\\]').val());
             $('#asociacion_nombre').load('../ajax/detalle_utilitario.php?ac=asociacion&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val());
             $('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val()+'&cedRifAon='+$('#Recepcion_asociacion').val());
         });
 
         $('#Recepcion\\[ced_productor\\]').live('change', function() {
+            if ($(this).val()=='') {
+                $('#Guardar').attr('disabled', 'disabled');
+                alert('Se debe elegir un Productor!!!');
+            } else
+                $('#Guardar').removeAttr('disabled');  
             $('#asociacion_nombre').load('../ajax/detalle_utilitario.php?ac=asociacion&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val());
             //$('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val()+'&cedRifAon='+$('#Recepcion_asociacion').val());
             $('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val()+"&cedRifAon="+$('#Recepcion\\[ced_asociacion\\]').val());
         });
         
         $('#Recepcion\\[ced_asociacion\\]').live('change', function() {
-//                                                                                    empty($GPC['cedRifP']) && !empty($GPC['cedRifAon']
             $('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val()+"&cedRifAon="+$('#Recepcion\\[ced_asociacion\\]').val());
         });
         
         $('#Recepcion\\[numero\\]').live('change',function() {
+            if ($(this).val()=='') {
+                $('#Guardar').attr('disabled', 'disabled');
+                alert('Se debe elegir un Numero!!!');
+            } else
+                $('#Guardar').removeAttr('disabled');
             $('#numero_msg').load('../ajax/detalle_utilitario.php?ac=recepcion&numero='+$('#Recepcion\\[numero\\]').val()+"&fecha="+$('#Recepcion\\[fecha_recepcion\\]').val()+"&tipo=n&co="+$('#Recepcion\\[id_cosecha\\]').val()+"&ca=<?=$idCA?>"+"&id=<?=$GPC['id']?>");
         });
         
         $('#Recepcion\\[fecha_recepcion\\]').live('change', function() {
+            if ($(this).val()=='') {
+                $('#Guardar').attr('disabled', 'disabled');
+                alert('Se debe elegir una Fecha!!!');
+            } else
+                $('#Guardar').removeAttr('disabled');  
             $('#numero_msg').load('../ajax/detalle_utilitario.php?ac=recepcion&numero='+$('#Recepcion\\[numero\\]').val()+"&fecha="+$('#Recepcion\\[fecha_recepcion\\]').val()+"&tipo=f&co="+$('#Recepcion\\[id_cosecha\\]').val()+"&ca=<?=$idCA?>"+"&id=<?=$GPC['id']?>");
         });
         
         $('#Recepcion\\[placa\\]').live('change', function() {
+            if ($(this).val()=='') {
+                $('#Guardar').attr('disabled', 'disabled');
+                alert('Se debe elegir una Placa!!!');
+            } else
+                $('#Guardar').removeAttr('disabled');  
             $('#vehiculo_nombre').load('../ajax/detalle_utilitario.php?ac=vehiculo&placa='+$('#Recepcion\\[placa\\]').val());
         });
         
         $('#Recepcion\\[ced_chofer\\]').change(function() {
+            if ($(this).val()=='') {
+                $('#Guardar').attr('disabled', 'disabled');
+                alert('Se debe elegir un Chofer!!!');
+            } else
+                $('#Guardar').removeAttr('disabled');  
             $('#chofer_nombre').load('../ajax/detalle_utilitario.php?ac=chofer&cedC='+$('#Recepcion\\[ced_chofer_pre\\]').val()+$('#Recepcion\\[ced_chofer\\]').val());
             $('#chofer_nombre').css('display','block');
         });
+        
         $('#Recepcion\\[estatus_rec\\]').change(function() {
             if ($(this).val()=='') {
                 $('#Guardar').attr('disabled', 'disabled');
-                alert('Se debe elegir un Estatus para la Recepcion');
+                alert('Se debe elegir un Estatus!!!');
             } else
                 $('#Guardar').removeAttr('disabled');
+        });
+        
+        $('#Recepcion\\[carril\\]').change(function() {
+            if ($(this).val()=='') {
+                $('#Guardar').attr('disabled', 'disabled');
+                alert('Se debe elegir un Carril!!!');
+            } else
+                $('#Guardar').removeAttr('disabled');            
         });
         
         $("#form1").submit(function() {

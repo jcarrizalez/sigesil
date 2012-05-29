@@ -3,16 +3,26 @@
 
     $movimiento = new Despacho();
     $cultivo = new Cultivo();
-    
-    $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : null;
+       
+    $idCa = (!empty($_SESSION['s_ca_id'])) ? $_SESSION['s_ca_id'] : null;
     $listadoEstatus = array('1' => '(1) Romana Vacio', '2' => '(2) Laboratorio Central', '3' => '(3) Rechazado', '4' => '(4) Rechazado', '5' => '(5) Des','6' => '(6) Romana Vacio', '7' => '(7) Rechazo Central', '9' => '(9) Recibido',  '11' => '(11) Ctna Aprobado',  '12' => '(12) Ctna Rechazado');
     $estatus = (!empty($GPC['estatus'])) ? "'".$GPC['estatus']."'" : null;
     $fdesde = (!empty($GPC['fecha_inicio'])) ? $general->fecha_normal_sql($GPC['fecha_inicio'], 'es') : '';
     $fhasta = (!empty($GPC['fecha_fin'])) ? $general->fecha_normal_sql($GPC['fecha_fin'], 'es') : '';
     $numSalida=(!empty($GPC['numSalida'])) ? $GPC['numSalida']: null;
     $idCu=(!empty($GPC['cultivo'])) ? $GPC['cultivo']: null;
+    $listaCu = $cultivo->find('', '', array('id', 'nombre'), 'list', 'id');
     
-    $listadoMov=$movimiento->listadoDespacho(null, $idCa, $idCu, null, $numSalida, $estatus, null, null, $porPagina, $inicio, null, null, null, null, null, null, $fdesde, $fhasta);
+//    if (!empty($numEntrada) && (!empty($fdesde) || !empty($fhasta))) {
+//        if (empty($fdesde))
+//            $fdesde=$fhasta;
+//        elseif (empty($fhasta))
+//            $fhasta=$fdesde;
+    
+        $listadoMov=$movimiento->listadoDespacho(null, $idCa, $idCu, null, $numSalida, $estatus, null, null, $porPagina, $inicio, null, null, null, null, null, null, $fdesde, $fhasta);
+        $total_registros = $despacho->total_verdadero;
+        $paginador = new paginator($total_registros, $porPagina);
+//    }
     
     require('../lib/common/header.php');
     require('../lib/common/init_calendar.php');
@@ -66,9 +76,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td width="60">Cosecha</td>
+                    <td width="60">Cultivo</td>
                     <td>
-                        <? echo $html->select('cultivo',array('options'=>$listadoC, 'selected' => $GPC['cultivo'], 'default' => 'Todas'));?>
+                        <? echo $html->select('cultivo',array('options'=>$listaCu, 'selected' => $GPC['cultivo'], 'default' => 'Todas'));?>
                     </td>
                     <td>Numero</td>
                     <td><?=$html->input('numSalida', $numSalida, array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'class' => 'crproductor positive'));?> </td>
@@ -116,7 +126,7 @@
             <td align="center"><?=$general->date_sql_screen($dataMov['fecha_recepcion'], '', 'es', '-')?></td>
             <td align="center">
                 <?
-                    $urls = array(1 => 'utilitario_recepcion.php?ac=editar&id='.$dataMov['id']);
+                    $urls = array(1 => 'utilitario_despacho.php?ac=editar&id='.$dataMov['id']);
                     $general->crearAcciones($acciones, $urls);
                 ?>
             </td>

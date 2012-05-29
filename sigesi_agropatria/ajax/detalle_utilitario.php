@@ -9,6 +9,8 @@
     $vehiculo = new Vehiculo();
     $guia= new Guia();
     $chofer = new Chofer();
+    $cliente = new Cliente();
+    $orden = new Orden();
     
     switch ($GPC['ac']) {
         case 'cosecha':
@@ -167,6 +169,40 @@
                 echo $html->input('msg3', 1, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
                 echo "</td>";
             }            
+        break;
+        case 'cliente':
+            if (!empty($GPC['cedCli'])) {
+                $infoCliente = $cliente->find(array('ced_rif' => $GPC['cedCli']));
+                if (!empty($infoCliente[0]['id'])) {
+                    echo "<span class='crproductor'>".$infoCliente[0]['nombre']."</span>";
+                    echo $html->input('msg4', 0, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
+                } else {
+                    echo "<span class='crproductor'>EL CLIENTE NO EXISTE!!!</span>";
+                    echo $html->input('msg4', 1, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
+                }
+            } else {
+                echo "<td colspan='3'>";
+                echo "<span class='crproductor'>EL CLIENTE NO EXISTE!!!</span>";
+                echo $html->input('msg4', 1, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
+                echo "</td>";
+            }
+        break;
+        case 'orden':
+            if (!empty($GPC['numero'])) {
+                $infoOrden = $orden->find(array('numero_orden' => $GPC['numero']));
+                if (!empty($infoOrden[0]['id'])) {
+                    echo "<span class='crproductor'>EXISTE!!!</span>";
+                    echo $html->input('msg4', 0, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
+                } else {
+                    echo "<span class='crproductor'>LA ORDEN NO EXISTE!!!</span>";
+                    echo $html->input('msg4', 1, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
+                }
+            } else {
+                echo "<td colspan='3'>";
+                echo "<span class='crproductor'>EL ORDEN NO EXISTE!!!</span>";
+                echo $html->input('msg4', 1, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
+                echo "</td>";
+            }
         break;
     }
 ?>
