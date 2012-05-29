@@ -163,46 +163,46 @@
         <td width="20">&nbsp;</td>
         <td>PESO BRUTO TOTAL Kgrs</td>
         <td align="right">----------------------------------------------------------------------------------------></td>
-        <td width="1" align="right"><?=$general->formato_numero(round($pesoBruto), 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($pesoBruto), 2);?></td>
         <td width="20">&nbsp;</td>
     </tr>
     <tr>
         <td>&nbsp;</td>
         <td>PESO DEL VEHICULO Kgrs</td>
         <td align="right">----------------------------------------------------------------------------------------></td>
-        <td width="1" align="right"><?=$general->formato_numero(round($pesoTara), 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($pesoTara), 2);?></td>
         <td>&nbsp;</td>
     </tr>
     <tr>
         <td>&nbsp;</td>
         <td>PESO NETO RECIBIDO Kgrs</td>
         <td align="right">----------------------------------------------------------------------------------------></td>
-        <td width="1" align="right"><?=$general->formato_numero(round($pesoNeto), 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($pesoNeto), 2);?></td>
         <td>&nbsp;</td>
     </tr>
-    <? if($dataMovimiento[0]['cultivo_codigo'] != 12){ ?>
+    <? if(!in_array($dataMovimiento[0]['cultivo_codigo'], array(10,12))){ ?>
     <tr>
         <td>&nbsp;</td>
-        <td>DESC. POR HUMEDAD: <?=$general->formato_numero($dataMovimiento[0]['humedad'], 3);?>% Kgrs</td>
+        <td>DESC. POR HUMEDAD: <?=$general->formato_numero($dataMovimiento[0]['humedad'], 2);?>% Kgrs</td>
         <td align="right">----------------------------------------------------------------------------------------></td>
-        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['humedad_des']), 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['humedad_des']), 2);?></td>
         <td>&nbsp;</td>
     </tr>
     <tr>
         <td>&nbsp;</td>
-        <td>DESC. POR IMPUREZAS: <?=$general->formato_numero($dataMovimiento[0]['impureza'], 3);?>% Kgrs</td>
+        <td>DESC. POR IMPUREZAS: <?=$general->formato_numero($dataMovimiento[0]['impureza'], 2);?>% Kgrs</td>
         <td align="right">----------------------------------------------------------------------------------------></td>
-        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['impureza_des']), 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['impureza_des']), 2);?></td>
         <td>&nbsp;</td>
     </tr>
     <? }else{ ?>
     <tr>
         <td>&nbsp;</td>
-        <td>HUMEDAD: <?=$general->formato_numero($dataMovimiento[0]['humedad'], 3);?>%</td>
+        <td>HUMEDAD: <?=$general->formato_numero($dataMovimiento[0]['humedad'], 2);?>%</td>
     </tr>
     <tr>
         <td>&nbsp;</td>
-        <td>IMPUREZA: <?=$general->formato_numero($dataMovimiento[0]['impureza'], 3);?>%</td>
+        <td>IMPUREZA: <?=$general->formato_numero($dataMovimiento[0]['impureza'], 2);?>%</td>
     </tr>
     <? } ?>
     <tr>
@@ -213,7 +213,7 @@
         <td>&nbsp;</td>
         <td>PESO ACONDICIONADO Kgrs</td>
         <td align="right">----------------------------------------------------------------------------------------></td>
-        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_acon']), 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_acon']), 2);?></td>
         <td>&nbsp;</td>
     </tr>
     <? } ?>
@@ -221,7 +221,7 @@
         <td>&nbsp;</td>
         <td>PESO ACONDICIONADO A LIQUIDAR Kgrs</td>
         <td align="right">----------------------------------------------------------------------------------------></td>
-        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_acon_liq']), 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_acon_liq']), 2);?></td>
         <td>&nbsp;</td>
     </tr>
     <?
@@ -242,10 +242,10 @@
         <td>PESO BRUTO TOTAL Kgrs</td>
         <td>----------------------------------------------------------------------------------------></td>
         <? if(empty($dataMovimiento[0]['peso_02l'])){ ?>
-        <td width="1" align="right"><?=$general->formato_numero(round($pesoBruto), 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($pesoBruto), 2);?></td>
         <? }else{ ?>
-        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_01l']), 3);?></td>
-        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_02l']), 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_01l']), 2);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_02l']), 2);?></td>
         <? } ?>
         <td width="20">&nbsp;</td>
     </tr>
@@ -254,10 +254,10 @@
         <td>PESO DEL VEHICULO Kgrs</td>
         <td>----------------------------------------------------------------------------------------></td>
         <? if(empty($dataMovimiento[0]['peso_02l'])){ ?>
-        <td width="1" align="right"><?=$general->formato_numero(round($pesoTara), 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($pesoTara), 2);?></td>
         <? }else{ ?>
-        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_01v']), 3);?></td>
-        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_02v']), 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_01v']), 2);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_02v']), 2);?></td>
         <? } ?>
         <td>&nbsp;</td>
     </tr>
@@ -266,87 +266,103 @@
         <td>NETO DESPACHADO Kgrs</td>
         <td>----------------------------------------------------------------------------------------></td>
         <? if(empty($dataMovimiento[0]['peso_02l'])){ ?>
-        <td width="1" align="right"><?=$general->formato_numero(round($pesoNeto), 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($pesoNeto), 2);?></td>
         <? }else{ ?>
-        <td width="1" align="right"><?=$general->formato_numero(round(($dataMovimiento[0]['peso_01l']-$dataMovimiento[0]['peso_01v'])), 3);?></td>
-        <td width="1" align="right"><?=$general->formato_numero(round(($dataMovimiento[0]['peso_02l']-$dataMovimiento[0]['peso_02v'])), 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round(($dataMovimiento[0]['peso_01l']-$dataMovimiento[0]['peso_01v'])), 2);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round(($dataMovimiento[0]['peso_02l']-$dataMovimiento[0]['peso_02v'])), 2);?></td>
         <? } ?>
         <td>&nbsp;</td>
     </tr>
     <?
         if(empty($dataMovimiento[0]['peso_02l'])){
-            $humedad = $general->formato_numero($dataMovimiento[0]['humedad'], 3)."%";
-            $impureza = $general->formato_numero($dataMovimiento[0]['impureza'], 3)."%";
+            $humedad = $general->formato_numero($dataMovimiento[0]['humedad'], 2)."%";
+            $impureza = $general->formato_numero($dataMovimiento[0]['impureza'], 2)."%";
         }else{
-            $humedad = $general->formato_numero($dataMovimiento[0]['humedad'], 3)."% &nbsp;&nbsp;&nbsp; ".$general->formato_numero($dataMovimiento[0]['humedad2'], 3)."%";
-            $impureza = $general->formato_numero($dataMovimiento[0]['impureza'], 3)."% &nbsp;&nbsp;&nbsp; ".$general->formato_numero($dataMovimiento[0]['impureza2'], 3)."%";
+            $humedad = $general->formato_numero($dataMovimiento[0]['humedad'], 2)."% &nbsp;&nbsp;&nbsp; ".$general->formato_numero($dataMovimiento[0]['humedad2'], 2)."%";
+            $impureza = $general->formato_numero($dataMovimiento[0]['impureza'], 2)."% &nbsp;&nbsp;&nbsp; ".$general->formato_numero($dataMovimiento[0]['impureza2'], 2)."%";
         }
-        if($dataMovimiento[0]['cultivo_codigo'] != 12){
+        if(!in_array($dataMovimiento[0]['cultivo_codigo'], array(10,12))){
     ?>
     <tr>
         <td>&nbsp;</td>
-        <td>DESC. POR HUMEDAD: <?=$general->formato_numero($humedad, 3);?>% Kgrs</td>
-        <td align="right">----------------------------------------------------------------------------------------></td>
+        <td>DESC. POR HUMEDAD: <?=$general->formato_numero($humedad, 2);?>% Kgrs</td>
+        <td>----------------------------------------------------------------------------------------></td>
         <? if(empty($dataMovimiento[0]['peso_02l'])){ ?>
-        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['humedad']), 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['humedad']), 2);?></td>
         <? }else{ ?>
-        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['humedad_des']), 3);?></td>
-        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['humedad_des2']), 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['humedad_des']), 2);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['humedad_des2']), 2);?></td>
         <? } ?>
         <td>&nbsp;</td>
     </tr>
     <tr>
         <td>&nbsp;</td>
-        <td>DESC. POR IMPUREZAS: <?=$general->formato_numero($impureza, 3);?>% Kgrs</td>
-        <td align="right">----------------------------------------------------------------------------------------></td>
+        <td>DESC. POR IMPUREZAS: <?=$general->formato_numero($impureza, 2);?>% Kgrs</td>
+        <td>----------------------------------------------------------------------------------------></td>
         <? if(empty($dataMovimiento[0]['peso_02l'])){ ?>
-        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['impureza']), 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['impureza']), 2);?></td>
         <? }else{ ?>
-        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['impureza_des']), 3);?></td>
-        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['impureza_des2']), 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['impureza_des']), 2);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['impureza_des2']), 2);?></td>
         <? } ?>
         <td>&nbsp;</td>
     </tr>
-    <? }else{ ?>
+    <?
+        }else{
+            if($dataMovimiento[0]['humedad'] + $dataMovimiento[0]['impureza'] >= 14)
+                $descuento = $pesoNeto - $dataMovimiento[0]['peso_acon'];
+            else
+                $descuento = 0;
+    ?>
     <tr>
         <td>&nbsp;</td>
-        <td>HUMEDAD: <?=$humedad?></td>
+        <td>DESC. HUM|IMP Kgrs</td>
+        <td>----------------------------------------------------------------------------------------></td>
+        <?
+            if(empty($dataMovimiento[0]['peso_02l'])){
+                if($dataMovimiento[0]['humedad2'] + $dataMovimiento[0]['impureza2'] >= 14)
+                    $descuento2 = $pesoNeto - $dataMovimiento[0]['peso_acon2'];
+                else
+                    $descuento2 = 0;
+        ?>
+        <td width="1" align="right"><?=$general->formato_numero(round($descuento), 2);?></td>
+        <? }else{ ?>
+        <td width="1" align="right"><?=$general->formato_numero(round($descuento), 2);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($descuento2), 2);?></td>
+        <? } ?>
+        <td>&nbsp;</td>
     </tr>
     <tr>
         <td>&nbsp;</td>
-        <td>IMPUREZA: <?=$impureza?></td>
+        <td colspan="3">HUMEDAD: <?=$humedad?><br/>IMPUREZA: <?=$impureza?></td>
     </tr>
     <? } ?>
-    <tr>
-        <td>&nbsp;</td>
-        <td colspan="4">FRANQUICIA: 14.000</td>
-    </tr>
     <tr>
         <td colspan="4">&nbsp;</td>
     </tr>
-    <? if(!empty($dataMovimiento[0]['peso_acon'])){ ?>
+    <? /*if(!empty($dataMovimiento[0]['peso_acon'])){ ?>
     <tr>
         <td>&nbsp;</td>
         <td>PESO ACONDICIONADO Kgrs</td>
-        <td align="right">----------------------------------------------------------------------------------------></td>
+        <td>----------------------------------------------------------------------------------------></td>
         <? if(empty($dataMovimiento[0]['peso_02l'])){ ?>
-        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_acon']), 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_acon']), 2);?></td>
         <? }else{ ?>
-        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_acon']), 3);?></td>
-        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_acon2']), 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_acon']), 2);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_acon2']), 2);?></td>
         <? } ?>
         <td>&nbsp;</td>
     </tr>
-    <? } ?>
+    <? }*/ ?>
     <tr>
         <td>&nbsp;</td>
-        <td>PESO ACONDICIONADO A LIQUIDAR Kgrs</td>
+        <td>PESO ACONDICIONADO Kgrs</td>
         <td>----------------------------------------------------------------------------------------></td>
         <? if(empty($dataMovimiento[0]['peso_02l'])){ ?>
-        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_acon_liq']), 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_acon_liq']), 2);?></td>
         <? }else{ ?>
-        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_acon_liq']), 3)?></td>
-        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_acon_liq2']), 3)?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_acon_liq']), 2)?></td>
+        <td width="1" align="right"><?=$general->formato_numero(round($dataMovimiento[0]['peso_acon_liq2']), 2)?></td>
         <? } ?>
         <td>&nbsp;</td>
     </tr>

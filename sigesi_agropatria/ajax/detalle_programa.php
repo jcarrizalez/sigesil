@@ -11,7 +11,7 @@
                 
                 $programa = new Programa();
                 $cond = " AND pro.fecha_fin >= '".$GPC['fecha']."'";
-                $infoPrograma = $programa->buscarProgramaCA('', $_SESSION['s_ca_id'], $GPC['codigo'], $cond);
+                $infoPrograma = $programa->buscarProgramaCA('', $_SESSION['s_ca_id'], $GPC['codigo'], $cond, 't');
                 if(empty($infoPrograma)){
                     echo $html->input('Programa.codigo', $GPC['codigo'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true));
                 }else{

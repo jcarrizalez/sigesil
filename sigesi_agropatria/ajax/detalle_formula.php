@@ -134,7 +134,7 @@
             $infoRomana = $romana->find(array('id' => $movimiento[2]), null, 'parametros');
             $peso=file_get_contents($infoRomana[0]['parametros']);
             $peso = rand(5000, 50000)."K";
-            //$peso = "37047K";
+            //$peso = "21890K";
             $peso = ($peso < 0 || $peso == '') ? '0K' : $peso;
             switch($movimiento[0]){
                 case 'rec':
@@ -360,7 +360,7 @@
                 <td>Peso Neto <?=$movimiento?> Kgrs</td>
                 <td><? echo $html->input('pesoRecibido1', $general->formato_numero(round($pesoN), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <? if($infoCultivo[0]['id'] == 12){ ?>
+            <? if(in_array($infoCultivo[0]['id'], array(10,12))){ ?>
             <tr>
                 <td>Peso Neto Acondicionado <?=$label?> Kgrs</td>
                 <td><? echo $html->input('netoAcondicionado1', $general->formato_numero(round($pesoA), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
@@ -432,7 +432,7 @@
                 <td>Peso Neto Despachado Remolque Kgrs</td>
                 <td><? echo $html->input('pesoRecibido2', $general->formato_numero(round($pesoN2), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <? if($infoCultivo[0]['id'] == 12){ ?>
+            <? if(in_array($infoCultivo[0]['id'], array(10,12))){ ?>
             <tr>
                 <td>Peso Neto Acondicionado Remolque Kgrs</td>
                 <td><? echo $html->input('netoAcondicionado2', $general->formato_numero(round($pesoA2), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
@@ -600,7 +600,7 @@
                 <td>Peso Neto <?=$movimiento?> Kgrs</td>
                 <td><? echo $html->input('pesoRecibido1', $general->formato_numero(round($pesoN), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <? if($GPC['id_cultivo'] == 12){ ?>
+            <? if(in_array($GPC['id_cultivo'], array(10,12))){ ?>
             <tr>
                 <td>Peso Neto Acondicionado <?=$label?> Kgrs</td>
                 <td><? echo $html->input('netoAcondicionado1', $general->formato_numero(round($pesoA), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
@@ -672,7 +672,7 @@
                 <td>Peso Neto Despachado Remolque Kgrs</td>
                 <td><? echo $html->input('pesoRecibido2', $general->formato_numero(round($pesoN2), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <? if($GPC['id_cultivo'] == 12){ ?>
+            <? if(in_array($GPC['id_cultivo'], array(10,12))){ ?>
             <tr>
                 <td>Peso Neto Acondicionado Remolque Kgrs</td>
                 <td><? echo $html->input('netoAcondicionado2', $general->formato_numero(round($pesoA2), 2), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>

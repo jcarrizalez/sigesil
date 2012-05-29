@@ -92,7 +92,7 @@
             <th>Area Siembra</th>
             <th>Fecha Inicio</th>
             <th>Fecha Fin</th>
-            <th>Estado</th>
+            <th>Estatus</th>
             <th>Acci&oacute;n</th>
         </tr>
         <?
