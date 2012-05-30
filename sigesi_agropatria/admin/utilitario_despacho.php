@@ -10,20 +10,18 @@
     $transporte = new Transporte();
     $cliente = new Cliente();
     $puntoEntrega = new PuntosEntrega();
+    $orden = new Orden();
     
-    $listaCR = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');            
-    
+    $listaCR = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');    
     $listadoE=array(1 => 'Romana Vacío', 2 => 'Lab. Central', 3 => 'Romana Lleno', 4 => 'Rechazado', 5 => 'Despachado');
+    $Error=true;
             
     switch ($GPC['ac']) {
         case 'editar':
             if (!empty($GPC['id'])) {
                 $infoMov=$movimiento->listadoDespacho($GPC['id']);
-                //print_r($infoMov);
-                //echo $infoMov[0]['id_cliente'];
                 $listaCu = $cultivo->find('', '', array('id', 'nombre'), 'list', 'id');
                 $listaT = $transporte->find(array('id_centro_acopio'=>$infoMov[0]['id_centro_acopio']), '', array('id', 'nombre'), 'list', 'id');
-                //array('id'=>$infoMov[0]['id_cliente'])
                 $listaP = $puntoEntrega->find('', '', array('id', 'nombre'), 'list', 'id');
                 $listaCarril = $carril->listaTolcarom($_SESSION['s_ca_id'], "'2'");
                 
@@ -35,7 +33,157 @@
                         $listadoEstatus[$clave]=$valor;
                 }
             }
-        case 'editar':
+        break;
+        case 'guardar':
+            if (!empty($GPC['Despacho']['id']) && !empty($GPC['Recepcion']['id_cultivo']) && $GPC['Despacho']['numero_guia'] 
+                    && !empty($GPC['Despacho']['ced_cliente_pre']) && !empty($GPC['Despacho']['ced_cliente']) 
+                    && !empty($GPC['Despacho']['ced_chofer_pre']) && !empty($GPC['Despacho']['ced_chofer'])) {
+
+                $infoMov=$movimiento->find(array('id'=>$GPC['Despacho']['id']));                
+                $infoOrd = $orden->buscarOrden(null, $infoMov[0]['id_centro_acopio'], null, null, $GPC['Despacho']['numero_guia']);
+                
+                if (!empty($infoOrd[0]['id'])) {
+                    $GPC['Despacho']['id_orden']=$infoOrd[0]['id'];
+                } else
+                    $Error=$Error && true;
+                
+                unset($GPC['Despacho']['numero_guia']);
+
+                $listaCli = $cliente->find(array('ced_rif'=>$GPC['Despacho']['ced_cliente_pre'].$GPC['Despacho']['ced_cliente']), '', array('id', 'nombre'), 'list', 'id');
+                if (!empty($listaCli[0]['id'])) {
+                    $GPC['Despacho']['id_cliente']=$listaOrd[0]['id'];
+                } else
+                    $Error=$Error && true;
+                
+                unset($GPC['Despacho']['ced_cliente_pre']);
+                unset($GPC['Despacho']['ced_cliente']);
+                
+                $listaChofer = $chofer->buscarChofer($GPC['Despacho']['ced_chofer_pre'].$GPC['Despacho']['ced_chofer']);
+                if (!empty($listaChofer[0]['id'])) {
+                    $GPC['Despacho']['id_chofer']=$listaChofer[0]['id'];
+                } else
+                    $Error=$Error && true;
+                
+                unset($GPC['Despacho']['ced_chofer_pre']);
+                unset($GPC['Despacho']['ced_chofer']);
+                
+                //$listaVeh = $vehiculo->find(array('placa'=>$GPC['Despacho']['placa']), '', array('id', 'marca'), 'list', 'id');
+                $listaVeh = $vehiculo->buscar($GPC['Despacho']['placa']);
+                if (!empty($listaVeh[0]['id'])) {
+                    $GPC['Despacho']['id_vehiculo']=$listaVeh[0]['id'];
+                } else
+                    $Error=$Error && true;
+                
+                unset($GPC['Despacho']['numero']);
+                unset($GPC['Despacho']['fecha_des']);
+                unset($GPC['Despacho']['placa']);
+                
+                switch ($GPC['Despacho']['estatus']) {
+                    case 1://'1 => Romana Vacío
+                        $GPC['Despacho']['fecha_v']='';
+                        $GPC['Despacho']['peso_01v']=0.000;
+                        $GPC['Despacho']['peso_02v']=0.000;
+                        $GPC['Despacho']['fecha_pel']='';
+                        $GPC['Despacho']['peso_01l']=0.000;
+                        $GPC['Despacho']['peso_02l']=0.000;
+                        $GPC['Despacho']['humedad']=0.000;
+                        $GPC['Despacho']['impureza']=0.000;
+                        $GPC['Despacho']['humedad_des']=0.000;
+                        $GPC['Despacho']['impureza_des']=0.000;
+                        $GPC['Despacho']['kac_des']=0.000;
+                        $GPC['Despacho']['carril']=-1;
+                        $GPC['Despacho']['romana_ent']=-1;
+                        $GPC['Despacho']['romana_sal']=-1;
+                        $GPC['Despacho']['peso_acon']=0.000;
+                        $GPC['Despacho']['peso_acon_liq']=0.000;
+                        $GPC['Despacho']['muestra']=-1;
+                        $GPC['Despacho']['humedad2']=0.000;
+                        $GPC['Despacho']['impureza2']=0.000;
+                        $GPC['Despacho']['humedad_des2']=0.000;
+                        $GPC['Despacho']['impureza_des2']=0.000;
+                        $GPC['Despacho']['peso_acon2']=0.000;
+                        $GPC['Despacho']['peso_acon_liq2']=0.000;
+                        break;
+                    case 2: //'Lab. Central'
+                        $GPC['Despacho']['peso_02v']=0.000;
+                        $GPC['Despacho']['fecha_pel']='';
+                        $GPC['Despacho']['peso_01l']=0.000;
+                        $GPC['Despacho']['peso_02l']=0.000;
+                        $GPC['Despacho']['humedad']=0.000;
+                        $GPC['Despacho']['impureza']=0.000;
+                        $GPC['Despacho']['humedad_des']=0.000;
+                        $GPC['Despacho']['impureza_des']=0.000;
+                        $GPC['Despacho']['kac_des']=0.000;
+                        $GPC['Despacho']['carril']=-1;
+                        $GPC['Despacho']['romana_sal']=-1;
+                        $GPC['Despacho']['peso_acon']=0.000;
+                        $GPC['Despacho']['peso_acon_liq']=0.000;
+                        $GPC['Despacho']['muestra']=-1;
+                        $GPC['Despacho']['humedad2']=0.000;
+                        $GPC['Despacho']['impureza2']=0.000;
+                        $GPC['Despacho']['humedad_des2']=0.000;
+                        $GPC['Despacho']['humedad_des2']=0.000;
+                        $GPC['Despacho']['peso_acon2']=0.000;
+                        $GPC['Despacho']['peso_acon_liq2']=0.000;
+                        break;
+                    case 3: //'Romana Lleno'
+                        $GPC['Despacho']['peso_02v']=0.000;                        
+                        $GPC['Despacho']['fecha_pel']='';
+                        $GPC['Despacho']['peso_01l']=0.000;
+                        $GPC['Despacho']['peso_02l']=0.000;                        
+                        $GPC['Despacho']['humedad']=0.000;                        
+                        $GPC['Despacho']['impureza']=0.000;
+                        $GPC['Despacho']['humedad_des']=0.000;
+                        $GPC['Despacho']['impureza_des']=0.000;
+                        $GPC['Despacho']['kac_des']=0.000;
+                        $GPC['Despacho']['carril']=-1;
+                        $GPC['Despacho']['romana_sal']=-1;
+                        $GPC['Despacho']['peso_acon']=0.000;
+                        $GPC['Despacho']['peso_acon_liq']=0.000;
+                        $GPC['Despacho']['muestra']=-1;
+                        $GPC['Despacho']['humedad2']=0.000;
+                        $GPC['Despacho']['impureza2']=0.000;
+                        $GPC['Despacho']['humedad_des2']=0.000;
+                        $GPC['Despacho']['impureza_des2']=0.000;
+                        $GPC['Despacho']['peso_acon2']=0.000;
+                        $GPC['Despacho']['peso_acon_liq2']=0.000;
+                        break;
+                    case 4: //'Rechazado'
+                        $GPC['Despacho']['peso_02v']=0.000;
+                        $GPC['Despacho']['fecha_pel']='';
+                        $GPC['Despacho']['peso_01l']=0.000;
+                        $GPC['Despacho']['peso_02l']=0.000;
+                        $GPC['Despacho']['humedad']=0.000;
+                        $GPC['Despacho']['impureza']=0.000;
+                        $GPC['Despacho']['humedad_des']=0.000;
+                        $GPC['Despacho']['impureza_des']=0.000;
+                        $GPC['Despacho']['kac_des']=0.000;
+                        $GPC['Despacho']['carril']=-1;
+                        $GPC['Despacho']['romana_sal']=-1;
+                        $GPC['Despacho']['peso_acon']=0.000;
+                        $GPC['Despacho']['peso_acon_liq']=0.000;
+                        $GPC['Despacho']['muestra']=-1;
+                        $GPC['Despacho']['humedad2']=0.000;
+                        $GPC['Despacho']['impureza2']=0.000;
+                        $GPC['Despacho']['humedad_des2']=0.000;
+                        $GPC['Despacho']['humedad_des2']=0.000;
+                        $GPC['Despacho']['peso_acon2']=0.000;
+                        $GPC['Despacho']['peso_acon_liq2']=0.000;
+                        break;
+                    case 5: //'Despachado');
+                        break;
+                }
+            }
+            if (!empty($infoMov[0]['id'])) {
+                $movimiento->_begin_tool();
+                $movimiento->save($GPC['Despacho']);
+                $movimiento->_commit_tool();
+                header("location: ".DOMAIN_ROOT."admin/utilitario_despacho_listado.php?msg=exitoso");
+                die();
+            }
+            header("location: ".DOMAIN_ROOT."admin/utilitario_despacho_listado.php?msg=error");
+            die();
+        break;
     }
     require('../lib/common/header.php');
     require('../lib/common/init_calendar.php');
@@ -100,7 +248,24 @@
                 alert('Se debe introducir el Punto de Entrega!!!');
             } else
                 $('#Guardar').removeAttr('disabled');  
-        });        
+        });
+        
+        $('#Recepcion\\[id_cultivo\\]').change(function() {
+            if ($(this).val()=='') {
+                $('#Guardar').attr('disabled', 'disabled');
+                alert('Se debe elegir el Cultivo!!!');
+            } else
+                $('#Guardar').removeAttr('disabled'); 
+        });
+        
+        $('#Despacho\\[placa\\]').change(function() {
+            if ($(this).val()=='') {
+                $('#Guardar').attr('disabled', 'disabled');
+                alert('Se debe elegir una Placa!!!');
+            } else
+                $('#Guardar').removeAttr('disabled');  
+            $('#vehiculo_nombre').load('../ajax/detalle_utilitario.php?ac=vehiculo&placa='+$('#Despacho\\[placa\\]').val());
+        });
        
         $("#form1").submit(function() {
             var isFormValid = true;
@@ -149,7 +314,7 @@
             </tr> 
             <tr>
                 <td>Cultivo</td>
-                <td><?=$html->select('Recepcion.id_cosecha', array('options' => $listaCu, 'selected' => $infoMov[0]['id_cultivo'],  'default'=>'Seleccione', 'class' => 'estilo_campos'));?></td>
+                <td><?=$html->select('Recepcion.id_cultivo', array('options' => $listaCu, 'selected' => $infoMov[0]['id_cultivo'],  'default'=>'Seleccione', 'class' => 'estilo_campos'));?></td>
             </tr>            
             <tr>
                 <td>Orden</td>
@@ -195,6 +360,11 @@
                 <td><? echo $html->input('Despacho.placa', $infoMov[0]['placa'], array('type' => 'text')); ?></td>
             </tr>
             <tr>
+                <td></td>
+                <td id="vehiculo_nombre"></td>
+            </tr>
+            <tr>
+            <tr>
                 <td>Transporte</td>
                 <td><?=$html->select('Despacho.id_transporte', array('options' => $listaT, 'selected' => $infoMov[0]['id_transporte'],  'default'=>'Seleccione', 'class' => 'estilo_campos'));?></td>
             </tr>
@@ -204,27 +374,27 @@
             </tr>
             <tr>
                 <td>Peso lleno 1</td>
-                <td><? echo $html->input('Despacho.peso_01l', $infoMov[0]['peso_01l'], array('type' => 'text', 'readOnly'=>'true')); ?></td>
+                <td><? echo $html->input('Despacho.peso_01l', number_format($infoMov[0]['peso_01l'],2,'.',''), array('type' => 'text', 'readOnly'=>'true')); ?></td>
             </tr> 
             <tr>
                 <td>Peso Vacio 1</td>
-                <td><? echo $html->input('Despacho.peso_01v', $infoMov[0]['peso_01v'], array('type' => 'text', 'readOnly'=>'true')); ?></td>
+                <td><? echo $html->input('Despacho.peso_01v', number_format($infoMov[0]['peso_01v'],2,'.',''), array('type' => 'text', 'readOnly'=>'true')); ?></td>
             </tr>
             <tr>
                 <td>Peso lleno 2</td>
-                <td><? echo $html->input('Despacho.peso_02l', $infoMov[0]['peso_02l'], array('type' => 'text', 'readOnly'=>'true')); ?></td>
+                <td><? echo $html->input('Despacho.peso_02l', number_format($infoMov[0]['peso_02l'],2,'.',''), array('type' => 'text', 'readOnly'=>'true')); ?></td>
             </tr>
             <tr>
                 <td>Peso Vacio 2</td>
-                <td><? echo $html->input('Despacho.peso_02v', $infoMov[0]['peso_02v'], array('type' => 'text', 'readOnly'=>'true')); ?></td>
+                <td><? echo $html->input('Despacho.peso_02v', number_format($infoMov[0]['peso_02v'],2,'.',''), array('type' => 'text', 'readOnly'=>'true')); ?></td>
             </tr>
             <tr>
                 <td>Desc Humedad</td>
-                <td><? echo $html->input('Despacho.humedad_des', $infoMov[0]['humedad_des'], array('type' => 'text', 'readOnly'=>'true')); ?></td>
+                <td><? echo $html->input('Despacho.humedad_des', number_format($infoMov[0]['humedad_des'],2,'.',''), array('type' => 'text', 'readOnly'=>'true')); ?></td>
             </tr>
             <tr>
                 <td>Desc Impureza</td>
-                <td><? echo $html->input('Despacho.impureza_des', $infoMov[0]['impureza_des'], array('type' => 'text', 'readOnly'=>'true')); ?></td>
+                <td><? echo $html->input('Despacho.impureza_des', number_format($infoMov[0]['impureza_des'],2,'.',''), array('type' => 'text', 'readOnly'=>'true')); ?></td>
             </tr>
             <tr>
                 <td>Nro Carril</td>
@@ -232,11 +402,11 @@
             </tr>
             <tr>
                 <td>Peso Acondicionado</td>
-                <td><? echo $html->input('Despacho.peso_acon', $infoMov[0]['peso_acon'], array('type' => 'text', 'readOnly'=>'true')); ?></td>
+                <td><? echo $html->input('Despacho.peso_acon', number_format($infoMov[0]['peso_acon'],2,'.',''), array('type' => 'text', 'readOnly'=>'true')); ?></td>
             </tr>
             <tr>
                 <td>Peso Acondicionado (liquidar)</td>
-                <td><? echo $html->input('Despacho.peso_acon_liq', $infoMov[0]['peso_acon_liq'], array('type' => 'text', 'readOnly'=>'true')); ?></td>
+                <td><? echo $html->input('Despacho.peso_acon_liq', number_format($infoMov[0]['peso_acon_liq'],2,'.',''), array('type' => 'text', 'readOnly'=>'true')); ?></td>
             </tr>
             <tr>
                 <td>Estatus</td>
@@ -244,6 +414,7 @@
             </tr>
         </table>
     </fieldset>
+    <? echo $html->input('Despacho.id',$infoMov[0]['id'], array('type' => 'hidden')); ?>
     <table align="center" border="0">
         <tr>
             <td></td>

@@ -13,16 +13,16 @@
     $idCu=(!empty($GPC['cultivo'])) ? $GPC['cultivo']: null;
     $listaCu = $cultivo->find('', '', array('id', 'nombre'), 'list', 'id');
     
-//    if (!empty($numEntrada) && (!empty($fdesde) || !empty($fhasta))) {
-//        if (empty($fdesde))
-//            $fdesde=$fhasta;
-//        elseif (empty($fhasta))
-//            $fhasta=$fdesde;
+    if (!empty($numEntrada) && (!empty($fdesde) || !empty($fhasta))) {
+        if (empty($fdesde))
+            $fdesde=$fhasta;
+        elseif (empty($fhasta))
+            $fhasta=$fdesde;
     
         $listadoMov=$movimiento->listadoDespacho(null, $idCa, $idCu, null, $numSalida, $estatus, null, null, $porPagina, $inicio, null, null, null, null, null, null, $fdesde, $fhasta);
         $total_registros = $despacho->total_verdadero;
         $paginador = new paginator($total_registros, $porPagina);
-//    }
+    }
     
     require('../lib/common/header.php');
     require('../lib/common/init_calendar.php');
