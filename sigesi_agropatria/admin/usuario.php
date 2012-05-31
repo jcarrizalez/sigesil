@@ -15,6 +15,7 @@ switch ($GPC['ac']) {
     case 'guardar':
         if (!empty($GPC['Usuario']['nombre']) && !empty($GPC['Usuario']['apellido']) && !empty($GPC['Usuario']['cedula']) && !empty($GPC['Usuario']['sexo']) && !empty($GPC['Usuario']['usuario']) && !empty($GPC['Usuario']['contrasena']) && !empty($GPC['centro_acopio']) && !empty($GPC['almacen']) && !empty($GPC['perfil'])) {
             $GPC['Usuario']['contrasena'] = sha1($GPC['Usuario']['contrasena']);
+            $GPC['Usuario']['fecha_contrasena'] = 'now()';
             $usuario->save($GPC['Usuario']);
             $id = $usuario->id;
             $GPC['Perfil']['id_usuario'] = $id;

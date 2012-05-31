@@ -82,6 +82,7 @@ $validator->setRules('Cliente.nombre', array('required' => array('value' => true
 $validator->setRules('Chofer.ced_rif', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros'), 'minlength' => array('value' => 6, 'message' => 'Min&iacute;mo 6 D&iacute;gitos')));
 $validator->setRules('Chofer.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Vehiculo.placa', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Vehiculo.id', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Vehiculo.marca', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Transporte.id', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Transporte.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));

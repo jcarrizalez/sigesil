@@ -176,7 +176,7 @@
                         <?
                             echo $html->input('Vehiculo.placa', $GPC['placa'], array('type' => 'text', 'class' => 'estilo_campos'));
                             echo $html->link('<img src="../images/agregar.png" width="16" height="16" title=Agregar>', "javascript:abrirPopup('nuevoV')");
-                            echo $html->input('Vehiculo.marca', '', array('type' => 'hidden'));
+                            echo $html->input('Vehiculo.id', '', array('type' => 'hidden'));
                         ?>
                     </td>
                 </tr>
