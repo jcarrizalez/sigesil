@@ -118,7 +118,7 @@
         $resultado = $descarga->download_file(true);
 
         if($resultado!=1){
-            header("location: $referer?download_error=1");
+            header("location: $referer?msg=error");
         }
         exit;
     }
@@ -135,7 +135,16 @@
     });
 </script>
     <div id="titulo_modulo">
-        REPORTE CULTIVOS<br/><hr/>
+        REPORTE DE CULTIVOS<br/><hr/>
+    </div>
+    <div id="mensajes">
+        <?
+            switch($GPC['msg']){
+                case 'error':
+                    echo "<span class='msj_rojo'>Ocurri&oacute; un Problema !</span>";
+                break;
+            }
+        ?>
     </div>
     <div id="filtro">
         <form name="form1" id="form1" method="GET" action="#">

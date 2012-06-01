@@ -132,7 +132,7 @@
             
             $movimiento = split('-', $GPC['status']);
             $infoRomana = $romana->find(array('id' => $movimiento[2]), null, 'parametros');
-            $peso=file_get_contents($infoRomana[0]['parametros']);
+            //$peso=file_get_contents($infoRomana[0]['parametros']);
             $peso = rand(5000, 50000)."K";
             //$peso = "21890K";
             $peso = ($peso < 0 || $peso == '') ? '0K' : $peso;

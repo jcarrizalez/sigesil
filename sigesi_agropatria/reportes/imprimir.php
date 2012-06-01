@@ -35,7 +35,7 @@
         //SENTENCIA PARA IMPRESION INDICANDO LA IMPRESORA A TRAVES DEL PARAMETRO -P DEL LPR
         $nombreImpresora = $detalleImpresora[0]['nombre'];
         $parametros = (!empty($detalleImpresora[0]['parametros'])) ? $detalleImpresora[0]['parametros'] : '';
-        exec("lpr -P $nombreImpresora $parametros $archivo");
+        //exec("lpr -P $nombreImpresora $parametros $archivo");
 
         //exec("lpr $archivo");
         exec("rm $archivo");

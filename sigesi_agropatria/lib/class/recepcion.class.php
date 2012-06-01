@@ -18,7 +18,6 @@ class Recepcion extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 
-    //la funcion listadoAnalisis  busca los analisis por registrar
     function listadoAnalisis($idCA = null, $idCo = null, $idRec = null, $estatus = null) {
         $query = "SELECT ca.id AS id_ca, ca.codigo AS codigo_ca, ca.nombre AS nombre_ca, 
                     cul.id AS id_cultivo, cul.codigo AS codigo_cul, cul.nombre AS nombre_cul,                    
@@ -81,7 +80,7 @@ class Recepcion extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 
-    function listadoRecepcion($id=null, $idCa=null, $idCo=null, $idSilo=null, $entradaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null, $idPro=null, $order=null, $contrato=null, $productor=null, $idP=null, $placa=null, $fechaLiqD=null, $fechaLiqH=null, $fechaRecD=null, $fechaRecH=null, $idAon=null, $guia=null, $idAdo=null){
+    function listadoRecepcion($id=null, $idCa=null, $idCo=null, $idCu=null, $entradaNum=null, $estatus=null, $fdesde=null, $fhasta=null, $porPagina=null, $inicio=null, $idPro=null, $order=null, $contrato=null, $productor=null, $idP=null, $placa=null, $fechaLiqD=null, $fechaLiqH=null, $fechaRecD=null, $fechaRecH=null, $idAon=null, $guia=null, $idAdo=null, $ced_rif=null, $nombre=null){
         $query = "SELECT r.*, 
                     (SELECT t1.nombre FROM si_tolcarom t1 WHERE t1.id = r.romana_ent) AS romana_ent, 
                     (SELECT t2.nombre FROM si_tolcarom t2 WHERE t2.id = r.romana_sal) AS romana_sal, 
@@ -112,7 +111,7 @@ class Recepcion extends Model {
         $query .= (!empty($id)) ? " AND r.id = '$id'" : '';
         $query .= (!empty($idCa)) ? " AND r.id_centro_acopio = '$idCa'" : '';
         $query .= (!empty($idCo)) ? " AND r.id_cosecha = '$idCo'" : '';
-        $query .= (!empty($idSilo)) ? " AND r.id_silo = '$idSilo'" : '';
+        $query .= (!empty($idCu)) ? " AND cu.id IN ($idCu)" : '';
         $query .= (!empty($entradaNum)) ? " AND r.numero = '$entradaNum'" : '';
         $query .= (!empty($estatus)) ? " AND r.estatus_rec IN ($estatus)" : '';
         $query .= (!empty($idPro)) ? " AND p.id = '$idPro'" : '';
@@ -123,7 +122,8 @@ class Recepcion extends Model {
         $query .= (!empty($idAdo)) ? " AND r.id_asociado = '$idAdo'" : '';
         $query .= (!empty($guia)) ? " AND g.numero_guia::text ILIKE '%$guia%'" : '';
         $query .= (!empty($placa)) ? " AND v.placa ILIKE '%$placa%'" : '';
-        $query .= (!empty($placaR)) ? " AND v.placa_remolques ILIKE '%$placaR%'" : '';
+        $query .= (!empty($ced_rif)) ? " AND (p.ced_rif ILIKE '%$ced_rif%' OR p2.ced_rif ILIKE '%$ced_rif%' OR p3.ced_rif ILIKE '%$ced_rif%')" : '';
+        $query .= (!empty($nombre)) ? " AND (p.nombre ILIKE '%$nombre%' OR p2.nombre ILIKE '%$nombre%' OR p3.nombre ILIKE '%$nombre%')" : '';
         if(!empty($fechaLiqD) || !empty($fechaLiqH)){
             $fechaLiqD = (!empty($fechaLiqD)) ? "'".$fechaLiqD." 00:00:00'" : 'now()::date';
             $fechaLiqH = (!empty($fechaLiqH)) ? "'".$fechaLiqH." 23:59:59'" : 'now()::date';
@@ -145,12 +145,12 @@ class Recepcion extends Model {
     }
     
     function recepcionPdf($fdesde=null, $fhasta=null, $estatus=null, $idCo=null, $idPro=null, $idAon=null, $idCa=null, $idAdo=null) {
-if(isset($idAdo) and $idAdo=='asociado')
-        $query = "SELECT id_productor, id_asociacion, id_asociado FROM si_recepcion WHERE '1'";
-else if(isset($idAdo) and $idAdo=='productor')
-        $query = "SELECT id_productor FROM si_recepcion WHERE '1'";
-else
-        $query = "SELECT id_productor, id_asociacion FROM si_recepcion WHERE '1'";
+        if(isset($idAdo) and $idAdo=='asociado')
+            $query = "SELECT id_productor, id_asociacion, id_asociado FROM si_recepcion WHERE '1'";
+        else if(isset($idAdo) and $idAdo=='productor')
+            $query = "SELECT id_productor FROM si_recepcion WHERE '1'";
+        else
+            $query = "SELECT id_productor, id_asociacion FROM si_recepcion WHERE '1'";
         if(!empty($fdesde) || !empty($fhasta)){
             $fdesde = (!empty($fdesde)) ? "'".$fdesde." 00:00:00'" : 'now()::date';
             $fhasta = (!empty($fhasta)) ? "'".$fhasta." 23:59:59'" : 'now()::date';
@@ -160,20 +160,17 @@ else
         $query .= (!empty($idCo)) ? " AND id_cosecha = '$idCo'" : '';
         $query .= (!empty($idPro)) ? " AND id_productor = '$idPro'" : '';
         $query .= (!empty($idAon)) ? " AND id_asociacion = '$idAon'" : '';
-   //     $query .= (!empty($idAdo)) ? " AND id_asociado = '$idAdo'" : '';
         $query .= (!empty($idCa)) ? " AND id_centro_acopio = '$idCa'" : '';
-if(isset($idAdo) and $idAdo=='asociado'){
-        $query .= " GROUP BY id_productor, id_asociacion, id_asociado
-                    ORDER BY id_productor, id_asociacion, id_asociado";
-}
-else if(isset($idAdo) and $idAdo=='productor'){
-        $query .= " GROUP BY id_productor
-                    ORDER BY id_productor";
-}
-else{
-        $query .= " GROUP BY id_productor, id_asociacion
-                    ORDER BY id_productor, id_asociacion";
-}
+        if(isset($idAdo) and $idAdo=='asociado'){
+            $query .= " GROUP BY id_productor, id_asociacion, id_asociado
+                        ORDER BY id_productor, id_asociacion, id_asociado";
+        }else if(isset($idAdo) and $idAdo=='productor'){
+            $query .= " GROUP BY id_productor
+                        ORDER BY id_productor";
+        }else{
+            $query .= " GROUP BY id_productor, id_asociacion
+                        ORDER BY id_productor, id_asociacion";
+        }
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
@@ -184,7 +181,7 @@ else{
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
-    function recepcionesReporteGeneral($fdesde=null, $fhasta=null, $idCA=null, $idCo=null){
+    function recepcionesReporteGeneral($fdesde=null, $fhasta=null, $idCA=null, $idCo=null, $idCu=null){
         $query = "SELECT co.id AS id_co, '('||co.codigo||') '||co.nombre AS cosecha, cu.codigo codigo_cultivo, cu.nombre AS cultivo, p.id, p.ced_rif, p.nombre AS productor, ca.codigo, ca.nombre AS nombre_ca 
                     FROM si_productor p
                     INNER JOIN si_recepcion r ON r.id_productor = p.id
@@ -196,6 +193,7 @@ else{
                     WHERE '1' AND r.estatus_rec = '9'";
         $query .= (!empty($idCA)) ? " AND r.id_centro_acopio = '$idCA'" : '';
         $query .= (!empty($idCo)) ? " AND r.id_cosecha = '$idCo'" : '';
+        $query .= (!empty($idCu)) ? " AND cu.id IN ($idCu)" : '';
         if(!empty($fdesde) || !empty($fhasta)){
             $fdesde = (!empty($fdesde)) ? "'$fdesde'" : 'now()::date';
             $fhasta = (!empty($fhasta)) ? "'$fhasta'" : 'now()::date';

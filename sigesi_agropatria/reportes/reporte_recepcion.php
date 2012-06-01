@@ -31,18 +31,6 @@
     $total_registros = $recepcion->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);
     
-    /*switch($GPC['ac']){
-        case 'Pdf':
-            $idCA = (!empty($idCA)) ? $idCA : 'vacio';
-            $idCo = (!empty($idCo)) ? $idCo : 'vacio';
-            header('location: pdf_listado_recepciones_todo.php?id='.$fdesde."_".$fhasta."_".$idCA."_".$idCo);
-            die();
-        break;
-        case 'Excel':
-            
-        break;
-    }*/
-    
     require('../lib/common/header.php');
     require('../lib/common/init_calendar.php');
 ?>
@@ -56,14 +44,11 @@
     });
 </script>
     <div id="titulo_modulo">
-        REPORTE RECEPCI&Oacute;N<br/><hr/>
+        REPORTE DE RECEPCIONES<br/><hr/>
     </div>
     <div id="mensajes">
         <?
             switch($GPC['msg']){
-                case 'exitoso':
-                    echo "<span class='msj_verde'>Registro Guardado !</span>";
-                break;
                 case 'error':
                     echo "<span class='msj_rojo'>Ocurri&oacute; un Problema !</span>";
                 break;

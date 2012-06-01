@@ -10,7 +10,7 @@
     else
         $idCA = $_SESSION['s_ca_id'];
     
-    $listadoCosecha = $cosecha->buscarCosechaP(null, null, null, null, $idCA);
+    $listadoCosecha = $cosecha->buscarCosechaP(null, null, 't', null, $idCA);
     foreach($listadoCosecha as $valor){
         $listadoC[$valor['id']] = "(".$valor['ca_codigo'].") ".$valor['codigo'];
     }
@@ -37,7 +37,6 @@
     $estatus = (!empty($GPC['estatus'])) ? $GPC['estatus'] : '';
     $fliqD = (!empty($GPC['fecha_liqD'])) ? $general->fecha_normal_sql($GPC['fecha_liqD'], 'es') : '';
     $fliqH = (!empty($GPC['fecha_liqH'])) ? $general->fecha_normal_sql($GPC['fecha_liqH'], 'es') : '';
-
     $frecD = (!empty($GPC['fecha_recD'])) ? $GPC['fecha_recD'] : date("d-m-Y", time() - 86400);
     $frecH = (!empty($GPC['fecha_recH'])) ? $GPC['fecha_recH'] : date("d-m-Y");
     
@@ -308,7 +307,7 @@
         $resultado = $descarga->download_file(true);
 
         if($resultado!=1){
-            header("location: $referer?download_error=1");
+            header("location: $referer?msg=error");
         }
         exit;
     }
@@ -448,6 +447,15 @@
 </script>
     <div id="titulo_modulo">
         CONSULTA DEL GERENTE - RECEPCI&Oacute;N<br/><hr/>
+    </div>
+    <div id="mensajes">
+        <?
+            switch($GPC['msg']){
+                case 'error':
+                    echo "<span class='msj_rojo'>Ocurri&oacute; un Problema !</span>";
+                break;
+            }
+        ?>
     </div>
     <div id="dialog" title="Leyenda de Estatus" style="display: none;">
 	<table align="center" border="0" style="font-size: 11px;">

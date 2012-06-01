@@ -46,14 +46,11 @@
     });
 </script>
     <div id="titulo_modulo">
-        REPORTE DESPACHO<br/><hr/>
+        REPORTE DE DESPACHOS<br/><hr/>
     </div>
     <div id="mensajes">
         <?
             switch($GPC['msg']){
-                case 'exitoso':
-                    echo "<span class='msj_verde'>Registro Guardado !</span>";
-                break;
                 case 'error':
                     echo "<span class='msj_rojo'>Ocurri&oacute; un Problema !</span>";
                 break;

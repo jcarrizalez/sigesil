@@ -321,7 +321,7 @@
         $resultado = $descarga->download_file(true);
 
         if($resultado!=1){
-            header("location: $referer?download_error=1");
+            header("location: $referer?msg=error");
         }
         exit;
     }
@@ -420,6 +420,15 @@
 </script>
     <div id="titulo_modulo">
         CONSULTA DEL GERENTE - DESPACHO<br/><hr/>
+    </div>
+    <div id="mensajes">
+        <?
+            switch($GPC['msg']){
+                case 'error':
+                    echo "<span class='msj_rojo'>Ocurri&oacute; un Problema !</span>";
+                break;
+            }
+        ?>
     </div>
     <div id="dialog" title="Leyenda de Estatus" style="display: none;">
 	<table align="center" border="0" style="font-size: 11px;">

@@ -64,13 +64,15 @@
                     <td>
                         <?
                             echo $html->select('estatus',array('options'=>$listadoEstatus, 'selected' => $GPC['estatus'], 'default' => 'Todos'));
-                            echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
                         ?>
                     </td>
                 </tr>
                 <tr id="botones">
                     <td colspan="2">
-                        <? echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();')); ?>
+                        <?
+                            echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
+                            echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
+                        ?>
                     </td>
                 </tr>
             </table>
@@ -186,13 +188,15 @@
                     <td>
                         <?
                             echo $html->select('estatus',array('options'=>$listadoEstatus, 'selected' => $GPC['estatus'], 'default' => 'Todos'));
-                            echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
                         ?>
                     </td>
                 </tr>
                 <tr id="botones">
                     <td colspan="2">
-                        <? echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();')); ?>
+                        <?
+                            echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
+                            echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
+                        ?>
                     </td>
                 </tr>
             </table>

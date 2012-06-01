@@ -18,7 +18,7 @@ class Cosecha extends Model {
         $query.=(!empty($idCa)) ? " AND pr.id_centro_acopio = '$idCa'" : '';
         $query.=(!empty($codCo)) ? " AND co.codigo = '$codCo'" : '';
         $query.=(!empty($nombre)) ? " AND co.nombre ILIKE '%$nombre%'" : '';
-        $query.= " ORDER BY pr.id, co.id";
+        $query.= " ORDER BY ca.codigo, pr.codigo, co.codigo";
         $query .= (!empty($porPagina)) ? " LIMIT $porPagina OFFSET $inicio" : "";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
