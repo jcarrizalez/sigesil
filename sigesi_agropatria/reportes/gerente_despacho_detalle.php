@@ -80,25 +80,25 @@
                 <td><?php echo $detalleDespacho[0]['ced_chofer'] ?></td>
                 <td><?php echo $detalleDespacho[0]['chofer_nombre'] ?></td>
                 <td><?php echo $detalleDespacho[0]['romana_ent'] ?></td>
-                <td><?php echo $general->formato_numero(round($detalleDespacho[0]['peso_01v']), 3) ?></td>
-                <td><?php echo $general->formato_numero(round($detalleDespacho[0]['peso_02v']), 3) ?></td>
+                <td><?php echo $general->formato_numero(round($detalleDespacho[0]['peso_01v']), 2) ?></td>
+                <td><?php echo $general->formato_numero(round($detalleDespacho[0]['peso_02v']), 2) ?></td>
                 <td><?php echo $detalleDespacho[0]['romana_sal'] ?></td>
-                <td><?php echo $general->formato_numero(round($detalleDespacho[0]['peso_01l']), 3) ?></td>
-                <td><?php echo $general->formato_numero(round($detalleDespacho[0]['peso_02l']), 3) ?></td>
-                <td><?php echo $general->formato_numero(round($pesoLleno), 3) ?></td>
-                <td><?php echo $general->formato_numero(round($pesoVacio), 3) ?></td>
+                <td><?php echo $general->formato_numero(round($detalleDespacho[0]['peso_01l']), 2) ?></td>
+                <td><?php echo $general->formato_numero(round($detalleDespacho[0]['peso_02l']), 2) ?></td>
+                <td><?php echo $general->formato_numero(round($pesoLleno), 2) ?></td>
+                <td><?php echo $general->formato_numero(round($pesoVacio), 2) ?></td>
                 <td><?php echo $detalleDespacho[0]['humedad'] = (!empty($detalleDespacho[0]['humedad'])) ? $detalleDespacho[0]['humedad'] : 0 ?></td>
                 <td><?php echo $detalleDespacho[0]['humedad2'] = (!empty($detalleDespacho[0]['humedad2'])) ? $detalleDespacho[0]['humedad2'] : 0 ?></td>
-                <td><?php echo $general->formato_numero(round($detalleDespacho[0]['humedad_des']), 3) ?></td>
-                <td><?php echo $general->formato_numero(round($detalleDespacho[0]['humedad_des2']), 3) ?></td>
+                <td><?php echo $general->formato_numero(round($detalleDespacho[0]['humedad_des']), 2) ?></td>
+                <td><?php echo $general->formato_numero(round($detalleDespacho[0]['humedad_des2']), 2) ?></td>
                 <td><?php echo $detalleDespacho[0]['impureza'] = (!empty($detalleDespacho[0]['impureza'])) ? $detalleDespacho[0]['impureza'] : 0 ?></td>
                 <td><?php echo $detalleDespacho[0]['impureza2'] = (!empty($detalleDespacho[0]['impureza2'])) ? $detalleDespacho[0]['impureza2'] : 0 ?></td>
-                <td><?php echo $general->formato_numero(round($detalleDespacho[0]['impureza_des']), 3) ?></td>
-                <td><?php echo $general->formato_numero(round($detalleDespacho[0]['impureza_des2']), 3) ?></td>
-                <td><?php echo $general->formato_numero(round($pesoAcondicionado), 3) ?></td>
-                <td><?php echo $general->formato_numero(round($pesoAcondicionado2), 3) ?></td>
-                <td><?php echo $general->formato_numero(round($detalleDespacho[0]['peso_acon_liq']), 3) ?></td>
-                <td><?php echo $general->formato_numero(round($detalleDespacho[0]['peso_acon_liq2']), 3) ?></td>
+                <td><?php echo $general->formato_numero(round($detalleDespacho[0]['impureza_des']), 2) ?></td>
+                <td><?php echo $general->formato_numero(round($detalleDespacho[0]['impureza_des2']), 2) ?></td>
+                <td><?php echo $general->formato_numero(round($pesoAcondicionado), 2) ?></td>
+                <td><?php echo $general->formato_numero(round($pesoAcondicionado2), 2) ?></td>
+                <td><?php echo $general->formato_numero(round($detalleDespacho[0]['peso_acon_liq']), 2) ?></td>
+                <td><?php echo $general->formato_numero(round($detalleDespacho[0]['peso_acon_liq2']), 2) ?></td>
                 <td><?php echo $general->date_sql_screen($detalleDespacho[0]['fecha_v'], '', 'es', '-') ?></td>
             </tr>
             <tr>

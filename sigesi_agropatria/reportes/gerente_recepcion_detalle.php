@@ -101,19 +101,19 @@
                 <td><?php echo $detalleRecepcion[0]['ced_chofer'] ?></td>
                 <td><?php echo $detalleRecepcion[0]['chofer_nombre'] ?></td>
                 <td><?php echo $detalleRecepcion[0]['romana_ent'] ?></td>
-                <td><?php echo $general->formato_numero(round($detalleRecepcion[0]['peso_01l']), 3) ?></td>
-                <td><?php echo $general->formato_numero(round($detalleRecepcion[0]['peso_02l']), 3) ?></td>
-                <td><?php echo $general->formato_numero(round($pesoLleno), 3) ?></td>
+                <td><?php echo $general->formato_numero(round($detalleRecepcion[0]['peso_01l']), 2) ?></td>
+                <td><?php echo $general->formato_numero(round($detalleRecepcion[0]['peso_02l']), 2) ?></td>
+                <td><?php echo $general->formato_numero(round($pesoLleno), 2) ?></td>
                 <td><?php echo $detalleRecepcion[0]['romana_sal'] ?></td>
-                <td><?php echo $general->formato_numero(round($detalleRecepcion[0]['peso_01v']), 3) ?></td>
-                <td><?php echo $general->formato_numero(round($detalleRecepcion[0]['peso_02v']), 3) ?></td>
-                <td><?php echo $general->formato_numero(round($pesoVacio), 3) ?></td>
+                <td><?php echo $general->formato_numero(round($detalleRecepcion[0]['peso_01v']), 2) ?></td>
+                <td><?php echo $general->formato_numero(round($detalleRecepcion[0]['peso_02v']), 2) ?></td>
+                <td><?php echo $general->formato_numero(round($pesoVacio), 2) ?></td>
                 <td><?php echo $detalleRecepcion[0]['humedad'] ?></td>
-                <td><?php echo $general->formato_numero(round($detalleRecepcion[0]['humedad_des']), 3) ?></td>
+                <td><?php echo $general->formato_numero(round($detalleRecepcion[0]['humedad_des']), 2) ?></td>
                 <td><?php echo $detalleRecepcion[0]['impureza'] ?></td>
-                <td><?php echo $general->formato_numero(round($detalleRecepcion[0]['impureza_des']), 3) ?></td>
-                <td><?php echo $general->formato_numero(round($pesoAcondicionado), 3) ?></td>
-                <td><?php echo $general->formato_numero(round($detalleRecepcion[0]['peso_acon_liq']), 3) ?></td>
+                <td><?php echo $general->formato_numero(round($detalleRecepcion[0]['impureza_des']), 2) ?></td>
+                <td><?php echo $general->formato_numero(round($pesoAcondicionado), 2) ?></td>
+                <td><?php echo $general->formato_numero(round($detalleRecepcion[0]['peso_acon_liq']), 2) ?></td>
                 <td><?php echo $general->date_sql_screen($detalleRecepcion[0]['fecha_v'], '', 'es', '-') ?></td>
             </tr>
             <? if($detalleRecepcion[0]['estatus_rec'] > 1){ ?>

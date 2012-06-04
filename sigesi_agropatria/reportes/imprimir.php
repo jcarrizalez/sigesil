@@ -27,7 +27,6 @@
         $mpdf->SetTopMargin(0);
         $stylesheet = file_get_contents(DOMAIN_ROOT.'css/reportes.css');
         $mpdf->WriteHTML($stylesheet,1);
-        //$mpdf->WriteHTML('<pagebreak sheet-size="216mm 139.5mm" />');
         $mpdf->WriteHTML($imprimir);
         $archivo=$GPC['reporte'].time().'.pdf';
         $mpdf->Output($archivo,'F');
@@ -35,7 +34,7 @@
         //SENTENCIA PARA IMPRESION INDICANDO LA IMPRESORA A TRAVES DEL PARAMETRO -P DEL LPR
         $nombreImpresora = $detalleImpresora[0]['nombre'];
         $parametros = (!empty($detalleImpresora[0]['parametros'])) ? $detalleImpresora[0]['parametros'] : '';
-        //exec("lpr -P $nombreImpresora $parametros $archivo");
+        exec("lpr -P $nombreImpresora $parametros $archivo");
 
         //exec("lpr $archivo");
         exec("rm $archivo");

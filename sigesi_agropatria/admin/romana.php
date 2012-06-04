@@ -258,14 +258,21 @@
                             $pesoAl2 = $evaluar->e("y(0)");
                     }
                 
-                    
-                    $GPC['Recepcion']['humedad'] = ($GPC['Recepcion']['estatus_rec'] != '14') ? $sumHum : 0;
-                    $GPC['Recepcion']['impureza'] = ($GPC['Recepcion']['estatus_rec'] != '14') ? $sumImp : 0;
-                    $GPC['Recepcion']['humedad_des'] = ($GPC['Recepcion']['estatus_rec'] != '14') ? round($pesoH) : 0;
-                    $GPC['Recepcion']['impureza_des'] = ($GPC['Recepcion']['estatus_rec'] != '14') ?  round($pesoI) : 0;
-                    $GPC['Recepcion']['peso_acon'] = ($GPC['Recepcion']['estatus_rec'] != '14') ? round($pesoA) : $pesoN;
-                    $GPC['Recepcion']['peso_acon_liq'] = ($GPC['Recepcion']['estatus_rec'] != '14') ? round($pesoAl) : $pesoN;
-                    if($GPC['mov'] == 'des'){
+                    if($GPC['mov'] == 'rec'){
+                        $GPC['Recepcion']['humedad'] = ($GPC['Recepcion']['estatus_rec'] != '14') ? $promHum : 0;
+                        $GPC['Recepcion']['impureza'] = ($GPC['Recepcion']['estatus_rec'] != '14') ? $promImp : 0;
+                        $GPC['Recepcion']['humedad_des'] = ($GPC['Recepcion']['estatus_rec'] != '14') ? round($pesoH) : 0;
+                        $GPC['Recepcion']['impureza_des'] = ($GPC['Recepcion']['estatus_rec'] != '14') ?  round($pesoI) : 0;
+                        $GPC['Recepcion']['peso_acon'] = ($GPC['Recepcion']['estatus_rec'] != '14') ? round($pesoA) : $pesoN;
+                        $GPC['Recepcion']['peso_acon_liq'] = ($GPC['Recepcion']['estatus_rec'] != '14') ? round($pesoAl) : $pesoN;
+                    }else{
+                        $GPC['Recepcion']['humedad'] = $sumHum;
+                        $GPC['Recepcion']['impureza'] = $sumImp;
+                        $GPC['Recepcion']['humedad_des'] = round($pesoH);
+                        $GPC['Recepcion']['impureza_des'] = round($pesoI);
+                        $GPC['Recepcion']['peso_acon'] = round($pesoA);
+                        $GPC['Recepcion']['peso_acon_liq'] = round($pesoAl);
+                        
                         $GPC['Recepcion']['humedad2'] = $sumHum2;
                         $GPC['Recepcion']['impureza2'] = $sumImp2;
                         $GPC['Recepcion']['humedad_des2'] = round($pesoH2);

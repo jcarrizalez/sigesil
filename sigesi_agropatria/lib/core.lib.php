@@ -12,7 +12,6 @@
     //config var goes in the same place than core.lib
     require_once("config_var.php");
     $conn_string = "host=".SERVER." port=5432 password=".PASS." user=".USER." dbname=".DB;
-    //$conn_string = "host=localhost port=5432 password=123456 user=admin dbname=sigesi";
     $link = pg_connect($conn_string);
     if (pg_ErrorMessage($link)) { echo "<p><b>Ocurrio un error conectando a la base de datos: .</b></p>"; exit; }
     //$link=mysql_connect(SERVER,USER,PASS) or die("Could not connect to Database server");
@@ -39,9 +38,7 @@
     define('ADMINS',4);
     define('CALIDADG',5);
     define('CALIDADS',6);
-    define('ROMANERO',7);
-    define('RECEPCION',8);
-    define('DESPACHO',9);
+    define('USUARIO',7);
     
     session_start();
 

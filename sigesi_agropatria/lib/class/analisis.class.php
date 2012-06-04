@@ -24,7 +24,7 @@ class Analisis extends Model {
         $query .= (!empty($id_recepcion)) ? " AND ar.id_recepcion = '$id_recepcion'" : "";
         $query .= (!empty($id_despacho)) ? " AND ar.id_despacho = '$id_despacho'" : "";
         $query .= (!empty($id_analisis)) ? " AND a.id IN ($id_analisis)" : "";
-        $query .= (!empty($codigo)) ? " AND a.codigo IN ($codigo)" : "";
+        $query .= (!empty($codigo)) ? " AND a.codigo::int IN ($codigo)" : "";
         $query .= " ORDER BY ar.id_analisis";
         $id = $this->_SQL_tool('SELECT', __METHOD__, $query);
         return $this->id = $id;

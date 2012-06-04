@@ -14,31 +14,25 @@ else
 
     switch ($perfil_usuario) {
         case GERENTEG:
-            $perfil = " GERENTE GENERAL";
+            $perfil = "GERENTE GENERAL";
         break;
         case GERENTES:
-            $perfil = " GERENTE DE SILO";
+            $perfil = "GERENTE DE SILO";
         break;
         case ADMING:
-            $perfil = " ADMINISTRADOR GENERAL";
+            $perfil = "ADMINISTRADOR GENERAL";
         break;
         case ADMINS:
-            $perfil = " ADMINISTRADOR DE SILO";
+            $perfil = "ADMINISTRADOR DE SILO";
         break;
         case CALIDADG:
-            $perfil = " CALIDAD GENERAL";
+            $perfil = "CALIDAD GENERAL";
         break;
         case CALIDADS:
-            $perfil = " CALIDAD DE SILO";
+            $perfil = "CALIDAD DE SILO";
         break;
-        case ROMANERO:
-            $perfil = " ROMANERO";
-        break;
-        case RECEPCION:
-            $perfil = " RECEPCION";
-        break;
-        case DESPACHO:
-            $perfil = " DESPACHO";
+        case USUARIO:
+            $perfil = "USUARIO";
         break;
     }
 
