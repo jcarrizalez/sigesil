@@ -13,7 +13,7 @@
     $idCu=(!empty($GPC['cultivo'])) ? $GPC['cultivo']: null;
     $listaCu = $cultivo->find('', '', array('id', 'nombre'), 'list', 'id');
     
-    if (!empty($numEntrada) && (!empty($fdesde) || !empty($fhasta))) {
+    if (!empty($numSalida) && (!empty($fdesde) || !empty($fhasta))) {
         if (empty($fdesde))
             $fdesde=$fhasta;
         elseif (empty($fhasta))

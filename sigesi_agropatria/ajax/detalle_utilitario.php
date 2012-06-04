@@ -18,46 +18,75 @@
             echo $html->select('Recepcion_codigo', array('options' => $listaCo, 'class' => 'estilo_campos'));
         break;
         case 'productor':
-            if (!empty($GPC['cosecha'])) {
-                if (is_numeric($GPC['cosecha'])) {
-                    $idCosecha=$GPC['cosecha'];
-                    $listaProductor = $cosecha->buscarCosechaProductor($idCosecha);
-                    foreach($listaProductor as $dataPro)
-                        $listaP[$dataPro['ced_productor']]=$dataPro['productor'];
-                    echo $html->select('Recepcion.ced_productor', array('options' => $listaP, 'default' => 'Seleccione', 'class' => 'estilo_campos'));
-                }   
-            } else 
-                echo $html->select('Recepcion.ced_productor', array('default' => 'Seleccione', 'class' => 'estilo_campos'));
-        break;
-        case 'asociacion':
             if (!empty($GPC['cosecha']) && !empty($GPC['cedRifP'])) {
                 if (is_numeric($GPC['cosecha'])) {
                     $idCosecha=$GPC['cosecha'];
-                    $cedRifP=(is_numeric($GPC['cedRifP'])) ? $GPC['cedRifP']: '';            
-                    $listAsociacion = $cosecha->buscarCosechaProductor($idCosecha, $cedRifP);
-                    foreach($listAsociacion as $datAon)
-                        $listAon[$datAon['ced_asociacion']]=$datAon['asociacion'];
-                    if (!empty($listAon))
-                        echo $html->select('Recepcion.ced_asociacion', array('options' => $listAon, 'default' => 'Seleccione',  'class' => 'estilo_campos'));
-                 }
-            } else
-                echo $html->select('Recepcion.ced_asociacion', array('default' => 'Seleccione',  'class' => 'estilo_campos'));
+                    $cedRifP=$GPC['cedRifP'];
+                    $cedRifAon=$GPC['cedRifAon'];
+                    $cedRifAdo=$GPC['cedRifAdo'];
+                    $listaProductor = $cosecha->buscarCosechaProductor($idCosecha, $GPC['cedRifP']);
+//                    foreach($listaProductor as $dataPro)
+//                        $listaP[$dataPro['ced_productor']]=$dataPro['productor'];
+//                    echo $html->select('Recepcion.ced_productor', array('options' => $listaP, 'default' => 'Seleccione', 'class' => 'estilo_campos'));
+                    if (!empty($listaProductor[0]['productor'])) {
+                        echo "<span class='crproductor'>".$listaProductor[0]['productor']."</span>";
+                        echo $html->input('msg5',0, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
+                    } else {
+                        echo "<span class='crproductor'>El productor no existe!!!</span>";
+                        echo $html->input('msg5',0, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
+                    }
+                }   
+            } else {
+                echo $html->input('msg5',1, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
+            }
+                //echo $html->select('Recepcion.ced_productor', array('default' => 'Seleccione', 'class' => 'estilo_campos'));
         break;
-        case 'asociado':
+        case 'asociacion':
             if (!empty($GPC['cosecha']) && !empty($GPC['cedRifP']) && !empty($GPC['cedRifAon'])) {
                 if (is_numeric($GPC['cosecha'])) {
                     $idCosecha=$GPC['cosecha'];
-                    $cedRifP=($GPC['cedRifP']=='undefined') ? $GPC['cedRifP']: null;
-                    $cedRifAon=($GPC['cedRifAon']=='undefined') ? $GPC['cedRifAon']: null;
-                    $listAsociado = $cosecha->buscarCosechaProductor($idCosecha, $cedRifP, $cedRifAon);
-                    foreach($listAsociado as $datAdo)
-                        $listAdo[$datAdo['ced_asociado']]=$datAdo['asociado'];
-                    $listAdo['null']='Seleccione';
-                    if (!empty($listAdo))
-                        echo $html->select('Recepcion.ced_asociado', array('options' => $listAdo, 'default' => 'Seleccione', 'class' => 'estilo_campos'));
+                    $cedRifP=$GPC['cedRifP'];
+                    $cedRifAon=$GPC['cedRifAon'];
+                    $cedRifAdo=$GPC['cedRifAdo'];
+                    $listAsociacion = $cosecha->buscarCosechaProductor($cedRifP, $cedRifAon, $cedRifAdo);
+                    if (!empty($listAsociacion[0]['asociacion'])) {
+                        echo "<span class='crproductor'>".$listAsociacion[0]['asociacion']."</span>";
+                        echo $html->input('msg6',0, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
+                    } else  {
+                        echo "<span class='crproductor'>La Asociacion no existe!!!</span>";
+                        echo $html->input('msg6',1, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
+                    }
+                        //echo $html->select('Recepcion.ced_asociacion', array('options' => $listAon, 'default' => 'Seleccione',  'class' => 'estilo_campos'));
+                 }
+            } else {
+                echo $html->input('msg6',1, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
+                echo "<span class='crproductor'>La Asociacion no existe(Cosecha)!!!</span>";
+            }
+                //echo $html->select('Recepcion.ced_asociacion', array('default' => 'Seleccione',  'class' => 'estilo_campos'));
+        break;
+        case 'asociado':
+            if (!empty($GPC['cosecha']) && !empty($GPC['cedRifP'])) {
+                if (is_numeric($GPC['cosecha'])) {
+                    $idCosecha=$GPC['cosecha'];
+//                    $cedRifP=($GPC['cedRifP']=='undefined') ? $GPC['cedRifP']: null;
+//                    $cedRifAon=($GPC['cedRifAon']=='undefined') ? $GPC['cedRifAon']: null;
+//                    $cedRifAdo=($GPC['cedRifAdo']=='undefined') ? $GPC['cedRifAdo']: null;                    
+                    $cedRifP=$GPC['cedRifP'];
+                    $cedRifAon=$GPC['cedRifAon'];
+                    $cedRifAdo=$GPC['cedRifAdo'];                    
+                    $listAsociado = $cosecha->buscarCosechaProductor($idCosecha, $cedRifP, $cedRifAon, $cedRifAdo);                 
+                    if (!empty($listAsociado[0]['asociado'])) {
+                        echo "<span class='crproductor'>".$listAsociado[0]['asociado']."</span>";
+                        echo $html->input('msg7',0, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
+                    } else {
+                        echo "<span class='crproductor'>El Asociado no existe!!!</span>";
+                        echo $html->input('msg7',1, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
+                    }
                 }
-            } else
-                echo $html->select('Recepcion.ced_asociado', array('default' => 'Seleccione', 'class' => 'estilo_campos'));
+            } else {
+                echo "<span class='crproductor'>El Asociado no existe!!!</span>";
+                echo $html->input('msg7',1, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
+            }
         break;
         case 'recepcion':
             if (!empty($GPC['numero']) && !empty($GPC['fecha']) && !empty($GPC['tipo']) && !empty($GPC['ca'])  && !empty($GPC['co']) && !empty($GPC['id'])) {
@@ -106,35 +135,19 @@
             }
         break;
         case 'guia':            
-            $listaSubGuia = $guia->buscarSubGuias($GPC['idguia']);
-                $i=1;
-                foreach($listaSubGuia as $subguia) {
-                    $i++;
-            ?>
-                <tr>
-                    <td>Guia Nro. <?=$i?></td>
-                    <td>
-                        <?=$html->input('Guia.subguia'.$i, $subguia['subguia'], array('type' => 'text', 'class' => 'crproductor', 'readOnly'=>true)); ?>
-                    </td>
-                </tr>
-            <?
-                }
-            ?>
-                <tr>
-                    <td width="130px">Fecha de emision</td>
-                    <td width="230px"><?=$html->input('Guia.placa', $listaGuia[0]['fecha_emision'], array('type' => 'text', 'class' => 'crproductor', 'readOnly'=>true)); ?></td>
-                </tr>
-                <tr>
-                    <td width="130px">Placa del Vehiculo</td>
-                    <td width="230px"><?=$html->input('Guia.placa', $infoMov[0]['placa'], array('type' => 'text', 'class' => 'crproductor', 'readOnly'=>true)); ?></td>
-                </tr>
-                <tr>
-                    <td>Contrato</td>
-                    <td>
-                        <?=$html->input('Guia.contrato', $infoMov[0]['contrato'], array('type' => 'text', 'class' => 'crproductor', 'readOnly'=>true)); ?>
-                    </td>
-                </tr>
-            <?
+            $listaSubGuia = $guia->buscarSubGuias($infoMov[0]['id_guia']);
+            $i=1;
+            foreach($listaSubGuia as $subguia) {
+                $i++;
+?>
+            <tr>
+                <td>Gu&iacute;a Nro. <?=$i?></td>
+                <td>
+                    <?=$html->input('Recepcion.numero_guia_'.$i, $subguia['subguia'], array('type' => 'text', 'class' => 'crproductor')); ?>
+                </td>
+            </tr>            
+<? 
+            }
         break;
         case 'chofer':
             if (!empty($GPC['cedC'])) {

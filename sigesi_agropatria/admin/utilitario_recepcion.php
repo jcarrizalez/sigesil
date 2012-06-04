@@ -377,9 +377,9 @@
                 alert('Se debe elegir una Cosecha!!!');
             } else
                 $('#Guardar').removeAttr('disabled');  
-            $('#productor_nombre').load('../ajax/detalle_utilitario.php?ac=productor&cosecha='+$('#Recepcion\\[id_cosecha\\]').val());
-            $('#asociacion_nombre').load('../ajax/detalle_utilitario.php?ac=asociacion&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val());
-            $('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val()+'&cedRifAon='+$('#Recepcion_asociacion').val());
+            //$('#productor_nombre').load('../ajax/detalle_utilitario.php?ac=productor&cosecha='+$('#Recepcion\\[id_cosecha\\]').val());
+            //$('#asociacion_nombre').load('../ajax/detalle_utilitario.php?ac=asociacion&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val());
+            //$('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val()+'&cedRifAon='+$('#Recepcion_asociacion').val());
         });
 
         $('#Recepcion\\[ced_productor\\]').live('change', function() {
@@ -387,14 +387,19 @@
                 $('#Guardar').attr('disabled', 'disabled');
                 alert('Se debe elegir un Productor!!!');
             } else
-                $('#Guardar').removeAttr('disabled');  
-            $('#asociacion_nombre').load('../ajax/detalle_utilitario.php?ac=asociacion&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val());
-            //$('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val()+'&cedRifAon='+$('#Recepcion_asociacion').val());
-            $('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val()+"&cedRifAon="+$('#Recepcion\\[ced_asociacion\\]').val());
+                $('#Guardar').removeAttr('disabled');
+            $('#productor_nombre').load('../ajax/detalle_utilitario.php?ac=productor&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+"&cedRifP="+$('#Recepcion\\[ced_productor\\]').val()+'&cedRifAon='+$('#Recepcion\\[ced_asociacion\\]').val()+'&cedRifAdo='+$('#Recepcion\\[ced_asociado\\]').val());
         });
         
         $('#Recepcion\\[ced_asociacion\\]').live('change', function() {
-            $('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val()+"&cedRifAon="+$('#Recepcion\\[ced_asociacion\\]').val());
+            $('#asociacion_nombre').load('../ajax/detalle_utilitario.php?ac=productor&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+"&cedRifP="+$('#Recepcion\\[ced_productor\\]').val()+'&cedRifAon='+$('#Recepcion\\[ced_asociacion\\]').val()+'&cedRifAdo='+$('#Recepcion\\[ced_asociado\\]').val());
+            //load('../ajax/detalle_utilitario.php?ac=asociacion&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val()+'&cedRifAon='+$('#Recepcion\\[ced_asociacion\\]').val());
+            //$('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val()+"&cedRifAon="+$('#Recepcion\\[ced_asociacion\\]').val());
+        });
+        
+        $('#Recepcion\\[ced_asociado\\]').live('change', function() {
+            $('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val()+'&cedRifAon='+$('#Recepcion\\[ced_asociacion\\]').val()+'&cedRifAdo='+$('#Recepcion\\[ced_asociado\\]').val());
+            //$('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val()+"&cedRifAon="+$('#Recepcion\\[ced_asociacion\\]').val());
         });
         
         $('#Recepcion\\[numero\\]').live('change',function() {
@@ -449,22 +454,38 @@
             } else
                 $('#Guardar').removeAttr('disabled');            
         });
+
+        $('#Recepcion\\[numero_guia_1\\]').change(function() {
+            alert($(this).val());
+            $('#chofer_nombre').load('../ajax/detalle_utilitario.php?ac=chofer&cedC='+$('#Recepcion\\[ced_chofer_pre\\]').val()+$('#Recepcion\\[ced_chofer\\]').val());
+        });
         
         $("#form1").submit(function() {
             var isFormValid = true;
             $(".mensaje").each(function(){                 
                 if ($(this).val()==1) {
                     isFormValid = false;
-                    if ($(this).attr('id')=='msg1') {
-                        alert("La fecha y la hora ya estan ocupadas!!!");
+                    switch($(this).attr('id'))
+                    {
+                        case 'msg1':
+                            alert("La fecha y la hora ya estan ocupadas!!!");
+                            break;
+                        case 'msg2':
+                            alert("El chofer no existe!!!");
+                            break;
+                        case 'msg3':
+                            alert("El Vehiculo no existe!!!");
+                            break;
+                        case 'msg5':
+                            alert("El productor no existe!!!");
+                            break;
+                        case 'msg6':
+                            alert("La Asociacion no existe!!!");
+                            break;
+                        case 'msg7':
+                            alert("El Asociado no existe!!!");
+                            break;
                     }                    
-                    if ($(this).attr('id')=='msg2') {
-                        alert("El chofer no existe!!!");
-                    }
-                    if ($(this).attr('id')=='msg3') {
-                        alert("El Vehiculo no existe!!!");
-                    }
-                    $('#Recepcion\\[numero\\]').focus();
                     return isFormValid;
                 }
             });
@@ -478,11 +499,72 @@
     });
 </script>
 <div id="titulo_modulo">
-    UTILITARIO - RECEPCION<br/><hr/>
+    UTILITARIO - RECEPCI&Oacute;N<br/><hr/>
 </div>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
     <fieldset>
-        <legend>Datos de la Recepcion</legend>
+        <legend>Datos de la Gu&iacute;a</legend>
+        <table align="center" border="0">
+            <tr>
+                <td width="130px">Gu&iacute;a Nro. 1</td>
+                <td width="230px"><?=$html->input('Recepcion.numero_guia_1',$infoMov[0]['numero_guia'], array('type' => 'text', 'class' => 'crproductor'));?></td>
+        </table>
+        <table id="subguia" align="center" border="0">
+        <?
+            $listaSubGuia = $guia->buscarSubGuias($infoMov[0]['id_guia']);
+            $i=1;
+            foreach($listaSubGuia as $subguia) {
+                $i++;
+         ?>
+            <tr>
+                <td width="130px">Gu&iacute;a Nro. <?=$i?></td>
+                <td width="230px">
+                    <?=$html->input('Recepcion.numero_guia_'.$i, $subguia['subguia'], array('type' => 'text', 'class' => 'crproductor')); ?>
+                </td>
+            </tr>
+            <?
+                }
+            ?>
+            </table>
+        <table align="center" border="0">
+                <tr>
+                    <td width="130px">Fecha de emisi&oacute;n</td>
+                    <td width="230px"><?=$html->input('Recepcion.fecha_emision', $listaGuia[0]['fecha_emision'], array('type' => 'text', 'class' => 'crproductor','readOnly'=>true)); ?>
+                        <img src="../images/calendario.png" id="femision" width="16" height="16" style="cursor:pointer;" />
+                        <script>
+                            Calendar.setup({
+                                trigger    : "femision",
+                                inputField : "Recepcion[fecha_emision]",
+                                dateFormat: "%d-%m-%Y",
+                                selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($infoMov[0]['fecha_emision']));?>),
+                                onSelect   : function() {this.hide() }
+                            });
+                        </script>
+                    </td>
+                </td>
+                <tr>
+                    <td></td>
+                    <td id="fecha_msg"></td>
+                </tr>
+                </tr>
+                <tr>
+                    <td width="130px">Placa del Vehiculo</td>
+                    <td width="230px"><?=$html->input('Recepcion.placa', $infoMov[0]['placa'], array('type' => 'text', 'class' => 'crproductor')); ?></td>
+                </tr>
+                <tr>
+                    <td width="130px">Placa del Remolque</td>
+                    <td width="230px"><?=$html->input('Recepcion.placa_remolques', $infoMov[0]['placa_remolques'], array('type' => 'text', 'class' => 'crproductor')); ?></td>
+                </tr>
+                <tr>
+                    <td>Contrato</td>
+                    <td>
+                        <?=$html->input('Guia.contrato', $infoMov[0]['contrato'], array('type' => 'text', 'class' => 'crproductor')); ?>
+                    </td>
+                </tr>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>Datos de la Recepci&oacute;n</legend>
     <table align="center" border="0">
         <tr>
             <td>Cosecha</td>
@@ -492,22 +574,43 @@
         </tr>
         <tr>
             <td>Productor</td>
-            <td colspan="2" id="productor_nombre">
-            <? echo $html->select('Recepcion.ced_productor', array('options' => $listaP, 'selected' => $infoMov[0]['ced_productor'],  'default'=>'Seleccione', 'class'=>'estilo_campos')); ?>
+            <td>
+            <? 
+            echo $html->select('Recepcion.ced_productor_pre',array('options'=>$juridico, 'selected' => $infoMov[0]['ced_productor'][0]));
+            //echo $html->select('Recepcion.ced_productor', array('options' => $listaP, 'selected' => $infoMov[0]['ced_productor'],  'default'=>'Seleccione', 'class'=>'estilo_campos')); 
+            echo $html->input('Recepcion.ced_productor', $infoMov[0]['ced_productor'], array('type' => 'text', 'class' => 'crproductor'));
+            ?>
             </td>
         </tr>
         <tr>
-            <td>Asociacion</td>
-            <td colspan="2" id="asociacion_nombre" width="130px">
-                <?echo $html->select('Recepcion.ced_asociacion', array('options' => $listaAon, 'selected' => $infoMov[0]['ced_asociacion'],  'default'=>'Seleccione', 'class'=>'estilo_campos')); ?>
+            <td></td>
+            <td id="productor_nombre"></td>
+        </tr>
+        <tr>
+            <td>Asociaci&oacute;n</td>
+            <td>
+                <?
+                echo $html->select('Recepcion.ced_asociacion_pre',array('options'=>$juridico, 'selected' => $infoMov[0]['ced_asociacion'][0]));
+                //echo $html->select('Recepcion.ced_asociacion', array('options' => $listaAon, 'selected' => $infoMov[0]['ced_asociacion'],  'default'=>'Seleccione', 'class'=>'estilo_campos')); 
+                echo $html->input('Recepcion.ced_asociacion', $infoMov[0]['ced_asociacion'], array('type' => 'text', 'class' => 'crproductor'));
+                ?>
             </td>
         </tr>
+        <tr>
+            <td></td>
+            <td colspan="2" id="asociacion_nombre" width="130px"></td></tr>
         <tr>
             <td>Asociado</td>
-            <td colospan="2" id="asociado_nombre">
+            <td>
             <? 
-                echo $html->select('Recepcion.ced_asociado', array('options' => $listaAdo, 'selected' => $infoMov[0]['ced_asociado'],  'default'=>'Seleccione', 'class'=>'estilo_campos'));
+            echo $html->select('Recepcion.ced_asociado_pre',array('options'=>$juridico, 'selected' => $infoMov[0]['ced_asociado'][0]));
+            //echo $html->select('Recepcion.ced_asociado', array('options' => $listaAdo, 'selected' => $infoMov[0]['ced_asociado'],  'default'=>'Seleccione', 'class'=>'estilo_campos'));
+            echo $html->input('Recepcion.ced_asociado', $infoMov[0]['ced_asociado'], array('type' => 'text', 'class' => 'crproductor'));
             ?>
+        </tr>
+        <tr>
+            <td></td>
+             <td colospan="2" id="asociado_nombre"></td>
         </tr>
         <tr>
             <td>Nro Entrada</td>
@@ -515,20 +618,8 @@
             <td id='numero_msg'><? echo $html->input('msg1',0, array('type' => 'text', 'style'=>'display: none'));?></td>
         </tr>
         <tr>
-            <td>Fecha de Recepcion</td>
+            <td>Fecha de Recepci&oacute;n</td>
             <td><? echo $html->input('Recepcion.fecha_recepcion', $general->date_sql_screen($infoMov[0]['fecha_recepcion'], '', 'es', '-'), array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?>
-                <img src="../images/calendario.png" id="femision" width="16" height="16" style="cursor:pointer; display: none;" />
-                <script>
-                    Calendar.setup({
-                        trigger    : "femision",
-                        inputField : "Recepcion[fecha_recepcion]",
-                        dateFormat: "%d-%m-%Y",
-                        selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($infoMov[0]['fecha_recepcion']));?>),
-                        onSelect   : function() { $('#Recepcion\\[fecha_recepcion\\]').change();this.hide() }
-                    });
-                </script>
-            </td>
-            <td id="fecha_msg"></td>
         </tr>
         <tr>
             <td width="130px">Chofer</td>
@@ -568,7 +659,7 @@
             <td><? echo $html->input('Recepcion.peso_02v', $infoMov[0]['peso_02v'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
-            <td>Desc Humedad</td>
+            <td>Desc H&uacute;medad</td>
             <td><? echo $html->input('Recepcion.humedad_des', $infoMov[0]['humedad_des'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
