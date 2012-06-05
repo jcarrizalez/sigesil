@@ -11,21 +11,23 @@
     else
         $idCA = $_SESSION['s_ca_id'];
     
+    $listadoCosechas = $cosecha->infoCosechaCultivo($idCA, null, null, null, null, null, '2, 7, 8');
+    
+    foreach($listadoCosechas as $valor){
+        $listadoC[$valor['cosecha_id']] = "(".$valor['cosecha_codigo'].") ".$valor['cultivo_nombre'];
+    }
+    
     $listaCA = $centro_acopio->find('', '', array('id', 'nombre'), 'list', 'id');
     unset($listaCA[1]);
 
-    /*$cedRif = (!empty($GPC['ced_rif'])) ? $GPC['ced_rif'] : '';
-    $nombre = (!empty($GPC['nombre'])) ? $GPC['nombre'] : '';*/
-    $fliqD = (!empty($GPC['fecha_liqD'])) ? $general->fecha_normal_sql($GPC['fecha_liqD'], 'es') : '';
-    $fliqH = (!empty($GPC['fecha_liqH'])) ? $general->fecha_normal_sql($GPC['fecha_liqH'], 'es') : '';
-    $frecD = (!empty($GPC['fecha_recD'])) ? $GPC['fecha_recD'] : date("d-m-Y", time() - 86400);
-    $frecH = (!empty($GPC['fecha_recH'])) ? $GPC['fecha_recH'] : date("d-m-Y");
+    $idCo = (!empty($GPC['id_cosecha'])) ? $GPC['id_cosecha'] : '';
+    $fdesde = (!empty($GPC['fecha_inicio'])) ? $general->fecha_normal_sql($GPC['fecha_inicio'], 'es') : date('Y-m-d');
+    $fhasta = (!empty($GPC['fecha_fin'])) ? $general->fecha_normal_sql($GPC['fecha_fin'], 'es') : date('Y-m-d');
     
     $porPagina = MAX_RESULTS_PAG;
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
     
-    $orden = ($_SESSION['s_perfil_id'] == GERENTEG) ? ' ORDER BY r.id_centro_acopio, r.creado, numero' : ' ORDER BY r.creado, numero';
-    $listadoRecepciones = $recepcion->listadoRecepcion('', $idCA, '', "2, 7", null, '9', null, null, $porPagina, $inicio, null, $orden, $contrato, $productor, null, null, $fliqD, $fliqH, $frecD, $frecH);
+    $listadoRecepciones = $recepcion->recepcionesReporteGeneral($fdesde, $fhasta, $idCA, $idCo, null, null, '2, 7, 8', $porPagina, $inicio);
     
     $total_registros = $recepcion->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);
@@ -84,15 +86,14 @@
         
         $arrStyleNumber = array('numberformat' => array('code' => PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1));
 
-        $activeWorksheet->getColumnDimension('A')->setWidth(20); //Centro de Acopio
-        $activeWorksheet->getColumnDimension('B')->setWidth(17); //Fecha Recepcion
-        $activeWorksheet->getColumnDimension('C')->setWidth(20); //Peso Bruto
-        $activeWorksheet->getColumnDimension('D')->setWidth(15); //% Humedad
-        $activeWorksheet->getColumnDimension('E')->setWidth(15); //% Impureza
-        $activeWorksheet->getColumnDimension('F')->setWidth(20); //% Granos Verdes        
-        $activeWorksheet->getColumnDimension('G')->setWidth(15); //Desc por Hum
-        $activeWorksheet->getColumnDimension('H')->setWidth(15); //Desc por Imp
-        $activeWorksheet->getColumnDimension('I')->setWidth(20); //Peso Acondicionado
+        $activeWorksheet->getColumnDimension('A')->setWidth(17); //Fecha Recepcion
+        $activeWorksheet->getColumnDimension('B')->setWidth(15); //Nro Entrada
+        $activeWorksheet->getColumnDimension('C')->setWidth(15); //Placa
+        $activeWorksheet->getColumnDimension('D')->setWidth(15); //Peso Bruto
+        $activeWorksheet->getColumnDimension('E')->setWidth(15); //% Humedad
+        $activeWorksheet->getColumnDimension('F')->setWidth(15); //% Impureza
+        $activeWorksheet->getColumnDimension('G')->setWidth(15); //% Granos Verdes
+        $activeWorksheet->getColumnDimension('H')->setWidth(20); //Peso Acondicionado
 
         //Titulo del reporte
         $activeWorksheet->setCellValue('A1', "AGROPATRIA - SIGESIL");
@@ -100,32 +101,72 @@
         $activeWorksheet->setCellValue('A3', "Fecha: ".date("d-m-Y"));
         $activeWorksheet->setCellValue('A4', "Hora: ".date("h:i"));
 
-        /*indice pata inprimir los titulos de la columnas de reporte*/
-        $index_title=6;
-        $index_detail=0;
-        /*linea de titulo del detalle*/
-        $j=0;
-        $titulos = array('Centro de Acopio','Fecha Recepción','Peso Bruto',
-                '% Hum Pond','% Imp Pond','% Gr Verdes Pond','Desc por Hum','Desc por Imp','Peso Acondicionado');
-        foreach($titulos as $columnTitle){
-            $activeWorksheet->setCellValueByColumnAndRow($j, $index_title, $columnTitle);
-            $oColumn = $activeWorksheet->getCellByColumnAndRow($j, $index_title)->getColumn();
-            $oRow = $activeWorksheet->getCellByColumnAndRow($j, $index_title)->getRow();
-            $activeWorksheet->getStyle($oColumn.$oRow)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);;
-            $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray($arrStyleTitle);
-            $j++;
-        }
+        $titulos = array('Fecha Recepción','Nro Entrada','Placa','Peso Bruto','% Humedad','% Impureza','% Gr Verdes','Peso Acondicionado');
 
-        $fila = 7;
+        $fila=6;
         
-        $listadoRecepciones = $recepcion->listadoRecepcion('', $idCA, '', "2, 7", null, '9', null, null, $porPagina, $inicio, null, $orden, $contrato, $productor, null, null, $fliqD, $fliqH, $frecD, $frecH);
+        $idP = $GPC['idP'];
+        $idCo = $GPC['idCo'];
+        $fDes = $GPC['fdes'];
+        $fHas = $GPC['fhas'];
+        $idCa = $GPC['idCa'];
+        $orden = ' ORDER BY ca.codigo, p.nombre, p2.nombre, p3.nombre, r.fecha_recepcion, r.numero';
+        $listadoRecepciones = $recepcion->listadoRecepcion('', $idCa, $idCo, "2, 7, 8", null, '9', null, null, $porPagina, $inicio, $idP, $orden, null, null, null, null, $fDes, $fHas);
         if(!empty($listadoRecepciones)){
+            $totalRegistros = count($listadoRecepciones);
+            $cant = 0;
             foreach($listadoRecepciones as $recepcion){
-                $resultado = $analisis->listadoResultados($recepcion['id'], null, null, '32');
+                $cant++;
+                if($ado != $recepcion['ced_asociado']){
+                    //
+                    if(!empty($totalAdo)){
+                        $activeWorksheet->setCellValueByColumnAndRow(2, $fila, 'Total Asociado: ');
+                        $oColumn = $activeWorksheet->getCellByColumnAndRow(2, $fila)->getColumn();
+                        $oRow = $activeWorksheet->getCellByColumnAndRow(2, $fila)->getRow();
+                        $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray(array('font' => array('bold' => true, 'size' => 10)));
+
+                        $columnaTotal = 3;
+                        foreach($totalAdo as $valor){
+                            $activeWorksheet->setCellValueByColumnAndRow($columnaTotal, $fila, $valor);
+                            $oColumn = $activeWorksheet->getCellByColumnAndRow($columnaTotal, $fila)->getColumn();
+                            $oRow = $activeWorksheet->getCellByColumnAndRow($columnaTotal, $fila)->getRow();
+                            $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray($arrStyleNumberTotal);
+                            $columnaTotal++;
+                        }
+                        
+                        //TOTALES GENERAL
+                        $total[1] += round($totalCa[1]);
+                        $total[2] = '';
+                        $total[3] = '';
+                        $total[4] = '';
+                        $total[5] += round($totalCa[5]);
+                        unset($totalAdo);
+                        $fila++;$fila++;
+                    }
+                    //
+                    $asociado = "Asociado: ".$recepcion['asociado_nombre']." Cédula/Rif: ".$recepcion['ced_asociado'];
+                    $activeWorksheet->setCellValueByColumnAndRow(0, $fila, $asociado);
+                    $fila++;
+                    $j=0;
+                    foreach($titulos as $columnTitle){
+                        $activeWorksheet->setCellValueByColumnAndRow($j, $fila, $columnTitle);
+                        $oColumn = $activeWorksheet->getCellByColumnAndRow($j, $fila)->getColumn();
+                        $oRow = $activeWorksheet->getCellByColumnAndRow($j, $fila)->getRow();
+                        $activeWorksheet->getStyle($oColumn.$oRow)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);;
+                        $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray($arrStyleTitle);
+                        $j++;
+                    }
+                    $fila++;
+                }
+                $ado = $recepcion['ced_asociado'];
                 
                 $valores = array();
-                $valores[] = "(".$recepcion['ca_codigo'].") ".$recepcion['centro_acopio'];
+                $resultado = $analisis->listadoResultados($recepcion['id'], null, null, '32');
                 $valores[] = $general->date_sql_screen($recepcion['fecha_recepcion'], '', 'es', '-');
+                $numero = ($recepcion['numero'] < 10) ? '0'.$recepcion['numero'] : $recepcion['numero'];
+                $nroEntrada = "R".$numero.$general->date_sql_screen($recepcion['fecha_recepcion'], '', 'es', null);
+                $valores[] = $nroEntrada;
+                $valores[] = $recepcion['placa'];
                 $recepcion['peso_02l'] = (!empty($recepcion['peso_02l'])) ? $recepcion['peso_02l'] : 0;
                 $recepcion['peso_02v'] = (!empty($recepcion['peso_02v'])) ? $recepcion['peso_02v'] : 0;
                 $kgrsNetos = (($recepcion['peso_01l'] + $recepcion['peso_02l']) - ($recepcion['peso_01v'] + $recepcion['peso_02v']));
@@ -142,9 +183,7 @@
                 $cienResta = 88;
                 $impDivision = $impHasta / 100;
                 $descHum = (($kgrsNetos * $grsVrdResta) / $cienResta);
-                $valores[] = round($descHum);
                 $descImp = (($kgrsNetos - $descHum) * $impDivision);
-                $valores[] = round($descImp);
                 $pesoAcon = ($kgrsNetos - $descHum - $descImp);
                 $valores[] = round($pesoAcon);
 
@@ -161,31 +200,44 @@
                 }
                 $fila++;
                 
-                //TOTALES POR CENTRO DE ACOPIO
-                $total[1] += round($kgrsNetos);
-                $total[2] = '';
-                $total[3] = '';
-                $total[4] = '';
-                $total[5] += round($descHum);
-                $total[6] += round($descImp);
-                $total[7] += round($pesoAcon);
+                //TOTALES POR ASOCIADO
+                if(!empty($recepcion['ced_asociado'])){
+                    $totalAdo[1] += round($kgrsNetos);
+                    $totalAdo[2] = '';
+                    $totalAdo[3] = '';
+                    $totalAdo[4] = '';
+                    $totalAdo[5] += round($pesoAcon);
+                }
                 
-                //TOTALES PORCENTUALES NO SE SACAN
+                if($cant == $totalRegistros){
+                    
+                    //TOTAL POR ASOCIADO
+                    $activeWorksheet->setCellValueByColumnAndRow(2, $fila, 'Total Asociado: ');
+                    $oColumn = $activeWorksheet->getCellByColumnAndRow(2, $fila)->getColumn();
+                    $oRow = $activeWorksheet->getCellByColumnAndRow(2, $fila)->getRow();
+                    $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray(array('font' => array('bold' => true, 'size' => 10)));
+
+                    $columnaTotal = 3;
+                    foreach($totalAdo as $valor){
+                        $activeWorksheet->setCellValueByColumnAndRow($columnaTotal, $fila, $valor);
+                        $oColumn = $activeWorksheet->getCellByColumnAndRow($columnaTotal, $fila)->getColumn();
+                        $oRow = $activeWorksheet->getCellByColumnAndRow($columnaTotal, $fila)->getRow();
+                        $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray($arrStyleNumberTotal);
+                        $columnaTotal++;
+                    }
+
+                    //TOTALES GENERAL
+                    $total[1] += round($totalCa[1]);
+                    $total[2] = '';
+                    $total[3] = '';
+                    $total[4] = '';
+                    $total[5] += round($totalCa[5]);
+                    $fila++;
+                }
             }
             $fila++;
-            $activeWorksheet->setCellValueByColumnAndRow(1, $fila, 'Total:');
-            $oColumn = $activeWorksheet->getCellByColumnAndRow(1, $fila)->getColumn();
-            $oRow = $activeWorksheet->getCellByColumnAndRow(1, $fila)->getRow();
-            $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray(array('font' => array('bold' => true, 'size' => 10)));
             
-            $columnaTotal = 2;
-            foreach($total as $valor){
-                $activeWorksheet->setCellValueByColumnAndRow($columnaTotal, $fila, $valor);
-                $oColumn = $activeWorksheet->getCellByColumnAndRow($columnaTotal, $fila)->getColumn();
-                $oRow = $activeWorksheet->getCellByColumnAndRow($columnaTotal, $fila)->getRow();
-                $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray($arrStyleNumberTotal);
-                $columnaTotal++;
-            }
+            //TOTALES
         }
         
         chdir(APPROOT.'temp_files');
@@ -246,77 +298,43 @@
                 </tr>
                 <? } ?>
                 <tr>
-                    <td width="150">Fecha Recepci&oacute;n Desde</td>
-                    <td>
-                        <? echo $html->input('fecha_recD', $frecD, array('type' => 'text', 'class' => 'inputLogin', 'readOnly' => true)); ?>
-                        <img src="../images/calendario.png" id="frecD" width="16" height="16" style="cursor:pointer" />
+                    <td width="1">Desde </td>
+                    <td width="200">
+                        <? echo $html->input('fecha_inicio', $general->date_sql_screen($fdesde, '', 'es', '-'), array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?>
+                        <img src="../images/calendario.png" id="fdesde" width="16" height="16" style="cursor:pointer" />
                         <script>
                             Calendar.setup({
-                                trigger    : "frecD",
-                                inputField : "fecha_recD",
+                                trigger    : "fdesde",
+                                inputField : "fecha_inicio",
                                 dateFormat: "%d-%m-%Y",
-                                selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($frecD));?>),
+                                selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($GPC['fecha_inicio']));?>),
                                 onSelect   : function() { this.hide() }
                             });
                         </script>
                     </td>
-                    <td width="150">Fecha Recepci&oacute;n Hasta</td>
+                    <td width="1">Hasta </td>
                     <td>
-                        <? echo $html->input('fecha_recH', $frecH, array('type' => 'text', 'class' => 'inputLogin', 'readOnly' => true)); ?>
-                        <img src="../images/calendario.png" id="frecH" width="16" height="16" style="cursor:pointer" />
+                        <? echo $html->input('fecha_fin', $general->date_sql_screen($fhasta, '', 'es', '-'), array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?>
+                        <img src="../images/calendario.png" id="fhasta" width="16" height="16" style="cursor:pointer" />
                         <script>
                             Calendar.setup({
-                                trigger    : "frecH",
-                                inputField : "fecha_recH",
+                                trigger    : "fhasta",
+                                inputField : "fecha_fin",
                                 dateFormat: "%d-%m-%Y",
-                                selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($frecH));?>),
+                                selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($GPC['fecha_fin']));?>),
                                 onSelect   : function() { this.hide() }
                             });
                         </script>
                     </td>
                 </tr>
                 <tr>
-                    <td>Fecha Liquidaci&oacute;n Desde</td>
-                    <td>
-                        <? echo $html->input('fecha_liqD', $general->date_sql_screen($fliqD, '', 'es', '-'), array('type' => 'text', 'class' => 'inputLogin', 'readOnly' => true)); ?>
-                        <img src="../images/calendario.png" id="fliqD" width="16" height="16" style="cursor:pointer" />
-                        <script>
-                            Calendar.setup({
-                                trigger    : "fliqD",
-                                inputField : "fecha_liqD",
-                                dateFormat: "%d-%m-%Y",
-                                selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($GPC['fecha_liqD']));?>),
-                                onSelect   : function() { this.hide() }
-                            });
-                        </script>
-                    </td>
-                    <td>Fecha Liquidaci&oacute;n Hasta</td>
-                    <td>
-                        <? echo $html->input('fecha_liqH', $general->date_sql_screen($fliqH, '', 'es', '-'), array('type' => 'text', 'class' => 'inputLogin', 'readOnly' => true)); ?>
-                        <img src="../images/calendario.png" id="fliqH" width="16" height="16" style="cursor:pointer" />
-                        <script>
-                            Calendar.setup({
-                                trigger    : "fliqH",
-                                inputField : "fecha_liqH",
-                                dateFormat: "%d-%m-%Y",
-                                selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($GPC['fecha_liqH']));?>),
-                                onSelect   : function() { this.hide() }
-                            });
-                        </script>
-                    </td>
+                    <td>Cosecha </td>
+                    <td><? echo $html->select('id_cosecha',array('options'=>$listadoC, 'selected' => $GPC['id_cosecha'], 'default' => 'Todas'))?></td>
                 </tr>
-                <!--tr>
-                    <td>C&eacute;dula/Rif</td>
-                    <td><? echo $html->input('ced_rif', $cedRif, array('type' => 'text', 'class' => 'inputLogin')); ?></td>
-                    <td>Nombre</td>
-                    <td><? echo $html->input('nombre', $nombre, array('type' => 'text', 'class' => 'inputLogin')); ?></td>
-                </tr-->
                 <tr id="botones">
                     <td colspan="4" style="padding-top: 20px;">
                         <?
                             echo $html->input('ac', 'Buscar', array('type' => 'submit'));
-                            echo $html->input('exportar', 'Excel', array('type' => 'submit'));
-                            echo $html->input('exportar', 'Calc', array('type' => 'submit'));
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
                         ?>
                     </td>
@@ -334,69 +352,36 @@
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
             <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
-            <th width="150">Centro de Acopio</th>
+            <th>Centro de Acopio</th>
             <? } ?>
-            <th>Fecha Recepci&oacute;n</th>
-            <th>Kgrs Netos</th>
-            <th>%Hum Pond</th>
-            <th>%Imp Pond</th>
-            <th>%Grs Verdes Pond</th>
-            <th>Desc por Hum</th>
-            <th>Desc por Imp</th>
-            <th>Peso Acond</th>
+            <th>Cosecha</th>
+            <th>Cedula/Rif Productor</th>
+            <th>Productor</th>
+            <th>Accion</th>
         </tr>
         <?
             $i=0;
+            $idCA = (!empty($idCA)) ? "_$idCA" : '';
             foreach($listadoRecepciones as $dataRecepcion){
                 $clase = $general->obtenerClaseFila($i);
-                $resultado = $analisis->listadoResultados($dataRecepcion['id'], null, null, '32');
         ?>
         <tr class="<?=$clase?>">
             <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
-            <td><?="(".$dataRecepcion['ca_codigo'].") ".$dataRecepcion['centro_acopio']?></td>
-            <?
-                }
-                $dataRecepcion['peso_02l'] = (!empty($dataRecepcion['peso_02l'])) ? $dataRecepcion['peso_02l'] : 0;
-                $dataRecepcion['peso_02v'] = (!empty($dataRecepcion['peso_02v'])) ? $dataRecepcion['peso_02v'] : 0;
-                $kgrsNetos = round((($dataRecepcion['peso_01l'] + $dataRecepcion['peso_02l']) - ($dataRecepcion['peso_01v'] + $dataRecepcion['peso_02v'])));
-                $grsVrds = (!empty($resultado[0]['muestra2'])) ? round(($resultado[0]['muestra1'] + $resultado[0]['muestra2']) / 2) : round($resultado[0]['muestra1']);
-                $grsVrdImp = $grsVrds + $dataRecepcion['impureza'];
-                $grsVrdImpResta = $grsVrdImp - 4;
-                $impHasta = 4;
-                $grsVrdHum = $grsVrdImpResta + $dataRecepcion['humedad'];
-                $grsVrdResta = $grsVrdHum - 12;
-                $cienResta = 88;
-                $impDivision = $impHasta / 100;
-                $descHum = round((($kgrsNetos * $grsVrdResta) / $cienResta));
-                $descImp = round((($kgrsNetos - $descHum) * $impDivision));
-                $pesoAcon = round(($kgrsNetos - $descHum - $descImp));
-                
-                $totalKgrsNetos += $kgrsNetos;
-                $totalDescHum += $descHum;
-                $totalDescImp += $descImp;
-                $totalDescPesoA += $pesoAcon;
-            ?>
-            <td align="center"><?=$general->date_sql_screen($dataRecepcion['fecha_recepcion'], '', 'es', '-')?></td>
-            <td align="right"><?=$general->formato_numero($kgrsNetos, 2)?></td>
-            <td align="right"><?=(!empty($dataRecepcion['humedad'])) ? $general->formato_numero($dataRecepcion['humedad'], 2) : 0.00?></td>
-            <td align="right"><?=(!empty($dataRecepcion['impureza'])) ? $general->formato_numero($dataRecepcion['impureza'], 2) : 0.00?></td>
-            <td align="right"><?=$general->formato_numero($grsVrds, 2)?></td>
-            <td align="right"><?=$general->formato_numero($descHum, 2)?></td>
-            <td align="right"><?=$general->formato_numero($descImp, 2)?></td>
-            <td align="right"><?=$general->formato_numero($pesoAcon, 2)?></td>
+            <td><?="(".$dataRecepcion['codigo'].") ".$dataRecepcion['nombre_ca']?></td>
+            <? } ?>
+            <td><?=$dataRecepcion['cosecha']?></td>
+            <td align="center"><?=$dataRecepcion['ced_rif']?></td>
+            <td><?=$dataRecepcion['productor']?></td>
+            
+            <td align="center">
+                <?
+                    $urls = array(3 => '../reportes/pdf_listado_granos_verdes_individual.php?id='.$dataRecepcion['id'].'_'.$dataRecepcion['id_co'].'_'.$fdesde.'_'.$fhasta.$idCA);
+                    $general->crearAcciones($acciones, $urls);
+                    echo $html->link('<img src="../images/excel.png" width="16" height="16" title=Excel>', 'granos_verdes.php?exportar=Excel&idP='.$dataRecepcion['id'].'&idCo='.$dataRecepcion['id_co'].'&fdes='.$fdesde.'&fhas='.$fhasta.'&idCa='.$dataRecepcion['ca_id']);
+                ?>
+            </td>
         </tr>
         <? $i++; } ?>
-        <tr align="right">
-            <th>&nbsp;</th>
-            <th>Total</th>
-            <th><?=$general->formato_numero(round($totalKgrsNetos), 2)?></th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th><?=$general->formato_numero(round($totalDescHum), 2)?></th>
-            <th><?=$general->formato_numero(round($totalDescImp), 2)?></th>
-            <th><?=$general->formato_numero(round($totalDescPesoA), 2)?></th>
-        </tr>
         <tr>
             
             <td colspan="6">&nbsp;</td>

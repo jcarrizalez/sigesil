@@ -1509,7 +1509,7 @@ ALTER TABLE public.si_log_consultas_log_id_seq OWNER TO admin;
 -- Name: si_log_consultas_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_log_consultas_log_id_seq', 573, true);
+SELECT pg_catalog.setval('si_log_consultas_log_id_seq', 579, true);
 
 
 --
@@ -4098,6 +4098,56 @@ LINE 3: ...HERE "1"  AND ar.id_recepcion = "27" AND a.codigo IN (32) OR...
 HINT:  Ningún operador coincide con el nombre y el tipo de los argumentos. Puede desear agregar conversiones explícitas de tipos.";s:5:"query";s:304:"SELECT a.codigo, a.tipo_analisis, ar.id_recepcion, ar.id_analisis, ar.muestra1, ar.muestra2, ar.muestra3<br />
             FROM si_analisis_resultado ar <br />
             INNER JOIN si_analisis a ON (ar.id_analisis=a.id) WHERE ''1''  AND ar.id_recepcion = ''27'' AND a.codigo IN (32) ORDER BY ar.id_analisis";s:9:"user_name";s:8:"JPELUZZO";s:4:"date";s:19:"2012-06-04 08:26:41";}i:1;a:4:{s:4:"file";s:49:"/var/www/sigesil/lib/class/analisis.class.php<br>";s:4:"line";i:29;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
+INSERT INTO si_app_error (apperror_id, apperror_time, apperror_text) VALUES ('2d1d182b7f27cfa7fc', '2012-06-05 09:03:05.795811-04:30', 'a:2:{i:0;a:8:{s:4:"file";s:47:"/var/www/sigesil/reportes/granos_verdes.php<br>";s:4:"line";i:15;s:5:"class";s:7:"Cosecha";s:8:"function";s:18:"infoCosechaCultivo";s:11:"mysql_error";s:171:"ERROR:  error de sintaxis en o cerca de «2»
+LINE 7:                     WHERE "1" AND cu.id = ""2", "7", "8"" AN...
+                                                    ^";s:5:"query";s:718:"SELECT pr.id AS programa_id, pr.id_centro_acopio, pr.codigo AS programa_codigo, pr.nombre AS programa_nombre,<br />
+                    co.id AS cosecha_id, co.codigo AS cosecha_codigo, co.nombre AS cosecha_nombre, co.proyectado, co.area_siembra, co.fecha_inicio, co.fecha_fin,<br />
+                    cu.id AS cultivo_id, cu.codigo AS cultivo_codigo, cu.nombre AS cultivo_nombre<br />
+                    FROM si_cosecha co<br />
+                    INNER JOIN si_programa pr ON pr.id = co.id_programa<br />
+                    INNER JOIN si_cultivo cu ON cu.id = co.id_cultivo<br />
+                    WHERE ''1'' AND cu.id = ''''2'', ''7'', ''8'''' AND co.estatus = ''t'' AND pr.estatus = ''t'' ORDER BY pr.id, co.codigo";s:9:"user_name";s:8:"JPELUZZO";s:4:"date";s:19:"2012-06-05 09:03:05";}i:1;a:4:{s:4:"file";s:48:"/var/www/sigesil/lib/class/cosecha.class.php<br>";s:4:"line";i:44;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
+INSERT INTO si_app_error (apperror_id, apperror_time, apperror_text) VALUES ('c8d9713b2e14854cb9', '2012-06-05 14:38:32.569653-04:30', 'a:2:{i:0;a:8:{s:4:"file";s:47:"/var/www/sigesil/reportes/granos_verdes.php<br>";s:4:"line";i:114;s:5:"class";s:9:"Recepcion";s:8:"function";s:16:"listadoRecepcion";s:11:"mysql_error";s:205:"ERROR:  la sintaxis de entrada no es válida para integer: «_2»
+LINE 27: ...               WHERE "1" AND r.id_centro_acopio = "_2" AND r...
+                                                              ^";s:5:"query";s:2364:"SELECT r.*, <br />
+                    (SELECT t1.nombre FROM si_tolcarom t1 WHERE t1.id = r.romana_ent) AS romana_ent, <br />
+                    (SELECT t2.nombre FROM si_tolcarom t2 WHERE t2.id = r.romana_sal) AS romana_sal, <br />
+                    ca.id AS ca_id, ca.codigo AS ca_codigo, ca.nombre AS centro_acopio, <br />
+                    pr.id AS id_programa, pr.nombre AS programa, <br />
+                    co.id AS id_co, co.codigo AS cosecha_codigo, co.nombre AS cosecha, <br />
+                    cu.codigo AS cultivo_codigo, cu.nombre AS cultivo_nombre,<br />
+                    g.numero_guia, g.contrato, <br />
+                    /*s.codigo AS codigo_silo, s.nombre AS silo_nombre,*/<br />
+                    p.ced_rif AS ced_productor, p.nombre AS productor_nombre,<br />
+                    p2.ced_rif AS ced_asociacion, p2.nombre AS asociacion_nombre,<br />
+                    p3.ced_rif AS ced_asociado, p3.nombre AS asociado_nombre,<br />
+                    ch.ced_rif AS ced_chofer, ch.nombre AS chofer_nombre,<br />
+                    v.placa, v.marca, v.color, v.capacidad, v.tara_aprox, v.chuto, v.placa_remolques<br />
+                    FROM si_recepcion r<br />
+                    INNER JOIN si_centro_acopio ca ON ca.id = r.id_centro_acopio<br />
+                    INNER JOIN si_cosecha co ON co.id = r.id_cosecha<br />
+                    INNER JOIN si_programa pr ON pr.id = co.id_programa<br />
+                    INNER JOIN si_cultivo cu ON cu.id = co.id_cultivo<br />
+                    /*INNER JOIN si_silos s ON s.id = r.id_silo*/<br />
+                    INNER JOIN si_productor p ON p.id = r.id_productor<br />
+                    LEFT JOIN si_productor p2 ON p2.id = r.id_asociacion<br />
+                    LEFT JOIN si_productor p3 ON p3.id = r.id_asociado<br />
+                    INNER JOIN si_guiarec g ON g.id = r.id_guia<br />
+                    INNER JOIN si_choferes ch ON ch.id = r.id_chofer<br />
+                    INNER JOIN si_vehiculos v ON v.id = r.id_vehiculo<br />
+                    WHERE ''1'' AND r.id_centro_acopio = ''_2'' AND r.id_cosecha = ''5'' AND cu.id IN (2, 7, 8) AND r.estatus_rec IN (9) AND p.id = ''2'' AND r.fecha_v::date BETWEEN ''2012-06-01 00:00:00'' AND ''2012-06-05 23:59:59'' ORDER BY ca.codigo, p.nombre, p2.nombre, p3.nombre, r.fecha_recepcion, r.numero LIMIT 20 OFFSET 0";s:9:"user_name";s:9:"MCORONADO";s:4:"date";s:19:"2012-06-05 02:38:32";}i:1;a:4:{s:4:"file";s:50:"/var/www/sigesil/lib/class/recepcion.class.php<br>";s:4:"line";i:144;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
+INSERT INTO si_app_error (apperror_id, apperror_time, apperror_text) VALUES ('9936a3016f0faf6df9', '2012-06-05 14:40:52.223233-04:30', 'a:2:{i:0;a:8:{s:4:"file";s:47:"/var/www/sigesil/reportes/granos_verdes.php<br>";s:4:"line";i:30;s:5:"class";s:9:"Recepcion";s:8:"function";s:25:"recepcionesReporteGeneral";s:11:"mysql_error";s:248:"ERROR:  la columna «ca.id» debe aparecer en la cláusula GROUP BY o ser usada en una función de agregación
+LINE 1: ... cultivo, p.id, p.ced_rif, p.nombre AS productor, ca.id AS c...
+                                                             ^";s:5:"query";s:1116:"SELECT co.id AS id_co, ''(''||co.codigo||'') ''||co.nombre AS cosecha, cu.codigo codigo_cultivo, cu.nombre AS cultivo, p.id, p.ced_rif, p.nombre AS productor, ca.id AS ca_id, ca.codigo, ca.nombre AS nombre_ca <br />
+                    FROM si_productor p<br />
+                    INNER JOIN si_recepcion r ON r.id_productor = p.id<br />
+                    /*INNER JOIN si_cosecha_productor cp ON cp.id_productor = r.id_productor*/<br />
+                    /*INNER JOIN si_cosecha co ON co.id = cp.id_cosecha*/<br />
+                    INNER JOIN si_cosecha co ON co.id = r.id_cosecha<br />
+                    INNER JOIN si_cultivo cu ON cu.id = co.id_cultivo<br />
+                    INNER JOIN si_centro_acopio ca ON ca.id = r.id_centro_acopio<br />
+                    WHERE ''1'' AND r.estatus_rec = ''9'' AND r.id_centro_acopio = ''2'' AND cu.codigo IN (2, 7, 8) AND r.modificado::date BETWEEN ''2012-06-01'' AND ''2012-06-05'' GROUP BY co.id, co.codigo, co.nombre, cu.codigo, cu.nombre, p.id, p.ced_rif, p.nombre, ca.codigo, ca.nombre<br />
+                    ORDER BY cu.codigo, p.ced_rif, p.nombre LIMIT 20 OFFSET 0";s:9:"user_name";s:9:"MCORONADO";s:4:"date";s:19:"2012-06-05 02:40:52";}i:1;a:4:{s:4:"file";s:50:"/var/www/sigesil/lib/class/recepcion.class.php<br>";s:4:"line";i:207;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
 
 
 --
@@ -6749,6 +6799,30 @@ INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuar
 		<h3 class="h-right-bar">User Computer</h3>
 			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
 ', 'si_menu_usuario', 'No data', 'id_menu = ''42''<br />id_usuario =  ''5''<br />nuevo =  ''0''<br />modificar =  ''0''<br />eliminar =  ''0''<br />imprimir =  ''0''<br />', 'INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir)                      VALUES (''42'', ''5'', ''0'', ''0'', ''0'', ''0'')', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (574, '2012-06-04', 202, 1, 'JOSE PELUZZO', 'N/A', 'AGROPATRIA', '64edbgskph8kckvpe4sbesg907', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />conectado = 1<br />sesion = 64edbgskph8kckvpe4sbesg907<br />', 'conectado= 0 , sesion = NULL', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''1'' AND sesion = ''64edbgskph8kckvpe4sbesg907''', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (575, '2012-06-04', 102, 1, 'JOSE PELUZZO', 'N/A', 'AGROPATRIA', '64edbgskph8kckvpe4sbesg907', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'No data', 'No data', 'No data', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''1'' AND sesion = ''64edbgskph8kckvpe4sbesg907'' ', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (576, '2012-06-05', 101, 1, 'JOSE PELUZZO', 'N/A', 'AGROPATRIA', 'u9jdi3hv4oq48ji32u77so9ag6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-06-04 15:48:01.185718-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''u9jdi3hv4oq48ji32u77so9ag6''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''u9jdi3hv4oq48ji32u77so9ag6'' WHERE id=''1''', 'User Login');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (577, '2012-06-05', 202, 1, 'JOSE PELUZZO', 'N/A', 'AGROPATRIA', 'u9jdi3hv4oq48ji32u77so9ag6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />conectado = 1<br />sesion = u9jdi3hv4oq48ji32u77so9ag6<br />', 'conectado= 0 , sesion = NULL', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''1'' AND sesion = ''u9jdi3hv4oq48ji32u77so9ag6''', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (578, '2012-06-05', 102, 1, 'JOSE PELUZZO', 'N/A', 'AGROPATRIA', 'u9jdi3hv4oq48ji32u77so9ag6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'No data', 'No data', 'No data', 'UPDATE si_usuarios SET conectado= 0 , sesion = NULL                  WHERE id=''1'' AND sesion = ''u9jdi3hv4oq48ji32u77so9ag6'' ', '');
+INSERT INTO si_log_consultas (log_id, en_fecha, log_codigo_id, usuario_id, usuario_info, usuario_email, centro_acopio, session_id, direccion_ip, navegador, en_tablas, data_vieja, data_nueva, sentencia_sql, comentario) VALUES (579, '2012-06-05', 101, 5, 'MARIELY CORONADO', 'N/A', 'ARAURE', 'u9jdi3hv4oq48ji32u77so9ag6', '127.0.0.1', '<div class="float-left-01">
+		<h3 class="h-right-bar">User Computer</h3>
+			<h4 class="right-bar">Operating System:</h4><p class="right-bar">Linux<br /> Distro: Ubuntu</p><h4 class="right-bar">Current Browser / UA:</h4><p class="right-bar">Mozilla/ Firefox 11.0<br />ProductSub: 20100101<br />Engine: Gecko RV: 11.0</p>	</div>
+', 'si_usuarios', 'Register No.0<br />ultimo_acceso = 2012-06-04 15:45:44.276217-04:30<br />conectado = 0<br />sesion = <br />', 'ultimo_acceso = NOW(), conectado = 1,                      sesion=''u9jdi3hv4oq48ji32u77so9ag6''', 'UPDATE si_usuarios SET ultimo_acceso = NOW(), conectado = 1,                      sesion=''u9jdi3hv4oq48ji32u77so9ag6'' WHERE id=''5''', 'User Login');
 
 
 --
@@ -7834,10 +7908,10 @@ INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, u
 INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (9, 'RAFAEL', 'ADAMES', '123456', NULL, 'M', 'RADAMES', 'E7B47259793917A0BECEDA2C5E00D3CB08B69F57', NULL, NULL, NULL, '2012-05-22 11:33:31.825155-04:30', NULL, true, 0, NULL, '2012-05-22 11:39:29.221623-04:30', NULL);
 INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (10, 'LUIS', 'ESTRADA', '123456', NULL, 'M', 'LESTRADA', '311E0C5E77F8A19D144E3AFED36912889EBAAE1C', NULL, NULL, NULL, '2012-05-22 11:34:14.980207-04:30', NULL, true, 1, 'ohbp0km4qrq53u9cnpeu2fcgv7', '2012-05-23 15:15:45.209464-04:30', NULL);
 INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (8, 'LEIDY', 'SIFONTES', '123456', NULL, 'F', 'LSIFONTES', 'E34A43F70CD2570DC01BAAF1667C2FC91BBAACE6', NULL, NULL, NULL, '2012-05-18 15:54:34.262069-04:30', NULL, true, 0, NULL, '2012-05-24 08:20:26.876511-04:30', NULL);
+INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (1, 'JOSE', 'PELUZZO', '1234567', '2012-02-12', 'M', 'JPELUZZO', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'Maracay', NULL, 'JOSEPELUZZO@AGROPATRIA.CO.VE', '2012-02-12 00:00:00-04:30', NULL, true, 0, NULL, '2012-06-05 08:35:48.742272-04:30', '2012-02-12 00:00:00-04:30');
+INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (5, 'MARIELY', 'CORONADO', '16538158', NULL, 'F', 'MCORONADO', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'LA VILLA', NULL, 'MARIELYCORONADO@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-03-16 11:42:37.144713-04:30', true, 1, 'u9jdi3hv4oq48ji32u77so9ag6', '2012-06-05 14:38:23.342438-04:30', NULL);
 INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (3, 'JUAN', 'TABORDA', '13769341', NULL, 'M', 'JTABORDA', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'MARACAY', NULL, 'JUANTABORDA@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-02-17 00:00:00-04:30', true, 0, NULL, '2012-05-30 15:48:17.656958-04:30', NULL);
-INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (5, 'MARIELY', 'CORONADO', '16538158', NULL, 'F', 'MCORONADO', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'LA VILLA', NULL, 'MARIELYCORONADO@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-03-16 11:42:37.144713-04:30', true, 0, NULL, '2012-06-04 15:45:44.276217-04:30', NULL);
 INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (4, 'JESUS', 'RODRIGUEZ', '18264065', NULL, 'M', 'JRODRIGUEZ', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'CAGUA', NULL, 'JESUSRODRIGUEZ@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-02-13 00:00:00-04:30', true, 0, NULL, '2012-06-04 15:46:20.292134-04:30', NULL);
-INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (1, 'JOSE', 'PELUZZO', '1234567', '2012-02-12', 'M', 'JPELUZZO', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'Maracay', NULL, 'JOSEPELUZZO@AGROPATRIA.CO.VE', '2012-02-12 00:00:00-04:30', NULL, true, 1, '64edbgskph8kckvpe4sbesg907', '2012-06-04 15:48:01.185718-04:30', '2012-02-12 00:00:00-04:30');
 
 
 --

@@ -37,7 +37,7 @@
     $estatus = (!empty($GPC['estatus'])) ? $GPC['estatus'] : '';
     $fliqD = (!empty($GPC['fecha_liqD'])) ? $general->fecha_normal_sql($GPC['fecha_liqD'], 'es') : '';
     $fliqH = (!empty($GPC['fecha_liqH'])) ? $general->fecha_normal_sql($GPC['fecha_liqH'], 'es') : '';
-    $frecD = (!empty($GPC['fecha_recD'])) ? $GPC['fecha_recD'] : date("d-m-Y", time() - 86400);
+    $frecD = (!empty($GPC['fecha_recD'])) ? $GPC['fecha_recD'] : date("d-m-Y");
     $frecH = (!empty($GPC['fecha_recH'])) ? $GPC['fecha_recH'] : date("d-m-Y");
     
     $porPagina = MAX_RESULTS_PAG;
@@ -158,8 +158,8 @@
         $fila = 7;
         
         $listadoRecepciones = $recepcion->listadoRecepcion(null, $idCA, $idCo, null, $entrada, $estatus, null, null, null, null, null, $orden, $contrato, $productor, null, $placa, $fliqD, $fliqh, $frecD, $frecH, null, $guia);
-        $totalRegistros = count($listadoRecepciones);
         if(!empty($listadoRecepciones)){
+            $totalRegistros = count($listadoRecepciones);
             $cant = 0;
             foreach($listadoRecepciones as $recepcion){
                 $cant++;

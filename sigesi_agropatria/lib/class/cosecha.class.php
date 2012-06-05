@@ -31,14 +31,13 @@ class Cosecha extends Model {
                     INNER JOIN si_programa pr ON pr.id = co.id_programa
                     INNER JOIN si_cultivo cu ON cu.id = co.id_cultivo
                     WHERE '1'";
-        
         $query.=(!empty($idCA)) ? " AND pr.id_centro_acopio = '$idCA'" : '';
         $query.=(!empty($idCo)) ? " AND co.id = '$idCo'" : '';
         $query.=(!empty($idP)) ? " AND pr.id = '$idP'" : '';
         $query.=(!empty($idCu)) ? " AND cu.id = '$idCu'" : '';
         $query.=(!empty($codigoCo)) ? " AND co.codigo = '$codigoCo'" : '';
         $query.=(!empty($codigoP)) ? " AND pr.codigo = '$codigoP'" : '';
-        $query.=(!empty($codigoCu)) ? " AND cu.codigo = '$codigoCu'" : '';
+        $query.=(!empty($codigoCu)) ? " AND cu.codigo IN ($codigoCu)" : '';
         $query.=(!empty($stausCo)) ? " AND co.estatus = '$stausCo'" : '';
         $query.=(!empty($statusP)) ? " AND pr.estatus = '$statusP'" : '';
         $query .= " ORDER BY pr.id, co.codigo";

@@ -33,7 +33,7 @@
     $fliqD = (!empty($GPC['fecha_liqD'])) ? $general->fecha_normal_sql($GPC['fecha_liqD'], 'es') : '';
     $fliqH = (!empty($GPC['fecha_liqH'])) ? $general->fecha_normal_sql($GPC['fecha_liqH'], 'es') : '';
     
-    $fdesD = (!empty($GPC['fecha_desD'])) ? $GPC['fecha_desD'] : date("d-m-Y", time() - 86400);
+    $fdesD = (!empty($GPC['fecha_desD'])) ? $GPC['fecha_desD'] : date("d-m-Y");
     $fdesH = (!empty($GPC['fecha_desH'])) ? $GPC['fecha_desH'] : date("d-m-Y");
     
     $porPagina = MAX_RESULTS_PAG;

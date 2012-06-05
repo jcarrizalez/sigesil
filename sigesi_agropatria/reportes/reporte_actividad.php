@@ -3,7 +3,7 @@
 
     $objlogs = new cls_logs();
 
-    $fdesde = ($GPC['fecha_inicio']) ? $GPC['fecha_inicio'] : date("d-m-Y", time() - 86400);
+    $fdesde = ($GPC['fecha_inicio']) ? $GPC['fecha_inicio'] : date("d-m-Y");
     $fhasta = ($GPC['fecha_fin']) ? $GPC['fecha_fin'] : date("d-m-Y");
     $centroa = $GPC['centro_acopio'];
     $usuario = $GPC['usuario'];

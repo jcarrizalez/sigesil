@@ -56,7 +56,7 @@
         ?>
     </div>
     <div id="filtro">
-        <form name="form1" id="form1" method="POST" action="#" enctype="multipart/form-data">
+        <form name="form1" id="form1" method="GET" action="#">
             <table width="100%" border="0">
                 <tr>
                     <td width="1">Desde </td>
@@ -135,22 +135,9 @@
         </tr>
         <?
             $i=0;
-            $totalPesoBruto = 0;
-            $totalPesoTara = 0;
-            $totalPesoNeto = 0;
-            $totalPesoAcon = 0;
             $idCA = (!empty($idCA)) ? "_$idCA" : '';
             foreach($listadoRecepciones as $dataRecepcion){
                 $clase = $general->obtenerClaseFila($i);
-                $pesoBruto = $dataRecepcion['peso_01l'] + $dataRecepcion['peso_02l'];
-                $pesoTara = $dataRecepcion['peso_01v'] + $dataRecepcion['peso_02v'];
-                $pesoNeto = $pesoBruto - $pesoTara;
-                $pesoAcon = ($pesoNeto - ($dataRecepcion['humedad_des'] + $dataRecepcion['impureza_des']));
-
-                $totalPesoBruto += $pesoBruto;
-                $totalPesoTara += $pesoTara;
-                $totalPesoNeto += $pesoNeto;
-                $totalPesoAcon += $pesoAcon;
         ?>
         <tr class="<?=$clase?>">
             <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>

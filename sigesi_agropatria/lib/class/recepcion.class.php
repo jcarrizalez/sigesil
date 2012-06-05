@@ -181,8 +181,8 @@ class Recepcion extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
-    function recepcionesReporteGeneral($fdesde=null, $fhasta=null, $idCA=null, $idCo=null, $idCu=null){
-        $query = "SELECT co.id AS id_co, '('||co.codigo||') '||co.nombre AS cosecha, cu.codigo codigo_cultivo, cu.nombre AS cultivo, p.id, p.ced_rif, p.nombre AS productor, ca.codigo, ca.nombre AS nombre_ca 
+    function recepcionesReporteGeneral($fdesde=null, $fhasta=null, $idCA=null, $idCo=null, $idCu=null, $codCo=null, $codCu=null, $porPagina=null, $inicio=null){
+        $query = "SELECT co.id AS id_co, '('||co.codigo||') '||co.nombre AS cosecha, cu.codigo codigo_cultivo, cu.nombre AS cultivo, p.id, p.ced_rif, p.nombre AS productor, ca.id AS ca_id, ca.codigo, ca.nombre AS nombre_ca 
                     FROM si_productor p
                     INNER JOIN si_recepcion r ON r.id_productor = p.id
                     /*INNER JOIN si_cosecha_productor cp ON cp.id_productor = r.id_productor*/
@@ -194,13 +194,16 @@ class Recepcion extends Model {
         $query .= (!empty($idCA)) ? " AND r.id_centro_acopio = '$idCA'" : '';
         $query .= (!empty($idCo)) ? " AND r.id_cosecha = '$idCo'" : '';
         $query .= (!empty($idCu)) ? " AND cu.id IN ($idCu)" : '';
+        $query .= (!empty($codCo)) ? " AND co.codigo IN ($codCo)" : '';
+        $query .= (!empty($codCu)) ? " AND cu.codigo IN ($codCu)" : '';
         if(!empty($fdesde) || !empty($fhasta)){
             $fdesde = (!empty($fdesde)) ? "'$fdesde'" : 'now()::date';
             $fhasta = (!empty($fhasta)) ? "'$fhasta'" : 'now()::date';
             $query .= " AND r.modificado::date BETWEEN $fdesde AND $fhasta";
         }
-        $query .= " GROUP BY co.id, co.codigo, co.nombre, cu.codigo, cu.nombre, p.id, p.ced_rif, p.nombre, ca.codigo, ca.nombre
+        $query .= " GROUP BY co.id, co.codigo, co.nombre, cu.codigo, cu.nombre, p.id, p.ced_rif, p.nombre, ca.id, ca.codigo, ca.nombre
                     ORDER BY cu.codigo, p.ced_rif, p.nombre";
+        $query .= (!empty($porPagina)) ? " LIMIT $porPagina OFFSET $inicio" : "";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 }

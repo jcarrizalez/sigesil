@@ -3,6 +3,7 @@ require_once('../lib/core.lib.php');
 include('../lib/class/tcpdf/config/lang/spa.php');
 include('../lib/class/tcpdf/tcpdf.php');
 $recepcion = new Recepcion();
+$analisis = new Analisis();
 
 
 if(isset($GPC['id']))
@@ -194,7 +195,9 @@ for($z=0; $z<count($listadoRecepciones_); $z++)     //   FORRECPCUIONES
 {
 
 				$suma_entrada=1;
-				$grano_verde=14+$z;
+                                $resultado = $analisis->listadoResultados($listadoRecepciones_[$z]['id'], null, null, '32');
+                                $grano_verde = (!empty($resultado[0]['muestra2'])) ? ($resultado[0]['muestra1'] + $resultado[0]['muestra2']) / 2 : $resultado[0]['muestra1'];
+				//$grano_verde=14+$z;
 				$pesobruto=($listadoRecepciones_[$z]['peso_01l']+$listadoRecepciones_[$z]['peso_02l']);
 				$tara=($listadoRecepciones_[$z]['peso_01v']+$listadoRecepciones_[$z]['peso_02v']);
 				$pesoneto=($pesobruto-$tara);
@@ -312,14 +315,15 @@ $suma_entrada_general+=$suma_entrada;
 $suma_hum_general+=$suma_hum;
 $suma_imp_general+=$suma_imp;
 $suma_grano_verde_general+=$suma_grano_verde;
-$suma_pacondicionado_general+=$suma_pacondicionado;
+//$suma_pacondicionado_general+=$suma_pacondicionado;
 
 
 
 
 
 }							//   FORPRODUCTORES
-
+$resultado = $analisis->listadoResultados($listadoRecepciones_[$z]['id'], null, null, '32');
+                                $grano_verde = (!empty($resultado[0]['muestra2'])) ? ($resultado[0]['muestra1'] + $resultado[0]['muestra2']) / 2 : $resultado[0]['muestra1'];
 
 
 			$t.='<br />';
@@ -384,7 +388,9 @@ for($z=0; $z<count($listadoRecepciones_); $z++)     //   FORRECPCUIONES
 {
 
 				$suma_entrada=1;
-				$grano_verde=14+$z;
+                                $resultado = $analisis->listadoResultados($listadoRecepciones_[$z]['id'], null, null, '32');
+                                $grano_verde = (!empty($resultado[0]['muestra2'])) ? ($resultado[0]['muestra1'] + $resultado[0]['muestra2']) / 2 : $resultado[0]['muestra1'];
+				//$grano_verde=14+$z;
 				$pesobruto=($listadoRecepciones_[$z]['peso_01l']+$listadoRecepciones_[$z]['peso_02l']);	
 				$tara=($listadoRecepciones_[$z]['peso_01v']+$listadoRecepciones_[$z]['peso_02v']);
 				$pesoneto=($pesobruto-$tara);
@@ -485,7 +491,7 @@ $suma_pesoneto_general+=$suma_pesoneto;
 $suma_hum_general+=$suma_hum;
 $suma_imp_general+=$suma_imp;
 $suma_grano_verde_general+=$suma_grano_verde;
-$suma_pacondicionado_general=$suma_pacondicionado;
+//$suma_pacondicionado_general=$suma_pacondicionado;
 }							//   FORPRODUCTORES
 
 
