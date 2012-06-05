@@ -117,6 +117,28 @@
             $cant = 0;
             foreach($listadoRecepciones as $recepcion){
                 $cant++;
+                if($centroA != $recepcion['ca_id']){
+                    $centroAcopio = "Centro de Acopio: (".$recepcion['ca_codigo'].") ".$recepcion['centro_acopio'];
+                    $activeWorksheet->setCellValueByColumnAndRow(0, $fila, $centroAcopio);
+                    $fila++;
+                }
+                $centroA = $recepcion['ca_id'];
+                
+                if($pro != $recepcion['ced_productor']){
+
+                    $productor = "Productor: ".$recepcion['productor_nombre']." Cédula/Rif: ".$recepcion['ced_productor'];
+                    $activeWorksheet->setCellValueByColumnAndRow(0, $fila, $productor);
+                    $fila++; $fila++;
+                }
+                $pro = $recepcion['ced_productor'];
+                
+                if($aon != $recepcion['ced_asociacion']){
+                    $asociacion = "Asociación: ".$recepcion['asociacion_nombre']." Cédula/Rif: ".$recepcion['ced_asociacion'];
+                    $activeWorksheet->setCellValueByColumnAndRow(3, $fila, $asociacion);
+                    $fila++;
+                }
+                $aon = $recepcion['ced_asociacion'];
+                
                 if($ado != $recepcion['ced_asociado']){
                     //
                     if(!empty($totalAdo)){
@@ -133,13 +155,6 @@
                             $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray($arrStyleNumberTotal);
                             $columnaTotal++;
                         }
-                        
-                        //TOTALES GENERAL
-                        $total[1] += round($totalCa[1]);
-                        $total[2] = '';
-                        $total[3] = '';
-                        $total[4] = '';
-                        $total[5] += round($totalCa[5]);
                         unset($totalAdo);
                         $fila++;$fila++;
                     }
@@ -209,30 +224,26 @@
                     $totalAdo[5] += round($pesoAcon);
                 }
                 
+                
                 if($cant == $totalRegistros){
-                    
                     //TOTAL POR ASOCIADO
-                    $activeWorksheet->setCellValueByColumnAndRow(2, $fila, 'Total Asociado: ');
-                    $oColumn = $activeWorksheet->getCellByColumnAndRow(2, $fila)->getColumn();
-                    $oRow = $activeWorksheet->getCellByColumnAndRow(2, $fila)->getRow();
-                    $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray(array('font' => array('bold' => true, 'size' => 10)));
+                    if(!empty($totalAdo)){
+                        $activeWorksheet->setCellValueByColumnAndRow(2, $fila, 'Total Asociado: ');
+                        $oColumn = $activeWorksheet->getCellByColumnAndRow(2, $fila)->getColumn();
+                        $oRow = $activeWorksheet->getCellByColumnAndRow(2, $fila)->getRow();
+                        $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray(array('font' => array('bold' => true, 'size' => 10)));
 
-                    $columnaTotal = 3;
-                    foreach($totalAdo as $valor){
-                        $activeWorksheet->setCellValueByColumnAndRow($columnaTotal, $fila, $valor);
-                        $oColumn = $activeWorksheet->getCellByColumnAndRow($columnaTotal, $fila)->getColumn();
-                        $oRow = $activeWorksheet->getCellByColumnAndRow($columnaTotal, $fila)->getRow();
-                        $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray($arrStyleNumberTotal);
-                        $columnaTotal++;
+                        $columnaTotal = 3;
+                        foreach($totalAdo as $valor){
+                            $activeWorksheet->setCellValueByColumnAndRow($columnaTotal, $fila, $valor);
+                            $oColumn = $activeWorksheet->getCellByColumnAndRow($columnaTotal, $fila)->getColumn();
+                            $oRow = $activeWorksheet->getCellByColumnAndRow($columnaTotal, $fila)->getRow();
+                            $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray($arrStyleNumberTotal);
+                            $columnaTotal++;
+                        }
+                        unset($totalAdo);
+                        $fila++;
                     }
-
-                    //TOTALES GENERAL
-                    $total[1] += round($totalCa[1]);
-                    $total[2] = '';
-                    $total[3] = '';
-                    $total[4] = '';
-                    $total[5] += round($totalCa[5]);
-                    $fila++;
                 }
             }
             $fila++;
