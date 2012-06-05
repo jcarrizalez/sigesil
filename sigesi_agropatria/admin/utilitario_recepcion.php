@@ -374,12 +374,23 @@
         $('#Recepcion\\[id_cosecha\\]').change(function() {
             if ($(this).val()=='') {
                 $('#Guardar').attr('disabled', 'disabled');
+                $('#Recepcion\\[ced_productor_pre\\]').attr('disabled', 'disabled');
+                $('#Recepcion\\[ced_productor\\]').attr('disabled', 'disabled');
+                $('#Recepcion\\[ced_asociacion_pre\\]').attr('disabled', 'disabled');
+                $('#Recepcion\\[ced_asociacion\\]').attr('disabled', 'disabled');
+                $('#Recepcion\\[ced_asociado_pre\\]').attr('disabled', 'disabled');
+                $('#Recepcion\\[ced_asociado\\]').attr('disabled', 'disabled');
                 alert('Se debe elegir una Cosecha!!!');
-            } else
+            } else {
+                $('#Recepcion\\[ced_productor_pre\\]').removeAttr('disabled');
+                $('#Recepcion\\[ced_productor\\]').removeAttr('disabled');
+                $('#Recepcion\\[ced_asociacion_pre\\]').removeAttr('disabled');
+                $('#Recepcion\\[ced_asociacion\\]').removeAttr('disabled');
+                $('#Recepcion\\[ced_asociado_pre\\]').removeAttr('disabled');
+                $('#Recepcion\\[ced_asociado\\]').removeAttr('disabled');
                 $('#Guardar').removeAttr('disabled');  
-            //$('#productor_nombre').load('../ajax/detalle_utilitario.php?ac=productor&cosecha='+$('#Recepcion\\[id_cosecha\\]').val());
-            //$('#asociacion_nombre').load('../ajax/detalle_utilitario.php?ac=asociacion&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val());
-            //$('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val()+'&cedRifAon='+$('#Recepcion_asociacion').val());
+            }
+            
         });
 
         $('#Recepcion\\[ced_productor\\]').live('change', function() {
@@ -388,18 +399,24 @@
                 alert('Se debe elegir un Productor!!!');
             } else
                 $('#Guardar').removeAttr('disabled');
-            $('#productor_nombre').load('../ajax/detalle_utilitario.php?ac=productor&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+"&cedRifP="+$('#Recepcion\\[ced_productor\\]').val()+'&cedRifAon='+$('#Recepcion\\[ced_asociacion\\]').val()+'&cedRifAdo='+$('#Recepcion\\[ced_asociado\\]').val());
+            cedRifP=$('#Recepcion\\[ced_productor_pre\\]').val()+$('#Recepcion\\[ced_productor\\]').val();
+            cedRifAdo=$('#Recepcion\\[ced_asociado_pre\\]').val()+$('#Recepcion\\[ced_asociado\\]').val();
+            cedRifAon=$('#Recepcion\\[ced_asociacion_pre\\]').val()+$('#Recepcion\\[ced_asociacion\\]').val();
+            $('#productor_nombre').load('../ajax/detalle_utilitario.php?ac=productor&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+"&cedRifP="+cedRifP+'&cedRifAon='+cedRifAon+'&cedRifAdo='+cedRifAdo);
         });
         
         $('#Recepcion\\[ced_asociacion\\]').live('change', function() {
-            $('#asociacion_nombre').load('../ajax/detalle_utilitario.php?ac=productor&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+"&cedRifP="+$('#Recepcion\\[ced_productor\\]').val()+'&cedRifAon='+$('#Recepcion\\[ced_asociacion\\]').val()+'&cedRifAdo='+$('#Recepcion\\[ced_asociado\\]').val());
-            //load('../ajax/detalle_utilitario.php?ac=asociacion&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val()+'&cedRifAon='+$('#Recepcion\\[ced_asociacion\\]').val());
-            //$('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val()+"&cedRifAon="+$('#Recepcion\\[ced_asociacion\\]').val());
+            cedRifP=$('#Recepcion\\[ced_productor_pre\\]').val()+$('#Recepcion\\[ced_productor\\]').val();
+            cedRifAdo=$('#Recepcion\\[ced_asociado_pre\\]').val()+$('#Recepcion\\[ced_asociado\\]').val();
+            cedRifAon=$('#Recepcion\\[ced_asociacion_pre\\]').val()+$('#Recepcion\\[ced_asociacion\\]').val();
+            $('#asociacion_nombre').load('../ajax/detalle_utilitario.php?ac=productor&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+"&cedRifP="+cedRifP+'&cedRifAon='+cedRifAon+'&cedRifAdo='+cedRifAdo);
         });
         
         $('#Recepcion\\[ced_asociado\\]').live('change', function() {
-            $('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val()+'&cedRifAon='+$('#Recepcion\\[ced_asociacion\\]').val()+'&cedRifAdo='+$('#Recepcion\\[ced_asociado\\]').val());
-            //$('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+$('#Recepcion\\[ced_productor\\]').val()+"&cedRifAon="+$('#Recepcion\\[ced_asociacion\\]').val());
+            cedRifP=$('#Recepcion\\[ced_productor_pre\\]').val()+$('#Recepcion\\[ced_productor\\]').val();
+            cedRifAdo=$('#Recepcion\\[ced_asociado_pre\\]').val()+$('#Recepcion\\[ced_asociado\\]').val();
+            cedRifAon=$('#Recepcion\\[ced_asociacion_pre\\]').val()+$('#Recepcion\\[ced_asociacion\\]').val();
+            $('#asociado_nombre').load('../ajax/detalle_utilitario.php?ac=asociado&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+'&cedRifP='+cedRifP+'&cedRifAon='+cedRifAon+'&cedRifAdo='+cedRifAdo);
         });
         
         $('#Recepcion\\[numero\\]').live('change',function() {
@@ -552,6 +569,10 @@
                     <td width="230px"><?=$html->input('Recepcion.placa', $infoMov[0]['placa'], array('type' => 'text', 'class' => 'crproductor')); ?></td>
                 </tr>
                 <tr>
+                    <td></td>
+                    <td id="vehiculo_nombre"></td>
+                </tr>
+                <tr>
                     <td width="130px">Placa del Remolque</td>
                     <td width="230px"><?=$html->input('Recepcion.placa_remolques', $infoMov[0]['placa_remolques'], array('type' => 'text', 'class' => 'crproductor')); ?></td>
                 </tr>
@@ -577,8 +598,7 @@
             <td>
             <? 
             echo $html->select('Recepcion.ced_productor_pre',array('options'=>$juridico, 'selected' => $infoMov[0]['ced_productor'][0]));
-            //echo $html->select('Recepcion.ced_productor', array('options' => $listaP, 'selected' => $infoMov[0]['ced_productor'],  'default'=>'Seleccione', 'class'=>'estilo_campos')); 
-            echo $html->input('Recepcion.ced_productor', $infoMov[0]['ced_productor'], array('type' => 'text', 'class' => 'crproductor'));
+            echo $html->input('Recepcion.ced_productor', str_replace($juridico, "", $infoMov[0]['ced_productor']), array('type' => 'text', 'class' => 'crproductor'));
             ?>
             </td>
         </tr>
@@ -591,8 +611,7 @@
             <td>
                 <?
                 echo $html->select('Recepcion.ced_asociacion_pre',array('options'=>$juridico, 'selected' => $infoMov[0]['ced_asociacion'][0]));
-                //echo $html->select('Recepcion.ced_asociacion', array('options' => $listaAon, 'selected' => $infoMov[0]['ced_asociacion'],  'default'=>'Seleccione', 'class'=>'estilo_campos')); 
-                echo $html->input('Recepcion.ced_asociacion', $infoMov[0]['ced_asociacion'], array('type' => 'text', 'class' => 'crproductor'));
+                echo $html->input('Recepcion.ced_asociacion', str_replace($juridico, "", $infoMov[0]['ced_asociacion']), array('type' => 'text', 'class' => 'crproductor'));
                 ?>
             </td>
         </tr>
@@ -604,8 +623,7 @@
             <td>
             <? 
             echo $html->select('Recepcion.ced_asociado_pre',array('options'=>$juridico, 'selected' => $infoMov[0]['ced_asociado'][0]));
-            //echo $html->select('Recepcion.ced_asociado', array('options' => $listaAdo, 'selected' => $infoMov[0]['ced_asociado'],  'default'=>'Seleccione', 'class'=>'estilo_campos'));
-            echo $html->input('Recepcion.ced_asociado', $infoMov[0]['ced_asociado'], array('type' => 'text', 'class' => 'crproductor'));
+            echo $html->input('Recepcion.ced_asociado', str_replace($juridico, "", $infoMov[0]['ced_asociado']), array('type' => 'text', 'class' => 'crproductor'));
             ?>
         </tr>
         <tr>
@@ -633,14 +651,6 @@
         <tr>
             <td></td>
             <td id="chofer_nombre"></td>
-        </tr>
-        <tr>
-            <td width="130px">Placa del Vehiculo</td>
-            <td width="230px"><?=$html->input('Recepcion.placa', $infoMov[0]['placa'], array('type' => 'text', 'class' => 'crproductor')); ?></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td id="vehiculo_nombre"></td>
         </tr>
         <tr>
             <td>Peso lleno 1</td>
