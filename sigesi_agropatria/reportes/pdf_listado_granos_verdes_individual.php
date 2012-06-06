@@ -402,7 +402,9 @@ for($z=0; $z<count($listadoRecepciones_); $z++)     //   FORRECPCUIONES
 					else
 					{$placa=$listadoRecepciones_[$z]['placa'];}
 
-			  $suma_hum+=$listadoRecepciones_[$z]['humedad'];
+			  $hum=$listadoRecepciones_[$z]['humedad'];
+				$imp=$listadoRecepciones_[$z]['impureza'];
+                                        $suma_hum+=$listadoRecepciones_[$z]['humedad'];
 				$suma_imp+=$listadoRecepciones_[$z]['impureza'];
 /*
 				$pacondicionado=$listadoRecepciones_[$z]['peso_acon_liq'];	

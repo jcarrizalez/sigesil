@@ -88,7 +88,7 @@
 
         $activeWorksheet->getColumnDimension('A')->setWidth(17); //Fecha Recepcion
         $activeWorksheet->getColumnDimension('B')->setWidth(15); //Nro Entrada
-        $activeWorksheet->getColumnDimension('C')->setWidth(15); //Placa
+        $activeWorksheet->getColumnDimension('C')->setWidth(17); //Placa
         $activeWorksheet->getColumnDimension('D')->setWidth(15); //Peso Bruto
         $activeWorksheet->getColumnDimension('E')->setWidth(15); //% Humedad
         $activeWorksheet->getColumnDimension('F')->setWidth(15); //% Impureza
@@ -125,10 +125,47 @@
                 $centroA = $recepcion['ca_id'];
                 
                 if($pro != $recepcion['ced_productor']){
+                    //
+                    if(!empty($totalPro)){
+                        //Total Gral
+                        $total[1] += $totalPro[1];
+                        $total[2] = '';
+                        $total[3] = '';
+                        $total[4] = '';
+                        $total[5] += $totalPro[5];
+                        
+                        $activeWorksheet->setCellValueByColumnAndRow(2, $fila, 'Total Productor: ');
+                        $oColumn = $activeWorksheet->getCellByColumnAndRow(2, $fila)->getColumn();
+                        $oRow = $activeWorksheet->getCellByColumnAndRow(2, $fila)->getRow();
+                        $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray(array('font' => array('bold' => true, 'size' => 10)));
 
+                        $columnaTotal = 3;
+                        foreach($totalPro as $valor){
+                            $activeWorksheet->setCellValueByColumnAndRow($columnaTotal, $fila, $valor);
+                            $oColumn = $activeWorksheet->getCellByColumnAndRow($columnaTotal, $fila)->getColumn();
+                            $oRow = $activeWorksheet->getCellByColumnAndRow($columnaTotal, $fila)->getRow();
+                            $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray($arrStyleNumberTotal);
+                            $columnaTotal++;
+                        }
+                        unset($totalPro);
+                        $fila++;$fila++;
+                    }
+                    //
                     $productor = "Productor: ".$recepcion['productor_nombre']." Cédula/Rif: ".$recepcion['ced_productor'];
                     $activeWorksheet->setCellValueByColumnAndRow(0, $fila, $productor);
-                    $fila++; $fila++;
+                    $fila++;
+                    if(empty($recepcion['ced_asociado'])){
+                        $j=0;
+                        foreach($titulos as $columnTitle){
+                            $activeWorksheet->setCellValueByColumnAndRow($j, $fila, $columnTitle);
+                            $oColumn = $activeWorksheet->getCellByColumnAndRow($j, $fila)->getColumn();
+                            $oRow = $activeWorksheet->getCellByColumnAndRow($j, $fila)->getRow();
+                            $activeWorksheet->getStyle($oColumn.$oRow)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);;
+                            $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray($arrStyleTitle);
+                            $j++;
+                        }
+                    }
+                    $fila++;
                 }
                 $pro = $recepcion['ced_productor'];
                 
@@ -142,6 +179,13 @@
                 if($ado != $recepcion['ced_asociado']){
                     //
                     if(!empty($totalAdo)){
+                        //Total Gral
+                        $total[1] += $totalAdo[1];
+                        $total[2] = '';
+                        $total[3] = '';
+                        $total[4] = '';
+                        $total[5] += $totalAdo[5];
+                        
                         $activeWorksheet->setCellValueByColumnAndRow(2, $fila, 'Total Asociado: ');
                         $oColumn = $activeWorksheet->getCellByColumnAndRow(2, $fila)->getColumn();
                         $oRow = $activeWorksheet->getCellByColumnAndRow(2, $fila)->getRow();
@@ -189,7 +233,7 @@
                 $valores[] = (!empty($recepcion['humedad'])) ? $recepcion['humedad'] : 0.00;
                 $valores[] = (!empty($recepcion['impureza'])) ? $recepcion['impureza'] : 0.00;
                 $grsVrds = (!empty($resultado[0]['muestra2'])) ? ($resultado[0]['muestra1'] + $resultado[0]['muestra2']) / 2 : $resultado[0]['muestra1'];
-                $valores[] = round($grsVrds);
+                $valores[] = $grsVrds;
                 $grsVrdImp = $grsVrds + $recepcion['impureza'];
                 $grsVrdImpResta = $grsVrdImp - 4;
                 $impHasta = 4;
@@ -224,10 +268,26 @@
                     $totalAdo[5] += round($pesoAcon);
                 }
                 
+                //TOTALES POR PRODUCTOR
+                if(empty($recepcion['ced_asociado'])){
+                    $totalPro[1] += round($kgrsNetos);
+                    $totalPro[2] = '';
+                    $totalPro[3] = '';
+                    $totalPro[4] = '';
+                    $totalPro[5] += round($pesoAcon);
+                }
+                
                 
                 if($cant == $totalRegistros){
                     //TOTAL POR ASOCIADO
                     if(!empty($totalAdo)){
+                        //Total Gral
+                        $total[1] += $totalAdo[1];
+                        $total[2] = '';
+                        $total[3] = '';
+                        $total[4] = '';
+                        $total[5] += $totalAdo[5];
+                        
                         $activeWorksheet->setCellValueByColumnAndRow(2, $fila, 'Total Asociado: ');
                         $oColumn = $activeWorksheet->getCellByColumnAndRow(2, $fila)->getColumn();
                         $oRow = $activeWorksheet->getCellByColumnAndRow(2, $fila)->getRow();
@@ -241,14 +301,49 @@
                             $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray($arrStyleNumberTotal);
                             $columnaTotal++;
                         }
-                        unset($totalAdo);
+                        $fila++;
+                    }
+                    
+                    //TOTAL POR PRODUCTOR
+                    if(!empty($totalPro)){
+                        //Total Gral
+                        $total[1] += $totalPro[1];
+                        $total[2] = '';
+                        $total[3] = '';
+                        $total[4] = '';
+                        $total[5] += $totalPro[5];
+                        
+                        $activeWorksheet->setCellValueByColumnAndRow(2, $fila, 'Total Productor: ');
+                        $oColumn = $activeWorksheet->getCellByColumnAndRow(2, $fila)->getColumn();
+                        $oRow = $activeWorksheet->getCellByColumnAndRow(2, $fila)->getRow();
+                        $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray(array('font' => array('bold' => true, 'size' => 10)));
+
+                        $columnaTotal = 3;
+                        foreach($totalPro as $valor){
+                            $activeWorksheet->setCellValueByColumnAndRow($columnaTotal, $fila, $valor);
+                            $oColumn = $activeWorksheet->getCellByColumnAndRow($columnaTotal, $fila)->getColumn();
+                            $oRow = $activeWorksheet->getCellByColumnAndRow($columnaTotal, $fila)->getRow();
+                            $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray($arrStyleNumberTotal);
+                            $columnaTotal++;
+                        }
                         $fila++;
                     }
                 }
             }
             $fila++;
-            
-            //TOTALES
+            $activeWorksheet->setCellValueByColumnAndRow(2, $fila, 'Total: ');
+            $oColumn = $activeWorksheet->getCellByColumnAndRow(2, $fila)->getColumn();
+            $oRow = $activeWorksheet->getCellByColumnAndRow(2, $fila)->getRow();
+            $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray(array('font' => array('bold' => true, 'size' => 10)));
+
+            $columnaTotal = 3;
+            foreach($total as $valor){
+                $activeWorksheet->setCellValueByColumnAndRow($columnaTotal, $fila, $valor);
+                $oColumn = $activeWorksheet->getCellByColumnAndRow($columnaTotal, $fila)->getColumn();
+                $oRow = $activeWorksheet->getCellByColumnAndRow($columnaTotal, $fila)->getRow();
+                $activeWorksheet->getStyle($oColumn.$oRow)->applyFromArray($arrStyleNumberTotal);
+                $columnaTotal++;
+            }
         }
         
         chdir(APPROOT.'temp_files');
