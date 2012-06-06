@@ -363,59 +363,6 @@ CREATE TABLE si_app_error (
 ALTER TABLE public.si_app_error OWNER TO admin;
 
 --
--- Name: si_asociacion; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
---
-
-CREATE TABLE si_asociacion (
-    id bigint NOT NULL,
-    id_pais smallint,
-    id_estado smallint,
-    id_municipio smallint,
-    codigo character varying(16) NOT NULL,
-    nombre character varying(255) NOT NULL,
-    descripcion character varying(255),
-    rif character varying(16),
-    telefono character varying(32),
-    email character varying(255),
-    direccion character varying(255),
-    fax character varying(32),
-    estatus boolean,
-    creado timestamp with time zone,
-    modificado timestamp with time zone
-);
-
-
-ALTER TABLE public.si_asociacion OWNER TO admin;
-
---
--- Name: si_asociacion_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
---
-
-CREATE SEQUENCE si_asociacion_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.si_asociacion_id_seq OWNER TO admin;
-
---
--- Name: si_asociacion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
---
-
-ALTER SEQUENCE si_asociacion_id_seq OWNED BY si_asociacion.id;
-
-
---
--- Name: si_asociacion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('si_asociacion_id_seq', 1, false);
-
-
---
 -- Name: si_asociado_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
 --
 
@@ -435,32 +382,6 @@ ALTER TABLE public.si_asociado_id_seq OWNER TO admin;
 
 SELECT pg_catalog.setval('si_asociado_id_seq', 1, false);
 
-
---
--- Name: si_asociado; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
---
-
-CREATE TABLE si_asociado (
-    id bigint DEFAULT nextval('si_asociado_id_seq'::regclass) NOT NULL,
-    ced_rif character(16) NOT NULL,
-    nombre character varying(255) NOT NULL,
-    direccion character varying(255),
-    telefono character varying(255),
-    celular character varying(255),
-    id_pais bigint,
-    id_estado bigint,
-    id_municipio bigint,
-    estatus boolean,
-    direccion_finca character varying(255),
-    area_finca integer,
-    ton_cosecha real,
-    creado timestamp with time zone,
-    modificado timestamp with time zone,
-    id_asociacion bigint NOT NULL
-);
-
-
-ALTER TABLE public.si_asociado OWNER TO admin;
 
 --
 -- Name: si_cargo_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
@@ -1509,7 +1430,7 @@ ALTER TABLE public.si_log_consultas_log_id_seq OWNER TO admin;
 -- Name: si_log_consultas_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_log_consultas_log_id_seq', 0, true);
+SELECT pg_catalog.setval('si_log_consultas_log_id_seq', 65, true);
 
 
 --
@@ -1875,51 +1796,6 @@ CREATE TABLE si_perfiles (
 
 
 ALTER TABLE public.si_perfiles OWNER TO admin;
-
---
--- Name: si_perfiles_menu; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
---
-
-CREATE TABLE si_perfiles_menu (
-    id bigint NOT NULL,
-    id_perfil bigint,
-    id_menu bigint,
-    nuevo smallint DEFAULT 0 NOT NULL,
-    modificar smallint DEFAULT 0 NOT NULL,
-    eliminar smallint DEFAULT 0 NOT NULL,
-    imprimir smallint DEFAULT 0 NOT NULL
-);
-
-
-ALTER TABLE public.si_perfiles_menu OWNER TO admin;
-
---
--- Name: si_perfiles_menu_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
---
-
-CREATE SEQUENCE si_perfiles_menu_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.si_perfiles_menu_id_seq OWNER TO admin;
-
---
--- Name: si_perfiles_menu_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
---
-
-ALTER SEQUENCE si_perfiles_menu_id_seq OWNED BY si_perfiles_menu.id;
-
-
---
--- Name: si_perfiles_menu_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
---
-
-SELECT pg_catalog.setval('si_perfiles_menu_id_seq', 52, true);
-
 
 --
 -- Name: si_plaga; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
@@ -2472,7 +2348,7 @@ ALTER SEQUENCE si_recursos_id_seq OWNED BY si_recursos.id;
 -- Name: si_recursos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_recursos_id_seq', 61, true);
+SELECT pg_catalog.setval('si_recursos_id_seq', 77, true);
 
 
 --
@@ -2804,13 +2680,6 @@ ALTER TABLE ONLY si_analisis_resultado ALTER COLUMN id SET DEFAULT nextval('si_a
 -- Name: id; Type: DEFAULT; Schema: public; Owner: admin
 --
 
-ALTER TABLE ONLY si_asociacion ALTER COLUMN id SET DEFAULT nextval('si_asociacion_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: admin
---
-
 ALTER TABLE ONLY si_choferes ALTER COLUMN id SET DEFAULT nextval('si_choferes_id_seq'::regclass);
 
 
@@ -2889,13 +2758,6 @@ ALTER TABLE ONLY si_impresora ALTER COLUMN id SET DEFAULT nextval('si_impresora_
 --
 
 ALTER TABLE ONLY si_ordenes_det ALTER COLUMN id SET DEFAULT nextval('si_ordenes_det_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: admin
---
-
-ALTER TABLE ONLY si_perfiles_menu ALTER COLUMN id SET DEFAULT nextval('si_perfiles_menu_id_seq'::regclass);
 
 
 --
@@ -4140,18 +4002,6 @@ INSERT INTO si_analisis_resultado (id, id_recepcion, id_despacho, id_analisis, i
 
 
 --
--- Data for Name: si_asociacion; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-
-
---
--- Data for Name: si_asociado; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-
-
---
 -- Data for Name: si_cargo; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -4289,16 +4139,16 @@ INSERT INTO si_cultivo (id, id_org, nombre, tipificado, ciclo, creado, modificad
 INSERT INTO si_cultivo (id, id_org, nombre, tipificado, ciclo, creado, modificado, estatus, codigo) VALUES (15, 1, 'MAÍZ BLANCO IMPORTADO', false, 0, '2012-02-18 15:22:10.224543-04:30', NULL, true, 15);
 INSERT INTO si_cultivo (id, id_org, nombre, tipificado, ciclo, creado, modificado, estatus, codigo) VALUES (16, 1, 'TRIGO HRW CANADIENSE', false, 0, '2012-02-18 15:22:10.224543-04:30', NULL, true, 16);
 INSERT INTO si_cultivo (id, id_org, nombre, tipificado, ciclo, creado, modificado, estatus, codigo) VALUES (17, 1, 'MAÍZ AMARILLO IMPORTADO', false, 0, '2012-02-18 15:22:10.224543-04:30', NULL, true, 17);
-INSERT INTO si_cultivo (id, id_org, nombre, tipificado, ciclo, creado, modificado, estatus, codigo) VALUES (18, 1, 'GRADO POR MUESTRA MAÍZ AMARILLO', false, 0, '2012-02-18 15:22:10.224543-04:30', NULL, true, 68);
-INSERT INTO si_cultivo (id, id_org, nombre, tipificado, ciclo, creado, modificado, estatus, codigo) VALUES (19, 1, 'ARROZ GRADO POR MUESTRA', false, 0, '2012-02-18 15:22:10.224543-04:30', NULL, true, 92);
-INSERT INTO si_cultivo (id, id_org, nombre, tipificado, ciclo, creado, modificado, estatus, codigo) VALUES (20, 1, 'PICO SECO ACONDICIONADO', false, 0, '2012-02-18 15:22:10.224543-04:30', NULL, true, 93);
-INSERT INTO si_cultivo (id, id_org, nombre, tipificado, ciclo, creado, modificado, estatus, codigo) VALUES (21, 1, 'IMPUREZA DE SORGO', false, 0, '2012-02-18 15:22:10.224543-04:30', NULL, true, 94);
-INSERT INTO si_cultivo (id, id_org, nombre, tipificado, ciclo, creado, modificado, estatus, codigo) VALUES (22, 1, 'IMPUREZA DE ARROZ', false, 0, '2012-02-18 00:00:00-04:30', NULL, true, 95);
-INSERT INTO si_cultivo (id, id_org, nombre, tipificado, ciclo, creado, modificado, estatus, codigo) VALUES (23, 1, 'PICO SECO', false, 0, '2012-02-18 00:00:00-04:30', NULL, true, 96);
-INSERT INTO si_cultivo (id, id_org, nombre, tipificado, ciclo, creado, modificado, estatus, codigo) VALUES (24, 1, 'MAÍZ MOLTURADO', false, 0, '2012-02-18 00:00:00-04:30', NULL, true, 97);
-INSERT INTO si_cultivo (id, id_org, nombre, tipificado, ciclo, creado, modificado, estatus, codigo) VALUES (25, 1, 'PICO DE MAÍZ', false, 0, '2012-02-18 00:00:00-04:30', NULL, true, 98);
-INSERT INTO si_cultivo (id, id_org, nombre, tipificado, ciclo, creado, modificado, estatus, codigo) VALUES (26, 1, 'IMPUREZAS DE MAÍZ', false, 0, '2012-02-18 00:00:00-04:30', NULL, true, 99);
 INSERT INTO si_cultivo (id, id_org, nombre, tipificado, ciclo, creado, modificado, estatus, codigo) VALUES (1, 1, 'MAÍZ BLANCO HÚMEDO NACIONAL', false, 0, '2012-02-18 15:22:10.224543-04:30', NULL, true, 1);
+INSERT INTO si_cultivo (id, id_org, nombre, tipificado, ciclo, creado, modificado, estatus, codigo) VALUES (18, 1, 'GRADO POR MUESTRA MAÍZ AMARILLO', false, 0, '2012-02-18 15:22:10.224543-04:30', NULL, false, 68);
+INSERT INTO si_cultivo (id, id_org, nombre, tipificado, ciclo, creado, modificado, estatus, codigo) VALUES (19, 1, 'ARROZ GRADO POR MUESTRA', false, 0, '2012-02-18 15:22:10.224543-04:30', NULL, false, 92);
+INSERT INTO si_cultivo (id, id_org, nombre, tipificado, ciclo, creado, modificado, estatus, codigo) VALUES (20, 1, 'PICO SECO ACONDICIONADO', false, 0, '2012-02-18 15:22:10.224543-04:30', NULL, false, 93);
+INSERT INTO si_cultivo (id, id_org, nombre, tipificado, ciclo, creado, modificado, estatus, codigo) VALUES (21, 1, 'IMPUREZA DE SORGO', false, 0, '2012-02-18 15:22:10.224543-04:30', NULL, false, 94);
+INSERT INTO si_cultivo (id, id_org, nombre, tipificado, ciclo, creado, modificado, estatus, codigo) VALUES (22, 1, 'IMPUREZA DE ARROZ', false, 0, '2012-02-18 00:00:00-04:30', NULL, false, 95);
+INSERT INTO si_cultivo (id, id_org, nombre, tipificado, ciclo, creado, modificado, estatus, codigo) VALUES (23, 1, 'PICO SECO', false, 0, '2012-02-18 00:00:00-04:30', NULL, false, 96);
+INSERT INTO si_cultivo (id, id_org, nombre, tipificado, ciclo, creado, modificado, estatus, codigo) VALUES (24, 1, 'MAÍZ MOLTURADO', false, 0, '2012-02-18 00:00:00-04:30', NULL, false, 97);
+INSERT INTO si_cultivo (id, id_org, nombre, tipificado, ciclo, creado, modificado, estatus, codigo) VALUES (25, 1, 'PICO DE MAÍZ', false, 0, '2012-02-18 00:00:00-04:30', NULL, false, 98);
+INSERT INTO si_cultivo (id, id_org, nombre, tipificado, ciclo, creado, modificado, estatus, codigo) VALUES (26, 1, 'IMPUREZAS DE MAÍZ', false, 0, '2012-02-18 00:00:00-04:30', NULL, false, 99);
 
 
 --
@@ -4537,32 +4387,32 @@ INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modifica
 INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (25, 'M_Almacenes', 1, 'admin/almacen_listado.php', true, 3, NULL, NULL);
 INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (21, 'M_Formulas', 4, 'admin/formulacion_listado.php', true, 3, NULL, NULL);
 INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (27, 'M_LabCentral', 2, 'admin/analisis_labcentral.php', true, 3, NULL, NULL);
-INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (28, 'M_Romana', 2, 'admin/romana_movimiento.php', true, 5, NULL, NULL);
 INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (31, 'M_labPlanta', 2, 'admin/analisis_labplanta.php', true, 4, NULL, NULL);
 INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (12, 'M_Despacho', 2, 'admin/despacho.php', true, 2, NULL, NULL);
-INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (18, 'M_Despacho', 3, 'reportes/reporte_despacho.php', true, 6, NULL, NULL);
-INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (29, 'M_Chofer', 1, 'admin/chofer_listado.php', true, 10, NULL, NULL);
-INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (32, 'M_Ordenes', 1, 'admin/ordenes_listado.php', true, 11, NULL, NULL);
 INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (26, 'M_MenuUsuario', 4, 'admin/menu_usuario_listado.php', true, 5, NULL, NULL);
-INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (17, 'M_Recepciones', 3, 'reportes/reporte_recepcion.php', true, 5, NULL, NULL);
-INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (10, 'M_Productor', 1, 'admin/productor_listado.php', true, 9, NULL, NULL);
 INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (1, 'M_Maestros', 0, NULL, true, 1, NULL, NULL);
 INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (6, 'M_CentrosA', 1, 'admin/centros_acopio_listado.php', true, 2, NULL, NULL);
 INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (34, 'M_CosechaProductor', 4, 'admin/cosecha_productor.php', true, 6, NULL, NULL);
-INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (35, 'M_Auditoria', 3, 'reportes/reporte_actividad.php', true, 7, NULL, NULL);
 INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (22, 'M_Configuracion', 4, 'admin/parametros.php', true, 4, NULL, NULL);
 INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (36, 'M_BoletaVirtual', 4, 'admin/boleta_virtual.php', true, 7, NULL, NULL);
-INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (38, 'M_CuarentenaPendiente', 2, 'admin/cuarentena_pendiente_listado.php', true, 4, NULL, NULL);
 INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (39, 'M_GerenteRecepcion', 3, 'reportes/gerente_recepcion.php', true, 8, NULL, NULL);
 INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (40, 'M_GerenteDespacho', 3, 'reportes/gerente_despacho.php', true, 9, NULL, NULL);
-INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (42, 'M_UtilitarioRecepciones', 4, 'admin/utilitario_recepcion_listado.php', true, 7, NULL, NULL);
-INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (13, 'M_Programas', 3, 'reportes/reporte_programas.php', true, 1, NULL, NULL);
-INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (14, 'M_Cosecha', 3, 'reportes/reporte_cosechas.php', true, 2, NULL, NULL);
-INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (15, 'M_Cultivo', 3, 'reportes/reporte_cultivos.php', true, 3, NULL, NULL);
-INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (16, 'M_Productores', 3, 'reportes/reporte_productores.php', true, 4, NULL, NULL);
-INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (44, 'M_UtilitarioDespachos', 4, 'admin/utilitario_despacho_listado.php', true, 8, NULL, NULL);
 INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (5, 'M_Cuenta', 0, NULL, false, 5, NULL, NULL);
 INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (45, 'M_GranosVerdes', 3, 'reportes/granos_verdes.php', true, 10, NULL, NULL);
+INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (42, 'M_UtilitarioRecepciones', 4, 'admin/utilitario_recepcion_listado.php', true, 8, NULL, NULL);
+INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (44, 'M_UtilitarioDespachos', 4, 'admin/utilitario_despacho_listado.php', true, 9, NULL, NULL);
+INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (10, 'M_Productor', 1, 'admin/productor_listado.php', true, 7, NULL, NULL);
+INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (29, 'M_Chofer', 1, 'admin/chofer_listado.php', true, 8, NULL, NULL);
+INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (32, 'M_Ordenes', 1, 'admin/ordenes_listado.php', true, 9, NULL, NULL);
+INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (38, 'M_CuarentenaPendiente', 2, 'admin/cuarentena_pendiente_listado.php', true, 5, NULL, NULL);
+INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (28, 'M_Romana', 2, 'admin/romana_movimiento.php', true, 6, NULL, NULL);
+INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (13, 'M_Programas', 3, 'reportes/programas.php', true, 1, NULL, NULL);
+INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (14, 'M_Cosecha', 3, 'reportes/cosechas.php', true, 2, NULL, NULL);
+INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (15, 'M_Cultivo', 3, 'reportes/cultivos.php', true, 3, NULL, NULL);
+INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (16, 'M_Productores', 3, 'reportes/productores.php', true, 4, NULL, NULL);
+INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (17, 'M_Recepciones', 3, 'reportes/recepcion.php', true, 5, NULL, NULL);
+INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (18, 'M_Despacho', 3, 'reportes/despacho.php', true, 6, NULL, NULL);
+INSERT INTO si_menu (id, nombre, id_padre, url, estatus, orden, creado, modificado) VALUES (35, 'M_Auditoria', 3, 'reportes/actividad.php', true, 7, NULL, NULL);
 
 
 --
@@ -5137,64 +4987,6 @@ INSERT INTO si_perfiles (id, nombre_perfil, creado, modificado) VALUES (7, 'USUA
 
 
 --
--- Data for Name: si_perfiles_menu; Type: TABLE DATA; Schema: public; Owner: admin
---
-
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (1, 1, 1, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (4, 1, 3, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (5, 1, 13, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (6, 1, 14, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (7, 1, 15, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (8, 1, 16, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (11, 1, 35, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (12, 1, 39, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (13, 1, 40, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (15, 1, 4, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (19, 1, 36, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (2, 1, 24, 1, 1, 1, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (3, 1, 6, 1, 1, 1, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (9, 1, 17, 0, 0, 0, 1);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (10, 1, 18, 0, 0, 0, 1);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (14, 1, 45, 0, 0, 0, 1);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (16, 1, 20, 1, 1, 1, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (17, 1, 22, 0, 1, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (18, 1, 26, 0, 1, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (20, 2, 1, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (21, 2, 25, 1, 1, 1, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (22, 2, 9, 1, 1, 1, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (23, 2, 8, 1, 1, 1, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (25, 2, 10, 1, 1, 1, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (24, 2, 7, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (26, 2, 29, 1, 1, 1, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (27, 2, 32, 1, 1, 1, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (28, 2, 2, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (29, 2, 11, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (30, 2, 12, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (31, 2, 27, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (32, 2, 38, 0, 1, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (33, 2, 31, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (34, 2, 28, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (35, 2, 3, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (36, 2, 13, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (37, 2, 14, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (38, 2, 15, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (39, 2, 16, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (40, 2, 17, 0, 0, 0, 1);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (41, 2, 18, 0, 0, 0, 1);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (42, 2, 35, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (43, 2, 39, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (44, 2, 40, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (45, 2, 45, 0, 0, 0, 1);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (46, 2, 4, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (47, 2, 20, 1, 1, 1, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (48, 2, 21, 1, 1, 1, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (49, 2, 26, 0, 1, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (50, 2, 34, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (51, 2, 36, 0, 0, 0, 0);
-INSERT INTO si_perfiles_menu (id, id_perfil, id_menu, nuevo, modificar, eliminar, imprimir) VALUES (52, 2, 42, 0, 0, 0, 0);
-
-
---
 -- Data for Name: si_plaga; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
@@ -5347,7 +5139,6 @@ INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificaci
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (15, 'Listado de Centros de Acopio', 'admin', 'centros_acopio_listado.php', 1, '2012-03-06 09:19:38.843861-04:30', NULL);
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (16, 'Chofer', 'admin', 'chofer.php', 1, '2012-03-06 09:19:38.843861-04:30', NULL);
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (17, 'Listado de Choferes', 'admin', 'chofer_listado.php', 1, '2012-03-06 09:19:38.843861-04:30', NULL);
-INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (18, 'Popup de Clientes', 'admin', 'cliente_popup.php', 1, '2012-03-06 09:19:38.843861-04:30', NULL);
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (19, 'Config de Parametros', 'admin', 'conf_parametros.php', 1, '2012-03-06 09:19:38.843861-04:30', NULL);
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (20, 'Config de Usuario', 'admin', 'conf_usuario.php', 1, '2012-03-06 09:19:38.843861-04:30', NULL);
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (21, 'Cosecha', 'admin', 'cosecha.php', 1, '2012-03-06 09:19:38.843861-04:30', NULL);
@@ -5382,15 +5173,32 @@ INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificaci
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (50, 'Boleta Liquidacion', 'reportes', 'imprimir_boleta_liquidacion.php', 0, '2012-03-06 00:00:00-04:30', NULL);
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (51, 'Boleta Rechazo', 'reportes', 'imprimir_boleta_rechazo.php', 0, '2012-03-06 00:00:00-04:30', NULL);
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (52, 'Boleta Tipificacion', 'reportes', 'imprimir_boleta_tipificacion.php', 0, '2012-03-06 00:00:00-04:30', NULL);
-INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (53, 'Reporte Despacho', 'reportes', 'reporte_despacho.php', 1, '2012-03-06 00:00:00-04:30', NULL);
-INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (54, 'Reporte Recepcion', 'reportes', 'reporte_recepcion.php', 1, '2012-03-06 00:00:00-04:30', NULL);
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (55, 'Boleta Virtual', 'admin', 'boleta_virtual.php', 1, '2012-03-06 00:00:00-04:30', NULL);
-INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (56, 'Cuarentenas Pendientes', 'admin', 'cuarentena_pendiente_listado.php', 1, '2012-03-06 00:00:00-04:30', NULL);
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (58, 'Consulta Gerente Despachos', 'reportes', 'gerente_despacho.php', 1, '2012-03-06 00:00:00-04:30', NULL);
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (57, 'Consulta Gerente Recepcion', 'reportes', 'gerente_recepcion.php', 1, '2012-03-06 00:00:00-04:30', NULL);
-INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (59, 'Reporte de Actividad', 'reportes', 'reporte_actividad.php', 1, '2012-03-06 00:00:00-04:30', NULL);
-INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (60, 'Utilitario Recepciones', 'admin', 'utilitario_recepcion_listado.php', 1, '2012-05-11 00:00:00-04:30', NULL);
-INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (61, 'Utilitario Despachos', 'admin', 'utilitario_despacho_listado.php', 1, '2012-05-29 00:00:00-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (60, 'Utilitario Recepciones', 'admin', 'utilitario_recepcion_listado.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (61, 'Utilitario Despachos', 'admin', 'utilitario_despacho_listado.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (70, 'Reporte de Cosechas', 'reportes', 'cosechas.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (62, 'Cambiar Contrasena', 'admin', 'cambiar_contrasena.php', 0, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (18, 'Popup de Cliente', 'admin', 'cliente_popup.php', 1, '2012-03-06 09:19:38.843861-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (63, 'Popup de Chofer', 'admin', 'chofer_popup.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (64, 'Popup de Vehiculo', 'admin', 'vehiculo_popup.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (65, 'Cosecha Productor', 'admin', 'cosecha_productor.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (66, 'Cuarentena Pendiente', 'admin', 'cuarentena_pendiente.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (56, 'Cuarentena Pendiente Listado', 'admin', 'cuarentena_pendiente_listado.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (67, 'Menu Usuario Listado', 'admin', 'menu_usuario_listado.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (68, 'Parametros', 'admin', 'parametros.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (59, 'Reporte de Actividad', 'reportes', 'actividad.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (69, 'Popup de Analisis', 'reportes', 'analisis_popup.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (53, 'Reporte Despacho', 'reportes', 'despacho.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (54, 'Reporte Recepcion', 'reportes', 'recepcion.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (71, 'Reporte de Cultivos', 'reportes', 'cultivos.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (72, 'Consulta Gerente Recepcion Detalle', 'reportes', 'gerente_recepcion_detalle.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (73, 'Consulta Gerente Despacho Detalle', 'reportes', 'gerente_despacho_detalle.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (74, 'Reporte Granos Verdes', 'reportes', 'granos_verdes.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (75, 'Reporte de Productores', 'reportes', 'productores.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (76, 'Reporte de Programas', 'reportes', 'programas.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (77, 'Reporte de Activididad Detalle', 'reportes', 'ver_log.php', 1, '2012-03-06 00:00:00-04:30', NULL);
 
 
 --
@@ -5605,16 +5413,16 @@ INSERT INTO si_transporte (id, id_centro_acopio, rif, nombre, contacto, direccio
 -- Data for Name: si_usuarios; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (6, 'YELITZA', 'GUZMAN', '13000000', NULL, 'F', 'YGUZMAN', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'MARACAY', NULL, 'YELITZAGUZMAN@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-03-16 11:42:48.981154-04:30', true, 0, NULL, NULL, NULL);
-INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (7, 'JUAN', 'CARRIZALEZ', '15650075', NULL, 'M', 'JUANMC', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', NULL, NULL, 'JUANCARRIZALEZ@AGROPATRIA.CO.VE', '2012-04-25 09:24:19.641208-04:30', NULL, true, 0, NULL, NULL, NULL);
-INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (2, 'JESUS', 'SILVA', '9668397', '1970-09-01', 'M', 'JSILVA', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'MARACAY', NULL, 'JESUSSILVA@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-03-16 11:47:52.212876-04:30', true, 0, NULL, '2012-05-17 15:28:30.825707-04:30', NULL);
-INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (9, 'RAFAEL', 'ADAMES', '123456', NULL, 'M', 'RADAMES', 'E7B47259793917A0BECEDA2C5E00D3CB08B69F57', NULL, NULL, NULL, '2012-05-22 11:33:31.825155-04:30', NULL, true, 0, NULL, '2012-05-22 11:39:29.221623-04:30', NULL);
-INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (10, 'LUIS', 'ESTRADA', '123456', NULL, 'M', 'LESTRADA', '311E0C5E77F8A19D144E3AFED36912889EBAAE1C', NULL, NULL, NULL, '2012-05-22 11:34:14.980207-04:30', NULL, true, 1, 'ohbp0km4qrq53u9cnpeu2fcgv7', '2012-05-23 15:15:45.209464-04:30', NULL);
-INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (8, 'LEIDY', 'SIFONTES', '123456', NULL, 'F', 'LSIFONTES', 'E34A43F70CD2570DC01BAAF1667C2FC91BBAACE6', NULL, NULL, NULL, '2012-05-18 15:54:34.262069-04:30', NULL, true, 0, NULL, '2012-05-24 08:20:26.876511-04:30', NULL);
-INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (5, 'MARIELY', 'CORONADO', '16538158', NULL, 'F', 'MCORONADO', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'LA VILLA', NULL, 'MARIELYCORONADO@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-03-16 11:42:37.144713-04:30', true, 0, NULL, '2012-06-06 08:17:33.243452-04:30', NULL);
-INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (1, 'JOSE', 'PELUZZO', '1234567', '2012-02-12', 'M', 'JPELUZZO', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'Maracay', NULL, 'JOSEPELUZZO@AGROPATRIA.CO.VE', '2012-02-12 00:00:00-04:30', NULL, true, 0, NULL, '2012-06-06 09:24:13.351067-04:30', '2012-02-12 00:00:00-04:30');
-INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (3, 'JUAN', 'TABORDA', '13769341', NULL, 'M', 'JTABORDA', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'MARACAY', NULL, 'JUANTABORDA@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-02-17 00:00:00-04:30', true, 0, NULL, '2012-05-30 15:48:17.656958-04:30', NULL);
-INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (4, 'JESUS', 'RODRIGUEZ', '18264065', NULL, 'M', 'JRODRIGUEZ', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'CAGUA', NULL, 'JESUSRODRIGUEZ@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-02-13 00:00:00-04:30', true, 0, NULL, '2012-06-04 15:46:20.292134-04:30', NULL);
+INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (2, 'JESUS', 'SILVA', '9668397', '1970-09-01', 'M', 'JSILVA', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'MARACAY', NULL, 'JESUSSILVA@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-03-16 11:47:52.212876-04:30', true, 0, NULL, '2012-05-17 15:28:30.825707-04:30', '2012-02-13 00:00:00-04:30');
+INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (3, 'JUAN', 'TABORDA', '13769341', NULL, 'M', 'JTABORDA', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'MARACAY', NULL, 'JUANTABORDA@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-02-17 00:00:00-04:30', true, 0, NULL, '2012-05-30 15:48:17.656958-04:30', '2012-02-13 00:00:00-04:30');
+INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (4, 'JESUS', 'RODRIGUEZ', '18264065', NULL, 'M', 'JRODRIGUEZ', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'CAGUA', NULL, 'JESUSRODRIGUEZ@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-02-13 00:00:00-04:30', true, 0, NULL, '2012-06-04 15:46:20.292134-04:30', '2012-02-13 00:00:00-04:30');
+INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (6, 'YELITZA', 'GUZMAN', '13000000', NULL, 'F', 'YGUZMAN', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'MARACAY', NULL, 'YELITZAGUZMAN@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-03-16 11:42:48.981154-04:30', true, 0, NULL, NULL, '2012-02-13 00:00:00-04:30');
+INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (7, 'JUAN', 'CARRIZALEZ', '15650075', NULL, 'M', 'JUANMC', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', NULL, NULL, 'JUANCARRIZALEZ@AGROPATRIA.CO.VE', '2012-04-25 09:24:19.641208-04:30', NULL, true, 0, NULL, NULL, '2012-04-25 09:24:19.641208-04:30');
+INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (8, 'LEIDY', 'SIFONTES', '123456', NULL, 'F', 'LSIFONTES', 'E34A43F70CD2570DC01BAAF1667C2FC91BBAACE6', NULL, NULL, NULL, '2012-05-18 15:54:34.262069-04:30', NULL, true, 0, NULL, '2012-05-24 08:20:26.876511-04:30', '2012-05-18 15:54:34.262069-04:30');
+INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (9, 'RAFAEL', 'ADAMES', '123456', NULL, 'M', 'RADAMES', 'E7B47259793917A0BECEDA2C5E00D3CB08B69F57', NULL, NULL, NULL, '2012-05-22 11:33:31.825155-04:30', NULL, true, 0, NULL, '2012-05-22 11:39:29.221623-04:30', '2012-05-22 11:33:31.825155-04:30');
+INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (10, 'LUIS', 'ESTRADA', '123456', NULL, 'M', 'LESTRADA', '311E0C5E77F8A19D144E3AFED36912889EBAAE1C', NULL, NULL, NULL, '2012-05-22 11:34:14.980207-04:30', NULL, true, 0, NULL, '2012-05-23 15:15:45.209464-04:30', '2012-05-22 11:34:14.980207-04:30');
+INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (5, 'MARIELY', 'CORONADO', '16538158', NULL, 'F', 'MCORONADO', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'LA VILLA', NULL, 'MARIELYCORONADO@AGROPATRIA.CO.VE', '2012-02-13 00:00:00-04:30', '2012-03-16 11:42:37.144713-04:30', true, 0, NULL, '2012-06-06 13:54:23.807011-04:30', '2012-02-13 00:00:00-04:30');
+INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (1, 'JOSE', 'PELUZZO', '1234567', '2012-02-12', 'M', 'JPELUZZO', '40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 'Maracay', NULL, 'JOSEPELUZZO@AGROPATRIA.CO.VE', '2012-02-12 00:00:00-04:30', '2012-06-06 13:51:05.65027-04:30', true, 0, NULL, '2012-06-06 13:44:21.413047-04:30', '2012-02-12 00:00:00-04:30');
 
 
 --
@@ -5724,22 +5532,6 @@ ALTER TABLE ONLY si_analisis
 
 ALTER TABLE ONLY si_analisis_resultado
     ADD CONSTRAINT si_analisis_resultado_pkey PRIMARY KEY (id);
-
-
---
--- Name: si_asociacion_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
---
-
-ALTER TABLE ONLY si_asociacion
-    ADD CONSTRAINT si_asociacion_pkey PRIMARY KEY (id);
-
-
---
--- Name: si_asociado_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
---
-
-ALTER TABLE ONLY si_asociado
-    ADD CONSTRAINT si_asociado_pkey PRIMARY KEY (id);
 
 
 --
@@ -5980,14 +5772,6 @@ ALTER TABLE ONLY si_pais
 
 ALTER TABLE ONLY si_parametros
     ADD CONSTRAINT si_parametros_pkey1 PRIMARY KEY (id);
-
-
---
--- Name: si_perfiles_menu_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
---
-
-ALTER TABLE ONLY si_perfiles_menu
-    ADD CONSTRAINT si_perfiles_menu_pkey PRIMARY KEY (id);
 
 
 --
@@ -6756,22 +6540,6 @@ ALTER TABLE ONLY si_organizacion
 
 ALTER TABLE ONLY si_organizacion
     ADD CONSTRAINT si_organizacion_id_pais_fkey FOREIGN KEY (id_pais) REFERENCES si_pais(id);
-
-
---
--- Name: si_perfiles_menu_id_menu_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
---
-
-ALTER TABLE ONLY si_perfiles_menu
-    ADD CONSTRAINT si_perfiles_menu_id_menu_fkey FOREIGN KEY (id_menu) REFERENCES si_menu(id);
-
-
---
--- Name: si_perfiles_menu_id_perfil_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
---
-
-ALTER TABLE ONLY si_perfiles_menu
-    ADD CONSTRAINT si_perfiles_menu_id_perfil_fkey FOREIGN KEY (id_perfil) REFERENCES si_perfiles(id);
 
 
 --

@@ -15,7 +15,7 @@ class General {
             if($boton['eliminar'] == 1 && $aparte == 0)
                 echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', $accion[2], array('onclick' => 'return eliminar();'));
             if($boton['imprimir'] == 1 && $aparte == 0)
-                echo $html->link('<img src="../images/imprimir.png" width="16" height="16" title=Imprimir>', $accion[3]);
+                echo $html->link('<img src="../images/pdf.png" width="16" height="16" title=Pdf>', $accion[3]);
         }
     }
     

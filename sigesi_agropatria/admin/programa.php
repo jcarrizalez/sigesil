@@ -6,7 +6,7 @@ $cosecha = new Cosecha();
 $cultivo = new Cultivo();
 
 $estatus = array('t' => 'Activo', 'f' => 'Inactivo');
-$listaCultivos = $cultivo->find('', '', "id, '('||codigo||') - '||nombre AS nombre", 'list', 'codigo');
+$listaCultivos = $cultivo->find(array('estatus' => 't'), '', "id, '('||codigo||') - '||nombre AS nombre", 'list', 'codigo');
 
 switch ($GPC['ac']) {
     case 'guardar':

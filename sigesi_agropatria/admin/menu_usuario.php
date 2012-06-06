@@ -28,7 +28,7 @@
         break;
         case 'editar':
             $infoUsuario = $usuario->obtenerDetalleUsuarios($GPC['id']);
-            $opcionesMenu = $menu->find('', '', array('id', 'nombre', 'id_padre'), '', 'id_padre, orden');
+            $opcionesMenu = $menu->find(array('estatus' => 't'), '', array('id', 'nombre', 'id_padre'), '', 'id_padre, orden');
             $menuUsuarioOpc = $menu->menuPorUsuario($GPC['id']);
             foreach($menuUsuarioOpc as $valor){
                 $menuUsuario[] = $valor['id'];
@@ -102,19 +102,6 @@
     <fieldset>
         <legend>Datos del Menu</legend>
         <table align="center" border="0" cellpadding="0" cellspacing="0">
-            <tr align="center">
-                <th>&nbsp;</th>
-                <th>Opci&oacute;n del Men&uacute;</th>
-                <th colspan="4">Acciones</th>
-            </tr>
-            <tr>
-                <td colspan="2">&nbsp;</td>
-                <td align="center"><img src="../images/agregar.png" alt="Agregar" title="Agregar" width="16" height="16" /></td>
-                <td align="center"><img src="../images/editar.png" alt="Editar" title="Editar" width="16" height="16" /></td>
-                <td align="center"><img src="../images/eliminar2.png" alt="Eliminar" title="Eliminar" width="16" height="16" /></td>
-                <td align="center"><img src="../images/imprimir.png" alt="Imprimir" title="Imprimir" width="16" height="16" /></td>
-                </td>
-            </tr>
             <?
                 foreach($opcionesMenu as $padre){
                     if($padre['id_padre'] == 0){
@@ -122,7 +109,11 @@
             ?>
             <tr>
                 <td><input name="padre[]" id="padre_<?=$padre['id']?>" type="checkbox" <?=$asignarP?> class="marcarHijos" value="<?=$padre['id']?>"></td>
-                <td colspan="5" style="font-weight: bold;"><?=$etiqueta[$padre['nombre']]?></td>
+                <td style="font-weight: bold;"><?=$etiqueta[$padre['nombre']]?></td>
+                <td align="center"><img src="../images/agregar.png" alt="Agregar" title="Agregar" width="16" height="16" /></td>
+                <td align="center"><img src="../images/editar.png" alt="Editar" title="Editar" width="16" height="16" /></td>
+                <td align="center"><img src="../images/eliminar2.png" alt="Eliminar" title="Eliminar" width="16" height="16" /></td>
+                <td align="center"><img src="../images/imprimir.png" alt="Imprimir" title="Imprimir" width="16" height="16" /></td>
             </tr>
             <?
                         foreach($opcionesMenu as $hijo){
@@ -136,15 +127,31 @@
             <tr>
                 <td align="right" width="40"><input name="hijo_<?=$padre['id']?>[]" id="hijo_<?=$padre['id']?>" type="checkbox" <?=$asignarH?> class="marcar_<?=$padre['id']?> desmarPadre" value="<?=$hijo['id']?>"></td>
                 <td><?=$etiqueta[$hijo['nombre']]?></td>
-                <td align="center"><input name="accion_<?=$hijo['id']?>[nuevo]" id ="accion_<?=$hijo['id']?>" type="checkbox" <?=$verifn?> class="" value="1" /></td>
-                <td align="center"><input name="accion_<?=$hijo['id']?>[modificar]" id ="accion_<?=$hijo['id']?>" type="checkbox" <?=$verifm?> class="" value="1" /></td>
-                <td align="center"><input name="accion_<?=$hijo['id']?>[eliminar]" id ="accion_<?=$hijo['id']?>" type="checkbox" <?=$verife?> class="" value="1" /></td>
-                <td align="center"><input name="accion_<?=$hijo['id']?>[imprimir]" id ="accion_<?=$hijo['id']?>" type="checkbox" <?=$verifi?> class="" value="1" /></td>
+                <td align="center">
+                <? if(in_array($padre['id'], array(1,4))){ ?>
+                <input name="accion_<?=$hijo['id']?>[nuevo]" id ="accion_<?=$hijo['id']?>" type="checkbox" <?=$verifn?> class="" value="1" />
+                <? } ?>
+                </td>
+                <td align="center">
+                <? if(in_array($padre['id'], array(1,4))){ ?>
+                <input name="accion_<?=$hijo['id']?>[modificar]" id ="accion_<?=$hijo['id']?>" type="checkbox" <?=$verifm?> class="" value="1" />
+                <? } ?>
+                </td>
+                <td align="center">
+                <? if(in_array($padre['id'], array(1,4))){ ?>
+                <input name="accion_<?=$hijo['id']?>[eliminar]" id ="accion_<?=$hijo['id']?>" type="checkbox" <?=$verife?> class="" value="1" />
+                <? } ?>
+                </td>
+                <td align="center">
+                <? if(in_array($padre['id'], array(3))){ ?>
+                <input name="accion_<?=$hijo['id']?>[imprimir]" id ="accion_<?=$hijo['id']?>" type="checkbox" <?=$verifi?> class="" value="1" />
+                <? } ?>
                 </td>
             </tr>
             <?
                             }
                         }
+                        ?><tr><td>&nbsp;</td></tr><?
                     }
                 }
             ?>

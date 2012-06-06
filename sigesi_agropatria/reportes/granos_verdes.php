@@ -481,9 +481,9 @@
             
             <td align="center">
                 <?
+                    echo $html->link('<img src="../images/excel.png" width="16" height="16" title=Excel>', 'granos_verdes.php?exportar=Excel&idP='.$dataRecepcion['id'].'&idCo='.$dataRecepcion['id_co'].'&fdes='.$fdesde.'&fhas='.$fhasta.'&idCa='.$dataRecepcion['ca_id']);
                     $urls = array(3 => '../reportes/pdf_listado_granos_verdes_individual.php?id='.$dataRecepcion['id'].'_'.$dataRecepcion['id_co'].'_'.$fdesde.'_'.$fhasta.$idCA);
                     $general->crearAcciones($acciones, $urls);
-                    echo $html->link('<img src="../images/excel.png" width="16" height="16" title=Excel>', 'granos_verdes.php?exportar=Excel&idP='.$dataRecepcion['id'].'&idCo='.$dataRecepcion['id_co'].'&fdes='.$fdesde.'&fhas='.$fhasta.'&idCa='.$dataRecepcion['ca_id']);
                 ?>
             </td>
         </tr>

@@ -56,7 +56,8 @@ $validator->setRules('Usuario.cedula', array('required' => array('value' => true
 $validator->setRules('Usuario.sexo', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Usuario.email', array('email' => array('value' => true, 'message' => 'Correo Inv&aacute;lido')));
 $validator->setRules('Usuario.usuario', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('Usuario.contrasena', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('verif_con', array('required' => array('value' => true, 'message' => 'Requerido'), 'minlength' => array('value' => 5, 'message' => 'M&iacute;nimo 5 Caracteres')));
+$validator->setRules('Usuario.contrasena', array('required' => array('value' => true, 'message' => 'Requerido'), 'minlength' => array('value' => 5, 'message' => 'M&iacute;nimo 5 Caracteres'), 'equalTo' => array('value' => '"#verif_con"', 'message' => 'Contrase&ntilde;a No Coincide')));
 $validator->setRules('centro_acopio', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('almacen', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('perfil', array('required' => array('value' => true, 'message' => 'Requerido')));
@@ -125,6 +126,10 @@ $validator->printScript();
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>Contrase&ntilde;a </td>
+                <td><? echo $html->input('verif_con', '', array('type' => 'password', 'class' => 'estilo_campos')); ?></td>
+            </tr>
+            <tr>
+                <td><span class="msj_rojo">* </span>Confirmar Contrase&ntilde;a </td>
                 <td><? echo $html->input('Usuario.contrasena', '', array('type' => 'password', 'class' => 'estilo_campos')); ?></td>
             </tr>
         </table>
