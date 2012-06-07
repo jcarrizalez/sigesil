@@ -17,7 +17,7 @@
     if(!empty($GPC['exportar'])){
         $formato = ($GPC['exportar'] == 'Excel') ? 'xlsx' : 'ods';
 
-        $filename_client = "Reporte_Cosechas_".date("d_m_Y");
+        $filename_client = "Reporte_Cultivos_".date("d_m_Y");
         $filename_server = md5(date("dmYhis").rand());
         if($formato=='xlsx'){
             $filename_client .= '.xlsx';

@@ -4,9 +4,9 @@ if (preg_match( "/config_var.php/", $_SERVER ["PHP_SELF"] ) || preg_match( "/con
 	die ( "Access denied!" );
 	
 //Directorios
-define ( "APPROOT", $_SERVER ['DOCUMENT_ROOT'] . "/sigesil/" );
+define ( "APPROOT", $_SERVER ['DOCUMENT_ROOT'] . "/" );
 // Ej: se usa para los includes
-define ( "DOMAIN_ROOT", "http://" . $_SERVER ['SERVER_NAME'] . "/sigesil/" );
+define ( "DOMAIN_ROOT", "http://" . $_SERVER ['SERVER_NAME'] . "/" );
 // Ej: se usa para las im�genes, link, etc.
 
 
