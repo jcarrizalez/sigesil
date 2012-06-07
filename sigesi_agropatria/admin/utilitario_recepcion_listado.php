@@ -21,11 +21,13 @@
     }
 
     if (!empty($numEntrada) && (!empty($fdesde) || !empty($fhasta))) {
-        if (empty($fdesde))
-            $fdesde=$fhasta;
-        elseif (empty($fhasta))
+        if (!empty($fdesde)) {
             $fhasta=$fdesde;
-
+        } elseif (!empty($fhasta)) {
+            $fdesde=$fhasta;
+        }
+        $GPC['fecha_inicio']=$fdesde;
+        $GPC['fecha_fin']=$fhasta;
         $listadoMov = $movimiento->listadoRecepcion(null, $idCa, $idCo, null, $numEntrada, $estatus, null, null, $porPagina, $inicio, null, null, null, null, null, null, null, null, $fdesde, $fhasta);
 
         $total_registros = $despacho->total_verdadero;

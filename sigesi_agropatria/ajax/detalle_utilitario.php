@@ -48,8 +48,8 @@
                     $cedRifP=$GPC['cedRifP'];
                     $cedRifAon=$GPC['cedRifAon'];
                     $cedRifAdo=$GPC['cedRifAdo'];
-                    $listAsociacion = $cosecha->buscarCosechaProductor($cedRifP, $cedRifAon, $cedRifAdo);
-                    if (!empty($listAsociacion[0]['asociacion'])) {
+                    $listAsociacion = $cosecha->buscarCosechaProductor($idCosecha, $cedRifP, $cedRifAon, $cedRifAdo);
+                    if (count($listAsociacion[0]['asociacion'])) {
                         echo "<span class='crproductor'>".$listAsociacion[0]['asociacion']."</span>";
                         echo $html->input('msg6',0, array('type' => 'text', 'style'=>'display: none', 'class'=>'mensaje'));
                     } else  {
@@ -134,19 +134,25 @@
                 } 
             }
         break;
-        case 'guia':            
-            $listaSubGuia = $guia->buscarSubGuias($infoMov[0]['id_guia']);
-            $i=1;
-            foreach($listaSubGuia as $subguia) {
-                $i++;
-?>
-            <tr>
-                <td>Gu&iacute;a Nro. <?=$i?></td>
-                <td>
-                    <?=$html->input('Recepcion.numero_guia_'.$i, $subguia['subguia'], array('type' => 'text', 'class' => 'crproductor')); ?>
-                </td>
-            </tr>            
-<? 
+        case 'guia':
+            if (!empty($GPC['numero'])) {
+                $infoGuia = $guia->find(array('numero_guia'=>$GPC['numero']), '');
+                $idGuia=$infoGuia[0]['id'];
+                if (!empty($idGuia)) {
+                    $listaSubGuia = $guia->buscarSubGuias($idGuia);
+                    $i=0;
+                    foreach($listaSubGuia as $subguia) {
+                        $i++;
+                    ?>
+                    <tr>
+                        <td width="130px">SubGu&iacute;a Nro. <?=$i?></td>
+                        <td width="230px">
+                            <?=$html->input('Recepcion.numero_guia_'.$i, $subguia['subguia'], array('type' => 'text', 'class' => 'crproductor subguia')); ?>
+                        </td>
+                    </tr>            
+                    <?                
+                    }
+                }
             }
         break;
         case 'chofer':

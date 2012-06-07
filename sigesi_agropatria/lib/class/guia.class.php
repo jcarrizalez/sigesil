@@ -17,5 +17,11 @@ class Guia extends Model {
         $query .= (!empty($subGuia)) ? " AND id = '$subGuia'" : "";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
+    
+    function borrarSubGuias($idGuia, $subGuia, $fecha = null, $descripcion = null) {
+        $query = "DELETE FROM si_guiarec_det WHERE '1'AND id_guiarec = '$idGuia'";
+        $query .= (!empty($subGuia)) ? " AND subguia = '$subGuia'" : "";
+        return $this->_SQL_tool('DELETE', __METHOD__, $query);
+    }
 }
 ?>

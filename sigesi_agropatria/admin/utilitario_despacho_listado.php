@@ -14,10 +14,13 @@
     $listaCu = $cultivo->find('', '', array('id', 'nombre'), 'list', 'id');
     
     if (!empty($numSalida) && (!empty($fdesde) || !empty($fhasta))) {
-        if (empty($fdesde))
-            $fdesde=$fhasta;
-        elseif (empty($fhasta))
+        if (!empty($fdesde)) {
             $fhasta=$fdesde;
+        } elseif (!empty($fhasta)) {
+            $fdesde=$fhasta;
+        }
+        $GPC['fecha_inicio']=$fdesde;
+        $GPC['fecha_fin']=$fhasta;
     
         $listadoMov=$movimiento->listadoDespacho(null, $idCa, $idCu, null, $numSalida, $estatus, null, null, $porPagina, $inicio, null, null, null, null, null, null, $fdesde, $fhasta);
         $total_registros = $despacho->total_verdadero;

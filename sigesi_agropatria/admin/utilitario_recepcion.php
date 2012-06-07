@@ -29,12 +29,12 @@
         case 'editar':
             if (!empty($GPC['id'])) {
                 $infoMov=$movimiento->listadoRecepcion($GPC['id']);
-                $listaCo = $cosecha->find('', '', array('id', 'nombre'), 'list', 'id');
+                $listadoCosecha=$cosecha->infoCosechaCultivo($idCA);
                 $listaP = $productor->find(array('ced_rif'=>$infoMov[0]['ced_productor']), '', array('ced_rif', 'nombre'), 'list', 'ced_rif');
                 $listaAon = $productor->find(array('ced_rif'=>$infoMov[0]['ced_asociacion']), '', array('ced_rif', 'nombre'), 'list', 'ced_rif');                
                 $listaAdo = $productor->find(array('ced_rif'=>$infoMov[0]['ced_asociado']), '', array('ced_rif', 'nombre'), 'list', 'ced_rif');
                 $listaCarril = $carril->listaTolcarom($_SESSION['s_ca_id'], "'2'");
-                $listaGuia = $guia->find('', '', array('id', 'numero_guia'), 'list', 'id');
+                $infoGuia = $guia->find(array('id'=>$infoMov[0]['id_guia']));
                 $listaSubGuia = $guia->buscarSubGuias($infoMov[0]['id_guia']);
 
                 foreach($listaCarril as $dataCarril) {
@@ -44,6 +44,10 @@
                     if ($clave <= $infoMov[0]['estatus_rec'])
                         $listadoEstatus[$clave]=$valor;
                 }
+
+                foreach($listadoCosecha as $dataCosecha) {
+                    $listaCo[$dataCosecha['cosecha_id']]=$dataCosecha['cultivo_nombre'];
+                }
             }
             if (empty($id)) {
                 header("location: ".DOMAIN_ROOT."admin/utilitario_recepcion_listado.php?msg=error");
@@ -52,46 +56,102 @@
             break;
         case 'guardar':
             if (!empty($GPC['Recepcion']['id_cosecha']) && !empty($GPC['Recepcion']['ced_productor']) && !empty($GPC['Recepcion']['fecha_recepcion'])) {
-                $movimiento->_begin_tool();                
-                $infoProductor = $productor->find(array('ced_rif' => $GPC['Recepcion']['ced_productor']));
-                $GPC['Recepcion']['id_productor']=$infoProductor[0]['id'];
-
-                if (!empty($GPC['Recepcion']['ced_asociacion'])) {
-                    $infoAsociacion = $productor->find(array('ced_rif' => $GPC['Recepcion']['ced_asociacion']));
-                    if (!empty($infoAsociacion[0]['id']))
-                        $GPC['Recepcion']['id_asociacion']=$infoAsociacion[0]['id'];
+                $movimiento->_begin_tool();
+                
+                $cedP=$GPC['Recepcion']['ced_productor_pre']+$GPC['Recepcion']['ced_productor'];
+                if (empty($cedP)) {
+                    $infoProductor = $productor->find(array('ced_rif' => $cedP));
+                    if (!empty($infoProductor[0]['id']))
+                        $GPC['Recepcion']['id_productor']=$infoProductor[0]['id'];
+                    
+                    unset($GPC['Recepcion']['ced_productor_pre']);
+                    unset($GPC['Recepcion']['ced_productor']);
+                    echo "Productor OK<br>";
                 }
                 
-                if (!empty($GPC['Recepcion']['ced_asociado'])) {
-                    $infoAsociado = $productor->find(array('ced_rif' => $GPC['Recepcion']['ced_asociado']));
+                $cedRifAon=$GPC['Recepcion']['ced_asociacion_pre']+$GPC['Recepcion']['ced_asociacion'];
+                
+                if (!empty($cedRifAon)) {
+                    $infoAsociacion = $productor->find(array('ced_rif' => $cedRifAon));
+                    
+                    if (!empty($infoAsociacion[0]['id'])) 
+                        $GPC['Recepcion']['id_asociacion']=$infoAsociacion[0]['id'];
+                    
+                    unset($GPC['Recepcion']['ced_asociacion_pre']);
+                    unset($GPC['Recepcion']['ced_asociacion']);
+                    echo "Asocacion OK<br>";
+                }
+                
+                $cedRifAdo=$GPC['Recepcion']['ced_asociado_pre']+$GPC['Recepcion']['ced_asociado'];
+                
+                if (!empty($cedRifAdo)) {
+                    $infoAsociado = $productor->find(array('ced_rif' => $cedRifAdo));
                     if (!empty($infoAsociacion[0]['id']))
                         $GPC['Recepcion']['id_asociado']=$infoAsociacion[0]['id'];
+                    
+                    unset($GPC['Recepcion']['ced_asociado_pre']);
+                    unset($GPC['Recepcion']['ced_asociado']);
+                    echo "Asociado OK<br>";
                 }
                 
                 if (!empty($GPC['Recepcion']['placa'])) {
                     $infoVehiculo = $vehiculo->buscar($GPC['Recepcion']['placa']);
                     if (!empty($infoVehiculo[0]['id']))
                         $GPC['Recepcion']['id_vehiculo']=$infoVehiculo[0]['id'];
+                    echo "Vehiculo OK<br>";
                 }
                 
                 if (!empty($GPC['Recepcion']['ced_chofer_pre']) && !empty($GPC['Recepcion']['ced_chofer'])) {
                     $infoChofer = $chofer->find(array('ced_rif' => $GPC['Recepcion']['ced_chofer_pre'].$GPC['Recepcion']['ced_chofer']));
                     if (!empty($infoChofer[0]['id']))
                         $GPC['Recepcion']['id_chofer']=$infoChofer[0]['id'];
+                    unset($GPC['Recepcion']['ced_chofer']);
+                    unset($GPC['Recepcion']['ced_chofer_pre']);
+                    echo "Chofer OK<br>";
                 }
-
+                
+                if (!empty($GPC['Recepcion']['numero_guia'])) {
+                    $infoGuia = $guia->find(array('numero_guia'=>$GPC['Recepcion']['numero_guia']), '');
+                    if (!empty($infoGuia[0]['id'])) {
+                        echo 'Guia:'.$GPC['Recepcion']['numero_guia']."<br>";
+                        $GPC['Guia']['id']=$infoGuia[0]['id'];
+                        $GPC['Guia']['numero_guia']=$GPC['Recepcion']['numero_guia'];
+                        $GPC['Guia']['placa_vehiculo']=$infoVehiculo[0]['placa'];
+                        $GPC['Guia']['fecha_emision']=(!empty($GPC['Recepcion']['fecha_emision'])) ? $GPC['Recepcion']['fecha_emision']: 'now()';
+                        $GPC['Guia']['placa_remolque']=$GPC['Recepcion']['placa_remolques'];
+                        
+                        $guia->save($GPC['Guia']);
+                        echo "Guia OK<br>";
+                    }
+                
+                    if (!empty($GPC['Recepcion']['numero_guia_1'])) {
+                        $infoGuia = $guia->find(array('numero_guia'=>$GPC['Recepcion']['numero_guia']), '');
+                        $GPC['Guia']['id']=$infoGuia[0]['id'];
+                        $GPC['Guia']['numero_guia']=$GPC['Recepcion']['numero_guia'];
+                        $listaSubGuia = $guia->buscarSubGuias($infoGuia[0]['id']);
+                        $numGuia=count($listaSubGuia);
+                        for($i=1; $i <= $numGuia; $i++) {
+                            $GPC['subGuia']['id']=$infoGuia[0]['id'];
+                            $GPC['subGuia']['subguia']=$GPC['Recepcion']['numero_guia_'.$i];
+                            $guia->borrarSubGuias($GPC['subGuia']['id']);
+                            unset($GPC['Recepcion']['numero_guia_'.$i]);
+                            $guia->guardarSubGuias($GPC['subGuia']['id'], $GPC['subGuia']['subguia']);
+                            echo "SubGuia OK<br>";
+                        }
+                    }
+                }
+                unset($GPC['Recepcion']['numero_guia']);
+                unset($GPC['Recepcion']['fecha_emision']);
+                unset($GPC['Recepcion']['placa_remolques']);
+                
                 $infoMovimiento = $movimiento->find(array('id'=>$GPC['Recepcion']['id']));
                 
-                unset($GPC['Recepcion']['ced_productor']);
-                unset($GPC['Recepcion']['ced_asociacion']);
-                unset($GPC['Recepcion']['ced_asociado']);
-                unset($GPC['Recepcion']['numero_guia']);
                 unset($GPC['Recepcion']['placa']);
-                unset($GPC['Recepcion']['ced_chofer']);
-                unset($GPC['Recepcion']['ced_chofer_pre']);
                 unset($GPC['Recepcion']['fecha_recepcion']);
                 unset($GPC['Recepcion']['numero']);
-                $movimiento->_begin_tool();
+                unset($GPC['Recepcion']['numero_guia']);
+                unset($GPC['Recepcion']['placa_remolques']);
+
                 
                 if (!empty($infoMovimiento[0]['id'])) {
                     if ($infoMovimiento[0]['estatus_rec']!=$GPC['Recepcion']['estatus_rec']) {
@@ -343,22 +403,28 @@
                         }                        
                     }
                 }
+                echo 'recepcion.id'.$infoMovimiento[0]['id'].'<br>';
+                die();
                 if (!empty($infoMovimiento[0]['id'])) {
                     $movimiento->save($GPC['Recepcion']);
+                    echo "Recepcion OK<br>";
+                    die();
                     $movimiento->_commit_tool();
                     header("location: ".DOMAIN_ROOT."admin/utilitario_recepcion_listado.php?msg=exitoso");
                     die();
                 }
                 header("location: ".DOMAIN_ROOT."admin/utilitario_recepcion_listado.php?msg=error");
                 die();
-            }
+            } else 
+                echo 'NO tiene var<br>';
+            die();
             header("location: ".DOMAIN_ROOT."admin/utilitario_recepcion_listado.php?msg=error");
             die();
-        default:
+//        default:
             //header("location: ".DOMAIN_ROOT."admin/utilitario_recepcion_listado.php?msg=error");
-            debug::pr($GPC['ac']);
-            die();
-            break;
+//            debug::pr($GPC['ac']);
+//            die();
+//            break;
     }
     require('../lib/common/header.php');
     require('../lib/common/init_calendar.php');
@@ -409,7 +475,7 @@
             cedRifP=$('#Recepcion\\[ced_productor_pre\\]').val()+$('#Recepcion\\[ced_productor\\]').val();
             cedRifAdo=$('#Recepcion\\[ced_asociado_pre\\]').val()+$('#Recepcion\\[ced_asociado\\]').val();
             cedRifAon=$('#Recepcion\\[ced_asociacion_pre\\]').val()+$('#Recepcion\\[ced_asociacion\\]').val();
-            $('#asociacion_nombre').load('../ajax/detalle_utilitario.php?ac=productor&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+"&cedRifP="+cedRifP+'&cedRifAon='+cedRifAon+'&cedRifAdo='+cedRifAdo);
+            $('#asociacion_nombre').load('../ajax/detalle_utilitario.php?ac=asociacion&cosecha='+$('#Recepcion\\[id_cosecha\\]').val()+"&cedRifP="+cedRifP+'&cedRifAon='+cedRifAon+'&cedRifAdo='+cedRifAdo);
         });
         
         $('#Recepcion\\[ced_asociado\\]').live('change', function() {
@@ -472,9 +538,18 @@
                 $('#Guardar').removeAttr('disabled');            
         });
 
-        $('#Recepcion\\[numero_guia_1\\]').change(function() {
-            alert($(this).val());
-            $('#chofer_nombre').load('../ajax/detalle_utilitario.php?ac=chofer&cedC='+$('#Recepcion\\[ced_chofer_pre\\]').val()+$('#Recepcion\\[ced_chofer\\]').val());
+        $('#Recepcion\\[numero_guia\\]').change(function() {
+            if ($(this).val()=='') {
+                $('#Guardar').attr('disabled', 'disabled');
+                alert('Se debe elegir una Guia!!!');
+            } else {
+                $('#Guardar').removeAttr('disabled');   
+                $('#subguia').load('../ajax/detalle_utilitario.php?ac=guia&numero='+$(this).val());
+            }
+        });
+        
+        $('.subguia').change(function() {
+            
         });
         
         $("#form1").submit(function() {
@@ -523,20 +598,20 @@
         <legend>Datos de la Gu&iacute;a</legend>
         <table align="center" border="0">
             <tr>
-                <td width="130px">Gu&iacute;a Nro. 1</td>
-                <td width="230px"><?=$html->input('Recepcion.numero_guia_1',$infoMov[0]['numero_guia'], array('type' => 'text', 'class' => 'crproductor'));?></td>
+                <td width="130px">Numero de Gu&iacute;a</td>
+                <td width="230px"><?=$html->input('Recepcion.numero_guia',$infoMov[0]['numero_guia'], array('type' => 'text', 'class' => 'crproductor guia', 'length'=>'9'));?></td>
         </table>
         <table id="subguia" align="center" border="0">
         <?
             $listaSubGuia = $guia->buscarSubGuias($infoMov[0]['id_guia']);
-            $i=1;
+            $i=0;
             foreach($listaSubGuia as $subguia) {
                 $i++;
          ?>
             <tr>
-                <td width="130px">Gu&iacute;a Nro. <?=$i?></td>
+                <td width="130px">SubGu&iacute;a Nro. <?=$i?></td>
                 <td width="230px">
-                    <?=$html->input('Recepcion.numero_guia_'.$i, $subguia['subguia'], array('type' => 'text', 'class' => 'crproductor')); ?>
+                    <?=$html->input('Recepcion.numero_guia_'.$i, $subguia['subguia'], array('type' => 'text', 'class' => 'crproductor subguia')); ?>
                 </td>
             </tr>
             <?
@@ -546,7 +621,7 @@
         <table align="center" border="0">
                 <tr>
                     <td width="130px">Fecha de emisi&oacute;n</td>
-                    <td width="230px"><?=$html->input('Recepcion.fecha_emision', $listaGuia[0]['fecha_emision'], array('type' => 'text', 'class' => 'crproductor','readOnly'=>true)); ?>
+                    <td width="230px"><?=$html->input('Recepcion.fecha_emision', $general->date_sql_screen($infoGuia[0]['fecha_emision'],'','es','-'), array('type' => 'text', 'class' => 'crproductor','readOnly'=>true)); ?>
                         <img src="../images/calendario.png" id="femision" width="16" height="16" style="cursor:pointer;" />
                         <script>
                             Calendar.setup({
@@ -574,7 +649,7 @@
                 </tr>
                 <tr>
                     <td width="130px">Placa del Remolque</td>
-                    <td width="230px"><?=$html->input('Recepcion.placa_remolques', $infoMov[0]['placa_remolques'], array('type' => 'text', 'class' => 'crproductor')); ?></td>
+                    <td width="230px"><?=$html->input('Recepcion.placa_remolques', $infoGuia[0]['placa_remolque'], array('type' => 'text', 'class' => 'crproductor')); ?></td>
                 </tr>
                 <tr>
                     <td>Contrato</td>
@@ -590,7 +665,10 @@
         <tr>
             <td>Cosecha</td>
             <td colspan="2" id='cultivo_nombre' width="230px">                
-            <? echo $html->select('Recepcion.id_cosecha', array('options' => $listaCo, 'selected' => $infoMov[0]['id_cosecha'],  'default'=>'Seleccione', 'class' => 'estilo_campos')); ?>
+            <? //echo $html->select('Recepcion.id_cosecha', array('options' => $listaCo, 'selected' => $infoMov[0]['id_cosecha'],  'default'=>'Seleccione', 'class' => 'estilo_campos', 'disabled'=>'true')); 
+            echo $html->input('Recepcion.id_cosecha', $infoMov[0]['id_cosecha'], array('type' => 'hidden'));
+            echo $html->input('', $infoMov[0]['cosecha'], array('type' => 'text', 'disabled'=>'true'));
+            ?>
             </td>
         </tr>
         <tr>
