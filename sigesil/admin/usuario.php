@@ -5,7 +5,7 @@ $usuario = new Usuario();
 $usuarioPerfil = new UsuarioPerfil();
 $centro_acopio = new CentroAcopio();
 
-$sexo = array('F' => 'Femenino', 'M' => 'Masculino');
+$listaSexo = array('F' => 'Femenino', 'M' => 'Masculino');
 if($_SESSION['s_perfil_id'] == GERENTEG)
     $listaCA = $centro_acopio->find('', '', array('id', 'nombre'), 'list', 'id');
 else
@@ -47,6 +47,7 @@ switch ($GPC['ac']) {
 }
 
 require('../lib/common/header.php');
+require('../lib/common/init_calendar.php');
 
 $validator = new Validator('form1');
 $validator->printIncludes();
@@ -70,6 +71,10 @@ $validator->printScript();
     
     $(document).ready(function(){
         $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
+        
+        $('#Usuario\\[usuario\\]').live('change', function(){
+            $('#valid_usu').load('../ajax/detalle_usuario.php?ac=validar&user=' + $(this).val());
+        });
         
         $('#centro_acopio').change(function(){
             $('#almacenes').load('../ajax/detalle_usuario.php?ac=almacen&idCA=' + $(this).val());
@@ -102,11 +107,24 @@ $validator->printScript();
             </tr>
             <tr>
                 <td>Fecha Nacimiento </td>
-                <td><? echo $html->input('Usuario.fecha_nacimiento', $infoUsuario[0]['fecha_nacimiento'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td>
+                    <? echo $html->input('Usuario.fecha_nacimiento', $general->date_sql_screen($infoUsuario[0]['fecha_nacimiento'], '', 'es', '-'), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?>
+                    <img src="../images/calendario.png" id="fnac" width="16" height="16" style="cursor:pointer" />
+                    <script>
+                        Calendar.setup({
+                            trigger    : "fnac",
+                            inputField : "Usuario[fecha_nacimiento]",
+                            dateFormat: "%d-%m-%Y",
+                            selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($infoUsuario[0]['fecha_nacimiento']));?>),
+                            onSelect   : function() { this.hide() }
+                        });
+                    </script>
+                </td>
+                <!--td><? echo $html->input('Usuario.fecha_nacimiento', $infoUsuario[0]['fecha_nacimiento'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td-->
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>Sexo </td>
-                <td><? echo $html->select('Usuario.sexo', array('options' => $sexo, 'selected' => $infoUsuario[0]['sexo'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
+                <td><? echo $html->select('Usuario.sexo', array('options' => $listaSexo, 'selected' => $infoUsuario[0]['sexo'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
             </tr>
             <tr>
                 <td>Direccion </td>
@@ -122,7 +140,7 @@ $validator->printScript();
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>Usuario </td>
-                <td><? echo $html->input('Usuario.usuario', $infoUsuario[0]['usuario'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td id="valid_usu"><? echo $html->input('Usuario.usuario', $infoUsuario[0]['usuario'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>Contrase&ntilde;a </td>

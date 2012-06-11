@@ -299,9 +299,9 @@ class Usuario extends Model {
         $url = explode('/', $uri);
         $query = "SELECT COUNT(*) AS pagina_requerida 
                     FROM si_recursos AS r 
-                    WHERE r.autentificacion = 1 AND CASE WHEN r.localizacion ISNULL THEN r.nombre_archivo = '$url[3]' WHEN r.localizacion NOTNULL THEN '/sigesil/'||r.localizacion||'/'||r.nombre_archivo = '$uri' END";
-                    //ESTA LINEA ES LA QUE DEBERIA IR EN EL SERVIDOR
-                    //WHERE r.autentificacion = 1 AND CASE WHEN r.localizacion ISNULL THEN r.nombre_archivo = '$url[2]' WHEN r.localizacion NOTNULL THEN '/'||r.localizacion||'/'||r.nombre_archivo = '$uri' END";
+                    WHERE r.autentificacion = 1 AND CASE WHEN r.localizacion ISNULL THEN r.nombre_archivo = '$url[2]' WHEN r.localizacion NOTNULL THEN '/'||r.localizacion||'/'||r.nombre_archivo = '$uri' END";
+                    //ESTA LINEA ES LA QUE DEBERIA IR EN DESARROLLO
+                    //WHERE r.autentificacion = 1 AND CASE WHEN r.localizacion ISNULL THEN r.nombre_archivo = '$url[3]' WHEN r.localizacion NOTNULL THEN '/sigesil/'||r.localizacion||'/'||r.nombre_archivo = '$uri' END";
         $resultado = $this->_SQL_tool('SELECT',__METHOD__,$query);
         return $resultado;
     }

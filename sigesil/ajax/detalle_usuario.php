@@ -2,6 +2,16 @@
     require_once('../lib/core.lib.php');
     
     switch ($GPC['ac']){
+        case 'validar':
+            if(!empty($GPC['user'])){
+                $usuario = new Usuario();
+                $detalleUsuario = $usuario->find(array('usuario' => strtoupper($GPC['user'])));
+                if(!empty($detalleUsuario))
+                    echo $html->input('Usuario.usuario', '', array('type' => 'text', 'class' => 'estilo_campos'))."<span class='msj_rojo'>El Nombre de Usuario ya Existe</span> ";
+                else
+                    echo $html->input('Usuario.usuario', $GPC['user'], array('type' => 'text', 'class' => 'estilo_campos'))."<span class='msj_verde'>Nombre de Usuario Valido</span> ";
+            }
+        break;
         case 'almacen':
             if(!empty($GPC['idCA'])){
                 $almacen = new Almacen();
