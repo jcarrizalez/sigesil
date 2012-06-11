@@ -2532,7 +2532,7 @@ ALTER TABLE public.si_usuarios_id_seq OWNER TO admin;
 -- Name: si_usuarios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_usuarios_id_seq', 10, true);
+SELECT pg_catalog.setval('si_usuarios_id_seq', 13, true);
 
 
 --
@@ -2581,7 +2581,7 @@ ALTER TABLE public.si_usuarios_perfiles_id_seq OWNER TO admin;
 -- Name: si_usuarios_perfiles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_usuarios_perfiles_id_seq', 10, true);
+SELECT pg_catalog.setval('si_usuarios_perfiles_id_seq', 13, true);
 
 
 --
@@ -3629,6 +3629,16 @@ INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, im
 INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (34, 7, 0, 0, 0, 0);
 INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (36, 7, 0, 0, 0, 0);
 INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (42, 7, 0, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (1, 13, 1, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (24, 13, 1, 1, 1, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (6, 13, 1, 1, 1, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (3, 13, 1, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (13, 13, 0, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (14, 13, 0, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (15, 13, 0, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (16, 13, 0, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (17, 13, 0, 0, 0, 1);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (18, 13, 0, 0, 0, 1);
 INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (1, 5, 2, 0, 0, 0);
 INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (25, 5, 1, 1, 1, 0);
 INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (9, 5, 1, 1, 1, 0);
@@ -3776,6 +3786,53 @@ INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, im
 INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (22, 3, 0, 1, 0, 0);
 INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (26, 3, 0, 1, 0, 0);
 INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (36, 3, 0, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (35, 13, 0, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (39, 13, 0, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (40, 13, 0, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (45, 13, 0, 0, 0, 1);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (4, 13, 1, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (20, 13, 1, 1, 1, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (22, 13, 0, 1, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (26, 13, 0, 1, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (36, 13, 0, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (1, 11, 1, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (24, 11, 1, 1, 1, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (6, 11, 1, 1, 1, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (3, 11, 1, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (13, 11, 0, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (14, 11, 0, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (15, 11, 0, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (16, 11, 0, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (17, 11, 0, 0, 0, 1);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (18, 11, 0, 0, 0, 1);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (35, 11, 0, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (39, 11, 0, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (40, 11, 0, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (45, 11, 0, 0, 0, 1);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (4, 11, 1, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (20, 11, 1, 1, 1, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (22, 11, 0, 1, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (26, 11, 0, 1, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (36, 11, 0, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (1, 12, 1, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (24, 12, 1, 1, 1, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (6, 12, 1, 1, 1, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (3, 12, 1, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (13, 12, 0, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (14, 12, 0, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (15, 12, 0, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (16, 12, 0, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (17, 12, 0, 0, 0, 1);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (18, 12, 0, 0, 0, 1);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (35, 12, 0, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (39, 12, 0, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (40, 12, 0, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (45, 12, 0, 0, 0, 1);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (4, 12, 1, 0, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (20, 12, 1, 1, 1, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (22, 12, 0, 1, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (26, 12, 0, 1, 0, 0);
+INSERT INTO si_menu_usuario (id_menu, id_usuario, nuevo, modificar, eliminar, imprimir) VALUES (36, 12, 0, 0, 0, 0);
 
 
 --
@@ -4299,7 +4356,6 @@ INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificaci
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (60, 'Utilitario Recepciones', 'admin', 'utilitario_recepcion_listado.php', 1, '2012-03-06 00:00:00-04:30', NULL);
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (61, 'Utilitario Despachos', 'admin', 'utilitario_despacho_listado.php', 1, '2012-03-06 00:00:00-04:30', NULL);
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (70, 'Reporte de Cosechas', 'reportes', 'cosechas.php', 1, '2012-03-06 00:00:00-04:30', NULL);
-INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (62, 'Cambiar Contrasena', 'admin', 'cambiar_contrasena.php', 0, '2012-03-06 00:00:00-04:30', NULL);
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (18, 'Popup de Cliente', 'admin', 'cliente_popup.php', 1, '2012-03-06 09:19:38.843861-04:30', NULL);
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (63, 'Popup de Chofer', 'admin', 'chofer_popup.php', 1, '2012-03-06 00:00:00-04:30', NULL);
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (64, 'Popup de Vehiculo', 'admin', 'vehiculo_popup.php', 1, '2012-03-06 00:00:00-04:30', NULL);
@@ -4319,6 +4375,7 @@ INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificaci
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (75, 'Reporte de Productores', 'reportes', 'productores.php', 1, '2012-03-06 00:00:00-04:30', NULL);
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (76, 'Reporte de Programas', 'reportes', 'programas.php', 1, '2012-03-06 00:00:00-04:30', NULL);
 INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (77, 'Reporte de Activididad Detalle', 'reportes', 'ver_log.php', 1, '2012-03-06 00:00:00-04:30', NULL);
+INSERT INTO si_recursos (id, nombre, localizacion, nombre_archivo, autentificacion, creado, modificado) VALUES (62, 'Cambiar Contrasena', 'admin', 'cambiar_contrasena.php', 0, '2012-03-06 00:00:00-04:30', NULL);
 
 
 --
@@ -4532,7 +4589,10 @@ INSERT INTO si_tolcarom (id, id_centro_acopio, nombre, numero, tipo, estatus, cr
 --
 
 INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (10, 'YESLEY', 'REYES', '10123456', NULL, 'M', 'YREYES', 'A21F63194A89DA6CA8CD5A93DC55DF507C1FE28E', NULL, NULL, NULL, '2012-06-11 11:16:44.137759-04:30', NULL, true, 0, NULL, NULL, '2012-06-11 11:16:44.137759-04:30');
-INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (1, 'ADMINISTRADOR', 'ADMINISTRADOR', '11111111', '1980-01-01', 'M', 'ADMIN', 'FE6268C04422554898E72C424D645519C2EFBE2D', NULL, NULL, NULL, '2012-02-12 00:00:00-04:30', NULL, true, 0, NULL, '2012-06-11 11:37:34.004078-04:30', '2012-06-11 10:01:46.101348-04:30');
+INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (11, 'JOSE', 'PELUZZO', '10123456', NULL, 'M', 'JPELUZZO', 'BEA59914A3F4776602DBF491D08507A27D8AC7B5', NULL, NULL, NULL, '2012-06-11 13:38:17.68568-04:30', NULL, true, 0, NULL, NULL, '2012-06-11 13:38:17.68568-04:30');
+INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (12, 'JESUS E', 'RODRIGUEZ V', '18264065', NULL, 'M', 'JRODRIGUEZ', '6233D5CC6E30761AB74ACD66B48F943DF6F82C89', NULL, NULL, NULL, '2012-06-11 13:38:46.329242-04:30', NULL, true, 0, NULL, NULL, '2012-06-11 13:38:46.329242-04:30');
+INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (13, 'JUAN C', 'TABORDA', '13769341', NULL, 'M', 'JTABORDA', '6E3AAF42AB888C78CE85DAF51E27D1E472D13166', NULL, NULL, NULL, '2012-06-11 13:39:42.787984-04:30', NULL, true, 0, NULL, NULL, '2012-06-11 13:39:42.787984-04:30');
+INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (1, 'ADMINISTRADOR', 'ADMINISTRADOR', '11111111', '1980-01-01', 'M', 'ADMIN', 'FE6268C04422554898E72C424D645519C2EFBE2D', NULL, NULL, NULL, '2012-02-12 00:00:00-04:30', NULL, true, 0, NULL, NULL, '2012-06-11 11:10:02.113171-04:30');
 INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (3, 'MARIA MATILDE', 'SOSA RUIZ', '10123456', NULL, 'F', 'MMATILDE', '944F61B851E2C9689695C84EC79B85323337DD3C', NULL, NULL, NULL, '2012-06-11 10:56:19.826174-04:30', NULL, true, 0, NULL, NULL, '2012-06-11 10:56:19.826174-04:30');
 INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (2, 'LUIS', 'ESTRADA', '10123456', NULL, 'M', 'LESTRADA', '13D37B196E0D8B25B8F43BC303F84C6ECC4D604C', NULL, NULL, NULL, '2012-06-11 11:10:02.113171-04:30', NULL, true, 0, NULL, NULL, '2012-06-11 11:10:02.113171-04:30');
 INSERT INTO si_usuarios (id, nombre, apellido, cedula, fecha_nacimiento, sexo, usuario, contrasena, direccion, telefono, email, creado, modificado, estatus, conectado, sesion, ultimo_acceso, fecha_contrasena) VALUES (4, 'RONNY', 'SOSA', '10123456', NULL, 'M', 'RSOSA', '7E2CBA22918EC12DEA4FB70B96C04308F2B5CC66', NULL, NULL, NULL, '2012-06-11 11:13:08.796151-04:30', NULL, true, 0, NULL, NULL, '2012-06-11 11:13:08.796151-04:30');
@@ -4557,6 +4617,9 @@ INSERT INTO si_usuarios_perfiles (id, id_usuario, id_almacen, id_perfil, creado,
 INSERT INTO si_usuarios_perfiles (id, id_usuario, id_almacen, id_perfil, creado, modificado) VALUES (8, 8, 7, 2, '2012-06-11 11:15:36.259493-04:30', NULL);
 INSERT INTO si_usuarios_perfiles (id, id_usuario, id_almacen, id_perfil, creado, modificado) VALUES (9, 9, 8, 2, '2012-06-11 11:16:09.036091-04:30', NULL);
 INSERT INTO si_usuarios_perfiles (id, id_usuario, id_almacen, id_perfil, creado, modificado) VALUES (10, 10, 9, 2, '2012-06-11 11:16:44.168897-04:30', NULL);
+INSERT INTO si_usuarios_perfiles (id, id_usuario, id_almacen, id_perfil, creado, modificado) VALUES (11, 11, 1, 1, '2012-06-11 13:38:17.713667-04:30', NULL);
+INSERT INTO si_usuarios_perfiles (id, id_usuario, id_almacen, id_perfil, creado, modificado) VALUES (12, 12, 1, 1, '2012-06-11 13:38:46.361-04:30', NULL);
+INSERT INTO si_usuarios_perfiles (id, id_usuario, id_almacen, id_perfil, creado, modificado) VALUES (13, 13, 1, 1, '2012-06-11 13:39:42.814767-04:30', NULL);
 
 
 --
