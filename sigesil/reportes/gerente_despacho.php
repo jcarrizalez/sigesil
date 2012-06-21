@@ -711,7 +711,7 @@
             <td align="right" style="display: none"><?=$general->formato_numero(round($dataDespacho['peso_acon_liq']), 2)?></td>
             <td align="right" style="display: none"><?=$general->formato_numero(round($dataDespacho['peso_acon_liq2']), 2)?></td>
             <td align="center">
-                <img src="../images/buscar.png" width="16" height="16" title="Detalle" border="0" style="cursor:pointer" onclick="openWindow('gerente_despacho_detalle.php?id=<?php echo $dataDespacho['id'] ?>','','1200','500','visible');return false;">
+                <img src="../images/buscar.png" width="16" height="16" title="Detalle" border="0" style="cursor:pointer" onclick="openWindow('gerente_despacho_detalle.php?id=<?php echo $dataDespacho['id'] ?>&ca=<?php echo $dataDespacho['ca_id']?>','','1200','500','visible');return false;">
             </td>
         </tr>
         <? $i++; } ?>

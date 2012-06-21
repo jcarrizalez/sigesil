@@ -11,7 +11,7 @@
     
     switch($GPC['ac']){
         case 'Liquidacion':
-            header('location: pdf_listado_recepciones_todo.php?id='.$fliq."_".$frec."_".$idCA."_".$idCo);
+            header("location: ".DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_liquidacion&id_rec=".$GPC['id']."&mov=des&ca=".$GPC['ca']."&re=true");
             die();
         break;
     }

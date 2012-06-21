@@ -58,6 +58,7 @@ $validator->setRules('Productor.id_pais', array('required' => array('value' => t
 $validator->setRules('id_estado', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('id_municipio', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Productor.estatus', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Productor.email', array('email' => array('value' => true, 'message' => 'Correo Inv&aacute;lido')));
 $validator->printScript();
 ?>
 <script type="text/javascript">

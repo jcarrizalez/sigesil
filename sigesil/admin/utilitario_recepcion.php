@@ -62,12 +62,10 @@
                 if (empty($cedP)) {
                     $infoProductor = $productor->find(array('ced_rif' => $cedP));
                     if (!empty($infoProductor[0]['id']))
-                        $GPC['Recepcion']['id_productor']=$infoProductor[0]['id'];
-                    
-                    unset($GPC['Recepcion']['ced_productor_pre']);
-                    unset($GPC['Recepcion']['ced_productor']);
-                    echo "Productor OK<br>";
+                        $GPC['Recepcion']['id_productor']=$infoProductor[0]['id'];                    
                 }
+                unset($GPC['Recepcion']['ced_productor_pre']);
+                unset($GPC['Recepcion']['ced_productor']);
                 
                 $cedRifAon=$GPC['Recepcion']['ced_asociacion_pre']+$GPC['Recepcion']['ced_asociacion'];
                 
@@ -76,11 +74,10 @@
                     
                     if (!empty($infoAsociacion[0]['id'])) 
                         $GPC['Recepcion']['id_asociacion']=$infoAsociacion[0]['id'];
-                    
-                    unset($GPC['Recepcion']['ced_asociacion_pre']);
-                    unset($GPC['Recepcion']['ced_asociacion']);
-                    echo "Asocacion OK<br>";
                 }
+
+                unset($GPC['Recepcion']['ced_asociacion_pre']);
+                unset($GPC['Recepcion']['ced_asociacion']);
                 
                 $cedRifAdo=$GPC['Recepcion']['ced_asociado_pre']+$GPC['Recepcion']['ced_asociado'];
                 
@@ -89,26 +86,23 @@
                     if (!empty($infoAsociacion[0]['id']))
                         $GPC['Recepcion']['id_asociado']=$infoAsociacion[0]['id'];
                     
-                    unset($GPC['Recepcion']['ced_asociado_pre']);
-                    unset($GPC['Recepcion']['ced_asociado']);
-                    echo "Asociado OK<br>";
                 }
+                unset($GPC['Recepcion']['ced_asociado_pre']);
+                unset($GPC['Recepcion']['ced_asociado']);
                 
                 if (!empty($GPC['Recepcion']['placa'])) {
                     $infoVehiculo = $vehiculo->buscar($GPC['Recepcion']['placa']);
                     if (!empty($infoVehiculo[0]['id']))
                         $GPC['Recepcion']['id_vehiculo']=$infoVehiculo[0]['id'];
-                    echo "Vehiculo OK<br>";
                 }
                 
                 if (!empty($GPC['Recepcion']['ced_chofer_pre']) && !empty($GPC['Recepcion']['ced_chofer'])) {
                     $infoChofer = $chofer->find(array('ced_rif' => $GPC['Recepcion']['ced_chofer_pre'].$GPC['Recepcion']['ced_chofer']));
                     if (!empty($infoChofer[0]['id']))
                         $GPC['Recepcion']['id_chofer']=$infoChofer[0]['id'];
-                    unset($GPC['Recepcion']['ced_chofer']);
-                    unset($GPC['Recepcion']['ced_chofer_pre']);
-                    echo "Chofer OK<br>";
                 }
+                unset($GPC['Recepcion']['ced_chofer']);
+                unset($GPC['Recepcion']['ced_chofer_pre']);
                 
                 if (!empty($GPC['Recepcion']['numero_guia'])) {
                     $infoGuia = $guia->find(array('numero_guia'=>$GPC['Recepcion']['numero_guia']), '');
@@ -118,10 +112,8 @@
                         $GPC['Guia']['numero_guia']=$GPC['Recepcion']['numero_guia'];
                         $GPC['Guia']['placa_vehiculo']=$infoVehiculo[0]['placa'];
                         $GPC['Guia']['fecha_emision']=(!empty($GPC['Recepcion']['fecha_emision'])) ? $GPC['Recepcion']['fecha_emision']: 'now()';
-                        $GPC['Guia']['placa_remolque']=$GPC['Recepcion']['placa_remolques'];
-                        
+                        $GPC['Guia']['placa_remolque']=$GPC['Recepcion']['placa_remolques'];                        
                         $guia->save($GPC['Guia']);
-                        echo "Guia OK<br>";
                     }
                 
                     if (!empty($GPC['Recepcion']['numero_guia_1'])) {
@@ -136,7 +128,6 @@
                             $guia->borrarSubGuias($GPC['subGuia']['id']);
                             unset($GPC['Recepcion']['numero_guia_'.$i]);
                             $guia->guardarSubGuias($GPC['subGuia']['id'], $GPC['subGuia']['subguia']);
-                            echo "SubGuia OK<br>";
                         }
                     }
                 }
@@ -151,7 +142,6 @@
                 unset($GPC['Recepcion']['numero']);
                 unset($GPC['Recepcion']['numero_guia']);
                 unset($GPC['Recepcion']['placa_remolques']);
-
                 
                 if (!empty($infoMovimiento[0]['id'])) {
                     if ($infoMovimiento[0]['estatus_rec']!=$GPC['Recepcion']['estatus_rec']) {
@@ -403,12 +393,9 @@
                         }                        
                     }
                 }
-                echo 'recepcion.id'.$infoMovimiento[0]['id'].'<br>';
-                die();
+
                 if (!empty($infoMovimiento[0]['id'])) {
                     $movimiento->save($GPC['Recepcion']);
-                    echo "Recepcion OK<br>";
-                    die();
                     $movimiento->_commit_tool();
                     header("location: ".DOMAIN_ROOT."admin/utilitario_recepcion_listado.php?msg=exitoso");
                     die();

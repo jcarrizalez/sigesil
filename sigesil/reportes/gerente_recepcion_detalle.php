@@ -10,15 +10,11 @@
     
     switch($GPC['ac']){
         case 'Resultados':
-            header("location: ".DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_recepcion&id_rec=".$GPC['id']."&re=true");
+            header("location: ".DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_recepcion&id_rec=".$GPC['id']."&ca=".$GPC['ca']."&re=true");
             die();
         break;
         case 'Liquidacion':
-            header('location: pdf_listado_recepciones_todo.php?id='.$fliq."_".$frec."_".$idCA."_".$idCo);
-            die();
-        break;
-        case 'Rechazo':
-            header('location: pdf_listado_recepciones_todo.php?id='.$fliq."_".$frec."_".$idCA."_".$idCo);
+            header("location: ".DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_liquidacion&id_rec=".$GPC['id']."&mov=rec&ca=".$GPC['ca']."&re=true");
             die();
         break;
     }
@@ -131,8 +127,8 @@
                             echo $html->input('ac', 'Resultados', array('type' => 'submit'));
                         }
                         
-                        if(in_array($detalleRecepcion[0]['estatus_rec'], array(7, 8)))
-                            echo $html->input('ac', 'Rechazo', array('type' => 'submit'));
+                        /*if(in_array($detalleRecepcion[0]['estatus_rec'], array(7, 8)))
+                            echo $html->input('ac', 'Rechazo', array('type' => 'submit'));*/
                         
                         if($detalleRecepcion[0]['estatus_rec'] == 9)
                             echo $html->input('ac', 'Liquidacion', array('type' => 'submit'));

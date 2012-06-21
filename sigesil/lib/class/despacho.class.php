@@ -26,7 +26,7 @@ class Despacho extends Model {
                     d.fecha_des AS fecha_recepcion, d.estatus AS estatus_rec, 
                     (SELECT t1.nombre FROM si_tolcarom t1 WHERE t1.id = d.romana_ent) AS romana_ent, 
                     (SELECT t2.nombre FROM si_tolcarom t2 WHERE t2.id = d.romana_sal) AS romana_sal, 
-                    ca.codigo AS ca_codigo, ca.nombre AS centro_acopio, 
+                    ca.id AS ca_id, ca.codigo AS ca_codigo, ca.nombre AS centro_acopio, 
                     cu.codigo AS cultivo_codigo, cu.nombre AS cultivo_nombre, 
                     o.numero_orden AS numero_guia, 
                     ch.ced_rif AS ced_chofer, ch.nombre AS chofer_nombre, 
