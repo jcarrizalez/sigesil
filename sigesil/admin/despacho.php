@@ -199,7 +199,7 @@ $validator->printScript();
                     <td>
                         <?
                             echo $html->select('nacion2', array('options'=>$listaCR));
-                            echo "&nbsp;".$html->input('Chofer.ced_rif', '', array('type' => 'text', 'length' => '8', 'class' => 'positive', 'style' => 'width: 150px'));
+                            echo "&nbsp;".$html->input('Chofer.ced_rif', '', array('type' => 'text', 'length' => '10', 'class' => 'positive', 'style' => 'width: 150px'));
                         ?>
                     </td>
                 </tr>

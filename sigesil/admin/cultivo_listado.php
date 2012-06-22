@@ -10,7 +10,7 @@
     $porPagina = MAX_RESULTS_PAG;
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
     
-    $listadoCultivos = $cultivo->find(array('estatus' => 't'), " LIMIT $porPagina OFFSET $inicio", '*', '', 'id');
+    $listadoCultivos = $cultivo->find(null, " LIMIT $porPagina OFFSET $inicio", '*', '', 'id');
     
     $total_registros = $cultivo->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);

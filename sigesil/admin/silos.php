@@ -2,10 +2,14 @@
 require_once('../lib/core.lib.php');
 
 $silo = new Silos();
+$almacen = new Almacen();
+
+$listaA = $almacen->find(array('id_centro_acopio' => $_SESSION['s_ca_id']), null, 'id, nombre', 'list');
 
 switch ($GPC['ac']) {
     case 'guardar':
         $GPC['Silo']['id_centro_acopio'] = $_SESSION['s_ca_id'];
+        $GPC['Silo']['estatus'] = 't';
         if (!empty($GPC['Silo']['nombre']) && !empty($GPC['Silo']['codigo']) && !empty($GPC['Silo']['capacidad'])) {
             $silo->save($GPC['Silo']);
             $id = $silo->id;
@@ -28,8 +32,8 @@ $validator = new Validator('form1');
 $validator->printIncludes();
 $validator->setRules('Silo.codigo', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Silo.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('Silo.coordenada', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Silo.capacidad', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Silo.id_almacen', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->printScript();
 ?>
 <script type="text/javascript">
@@ -49,19 +53,23 @@ $validator->printScript();
     <table align="center">
         <tr>
             <td><span class="msj_rojo">* </span>C&oacute;digo </td>
-            <td><? echo $html->input('Silo.codigo', $infoSilo[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><? echo $html->input('Silo.codigo', $infoSilo[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Nombre </td>
             <td><? echo $html->input('Silo.nombre', $infoSilo[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
-            <td><span class="msj_rojo">* </span>Coordenada </td>
+            <td>Coordenada </td>
             <td><? echo $html->input('Silo.coordenada', $infoSilo[0]['coordenada'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Capacidad </td>
             <td><? echo $html->input('Silo.capacidad', $infoSilo[0]['capacidad'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
+        </tr>
+        <tr>
+            <td><span class="msj_rojo">* </span>Almacen </td>
+            <td><? echo $html->select('Silo.id_almacen', array('options' => $listaA, 'selected' => $infoSilo[0]['id_almacen'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td>Observaci&oacute;n </td>

@@ -96,7 +96,7 @@
                     <td>
                         <?
                             echo $html->select('nacion', array('options'=>$listaCR, 'selected' => substr($infoProductor[0]['ced_productor'], 0, 1)));
-                            echo "&nbsp;".$html->input('ced_rif_productor', substr($infoProductor[0]['ced_productor'], 1), array('type' => 'text', 'length' => '8', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
+                            echo "&nbsp;".$html->input('ced_rif_productor', substr($infoProductor[0]['ced_productor'], 1), array('type' => 'text', 'length' => '10', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
                             echo $html->input('id_productor', $infoProductor[0]['id_productor'], array('type' => 'hidden'));
                         ?>
                     </td>
@@ -111,7 +111,7 @@
                     <td>
                         <?
                             echo $html->select('nacion', array('options'=>$listaCR, 'selected' => substr($GPC['cp'], 0, 1)));
-                            echo "&nbsp;".$html->input('ced_rif_productor', substr($GPC['cp'], 1), array('type' => 'text', 'length' => '8', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
+                            echo "&nbsp;".$html->input('ced_rif_productor', substr($GPC['cp'], 1), array('type' => 'text', 'length' => '10', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
                         ?>
                     </td>
                 </tr>
@@ -136,7 +136,7 @@
                     <td>
                         <?
                             echo $html->select('nacion2', array('options'=>$listaCR, 'selected' => substr($infoAsociacion[0]['ced_asociacion'], 0, 1)));
-                            echo "&nbsp;".$html->input('ced_rif_asociacion', substr($infoAsociacion[0]['ced_asociacion'], 1), array('type' => 'text', 'length' => '8', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
+                            echo "&nbsp;".$html->input('ced_rif_asociacion', substr($infoAsociacion[0]['ced_asociacion'], 1), array('type' => 'text', 'length' => '10', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
                             echo $html->input('id_asociacion', $infoAsociacion[0]['id_asociacion'], array('type' => 'hidden'));
                         ?>
                     </td>
@@ -151,7 +151,7 @@
                     <td>
                         <?
                             echo $html->select('nacion2', array('options'=>$listaCR, 'selected' => substr($GPC['caon'], 0, 1)));
-                            echo "&nbsp;".$html->input('ced_rif_asociacion', substr($GPC['caon'], 1), array('type' => 'text', 'length' => '8', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
+                            echo "&nbsp;".$html->input('ced_rif_asociacion', substr($GPC['caon'], 1), array('type' => 'text', 'length' => '10', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
                         ?>
                     </td>
                 </tr>
@@ -176,7 +176,7 @@
                     <td>
                         <?
                             echo $html->select('nacion3', array('options'=>$listaCR, 'selected' => substr($infoAsociado[0]['ced_asociado'], 0, 1)));
-                            echo "&nbsp;".$html->input('ced_rif_asociado', substr($infoAsociado[0]['ced_asociado'], 1), array('type' => 'text', 'length' => '8', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
+                            echo "&nbsp;".$html->input('ced_rif_asociado', substr($infoAsociado[0]['ced_asociado'], 1), array('type' => 'text', 'length' => '10', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
                             echo $html->input('id_asociado', $infoAsociado[0]['id_asociado'], array('type' => 'hidden'));
                         ?>
                     </td>
@@ -191,7 +191,7 @@
                     <td>
                         <?
                             echo $html->select('nacion3', array('options'=>$listaCR, 'selected' => substr($GPC['cado'], 0, 1)));
-                            echo "&nbsp;".$html->input('ced_rif_asociado', substr($GPC['cado'], 1), array('type' => 'text', 'length' => '8', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
+                            echo "&nbsp;".$html->input('ced_rif_asociado', substr($GPC['cado'], 1), array('type' => 'text', 'length' => '10', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
                         ?>
                     </td>
                 </tr>

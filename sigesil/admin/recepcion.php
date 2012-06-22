@@ -338,7 +338,7 @@ $validator->printScript();
                     <td>
                         <?
                             echo $html->select('nacion', array('options'=>$listaCR));
-                            echo "&nbsp;".$html->input('ced_rif_productor', '', array('type' => 'text', 'length' => '8', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
+                            echo "&nbsp;".$html->input('ced_rif_productor', '', array('type' => 'text', 'length' => '10', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
                         ?>
                     </td>
                 </tr>
@@ -353,7 +353,7 @@ $validator->printScript();
                     <td>
                         <?
                             echo $html->select('nacion2', array('options'=>$listaCR));
-                            echo "&nbsp;".$html->input('ced_rif_asociacion', '', array('type' => 'text', 'length' => '8', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
+                            echo "&nbsp;".$html->input('ced_rif_asociacion', '', array('type' => 'text', 'length' => '10', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
                         ?>
                     </td>
                 </tr>
@@ -368,7 +368,7 @@ $validator->printScript();
                     <td>
                         <?
                             echo $html->select('nacion3', array('options'=>$listaCR));
-                            echo "&nbsp;".$html->input('ced_rif_asociado', '', array('type' => 'text', 'length' => '8', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
+                            echo "&nbsp;".$html->input('ced_rif_asociado', '', array('type' => 'text', 'length' => '10', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
                         ?>
                     </td>
                 </tr>

@@ -154,7 +154,7 @@ require('../lib/common/init_calendar.php');
                 <td>
                     <?
                         echo $html->select('nacion', array('options'=>$listaCR, 'selected' => substr(trim($infoOr[0]['ced_cliente']), 0, 1)));
-                        echo "&nbsp;".$html->input('Cliente.ced_rif', substr(trim($infoOr[0]['ced_cliente']), 1), array('type' => 'text', 'length' => '8', 'style' => 'width: 150px', 'class' => 'positive'));
+                        echo "&nbsp;".$html->input('Cliente.ced_rif', substr(trim($infoOr[0]['ced_cliente']), 1), array('type' => 'text', 'length' => '10', 'style' => 'width: 150px', 'class' => 'positive'));
                         
                         if($GPC['ac'] == 'editar'){
                             ?>
@@ -229,7 +229,8 @@ $validator = new Validator('form1');
 $validator->printIncludes();
 $validator->setRules('Orden.id_centro_acopio', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Orden.id_cultivo', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('Cliente.ced_rif', array('required' => array('value' => true, 'message' => 'Requerido')));
+//$validator->setRules('Cliente.ced_rif', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Cliente.ced_rif', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros'), 'minlength' => array('value' => 6, 'message' => 'Min&iacute;mo 6 D&iacute;gitos')));
 $validator->setRules('Cliente.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Orden.numero_orden', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Orden.fecha_emision', array('required' => array('value' => true, 'message' => 'Requerido')));

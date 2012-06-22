@@ -51,7 +51,8 @@ require('../lib/common/header.php');
 $validator = new Validator('form1');
 $validator->printIncludes();
 $validator->setRules('Chofer.nombre', array('required' => array('value' => true, 'message' => 'Requerido')));
-$validator->setRules('Chofer.ced_rif', array('required' => array('value' => true, 'message' => 'Requerido')));
+//$validator->setRules('Chofer.ced_rif', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Chofer.ced_rif', array('required' => array('value' => true, 'message' => 'Requerido'), 'digits' => array('value' => true, 'message' => 'Solo N&uacute;meros'), 'minlength' => array('value' => 6, 'message' => 'Min&iacute;mo 6 D&iacute;gitos')));
 $validator->printScript();
 ?>
 <script type="text/javascript">
@@ -78,7 +79,7 @@ $validator->printScript();
             <td>
                 <?
                     echo $html->select('nacionalidad',array('options'=>$listaNacion, 'selected' => substr(trim($infoChofer[0]['ced_rif']), 0, 1)));
-                    echo "&nbsp;".$html->input('Chofer.ced_rif', substr(trim($infoChofer[0]['ced_rif']), 1), array('type' => 'text', 'length' => '8', 'class' => 'crproductor positive'));
+                    echo "&nbsp;".$html->input('Chofer.ced_rif', substr(trim($infoChofer[0]['ced_rif']), 1), array('type' => 'text', 'length' => '10', 'class' => 'crproductor positive'));
                     //echo $html->input('Org.rif', $infoChofer[0]['rif'], array('type' => 'text', 'class' => 'estilo_campos'));
                 ?>
             </td>

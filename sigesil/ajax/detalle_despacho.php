@@ -197,7 +197,7 @@
                     <td>
                         <?
                             echo $html->select('nacion2', array('options'=>$listaCR, 'selected' => substr($GPC['cp'], 0, 1)));
-                            echo "&nbsp;".$html->input('Chofer.ced_rif', substr($GPC['cp'], 1), array('type' => 'text', 'length' => '8', 'class' => 'positive', 'style' => 'width: 150px'));
+                            echo "&nbsp;".$html->input('Chofer.ced_rif', substr($GPC['cp'], 1), array('type' => 'text', 'length' => '10', 'class' => 'positive', 'style' => 'width: 150px'));
                             echo $html->input('Despacho.id_chofer', $infoChofer[0]['id'], array('type' => 'hidden'));
                         ?>
                     </td>
@@ -214,7 +214,7 @@
                     <td>
                         <?
                             echo $html->select('nacion2', array('options'=>$listaCR, 'selected' => substr($GPC['cp'], 0, 1)));
-                            echo "&nbsp;".$html->input('Chofer.ced_rif', substr($GPC['cp'], 1), array('type' => 'text', 'length' => '8', 'class' => 'positive', 'style' => 'width: 150px'));
+                            echo "&nbsp;".$html->input('Chofer.ced_rif', substr($GPC['cp'], 1), array('type' => 'text', 'length' => '10', 'class' => 'positive', 'style' => 'width: 150px'));
                             echo $html->link('<img src="../images/agregar.png" width="16" height="16" title=Agregar>', "javascript:abrirPopup('nuevoC')");
                             echo $html->input('Chofer.nombre', '', array('type' => 'hidden'));
                         ?>
@@ -255,7 +255,7 @@
                     <td>
                         <?
                             echo $html->select('nacion', array('options'=>$listaCR, 'selected' => substr($infoCliente[0]['ced_rif'], 0,1)));
-                            echo "&nbsp;".$html->input('Cliente.ced_rif', substr(trim($infoCliente[0]['ced_rif']), 1), array('type' => 'text', 'length' => '8', 'class' => 'positive', 'style' => 'width: 151px'));
+                            echo "&nbsp;".$html->input('Cliente.ced_rif', substr(trim($infoCliente[0]['ced_rif']), 1), array('type' => 'text', 'length' => '10', 'class' => 'positive', 'style' => 'width: 151px'));
                             echo $html->link('<img src="../images/agregar.png" width="16" height="16" title=Agregar>', "javascript:abrirPopup()");
                             echo $html->input('Cliente.nombre', '', array('type' => 'hidden'));
                         ?>
