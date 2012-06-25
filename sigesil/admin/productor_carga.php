@@ -1,9 +1,8 @@
 <?php
     require_once('../lib/core.lib.php');
     $productor = new Productor();
-    
-    //$separador = array(',' => 'Coma', ';' => 'Punto y Coma', '  ' => 'Tabulaci&oacute;n');
-    $lineaComienzo = 2;
+
+    $lineaComienzo = (!empty($GPC['primera_linea'])) ? $GPC['primera_linea'] : 2;
 
     /*if ($GPC['ac'] == "save2") {
         //Debug::pr()
@@ -37,7 +36,7 @@
         if (is_uploaded_file($usuario_archivo['tmp_name']) && in_array($usuario_archivo['type'], $permitidas) && in_array($ext_archivo, $ext_xls)) {
             $resultadoArchivo = $productor->subirProductores($_FILES);
             if ($resultadoArchivo) {
-                header("location: productor_carga_ver.php?archivo=$resultadoArchivo&linea=".$GPC['primera_linea']);
+                header("location: productor_carga_ver.php?archivo=$resultadoArchivo&linea=".$lineaComienzo);
                 exit;
             } else {
                 header("location: ?msg=error");
@@ -91,7 +90,7 @@
         </tr-->
         <tr>
             <td><span class="msj_rojo">* </span>Primera L&iacute;nea de Datos</td>
-            <td><? echo $html->input('primera_linea', $lineaComienzo, array('type' => 'text', 'class' => 'estilo_campos positive')) ?></td>
+            <td><? echo $html->input('primera_linea', '2', array('type' => 'text', 'class' => 'estilo_campos positive')) ?></td>
         </tr>
         <tr>
             <td>&nbsp;</td>
@@ -129,7 +128,7 @@
         </tr>
         <tr align="center">
             <td colspan="5">
-                <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
+                <? echo $html->input('Guardar', 'Cargar', array('type' => 'submit')); ?>
                 <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
             </td>
         </tr>

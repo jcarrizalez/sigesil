@@ -55,11 +55,10 @@ class Productor extends Model {
         //if(is_uploaded_file($archivo['tmp_name']) && $archivo['size'] < 2097152 && in_array($archivo['type'], $tipos_permitidas) && in_array($ext_archivo, $ext_xls)){
             $archivo_nuevo = str_replace($this->spechar,"_", $archivo['name']);
             $archivo_nuevo = date("dmYhis")."_".$archivo_nuevo;
-            if(move_uploaded_file($archivo['tmp_name'], $this->archivo_dir.$archivo_nuevo)){
-                    return $archivo_nuevo;
-            }else{
+            if(move_uploaded_file($archivo['tmp_name'], $this->archivo_dir.$archivo_nuevo))
+                return $archivo_nuevo;
+            else
                 return false;
-            }
         }else{
             return false;
         }
@@ -70,6 +69,7 @@ class Productor extends Model {
         ini_set('memory_limit',-1);
         $this->leerArchivoProductor($archivoSubido, $primera_linea);
         if(!empty($this->data)){
+            $this->_begin_tool();
             foreach($this->data as $indice => $data){
                 $listaProductores = $this->obtenerProductores();
                 if(!in_array($data['ced_rif'], $listaProductores)){
@@ -78,6 +78,7 @@ class Productor extends Model {
                     $this->_SQL_tool('INSERT', __METHOD__, $query);
                 }
             }
+            $this->_commit_tool();
             return true;
         }else{
             return false;
@@ -96,9 +97,11 @@ class Productor extends Model {
             $arrColumnas = array('ced_rif' => 0, 'nombre' => 1, 'telefono' => 2, 'direccion' => 3);
             //$listaProductores = $this->obtenerProductores();
 
-            $ext_archivo = substr($nombreArchivo, strrpos($nombreArchivo,'.'));
+            /*$ext_archivo = substr($nombreArchivo, strrpos($nombreArchivo,'.'));
             if (strtolower($ext_archivo)==".xls")	$tipo = "Excel5";
-            if (strtolower($ext_archivo)==".xlsx")	$tipo = "Excel2007";
+            if (strtolower($ext_archivo)==".ods")	$tipo = "Excel5";
+            if (strtolower($ext_archivo)==".xlsx")	$tipo = "Excel2007";*/
+            $tipo = PHPExcel_IOFactory::identify($nombreArchivo);
 
             $leerExcel = PHPExcel_IOFactory::createReader($tipo);
             $leerExcel->setReadDataOnly(true);
@@ -111,6 +114,7 @@ class Productor extends Model {
             $ultimaColumna = $objWorksheet->getHighestColumn();
             $ultimaColumnaIndice = PHPExcel_Cell::columnIndexFromString($ultimaColumna);
 
+            $cedulas = array();
             for ($fila = $primera_linea; $fila <= $ultimaFila; ++$fila){
                 $dataPorColumna='';
                 $tmp = array();
@@ -122,12 +126,14 @@ class Productor extends Model {
                 if(is_numeric($cedula)){
                     $err_msg = '';
                     //if(!in_array($tmp[$arrColumnas['ced_rif']], $listaProductores)){
-                        if($tmp[$arrColumns['nombre']] == '' || empty($tmp[$arrColumns['nombre']])) $err_msg .= 'Nombre_Invalido,';
-                        if($tmp[$arrColumns['telefono']] == '' || empty($tmp[$arrColumns['telefono']])) $err_msg .= 'Telefono_Invalido,';
-                        if($tmp[$arrColumns['direccion']] == '' || empty($tmp[$arrColumns['direccion']])) $err_msg .= 'Direccion_Invalida,';
+                        if(in_array($tmp[$arrColumnas['ced_rif']], $cedulas)) $err_msg .= 'Duplicado, ';
+                        if($tmp[$arrColumnas['nombre']] == '' || empty($tmp[$arrColumnas['nombre']])) $err_msg .= 'Nombre_Invalido, ';
+                        if($tmp[$arrColumnas['telefono']] == '' || empty($tmp[$arrColumnas['telefono']])) $err_msg .= 'Telefono_Invalido, ';
+                        if($tmp[$arrColumnas['direccion']] == '' || empty($tmp[$arrColumnas['direccion']])) $err_msg .= 'Direccion_Invalida';
                         if ($err_msg == ''){
                             $err_msg = 'OK,';
                         }
+                        $cedulas[] = $tmp[$arrColumnas['ced_rif']];
                         $this->data[]=array('error_msg' => $err_msg,
                                                 'ced_rif' => $tmp[$arrColumnas['ced_rif']],
                                                 'nombre' => $tmp[$arrColumnas['nombre']],

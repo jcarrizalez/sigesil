@@ -35,7 +35,7 @@ class FileUpload {
                     break;
                 case 'powerpoint': array_push($mime, 'application/mspowerpoint', 'application/powerpoint', 'application/vnd.ms-powerpoint', 'application/x-mspowerpoint');
                     break;
-                case 'excel': array_push($mime, 'application/x-msexcel', 'application/excel', 'application/x-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                case 'excel': array_push($mime, 'application/x-msexcel', 'application/excel', 'application/x-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel');
                     break;
                 case 'compressed': array_push($mime, 'application/x-compressed', 'application/x-zip-compressed', 'application/zip', 'multipart/x-zip', 'application/x-tar', 'application/x-compressed', 'application/x-gzip', 'application/x-gzip', 'multipart/x-gzip', 'application/octet-stream', 'application/x-gtar');
                     break;
