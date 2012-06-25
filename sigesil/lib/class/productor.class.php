@@ -2,12 +2,13 @@
 
 class Productor extends Model {
     var $table = 'si_productor';
+    var $spechar=array("\\","'","\t","\n","\r","\0","\x0B","%20"," ");
+    var $data = array();
     
     function __construct(){
-        //archivo_directorios de trabajo
-        $this->archivo_directorio = APPROOT."/temp_files/";
-        $this->archivo_url = DOMAIN_ROOT."/temp_files/";
-        $this->totalAdmin = 0;
+        //Directorios de trabajo
+        $this->archivo_dir = APPROOT."temp_files/";
+        $this->archivo_url = DOMAIN_ROOT."temp_files/";
     }
     
     function listadoProductores($id=null, $idOrg=null, $cedrif=null, $nombre=null, $idE=null, $idM=null, $porPagina=null, $inicio=null){
@@ -15,8 +16,8 @@ class Productor extends Model {
                 FROM si_productor p
                 INNER JOIN si_organizacion o ON p.id_org = o.id
                 INNER JOIN si_pais pa ON pa.id = p.id_pais
-                INNER JOIN si_estado e ON e.id = p.id_estado
-                INNER JOIN si_municipio m ON m.id = p.id_municipio
+                LEFT JOIN si_estado e ON e.id = p.id_estado
+                LEFT JOIN si_municipio m ON m.id = p.id_municipio
                     WHERE '1' AND p.estatus = 't'";
         $query.=(!empty($id)) ? " AND p.id = '$id'" : '';
         $query.=(!empty($idOrg)) ? " AND p.id_org = '$idOrg'" : '';
@@ -26,8 +27,17 @@ class Productor extends Model {
         $query.=(!empty($idM)) ? " AND m.id = '$idM'" : '';
         $query.= " ORDER BY p.id";
         $query .= (!empty($porPagina)) ? " LIMIT $porPagina OFFSET $inicio" : "";
-        return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
-    } 
+        return $this->_SQL_tool('SELECT', __METHOD__, $query);
+    }
+    
+    function obtenerProductores(){
+        $query = "SELECT * FROM si_productor WHERE '1'";
+        $resultado = $this->_SQL_tool('SELECT', __METHOD__, $query);
+        for($i=0, $cant=count($resultado); $i<$cant; $i++){
+            $list[]=$resultado[$i]['ced_rif'];
+        }
+        return $list;
+    }
     
     function desactivarPro($id, $estatus = 't') {
         $estatus = ($estatus == 't') ? 't' : 'f';
@@ -35,68 +45,101 @@ class Productor extends Model {
         return $result = $this->_SQL_tool("UPDATE", __METHOD__, $query);
     }
     
-    function obtenerArchivo($archivo_id=null, $status=null){
-        $query="SELECT * FROM si_productor_archivos WHERE 1 = 1 ";
-        if(!is_null($archivo_id)) $query .= " AND id = '$archivo_id'";
-        if(!is_null($status)) $query .= " AND estatus = '$status'";
-        $this->archivo = $this->_SQL_tool('SELECT_SINGLE', __METHOD__, $query);
-    }
-    
-    function archivosProductor($order = '', $porPagina=null, $inicio=null){
-        $query="SELECT pa.*, sales_file_status.description AS statusdesc 
-                FROM si_productor_archivos pa 
-                INNER JOIN sales_file_status ON pa.status = sales_file_status.id WHERE 1 ";
-        if (!empty ( $order )) {
-                $query .= " ORDER BY $order ";
-        } else {
-                $query .= " ORDER BY pa.creado DESC";
-        }
-        $query .= (!empty($porPagina)) ? " LIMIT $porPagina OFFSET $inicio" : "";
-        $this->lista = $this->_SQL_tool('SELECT', __METHOD__, $query);
-    }
-    
-    function contar_validos_invalidos($archivo_id){
-        $this->obtenerArchivo($archivo_id);
-        $filename=$this->archivo_directorio.$this->archivo['alias'];
-        if(file_exists($filename)){
-            $query="SELECT linea_numero FROM si_productor_archivos_detalle WHERE archivo_id = '$archivo_id' ";
-            $res_array = $this->_SQL_tool('SELECT', __METHOD__, $query);
-            if (count($res_array) > 0){
-                $this->total = (int)count($res_array);
+    function subirProductores($archivos){
+        $archivoSubido = new FileUpload(array('excel'));
+        $tipos_permitidas = $archivoSubido->allowedTypes;
+        $archivo = $archivos['archivo'];
+        $ext_xls = array('.xls', '.xlsx'); //Los archivos nativos de excel no se pueden leer
+        $ext_archivo = substr($archivo['name'], strrpos($archivo['name'], '.'));
+        if(is_uploaded_file($archivo['tmp_name']) && in_array($archivo['type'], $tipos_permitidas) && in_array($ext_archivo, $ext_xls)){
+        //if(is_uploaded_file($archivo['tmp_name']) && $archivo['size'] < 2097152 && in_array($archivo['type'], $tipos_permitidas) && in_array($ext_archivo, $ext_xls)){
+            $archivo_nuevo = str_replace($this->spechar,"_", $archivo['name']);
+            $archivo_nuevo = date("dmYhis")."_".$archivo_nuevo;
+            if(move_uploaded_file($archivo['tmp_name'], $this->archivo_dir.$archivo_nuevo)){
+                    return $archivo_nuevo;
             }else{
-                $this->total = 0;
+                return false;
             }
-            $query="SELECT COUNT(archivo_id) AS total 
-                    FROM si_productor_archivos_detalle 
-                    WHERE archivo_id = '$archivo_id' AND valido = '1' AND reseller_id > 0";
-            $res_array = $this->_SQL_tool('SELECT_SINGLE', __METHOD__, $query);
-            if (count($res_array) > 0){
-                $this->validos = (int)$res_array['total'];
-                $this->invalidos = $this->total - $this->validos;
-            }else{
-                $this->validos = 0;
-                $this->invalidos = 0;
-            }
-            $query = "SELECT COUNT(archivo_id) AS total 
-                        FROM si_productor_archivos_detalle 
-                        WHERE archivo_id = '$archivo_id' AND transferido IN ('1', '2')";
-            $res_array = $this->_SQL_tool('SELECT_SINGLE', __METHOD__, $query);
-            if (count($res_array) > 0){
-                $this->transferido = (int)$res_array['total'];
-            }else{
-                $this->transferido = 0;
-            }
+        }else{
+            return false;
         }
     }
     
-    function contarArchivoDetalle($archivo_id){
-        $query = "SELECT count(id) AS contado FROM si_productor_archivos_detalle WHERE archivo_id = '".$archivo_id."'";
-        return $this->_SQL_tool('SELECT', __METHOD__, $query);
+    function insertarProductorArchivo($archivoSubido, $primera_linea){
+        set_time_limit(0);
+        ini_set('memory_limit',-1);
+        $this->leerArchivoProductor($archivoSubido, $primera_linea);
+        if(!empty($this->data)){
+            foreach($this->data as $indice => $data){
+                $listaProductores = $this->obtenerProductores();
+                if(!in_array($data['ced_rif'], $listaProductores)){
+                    $query="INSERT INTO si_productor (id_org, ced_rif, nombre, telefono, direccion, id_pais, estatus, creado)
+                    VALUES ('1', '".trim($data['ced_rif'])."', '".trim($data['nombre'])."', '".trim($data['telefono'])."', '".trim($data['direccion'])."', '1', 't', now())";
+                    $this->_SQL_tool('INSERT', __METHOD__, $query);
+                }
+            }
+            return true;
+        }else{
+            return false;
+        }
     }
     
-    function erroresArchivo($archivo_id, $status){
-        $query = "SELECT * FROM si_productor_archivos_detalle WHERE archivo_id = '$archivo_id' AND transferido = '$status'";
-        return $this->_SQL_tool('SELECT', __METHOD__, $query);
+    function leerArchivoProductor($archivoSubido, $primera_linea){
+        require_once APPROOT.'lib/class/PHPExcel/PHPExcel.php';
+        require_once APPROOT.'lib/class/PHPExcel/PHPExcel/IOFactory.php';
+
+        $nombreArchivo=$this->archivo_dir.$archivoSubido;
+        $this->data=array();
+        if(file_exists($nombreArchivo)){
+            set_time_limit(0);
+            ini_set('memory_limit',-1);
+            $arrColumnas = array('ced_rif' => 0, 'nombre' => 1, 'telefono' => 2, 'direccion' => 3);
+            //$listaProductores = $this->obtenerProductores();
+
+            $ext_archivo = substr($nombreArchivo, strrpos($nombreArchivo,'.'));
+            if (strtolower($ext_archivo)==".xls")	$tipo = "Excel5";
+            if (strtolower($ext_archivo)==".xlsx")	$tipo = "Excel2007";
+
+            $leerExcel = PHPExcel_IOFactory::createReader($tipo);
+            $leerExcel->setReadDataOnly(true);
+
+            $objPHPExcel = $leerExcel->load($nombreArchivo);
+            $objWorksheet = $objPHPExcel->getActiveSheet();
+            
+            //Empezamos la lectura de los datos
+            $ultimaFila = $objWorksheet->getHighestRow();
+            $ultimaColumna = $objWorksheet->getHighestColumn();
+            $ultimaColumnaIndice = PHPExcel_Cell::columnIndexFromString($ultimaColumna);
+
+            for ($fila = $primera_linea; $fila <= $ultimaFila; ++$fila){
+                $dataPorColumna='';
+                $tmp = array();
+                for ($col = 0; $col < $ultimaColumnaIndice; ++$col){
+                    $tmp[$col] = $objWorksheet->getCellByColumnAndRow($col, $fila)->getValue();
+                    $dataPorColumna .= $tmp[$col] . '; ';
+                }
+                $cedula = substr($tmp[$arrColumnas['ced_rif']], 1);
+                if(is_numeric($cedula)){
+                    $err_msg = '';
+                    //if(!in_array($tmp[$arrColumnas['ced_rif']], $listaProductores)){
+                        if($tmp[$arrColumns['nombre']] == '' || empty($tmp[$arrColumns['nombre']])) $err_msg .= 'Nombre_Invalido,';
+                        if($tmp[$arrColumns['telefono']] == '' || empty($tmp[$arrColumns['telefono']])) $err_msg .= 'Telefono_Invalido,';
+                        if($tmp[$arrColumns['direccion']] == '' || empty($tmp[$arrColumns['direccion']])) $err_msg .= 'Direccion_Invalida,';
+                        if ($err_msg == ''){
+                            $err_msg = 'OK,';
+                        }
+                        $this->data[]=array('error_msg' => $err_msg,
+                                                'ced_rif' => $tmp[$arrColumnas['ced_rif']],
+                                                'nombre' => $tmp[$arrColumnas['nombre']],
+                                                'telefono' => $tmp[$arrColumnas['telefono']],
+                                                'direccion' => $tmp[$arrColumnas['direccion']],
+                                                'scvlines' => $fila,
+                                                'data' => $dataPorColumna);
+                    //}
+                }
+            }
+            //Debug::pr($this->data);die();
+        }
     }
 }
 ?>
