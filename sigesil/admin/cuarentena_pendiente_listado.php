@@ -85,24 +85,61 @@
             $paginador->print_paginator('pulldown');
         ?>
     </div>
-    <table align="center" width="100%">
-        <tr align="center" class="titulos_tabla">
+    <table align="center" width="100%" border="1">
+        <tr align="center" class="titulos_tabla"> 
+        <?
+            if ($_SESSION['s_perfil_id']==GERENTEG) {
+        ?>
             <th>Centro de Acopio</th>
-            <th>Nro</th>
-            <th>Cultivo</th>
+        <?
+            }
+            if ($_SESSION['s_mov']=='rec') {
+        ?>        
+            <th width="85px">Nro Entrada</th>
+        <?
+            }
+            else {
+        ?>        
+            <th width="85px">Nro Salida</th>
+        <?
+            }
+        ?>
+            <th width="300px">Cultivo</th>
+            <th width="170px">Vehiculo</th>
             <th>Fecha</th>
             <th>Estatus</th>
             <th>Acci&oacute;n</th>
-        </tr>
+        </tr> 
         <?
             $i=0;
             foreach($listadoRecepcion as $dataRecepcion){
             $clase = $general->obtenerClaseFila($i);
         ?>
         <tr class="<?=$clase?>">
-            <td align="center"><?=$dataRecepcion['ca_codigo'].' - '.$dataRecepcion['centro_acopio'];?></td>
-            <td align="center"><?=$dataRecepcion['numero']?></td>
+            
+        <?
+            if ($_SESSION['s_perfil_id']==GERENTEG) {
+
+                echo '<td>'.$dataRecepcion['ca_codigo'].' - '.$dataRecepcion['centro_acopio'].'</td>';
+            }
+        ?>
+            <td align="center">
+        <?
+            if ($_SESSION['mov']=='rec') {
+                $numero = ($dataRecepcion['numero'] < 10) ? '0'.$dataRecepcion['numero'] : $dataRecepcion['numero'];
+                $numEntrada = "R".$numero.$general->date_sql_screen($dataRecepcion['fecha_recepcion'], '', 'es', null);
+                echo $numEntrada;
+            }
+            
+            if ($_SESSION['mov']=='des') {
+                $numero = ($dataRecepcion['numero'] < 10) ? '0'.$dataRecepcion['numero'] : $dataRecepcion['numero'];
+                $numSalida = "D".$numero.$general->date_sql_screen($dataRecepcion['fecha_des'], '', 'es', null);
+                echo $numSalida;
+            }
+        ?>
+            </td>
             <td align="left"><?=$dataRecepcion['cultivo_codigo'].' - '.$dataRecepcion['cultivo_nombre']?></td>
+            <td align="center"><?=$dataRecepcion['placa'].' - '.$dataRecepcion['chofer_nombre']; ?></td>
             <td align="center"><?=$general->date_sql_screen($dataRecepcion['creado'], '', $lang="es", $sep="-")?></td>
             <td align="center"><?
             //=$dataRecepcion['estatus_rec']

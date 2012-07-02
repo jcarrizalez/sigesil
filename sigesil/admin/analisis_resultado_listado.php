@@ -9,7 +9,7 @@ $analisis=new Analisis();
 $listaLab = array('C' => 'Lab. Central', 'P' => 'Lab. Planta');
 $listaMov = array('rec' => 'RECEPCI&Oacute;N', 'des' => 'DESPACHO');
 $listaAccion = array('B' => 'Buscar');
-$fecha_mov=date('d-m-Y');
+//$fecha_mov=date('d-m-Y');
 $idCA=$_SESSION['s_ca_id'];
 
 if (!empty($GPC['mov']))
@@ -27,11 +27,20 @@ switch ($GPC['mov']) {
         $recepcion = new Recepcion();
         $estatus=($_SESSION['s_lab']=='C')? "'1','10','11'": "'4','12','13'";
         $orden = " ORDER BY r.fecha_recepcion , r.id";
-        $listadoM=$recepcion->listadoRecepcion(null, $idCA, null, null, null, $estatus, null, null, null, null, null, $orden);
+        $fecha=$general->fecha_normal_sql($GPC['fecha'], 'es');
+        $porPagina = MAX_RESULTS_PAG;
+        $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
+        if (!empty($GPC['numEntrada']) && !empty($fecha))
+            $estatus=$estatus . ",'2','3','5','6','7','8','9'";
+        $listadoM=$recepcion->listadoRecepcion(null, $idCA, $idCo=null, null, $GPC['numEntrada'], $estatus, null, null, $porPagina, $inicio, null, $orden, null, null, null, null, null, null, $fecha, $fecha);
+        $total_registros = $recepcion->total_verdadero;
+        $paginador = new paginator($total_registros, $porPagina);
+        //$listadoM=$recepcion->listadoRecepcion(null, $idCA, null, null, null, $estatus, null, null, null, null, null, $orden);
         break;
     case 'des':
         $despacho= new Despacho();
         $estatus="'2'";
+        $orden = " ORDER BY d.fecha_des , d.id";
         $listadoM=$despacho->listadoDespacho(null, $idCA, null, null, null, $estatus);
         break;
 }
@@ -40,6 +49,15 @@ require('../lib/common/header.php');
 require('../lib/common/init_calendar.php');
 ?>
 <script type="text/javascript">
+    
+    var win = null;
+    function openWindow(mypage,myname,w,h,scroll){
+        LeftPosition = (screen.width) ? (screen.width-w)/2 : 0;
+        TopPosition = (screen.height) ? (screen.height-h)/2 : 0;
+        settings ='height='+h+',width='+w+',top='+TopPosition+',left='+LeftPosition+', scrollbars=yes ';
+        win = window.open(mypage,myname,settings)
+    }
+    
     $(document).ready(function(){
         
         $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
@@ -66,21 +84,15 @@ require('../lib/common/init_calendar.php');
         });
         
         //$('.imprimir').css('display','none');
-        $('#Accion').change(function(){            
-            if ($(this).val()=='') 
-                $('#verAccion').css('display','none');            
+        $('#Accion').change(function(){
+            if ($(this).val()=='')
+                $('#verAccion').css('display','none');
             else
                 $('#verAccion').css('display','block');
-            
         });
-        
+             
         $('#Regresar').click(function(){
            history.back();
-        });
-        
-        $('#Imprimir').click(function(){
-           popupImpresion = window.open('../reportes/imprimir_boleta_rechazo.php', '', 'width=1, height=1, scrollbars=NO');
-           popupImpresion.close();
         });
         
         $('#Buscar').click(function(){
@@ -91,8 +103,6 @@ require('../lib/common/init_calendar.php');
         });
     });
 </script>
-
-
 <div id="titulo_modulo">    
     RESULTADOS DE ANALISIS - <? echo $listaMov[$GPC['mov']]; ?><hr/>    
 </div> 
@@ -108,42 +118,66 @@ require('../lib/common/init_calendar.php');
         }
     ?>
 </div>
-<div id="idRec" style="display: none"></div>
-<table align="center" width="100%" border="0" style="padding-top: 20px">
-    <tr>
-        <td align="right" >
-            <? //echo $html->select('Accion', array('options' => $listaAccion, 'selected' => $GPC['accion'], 'default' => 'Seleccione', 'class' => 'crproductor'));?>
-            <? echo $html->input('Regresar', 'Regresar', array('type' => 'button')); ?>
-            <? //echo $html->input('Imprimir', 'Imprimir', array('type' => 'button')); ?>
-        </td>
-    </tr>
-    <tr align="center" id="verAccion" align="right" style="display: none">
-        <td >Fecha:</td>                
-        <td><? echo $html->input('fecha', $fecha_mov, array('type' => 'text', 'readOnly' => true, 'class' => 'crproductor')); ?>
-            <img src="../images/calendario.png" id="fmov" width="16" height="16" style="cursor:pointer" >&nbsp;
-            <script>
-                Calendar.setup({
-                    trigger    : "fmov",
-                    inputField : "fecha",
-                    dateFormat: "%d-%m-%Y",
-                    selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($GPC['fecha'])); ?>),
-                    onSelect   : function() { this.hide() }
-                });
-            </script>
-        </td>
-        <td>N&uacute;mero:</td>
-        <td><? echo $html->input('numero', $GPC['numero'], array('type' => 'text', 'class'=>'cuadricula positive')); ?>&nbsp;
-        <img src="../images/imprimir.png" id="Buscar" width="16" height="16" style="cursor:pointer" ></td>
-    </tr>
-    <tr>
-        <td colspan="6">&nbsp;</td>
-    </tr>
-</table><hr/>
-<table align="center" width="100%">
-    <tr align="center" class="titulos_tabla">            
-        <th>Centro de Acopio</th>            
-        <th>Nro</th>
-        <th>Cultivo</th> 
+<div id="filtro">
+    <form name="form1" id="form1" method="GET" action="" enctype="multipart/form-data">
+        <table width="100%" border="0">
+            <tr>
+                <td width="1">Fecha</td>
+                <td width="200">
+                    <? 
+                    //$GPC['fecha']
+                    echo $html->input('fecha', $GPC['fecha'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?>
+                    <img src="../images/calendario.png" id="fdesde" width="16" height="16" style="cursor:pointer" />
+                    <script>
+                        Calendar.setup({
+                            trigger    : "fdesde",
+                            inputField : "fecha",
+                            dateFormat: "%d-%m-%Y",
+                            selection: Calendar.dateToInt(<?php echo date("Ymd", strtotime($GPC['fecha']));?>),
+                            onSelect   : function() { this.hide() }
+                        });
+                    </script>
+                </td>
+                <td>Numero</td>
+                <td><?=$html->input('numEntrada', $GPC['numEntrada'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'class' => 'crproductor positive'));?> </td>
+            </tr>
+            <tr>
+            </tr>
+            <tr id="botones" aligment="right">
+                <td colspan="4">
+                    <?
+                        echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));    
+                        $general->crearAcciones($acciones, '', 1);
+                        echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
+                    ?>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div><hr/>
+<div id="paginador">
+    <?
+        $paginador->print_page_counter('Pag', 'de');
+        echo "&nbsp;&nbsp;";
+        $paginador->print_paginator('pulldown');
+    ?>
+</div>
+<table align="center" width="100%" border="0">
+    <tr align="center" class="titulos_tabla"> 
+    <?
+        if ($_SESSION['s_perfil_id']==GERENTEG) {
+    ?>
+        <th>Centro de Acopio</th>
+    <?
+        }
+        if ($_SESSION['s_mov']=='rec') {
+    ?>        
+        <th width="85px">Nro Entrada</th>
+    <?
+        }
+    ?>
+        <th width="300px">Cultivo</th>
+        <th width="170px">Vehiculo</th>
         <th>Fecha</th>
         <th>Estatus</th>
         <th>Acci&oacute;n</th>
@@ -154,9 +188,28 @@ require('../lib/common/init_calendar.php');
         $clase = $general->obtenerClaseFila($i); 
     ?>
     <tr class="<?=$clase?>">
-        <td><?= $dataMov['ca_codigo'].' - '.$dataMov['centro_acopio']; ?></td>
-        <td><?= $dataMov['numero']; ?></td>
+    <?
+        if ($_SESSION['s_perfil_id']==GERENTEG) {
+            
+            echo '<td>'.$dataMov['ca_codigo'].' - '.$dataMov['centro_acopio'].'</td>';
+        }
+    ?>
+        <td>
+    <?
+        if ($GPC['mov']=='rec') {
+            $numero = ($dataMov['numero'] < 10) ? '0'.$dataMov['numero'] : $dataMov['numero'];
+            $numEntrada = "R".$numero.$general->date_sql_screen($dataMov['fecha_recepcion'], '', 'es', null);
+            echo $numEntrada;
+        }
+        if ($GPC['mov']=='des') {
+            $numero = ($dataMov['numero'] < 10) ? '0'.$dataMov['numero'] : $dataMov['numero'];
+            $numSalida = "D".$numero.$general->date_sql_screen($dataMov['fecha_des'], '', 'es', null);
+            echo $numSalida;
+        }
+    ?>
+        </td>
         <td><?= $dataMov['cultivo_codigo'].' - '.$dataMov['cultivo_nombre']; ?></td>
+        <td><?= $dataMov['placa'].' - '.$dataMov['chofer_nombre'];?></td>
         <td>
         <? 
         if ($GPC['mov']=='rec')
@@ -203,13 +256,13 @@ require('../lib/common/init_calendar.php');
                 switch ($dataMov['estatus_rec']) {
                     case 1:
                     case 4:
-                        echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Nuevo>', 'analisis_resultado.php?ac=nuevo&id='.$dataMov['id'].'&cant_muestras='.$dataMov['cant_muestras'].'&id_cosecha='.$dataMov['id_cosecha']); 
+                        echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Nuevo>', 'analisis_resultado.php?ac=nuevo&id='.$dataMov['id'].'&cant_muestras='.$dataMov['cant_muestras'].'&id_cosecha='.$dataMov['id_cosecha']);
                         break;
                     case 11:
                     case 12:
-                    case 6:
                         echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'cuarentena.php?ac=editar&id='.$dataMov['id']); 
-                    break;                
+                    case 6:
+                    break;
                 }
             case 'des':
                 switch ($dataMov['estatus']) {
@@ -218,7 +271,18 @@ require('../lib/common/init_calendar.php');
                         break;             
                 }                
         }
-        ?>
+    echo "&nbsp;";
+    if ($GPC['mov']=='rec')
+        if ($dataMov['estatus_rec']!=1) {
+            ?>            
+            <img src="../images/imprimir.png" width="16" height="16" title="Detalle" border="0" style="cursor:pointer" onclick="openWindow('<?=DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_recepcion&id_rec=".$dataMov['id']."&ca=".$dataMov['id_centro_acopio']."&re=true"?>','','1200','500','visible');return false;">
+            <?
+        }
+    else
+        if ($dataMov['estatus_rec']!=1) {
+            echo $html->link('<img src="../images/imprimir.png" width="16" height="16" title=Re-impirmir>', 'cuarentena.php?ac=editar&id='.$dataMov['id']);
+        }
+    ?>
         </td>
     </tr>
     <?    
@@ -229,5 +293,12 @@ require('../lib/common/init_calendar.php');
         <td colspan="4">&nbsp;</td>
     </tr>
 </table>
+<div id="paginador">
+    <?
+        $paginador->print_page_counter('Pag', 'de');
+        echo "&nbsp;&nbsp;";
+        $paginador->print_paginator('pulldown');
+    ?>
+</div>
 <?    require('../lib/common/footer.php');
 ?>
