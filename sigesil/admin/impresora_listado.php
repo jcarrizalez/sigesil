@@ -1,45 +1,31 @@
 <?
     require_once('../lib/core.lib.php');
     
-    $silos = new Silos();
+    $impresora = new Impresora();
     $centro_acopio = new CentroAcopio();
     
-    $id = (!empty($GPC['id'])) ? $GPC['id'] : null;
+    $listaCA = $centro_acopio->find('', '', array('id', 'nombre'), 'list', 'id');
+    unset($listaCA[1]);
+    
+    $porPagina = MAX_RESULTS_PAG;
+    $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
     
     if($_SESSION['s_perfil_id'] == GERENTEG)
         $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : null;
     else
         $idCA = $_SESSION['s_ca_id'];
     
-    $porPagina = MAX_RESULTS_PAG;
-    $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
+    $listadoImpresora = $impresora->buscarImpresora('', $idCA, '', '', $porPagina, $inicio);
     
-    $listadoSilos = $silos->listadoSilos($id, $idCA, $porPagina, $inicio);
-    $listaCA = $centro_acopio->find('', '', array('id', 'nombre'), 'list', 'id');
-    unset($listaCA[1]);
-    
-    $total_registros = $silos->total_verdadero;
+    $total_registros = $impresora->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);
     
-    if($GPC['ac'] == 'eliminar'){
-        $id = $GPC['id'];
-        $silos->desactivarS($id, $GPC['estatus']);
-        header('location: silos_listado.php');
-        die();
-    }
     require('../lib/common/header.php');
 ?>
 <script type="text/javascript">
-    function eliminar(){
-        if(confirm('¿Desea Eliminar este Silo?'))
-            return true;
-        else
-            return false;
-    }
-    
     $(document).ready(function(){
         $('#Nuevo').click(function(){
-           window.location = 'silos.php';
+           window.location = 'impresora.php';
         });
         
         $('#Regresar').click(function(){
@@ -48,7 +34,7 @@
     });
 </script>
     <div id="titulo_modulo">
-        SILOS<br/><hr/>
+        IMPRESORAS<br/><hr/>
     </div>
     <div id="mensajes">
         <?
@@ -64,14 +50,12 @@
     </div>
     <div id="filtro">
         <form name="form1" id="form1" method="GET" action="" enctype="multipart/form-data">
-            <table width="100%">
+            <table width="100%" border="0">
                 <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
                 <tr>
                     <td width="110">Centro de Acopio:</td>
                     <td colspan="2">
-                        <?
-                            echo $html->select('id_ca',array('options'=>$listaCA, 'selected' => $GPC['id_ca'], 'default' => 'Todos'));
-                        ?>
+                        <? echo $html->select('id_ca',array('options'=>$listaCA, 'selected' => $GPC['id_ca'], 'default' => 'Todos')); ?>
                     </td>
                 </tr>
                 <? } ?>
@@ -79,7 +63,7 @@
                     <td colspan="3">
                         <?
                             echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
-                            $general->crearAcciones($acciones, '', 1);    
+                            echo $html->input('Nuevo', 'Nuevo', array('type' => 'button'));
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
                         ?>
                     </td>
@@ -99,36 +83,29 @@
             <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
             <th>Centro de Acopio</th>
             <? } ?>
-            <th>C&oacute;digo</th>
             <th>Nombre</th>
-            <th>Coordenadas</th>
-            <th>Capacidad (Kg)</th>
+            <th>Parametros</th>
             <th>Acci&oacute;n</th>
         </tr>
         <?
             $i=0;
-            foreach($listadoSilos as $dataSilo){
-                $clase = $general->obtenerClaseFila($i);
+            foreach($listadoImpresora as $dataImpresora){
+            $clase = $general->obtenerClaseFila($i);
         ?>
         <tr class="<?=$clase?>">
             <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
-            <td><?=$dataSilo['nombre_ca']?></td>
+            <td><?=$dataImpresora['centro_acopio']?></td>
             <? } ?>
-            <td align="center"><?=$dataSilo['codigo']?></td>
-            <td><?=$dataSilo['nombre']?></td>
-            <td><?=$dataSilo['coordenada']?></td>
-            <td align="center"><?=$dataSilo['capacidad']?></td>
+            <td><?=$dataImpresora['nombre']?></td>
+            <td><?=$dataImpresora['parametros']?></td>
             <td align="center">
-                <?
-                    $urls = array(1 => 'silos.php?ac=editar&id='.$dataSilo['id'], 'silos_listado.php?ac=eliminar&id='.$dataSilo['id']."&estatus=f");
-                    $general->crearAcciones($acciones, $urls);
-                ?>
+                <? echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'impresora.php?ac=editar&id='.$dataImpresora['id']); ?>
             </td>
         </tr>
         <? $i++; } ?>
         <tr>
             
-            <td colspan="3">&nbsp;</td>
+            <td colspan="4">&nbsp;</td>
         </tr>
     </table>
     <div id="paginador">
@@ -138,6 +115,4 @@
             $paginador->print_paginator('pulldown');
         ?>
     </div>
-<?
-    require('../lib/common/footer.php');
-?>
+<? require('../lib/common/footer.php'); ?>

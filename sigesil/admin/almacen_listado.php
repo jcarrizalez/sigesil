@@ -78,7 +78,6 @@
                     <td colspan="2">
                         <?
                             echo $html->select('id_ca',array('options'=>$listaCA, 'selected' => $GPC['id_ca'], 'default' => 'Todos'));
-                            echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
                         ?>
                     </td>
                 </tr>
@@ -86,6 +85,7 @@
                 <tr id="botones">
                     <td colspan="3">
                         <?
+                            echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
                             $general->crearAcciones($acciones, '', 1);
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
                         ?>

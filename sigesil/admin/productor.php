@@ -66,6 +66,7 @@ $validator->printScript();
     function cancelar(){
         window.location = 'productor_listado.php';
     }
+    
     $(document).ready(function(){
         $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
     

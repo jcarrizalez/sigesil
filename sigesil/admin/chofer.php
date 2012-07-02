@@ -61,7 +61,7 @@ $validator->printScript();
     }
     
     $(document).ready(function(){
-        $('.positive').numeric();
+        $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
         
         $('#id_estado').change(function(){
             $('#id_municipio').load('../ajax/division_pol.php?ac=mcpos&idE=' + $(this).val());

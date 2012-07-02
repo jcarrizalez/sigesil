@@ -44,7 +44,7 @@ class Usuario extends Model {
         }
     }
 
-    function obtenerTodosUsuarios($idUsuario = null, $idCA = null, $idAlmacen = null, $idPerfil = null, $buscar = null, $orden = null, $estatus = null) {
+    function obtenerTodosUsuarios($idUsuario = null, $idCA = null, $idAlmacen = null, $idPerfil = null, $buscar = null, $orden = null, $estatus = null, $porPagina = null, $inicio = null) {
         $query = "SELECT ca.id AS id_ca, ca.codigo AS codigo_ca, ca.nombre AS nombre_ca, al.id AS id_al, al.nombre AS nombre_al, u.id, u.nombre, u.apellido, u.cedula, u.sexo, u.usuario, u.email, u.estatus, pe.nombre_perfil AS perfil, up.id_perfil
                     FROM si_usuarios u
                     LEFT JOIN si_usuarios_perfiles up ON up.id_usuario = u.id
@@ -65,6 +65,7 @@ class Usuario extends Model {
         if (!empty($estatus))
             $query .= " AND u.estatus = '$estatus'";
         $query .= (!empty($orden)) ? " ORDER BY $orden" : " ORDER BY ca.nombre, al.id, u.nombre, u.apellido";
+        $query .= (!empty($porPagina)) ? " LIMIT $porPagina OFFSET $inicio" : "";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 

@@ -25,7 +25,7 @@ class Productor extends Model {
         $query.=(!empty($nombre)) ? " AND p.nombre ILIKE '%$nombre%'" : '';
         $query.=(!empty($idE)) ? " AND e.id = '$idE'" : '';
         $query.=(!empty($idM)) ? " AND m.id = '$idM'" : '';
-        $query.= " ORDER BY p.id";
+        $query.= " ORDER BY p.nombre";
         $query .= (!empty($porPagina)) ? " LIMIT $porPagina OFFSET $inicio" : "";
         return $this->_SQL_tool('SELECT', __METHOD__, $query);
     }

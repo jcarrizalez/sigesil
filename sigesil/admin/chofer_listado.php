@@ -8,7 +8,8 @@
     
     $listaNacion = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
     $cedRif = (!empty($GPC['cedula'])) ? $GPC['nacionalidad'].$GPC['cedula'] : '';
-    $listadoChoferes = $chofer->buscarChofer($cedRif, $GPC['nombre'], $porPagina, $inicio);
+    $nombre = (!empty($GPC['nombre'])) ? $GPC['nombre'] : '';
+    $listadoChoferes = $chofer->buscarChofer($cedRif, $nombre, $porPagina, $inicio);
     
     $total_registros = $chofer->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);
@@ -30,6 +31,8 @@
     }
     
     $(document).ready(function(){
+        $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
+        
         $('#Nuevo').click(function(){
            window.location = 'chofer.php';
         });
@@ -62,24 +65,22 @@
                     <td>
                         <?
                             echo $html->select('nacionalidad',array('options'=>$listaNacion, 'selected' => $GPC['nacionalidad']));
-                            echo $html->input('cedula', $GPC['cedula'], array('type' => 'text'));
+                            echo $html->input('cedula', $GPC['cedula'], array('type' => 'text', 'class' => 'positive estilo_campos'));
                         ?>
                     </td>
                 </tr>
                 <tr>
                     <td>Nombre</td>
                     <td>
-                        <?
-                            echo $html->input('nombre', $GPC['nombre'], array('type' => 'text', 'style' => 'width: 172px'));
-                            echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
-                        ?>
+                        <? echo $html->input('nombre', $GPC['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?>
                     </td>
                 </tr>
                 <tr id="botones">
                     <td colspan="2">
                         <?
+                            echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
                             $general->crearAcciones($acciones, '', 1);
-                            echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
+                            echo $html->input('Regresar', 'Regresar', array('type' => 'button'));
                         ?>
                     </td>
                 </tr>

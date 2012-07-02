@@ -3,12 +3,17 @@
     
     $usuario = new Usuario();
     
+    $porPagina = MAX_RESULTS_PAG;
+    $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
+    
     if($_SESSION['s_perfil_id'] == GERENTEG)
         $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : null;
     else
         $idCA = $_SESSION['s_ca_id'];
     
-    $listadoUsuarios = $usuario->obtenerTodosUsuarios('', $idCA, '', '', '', 'ca.codigo, u.nombre');
+    $listadoUsuarios = $usuario->obtenerTodosUsuarios('', $idCA, '', '', '', 'ca.codigo, u.nombre', '', $porPagina, $inicio);
+    $total_registros = $usuario->total_verdadero;
+    $paginador = new paginator($total_registros, $porPagina);
     
     require('../lib/common/header.php');
 ?>
@@ -53,6 +58,13 @@
         ?>
     </div>
     <? } ?><hr/>
+    <div id="paginador">
+        <?
+            $paginador->print_page_counter('Pag', 'de');
+            echo "&nbsp;&nbsp;";
+            $paginador->print_paginator('pulldown');
+        ?>
+    </div>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
             <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
@@ -100,6 +112,13 @@
             <td colspan="4">&nbsp;</td>
         </tr>
     </table>
+    <div id="paginador">
+        <?
+            $paginador->print_page_counter('Pag', 'de');
+            echo "&nbsp;&nbsp;";
+            $paginador->print_paginator('pulldown');
+        ?>
+    </div>
 <?
     require('../lib/common/footer.php');
 ?>

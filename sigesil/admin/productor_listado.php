@@ -3,13 +3,13 @@
     
     $productor = new Productor();
     
-    $id = (!empty($GPC['id'])) ? $GPC['id'] : null;
-    $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : $_SESSION['s_ca_id'];
-    
     $porPagina = MAX_RESULTS_PAG;
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
+    $listaNacion = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
+    $cedRif = (!empty($GPC['cedula'])) ? $GPC['nacionalidad'].$GPC['cedula'] : '';
+    $nombre = (!empty($GPC['nombre'])) ? $GPC['nombre'] : '';
     
-    $listadoProductores = $productor->listadoProductores('', '', '', '', '', '', $porPagina, $inicio);
+    $listadoProductores = $productor->listadoProductores('', '', $cedRif, $nombre, '', '', $porPagina, $inicio);
     
     $total_registros = $productor->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);
@@ -32,8 +32,14 @@
     }
     
     $(document).ready(function(){
+        $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
+        
         $('#Nuevo').click(function(){
            window.location = 'productor.php';
+        });
+        
+        $('#Regresar').click(function(){
+           history.back();
         });
     });
 </script>
@@ -52,11 +58,35 @@
             }
         ?>
     </div>
-    <div id="botones">
-        <?
-            $general->crearAcciones($acciones, '', 1);
-            echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
-        ?>
+    <div id="filtro">
+        <form name="form1" id="form1" method="GET" action="" enctype="multipart/form-data">
+            <table width="100%">
+                <tr>
+                    <td width="60">C&eacute;dula</td>
+                    <td>
+                        <?
+                            echo $html->select('nacionalidad',array('options'=>$listaNacion, 'selected' => $GPC['nacionalidad']));
+                            echo $html->input('cedula', $GPC['cedula'], array('type' => 'text', 'class' => 'positive estilo_campos'));
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nombre</td>
+                    <td>
+                        <? echo $html->input('nombre', $GPC['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?>
+                    </td>
+                </tr>
+                <tr id="botones">
+                    <td colspan="2">
+                        <?
+                            echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
+                            $general->crearAcciones($acciones, '', 1);
+                            echo $html->input('Regresar', 'Regresar', array('type' => 'button'));
+                        ?>
+                    </td>
+                </tr>
+            </table>
+        </form>
     </div><hr/>
     <div id="paginador">
         <?
