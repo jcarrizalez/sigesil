@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Started on 2012-07-04 10:52:08 VET
+-- Started on 2012-07-04 13:21:14 VET
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -5610,6 +5610,9 @@ INSERT INTO si_analisis_cultivo VALUES (1, 16, 26, 'C', 0.000, 0.000, 'R', 2286,
 -- Data for Name: si_app_error; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
+INSERT INTO si_app_error VALUES ('8491ff5d87ac5808c9', '2012-07-04 12:11:56.01077-04:30', 'a:2:{i:0;a:8:{s:4:"file";s:51:"/var/www/sigesil/admin/menu_usuario_listado.php<br>";s:4:"line";i:9;s:5:"class";s:5:"Model";s:8:"function";s:4:"find";s:11:"mysql_error";s:131:"ERROR:  no existe la columna «nombre»
+LINE 1: SELECT id,nombre FROM si_perfiles Perfil where "1" ORDER BY ...
+                  ^";s:5:"query";s:62:"SELECT id,nombre FROM si_perfiles Perfil where ''1'' ORDER BY id";s:9:"user_name";s:5:"ADMIN";s:4:"date";s:19:"2012-07-04 12:11:56";}i:1;a:4:{s:4:"file";s:46:"/var/www/sigesil/lib/class/model.class.php<br>";s:4:"line";i:33;s:5:"class";s:11:"cls_dbtools";s:8:"function";s:9:"_SQL_tool";}}');
 
 
 --
@@ -8940,7 +8943,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2012-07-04 10:52:09 VET
+-- Completed on 2012-07-04 13:21:14 VET
 
 --
 -- PostgreSQL database dump complete

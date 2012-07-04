@@ -138,11 +138,11 @@ img{
 
 #cabecera{
     background-color: #FFFFFF;
-    background-image: url('../images/logo_mat.png');
+    background-image: url('../images/logo_mat.jpg');
     background-repeat: no-repeat;
     margin: auto;
     padding: 0;
-    height: 40px;
+    height: 59px;
     -moz-border-radius:15px 15px 0 0;
     -webkit-border-radius:15px 15px 0 0;
     border-top-left-radius: 15px;

@@ -2,12 +2,19 @@
     require_once('../lib/core.lib.php');
     
     $usuario = new Usuario();
+    $centro_acopio = new CentroAcopio();
+    $perfil = new Perfil();
+    
+    $listaCA = $centro_acopio->find('', '', array('id', 'nombre'), 'list', 'id');
+    $listaPerfiles = $perfil->find('', '', array('id', 'nombre_perfil'), 'list', 'id');
     
     if($_SESSION['s_perfil_id'] == GERENTEG)
         $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : null;
     else
         $idCA = $_SESSION['s_ca_id'];
-    $listadoUsuarios = $usuario->obtenerTodosUsuarios('', $idCA, '', '', '', 'ca.codigo, u.nombre');
+    
+    $perfil = (!empty($GPC['id_perfil'])) ? $GPC['id_perfil'] : '';
+    $listadoUsuarios = $usuario->obtenerTodosUsuarios('', $idCA, '', $perfil, '', 'ca.codigo, u.nombre');
 
     require('../lib/common/header.php');
 ?>
@@ -33,13 +40,35 @@
             }
         ?>
     </div>
-    <? if($_SESSION['s_perfil_id'] == GERENTEG || $_SESSION['s_perfil_id'] == GERENTES){ ?>
-    <div id="botones">
-        <?
-            echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
-        ?>
-    </div>
-    <? } ?><hr/>
+    <div id="filtro">
+        <form name="form1" id="form1" method="GET" action="" enctype="multipart/form-data">
+            <table width="100%" border="0">
+                <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+                <tr>
+                    <td width="110">Centro de Acopio:</td>
+                    <td colspan="2">
+                        <? echo $html->select('id_ca',array('options'=>$listaCA, 'selected' => $GPC['id_ca'], 'default' => 'Todos')); ?>
+                    </td>
+                </tr>
+                <? } ?>
+                <tr>
+                    <td>Perfil:</td>
+                    <td colspan="2">
+                        <? echo $html->select('id_perfil',array('options'=>$listaPerfiles, 'selected' => $GPC['id_perfil'], 'default' => 'Todos')); ?>
+                    </td>
+                </tr>
+                <tr id="botones">
+                    <td colspan="3">
+                        <?
+                            echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
+                            echo $html->input('Nuevo', 'Nuevo', array('type' => 'button'));
+                            echo $html->input('Regresar', 'Regresar', array('type' => 'button'));
+                        ?>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div><hr/>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
             <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>

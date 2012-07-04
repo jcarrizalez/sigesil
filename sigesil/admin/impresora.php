@@ -43,7 +43,7 @@
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
     <? echo $html->input('Impresora.id', $infoImpresora[0]['id'], array('type' => 'hidden')); ?>
     <div id="titulo_modulo">
-        CULTIVO<br/><hr/>
+        IMPRESORA<br/><hr/>
     </div>
     <table align="center">
         <tr>

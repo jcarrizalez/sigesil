@@ -133,7 +133,7 @@
                 <? } ?>
                 </td>
                 <td align="center">
-                <? if(in_array($padre['id'], array(1,4))){ ?>
+                <? if(in_array($padre['id'], array(1,2,4))){ ?>
                 <input name="accion_<?=$hijo['id']?>[modificar]" id ="accion_<?=$hijo['id']?>" type="checkbox" <?=$verifm?> class="" value="1" />
                 <? } ?>
                 </td>
