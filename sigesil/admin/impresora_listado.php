@@ -90,7 +90,7 @@
         <?
             $i=0;
             foreach($listadoImpresora as $dataImpresora){
-            $clase = $general->obtenerClaseFila($i);
+                $clase = $general->obtenerClaseFila($i);
         ?>
         <tr class="<?=$clase?>">
             <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>

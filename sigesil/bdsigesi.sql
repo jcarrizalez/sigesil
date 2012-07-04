@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Started on 2012-07-02 15:48:02 VET
+-- Started on 2012-07-04 10:52:08 VET
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -2762,7 +2762,7 @@ CREATE TABLE si_tolcarom (
     tipo character(1),
     estatus boolean DEFAULT true,
     creado timestamp with time zone,
-    modificiado timestamp with time zone,
+    modificado timestamp with time zone,
     parametros character varying(30)
 );
 
@@ -5944,10 +5944,7 @@ INSERT INTO si_menu VALUES (6, 'M_CentrosA', 1, 'admin/centros_acopio_listado.ph
 INSERT INTO si_menu VALUES (34, 'M_CosechaProductor', 4, 'admin/cosecha_productor.php', true, 6, NULL, NULL);
 INSERT INTO si_menu VALUES (22, 'M_Configuracion', 4, 'admin/parametros.php', true, 4, NULL, NULL);
 INSERT INTO si_menu VALUES (36, 'M_BoletaVirtual', 4, 'admin/boleta_virtual.php', true, 7, NULL, NULL);
-INSERT INTO si_menu VALUES (39, 'M_GerenteRecepcion', 3, 'reportes/gerente_recepcion.php', true, 8, NULL, NULL);
-INSERT INTO si_menu VALUES (40, 'M_GerenteDespacho', 3, 'reportes/gerente_despacho.php', true, 9, NULL, NULL);
 INSERT INTO si_menu VALUES (5, 'M_Cuenta', 0, NULL, false, 5, NULL, NULL);
-INSERT INTO si_menu VALUES (45, 'M_GranosVerdes', 3, 'reportes/granos_verdes.php', true, 10, NULL, NULL);
 INSERT INTO si_menu VALUES (42, 'M_UtilitarioRecepciones', 4, 'admin/utilitario_recepcion_listado.php', true, 8, NULL, NULL);
 INSERT INTO si_menu VALUES (44, 'M_UtilitarioDespachos', 4, 'admin/utilitario_despacho_listado.php', true, 9, NULL, NULL);
 INSERT INTO si_menu VALUES (10, 'M_Productor', 1, 'admin/productor_listado.php', true, 7, NULL, NULL);
@@ -5959,11 +5956,14 @@ INSERT INTO si_menu VALUES (15, 'M_Cultivo', 3, 'reportes/cultivos.php', true, 3
 INSERT INTO si_menu VALUES (16, 'M_Productores', 3, 'reportes/productores.php', true, 4, NULL, NULL);
 INSERT INTO si_menu VALUES (17, 'M_Recepciones', 3, 'reportes/recepcion.php', true, 5, NULL, NULL);
 INSERT INTO si_menu VALUES (18, 'M_Despacho', 3, 'reportes/despacho.php', true, 6, NULL, NULL);
-INSERT INTO si_menu VALUES (35, 'M_Auditoria', 3, 'reportes/actividad.php', true, 7, NULL, NULL);
 INSERT INTO si_menu VALUES (46, 'M_CargaProductor', 4, 'admin/productor_carga.php', true, 10, NULL, NULL);
 INSERT INTO si_menu VALUES (29, 'M_Chofer', 1, 'admin/chofer_listado.php', true, 9, NULL, NULL);
 INSERT INTO si_menu VALUES (32, 'M_Ordenes', 1, 'admin/ordenes_listado.php', true, 10, NULL, NULL);
 INSERT INTO si_menu VALUES (47, 'M_Cliente', 1, 'admin/cliente_listado.php', true, 8, NULL, NULL);
+INSERT INTO si_menu VALUES (35, 'M_Auditoria', 3, 'reportes/actividad.php', true, 10, NULL, NULL);
+INSERT INTO si_menu VALUES (39, 'M_GerenteRecepcion', 3, 'reportes/gerente_recepcion.php', true, 7, NULL, NULL);
+INSERT INTO si_menu VALUES (40, 'M_GerenteDespacho', 3, 'reportes/gerente_despacho.php', true, 8, NULL, NULL);
+INSERT INTO si_menu VALUES (45, 'M_GranosVerdes', 3, 'reportes/granos_verdes.php', true, 9, NULL, NULL);
 
 
 --
@@ -7110,54 +7110,54 @@ INSERT INTO si_silos VALUES (65, 6, 6, 'SILO 6', 'MODULO A', 6, 1000, NULL, 'A '
 -- Data for Name: si_tolcarom; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-INSERT INTO si_tolcarom VALUES (1, 2, 'Tolva 1', 1, '1', true, '2012-03-20 15:49:42.254884-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (2, 2, 'Tolva 2', 2, '1', true, '2012-03-20 15:49:42.254884-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (3, 2, 'Carril 1', 1, '2', true, '2012-03-20 15:50:13.473772-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (4, 2, 'Carril 2', 2, '2', true, '2012-03-20 15:50:13.473772-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (7, 3, 'Tolva 1', 1, '1', true, '2012-03-20 15:50:48.726304-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (8, 3, 'Tolva 2', 2, '1', true, '2012-03-20 15:50:48.726304-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (9, 3, 'Carril 1', 1, '2', true, '2012-03-20 15:50:48.726304-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (10, 3, 'Carril 2', 2, '2', true, '2012-03-20 15:50:48.726304-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (11, 3, 'Romana 1', 1, '3', true, '2012-03-20 15:50:48.726304-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (12, 3, 'Romana 2', 2, '3', true, '2012-03-20 15:50:48.726304-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (13, 4, 'Tolva 1', 1, '1', true, '2012-03-20 15:50:52.664404-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (14, 4, 'Tolva 2', 2, '1', true, '2012-03-20 15:50:52.664404-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (15, 4, 'Carril 1', 1, '2', true, '2012-03-20 15:50:52.664404-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (16, 4, 'Carril 2', 2, '2', true, '2012-03-20 15:50:52.664404-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (19, 5, 'Tolva 1', 1, '1', true, '2012-03-20 15:50:58.99675-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (20, 5, 'Tolva 2', 2, '1', true, '2012-03-20 15:50:58.99675-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (21, 5, 'Carril 1', 1, '2', true, '2012-03-20 15:50:58.99675-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (22, 5, 'Carril 2', 2, '2', true, '2012-03-20 15:50:58.99675-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (23, 5, 'Romana 1', 1, '3', true, '2012-03-20 15:50:58.99675-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (24, 5, 'Romana 2', 2, '3', true, '2012-03-20 15:50:58.99675-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (25, 6, 'Tolva 1', 1, '1', true, '2012-03-20 15:51:09.572982-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (26, 6, 'Tolva 2', 2, '1', true, '2012-03-20 15:51:09.572982-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (27, 6, 'Carril 1', 1, '2', true, '2012-03-20 15:51:09.572982-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (28, 6, 'Carril 2', 2, '2', true, '2012-03-20 15:51:09.572982-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (29, 6, 'Romana 1', 1, '3', true, '2012-03-20 15:51:09.572982-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (30, 6, 'Romana 2', 2, '3', true, '2012-03-20 15:51:09.572982-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (31, 7, 'Tolva 1', 1, '1', true, '2012-03-20 15:51:13.648062-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (32, 7, 'Tolva 2', 2, '1', true, '2012-03-20 15:51:13.648062-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (33, 7, 'Carril 1', 1, '2', true, '2012-03-20 15:51:13.648062-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (34, 7, 'Carril 2', 2, '2', true, '2012-03-20 15:51:13.648062-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (35, 7, 'Romana 1', 1, '3', true, '2012-03-20 15:51:13.648062-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (36, 7, 'Romana 2', 2, '3', true, '2012-03-20 15:51:13.648062-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (37, 8, 'Tolva 1', 1, '1', true, '2012-03-20 15:51:17.53979-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (38, 8, 'Tolva 2', 2, '1', true, '2012-03-20 15:51:17.53979-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (39, 8, 'Carril 1', 1, '2', true, '2012-03-20 15:51:17.53979-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (40, 8, 'Carril 2', 2, '2', true, '2012-03-20 15:51:17.53979-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (41, 8, 'Romana 1', 1, '3', true, '2012-03-20 15:51:17.53979-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (42, 8, 'Romana 2', 2, '3', true, '2012-03-20 15:51:17.53979-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (43, 9, 'Tolva 1', 1, '1', true, '2012-03-20 15:51:22.130722-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (44, 9, 'Tolva 2', 2, '1', true, '2012-03-20 15:51:22.130722-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (45, 9, 'Carril 1', 1, '2', true, '2012-03-20 15:51:22.130722-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (46, 9, 'Carril 2', 2, '2', true, '2012-03-20 15:51:22.130722-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (47, 9, 'Romana 1', 1, '3', true, '2012-03-20 15:51:22.130722-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (48, 9, 'Romana 2', 2, '3', true, '2012-03-20 15:51:22.130722-04:30', NULL, NULL);
-INSERT INTO si_tolcarom VALUES (6, 2, 'Romana 2', 2, '3', true, '2012-03-20 15:50:32.855835-04:30', NULL, 'http://192.168.56.89:9600');
-INSERT INTO si_tolcarom VALUES (5, 2, 'Romana 1', 1, '3', true, '2012-03-20 15:50:32.855835-04:30', NULL, 'http://192.168.56.89:9601');
-INSERT INTO si_tolcarom VALUES (17, 4, 'Romana 1', 1, '3', true, '2012-03-20 15:50:52.664404-04:30', NULL, 'http://192.168.58.74:9600');
-INSERT INTO si_tolcarom VALUES (18, 4, 'Romana 2', 2, '3', true, '2012-03-20 15:50:52.664404-04:30', NULL, 'http://192.168.58.74:9600');
+INSERT INTO si_tolcarom VALUES (36, 7, 'ROMANA 2', 2, '3', true, '2012-03-20 15:51:13.648062-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (37, 8, 'TOLVA 1', 1, '1', true, '2012-03-20 15:51:17.53979-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (38, 8, 'TOLVA 2', 2, '1', true, '2012-03-20 15:51:17.53979-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (39, 8, 'CARRIL 1', 1, '2', true, '2012-03-20 15:51:17.53979-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (40, 8, 'CARRIL 2', 2, '2', true, '2012-03-20 15:51:17.53979-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (41, 8, 'ROMANA 1', 1, '3', true, '2012-03-20 15:51:17.53979-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (42, 8, 'ROMANA 2', 2, '3', true, '2012-03-20 15:51:17.53979-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (43, 9, 'TOLVA 1', 1, '1', true, '2012-03-20 15:51:22.130722-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (44, 9, 'TOLVA 2', 2, '1', true, '2012-03-20 15:51:22.130722-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (45, 9, 'CARRIL 1', 1, '2', true, '2012-03-20 15:51:22.130722-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (46, 9, 'CARRIL 2', 2, '2', true, '2012-03-20 15:51:22.130722-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (47, 9, 'ROMANA 1', 1, '3', true, '2012-03-20 15:51:22.130722-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (48, 9, 'ROMANA 2', 2, '3', true, '2012-03-20 15:51:22.130722-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (1, 2, 'TOLVA 1', 1, '1', true, '2012-03-20 15:49:42.254884-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (2, 2, 'TOLVA 2', 2, '1', true, '2012-03-20 15:49:42.254884-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (3, 2, 'CARRIL 1', 1, '2', true, '2012-03-20 15:50:13.473772-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (4, 2, 'CARRIL 2', 2, '2', true, '2012-03-20 15:50:13.473772-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (5, 2, 'ROMANA 1', 1, '3', true, '2012-03-20 15:50:32.855835-04:30', NULL, 'HTTP://192.168.56.89:9601');
+INSERT INTO si_tolcarom VALUES (6, 2, 'ROMANA 2', 2, '3', true, '2012-03-20 15:50:32.855835-04:30', NULL, 'HTTP://192.168.56.89:9600');
+INSERT INTO si_tolcarom VALUES (7, 3, 'TOLVA 1', 1, '1', true, '2012-03-20 15:50:48.726304-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (8, 3, 'TOLVA 2', 2, '1', true, '2012-03-20 15:50:48.726304-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (9, 3, 'CARRIL 1', 1, '2', true, '2012-03-20 15:50:48.726304-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (10, 3, 'CARRIL 2', 2, '2', true, '2012-03-20 15:50:48.726304-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (11, 3, 'ROMANA 1', 1, '3', true, '2012-03-20 15:50:48.726304-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (12, 3, 'ROMANA 2', 2, '3', true, '2012-03-20 15:50:48.726304-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (13, 4, 'TOLVA 1', 1, '1', true, '2012-03-20 15:50:52.664404-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (14, 4, 'TOLVA 2', 2, '1', true, '2012-03-20 15:50:52.664404-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (15, 4, 'CARRIL 1', 1, '2', true, '2012-03-20 15:50:52.664404-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (16, 4, 'CARRIL 2', 2, '2', true, '2012-03-20 15:50:52.664404-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (17, 4, 'ROMANA 1', 1, '3', true, '2012-03-20 15:50:52.664404-04:30', NULL, 'HTTP://192.168.58.74:9600');
+INSERT INTO si_tolcarom VALUES (18, 4, 'ROMANA 2', 2, '3', true, '2012-03-20 15:50:52.664404-04:30', NULL, 'HTTP://192.168.58.74:9600');
+INSERT INTO si_tolcarom VALUES (19, 5, 'TOLVA 1', 1, '1', true, '2012-03-20 15:50:58.99675-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (20, 5, 'TOLVA 2', 2, '1', true, '2012-03-20 15:50:58.99675-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (21, 5, 'CARRIL 1', 1, '2', true, '2012-03-20 15:50:58.99675-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (22, 5, 'CARRIL 2', 2, '2', true, '2012-03-20 15:50:58.99675-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (23, 5, 'ROMANA 1', 1, '3', true, '2012-03-20 15:50:58.99675-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (24, 5, 'ROMANA 2', 2, '3', true, '2012-03-20 15:50:58.99675-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (25, 6, 'TOLVA 1', 1, '1', true, '2012-03-20 15:51:09.572982-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (26, 6, 'TOLVA 2', 2, '1', true, '2012-03-20 15:51:09.572982-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (27, 6, 'CARRIL 1', 1, '2', true, '2012-03-20 15:51:09.572982-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (28, 6, 'CARRIL 2', 2, '2', true, '2012-03-20 15:51:09.572982-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (29, 6, 'ROMANA 1', 1, '3', true, '2012-03-20 15:51:09.572982-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (30, 6, 'ROMANA 2', 2, '3', true, '2012-03-20 15:51:09.572982-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (31, 7, 'TOLVA 1', 1, '1', true, '2012-03-20 15:51:13.648062-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (32, 7, 'TOLVA 2', 2, '1', true, '2012-03-20 15:51:13.648062-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (33, 7, 'CARRIL 1', 1, '2', true, '2012-03-20 15:51:13.648062-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (34, 7, 'CARRIL 2', 2, '2', true, '2012-03-20 15:51:13.648062-04:30', NULL, NULL);
+INSERT INTO si_tolcarom VALUES (35, 7, 'ROMANA 1', 1, '3', true, '2012-03-20 15:51:13.648062-04:30', NULL, NULL);
 
 
 --
@@ -8940,7 +8940,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2012-07-02 15:48:03 VET
+-- Completed on 2012-07-04 10:52:09 VET
 
 --
 -- PostgreSQL database dump complete
