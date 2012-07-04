@@ -3,13 +3,15 @@
 
     $recepcion = new Recepcion();
     $cosecha = new Cosecha();
+    $Ctna = new Cuarentena();
 
     $porPagina = MAX_RESULTS_PAG;
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
-    $estatus="'2','5'";
-    
+    $estatus="'2','5'";    
     $idCosecha='';
     $numEntrada='';
+    $_SESSION['mov']='rec';
+    $idCa=(!empty($_SESSION['s_ca_id'])) ? $_SESSION['s_ca_id'] : '';
     
     if ($GPC['ac']=='Buscar') {
         $idCosecha=(!empty($GPC['idCosecha'])) ? $GPC['idCosecha'] : '';
@@ -17,9 +19,15 @@
     }
     
     $listaCo = $cosecha->find('', '', array('id', 'nombre'), 'list', 'id');
-    unset($listaCo[1]);
+    
+    //unset($listaCo[1]);
     
     $listadoRecepcion = $recepcion->listadoRecepcion('', $idCa, $idCosecha,'', $numEntrada, $estatus, '', '', $porPagina, $inicio);
+    $paramCtna='';
+    if ($idCa)
+        $paramCtna=array('id_centro_acopio'=>$idCa);
+    
+    $listadoCtna=$Ctna->find(array('id_centro_acopio'=>$idCa),'', array('id_recepcion', 'fecha_lib'), '', 'id_recepcion');
 
     $total_registros = $recepcion->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);
@@ -51,7 +59,7 @@
 <div id="filtro">
     <form name="form1" id="form1" method="POST" action="" enctype="multipart/form-data">
         <? echo $html->input('ac', 'Buscar', array('type' => 'hidden'));?>
-        <table width="100%">            
+        <table width="100%" border="0">            
             <tr>
                 <td width="110">Cultivo</td>                
                 <td colspan="2">
@@ -64,12 +72,12 @@
                 <td width="110">Numero</td>
                 <td>
                 <?= $html->input('numEntrada', $numEntrada, array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'class' => 'cuadricula positive')); 
-                    echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
                 ?></td>
             </tr>
             <tr id="botones">
                 <td colspan="3">
                     <?
+                        echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
                         $general->crearAcciones($acciones, '', 1);    
                         echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
                     ?>
@@ -85,7 +93,7 @@
             $paginador->print_paginator('pulldown');
         ?>
     </div>
-    <table align="center" width="100%" border="1">
+    <table align="center" width="100%" border="0">
         <tr align="center" class="titulos_tabla"> 
         <?
             if ($_SESSION['s_perfil_id']==GERENTEG) {
@@ -104,15 +112,26 @@
         <?
             }
         ?>
-            <th width="300px">Cultivo</th>
-            <th width="170px">Vehiculo</th>
+            <th>Cultivo</th>
+            <th>Vehiculo</th>
             <th>Fecha</th>
+            <th>F. Liberacion</th>
             <th>Estatus</th>
             <th>Acci&oacute;n</th>
         </tr> 
         <?
             $i=0;
             foreach($listadoRecepcion as $dataRecepcion){
+                foreach($listadoCtna as $dataCtna) {
+                    if ($dataCtna['id_recepcion']==$dataRecepcion['id_recepcion']) {
+                        $dataRecepcion['fecha_lib']=$dataCtna['fecha_lib'];
+                        break;
+                    }                        
+                }
+                
+                if (empty($dataRecepcion['fecha_lib']))
+                    $dataRecepcion['fecha_lib']=null;
+                
             $clase = $general->obtenerClaseFila($i);
         ?>
         <tr class="<?=$clase?>">
@@ -141,6 +160,7 @@
             <td align="left"><?=$dataRecepcion['cultivo_codigo'].' - '.$dataRecepcion['cultivo_nombre']?></td>
             <td align="center"><?=$dataRecepcion['placa'].' - '.$dataRecepcion['chofer_nombre']; ?></td>
             <td align="center"><?=$general->date_sql_screen($dataRecepcion['creado'], '', $lang="es", $sep="-")?></td>
+            <td align="center"><?=$general->date_sql_screen($dataRecepcion['fecha_lib'], '', $lang="es", $sep="-")?></td>
             <td align="center"><?
             //=$dataRecepcion['estatus_rec']
             echo '<img src="../images/cuarentena.png" width="16" height="16" title=Cuarentena>';            

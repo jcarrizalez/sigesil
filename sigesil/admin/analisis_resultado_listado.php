@@ -28,7 +28,8 @@ switch ($GPC['mov']) {
         $estatus=($_SESSION['s_lab']=='C')? "'1','10','11'": "'4','12','13'";
         $orden = " ORDER BY r.fecha_recepcion , r.id";
         $fecha=$general->fecha_normal_sql($GPC['fecha'], 'es');
-        $porPagina = MAX_RESULTS_PAG;
+        $porPagina = 1;
+        MAX_RESULTS_PAG;
         $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
         if (!empty($GPC['numEntrada']) && !empty($fecha))
             $estatus=$estatus . ",'2','3','5','6','7','8','9'";
@@ -176,8 +177,8 @@ require('../lib/common/init_calendar.php');
     <?
         }
     ?>
-        <th width="300px">Cultivo</th>
-        <th width="170px">Vehiculo</th>
+        <th>Cultivo</th>
+        <th>Vehiculo</th>
         <th>Fecha</th>
         <th>Estatus</th>
         <th>Acci&oacute;n</th>
@@ -224,8 +225,23 @@ require('../lib/common/init_calendar.php');
             case 'rec':
                 switch ($dataMov['estatus_rec']) {
                     case 1:
+                    case 3:
+                        echo '<img src="../images/peso1.png" width="16" height="16" title=Romana Lleno />';
+                        break;
                     case 4:
                         echo '<img src="../images/reloj.png" width="16" height="16" title=Espera />';
+                        break;
+                    case 5:
+                        echo '<img src="../images/peso1.png" width="16" height="16" title=Cuarentena Tolva />';
+                        break;
+                    case 6:
+                        echo '<img src="../images/peso1.png" width="16" height="16" title=Romana Vacio />';
+                        break;
+                    case 7:
+                        echo '<img src="../images/deshabilitar.png" width="16" height="16" title=Rechazo Central />';
+                        break;
+                    case 8:
+                        echo '<img src="../images/deshabilitar.png" width="16" height="16" title=Rechazo Planta />';
                         break;
                     case 11:
                         echo '<img src="../images/cuarentena.png" width="16" height="16" title=Cuarentena />';

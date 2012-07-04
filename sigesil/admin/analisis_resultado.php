@@ -234,7 +234,6 @@ switch ($GPC['ac']) {
             case '6':
                 $analisis->_commit_tool();
                 if ($estipo) {
-                    //header('location: '.DOMAIN_ROOT."/reportes/imprimir.php?reporte=boleta_tipifica?id_rec=".$GPC['id'].'&redir=analisis_resultado_listado');
                     header("location: ".DOMAIN_ROOT."reportes/imprimir_boleta_tipificacion.php?id_rec=".$GPC['id']);
                     die();
                 } else {
@@ -244,8 +243,7 @@ switch ($GPC['ac']) {
                 break;
             case '7':
             case '8':
-                $analisis->_commit_tool();                
-                //header('location: '.DOMAIN_ROOT."/reportes/imprimir.php?reporte=boleta_rechazo&id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado'].'&redir=analisis_resultado_listado');                
+                $analisis->_commit_tool();
                 header("location: ".DOMAIN_ROOT."reportes/imprimir_boleta_rechazo?id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado']);
                 die();
                 break;
