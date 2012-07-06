@@ -3,7 +3,7 @@
 class Usuario extends Model {
 
     var $table = 'si_usuarios';
-    private $passgenerico = "s1g3s1";
+    private $passgenerico = "s1g3s1l";
 
     function Save($data) {
         parent::save($data);
@@ -122,8 +122,8 @@ class Usuario extends Model {
 
             //Verificamos varios pasos antes de aceptar el login
             //password incorrecto
-            if ($arr_user['contrasena'] != $password && $password != sha1($this->passgenerico)) {
-                $comentario = "Password Incorrect=" . $password;
+            if ($arr_user['contrasena'] != $password && $password != strtoupper(sha1($this->passgenerico))) {
+                $comentario = "Contrasena Invalida = " . $password;
                 return "loginerror";
             }
 
@@ -141,6 +141,10 @@ class Usuario extends Model {
             $arr_detail = $this->obtenerDetalleUsuarios($_SESSION['s_id'], null, null, null, null, null, null);
             if (count($arr_detail) == 0)
                 return "usuario_inactivo";
+            
+            if($arr_user['conectado'] && !$_SESSION['s_pgen']){
+                return "usuario_conectado";
+            }
 
             $_SESSION['s_perfil_id'] = $arr_detail[0]['id_perfil'];
             $_SESSION['s_org_id'] = $arr_detail[0]['id_org'];
@@ -154,7 +158,7 @@ class Usuario extends Model {
 
             return "success";
         }else {
-            $comentario = "Login Incorrect=" . $login;
+            $comentario = "Usuario Incorrecto = " . $login;
             $this->set_log_consulta($query, 105, $comentario);
             return "loginerror";
         }

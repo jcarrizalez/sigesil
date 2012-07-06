@@ -66,29 +66,34 @@
     <div id="mostrar_error">
         <span><?=$etiqueta['loginerror']?></span>
     </div>
-    <div id="mostrar_error2">
-        <?php 
-            switch ($GPC['msg']){
-                case 'loginerror':
-                    echo $etiqueta['loginerror'];
-                break;
-                case 'auth_requerida':
-                    echo $etiqueta['auth_requerida'];
-                break;
-                case 'usuario_inactivo':
-                    echo $etiqueta['usuario_inactivo'];
-                break;
-                case 'captcha_invalido':
-                    echo $etiqueta['captcha_invalido'];
-                break;
-                case 'captcha_vacio':
-                    echo $etiqueta['captcha_vacio'];
-                break;
-            }
-        ?>
-    </div>
     <? echo $html->input('verifOp', '', array('type' => 'hidden')); ?>
     <table id="table_login" align="center" border="0">
+        <tr>
+            <td id="mostrar_error2" colspan="2">
+            <?php 
+                switch ($GPC['msg']){
+                    case 'loginerror':
+                        echo $etiqueta['loginerror'];
+                    break;
+                    case 'auth_requerida':
+                        echo $etiqueta['auth_requerida'];
+                    break;
+                    case 'usuario_conectado':
+                        echo $etiqueta['usuario_conectado'];
+                    break;
+                    case 'usuario_inactivo':
+                        echo $etiqueta['usuario_inactivo'];
+                    break;
+                    case 'captcha_invalido':
+                        echo $etiqueta['captcha_invalido'];
+                    break;
+                    case 'captcha_vacio':
+                        echo $etiqueta['captcha_vacio'];
+                    break;
+                }
+            ?>
+        </td>
+        </tr>
         <tr>
             <td class="labelText" width="1"><?=$etiqueta['txtUsuario']?></td>
             <td align="right"><? echo $html->input('usuario', '', array('type' => 'text', 'class' => 'inputLogin')); ?></td>
