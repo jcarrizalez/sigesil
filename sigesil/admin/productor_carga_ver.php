@@ -57,9 +57,15 @@
     require('../lib/common/header.php');
 ?>
 <script language="javascript1.5" type="text/javascript">
-    /*show_div_loader(); //cargador en el header interno
+    show_div_loader();
+    
+    $(document).ready(function(){
+        $('#Guardar').click(function(){
+            show_div_loader();
+        });
+    });
 
-    function selectall(lista){
+    /*function selectall(lista){
         var opt = document.getElementById('select_all').checked;
         var chklinea = document.getElementsByName(lista);
         for(i=0; i<=chklinea.length; i++){

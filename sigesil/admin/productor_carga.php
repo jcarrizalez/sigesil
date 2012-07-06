@@ -3,31 +3,8 @@
     $productor = new Productor();
 
     $lineaComienzo = (!empty($GPC['primera_linea'])) ? $GPC['primera_linea'] : 2;
-
-    /*if ($GPC['ac'] == "save2") {
-        //Debug::pr()
-        $archivo = new FileUpload(array('excel'));
-        $permitidas = $archivo->allowedTypes;
-        $usuario_archivo = $_FILES['sales_file'];
-        $ext_xls = array('.xls', '.xlsx'); //Los archivos nativos de excel no se pueden leer
-        $ext_archivo = substr($usuario_archivo['name'], strrpos($usuario_archivo['name'], '.'));
-        if (is_uploaded_file($usuario_archivo['tmp_name']) && in_array($usuario_archivo['type'], $permitidas) && in_array($ext_archivo, $ext_xls)) {
-            $idfile = $productor->upload_archivo_venta($GPC, $_FILES);
-            if ($idfile) {
-                header("location: sales_file_view.php?idfile=" . $idfile);
-                exit;
-            } else {
-                header("location: ?error=file");
-                exit;
-            }
-        } else {
-            header("location: ?error=file");
-            exit;
-        }
-    }*/
     
     if ($GPC['ac'] == "guardar") {
-        //Debug::pr()
         $archivo = new FileUpload(array('excel'));
         $permitidas = $archivo->allowedTypes;
         $usuario_archivo = $_FILES['archivo'];
@@ -51,7 +28,6 @@
     $validator = new Validator('form1');
     $validator->printIncludes();
     $validator->setRules('archivo', array('required' => array('value' => true, 'message' => 'Requerido')));
-    //$validator->setRules('separador', array('required' => array('value' => true, 'message' => 'Requerido')));
     $validator->setRules('primera_linea', array('required' => array('value' => true, 'message' => 'Requerido')));
     $validator->printScript();
 ?>
@@ -60,6 +36,10 @@
         window.location = 'productor_carga.php';
     }
     $(document).ready(function(){
+        $('#Guardar').click(function(){
+            show_div_loader();
+        });
+        
         $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
     });
 </script>
@@ -84,10 +64,6 @@
             <td><span class="msj_rojo">* </span>Archivo</td>
             <td><? echo $html->input('archivo', '', array('type' => 'file', 'class' => 'estilo_campos')) ?></td>
         </tr>
-        <!--tr>
-            <td><span class="msj_rojo">* </span>Separador</td>
-            <td><? echo $html->select('separador', array('options' => $separador, 'class' => 'estilo_campos', 'default' => 'Seleccione')) ?></td>
-        </tr-->
         <tr>
             <td><span class="msj_rojo">* </span>Primera L&iacute;nea de Datos</td>
             <td><? echo $html->input('primera_linea', '2', array('type' => 'text', 'class' => 'estilo_campos positive')) ?></td>

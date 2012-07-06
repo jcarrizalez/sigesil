@@ -95,12 +95,7 @@ class Productor extends Model {
             set_time_limit(0);
             ini_set('memory_limit',-1);
             $arrColumnas = array('ced_rif' => 0, 'nombre' => 1, 'telefono' => 2, 'direccion' => 3);
-            //$listaProductores = $this->obtenerProductores();
 
-            /*$ext_archivo = substr($nombreArchivo, strrpos($nombreArchivo,'.'));
-            if (strtolower($ext_archivo)==".xls")	$tipo = "Excel5";
-            if (strtolower($ext_archivo)==".ods")	$tipo = "Excel5";
-            if (strtolower($ext_archivo)==".xlsx")	$tipo = "Excel2007";*/
             $tipo = PHPExcel_IOFactory::identify($nombreArchivo);
 
             $leerExcel = PHPExcel_IOFactory::createReader($tipo);
@@ -144,7 +139,6 @@ class Productor extends Model {
                     //}
                 }
             }
-            //Debug::pr($this->data);die();
         }
     }
 }

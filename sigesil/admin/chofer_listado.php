@@ -7,7 +7,7 @@
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
     
     $listaNacion = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
-    $cedRif = (!empty($GPC['cedula'])) ? $GPC['nacionalidad'].$GPC['cedula'] : '';
+    $cedRif = $GPC['nacionalidad'].$GPC['cedula'];
     $nombre = (!empty($GPC['nombre'])) ? $GPC['nombre'] : '';
     $listadoChoferes = $chofer->buscarChofer($cedRif, $nombre, $porPagina, $inicio);
     
