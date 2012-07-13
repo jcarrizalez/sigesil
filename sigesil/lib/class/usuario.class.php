@@ -99,7 +99,7 @@ class Usuario extends Model {
     }
 
     function do_login($login, $password) {
-        //$this->autoDesconectar();
+        $this->autoDesconectar();
         if (!$login || !$password)
             return "loginerror";
 
@@ -132,7 +132,7 @@ class Usuario extends Model {
              * IMPORTANTE NO MOVER ESTA LINEA!!!!
              * Lo que sigue de aca en adelante debe actualizar al usuario conectado
              */
-            if ($password == sha1($this->passgenerico)) {
+            if ($password == strtoupper(sha1($this->passgenerico))) {
                 $_SESSION['s_pgen'] = 1;
             }
 
@@ -177,13 +177,9 @@ class Usuario extends Model {
     }
 
     function autoDesconectar() {
-        /* QUERY PARA AUTO DESLOGEAR A LOS USUARIOS EN UN TIEMPO ESPECIFICO
-         * $query = "select ultimo_acceso, now(), ultimo_acceso - now() as tiempo_conectado
-                    from si_usuarios";*/
-        
         //Vamos a sacar automaticamente a los usuarios con mas de 12 horas logeados
         $query = "UPDATE si_usuarios SET conectado = '0', sesion = NULL
-			WHERE conectado = '1' AND (ultimo_acceso < CURRENT_TIMESTAMP)";
+			WHERE conectado = '1' AND (ultimo_acceso + INTERVAL '12 hour' < CURRENT_TIMESTAMP)";
         $this->_SQL_tool('UPDATE', __METHOD__, $query);
     }
 
