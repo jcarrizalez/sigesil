@@ -4,7 +4,7 @@
     $movimiento = new Despacho();
     $cultivo = new Cultivo();
        
-    $idCa = (!empty($_SESSION['s_ca_id'])) ? $_SESSION['s_ca_id'] : null;
+    $idCa = $_SESSION['s_ca_id'];
     $listadoEstatus = array('1' => '(1) Romana Vacio', '2' => '(2) Laboratorio Central', '3' => '(3) Rechazado', '4' => '(4) Rechazado', '5' => '(5) Des','6' => '(6) Romana Vacio', '7' => '(7) Rechazo Central', '9' => '(9) Recibido',  '11' => '(11) Ctna Aprobado',  '12' => '(12) Ctna Rechazado');
     $estatus = (!empty($GPC['estatus'])) ? "'".$GPC['estatus']."'" : null;
     $fdesde = (!empty($GPC['fecha_inicio'])) ? $general->fecha_normal_sql($GPC['fecha_inicio'], 'es') : '';

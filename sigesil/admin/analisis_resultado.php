@@ -223,10 +223,10 @@ switch ($GPC['ac']) {
                 $analisis->_commit_tool();
                 if ($enRechazo==true) {
                     //header('location: '.DOMAIN_ROOT."/reportes/imprimir.php?reporte=boleta_rechazo&id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado'].'&redir=analisis_resultado_listado');
-                    header("location: ".DOMAIN_ROOT."reportes/imprimir_boleta_rechazo?id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado']);
+                    header("location: ".DOMAIN_ROOT."reportes/imprimir_boleta_rechazo?id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado']."&ca=".$_SESSION['s_ca_id']);
                     die();
                 } elseif ($estipo) {
-                    header("location: ".DOMAIN_ROOT."reportes/imprimir_boleta_tipificacion.php?id_rec=".$GPC['id']);
+                    header("location: ".DOMAIN_ROOT."reportes/imprimir_boleta_tipificacion.php?id_rec=".$GPC['id']."&ca=".$_SESSION['s_ca_id']);
                     die();
                 }
                 header("location: analisis_resultado_listado.php?msg=exitoso");
@@ -234,7 +234,7 @@ switch ($GPC['ac']) {
             case '6':
                 $analisis->_commit_tool();
                 if ($estipo) {
-                    header("location: ".DOMAIN_ROOT."reportes/imprimir_boleta_tipificacion.php?id_rec=".$GPC['id']);
+                    header("location: ".DOMAIN_ROOT."reportes/imprimir_boleta_tipificacion.php?id_rec=".$GPC['id']."&ca=".$_SESSION['s_ca_id']);
                     die();
                 } else {
                     header("location: analisis_resultado_listado.php?msg=exitoso");
@@ -244,7 +244,7 @@ switch ($GPC['ac']) {
             case '7':
             case '8':
                 $analisis->_commit_tool();
-                header("location: ".DOMAIN_ROOT."reportes/imprimir_boleta_rechazo?id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado']);
+                header("location: ".DOMAIN_ROOT."reportes/imprimir_boleta_rechazo?id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado']."&ca=".$_SESSION['s_ca_id']);
                 die();
                 break;
             default:

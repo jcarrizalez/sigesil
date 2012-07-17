@@ -5,7 +5,7 @@
     $cultivo = new Cultivo();
     $cosecha = new Cosecha();
     
-    $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : null;
+    $idCA = $_SESSION['s_ca_id'];
     $listadoEstatus = array('1' => '(1) Laboratorio Central', '2' => '(2) Curentena Admon', '3' => '(3) Romana Lleno', '4' => '(4) Tolvas', '5' => '(5) Ctna Tolva','6' => '(6) Romana Vacio', '7' => '(7) Rechazo Central', '9' => '(9) Recibido',  '11' => '(11) Ctna Aprobado',  '12' => '(12) Ctna Rechazado');
     $estatus = (!empty($GPC['estatus'])) ? "'".$GPC['estatus']."'" : null;
     $fdesde = (!empty($GPC['fecha_inicio'])) ? $general->fecha_normal_sql($GPC['fecha_inicio'], 'es') : '';
@@ -28,7 +28,7 @@
         }
         $GPC['fecha_inicio']=$fdesde;
         $GPC['fecha_fin']=$fhasta;
-        $listadoMov = $movimiento->listadoRecepcion(null, $idCa, $idCo, null, $numEntrada, $estatus, null, null, $porPagina, $inicio, null, null, null, null, null, null, null, null, $fdesde, $fhasta);
+        $listadoMov = $movimiento->listadoRecepcion(null, $idCA, $idCo, null, $numEntrada, $estatus, null, null, $porPagina, $inicio, null, null, null, null, null, null, null, null, $fdesde, $fhasta);
 
         $total_registros = $despacho->total_verdadero;
         $paginador = new paginator($total_registros, $porPagina);

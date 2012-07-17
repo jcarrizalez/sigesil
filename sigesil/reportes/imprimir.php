@@ -7,13 +7,13 @@
             $url = DOMAIN_ROOT.'reportes/imprimir_recepcion.php?id_rec='.$GPC['id_rec'].'&ca='.$GPC['ca'].'&reimprimir='.$GPC['re'];
         break;
         case 'boleta_rechazo':
-            $url = DOMAIN_ROOT."reportes/imprimir_boleta_rechazo.php?id=". $GPC['id']."&es_rechazado=".$GPC['es_rechazado'];
+            $url = DOMAIN_ROOT."reportes/imprimir_boleta_rechazo.php?id=". $GPC['id']."&es_rechazado=".$GPC['es_rechazado'].'&ca='.$GPC['ca'];
         break;
         case 'boleta_liquidacion':
             $url = DOMAIN_ROOT.'reportes/imprimir_boleta_liquidacion.php?id_rec='.$GPC['id_rec'].'&mov='.$GPC['mov'].'&reimprimir='.$GPC['re'];
         break;
         case 'boleta_tipifica':
-            $url = DOMAIN_ROOT.'reportes/imprimir_boleta_tipificacion.php?id_rec='.$GPC['id_rec'];
+            $url = DOMAIN_ROOT.'reportes/imprimir_boleta_tipificacion.php?id_rec='.$GPC['id_rec'].'&ca='.$GPC['ca'];
         break;
     }
     
@@ -24,7 +24,7 @@
         
         $mpdf=new mPDF('c');
         $mpdf->SetDisplayMode('fullpage');
-        $mpdf->SetTopMargin(0);
+        $mpdf->SetTopMargin(5);
         $stylesheet = file_get_contents(DOMAIN_ROOT.'css/reportes.css');
         $mpdf->WriteHTML($stylesheet,1);
         $mpdf->WriteHTML($imprimir);

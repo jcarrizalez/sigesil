@@ -10,7 +10,7 @@
     switch($GPC['ac']){
         case 'cargar':
             $productor->insertarProductorArchivo($archivo, $linea);
-            header("location: productor_carga.php");
+            header("location: productor_carga.php?msg=exitoso");
             exit;
         break;
         case 'cancelar':
@@ -19,39 +19,8 @@
             exit;
         break;
     }
-
-    /*$arr_tags = array();
-    switch ($GPC['tab']) {
-        case "invalids":
-            $show = 'invalids';
-            $type = array(0);
-            $page_size = 100;
-            $arr_tags = $productor->getCountByError($archivo);
-            break;
-        case 'uploaded':
-            $show = 'uploaded';
-            $type = array(3);
-            $page_size = 1500;
-            break;
-        case 'deleted':
-            $show = 'deleted';
-            $page_size = 250;
-            $type = array(4);
-            break;
-        case 'transfered':
-            $show = 'transfered';
-            $page_size = 500;
-            $type = array(5);
-            break;
-        case "valids":
-        default:
-            $show = 'valids';
-            $type = array(1, 3); //validos y uploaded
-            $page_size = 100;
-            break;
-    }*/
+    
     $productor->leerArchivoProductor($archivo, $linea);
-    //$productor->get_lineas_cargadas($archivo);
     $infoArchivo = $productor->data;
 
     require('../lib/common/header.php');
@@ -64,21 +33,6 @@
             show_div_loader();
         });
     });
-
-    /*function selectall(lista){
-        var opt = document.getElementById('select_all').checked;
-        var chklinea = document.getElementsByName(lista);
-        for(i=0; i<=chklinea.length; i++){
-            chklinea[i].checked = opt;
-        }
-    }
-
-    function openWindow(mypage,myname,w,h,scroll){
-        LeftPosition = (screen.width) ? (screen.width-w)/2 : 0;
-        TopPosition = (screen.height) ? (screen.height-h)/2 : 0;
-        settings ='height='+h+',width='+w+',top='+TopPosition+',left='+LeftPosition+',scrollbars=yes ';
-        win = window.open(mypage,myname,settings)
-    }*/
 
     function cancelar(){
         window.location = 'productor_carga_ver.php?ac=cancelar&archivo=<?=$archivo?>';

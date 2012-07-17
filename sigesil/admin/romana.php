@@ -308,7 +308,7 @@
                 }
             }
             if (!empty($idMovimiento) && (($GPC['mov'] == 'rec' && (in_array($GPC['Recepcion']['estatus_rec'], array(9, 14)))) || ($GPC['mov'] == 'des' && $GPC['Recepcion']['estatus'] == '5'))) {
-                header("location: ".DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_liquidacion&redir=romana_listado&id_rec=$idMovimiento&mov=".$GPC['mov']."&status=9");
+                header("location: ".DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_liquidacion&redir=romana_listado&id_rec=$idMovimiento&ca=".$_SESSION['s_ca_id']."&mov=".$GPC['mov']."&status=9");
                 die();
             } elseif (!empty($idMovimiento) && (($GPC['mov'] == 'rec' && $GPC['Recepcion']['estatus_rec'] == '4') || ($GPC['mov'] == 'des' && $GPC['Recepcion']['estatus'] == '2'))){
                 header("location: ".DOMAIN_ROOT."admin/romana_listado.php?msg=exitoso&mov=".$GPC['mov']);

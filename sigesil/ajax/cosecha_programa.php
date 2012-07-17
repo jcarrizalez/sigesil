@@ -40,22 +40,19 @@
             echo $html->select('id_productor', array('options' => $productores, 'default' => 'Seleccione', 'class' => 'estilo_campos2'));
         break;
         case 'cos_aon':
-            $productor = new Productor();
-            //$infoPro = $productor->find(array('id' => $GPC['cpro']));
             $infoProductores = $cosecha->asignarCosechaProductor($GPC['co'], $GPC['cpro']);
             foreach($infoProductores as $valor){
                 if(!empty($valor['id_asociacion'])){
                     if(!in_array($valor['id_asociacion'], $productores))
                         $productores[$valor['id_asociacion']] = $valor['ced_asociacion']. " - " .$valor['asociacion'];
                 }else{
-                    if(!in_array($valor['id_productor'], $productores))
+                    if(!in_array($valor['id_productor'], $productores) && $GPC['cpro'] != $valor['id_productor'])
                         $productores[$valor['id_productor']] = $valor['ced_productor']. " - " .$valor['productor'];
                 }
             }
             echo $html->select('id_asociacion', array('options' => $productores, 'default' => 'Seleccione', 'class' => 'estilo_campos2'));
         break;
         case 'cos_ado':
-            $productor = new Productor();
             $infoProductores = $cosecha->asignarCosechaProductor($GPC['co'], $GPC['cpro'], $GPC['caon']);
             echo "<tr align='center' class='titulos_tabla'><th>&nbsp;</th><th>C&eacute;dula/Rif Asociaci&oacute;n</th><th>Nombre Asociaci&oacute;n</th><th>C&eacute;dula/Rif</th><th>Nombre</th></tr>";
             $i=0;
@@ -70,7 +67,7 @@
                         echo "<td>".$valor['asociado']."</td></tr>";
                         $i++;
                     }
-                }elseif($valor['id_productor'] != $GPC['caon']){
+                }elseif($valor['id_productor'] != $GPC['caon'] && $GPC['cpro'] != $valor['id_productor']){
                     echo "<tr class='$clase'><td align='center' width='30'>".$html->input('id_asociado[]', $valor['id_productor'], array('type' => 'checkbox'))."</td>";
                     echo "<td align='center' width='100'>-</td>";
                     echo "<td align='center'>-</td>";

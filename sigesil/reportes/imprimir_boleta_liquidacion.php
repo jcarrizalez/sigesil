@@ -7,16 +7,17 @@
     }
     
     $id_rec = $GPC['id_rec'];
+    $idCA = $GPC['ca'];
     $recepcion = new Recepcion();
     $despacho = new Despacho();
     
     if($GPC['mov'] == 'rec'){
         $subguias = new Guia();
-        $dataMovimiento = $recepcion->listadoRecepcion($id_rec);
+        $dataMovimiento = $recepcion->listadoRecepcion($id_rec, $idCA);
         $dataSubGuias = $subguias->buscarSubGuias($dataMovimiento[0]['id_guia']);
     }else{
         $subOrdenes = new Orden();
-        $dataMovimiento = $despacho->listadoDespacho($id_rec);
+        $dataMovimiento = $despacho->listadoDespacho($id_rec, $idCA);
         $dataSubOrdenes = $subOrdenes->buscarSubOrden($dataMovimiento[0]['id_orden']);
     }
 
