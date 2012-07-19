@@ -11,6 +11,8 @@ $listaMov = array('rec' => 'RECEPCI&Oacute;N', 'des' => 'DESPACHO');
 $listaAccion = array('B' => 'Buscar');
 //$fecha_mov=date('d-m-Y');
 $idCA=$_SESSION['s_ca_id'];
+$porPagina = MAX_RESULTS_PAG;
+$inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
 
 if (!empty($GPC['mov']))
     $_SESSION['s_mov']=$GPC['mov'];
@@ -28,22 +30,20 @@ switch ($GPC['mov']) {
         $estatus=($_SESSION['s_lab']=='C')? "'1','10','11'": "'4','12','13'";
         $orden = " ORDER BY r.fecha_recepcion , r.id";
         $fecha=$general->fecha_normal_sql($GPC['fecha'], 'es');
-        $porPagina = MAX_RESULTS_PAG;
-        $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
         if (!empty($GPC['numEntrada']) && !empty($fecha))
             $estatus=$estatus . ",'2','3','5','6','7','8','9'";
         $listadoM=$recepcion->listadoRecepcion(null, $idCA, $idCo=null, null, $GPC['numEntrada'], $estatus, null, null, $porPagina, $inicio, null, $orden, null, null, null, null, null, null, $fecha, $fecha);
-        $total_registros = $recepcion->total_verdadero;
-        $paginador = new paginator($total_registros, $porPagina);
         //$listadoM=$recepcion->listadoRecepcion(null, $idCA, null, null, null, $estatus, null, null, null, null, null, $orden);
         break;
     case 'des':
         $despacho= new Despacho();
         $estatus="'2'";
         $orden = " ORDER BY d.fecha_des , d.id";
-        $listadoM=$despacho->listadoDespacho(null, $idCA, null, null, null, $estatus);
+        $listadoM=$despacho->listadoDespacho(null, $idCA, null, null, null, $estatus, null, null, $porPagina, $inicio);
         break;
 }
+$total_registros = $recepcion->total_verdadero;
+$paginador = new paginator($total_registros, $porPagina);
 
 require('../lib/common/header.php');
 require('../lib/common/init_calendar.php');
