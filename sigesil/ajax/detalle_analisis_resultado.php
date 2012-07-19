@@ -1,9 +1,9 @@
 <?php
 require_once('../lib/core.lib.php');
 
-$centroAcopio=new CentroAcopio();
-$cosecha=new Cosecha();
-$cultivo=new Cultivo();
+$analisis= new Analisis();
+
+$analisis->buscarAC('', $IdCultivo, $idCA, $laboratorio=null);
 
 if ($GPC['tipo_mov']=='R') {
     $recepcion = new Recepcion();
@@ -57,3 +57,6 @@ if ($GPC['tipo_mov']=='D') {
         <td colspan="4">&nbsp;</td>
     </tr>
 </table>
+?>
+
+

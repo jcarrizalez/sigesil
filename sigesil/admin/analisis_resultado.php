@@ -223,7 +223,7 @@ switch ($GPC['ac']) {
                 $analisis->_commit_tool();
                 if ($enRechazo==true) {
                     //header('location: '.DOMAIN_ROOT."/reportes/imprimir.php?reporte=boleta_rechazo&id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado'].'&redir=analisis_resultado_listado');
-                    header("location: ".DOMAIN_ROOT."reportes/imprimir_boleta_rechazo?id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado']."&ca=".$_SESSION['s_ca_id']);
+                    header("location: ".DOMAIN_ROOT."reportes/imprimir_boleta_rechazo.php?id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado']."&ca=".$_SESSION['s_ca_id']);
                     die();
                 } elseif ($estipo) {
                     header("location: ".DOMAIN_ROOT."reportes/imprimir_boleta_tipificacion.php?id_rec=".$GPC['id']."&ca=".$_SESSION['s_ca_id']);
@@ -244,7 +244,7 @@ switch ($GPC['ac']) {
             case '7':
             case '8':
                 $analisis->_commit_tool();
-                header("location: ".DOMAIN_ROOT."reportes/imprimir_boleta_rechazo?id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado']."&ca=".$_SESSION['s_ca_id']);
+                header("location: ".DOMAIN_ROOT."reportes/imprimir_boleta_rechazo.php?id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado']."&ca=".$_SESSION['s_ca_id']);
                 die();
                 break;
             default:
@@ -259,6 +259,7 @@ switch ($GPC['ac']) {
     require('../lib/common/header.php');
     ?>
     <script type="text/javascript">
+        var yesoPanza=0;
         function cancelar(){
             history.back();
         }
@@ -272,7 +273,7 @@ switch ($GPC['ac']) {
 
             if (valor != ''){            
                 if (estatus=='R') {
-                    if ((valor< min) || (valor > max) || (valor=='SI')) {
+                    if ((valor< min) || (valor > max) || (valor=='SI') || (valor=='D')) {
                         esRechazada=alert('<?= $html->unhtmlize($etiqueta['E_FueraNorma']); ?>');
                         if (rechazo.value.indexOf(campo)==-1) {
                             rechazo.value+=campo+':';
@@ -303,8 +304,8 @@ switch ($GPC['ac']) {
         }       
       
         $(document).ready(function() {
-            $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });           
-           
+            $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
+        
             $("#form1").submit(function(){
                 var isFormValid = true;
                 $("#form1 :input").each(function(){
@@ -417,16 +418,18 @@ switch ($GPC['ac']) {
                                 <td align="center">
                                 <? 
                                 if ($GPC['mov']=='rec')
-                                    echo $html->input('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', '', array('type' => 'text', 'length' => '6', 'class' => 'cuadricula positive', 'onChange' => "valoresMinMax(this.value," . $dataAnalisis['min_rec'] . "," . $dataAnalisis['max_rec'] . "," . $dataAnalisis['codigo'] . "," . $j . ",'" . $dataAnalisis['estatus'] . "', this)"));
+                                    echo $html->input('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', '', array('type' => 'text', 'length' => '6', 'class' => 'cuadricula positive campo', 'onChange' => "valoresMinMax(this.value," . $dataAnalisis['min_rec'] . "," . $dataAnalisis['max_rec'] . "," . $dataAnalisis['codigo'] . "," . $j . ",'" . $dataAnalisis['estatus'] . "', this)"));
                                 elseif ($GPC['mov']=='des')
-                                    echo $html->input('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', '', array('type' => 'text', 'length' => '6', 'class' => 'cuadricula positive', 'onChange' => "valoresMinMax(this.value," . $dataAnalisis['min_des'] . "," . $dataAnalisis['max_des'] . "," . $dataAnalisis['codigo'] . "," . $j . ",'" . $dataAnalisis['estatus'] . "', this)"));
+                                    echo $html->input('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', '', array('type' => 'text', 'length' => '6', 'class' => 'cuadricula positive campo', 'onChange' => "valoresMinMax(this.value," . $dataAnalisis['min_des'] . "," . $dataAnalisis['max_des'] . "," . $dataAnalisis['codigo'] . "," . $j . ",'" . $dataAnalisis['estatus'] . "', this)"));
                                 ?>
                                 </td>
                                 <?
                                 break;
                             case '2':
-                                ?>                    
-                                <td align="center"><? echo $html->select('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', array('options' => $calidad, 'class' => 'cuadricula cualitativo')); ?></td>
+                                ?>
+                                <td align="center">
+                                <? 
+                                    echo $html->select('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', array('options' => $calidad, 'class' => 'cuadricula cualitativo',  'onChange' => "valoresMinMax(this.value," . $dataAnalisis['min_des'] . "," . $dataAnalisis['max_des'] . "," . $dataAnalisis['codigo'] . "," . $j . ",'" . $dataAnalisis['estatus'] . "', this)")); ?></td>
                                 <?
                                 break;
                             case '3':

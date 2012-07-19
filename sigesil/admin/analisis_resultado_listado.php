@@ -74,13 +74,6 @@ require('../lib/common/init_calendar.php');
             if ($('#Accion').val()=='') {
                 return;
             }
-//            if ($('#numero').val()=='') {
-//                return;
-//            }
-
-//            if ($('#accion').val()=='B') {
-//                $('#resultados').load('../ajax/detalle_analisis_resultado.php?lab='+$('#lab').val()+'&mov='+$('#mov').val()+'&accion='+$('#accion').val()+'&id_centro_acopio='+<?=$idCA; ?>);
-//            }
         });
         
         //$('.imprimir').css('display','none');

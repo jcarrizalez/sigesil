@@ -9,12 +9,9 @@
         else if ($_SESSION['s_mov']=='des') {
                 $movimiento = new Despacho();
                 $fechaMov='fecha_des';
-        }        
-        $infoMovimiento= $movimiento->buscar($GPC['numero'], $general->fecha_normal_sql($GPC['fecha'],'es'));
-        debug::pr($infoMovimiento);
+        }
+       $infoMovimiento= $movimiento->buscar($GPC['numero'], $general->fecha_normal_sql($GPC['fecha'],'es'));                
         if (!empty($infoMovimiento))
-            //echo $html->input('id_rec', $infoMovimiento[0]['id'], array('type' => 'text'));
             header("location: ".DOMAIN_ROOT."reportes/imprimir_recepcion.php?id_rec=".$infoMovimiento[0]['id']);
-//            echo $html->input('id_rec', 'pepe', array('type' => 'text'));
     }
 ?>
