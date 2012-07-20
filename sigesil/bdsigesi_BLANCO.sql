@@ -3254,6 +3254,119 @@ ALTER TABLE si_vehiculos ALTER COLUMN id SET DEFAULT nextval('si_vehiculos_id_se
 -- Data for Name: si_almacenes; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
+--
+-- TOC entry 268 (class 1259 OID 91377)
+-- Dependencies: 6
+-- Name: si_contrato; Type: TABLE; Schema: public; Owner: admin; Tablespace: 
+--
+
+CREATE TABLE si_contrato (
+    id bigint NOT NULL,
+    id_centro_acopio bigint NOT NULL,
+    id_cosecha bigint NOT NULL,
+    id_productor bigint NOT NULL,
+    nro_contrato character varying NOT NULL,
+    descripcion character varying,
+    toneladas_rec real,
+    toneladas_con real,
+    creado timestamp with time zone,
+    modificado timestamp with time zone
+);
+
+
+ALTER TABLE public.si_contrato OWNER TO admin;
+
+--
+-- TOC entry 267 (class 1259 OID 91375)
+-- Dependencies: 6 268
+-- Name: si_contrato_id_seq; Type: SEQUENCE; Schema: public; Owner: admin
+--
+
+CREATE SEQUENCE si_contrato_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.si_contrato_id_seq OWNER TO admin;
+
+--
+-- TOC entry 2214 (class 0 OID 0)
+-- Dependencies: 267
+-- Name: si_contrato_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: admin
+--
+
+ALTER SEQUENCE si_contrato_id_seq OWNED BY si_contrato.id;
+
+
+--
+-- TOC entry 2215 (class 0 OID 0)
+-- Dependencies: 267
+-- Name: si_contrato_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
+--
+
+SELECT pg_catalog.setval('si_contrato_id_seq', 1, false);
+
+
+--
+-- TOC entry 2205 (class 2604 OID 91380)
+-- Dependencies: 268 267 268
+-- Name: id; Type: DEFAULT; Schema: public; Owner: admin
+--
+
+ALTER TABLE si_contrato ALTER COLUMN id SET DEFAULT nextval('si_contrato_id_seq'::regclass);
+
+
+--
+-- TOC entry 2211 (class 0 OID 91377)
+-- Dependencies: 268
+-- Data for Name: si_contrato; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+
+
+--
+-- TOC entry 2207 (class 2606 OID 91382)
+-- Dependencies: 268 268
+-- Name: si_contrato_pkey; Type: CONSTRAINT; Schema: public; Owner: admin; Tablespace: 
+--
+
+ALTER TABLE ONLY si_contrato
+    ADD CONSTRAINT si_contrato_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2208 (class 2606 OID 91383)
+-- Dependencies: 268 178
+-- Name: si_contrato_id_centro_acopio_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY si_contrato
+    ADD CONSTRAINT si_contrato_id_centro_acopio_fkey FOREIGN KEY (id_centro_acopio) REFERENCES si_centro_acopio(id);
+
+
+--
+-- TOC entry 2209 (class 2606 OID 91388)
+-- Dependencies: 184 268
+-- Name: si_contrato_id_cosecha_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY si_contrato
+    ADD CONSTRAINT si_contrato_id_cosecha_fkey FOREIGN KEY (id_cosecha) REFERENCES si_cosecha(id);
+
+
+--
+-- TOC entry 2210 (class 2606 OID 91393)
+-- Dependencies: 240 268
+-- Name: si_contrato_id_productor_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY si_contrato
+    ADD CONSTRAINT si_contrato_id_productor_fkey FOREIGN KEY (id_productor) REFERENCES si_productor(id);
+
+
 INSERT INTO si_almacenes VALUES (8, 8, 'ALMACEN - SILOS', NULL, 1, 12, 137, NULL, NULL, NULL, true, NULL, '2012-02-19 15:35:00.454', NULL, 1, '1');
 INSERT INTO si_almacenes VALUES (9, 9, 'ALMACEN - SILOS', NULL, 1, 18, 229, NULL, NULL, NULL, true, NULL, '2012-02-19 15:39:25.17', NULL, 1, '1');
 INSERT INTO si_almacenes VALUES (7, 7, 'ALMACEN - SILOS', NULL, 1, 1, 1, NULL, NULL, NULL, true, NULL, '2012-02-19 15:26:29', NULL, 1, '1');
