@@ -160,6 +160,7 @@ $validator->printScript();
             }else if(ced.val().length >= 6 && co != ''){
                 ced = np+ced.val();
                 $('#productor').load('../ajax/recepcion_detalle.php?ac=productor&cp='+ced+'&co='+co);
+                $('#contrato').load('../ajax/detalle_contrato.php?ac=recepcion&cp='+ced+'&co='+co);
             }else if(co == ''){
                 ced.attr('value', '');
                 alert('Favor seleccione una cosecha');
@@ -308,10 +309,6 @@ $validator->printScript();
                         </script>
                     </td>
                 </tr>
-                <tr>
-                    <td>N&uacute;mero de Contrato </td>
-                    <td><? echo $html->input('Guia.contrato', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-                </tr>
                 <!--tr>
                     <td>Disponible a Recibir </td>
                     <td><? echo $html->input('Guia.disponible_rec', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
@@ -377,6 +374,10 @@ $validator->printScript();
                     <td><? echo $html->input('nombre_asociado', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
                 </tr>
             </tbody>
+            <tr>
+                <td>N&uacute;mero de Contrato </td>
+                <td id="contrato"><? echo $html->input('Guia.contrato', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
+            </tr>
         </table>
     </fieldset>
     <!--fieldset id="fieldAsociado" style="display: none;">

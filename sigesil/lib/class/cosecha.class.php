@@ -69,10 +69,11 @@ class Cosecha extends Model {
                     LEFT JOIN si_productor p2 ON p2.id = cp.id_asociacion
                     LEFT JOIN si_productor p3 ON p3.id = cp.id_asociado
                     WHERE '1' AND cp.id_cosecha = '$idCo'";
-        $query .= (!empty($cedP)) ? " AND p.id = '$cedP'" : "";
-        $query .= (!empty($cedAon)) ? " AND p2.id = '$cedAon'" : "";
+        $query .= (!empty($cedP)) ? " AND p.ced_rif = '$cedP'" : "";
+        $query .= (!empty($cedAon)) ? " AND p2.ced_rif = '$cedAon'" : "";
         $query .=" OR NOT EXISTS (SELECT cp2.id_asociacion FROM si_cosecha_productor cp2 WHERE cp2.id_cosecha = '$idCo' AND (cp2.id_productor = p.id OR cp2.id_asociacion = p.id OR cp2.id_asociado = p.id))";
-        $query .= " ORDER BY p.ced_rif, p2.ced_rif, p3.ced_rif";
+        //$query .= " ORDER BY p.ced_rif, p2.ced_rif, p3.ced_rif";
+        $query .= " ORDER BY p2.ced_rif, p3.ced_rif, p.ced_rif";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
