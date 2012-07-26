@@ -9,8 +9,8 @@ $analisis=new Analisis();
 $listaLab = array('C' => 'Lab. Central', 'P' => 'Lab. Planta');
 $listaMov = array('rec' => 'RECEPCI&Oacute;N', 'des' => 'DESPACHO');
 $listaAccion = array('B' => 'Buscar');
-//$fecha_mov=date('d-m-Y');
-$idCA=$_SESSION['s_ca_id'];
+$fecha=$general->fecha_normal_sql($GPC['fecha'], 'es');
+$idCA = ($_SESSION['s_perfil_id']==GERENTEG) ? null: $_SESSION['s_ca_id'];
 $porPagina = MAX_RESULTS_PAG;
 $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
 
@@ -39,7 +39,8 @@ switch ($GPC['mov']) {
         $despacho= new Despacho();
         $estatus="'2'";
         $orden = " ORDER BY d.fecha_des , d.id";
-        $listadoM=$despacho->listadoDespacho(null, $idCA, null, null, null, $estatus, null, null, $porPagina, $inicio);
+        //$listadoM=$despacho->listadoDespacho(null, $idCA, null, null, null, $estatus, null, null, $porPagina, $inicio);
+	$listadoM=$despacho->listadoDespacho(null, $idCA, null, null, $GPC['numEntrada'], $estatus, null, null, $porPagina, $inicio, null, null, null, null, null, null, $fecha, $fecha);
         break;
 }
 $total_registros = $recepcion->total_verdadero;

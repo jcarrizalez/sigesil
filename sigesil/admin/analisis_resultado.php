@@ -306,33 +306,51 @@ switch ($GPC['ac']) {
             $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
             
             $(".muestra1").blur(function(){
-                suma=0;
+                sumaArroz=0;
+		sumaMaiz=0;
                 $(".muestra1").each(function(){
                     objeto=$(this).attr('id').split('_');
                     codigo=objeto[1].replace('[]','');
                     if (codigo==28 || codigo==29) {
                         if ($(this).val()!=='') {
-                            suma=suma+parseFloat($(this).val());
+                            sumaArroz=sumaArroz+parseFloat($(this).val());
                         }
                     }
+		    if (codigo==3 || codigo==4 || codigo==5 || codigo==6 ) {
+			if ($(this).val()!='') {
+			    sumaMaiz=sumaMaiz+parseFloat($(this).val());
+			}
+		    }			
                     if (codigo==30) {
-                        $(this).val(suma);                        
+                        $(this).val(sumaArroz);                        
                     }
+		    if (codigo==7) {
+			$(this).val(sumaMaiz);
+		    }
                 });
             });
             
             $(".muestra2").blur(function(){
-                suma=0;
+                sumaArroz=0;
+		sumaMaiz=0;
                 $(".muestra2").each(function(){
                     objeto=$(this).attr('id').split('_');
                     codigo=objeto[1].replace('[]','');
                     if (codigo==28 || codigo==29) {
                         if ($(this).val()!=='') {
-                            suma=suma+parseFloat($(this).val());
+                            sumaArroz=sumaArroz+parseFloat($(this).val());
+                        }
+                    }
+                    if (codigo==3 || codigo==4 || codigo==5 || codigo==6 ) {
+                        if ($(this).val()!='') {
+                            sumaMaiz=sumaMaiz+parseFloat($(this).val());
                         }
                     }
                     if (codigo==30) {
-                        $(this).val(suma);                        
+                        $(this).val(sumaArroz);                        
+                    }
+                    if (codigo==7) {
+                        $(this).val(sumaMaiz);
                     }
                 });
             });

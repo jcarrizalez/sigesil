@@ -19,14 +19,14 @@
                 ?>
                     <tr>
                         <td><span class="msj_rojo">* </span>Nro Orden </td>
-                        <td><? echo $html->input('Orden.numero_orden', $GPC['num'], array('type' => 'text', 'length' => '8', 'class' => 'estilo_campos positive')); ?></td>
+                        <td><? echo $html->input('Orden.numero_orden', $GPC['num'], array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive')); ?></td>
                     </tr>
                 <?
             }else{
                 ?>
                     <tr>
                         <td><span class="msj_rojo">* </span>Nro Orden </td>
-                        <td><? echo $html->input('Orden.numero_orden', '', array('type' => 'text', 'length' => '8', 'class' => 'estilo_campos positive')); ?></td>
+                        <td><? echo $html->input('Orden.numero_orden', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive')); ?></td>
                     </tr>
                     <tr>
                         <th colspan="2" align="center">El Nro de Orden ya Existe !</th>
@@ -272,7 +272,7 @@
                     <td>
                         <?
                             echo $html->select('nacion', array('options'=>$listaCR, 'selected' => substr($infoCliente[0]['ced_rif'], 0,1)));
-                            echo "&nbsp;".$html->input('Cliente.ced_rif', substr(trim($infoCliente[0]['ced_rif']), 1), array('type' => 'text', 'length' => '8', 'class' => 'positive', 'style' => 'width: 151px'));
+                            echo "&nbsp;".$html->input('Cliente.ced_rif', substr(trim($infoCliente[0]['ced_rif']), 1), array('type' => 'text', 'length' => '9', 'class' => 'positive', 'style' => 'width: 151px'));
                             echo $html->input('Orden.id_cliente', trim($infoCliente[0]['id']), array('type' => 'hidden'));
                         ?>
                     </td>

@@ -33,10 +33,6 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>N&uacute;mero de Contrato </td>
-                    <td><? echo $html->input('Guia.contrato', $infoGuia[0]['contrato'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
-                </tr>
-                <tr>
                     <td><span class="msj_rojo">* </span>Kilogramos Gu&iacute;a </td>
                     <td><? echo $html->input('Guia.kilogramos', $infoGuia[0]['kilogramos'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
                 </tr>

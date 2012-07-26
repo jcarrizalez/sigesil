@@ -7,7 +7,7 @@ class Cliente extends Model {
         $query = "SELECT c.id, c.*, pa.nombre AS pais, e.nombre AS estado, m.nombre AS municipio 
                 FROM si_cliente c
                 INNER JOIN si_organizacion o ON c.id_org = o.id
-                INNER JOIN si_pais pa ON pa.id = c.id_pais
+                LEFT JOIN si_pais pa ON pa.id = c.id_pais
                 LEFT JOIN si_estado e ON e.id = c.id_estado
                 LEFT JOIN si_municipio m ON m.id = c.id_municipio
                     WHERE '1' AND c.estatus = 't'";

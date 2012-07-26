@@ -25,7 +25,7 @@ switch ($GPC['ac']) {
             $infoCA = $centro_acopio->find(array('codigo' => substr($GPC['Orden']['numero_orden'], 0, 2)));
             $infoCU = $cultivo->find(array('codigo' => substr($GPC['Orden']['numero_orden'], 2, 2)));
             
-            $GPC['Orden']['id_centro_acopio'] = $infoCA[0]['id'];
+            $GPC['Orden']['id_centro_acopio'] = $_SESSION['s_ca_id'];
             $GPC['Orden']['id_cultivo'] = $infoCU[0]['id'];
             $fechaE = split('-', $GPC['Orden']['fecha_emision']);
             $cultivo = substr($GPC['Orden']['numero_orden'], 2, 2);
