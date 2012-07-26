@@ -139,7 +139,7 @@
             $cosecha = new Cosecha();
             
             $listadoEstatus = array('3' => 'Romana Lleno', '6' => 'Romana Vac&iacute;o');
-            $estatus = (!empty($GPC['estatus'])) ? "'".$GPC['estatus']."'" : "'3', '6', '8'";
+            $estatus = (!empty($GPC['estatus'])) ? "'".$GPC['estatus']."'" : "'3', '6'";
             
             $listadoCosechas = $cosecha->infoCosechaCultivo($idCA);
             foreach($listadoCosechas as $valor){
@@ -215,7 +215,7 @@
             <? if($_SESSION['s_perfil_id'] != ROMANERO){ ?>
             <th>Centro de Acopio</th>
             <? } ?>
-            <th width="90">Nro Recepci&oacute;n</th>
+            <th width="90">Nro Entrada</th>
             <th>Cosecha</th>
             <th>Guia</th>
             <th>Fecha Recepci&oacute;n</th>

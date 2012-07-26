@@ -157,20 +157,22 @@ require('../lib/common/init_calendar.php');
 </div>
 <table align="center" width="100%" border="0">
     <tr align="center" class="titulos_tabla"> 
-    <?
-        if ($_SESSION['s_perfil_id']==GERENTEG) {
-    ?>
+    <? if ($_SESSION['s_perfil_id']==GERENTEG) { ?>
         <th>Centro de Acopio</th>
     <?
         }
         if ($_SESSION['s_mov']=='rec') {
-    ?>        
-        <th width="85px">Nro Entrada</th>
-    <?
-        }
     ?>
+        <th width="85px">Nro Entrada</th>
+    <? }else{ ?>
+        <th width="85px">Nro Salida</th>
+    <? } ?>
         <th>Cultivo</th>
-        <th>Vehiculo</th>
+    <? if ($_SESSION['s_mov']=='rec') { ?>
+        <th>Guia</th>
+    <? }else{ ?>
+        <th>Orden</th>
+    <? } ?>
         <th>Fecha</th>
         <th>Estatus</th>
         <th>Acci&oacute;n</th>
@@ -193,8 +195,7 @@ require('../lib/common/init_calendar.php');
             $numero = ($dataMov['numero'] < 10) ? '0'.$dataMov['numero'] : $dataMov['numero'];
             $numEntrada = "R".$numero.$general->date_sql_screen($dataMov['fecha_recepcion'], '', 'es', null);
             echo $numEntrada;
-        }
-        if ($GPC['mov']=='des') {
+        }else{
             $numero = ($dataMov['numero'] < 10) ? '0'.$dataMov['numero'] : $dataMov['numero'];
             $numSalida = "D".$numero.$general->date_sql_screen($dataMov['fecha_des'], '', 'es', null);
             echo $numSalida;
@@ -202,7 +203,7 @@ require('../lib/common/init_calendar.php');
     ?>
         </td>
         <td><?= $dataMov['cultivo_codigo'].' - '.$dataMov['cultivo_nombre']; ?></td>
-        <td><?= $dataMov['placa'].' - '.$dataMov['chofer_nombre'];?></td>
+        <td><?=$dataMov['numero_guia']; ?></td>
         <td>
         <? 
         if ($GPC['mov']=='rec')
