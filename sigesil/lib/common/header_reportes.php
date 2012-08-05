@@ -1,7 +1,7 @@
 <?php
     require_once("../lib/core.lib.php");
     $centroAcopio = new CentroAcopio();
-    $data = $centroAcopio->buscarCA($_SESSION["s_ca_id"]);
+    $data = $centroAcopio->buscarCA($GPC["ca"]);
 ?>
 <html>
     <head>

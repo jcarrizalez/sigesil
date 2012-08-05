@@ -16,6 +16,7 @@
             $despacho = new Despacho();
             $transporte = new Transporte();
             $ptoEntrega = new PuntosEntrega();
+	    $vehiculo = new Vehiculo();
             
             $cantSalida = $despacho->despachosDia($_SESSION['s_ca_id']);
             $numeroSalida = ++$cantSalida[0]['total'];
@@ -45,7 +46,9 @@
                     }
                 }
             }
-            
+
+	    $vehiculo->save($GPC['Vehiculo']);
+
             $GPC['Despacho']['id_centro_acopio'] = $_SESSION['s_ca_id'];
             $GPC['Despacho']['numero'] = $numeroSalida;
             $GPC['Despacho']['id_vehiculo'] = $GPC['Vehiculo']['id'];
@@ -62,7 +65,7 @@
             
             if(!empty($idDespacho)){
                 $despacho->_commit_tool();
-                header("location: despacho.php?msg=exitoso");
+		header("location: ".DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_recepcion&mov=des&redir=despacho&id_rec=$idDespacho&ca=".$_SESSION['s_ca_id']."&status=1");
                 die();
             }else{
                 header("location: despacho.php?msg=error");

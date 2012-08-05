@@ -8,7 +8,8 @@
     $pesoVacio = round($detalleDespacho[0]['peso_01v'] + $detalleDespacho[0]['peso_02v']);
     $pesoAcondicionado = (!empty($detalleDespacho[0]['peso_acon'])) ? round($detalleDespacho[0]['peso_acon']) : 0;
     $pesoAcondicionado2 = (!empty($detalleDespacho[0]['peso_acon2'])) ? round($detalleDespacho[0]['peso_acon2']) : 0;
-    
+    $placa = $detalleDespacho[0]['placa'];
+    $placa .= (!empty($detalleDespacho[0]['placa_remolques'])) ? " / ".$detalleDespacho[0]['placa_remolques'] : '';
     switch($GPC['ac']){
         case 'Liquidacion':
             header("location: ".DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_liquidacion&id_rec=".$GPC['id']."&mov=des&ca=".$GPC['ca']."&re=true");
@@ -76,7 +77,7 @@
                 <td><?php echo $detalleDespacho[0]['ced_cliente'] ?></td>
                 <td><?php echo $detalleDespacho[0]['cliente_nombre'] ?></td>
                 <td><?php echo $detalleDespacho[0]['marca'] ?></td>
-                <td><?php echo $detalleDespacho[0]['placa'] ?></td>
+                <td><?php echo $placa ?></td>
                 <td><?php echo $detalleDespacho[0]['ced_chofer'] ?></td>
                 <td><?php echo $detalleDespacho[0]['chofer_nombre'] ?></td>
                 <td><?php echo $detalleDespacho[0]['romana_ent'] ?></td>

@@ -142,9 +142,9 @@ class Usuario extends Model {
             if (count($arr_detail) == 0)
                 return "usuario_inactivo";
             
-            if($arr_user['conectado'] && !$_SESSION['s_pgen']){
+            /*if($arr_user['conectado'] && !$_SESSION['s_pgen']){
                 return "usuario_conectado";
-            }
+            }*/
 
             $_SESSION['s_perfil_id'] = $arr_detail[0]['id_perfil'];
             $_SESSION['s_org_id'] = $arr_detail[0]['id_org'];

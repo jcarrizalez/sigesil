@@ -4,13 +4,13 @@
     
     switch ($GPC['reporte']){
         case 'boleta_recepcion':
-            $url = DOMAIN_ROOT.'reportes/imprimir_recepcion.php?id_rec='.$GPC['id_rec'].'&ca='.$GPC['ca'].'&reimprimir='.$GPC['re'];
+            $url = DOMAIN_ROOT.'reportes/imprimir_recepcion.php?mov='.$GPC['mov'].'&id_rec='.$GPC['id_rec'].'&ca='.$GPC['ca'].'&reimprimir='.$GPC['re'];
         break;
         case 'boleta_rechazo':
             $url = DOMAIN_ROOT."reportes/imprimir_boleta_rechazo.php?id=". $GPC['id']."&es_rechazado=".$GPC['es_rechazado'].'&ca='.$GPC['ca'];
         break;
         case 'boleta_liquidacion':
-            $url = DOMAIN_ROOT.'reportes/imprimir_boleta_liquidacion.php?id_rec='.$GPC['id_rec'].'&mov='.$GPC['mov'].'&reimprimir='.$GPC['re'];
+            $url = DOMAIN_ROOT.'reportes/imprimir_boleta_liquidacion.php?id_rec='.$GPC['id_rec'].'&ca='.$GPC['ca'].'&mov='.$GPC['mov'].'&reimprimir='.$GPC['re'];
         break;
         case 'boleta_tipifica':
             $url = DOMAIN_ROOT.'reportes/imprimir_boleta_tipificacion.php?id_rec='.$GPC['id_rec'].'&ca='.$GPC['ca'];

@@ -5,14 +5,21 @@
     $id_rec = $GPC['id_rec'];
     $ca = $GPC['ca'];
     $recepcion = new Recepcion();
-    $analisisCul = new AnalisisCultivo();
+    $despacho = new Despacho();
     $AnalisisRes = new Analisis();
     
-    $dataRecepcion = $recepcion->listadoAnalisis($ca, null, $id_rec);
+    if($GPC['mov'] == 'rec'){
+        $dataRecepcion = $recepcion->listadoAnalisis($ca, null, $id_rec);
+        $numero = "ENTRADA NRO: &nbsp;R".$dataRecepcion[0]['numero']."-".$general->date_sql_screen($dataRecepcion[0]['fecha_recepcion'], '', 'es', '');
+        $data = $AnalisisRes->listadoResultados($id_rec);
+    }else{
+        $dataRecepcion = $despacho->listadoAnalisisD($ca, $id_rec);
+        $numero = "SALIDA NRO: &nbsp;D".$dataRecepcion[0]['numero']."-".$general->date_sql_screen($dataRecepcion[0]['fecha_recepcion'], '', 'es', '');
+        $data = $AnalisisRes->listadoResultados(null, $id_rec);
+    }
     $listadoAnalisis = $AnalisisRes->buscarAC(null, $dataRecepcion[0]['id_cultivo'], $ca);
-    $data = $AnalisisRes->listadoResultados($id_rec);
-    $numero = "R".$dataRecepcion[0]['numero']."-".$general->date_sql_screen($dataRecepcion[0]['fecha_recepcion'], '', 'es', '');
-    
+    $placa = $dataRecepcion[0]['placa'];
+    $placa .= (!empty($dataRecepcion[0]['placa_remolques'])) ? " / ".$dataRecepcion[0]['placa_remolques'] : "";
     if(!empty($dataRecepcion[0]['id_rec'])) {
         if(!empty($GPC['reimprimir'])){
 ?>
@@ -26,7 +33,7 @@
         <td id="titulo_reporte">RESULTADOS DE ANALISIS</td>
     </tr>
     <tr>
-        <td>ENTRADA NRO: &nbsp;<?=$numero?></td>
+        <td><?=$numero?></td>
     </tr>
     <tr>
         <td>
@@ -61,7 +68,7 @@
 </table>
 <?
     }else{
-        header('location: ../admin/recepcion.php');
+        header('location: ../pages/principal.php');
         die();
     }
     require_once("../lib/common/footer_reportes.php");

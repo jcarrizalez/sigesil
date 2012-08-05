@@ -22,11 +22,12 @@ class Recepcion extends Model {
         $query = "SELECT ca.id AS id_ca, ca.codigo AS codigo_ca, ca.nombre AS nombre_ca, 
                     cul.id AS id_cultivo, cul.codigo AS codigo_cul, cul.nombre AS nombre_cul,                    
                     rec.id AS id_rec, rec.numero, rec.estatus_rec, rec.fecha_recepcion, 
-                    rec.cant_muestras, rec.carril 
+                    rec.cant_muestras, rec.carril, v.placa, v.placa_remolques 
                     FROM si_recepcion rec
                     INNER JOIN si_centro_acopio ca ON rec.id_centro_acopio=ca.id
                     INNER JOIN si_cosecha cos ON cos.id=rec.id_cosecha
                     INNER JOIN si_cultivo cul ON cul.id=cos.id_cultivo
+		    INNER JOIN si_vehiculos v ON v.id = rec.id_vehiculo
                     WHERE '1'";
         $query .= (!empty($idCA)) ? " AND ca.id = '$idCA'" : "";
         $query .= (!empty($idCo)) ? " AND cul.id = '$idCo'" : "";

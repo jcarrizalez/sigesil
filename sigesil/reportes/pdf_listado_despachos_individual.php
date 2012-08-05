@@ -121,7 +121,7 @@ $suma_peso_bruto=0;
 $suma_dcto_hum=0;
 $suma_dcto_imp=0;
 $suma_pacondicionado=0;
-$suma_despachos=1;
+$suma_despachos=0;
 
 
 
@@ -145,7 +145,7 @@ $dcto_hum_=$pdf->decimales($dcto_hum,2);
 $dcto_imp=$listadoDespachos[$i]['impureza_des'];	
 $suma_dcto_imp+=$dcto_imp;	
 $dcto_imp_=$pdf->decimales($dcto_imp,2);
-$pacondicionado=$listadoDespachos[$i]['peso_acon'];	
+$pacondicionado=$listadoDespachos[$i]['peso_acon_liq'];	
 $suma_pacondicionado+=$pacondicionado;	
 $pacondicionado_=$pdf->decimales($pacondicionado,2);
 $hum=$listadoDespachos[$i]['humedad'];
@@ -176,6 +176,7 @@ $t.='
 </tr>
 ';
 }
+$suma_despachos=count($listadoDespachos);
 $t.='
 </table>
 <table border="0" cellpadding="0" cellspacing="2" width="100px">

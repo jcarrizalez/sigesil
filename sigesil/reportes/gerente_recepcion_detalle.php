@@ -7,7 +7,8 @@
     $pesoLleno = round($detalleRecepcion[0]['peso_01l'] + $detalleRecepcion[0]['peso_02l']);
     $pesoVacio = round($detalleRecepcion[0]['peso_01v'] + $detalleRecepcion[0]['peso_02v']);
     $pesoAcondicionado = (!empty($detalleRecepcion[0]['peso_acon'])) ? round($detalleRecepcion[0]['peso_acon']) : 0;
-    
+    $placa = $detalleRecepcion[0]['placa'];
+    $placa .= (!empty($detalleRecepcion[0]['placa_remolques'])) ? " / ".$detalleRecepcion[0]['placa_remolques'] : '';
     switch($GPC['ac']){
         case 'Resultados':
             header("location: ".DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_recepcion&id_rec=".$GPC['id']."&ca=".$GPC['ca']."&re=true");
@@ -93,7 +94,7 @@
                 <td><?php echo $detalleRecepcion[0]['ced_asociado'] = (!empty($detalleRecepcion[0]['ced_asociado'])) ? $detalleRecepcion[0]['ced_asociado'] : "-" ?></td>
                 <td><?php echo $detalleRecepcion[0]['asociado_nombre'] = (!empty($detalleRecepcion[0]['asociado_nombre'])) ? $detalleRecepcion[0]['asociado_nombre'] : "-" ?></td>
                 <td><?php echo $detalleRecepcion[0]['marca'] ?></td>
-                <td><?php echo $detalleRecepcion[0]['placa'] ?></td>
+                <td><?php echo $placa ?></td>
                 <td><?php echo $detalleRecepcion[0]['ced_chofer'] ?></td>
                 <td><?php echo $detalleRecepcion[0]['chofer_nombre'] ?></td>
                 <td><?php echo $detalleRecepcion[0]['romana_ent'] ?></td>

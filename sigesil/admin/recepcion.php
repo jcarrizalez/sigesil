@@ -51,6 +51,8 @@
             
             $chofer->save($GPC['Chofer']);
             $idChofer = $chofer->id;
+
+	    $vehiculo->save($GPC['Vehiculo']);
             
             $GPC['Recepcion']['id_productor'] = $GPC['id_productor'];
             $GPC['Recepcion']['id_asociacion'] = (!empty($GPC['id_asociacion'])) ? $GPC['id_asociacion'] : 0;
@@ -63,7 +65,7 @@
             
             if(!empty($idGuia) && !empty($idChofer) && !empty($idRecepcion)){
                 $recepcion->_commit_tool();
-                header("location: ".DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_recepcion&redir=recepcion&id_rec=$idRecepcion&ca=".$_SESSION['s_ca_id']."&status=1");
+                header("location: ".DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_recepcion&mov=rec&redir=recepcion&id_rec=$idRecepcion&ca=".$_SESSION['s_ca_id']."&status=1");
                 die();
             }else{
                 header("location: recepcion.php?msg=error");
