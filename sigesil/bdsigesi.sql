@@ -1060,7 +1060,7 @@ ALTER SEQUENCE si_cultivo_tipo_id_seq OWNED BY si_cultivo_tipo.id;
 -- Name: si_cultivo_tipo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_cultivo_tipo_id_seq', 0, true);
+SELECT pg_catalog.setval('si_cultivo_tipo_id_seq', 10, true);
 
 
 --
@@ -1408,7 +1408,7 @@ ALTER SEQUENCE si_formulas_id_seq OWNED BY si_formulas.id;
 -- Name: si_formulas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('si_formulas_id_seq', 48, true);
+SELECT pg_catalog.setval('si_formulas_id_seq', 54, true);
 
 
 --
@@ -5804,6 +5804,22 @@ INSERT INTO si_cultivo (id, id_org, nombre, tipificado, ciclo, creado, modificad
 
 
 --
+-- Data for Name: si_cultivo_tipo; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+INSERT INTO si_cultivo_tipo (id, id_centro_acopio, id_cultivo, id_analisis, tipo, min, max) VALUES (1, 8, 2, 26, 'A ', 0.00, 4.00);
+INSERT INTO si_cultivo_tipo (id, id_centro_acopio, id_cultivo, id_analisis, tipo, min, max) VALUES (2, 8, 2, 26, 'B ', 4.10, 11.00);
+INSERT INTO si_cultivo_tipo (id, id_centro_acopio, id_cultivo, id_analisis, tipo, min, max) VALUES (3, 8, 2, 30, 'A ', 0.00, 17.00);
+INSERT INTO si_cultivo_tipo (id, id_centro_acopio, id_cultivo, id_analisis, tipo, min, max) VALUES (4, 8, 2, 30, 'B ', 17.10, 30.00);
+INSERT INTO si_cultivo_tipo (id, id_centro_acopio, id_cultivo, id_analisis, tipo, min, max) VALUES (5, 8, 2, 31, 'A ', 0.00, 1.50);
+INSERT INTO si_cultivo_tipo (id, id_centro_acopio, id_cultivo, id_analisis, tipo, min, max) VALUES (6, 8, 2, 31, 'B ', 1.51, 3.00);
+INSERT INTO si_cultivo_tipo (id, id_centro_acopio, id_cultivo, id_analisis, tipo, min, max) VALUES (7, 8, 2, 32, 'A ', 0.00, 8.50);
+INSERT INTO si_cultivo_tipo (id, id_centro_acopio, id_cultivo, id_analisis, tipo, min, max) VALUES (8, 8, 2, 32, 'B ', 8.51, 14.00);
+INSERT INTO si_cultivo_tipo (id, id_centro_acopio, id_cultivo, id_analisis, tipo, min, max) VALUES (9, 8, 2, 33, 'A ', 0.00, 1.50);
+INSERT INTO si_cultivo_tipo (id, id_centro_acopio, id_cultivo, id_analisis, tipo, min, max) VALUES (10, 8, 2, 33, 'B ', 1.51, 3.00);
+
+
+--
 -- TOC entry 2538 (class 0 OID 56638)
 -- Dependencies: 193
 -- Data for Name: si_cultivo_tipo; Type: TABLE DATA; Schema: public; Owner: admin
@@ -5934,6 +5950,12 @@ INSERT INTO si_formulas (id, id_org, id_centro_acopio, id_cultivo, formula, codi
 INSERT INTO si_formulas (id, id_org, id_centro_acopio, id_cultivo, formula, codigo, id_mov, tipo_for, condicion, creado, modificado, id_analisis) VALUES (46, 1, 1, 10, '((((PL1+PL2)-(PV1+PV2))*(1-(IMPL-2)/98))*(1-(HUML-8)/92))', 'GIRPA', 3, 2, 'HUML+IMPL = 14 < 9999999', '2012-05-07 09:34:03.159576-04:30', NULL, NULL);
 INSERT INTO si_formulas (id, id_org, id_centro_acopio, id_cultivo, formula, codigo, id_mov, tipo_for, condicion, creado, modificado, id_analisis) VALUES (47, 1, 1, 10, '(((PL1+PL2)-(PV1+PV2))-((PL1+PL2)-(PV1+PV2))*((HUML+IMPL)-14)/100)', 'GIRPAL', 3, 2, 'HUML+IMPL = 14 < 9999999', '2012-03-21 15:53:26.542432-04:30', NULL, NULL);
 INSERT INTO si_formulas (id, id_org, id_centro_acopio, id_cultivo, formula, codigo, id_mov, tipo_for, condicion, creado, modificado, id_analisis) VALUES (48, 1, 1, NULL, '(((PL1+PL2)-(PV1+PV2))-(PHUM+PIMP))', 'PA', 3, 2, NULL, '2012-03-22 00:00:00-04:30', NULL, NULL);
+INSERT INTO si_formulas (id, id_org, id_centro_acopio, id_cultivo, formula, codigo, id_mov, tipo_for, condicion, creado, modificado, id_analisis) VALUES (49, 1, 1, 2, '(HUML-12)*((PL1+PL2)-(PV1+PV2))/(100-12)', 'H02', 2, 1, NULL, '2012-08-01 09:07:20.493441-04:30', NULL, 1);
+INSERT INTO si_formulas (id, id_org, id_centro_acopio, id_cultivo, formula, codigo, id_mov, tipo_for, condicion, creado, modificado, id_analisis) VALUES (50, 1, 1, 2, '((PL1+PL2)-((HUML-12)*((PL1+PL2)-(PV1+PV2))/(100-12)))*(IMPL-0)/100', 'I02', 2, 1, NULL, '2012-08-01 09:08:11.882353-04:30', NULL, 2);
+INSERT INTO si_formulas (id, id_org, id_centro_acopio, id_cultivo, formula, codigo, id_mov, tipo_for, condicion, creado, modificado, id_analisis) VALUES (51, 1, 1, 7, '(HUML-12)*((PL1+PL2)-(PV1+PV2))/(100-12)', 'H07', 2, 1, NULL, '2012-08-01 09:15:44.338791-04:30', NULL, 1);
+INSERT INTO si_formulas (id, id_org, id_centro_acopio, id_cultivo, formula, codigo, id_mov, tipo_for, condicion, creado, modificado, id_analisis) VALUES (52, 1, 1, 8, '(HUML-12)*((PL1+PL2)-(PV1+PV2))/(100-12)', 'H08', 2, 1, NULL, '2012-08-01 09:16:13.889329-04:30', NULL, 1);
+INSERT INTO si_formulas (id, id_org, id_centro_acopio, id_cultivo, formula, codigo, id_mov, tipo_for, condicion, creado, modificado, id_analisis) VALUES (53, 1, 1, 7, '((PL1+PL2)-((HUML-12)*((PL1+PL2)-(PV1+PV2))/(100-12)))*(IMPL-0)/100', 'I07', 2, 1, NULL, '2012-08-01 09:28:20.213246-04:30', NULL, 2);
+INSERT INTO si_formulas (id, id_org, id_centro_acopio, id_cultivo, formula, codigo, id_mov, tipo_for, condicion, creado, modificado, id_analisis) VALUES (54, 1, 1, 8, '((PL1+PL2)-((HUML-12)*((PL1+PL2)-(PV1+PV2))/(100-12)))*(IMPL-0)/100', 'I08', 2, 1, NULL, '2012-08-01 09:29:06.444248-04:30', NULL, 2);
 
 
 --
@@ -5970,8 +5992,8 @@ INSERT INTO si_impresora (id, id_centro_acopio, estatus, nombre, parametros, cre
 INSERT INTO si_impresora (id, id_centro_acopio, estatus, nombre, parametros, creado, modificado) VALUES (10, 6, 9, 'IMPRESORA_B', NULL, '2012-06-01 00:00:00-04:30', NULL);
 INSERT INTO si_impresora (id, id_centro_acopio, estatus, nombre, parametros, creado, modificado) VALUES (11, 7, 1, 'IMPRESORA_A', NULL, '2012-06-01 00:00:00-04:30', NULL);
 INSERT INTO si_impresora (id, id_centro_acopio, estatus, nombre, parametros, creado, modificado) VALUES (12, 7, 9, 'IMPRESORA_B', NULL, '2012-06-01 00:00:00-04:30', NULL);
-INSERT INTO si_impresora (id, id_centro_acopio, estatus, nombre, parametros, creado, modificado) VALUES (13, 8, 1, 'IMPRESORA_A', NULL, '2012-06-01 00:00:00-04:30', NULL);
-INSERT INTO si_impresora (id, id_centro_acopio, estatus, nombre, parametros, creado, modificado) VALUES (14, 8, 9, 'IMPRESORA_B', NULL, '2012-06-01 00:00:00-04:30', NULL);
+INSERT INTO si_impresora (id, id_centro_acopio, estatus, nombre, parametros, creado, modificado) VALUES (13, 8, 1, 'LABC69', NULL, '2012-06-01 00:00:00-04:30', NULL);
+INSERT INTO si_impresora (id, id_centro_acopio, estatus, nombre, parametros, creado, modificado) VALUES (14, 8, 9, 'LABC69', NULL, '2012-06-01 00:00:00-04:30', NULL);
 INSERT INTO si_impresora (id, id_centro_acopio, estatus, nombre, parametros, creado, modificado) VALUES (15, 9, 1, 'IMPRESORA_A', NULL, '2012-06-01 00:00:00-04:30', NULL);
 INSERT INTO si_impresora (id, id_centro_acopio, estatus, nombre, parametros, creado, modificado) VALUES (16, 9, 9, 'IMPRESORA_B', NULL, '2012-06-01 00:00:00-04:30', NULL);
 
@@ -7226,8 +7248,8 @@ INSERT INTO si_tolcarom (id, id_centro_acopio, nombre, numero, tipo, estatus, cr
 INSERT INTO si_tolcarom (id, id_centro_acopio, nombre, numero, tipo, estatus, creado, modificado, parametros) VALUES (38, 8, 'TOLVA 2', 2, '1', true, '2012-03-20 15:51:17.53979-04:30', NULL, NULL);
 INSERT INTO si_tolcarom (id, id_centro_acopio, nombre, numero, tipo, estatus, creado, modificado, parametros) VALUES (39, 8, 'CARRIL 1', 1, '2', true, '2012-03-20 15:51:17.53979-04:30', NULL, NULL);
 INSERT INTO si_tolcarom (id, id_centro_acopio, nombre, numero, tipo, estatus, creado, modificado, parametros) VALUES (40, 8, 'CARRIL 2', 2, '2', true, '2012-03-20 15:51:17.53979-04:30', NULL, NULL);
-INSERT INTO si_tolcarom (id, id_centro_acopio, nombre, numero, tipo, estatus, creado, modificado, parametros) VALUES (41, 8, 'ROMANA 1', 1, '3', true, '2012-03-20 15:51:17.53979-04:30', NULL, NULL);
-INSERT INTO si_tolcarom (id, id_centro_acopio, nombre, numero, tipo, estatus, creado, modificado, parametros) VALUES (42, 8, 'ROMANA 2', 2, '3', true, '2012-03-20 15:51:17.53979-04:30', NULL, NULL);
+INSERT INTO si_tolcarom (id, id_centro_acopio, nombre, numero, tipo, estatus, creado, modificado, parametros) VALUES (41, 8, 'ROMANA 1', 1, '3', true, '2012-03-20 15:51:17.53979-04:30', NULL, 'HTTP://192.168.69.50:9600');
+INSERT INTO si_tolcarom (id, id_centro_acopio, nombre, numero, tipo, estatus, creado, modificado, parametros) VALUES (42, 8, 'ROMANA 2', 2, '3', true, '2012-03-20 15:51:17.53979-04:30', NULL, 'HTTP://192.168.69.50:9601');
 INSERT INTO si_tolcarom (id, id_centro_acopio, nombre, numero, tipo, estatus, creado, modificado, parametros) VALUES (43, 9, 'TOLVA 1', 1, '1', true, '2012-03-20 15:51:22.130722-04:30', NULL, NULL);
 INSERT INTO si_tolcarom (id, id_centro_acopio, nombre, numero, tipo, estatus, creado, modificado, parametros) VALUES (44, 9, 'TOLVA 2', 2, '1', true, '2012-03-20 15:51:22.130722-04:30', NULL, NULL);
 INSERT INTO si_tolcarom (id, id_centro_acopio, nombre, numero, tipo, estatus, creado, modificado, parametros) VALUES (45, 9, 'CARRIL 1', 1, '2', true, '2012-03-20 15:51:22.130722-04:30', NULL, NULL);

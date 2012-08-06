@@ -55,7 +55,23 @@ class General {
                 break;
             }
         }else{
-            
+            switch($estatus){
+                case 1:
+                    $resultado = 'Romana Vacío';
+                break;
+                case 2:
+                    $resultado = 'Lab. Central';
+                break;
+                case 3:
+                    $resultado = 'Romana Lleno';
+                break;
+                case 4:
+                    $resultado = 'Rechazado';
+                break;
+                case 5:
+                    $resultado = 'Despachado';
+                break;
+            }
         }
         return $resultado;
     }

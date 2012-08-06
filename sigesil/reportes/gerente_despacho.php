@@ -154,7 +154,7 @@
 
         $fila = 7;
         
-        $listadoDespachos = $despacho->listadoDespacho(null, $idCA, $cultivo, null, $salida, $estatus, null, null, $porPagina, $inicio, $orden, $order, $cliente, $placa, $fliqD, $fliqH, $fdesD, $fdesH);
+        $listadoDespachos = $despacho->listadoDespacho(null, $idCA, $cultivo, null, $salida, $estatus, null, null, null, null, $orden, $order, $cliente, $placa, $fliqD, $fliqH, $fdesD, $fdesH);
         $totalRegistros = count($listadoDespachos);
         if(!empty($listadoDespachos)){
             $cant = 0;
@@ -203,7 +203,7 @@
                 $numSalida = "R".$numero.$general->date_sql_screen($despacho['fecha_des'], '', 'es', null);
                 $valores[] = $numSalida;
                 $valores[] = $general->date_sql_screen($despacho['fecha_des'], '', 'es', '-');
-                $valores[] = $general->estatus($despacho['estatus'], 'rec');
+                $valores[] = $general->estatus($despacho['estatus'], 'des');
                 $valores[] = $despacho['numero_guia'];
                 $valores[] = $despacho['ced_cliente'];
                 $valores[] = $despacho['cliente_nombre'];
