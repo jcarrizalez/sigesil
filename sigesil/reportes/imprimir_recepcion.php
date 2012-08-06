@@ -18,8 +18,7 @@
         $data = $AnalisisRes->listadoResultados(null, $id_rec);
     }
     $listadoAnalisis = $AnalisisRes->buscarAC(null, $dataRecepcion[0]['id_cultivo'], $ca);
-    $placa = $dataRecepcion[0]['placa'];
-    $placa .= (!empty($dataRecepcion[0]['placa_remolques'])) ? " / ".$dataRecepcion[0]['placa_remolques'] : "";
+    
     if(!empty($dataRecepcion[0]['id_rec'])) {
         if(!empty($GPC['reimprimir'])){
 ?>
