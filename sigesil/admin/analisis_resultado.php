@@ -41,6 +41,8 @@ if (!empty($GPC['lab']))
 else
     $GPC['lab']=$_SESSION['s_lab'];         
 
+
+
 switch ($GPC['ac']) {
     case 'nuevo':
         if (!empty($GPC['id']) && !empty($GPC['cant_muestras']) && !empty($_SESSION['s_lab']) && !empty($_SESSION['s_mov'])) {
@@ -86,6 +88,7 @@ switch ($GPC['ac']) {
                 $GPC['Resultados']['muestra3'] = is_numeric($GPC[$valor][2]) ? number_format($GPC[$valor][2], 3) : $GPC[$valor][2];                
                 $GPC['Resultados']['id_centro_acopio'] = $_SESSION['s_ca_id'];
                 $GPC['Resultados']['tipo_mov']=$tipo_mov[$_SESSION['s_mov']];
+                $GPC['Resultados']['lab']=(!empty($GPC['lab'])) ? $GPC['lab']: $_SESSION['s_lab'];
                 //vector para la tipificacion
                 $Resultados[$j]['id_analisis']=$GPC['Resultados']['id_analisis'];
                 $Resultados[$j]['muestra1']=$GPC['Resultados']['muestra1'];
@@ -311,22 +314,27 @@ switch ($GPC['ac']) {
                 $(".muestra1").each(function(){
                     objeto=$(this).attr('id').split('_');
                     codigo=objeto[1].replace('[]','');
-                    if (codigo==28 || codigo==29) {
-                        if ($(this).val()!=='') {
-                            sumaArroz=sumaArroz+parseFloat($(this).val());
+                    if ($("#cultivo").val()==2) {
+                        if (codigo==28 || codigo==29) {
+                            if ($(this).val()!=='') {
+                                sumaArroz=sumaArroz+parseFloat($(this).val());
+                            }
+                        }
+                        if (codigo==30) {
+                            $(this).val(sumaArroz);
+                        }
+
+                    }
+                    if ($("#cultivo").val()==1 ||$("#cultivo").val()==5 || $("#cultivo").val()==6) {
+                        if (codigo==3 || codigo==4 || codigo==5 || codigo==6 ) {
+                            if ($(this).val()!='') {
+                                sumaMaiz=sumaMaiz+parseFloat($(this).val());
+                            }
+                        }			
+                        if (codigo==7) {
+                            $(this).val(sumaMaiz);
                         }
                     }
-		    if (codigo==3 || codigo==4 || codigo==5 || codigo==6 ) {
-			if ($(this).val()!='') {
-			    sumaMaiz=sumaMaiz+parseFloat($(this).val());
-			}
-		    }			
-                    if (codigo==30) {
-                        $(this).val(sumaArroz);                        
-                    }
-		    if (codigo==7) {
-			$(this).val(sumaMaiz);
-		    }
                 });
             });
             
@@ -445,7 +453,7 @@ switch ($GPC['ac']) {
                 <? for ($j = 1; $j <= $cant_muestras; $j++) { ?>
                     <th width="70"><?= 'Muestra ' . $j; ?></th>
                 <? } ?>
-                <th>Min / Max</th>
+<!--                <th>Min / Max</th>-->
             </tr>
             <?
             $i = 0;
@@ -504,17 +512,17 @@ switch ($GPC['ac']) {
                                 break;
                             }
                         }
-                        if ($dataAnalisis['tipo_analisis'] == 1) {
-                            if ($GPC['mov']=='rec')
-                                echo '<td align="center" width="100">' . $dataAnalisis['min_rec'] . " / " . $dataAnalisis['max_rec'] . '</td>';
-                            else 
-                                echo '<td align="center" width="100">' . $dataAnalisis['min_des'] . " / " . $dataAnalisis['max_des'] . '</td>';
-                        } else {
+//                        if ($dataAnalisis['tipo_analisis'] == 1) {
+//                            if ($GPC['mov']=='rec')
+//                                echo '<td align="center" width="100">' . $dataAnalisis['min_rec'] . " / " . $dataAnalisis['max_rec'] . '</td>';
+//                            else 
+//                                echo '<td align="center" width="100">' . $dataAnalisis['min_des'] . " / " . $dataAnalisis['max_des'] . '</td>';
+//                        } else {
                             ?>
                         <td align="center">&nbsp;</td>
                     </tr>
                     <?
-                }
+//                }
                 $i++;
             }
             ?>
@@ -533,6 +541,7 @@ switch ($GPC['ac']) {
     echo $html->input('id', $id, array('type' => 'hidden'));
     if (!empty($IdCosecha))
         echo $html->input('cosecha', $IdCosecha, array('type' => 'hidden'));
+    echo $html->input('cultivo', $infoCultivo[0]['codigo'], array('type' => 'hidden'));
     echo $html->input('es_cuarentena', '0_0:', array('type' => 'hidden'));
     echo $html->input('es_rechazado', '0_0:', array('type' => 'hidden'));
     echo $html->input('cantA',  $cantidad, array('type' => 'hidden'));

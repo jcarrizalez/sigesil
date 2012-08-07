@@ -23,7 +23,7 @@ if (!empty($GPC['lab']))
     $_SESSION['s_lab']=$GPC['lab'];
 else
     $GPC['lab']=$_SESSION['s_lab'];
-
+    
 switch ($GPC['mov']) {
     case 'rec':
         $recepcion = new Recepcion();
@@ -34,6 +34,7 @@ switch ($GPC['mov']) {
             $estatus=$estatus . ",'2','3','5','6','7','8','9'";
         $listadoM=$recepcion->listadoRecepcion(null, $idCA, $idCo=null, null, $GPC['numEntrada'], $estatus, null, null, $porPagina, $inicio, null, $orden, null, null, null, null, null, null, $fecha, $fecha);
         //$listadoM=$recepcion->listadoRecepcion(null, $idCA, null, null, null, $estatus, null, null, null, null, null, $orden);
+        $total_registros = $recepcion->total_verdadero;
         break;
     case 'des':
         $despacho= new Despacho();
@@ -41,9 +42,10 @@ switch ($GPC['mov']) {
         $orden = " ORDER BY d.fecha_des , d.id";
         //$listadoM=$despacho->listadoDespacho(null, $idCA, null, null, null, $estatus, null, null, $porPagina, $inicio);
 	$listadoM=$despacho->listadoDespacho(null, $idCA, null, null, $GPC['numEntrada'], $estatus, null, null, $porPagina, $inicio, null, null, null, null, null, null, $fecha, $fecha);
+        $total_registros = $despacho->total_verdadero;
         break;
 }
-$total_registros = $recepcion->total_verdadero;
+
 $paginador = new paginator($total_registros, $porPagina);
 
 require('../lib/common/header.php');
@@ -115,7 +117,7 @@ require('../lib/common/init_calendar.php');
 <div id="filtro">
     <form name="form1" id="form1" method="GET" action="" enctype="multipart/form-data">
         <table width="100%" border="0">
-            <tr>
+<!--            <tr>
                 <td width="1">Fecha</td>
                 <td width="200">
                     <? 
@@ -136,7 +138,7 @@ require('../lib/common/init_calendar.php');
                 <td><?=$html->input('numEntrada', $GPC['numEntrada'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'class' => 'crproductor positive'));?> </td>
             </tr>
             <tr>
-            </tr>
+            </tr>-->
             <tr id="botones" aligment="right">
                 <td colspan="4">
                     <?
@@ -194,11 +196,11 @@ require('../lib/common/init_calendar.php');
     <?
         if ($GPC['mov']=='rec') {
             $numero = ($dataMov['numero'] < 10) ? '0'.$dataMov['numero'] : $dataMov['numero'];
-            $numEntrada = "R".$numero.$general->date_sql_screen($dataMov['fecha_recepcion'], '', 'es', null);
+            $numEntrada = "R".$numero."-".$general->date_sql_screen($dataMov['fecha_recepcion'], '', 'es', null);
             echo $numEntrada;
         }else{
             $numero = ($dataMov['numero'] < 10) ? '0'.$dataMov['numero'] : $dataMov['numero'];
-            $numSalida = "D".$numero.$general->date_sql_screen($dataMov['fecha_des'], '', 'es', null);
+            $numSalida = "D".$numero."-".$general->date_sql_screen($dataMov['fecha_des'], '', 'es', null);
             echo $numSalida;
         }
     ?>

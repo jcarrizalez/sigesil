@@ -17,7 +17,7 @@ class Analisis extends Model {
         return $this->id = $id;
     }
     
-    function listadoResultados($id_recepcion=null, $id_despacho=null, $id_analisis=null, $codigo=null) {
+    function listadoResultados($id_recepcion=null, $id_despacho=null, $id_analisis=null, $codigo=null, $lab=null) {
         $query = "SELECT a.codigo, a.tipo_analisis, ar.id_recepcion, ar.id_analisis, ar.muestra1, ar.muestra2, ar.muestra3
             FROM si_analisis_resultado ar 
             INNER JOIN si_analisis a ON (ar.id_analisis=a.id) WHERE '1' ";
@@ -25,7 +25,8 @@ class Analisis extends Model {
         $query .= (!empty($id_despacho)) ? " AND ar.id_despacho = '$id_despacho'" : "";
         $query .= (!empty($id_analisis)) ? " AND a.id IN ($id_analisis)" : "";
         $query .= (!empty($codigo)) ? " AND a.codigo::int IN ($codigo)" : "";
-        $query .= " ORDER BY ar.id_analisis";
+        $query .= (!empty($lab)) ? " AND ar.lab IN ($lab)" : "";
+        $query .= " ORDER BY cast(a.codigo as int)";
         $id = $this->_SQL_tool('SELECT', __METHOD__, $query);
         return $this->id = $id;
     }
@@ -42,7 +43,7 @@ class Analisis extends Model {
         return $this->_SQL_tool('SELECT', __METHOD__, $query);
     }
     
-    function buscarAC($id=null, $IdCultivo=null, $idCA=null, $laboratorio=null) { 
+    function buscarAC($id=null, $IdCultivo=null, $idCA=null, $laboratorio=null) {
     $query = "SELECT a.id, ac.id_cultivo, a.codigo, a.nombre, a.tipo_analisis,
                 ac.min_rec, ac.max_rec, ac.min_des, ac.max_des, ac.estatus 
                 FROM si_analisis_cultivo ac 

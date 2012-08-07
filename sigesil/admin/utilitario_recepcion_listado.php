@@ -14,7 +14,7 @@
     $idCo=(!empty($GPC['cosecha'])) ? $GPC['cosecha']: null;
     
     $listadoCosecha=$cosecha->infoCosechaCultivo($idCA, $idCo, null, null, null, null, null);
-    $idCo=$listadoCosecha[0]['cosecha_id'];
+    //$idCo=$listadoCosecha[0]['cosecha_id'];
 
     foreach($listadoCosecha as $dataCosecha) {
         $listadoC[$dataCosecha['cosecha_id']]=$dataCosecha['cultivo_nombre'];
@@ -26,8 +26,8 @@
         } elseif (!empty($fhasta)) {
             $fdesde=$fhasta;
         }
-        $GPC['fecha_inicio']=$fdesde;
-        $GPC['fecha_fin']=$fhasta;
+//        $GPC['fecha_inicio']=$fdesde;
+//        $GPC['fecha_fin']=$fhasta;
         $listadoMov = $movimiento->listadoRecepcion(null, $idCA, $idCo, null, $numEntrada, $estatus, null, null, $porPagina, $inicio, null, null, null, null, null, null, null, null, $fdesde, $fhasta);
 
         $total_registros = $despacho->total_verdadero;

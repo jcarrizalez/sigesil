@@ -113,7 +113,7 @@
             }
         ?>
             <th>Cultivo</th>
-            <th>Vehiculo</th>
+            <th>Guia</th>
             <th>Fecha</th>
             <th>F. Liberacion</th>
             <th>Estatus</th>
@@ -146,7 +146,7 @@
         <?
             if ($_SESSION['mov']=='rec') {
                 $numero = ($dataRecepcion['numero'] < 10) ? '0'.$dataRecepcion['numero'] : $dataRecepcion['numero'];
-                $numEntrada = "R".$numero.$general->date_sql_screen($dataRecepcion['fecha_recepcion'], '', 'es', null);
+                $numEntrada = "R".$numero."-".$general->date_sql_screen($dataRecepcion['fecha_recepcion'], '', 'es', null);
                 echo $numEntrada;
             }
             
@@ -158,7 +158,7 @@
         ?>
             </td>
             <td align="left"><?=$dataRecepcion['cultivo_codigo'].' - '.$dataRecepcion['cultivo_nombre']?></td>
-            <td align="center"><?=$dataRecepcion['placa'].' - '.$dataRecepcion['chofer_nombre']; ?></td>
+            <td align="center"><?=$dataRecepcion['numero_guia'] ?></td>
             <td align="center"><?=$general->date_sql_screen($dataRecepcion['creado'], '', $lang="es", $sep="-")?></td>
             <td align="center"><?=$general->date_sql_screen($dataRecepcion['fecha_lib'], '', $lang="es", $sep="-")?></td>
             <td align="center"><?
