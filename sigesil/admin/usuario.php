@@ -6,6 +6,7 @@ $usuarioPerfil = new UsuarioPerfil();
 $centro_acopio = new CentroAcopio();
 
 $listaSexo = array('F' => 'Femenino', 'M' => 'Masculino');
+$listaEstatus = array('t' => 'Activo', 'f' => 'Inactivo');
 if($_SESSION['s_perfil_id'] == GERENTEG)
     $listaCA = $centro_acopio->find('', '', array('id', 'nombre'), 'list', 'id');
 else
@@ -35,7 +36,7 @@ switch ($GPC['ac']) {
         $almacen = new Almacen();
         $perfil = new Perfil();
 
-        $infoUsuario = $usuario->obtenerDetalleUsuarios($GPC['id']);
+        $infoUsuario = $usuario->obtenerDetalleUsuarios($GPC['id'], null, null, null, null, null, null, null, "'t', 'f'");
         $listaAlmacenes = $almacen->find(array('id_centro_acopio' => $infoUsuario[0]['id_ca']), '', array('id', 'nombre'), 'list', 'id');
         if ($infoUsuario[0]['id_ca'] == 1) {
             $listaPerfiles = array(1 => 'Gerente General');
@@ -55,6 +56,7 @@ $validator->setRules('Usuario.nombre', array('required' => array('value' => true
 $validator->setRules('Usuario.apellido', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Usuario.cedula', array('required' => array('value' => true, 'message' => 'Requerido'), 'number' => array('value' => true, 'message' => 'C&eacute;dula Inv&aacute;lida'), 'minlength' => array('value' => 6, 'message' => 'M&iacute;nimo 6 D&iacute;gitos'), 'maxlength' => array('value' => 8, 'message' => 'M&aacute;ximo 8 D&iacute;gitos')));
 $validator->setRules('Usuario.sexo', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('Usuario.estatus', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('Usuario.email', array('email' => array('value' => true, 'message' => 'Correo Inv&aacute;lido')));
 $validator->setRules('Usuario.usuario', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('verif_con', array('required' => array('value' => true, 'message' => 'Requerido'), 'minlength' => array('value' => 5, 'message' => 'M&iacute;nimo 5 Caracteres')));
@@ -71,6 +73,13 @@ $validator->printScript();
     
     $(document).ready(function(){
         $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
+        
+        $('#Usuario\\[cedula\\]').live('change', function(){
+            if($(this).val() != ''){
+                var ced = $(this).val();
+                $('#cedula').load('../ajax/detalle_validacion.php?ac=usuario&ced=' + ced);
+            }
+        });
         
         $('#Usuario\\[usuario\\]').live('change', function(){
             $('#valid_usu').load('../ajax/detalle_usuario.php?ac=validar&user=' + $(this).val());
@@ -103,7 +112,7 @@ $validator->printScript();
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>C&eacute;dula </td>
-                <td><? echo $html->input('Usuario.cedula', $infoUsuario[0]['cedula'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
+                <td id="cedula"><? echo $html->input('Usuario.cedula', $infoUsuario[0]['cedula'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
             </tr>
             <tr>
                 <td>Fecha Nacimiento </td>
@@ -137,6 +146,10 @@ $validator->printScript();
             <tr>
                 <td>Email </td>
                 <td><? echo $html->input('Usuario.email', $infoUsuario[0]['email'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            </tr>
+            <tr>
+                <td><span class="msj_rojo">* </span>Estatus </td>
+                <td><? echo $html->select('Usuario.estatus', array('options' => $listaEstatus, 'selected' => $infoUsuario[0]['estatus'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>Usuario </td>

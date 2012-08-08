@@ -14,15 +14,12 @@
     if($GPC['mov'] == 'rec'){
         $dataRecepcion = $recepcion->listadoAnalisis($ca, null, $id_rec);
         $numero = "ENTRADA NRO: &nbsp;R".$dataRecepcion[0]['numero']."-".$general->date_sql_screen($dataRecepcion[0]['fecha_recepcion'], '', 'es', '');
-        //$data = $AnalisisRes->listadoResultados($id_rec);
         $data = $AnalisisRes->listadoResultados($id_rec, null, null, null, $labR);
     }else{
         $dataRecepcion = $despacho->listadoAnalisisD($ca, $id_rec);
         $numero = "SALIDA NRO: &nbsp;D".$dataRecepcion[0]['numero']."-".$general->date_sql_screen($dataRecepcion[0]['fecha_recepcion'], '', 'es', '');
-        //$data = $AnalisisRes->listadoResultados(null, $id_rec);
         $data = $AnalisisRes->listadoResultados(null, $id_rec, null, null, $labR);
     }
-    $listadoAnalisis = $AnalisisRes->buscarAC(null, $dataRecepcion[0]['id_cultivo'], $ca);
     
     $listadoAnalisis = $AnalisisRes->buscarAC(null, $dataRecepcion[0]['id_cultivo'], $ca, $labAc);
     

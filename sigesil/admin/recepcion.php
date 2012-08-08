@@ -28,6 +28,7 @@
             $numeroRecepcion = ++$cantRecepcion[0]['total'];
             
             $GPC['Guia']['id_usuario'] = $_SESSION['s_id'];
+            $GPC['Guia']['id_centro_acopio'] = $_SESSION['s_ca_id'];
             $GPC['Guia']['estatus'] = 'P';
             $GPC['Chofer']['id_org'] = $_SESSION['s_org_id'];
             $GPC['Chofer']['ced_rif'] = $GPC['nacion3'].$GPC['Chofer']['ced_rif'];

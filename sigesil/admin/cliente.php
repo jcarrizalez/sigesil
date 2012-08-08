@@ -69,6 +69,13 @@
     $(document).ready(function(){
         $('.positive').numeric();
         
+        $('#Cliente\\[ced_rif\\]').live('change', function(){
+            if($(this).val() != ''){
+                var ced = $('#nacionalidad').val() + $(this).val();
+                $('#cedula').load('../ajax/detalle_validacion.php?ac=cliente&ced=' + ced);
+            }
+        });
+        
         $('#id_estado').change(function(){
             $('#id_municipio').load('../ajax/division_pol.php?ac=mcpos&idE=' + $(this).val());
         });
@@ -82,7 +89,7 @@
     <table align="center">
         <tr>
             <td><span class="msj_rojo">* </span>Cedula/Rif </td>
-            <td>
+            <td id="cedula">
                 <?
                     echo $html->select('nacionalidad',array('options'=>$listaNacion, 'selected' => substr(trim($infoCliente[0]['ced_rif']), 0, 1)));
                     echo "&nbsp;".$html->input('Cliente.ced_rif', substr(trim($infoCliente[0]['ced_rif']), 1), array('type' => 'text', 'length' => '10', 'style' => 'width: 151px', 'class' => 'crproductor positive'));

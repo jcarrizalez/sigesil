@@ -87,6 +87,20 @@ $validator->printScript();
                 <?
                     echo $html->select('nacionalidad',array('options'=>$listaNacion, 'selected' => substr(trim($infoContrato[0]['ced_rif']), 0, 1)));
                     echo "&nbsp;".$html->input('productor', substr(trim($infoContrato[0]['ced_rif']), 1), array('type' => 'text', 'length' => '10', 'class' => 'positive', 'style' => 'width:152px'));
+                    
+                    if($GPC['ac'] == 'editar'){
+                        ?>
+                        <tr>
+                            <td><span class="msj_rojo">* </span>Nombre </td>
+                            <td>
+                                <?
+                                    echo $html->input('nombre_pro', $infoContrato[0]['nombre'], array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos', 'style' => 'width:152'));
+                                    echo $html->input('Contrato.id_productor', $infoContrato[0]['id'], array('type' => 'hidden'));
+                                ?>
+                            </td>
+                        </tr>
+                        <?
+                    }
                 ?>
             </td>
         </tr>

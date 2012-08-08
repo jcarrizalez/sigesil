@@ -69,8 +69,8 @@ class Usuario extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 
-    function obtenerDetalleUsuarios($idUsuario = null, $idPerfil = null, $usuario = null, $orden = null, $min = '', $max = '', $nombre = null, $sexo = null, $statusU = 't', $statusCA = 't') {
-        $query = "SELECT DISTINCT (u.id), u.nombre, u.apellido, u.cedula, u.fecha_nacimiento, u.sexo, u.direccion, u.telefono, u.email, u.usuario, u.sesion, u.contrasena, u.creado, u.modificado, org.id AS id_org, org.codigo AS codigo_org, org.nombre AS nombre_org, ca.id AS id_ca, ca.codigo AS codigo_ca, ca.nombre AS nombre_ca, al.id AS id_al, up.id AS id_u_p, up.id_perfil, p.nombre_perfil
+    function obtenerDetalleUsuarios($idUsuario = null, $idPerfil = null, $usuario = null, $orden = null, $min = '', $max = '', $nombre = null, $sexo = null, $statusU = "'t'", $statusCA = 't') {
+        $query = "SELECT DISTINCT (u.id), u.nombre, u.apellido, u.cedula, u.fecha_nacimiento, u.estatus, u.sexo, u.direccion, u.telefono, u.email, u.usuario, u.sesion, u.contrasena, u.creado, u.modificado, org.id AS id_org, org.codigo AS codigo_org, org.nombre AS nombre_org, ca.id AS id_ca, ca.codigo AS codigo_ca, ca.nombre AS nombre_ca, al.id AS id_al, up.id AS id_u_p, up.id_perfil, p.nombre_perfil
                     FROM si_usuarios u
                     INNER JOIN si_usuarios_perfiles up ON up.id_usuario = u.id
                     LEFT OUTER JOIN si_almacenes al ON al.id = up.id_almacen
@@ -91,7 +91,7 @@ class Usuario extends Model {
         if (!empty($statusCA))
             $query .= " AND ca.estatus = '$statusCA'";
         if (!empty($statusU))
-            $query .= " AND u.estatus = '$statusU'";
+            $query .= " AND u.estatus IN ($statusU)";
         (!empty($orden)) ? $query .= " ORDER BY $orden" : $query .= " ORDER BY u.id, up.id_perfil";
         if (!empty($max))
             $query.= " LIMIT $min,$max ";

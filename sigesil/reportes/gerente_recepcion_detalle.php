@@ -4,9 +4,9 @@
     $recepcion = new Recepcion();
     
     $detalleRecepcion = $recepcion->listadoRecepcion($GPC['id'], $GPC['ca']);
-    $pesoLleno = round($detalleRecepcion[0]['peso_01l'] + $detalleRecepcion[0]['peso_02l']);
-    $pesoVacio = round($detalleRecepcion[0]['peso_01v'] + $detalleRecepcion[0]['peso_02v']);
-    $pesoAcondicionado = (!empty($detalleRecepcion[0]['peso_acon'])) ? round($detalleRecepcion[0]['peso_acon']) : 0;
+    $pesoLleno = $detalleRecepcion[0]['peso_01l'] + $detalleRecepcion[0]['peso_02l'];
+    $pesoVacio = $detalleRecepcion[0]['peso_01v'] + $detalleRecepcion[0]['peso_02v'];
+    $pesoAcondicionado = (!empty($detalleRecepcion[0]['peso_acon'])) ? $detalleRecepcion[0]['peso_acon'] : 0;
     $placa = $detalleRecepcion[0]['placa'];
     $placa .= (!empty($detalleRecepcion[0]['placa_remolques'])) ? " / ".$detalleRecepcion[0]['placa_remolques'] : '';
     switch($GPC['ac']){
@@ -98,19 +98,19 @@
                 <td><?php echo $detalleRecepcion[0]['ced_chofer'] ?></td>
                 <td><?php echo $detalleRecepcion[0]['chofer_nombre'] ?></td>
                 <td><?php echo $detalleRecepcion[0]['romana_ent'] ?></td>
-                <td><?php echo $general->formato_numero(round($detalleRecepcion[0]['peso_01l']), 2) ?></td>
-                <td><?php echo $general->formato_numero(round($detalleRecepcion[0]['peso_02l']), 2) ?></td>
-                <td><?php echo $general->formato_numero(round($pesoLleno), 2) ?></td>
+                <td><?php echo $general->formato_numero($detalleRecepcion[0]['peso_01l'], 3) ?></td>
+                <td><?php echo $general->formato_numero($detalleRecepcion[0]['peso_02l'], 3) ?></td>
+                <td><?php echo $general->formato_numero($pesoLleno, 3) ?></td>
                 <td><?php echo $detalleRecepcion[0]['romana_sal'] ?></td>
-                <td><?php echo $general->formato_numero(round($detalleRecepcion[0]['peso_01v']), 2) ?></td>
-                <td><?php echo $general->formato_numero(round($detalleRecepcion[0]['peso_02v']), 2) ?></td>
-                <td><?php echo $general->formato_numero(round($pesoVacio), 2) ?></td>
+                <td><?php echo $general->formato_numero($detalleRecepcion[0]['peso_01v'], 3) ?></td>
+                <td><?php echo $general->formato_numero($detalleRecepcion[0]['peso_02v'], 3) ?></td>
+                <td><?php echo $general->formato_numero($pesoVacio, 3) ?></td>
                 <td><?php echo $detalleRecepcion[0]['humedad'] ?></td>
-                <td><?php echo $general->formato_numero(round($detalleRecepcion[0]['humedad_des']), 2) ?></td>
+                <td><?php echo $general->formato_numero($detalleRecepcion[0]['humedad_des'], 3) ?></td>
                 <td><?php echo $detalleRecepcion[0]['impureza'] ?></td>
-                <td><?php echo $general->formato_numero(round($detalleRecepcion[0]['impureza_des']), 2) ?></td>
-                <td><?php echo $general->formato_numero(round($pesoAcondicionado), 2) ?></td>
-                <td><?php echo $general->formato_numero(round($detalleRecepcion[0]['peso_acon_liq']), 2) ?></td>
+                <td><?php echo $general->formato_numero($detalleRecepcion[0]['impureza_des'], 3) ?></td>
+                <td><?php echo $general->formato_numero($pesoAcondicionado, 3) ?></td>
+                <td><?php echo $general->formato_numero($detalleRecepcion[0]['peso_acon_liq'], 3) ?></td>
                 <td><?php echo $general->date_sql_screen($detalleRecepcion[0]['fecha_v'], '', 'es', '-') ?></td>
             </tr>
             <? if($detalleRecepcion[0]['estatus_rec'] > 1){ ?>

@@ -70,6 +70,13 @@ $validator->printScript();
     $(document).ready(function(){
         $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
     
+        $('#Productor\\[ced_rif\\]').live('change', function(){
+            if($(this).val() != ''){
+                var ced = $('#nacionalidad').val() + $(this).val();
+                $('#cedula').load('../ajax/detalle_validacion.php?ac=productor&ced=' + ced);
+            }
+        });
+        
         $('#id_estado').change(function(){
             $('#id_municipio').load('../ajax/division_pol.php?ac=mcpos&idE=' + $(this).val());
         });
@@ -87,7 +94,7 @@ $validator->printScript();
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Cedula/Rif </td>
-            <td>
+            <td id="cedula">
                 <?
                     echo $html->select('nacionalidad',array('options'=>$listaNacion, 'selected' => substr(trim($infoProductor[0]['ced_rif']), 0, 1)));
                     echo "&nbsp;".$html->input('Productor.ced_rif', substr(trim($infoProductor[0]['ced_rif']), 1), array('type' => 'text', 'length' => '10', 'style' => 'width: 151px', 'class' => 'crproductor positive'));

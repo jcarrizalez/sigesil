@@ -6,7 +6,13 @@ $cosecha = new Cosecha();
 $cultivo = new Cultivo();
 
 $dataPrograma = $programa->find(array('id' => $GPC['idP']), '', '*', '', '');
+
+if($GPC['ac'] == 'editar')
+$dataCosecha = $cosecha->find(array('id_programa' => $GPC['idP'], 'id' => $GPC['id']));
+else
 $dataCosecha = $cosecha->find(array('id_programa' => $GPC['idP']), '', 'MAX(codigo) codigo', '', '');
+
+
 $dataCultivo = $cultivo->find(array('id' => $dataPrograma[0]['id_cultivo']), '', '*', '', '');
 
 $estatus = array('t' => 'Activa', 'f' => 'Inactiva');
@@ -45,6 +51,7 @@ require('../lib/common/init_calendar.php');
 $validator = new Validator('form1');
 $validator->printIncludes();
 $validator->setRules('codigo1', array('required' => array('value' => true, 'message' => 'Requerido')));
+$validator->setRules('estatus', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->setRules('nombre1', array('required' => array('value' => true, 'message' => 'Requerido')));
 $validator->printScript();
 ?>

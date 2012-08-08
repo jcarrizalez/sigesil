@@ -4,6 +4,7 @@ class Productor extends Model {
     var $table = 'si_productor';
     var $spechar=array("\\","'","\t","\n","\r","\0","\x0B","%20"," ");
     var $data = array();
+    var $nacionalidad = array('V', 'E', 'J', 'G');
     
     function __construct(){
         //Directorios de trabajo
@@ -72,10 +73,12 @@ class Productor extends Model {
             $this->_begin_tool();
             foreach($this->data as $indice => $data){
                 $listaProductores = $this->obtenerProductores();
-                if(!in_array($data['ced_rif'], $listaProductores)){
-                    $query="INSERT INTO si_productor (id_org, ced_rif, nombre, telefono, direccion, id_pais, estatus, creado)
-                    VALUES ('1', '".trim($data['ced_rif'])."', '".trim($data['nombre'])."', '".trim($data['telefono'])."', '".trim($data['direccion'])."', '1', 't', now())";
-                    $this->_SQL_tool('INSERT', __METHOD__, $query);
+                if(in_array(substr($data['ced_rif'], 0, 1), $this->nacionalidad)){
+                    if(!in_array($data['ced_rif'], $listaProductores)){
+                        $query="INSERT INTO si_productor (id_org, ced_rif, nombre, telefono, direccion, id_pais, estatus, creado)
+                        VALUES ('1', '".trim($data['ced_rif'])."', '".trim($data['nombre'])."', '".trim($data['telefono'])."', '".trim($data['direccion'])."', '1', 't', now())";
+                        $this->_SQL_tool('INSERT', __METHOD__, strtoupper($query));
+                    }
                 }
             }
             $this->_commit_tool();
@@ -120,23 +123,22 @@ class Productor extends Model {
                 $cedula = substr($tmp[$arrColumnas['ced_rif']], 1);
                 if(is_numeric($cedula)){
                     $err_msg = '';
-                    //if(!in_array($tmp[$arrColumnas['ced_rif']], $listaProductores)){
-                        if(in_array($tmp[$arrColumnas['ced_rif']], $cedulas)) $err_msg .= 'Duplicado, ';
-                        if($tmp[$arrColumnas['nombre']] == '' || empty($tmp[$arrColumnas['nombre']])) $err_msg .= 'Nombre_Invalido, ';
-                        if($tmp[$arrColumnas['telefono']] == '' || empty($tmp[$arrColumnas['telefono']])) $err_msg .= 'Telefono_Invalido, ';
-                        if($tmp[$arrColumnas['direccion']] == '' || empty($tmp[$arrColumnas['direccion']])) $err_msg .= 'Direccion_Invalida';
-                        if ($err_msg == ''){
-                            $err_msg = 'OK,';
-                        }
-                        $cedulas[] = $tmp[$arrColumnas['ced_rif']];
-                        $this->data[]=array('error_msg' => $err_msg,
-                                                'ced_rif' => $tmp[$arrColumnas['ced_rif']],
-                                                'nombre' => $tmp[$arrColumnas['nombre']],
-                                                'telefono' => $tmp[$arrColumnas['telefono']],
-                                                'direccion' => $tmp[$arrColumnas['direccion']],
-                                                'scvlines' => $fila,
-                                                'data' => $dataPorColumna);
-                    //}
+                    if(!in_array(substr($tmp[$arrColumnas['ced_rif']], 0, 1), $this->nacionalidad)) $err_msg .= 'Cedula Invalida, ';
+                    if(in_array($tmp[$arrColumnas['ced_rif']], $cedulas)) $err_msg .= 'Duplicado, ';
+                    if($tmp[$arrColumnas['nombre']] == '' || empty($tmp[$arrColumnas['nombre']])) $err_msg .= 'Nombre Invalido, ';
+                    if($tmp[$arrColumnas['telefono']] == '' || empty($tmp[$arrColumnas['telefono']])) $err_msg .= 'Telefono Invalido, ';
+                    if($tmp[$arrColumnas['direccion']] == '' || empty($tmp[$arrColumnas['direccion']])) $err_msg .= 'Direccion Invalida';
+                    if ($err_msg == ''){
+                        $err_msg = 'OK,';
+                    }
+                    $cedulas[] = $tmp[$arrColumnas['ced_rif']];
+                    $this->data[]=array('error_msg' => $err_msg,
+                                            'ced_rif' => $tmp[$arrColumnas['ced_rif']],
+                                            'nombre' => $tmp[$arrColumnas['nombre']],
+                                            'telefono' => $tmp[$arrColumnas['telefono']],
+                                            'direccion' => $tmp[$arrColumnas['direccion']],
+                                            'scvlines' => $fila,
+                                            'data' => $dataPorColumna);
                 }
             }
         }

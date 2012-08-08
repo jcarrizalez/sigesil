@@ -6,7 +6,7 @@
         case 'guia':
             $guia = new Guia();
             $listaCantM = array(1 => 1, 2, 3, 4);
-            $infoGuia = $guia->find(array('numero_guia' => $GPC['numero_guia']), null, '*');
+            $infoGuia = $guia->find(array('numero_guia' => $GPC['numero_guia'], 'id_centro_acopio' => $_SESSION['s_ca_id']), null, '*');
             if(!empty($infoGuia) && $infoGuia[0]['estatus'] == 'P'){
             ?>
                 <tr>

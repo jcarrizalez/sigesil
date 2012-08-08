@@ -244,7 +244,7 @@
         <td>PESO BRUTO TOTAL Kgrs</td>
         <td>----------------------------------------------------------------------------------------></td>
         <? if(empty($dataMovimiento[0]['peso_02l'])){ ?>
-        <td width="1" align="right"><?=$general->formato_numero(round($pesoBruto), 3);?></td>
+        <td width="1" align="right"><?=$general->formato_numero($pesoBruto, 3);?></td>
         <? }else{ ?>
         <td width="1" align="right"><?=$general->formato_numero($dataMovimiento[0]['peso_01l'], 3);?></td>
         <td width="1" align="right"><?=$general->formato_numero($dataMovimiento[0]['peso_02l'], 3);?></td>

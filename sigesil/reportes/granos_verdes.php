@@ -229,7 +229,7 @@
                 $recepcion['peso_02l'] = (!empty($recepcion['peso_02l'])) ? $recepcion['peso_02l'] : 0;
                 $recepcion['peso_02v'] = (!empty($recepcion['peso_02v'])) ? $recepcion['peso_02v'] : 0;
                 $kgrsNetos = (($recepcion['peso_01l'] + $recepcion['peso_02l']) - ($recepcion['peso_01v'] + $recepcion['peso_02v']));
-                $valores[] = round($kgrsNetos);
+                $valores[] = $kgrsNetos;
                 $valores[] = (!empty($recepcion['humedad'])) ? $recepcion['humedad'] : 0.00;
                 $valores[] = (!empty($recepcion['impureza'])) ? $recepcion['impureza'] : 0.00;
                 $grsVrds = (!empty($resultado[0]['muestra2'])) ? ($resultado[0]['muestra1'] + $resultado[0]['muestra2']) / 2 : $resultado[0]['muestra1'];
@@ -244,7 +244,7 @@
                 $descHum = (($kgrsNetos * $grsVrdResta) / $cienResta);
                 $descImp = (($kgrsNetos - $descHum) * $impDivision);
                 $pesoAcon = ($kgrsNetos - $descHum - $descImp);
-                $valores[] = round($pesoAcon);
+                $valores[] = $pesoAcon;
 
                 $columna = 0;
                 foreach($valores as $valor){
@@ -261,20 +261,20 @@
                 
                 //TOTALES POR ASOCIADO
                 if(!empty($recepcion['ced_asociado'])){
-                    $totalAdo[1] += round($kgrsNetos);
+                    $totalAdo[1] += $kgrsNetos;
                     $totalAdo[2] = '';
                     $totalAdo[3] = '';
                     $totalAdo[4] = '';
-                    $totalAdo[5] += round($pesoAcon);
+                    $totalAdo[5] += $pesoAcon;
                 }
                 
                 //TOTALES POR PRODUCTOR
                 if(empty($recepcion['ced_asociado'])){
-                    $totalPro[1] += round($kgrsNetos);
+                    $totalPro[1] += $kgrsNetos;
                     $totalPro[2] = '';
                     $totalPro[3] = '';
                     $totalPro[4] = '';
-                    $totalPro[5] += round($pesoAcon);
+                    $totalPro[5] += $pesoAcon;
                 }
                 
                 

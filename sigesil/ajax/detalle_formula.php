@@ -138,9 +138,9 @@
             switch($movimiento[0]){
                 case 'rec':
                     if($movimiento[1] == 3)
-                        echo $html->input('Recepcion.peso_0'.$GPC['boton'].'l', round(substr($peso, 0, -1)), array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 positive'));
+                        echo $html->input('Recepcion.peso_0'.$GPC['boton'].'l', substr($peso, 0, -1), array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 positive'));
                     elseif(in_array($movimiento[1], array(6, 8))){
-                        echo $html->input('Recepcion.peso_0'.$GPC['boton'].'v', round(substr($peso, 0, -1)), array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 positive verifPeso'));
+                        echo $html->input('Recepcion.peso_0'.$GPC['boton'].'v', substr($peso, 0, -1), array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 positive verifPeso'));
                         ?>
                             <script type="text/javascript">
                                 $(document).ready(function(){

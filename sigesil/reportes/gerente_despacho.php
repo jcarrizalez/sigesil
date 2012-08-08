@@ -692,24 +692,24 @@
                 ?>
             </td>
             
-            <td align="right"><?=$general->formato_numero(round($dataDespacho['peso_01v']), 2)?></td>
-            <td align="right"><?=$general->formato_numero(round($dataDespacho['peso_02v']), 2)?></td>
-            <td align="right" style="display: none"><?=$general->formato_numero(round($dataDespacho['peso_01l']), 2)?></td>
-            <td align="right" style="display: none"><?=$general->formato_numero(round($dataDespacho['peso_02l']), 2)?></td>
-            <td align="right" style="display: none"><?=$general->formato_numero(round($pesoBruto), 2)?></td>
-            <td align="right" style="display: none"><?=$general->formato_numero(round($pesoTara), 2)?></td>
+            <td align="right"><?=$general->formato_numero($dataDespacho['peso_01v'], 3)?></td>
+            <td align="right"><?=$general->formato_numero($dataDespacho['peso_02v'], 3)?></td>
+            <td align="right" style="display: none"><?=$general->formato_numero($dataDespacho['peso_01l'], 3)?></td>
+            <td align="right" style="display: none"><?=$general->formato_numero($dataDespacho['peso_02l'], 3)?></td>
+            <td align="right" style="display: none"><?=$general->formato_numero($pesoBruto, 3)?></td>
+            <td align="right" style="display: none"><?=$general->formato_numero($pesoTara, 3)?></td>
             <td align="right" style="display: none"><?=$humedad?></td>
             <td align="right" style="display: none"><?=$humedad2?></td>
-            <td align="right" style="display: none"><?=$general->formato_numero(round($dataDespacho['humedad_des']), 2)?></td>
-            <td align="right" style="display: none"><?=$general->formato_numero(round($dataDespacho['humedad_des2']), 2)?></td>
+            <td align="right" style="display: none"><?=$general->formato_numero($dataDespacho['humedad_des'], 3)?></td>
+            <td align="right" style="display: none"><?=$general->formato_numero($dataDespacho['humedad_des2'], 3)?></td>
             <td align="right" style="display: none"><?=$impureza?></td>
             <td align="right" style="display: none"><?=$impureza2?></td>
-            <td align="right" style="display: none"><?=$general->formato_numero(round($dataDespacho['impureza_des']), 2)?></td>
-            <td align="right" style="display: none"><?=$general->formato_numero(round($dataDespacho['impureza_des2']), 2)?></td>
-            <td align="right" style="display: none"><?=$general->formato_numero(round($dataDespacho['peso_acon']), 2)?></td>
-            <td align="right" style="display: none"><?=$general->formato_numero(round($dataDespacho['peso_acon2']), 2)?></td>
-            <td align="right" style="display: none"><?=$general->formato_numero(round($dataDespacho['peso_acon_liq']), 2)?></td>
-            <td align="right" style="display: none"><?=$general->formato_numero(round($dataDespacho['peso_acon_liq2']), 2)?></td>
+            <td align="right" style="display: none"><?=$general->formato_numero($dataDespacho['impureza_des'], 3)?></td>
+            <td align="right" style="display: none"><?=$general->formato_numero($dataDespacho['impureza_des2'], 3)?></td>
+            <td align="right" style="display: none"><?=$general->formato_numero($dataDespacho['peso_acon'], 3)?></td>
+            <td align="right" style="display: none"><?=$general->formato_numero($dataDespacho['peso_acon2'], 3)?></td>
+            <td align="right" style="display: none"><?=$general->formato_numero($dataDespacho['peso_acon_liq'], 3)?></td>
+            <td align="right" style="display: none"><?=$general->formato_numero($dataDespacho['peso_acon_liq2'], 3)?></td>
             <td align="center">
                 <img src="../images/buscar.png" width="16" height="16" title="Detalle" border="0" style="cursor:pointer" onclick="openWindow('gerente_despacho_detalle.php?id=<?php echo $dataDespacho['id'] ?>&ca=<?php echo $dataDespacho['ca_id']?>','','1200','500','visible');return false;">
             </td>
@@ -722,24 +722,24 @@
             <th></th>
             <th></th>
             <th>Total:</th>
-            <th><?=$general->formato_numero(round($totalPesoVM), 2)?></th>
-            <th><?=$general->formato_numero(round($totalPesoVR), 2)?></th>
-            <th style="display: none"><?=$general->formato_numero(round($totalPesoLM), 2)?></th>
-            <th style="display: none"><?=$general->formato_numero(round($totalPesoLR), 2)?></th>
-            <th style="display: none"><?=$general->formato_numero(round($totalPesoBruto), 2)?></th>
-            <th style="display: none"><?=$general->formato_numero(round($totalPesoTara), 2)?></th>
-            <th style="display: none"><?=$general->formato_numero(round($totalH), 2)?></th>
-            <th style="display: none"><?=$general->formato_numero(round($totalH2), 2)?></th>
-            <th style="display: none"><?=$general->formato_numero(round($totalHD), 2)?></th>
-            <th style="display: none"><?=$general->formato_numero(round($totalHD2), 2)?></th>
-            <th style="display: none"><?=$general->formato_numero(round($totalI), 2)?></th>
-            <th style="display: none"><?=$general->formato_numero(round($totalI2), 2)?></th>
-            <th style="display: none"><?=$general->formato_numero(round($totalID), 2)?></th>
-            <th style="display: none"><?=$general->formato_numero(round($totalID2), 2)?></th>
-            <th style="display: none"><?=$general->formato_numero(round($totalPesoAcon), 2)?></th>
-            <th style="display: none"><?=$general->formato_numero(round($totalPesoAcon2), 2)?></th>
-            <th style="display: none"><?=$general->formato_numero(round($totalPesoAconL), 2)?></th>
-            <th style="display: none"><?=$general->formato_numero(round($totalPesoAconL2), 2)?></th>
+            <th><?=$general->formato_numero($totalPesoVM, 3)?></th>
+            <th><?=$general->formato_numero($totalPesoVR, 3)?></th>
+            <th style="display: none"><?=$general->formato_numero($totalPesoLM, 3)?></th>
+            <th style="display: none"><?=$general->formato_numero($totalPesoLR, 3)?></th>
+            <th style="display: none"><?=$general->formato_numero($totalPesoBruto, 3)?></th>
+            <th style="display: none"><?=$general->formato_numero($totalPesoTara, 3)?></th>
+            <th style="display: none"><?=$general->formato_numero($totalH, 3)?></th>
+            <th style="display: none"><?=$general->formato_numero($totalH2, 3)?></th>
+            <th style="display: none"><?=$general->formato_numero($totalHD, 3)?></th>
+            <th style="display: none"><?=$general->formato_numero($totalHD2, 3)?></th>
+            <th style="display: none"><?=$general->formato_numero($totalI, 3)?></th>
+            <th style="display: none"><?=$general->formato_numero($totalI2, 3)?></th>
+            <th style="display: none"><?=$general->formato_numero($totalID, 3)?></th>
+            <th style="display: none"><?=$general->formato_numero($totalID2, 3)?></th>
+            <th style="display: none"><?=$general->formato_numero($totalPesoAcon, 3)?></th>
+            <th style="display: none"><?=$general->formato_numero($totalPesoAcon2, 3)?></th>
+            <th style="display: none"><?=$general->formato_numero($totalPesoAconL, 3)?></th>
+            <th style="display: none"><?=$general->formato_numero($totalPesoAconL2, 3)?></th>
         </tr>
         <tr>
             <td colspan="6">&nbsp;</td>

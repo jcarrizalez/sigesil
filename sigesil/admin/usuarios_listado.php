@@ -25,7 +25,7 @@
     require('../lib/common/header.php');
 ?>
 <script type="text/javascript">
-    function cambiarStatus(){
+    function eliminar(){
         if(confirm('¿Desea cambiar de estatus a este Usuario?'))
             return true;
         else
@@ -78,7 +78,7 @@
                     <td colspan="3">
                         <?
                             echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
-                            echo $html->input('Nuevo', 'Nuevo', array('type' => 'button'));
+                            $general->crearAcciones($acciones, '', 1);
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button'));
                         ?>
                     </td>
@@ -86,12 +86,6 @@
             </table>
         </form>
     </div><hr/>
-    <!--div id="botones">
-        <?
-            echo $html->input('Nuevo', 'Nuevo', array('type' => 'button'));
-            echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
-        ?>
-    </div-->
     <div id="paginador">
         <?
             $paginador->print_page_counter('Pag', 'de');
@@ -135,8 +129,8 @@
             </td>
             <td align="center">
                 <?
-                    echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'usuario.php?ac=editar&id='.$dataUsuario['id']);
-                    //echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'usuarios_listado.php?ac=eliminar&id='.$dataUsuario['id'], array('onclick' => 'return eliminar();'));
+                    $urls = array(1 => 'usuario.php?ac=editar&id='.$dataUsuario['id'], 'usuarios_listado.php?ac=eliminar&id='.$dataUsuario['id']."&estatus=f");
+                    $general->crearAcciones($acciones, $urls);
                 ?>
             </td>
         </tr>

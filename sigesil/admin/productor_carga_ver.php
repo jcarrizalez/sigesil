@@ -88,6 +88,12 @@
                         }
                     }
                     $var_error = substr($var_error, 0, strlen($var_error) - 1);
+                    if($var_error == 'OK')
+                        $var_error = '<img src="'.DOMAIN_ROOT.'images/habilitar.png" width="16" height="16" title=Activo>'.$var_error;
+                    elseif((substr($var_error, 0, 9) == 'Duplicado') || (substr($var_error, 0, 15) == 'Cedula Invalida'))
+                        $var_error = '<img src="'.DOMAIN_ROOT.'images/deshabilitar.png" width="16" height="16" title=Activo>'.$var_error;
+                    else
+                        $var_error = '<img src="'.DOMAIN_ROOT.'images/habilitar.png" width="16" height="16" title=Activo>'.$var_error;
             ?>
                 <tr class="<?=$clase?>">
                     <!--td align="center" class="cell_left">
@@ -102,10 +108,10 @@
                         ?>
                     </td-->
                     <td align="center"><? echo $linea['scvlines'] ?></td>
-                    <td><? echo $linea['ced_rif'] ?></td>
-                    <td><? echo $linea['nombre'] ?></td>
-                    <td><? echo $linea['telefono'] ?></td>
-                    <td><? echo $linea['direccion'] ?></td>
+                    <td><? echo strtoupper($linea['ced_rif']) ?></td>
+                    <td><? echo strtoupper($linea['nombre']) ?></td>
+                    <td><? echo strtoupper($linea['telefono']) ?></td>
+                    <td><? echo strtoupper($linea['direccion']) ?></td>
                     <td align="left"><? echo $var_error ?></td>
                 </tr>
         <? $i++; } ?>
