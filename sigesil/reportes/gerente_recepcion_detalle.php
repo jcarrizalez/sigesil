@@ -9,13 +9,30 @@
     $pesoAcondicionado = (!empty($detalleRecepcion[0]['peso_acon'])) ? $detalleRecepcion[0]['peso_acon'] : 0;
     $placa = $detalleRecepcion[0]['placa'];
     $placa .= (!empty($detalleRecepcion[0]['placa_remolques'])) ? " / ".$detalleRecepcion[0]['placa_remolques'] : '';
+    //ac: accion central
+    //ap: accion planta
     switch($GPC['ac']){
-        case 'Resultados':
-            header("location: ".DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_recepcion&id_rec=".$GPC['id']."&ca=".$GPC['ca']."&re=true");
+        case 'Vacio':
+            header("location: ".DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_recepcion&mov=rec&id_rec=".$GPC['id']."&ca=".$GPC['ca']."&lab=C&vacio=true&re=true");
+            die();
+        break;
+        case 'Analizado':
+            header("location: ".DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_recepcion&mov=rec&id_rec=".$GPC['id']."&ca=".$GPC['ca']."&lab=C&re=true");
             die();
         break;
         case 'Liquidacion':
             header("location: ".DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_liquidacion&id_rec=".$GPC['id']."&mov=rec&ca=".$GPC['ca']."&re=true");
+            die();
+        break;
+    }
+    
+    switch ($GPC['ap']){
+        case 'Vacio':
+            header("location: ".DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_recepcion&mov=rec&id_rec=".$GPC['id']."&ca=".$GPC['ca']."&lab=P&vacio=true&re=true");
+            die();
+        break;
+        case 'Analizado':
+            header("location: ".DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_recepcion&mov=rec&id_rec=".$GPC['id']."&ca=".$GPC['ca']."&lab=P&re=true");
             die();
         break;
     }
@@ -118,22 +135,62 @@
                 <td id="titulo_modulo" colspan="20" align="center" style="padding-top: 50px;">REIMPRIMIR</td>
             </tr>
             <tr>
-                <td colspan="20" align="center">
+                <td colspan="20" align="center"> <!--colspan="20" -->
                     <form name="form1" id="form1" method="POST" action="#" enctype="multipart/form-data">
-                    <?
-                        echo $html->input('id', $detalleRecepcion[0]['id'], array('type' => 'hidden'));
-                        
-                        if($detalleRecepcion[0]['estatus_rec'] > 1){
-                            echo $html->input('Ver', 'Ver Resultados', array('type' => 'button', 'onClick' => 'javascript:abrirPopup()'));
-                            echo $html->input('ac', 'Resultados', array('type' => 'submit'));
-                        }
-                        
-                        /*if(in_array($detalleRecepcion[0]['estatus_rec'], array(7, 8)))
-                            echo $html->input('ac', 'Rechazo', array('type' => 'submit'));*/
-                        
-                        if($detalleRecepcion[0]['estatus_rec'] == 9)
-                            echo $html->input('ac', 'Liquidacion', array('type' => 'submit'));
-                    ?>
+                        <table align="center" border="0" cellspacing="0">
+                            <tr align="center" class="titulos_tabla borde_th_reporte" >
+                                <th>Lab. Central</th>
+                                <th>Lab. Planta</th>
+                                <th>Liquidaci&oacute;n</th>
+                            </tr>
+                            <tr align="center">
+                                <td>
+                                <?
+                                    if($detalleRecepcion[0]['estatus_rec'] >= 1){
+                                        //echo $html->input('Ver', 'Ver Resultados', array('type' => 'button', 'onClick' => 'javascript:abrirPopup()'));
+                                        echo $html->input('ac', 'Vacio', array('type' => 'submit'));
+                                    }
+                                ?></td>
+                                <td>
+                                <?
+                                    echo $html->input('id', $detalleRecepcion[0]['id'], array('type' => 'hidden'));
+                                    if($detalleRecepcion[0]['estatus_rec'] >= 4)
+                                        echo $html->input('ap', 'Vacio', array('type' => 'submit'));
+                                ?></td>
+                                <td>
+                                <?
+                                    if($detalleRecepcion[0]['estatus_rec'] == 9)
+                                        echo $html->input('ac', 'Liquidacion', array('type' => 'submit'));
+                                ?></td>
+                            </tr>
+                            <tr align="center">
+                                <td>
+                                <?
+                                    if($detalleRecepcion[0]['estatus_rec'] >=1) //>= 3
+                                        echo $html->input('ac', 'Analizado', array('type' => 'submit'));
+                                ?></td>
+                                <td>
+                                <?
+                                    if($detalleRecepcion[0]['estatus_rec'] >= 5)
+                                        echo $html->input('ap', 'Analizado', array('type' => 'submit'));
+                                ?>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr align="center">
+                                <td>
+                                <?
+                                    if($detalleRecepcion[0]['estatus_rec'] == 7)
+                                        echo $html->input('ac', 'Rechazo', array('type' => 'submit'));
+                                ?></td>
+                                <td>
+                                <?
+                                    if($detalleRecepcion[0]['estatus_rec'] == 8)
+                                        echo $html->input('ap', 'Rechazo', array('type' => 'submit'));
+                                ?></td>
+                                <td></td>
+                            </tr>
+                        </table>
                     </form>
                 </td>
             </tr>

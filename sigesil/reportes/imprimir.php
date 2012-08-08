@@ -4,7 +4,7 @@
     
     switch ($GPC['reporte']){
         case 'boleta_recepcion':
-            $url = DOMAIN_ROOT.'reportes/imprimir_recepcion.php?mov='.$GPC['mov'].'&id_rec='.$GPC['id_rec'].'&ca='.$GPC['ca'].'&reimprimir='.$GPC['re'];
+            $url = DOMAIN_ROOT.'reportes/imprimir_recepcion.php?mov='.$GPC['mov'].'&id_rec='.$GPC['id_rec'].'&ca='.$GPC['ca'].'&lab='.$GPC['lab'].'&vacio='.$GPC['vacio'].'&reimprimir='.$GPC['re'];
         break;
         case 'boleta_rechazo':
             $url = DOMAIN_ROOT."reportes/imprimir_boleta_rechazo.php?id=". $GPC['id']."&es_rechazado=".$GPC['es_rechazado'].'&ca='.$GPC['ca'];
