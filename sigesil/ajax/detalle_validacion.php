@@ -73,6 +73,38 @@
                 echo $html->input('Usuario.cedula', $GPC['ced'], array('type' => 'text', 'class' => 'estilo_campos positive'));;
             }
         break;
+        case 'analisis':
+            $analisis = new Analisis();
+            $infoAnalisis = $analisis->find(array('codigo' => $GPC['cod']));
+            if(!empty($infoAnalisis)){
+                echo $html->input('Analisis.codigo', null, array('type' => 'text', 'class' => 'estilo_campos positive'));
+                ?>
+                <script type="text/javascript">
+                    $(document).ready(function(){
+                        alert('Codigo ya Existe');
+                    });
+                </script>
+                <?
+            }else{
+                echo $html->input('Analisis.codigo', $GPC['cod'], array('type' => 'text', 'class' => 'estilo_campos positive'));
+            }
+        break;
+        case 'cultivo':
+            $cultivo = new Cultivo();
+            $infoCultivo = $cultivo->find(array('codigo' => $GPC['cod']));
+            if(!empty($infoCultivo)){
+                echo $html->input('Cultivo.codigo', null, array('type' => 'text', 'class' => 'estilo_campos positive'));
+                ?>
+                <script type="text/javascript">
+                    $(document).ready(function(){
+                        alert('Codigo ya Existe');
+                    });
+                </script>
+                <?
+            }else{
+                echo $html->input('Cultivo.codigo', $GPC['cod'], array('type' => 'text', 'class' => 'estilo_campos positive'));
+            }
+        break;
     }
 ?>
 <script type="text/javascript">    

@@ -31,7 +31,7 @@ class Analisis extends Model {
         return $this->id = $id;
     }
     
-    function listaAnalisis($idA='', $tipo='', $nombre='', $codigo='', $estatus='', $formula=''){
+    function listaAnalisis($idA='', $tipo='', $nombre='', $codigo='', $estatus='', $formula='', $porPagina=null, $inicio=null){
         $query = "SELECT * FROM si_analisis WHERE '1'";
         $query .= (!empty($idA)) ? " AND id = '$idA'" : "";
         $query .= (!empty($tipo)) ? " AND tipo_analisis = '$tipo'" : "";
@@ -39,7 +39,8 @@ class Analisis extends Model {
         $query .= (!empty($codigo)) ? " AND codigo = '$codigo'" : "";
         $query .= (!empty($estatus)) ? " AND estatus = '$estatus'" : "";
         $query .= (!empty($formula)) ? " AND formula = '$formula'" : "";
-        $query .= "ORDER BY codigo";
+        $query .= " ORDER BY cast(codigo as int)";
+        $query .= (!empty($porPagina)) ? " LIMIT $porPagina OFFSET $inicio" : "";
         return $this->_SQL_tool('SELECT', __METHOD__, $query);
     }
     

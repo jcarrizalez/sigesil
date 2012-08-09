@@ -40,6 +40,17 @@ $validator->printScript();
     function cancelar(){
         window.location = 'cultivo_listado.php';
     }
+    
+    $(document).ready(function(){
+        $('#Cultivo\\[codigo\\]').live('change', function(){
+            if($(this).val() != ''){
+                var cod = $(this).val();
+                $('#codigo').load('../ajax/detalle_validacion.php?ac=cultivo&cod=' + cod);
+            }
+        });
+    
+        $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
+    });
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
     <? echo $html->input('Cultivo.id', $infoCultivo[0]['id'], array('type' => 'hidden')); ?>
@@ -53,7 +64,7 @@ $validator->printScript();
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>C&oacute;digo </td>
-            <td><? echo $html->input('Cultivo.codigo', $infoCultivo[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td id="codigo"><? echo $html->input('Cultivo.codigo', $infoCultivo[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Nombre </td>

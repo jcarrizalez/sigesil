@@ -2,10 +2,15 @@
     require_once('../lib/core.lib.php');
     
     $cultivo = new Cultivo();
+    $centro_acopio = new CentroAcopio();
     
-    $id = (!empty($GPC['id'])) ? $GPC['id'] : null;
-    $nombre = (!empty($GPC['nombre'])) ? $GPC['nombre'] : null;
-    $tipo = (!empty($GPC['tipo'])) ? $GPC['tipo'] : null;
+    if($_SESSION['s_perfil_id'] == GERENTEG)
+        $idCA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : '2';
+    else
+        $idCA = $_SESSION['s_ca_id'];
+    
+    $listaCA = $centro_acopio->find('', '', array('id', 'nombre'), 'list', 'id');
+    unset($listaCA[1]);
     
     $porPagina = MAX_RESULTS_PAG;
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
@@ -57,18 +62,29 @@
         ?>
     </div>
     <div id="filtro">
-        <!--form name="form1" id="form1" method="POST" action="" enctype="multipart/form-data"-->
+        <form name="form1" id="form1" method="GET" action="" enctype="multipart/form-data">
             <table width="100%">
+                <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+                <tr>
+                    <td width="110">Centro de Acopio:</td>
+                    <td colspan="2">
+                        <?
+                            echo $html->select('id_ca',array('options'=>$listaCA, 'selected' => $GPC['id_ca'], 'class' => 'estilo_campos'));
+                        ?>
+                    </td>
+                </tr>
+                <? } ?>
                 <tr id="botones">
                     <td colspan="3">
                         <?
+                            echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
                             $general->crearAcciones($acciones, '', 1);
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
                         ?>
                     </td>
                 </tr>
             </table>
-        <!--/form-->
+        </form>
     </div><hr/>
     <div id="paginador">
         <?
@@ -97,6 +113,7 @@
                 <?
                     $urls = array(1 => 'cultivo.php?ac=editar&id='.$dataCultivo['id'], 'cultivo_listado.php?ac=eliminar&id='.$dataCultivo['id']."&estatus=f");
                     $general->crearAcciones($acciones, $urls);
+                    echo $html->link('<img src="../images/analisis.png" width="16" height="16" title=Analisis>', 'analisis_cultivo.php?id='.$dataCultivo['id'].'ca='.$idCA);
                 ?>
             </td>
         </tr>
