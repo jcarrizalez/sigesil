@@ -100,7 +100,7 @@
 
         $fila = 7;
         
-        $listadoProductor = $productor->listadoProductores(null, null, $cedrif, $nombre, $estado, $municipio, $porPagina, $inicio);
+        $listadoProductor = $productor->listadoProductores(null, null, $cedrif, $nombre, $estado, $municipio);
         if(!empty($listadoProductor)){
             foreach($listadoProductor as $dataProductor){                
                 $valores = array();

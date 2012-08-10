@@ -151,7 +151,7 @@ $validator->printScript();
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Estatus </td>
-            <td><? echo $html->select('Productor.estatus', array('options' => $estatus, 'selected' => $infoChofer[0]['estatus'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
+            <td><? echo $html->select('Productor.estatus', array('options' => $estatus, 'selected' => $infoProductor[0]['estatus'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <?
             for($i=1; $i<=3; $i++){

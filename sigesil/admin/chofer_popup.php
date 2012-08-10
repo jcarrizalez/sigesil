@@ -21,6 +21,9 @@ $estatus = array('t' => 'Activo', 'f' => 'Inactivo');
 switch ($GPC['ac']) {
     case 'guardar':
         if (!empty($GPC['Chofer']['nombre']) && !empty($GPC['Chofer']['ced_rif'])) {
+            $GPC['Chofer']['id_org'] = (!empty($GPC['Chofer']['id_org'])) ? $GPC['Chofer']['id_org'] : 1;
+            $GPC['Chofer']['id_pais'] = 1;
+            $GPC['Chofer']['estatus'] = 't';
             $GPC['Chofer']['id_estado'] = $GPC['id_estado'];
             $GPC['Chofer']['id_municipio'] = $GPC['id_municipio'];
             $chofer->save($GPC['Chofer']);

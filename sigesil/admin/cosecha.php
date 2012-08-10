@@ -131,11 +131,11 @@ $validator->printScript();
                             <td><?= $html->input('nombre1', $infoCosecha[0]['nombre'], array('type' => 'text', 'class' => 'inputGrilla')); ?></td>
                         </tr>
                         <tr>
-                            <td>Proyectado</td>
+                            <td>Proyectado (Ton.)</td>
                             <td><?= $html->input('proyectado1', $infoCosecha[0]['proyectado'], array('type' => 'text', 'class' => 'inputGrilla positive')); ?></td>
                         </tr>
                         <tr>
-                            <td>Area Siembra</td>
+                            <td>Area Siembra (Hec.)</td>
                             <td><?= $html->input('area_siembra1', $infoCosecha[0]['area_siembra'], array('type' => 'text', 'class' => 'inputGrilla positive')); ?></td>
                         </tr>
                         <tr>

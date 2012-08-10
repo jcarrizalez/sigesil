@@ -6,7 +6,7 @@
     $porPagina = MAX_RESULTS_PAG;
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
     $listaNacion = array('V' => 'V', 'E' => 'E', 'J' => 'J', 'G' => 'G');
-    $cedRif = $GPC['nacionalidad'].$GPC['cedula'];
+    $cedRif = (!empty($GPC['cedula'])) ? $GPC['nacionalidad'].$GPC['cedula'] : '';
     $nombre = (!empty($GPC['nombre'])) ? $GPC['nombre'] : '';
     
     $listadoProductores = $productor->listadoProductores('', '', $cedRif, $nombre, '', '', $porPagina, $inicio);

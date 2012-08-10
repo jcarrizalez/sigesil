@@ -27,7 +27,7 @@ class Despacho extends Model {
                     (SELECT t2.nombre FROM si_tolcarom t2 WHERE t2.id = d.romana_sal) AS romana_sal, 
                     ca.id AS ca_id, ca.codigo AS ca_codigo, ca.nombre AS centro_acopio, 
                     cu.codigo AS cultivo_codigo, cu.nombre AS cultivo_nombre, 
-                    o.numero_orden AS numero_guia, 
+                    o.numero_orden AS numero_guia, o.descuento, 
                     ch.ced_rif AS ced_chofer, ch.nombre AS chofer_nombre, 
                     v.placa, v.marca, v.color, v.capacidad, v.tara_aprox, v.chuto, v.placa_remolques, 
                     cl.ced_rif AS ced_cliente, cl.nombre AS cliente_nombre, 
@@ -95,6 +95,13 @@ class Despacho extends Model {
                 FROM si_despacho
                 WHERE id_centro_acopio = '$idCA' 
                 AND fecha_des BETWEEN '".date('Y-m-d 00:00:00')."' AND '".date('Y-m-d 23:59:59')."'";
+        return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
+    }
+    
+    function despachoDescuento($id){
+        $query = "SELECT o.descuento FROM si_despacho d
+                    INNER JOIN si_ordenes o ON o.id = d.id_orden
+                    WHERE d.id = '$id'";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
 }

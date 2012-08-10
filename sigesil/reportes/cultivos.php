@@ -88,7 +88,7 @@
 
         $fila = 7;
         
-        $listadoCultivos = $cultivo->buscarCultivo(null, $codigo, $nombre, $porPagina, $inicio);
+        $listadoCultivos = $cultivo->buscarCultivo(null, $codigo, $nombre);
         if(!empty($listadoCultivos)){
             foreach($listadoCultivos as $dataCultivo){                
                 $valores = array();

@@ -44,18 +44,18 @@ class Analisis extends Model {
         return $this->_SQL_tool('SELECT', __METHOD__, $query);
     }
     
-    function buscarAC($id=null, $IdCultivo=null, $idCA=null, $laboratorio=null) {
-    $query = "SELECT a.id, ac.id_cultivo, a.codigo, a.nombre, a.tipo_analisis,
-                ac.min_rec, ac.max_rec, ac.min_des, ac.max_des, ac.estatus 
-                FROM si_analisis_cultivo ac 
-                INNER JOIN si_analisis a ON a.id=ac.id_analisis and a.id_org=ac.id_org
-                WHERE '1'";
-    $query .= (!empty($id)) ? " AND a.id = '$id'" : "";        
-    $query .= (!empty($IdCultivo)) ? " AND ac.id_cultivo = '$IdCultivo'" : "";
-    $query .= (!empty($idCA)) ? " AND ac.id_centro_acopio = '$idCA'" : "";
-    $query .= (!empty($laboratorio)) ? " AND ac.laboratorio IN ($laboratorio)" : "";    
-    $query .= " ORDER BY cast(a.codigo as int)";
-    return $this->_SQL_tool($this->SELECT, __METHOD__, $query); 
+    function buscarAC($id=null, $idCultivo=null, $idCA=null, $laboratorio=null) {
+        $query = "SELECT a.id, ac.id_cultivo, a.codigo, a.nombre, a.tipo_analisis,
+                    ac.min_rec, ac.max_rec, ac.min_des, ac.max_des, ac.estatus 
+                    FROM si_analisis_cultivo ac 
+                    INNER JOIN si_analisis a ON a.id=ac.id_analisis and a.id_org=ac.id_org
+                    WHERE '1'";
+        $query .= (!empty($id)) ? " AND a.id = '$id'" : "";        
+        $query .= (!empty($idCultivo)) ? " AND ac.id_cultivo = '$idCultivo'" : "";
+        $query .= (!empty($idCA)) ? " AND ac.id_centro_acopio = '$idCA'" : "";
+        $query .= (!empty($laboratorio)) ? " AND ac.laboratorio IN ($laboratorio)" : "";    
+        $query .= " ORDER BY cast(a.codigo as int)";
+        return $this->_SQL_tool($this->SELECT, __METHOD__, $query); 
     }
     
     function borrarResultados($idRecepcion=null, $idDespacho=null)

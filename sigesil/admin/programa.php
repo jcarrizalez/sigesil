@@ -167,7 +167,9 @@ $validator->printScript();
         }
     }
     
-    $(document).ready(function(){        
+    $(document).ready(function(){   
+        $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
+        
         $('#Programa\\[id_cultivo\\]').live('change', function(){
             if($(this).val() != ''){
                 var cultivo = parseInt($(this).val());
@@ -314,12 +316,12 @@ $validator->printScript();
                             <td><?= $html->input('nombre1', '', array('type' => 'text', 'class' => 'inputGrilla')); ?></td>
                         </tr>
                         <tr>
-                            <td>Proyectado</td>
-                            <td><?= $html->input('proyectado1', '', array('type' => 'text', 'class' => 'inputGrilla')); ?></td>
+                            <td>Proyectado (Ton.)</td>
+                            <td><?= $html->input('proyectado1', '', array('type' => 'text', 'class' => 'inputGrilla positive')); ?></td>
                         </tr>
                         <tr>
-                            <td>Area Siembra</td>
-                            <td><?= $html->input('area_siembra1', '', array('type' => 'text', 'class' => 'inputGrilla')); ?></td>
+                            <td>Area Siembra (Hec.)</td>
+                            <td><?= $html->input('area_siembra1', '', array('type' => 'text', 'class' => 'inputGrilla positive')); ?></td>
                         </tr>
                         <tr>
                             <td>Fecha Inicio</td>

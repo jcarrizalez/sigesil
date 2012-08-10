@@ -113,7 +113,9 @@
                 <?
                     $urls = array(1 => 'cultivo.php?ac=editar&id='.$dataCultivo['id'], 'cultivo_listado.php?ac=eliminar&id='.$dataCultivo['id']."&estatus=f");
                     $general->crearAcciones($acciones, $urls);
-                    echo $html->link('<img src="../images/analisis.png" width="16" height="16" title=Analisis>', 'analisis_cultivo.php?id='.$dataCultivo['id'].'ca='.$idCA);
+                    //if(in_array($_SESSION['s_perfil_id'], array(CALIDADG, CALIDADS))){
+                        echo $html->link('<img src="../images/analisis.png" width="16" height="16" title=Analisis>', 'analisis_cultivo.php?id='.$dataCultivo['id'].'&ca='.$idCA);
+                    //}
                 ?>
             </td>
         </tr>

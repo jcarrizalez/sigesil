@@ -110,7 +110,7 @@
 
         $fila = 7;
         
-        $listadoCosechas = $cosecha->buscarCosechaP(null, null, $estatus, null, $idCA, $codigo, $nombre, $porPagina, $inicio);
+        $listadoCosechas = $cosecha->buscarCosechaP(null, null, $estatus, null, $idCA, $codigo, $nombre);
         if(!empty($listadoCosechas)){
             foreach($listadoCosechas as $dataCosecha){                
                 $valores = array();

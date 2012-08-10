@@ -75,6 +75,7 @@
         break;
         case 'analisis':
             $analisis = new Analisis();
+            $GPC['cod'] = ($GPC['cod'] < 10 && strlen($GPC['cod']) == 1) ? '0'.$GPC['cod'] : $GPC['cod'];
             $infoAnalisis = $analisis->find(array('codigo' => $GPC['cod']));
             if(!empty($infoAnalisis)){
                 echo $html->input('Analisis.codigo', null, array('type' => 'text', 'class' => 'estilo_campos positive'));
@@ -91,6 +92,7 @@
         break;
         case 'cultivo':
             $cultivo = new Cultivo();
+            $GPC['cod'] = ($GPC['cod'] < 10 && strlen($GPC['cod']) == 1) ? '0'.$GPC['cod'] : $GPC['cod'];
             $infoCultivo = $cultivo->find(array('codigo' => $GPC['cod']));
             if(!empty($infoCultivo)){
                 echo $html->input('Cultivo.codigo', null, array('type' => 'text', 'class' => 'estilo_campos positive'));

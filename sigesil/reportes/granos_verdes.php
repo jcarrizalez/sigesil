@@ -111,7 +111,7 @@
         $fHas = $GPC['fhas'];
         $idCa = $GPC['idCa'];
         $orden = ' ORDER BY ca.codigo, p.nombre, p2.nombre, p3.nombre, r.fecha_recepcion, r.numero';
-        $listadoRecepciones = $recepcion->listadoRecepcion('', $idCa, $idCo, "2, 7, 8", null, '9', null, null, $porPagina, $inicio, $idP, $orden, null, null, null, null, $fDes, $fHas);
+        $listadoRecepciones = $recepcion->listadoRecepcion('', $idCa, $idCo, "2, 7, 8", null, '9', null, null, null, null, $idP, $orden, null, null, null, null, $fDes, $fHas);
         if(!empty($listadoRecepciones)){
             $totalRegistros = count($listadoRecepciones);
             $cant = 0;

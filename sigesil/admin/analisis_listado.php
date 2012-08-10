@@ -55,7 +55,7 @@
                 <tr>
                     <td>Tipo</td>
                     <td>
-                        <? echo $html->select('tipo', array('options'=>$listaTipo, 'default' => 'Seleccione', 'selected' => $GPC['tipo'], 'class' => 'estilo_campos')); ?>
+                        <? echo $html->select('tipo', array('options'=>$listaTipo, 'default' => 'TODOS', 'selected' => $GPC['tipo'], 'class' => 'estilo_campos')); ?>
                     </td>
                 </tr>
                 <tr id="botones">

@@ -105,7 +105,7 @@
 
         $fila = 7;
         
-        $listadoProgramas = $programa->buscarProgramaCA(null, $idCA, $codigo, null, $estatus, $nombre, $porPagina, $inicio);
+        $listadoProgramas = $programa->buscarProgramaCA(null, $idCA, $codigo, null, $estatus, $nombre);
         if(!empty($listadoProgramas)){
             foreach($listadoProgramas as $dataPrograma){                
                 $valores = array();

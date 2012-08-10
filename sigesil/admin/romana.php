@@ -40,7 +40,7 @@
                     $GPC['Recepcion']['fecha_pel'] = "now()";
                 }
 
-                if(($GPC['mov'] == 'rec' && ($GPC['Recepcion']['estatus_rec'] == '9' || $GPC['Recepcion']['estatus_rec'] == '14')) || ($GPC['mov'] == 'des' && ($GPC['Recepcion']['estatus'] == '5'))){
+                if(($GPC['mov'] == 'rec' && ($GPC['Recepcion']['estatus_rec'] == '9')) || ($GPC['mov'] == 'des' && ($GPC['Recepcion']['estatus'] == '5'))){
                     //CALCULAR LOS PESOS PARA GUARDARLOS
 
                     if($GPC['mov'] == 'rec')
@@ -61,6 +61,7 @@
                     }else{
                         $infoMovimiento = $despacho->find(array('id' => $id));
                         $infoResultados = $resultados->listadoResultados('', $id, '', "'1', '2'");
+                        $descuento = $despacho->despachoDescuento($id);
                     }
 
                     if(!empty($infoResultados)){
@@ -69,52 +70,58 @@
                                 if($infoMovimiento[0]['muestra'] == 0){
                                     $sumHum = (!empty($valor['muestra1'])) ? $valor['muestra1'] : 0;
                                     $sumHum2 = (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
-                                    $sumHumT = $sumHum + $sumHum2;
+                                    //$sumHumT = $sumHum + $sumHum2;
                                 }elseif($infoMovimiento[0]['muestra'] == 1){
-                                    $sumHumT = (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                                    $sumHum = 0;
+                                    $sumHum2 = (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                                    //$sumHumT = (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
                                 }elseif($infoMovimiento[0]['muestra'] == 2){
-                                    $sumHumT = (!empty($valor['muestra1'])) ? $valor['muestra1'] : 0;
+                                    $sumHum = (!empty($valor['muestra1'])) ? $valor['muestra1'] : 0;
+                                    $sumHum2 = 0;
+                                    //$sumHumT = (!empty($valor['muestra1'])) ? $valor['muestra1'] : 0;
                                 }
                             }else{
                                 if($infoMovimiento[0]['muestra'] == 0){
                                     $sumImp = (!empty($valor['muestra1'])) ? $valor['muestra1'] : 0;
                                     $sumImp2 = (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
-                                    $sumImpT = $sumImp + $sumImp2;
+                                    //$sumImpT = $sumImp + $sumImp2;
                                 }elseif($infoMovimiento[0]['muestra'] == 1){
-                                    $sumImpT = (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                                    $sumImp = 0;
+                                    $sumImp2 = (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                                    //$sumImpT = (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
                                 }elseif($infoMovimiento[0]['muestra'] == 2){
-                                    $sumImpT = (!empty($valor['muestra1'])) ? $valor['muestra1'] : 0;
+                                    $sumImp = 0;
+                                    $sumImp2 = (!empty($valor['muestra2'])) ? $valor['muestra2'] : 0;
+                                    //$sumImpT = (!empty($valor['muestra1'])) ? $valor['muestra1'] : 0;
                                 }
                             }
                         }
-                    }else{
+                    }/*else{
                         $sumHumT = 0;
                         $sumImpT = 0;
-                    }
+                    }*/
 
-                    //PROMEDIO PARA LA HUMEDAD
-                    if($infoMovimiento[0]['muestra'] == 0)
+                    /*
+                    //PROMEDIO PARA LA HUMEDAD E IMPUREZA
+                    if($infoMovimiento[0]['muestra'] == 0){
                         $promHum = $sumHumT/$GPC['cant_m'];
-                    else
-                        $promHum = $sumHumT;
-
-                    //PROMEDIO PARA LA IMPUREZA
-                    if($infoMovimiento[0]['muestra'] == 0)
                         $promImp = $sumImpT/$GPC['cant_m'];
-                    else
+                    }else{
+                        $promHum = $sumHumT;
                         $promImp = $sumImpT;
+                     }*/
 
                     //VARIABLES A USAR PARA LOS CALCULOS
                     $reservadas = array('PL1', 'PL2', 'PV1', 'PV2', 'HUML', 'IMPL', 'PHUM', 'PIMP');
                     $GPC['Recepcion']['pesoLleno2'] = (!empty($GPC['Recepcion']['pesoLleno2'])) ? $GPC['Recepcion']['pesoLleno2'] : 0;
                     $GPC['Recepcion']['peso_02v'] = (!empty($GPC['Recepcion']['peso_02v'])) ? $GPC['Recepcion']['peso_02v'] : 0;
 
-                    if($GPC['mov'] == 'rec')
+                    /*if($GPC['mov'] == 'rec')
                         $pesos = array($GPC['Recepcion']['pesoLleno1'], $GPC['Recepcion']['pesoLleno2'], $GPC['Recepcion']['peso_01v'], $GPC['Recepcion']['peso_02v'], $promHum, $promImp);
-                    else{
+                    else{*/
                         $pesos = array($GPC['Recepcion']['pesoLleno1'], 0, $GPC['Recepcion']['peso_01v'], 0, $sumHum, $sumImp);
                         $pesos2 = array(0, $GPC['Recepcion']['pesoLleno2'], 0, $GPC['Recepcion']['peso_02v'], $sumHum2, $sumImp2);
-                    }
+                    //}
 
                     //ALMACENAR FORMULAS EN ARREGLO
                     $otra = false;
@@ -128,53 +135,73 @@
                         elseif($valor['codigo'] == 'PA')
                             $formulaAplicar['PA'] = $valor['formula'];
                         else{
-                            if(empty($valor['condicion']))
+                            if(empty($valor['condicion'])){
                                 $humImp[] = $valor['formula'];
-                            else{
+                                $humImp2[] = $valor['formula'];
+                            }else{
                                 if($valor['id_analisis'] == 1){
                                     $rango = split('<',$valor['condicion']);
-                                    if(($promHum >= $rango[0]) && ($promHum < $rango[1]))
+                                    if(($sumHum >= $rango[0]) && ($sumHum < $rango[1]))
                                         $humImp[] = $valor['formula'];
+                                    if(($sumHum2 >= $rango[0]) && ($sumHum2 < $rango[1]))
+                                        $humImp2[] = $valor['formula'];
                                 }elseif($valor['id_analisis'] == 2){
                                     $rango = split('<',$valor['condicion']);
-                                    if(($promImp >= $rango[0]) && ($promImp < $rango[1]))
+                                    if(($sumImp >= $rango[0]) && ($sumImp < $rango[1]))
                                         $humImp[] = $valor['formula'];
+                                    if(($sumImp2 >= $rango[0]) && ($sumImp2 < $rango[1]))
+                                        $humImp2[] = $valor['formula'];
                                 }else{
                                     $rango = split('=',$valor['condicion']);
                                     $rangoEvaluar = split('<', $rango[1]);
                                     $calculoFormula = str_replace($reservadas, $pesos, $rango[0]);
-                                    if ($evaluar->evaluate('y(x) = ' . $calculoFormula)){
+                                    $calculoFormula2 = str_replace($reservadas, $pesos2, $rango[0]);
+                                    if ($evaluar->evaluate('y(x) = ' . $calculoFormula))
                                         $condicionFormula = $evaluar->e("y(0)");
-                                    }
+                                    if ($evaluar->evaluate('y(x) = ' . $calculoFormula2))
+                                        $condicionFormula2 = $evaluar->e("y(0)");
+                                    
                                     if(($condicionFormula >= $rangoEvaluar[0]) && ($condicionFormula <= $rangoEvaluar[1]))
                                         $otraFormula[] = $valor['formula'];
                                     else{
                                         $otraFormula[] = $valor['formula'];
                                         $otra = true;
                                     }
+                                    
+                                    if(($condicionFormula2 >= $rangoEvaluar[0]) && ($condicionFormula2 <= $rangoEvaluar[1]))
+                                        $otraFormula2[] = $valor['formula'];
+                                    else{
+                                        $otraFormula2[] = $valor['formula'];
+                                        $otra2 = true;
+                                    }
                                 }
                             }
                         }
                     }
 
-                    if($otra){
-                        //$otraFormula[0] = $formulaAplicar['PN'];
+                    if($otra)
                         $otraFormula[1] = $formulaAplicar['PN'];
-                    }
+                    if($otra2)
+                        $otraFormula2[1] = $formulaAplicar['PN'];
 
                     //CALCULO DE LA HUMEDAD Y LA IMPUREZA
-                    if(!empty($humImp)){
-                        //CALCULO DE LA IMPUREZA
-                        $totalH = str_replace($reservadas, $pesos, $humImp[0]);
-                        if ($evaluar->evaluate('y(x) = ' . $totalH))
-                            $pesoH = $evaluar->e("y(0)");
-                        $pesos[] = $pesoH;
+                    if($descuento[0]['descuento'] == 't' || $GPC['mov'] == 'rec'){
+                        if(!empty($humImp)){
+                            //CALCULO DE LA HUMEDAD
+                            $totalH = str_replace($reservadas, $pesos, $humImp[0]);
+                            if ($evaluar->evaluate('y(x) = ' . $totalH))
+                                $pesoH = $evaluar->e("y(0)");
+                            $pesos[] = $pesoH;
 
-                        //CALCULO DE LA IMPUREZA
-                        $totalI = str_replace($reservadas, $pesos, $humImp[1]);
-                        if ($evaluar->evaluate('y(x) = ' . $totalI))
-                            $pesoI = $evaluar->e("y(0)");
-                        $pesos[] = $pesoI;
+                            //CALCULO DE LA IMPUREZA
+                            $totalI = str_replace($reservadas, $pesos, $humImp[1]);
+                            if ($evaluar->evaluate('y(x) = ' . $totalI))
+                                $pesoI = $evaluar->e("y(0)");
+                            $pesos[] = $pesoI;
+                        }
+                    }else{
+                        $pesos[] = 0;
+                        $pesos[] = 0;
                     }
 
                     if(!empty($otraFormula)){
@@ -209,30 +236,35 @@
                     if ($evaluar->evaluate('y(x) = ' . $totalAl))
                         $pesoAl = $evaluar->e("y(0)");
 
-                    if($GPC['mov'] == 'des' && ($sumHum2 != '' || $sumImp2 != '' || $GPC['Recepcion']['pesoLleno2'] != '' || $GPC['Recepcion']['peso_02v'] != '')){
+                    if(($sumHum2 != '' || $sumImp2 != '' || $GPC['Recepcion']['pesoLleno2'] != '' || $GPC['Recepcion']['peso_02v'] != '')){
                         //CALCULO DE LA HUMEDAD Y LA IMPUREZA
-                        if(!empty($humImp)){
-                            //CALCULO DE LA IMPUREZA
-                            $totalH2 = str_replace($reservadas, $pesos2, $humImp[0]);
-                            if ($evaluar->evaluate('y(x) = ' . $totalH2))
-                                $pesoH2 = $evaluar->e("y(0)");
-                            $pesos2[] = $pesoH2;
+                        if($descuento[0]['descuento'] == 't' || $GPC['mov'] == 'rec'){
+                            if(!empty($humImp)){
+                                //CALCULO DE LA HUMEDAD
+                                $totalH2 = str_replace($reservadas, $pesos2, $humImp2[0]);
+                                if ($evaluar->evaluate('y(x) = ' . $totalH2))
+                                    $pesoH2 = $evaluar->e("y(0)");
+                                $pesos2[] = $pesoH2;
 
-                            //CALCULO DE LA IMPUREZA
-                            $totalI2 = str_replace($reservadas, $pesos2, $humImp[1]);
-                            if ($evaluar->evaluate('y(x) = ' . $totalI2))
-                                $pesoI2 = $evaluar->e("y(0)");
-                            $pesos2[] = $pesoI2;
+                                //CALCULO DE LA IMPUREZA
+                                $totalI2 = str_replace($reservadas, $pesos2, $humImp2[1]);
+                                if ($evaluar->evaluate('y(x) = ' . $totalI2))
+                                    $pesoI2 = $evaluar->e("y(0)");
+                                $pesos2[] = $pesoI2;
+                            }
+                        }else{
+                            $pesos2[] = 0;
+                            $pesos2[] = 0;
                         }
 
-                        if(!empty($otraFormula)){
+                        if(!empty($otraFormula2)){
                             //PESO ACONDICIONADO Y PESO ACONDICIONADO A LIQUIDAR, PARA EL CASO DE CULTIVOS CON OTRA FORMULACION
-                            $totalA2 = str_replace($reservadas, $pesos2, $otraFormula[0]);
+                            $totalA2 = str_replace($reservadas, $pesos2, $otraFormula2[0]);
                             if ($evaluar->evaluate('y(x) = ' . $totalA2))
                             $pesoA2 = $evaluar->e("y(0)");
 
-                            if(!empty($otraFormula[1])){
-                                $totalAl2 = str_replace($reservadas, $pesos2, $otraFormula[1]);
+                            if(!empty($otraFormula2[1])){
+                                $totalAl2 = str_replace($reservadas, $pesos2, $otraFormula2[1]);
                                 if ($evaluar->evaluate('y(x) = ' . $totalAl2))
                                 $pesoAl2 = $evaluar->e("y(0)");
                             }
@@ -249,38 +281,38 @@
                             $pesoN2 = $evaluar->e("y(0)");
 
                         //PESO ACONDICIONADO Y PESO ACONDICIONADO A LIQUIDAR, PARA EL CASO DE CULTIVOS CON OTRA FORMULACION
-                        $totalA2 = str_replace($reservadas, $pesos2, $otraFormula[0]);
+                        $totalA2 = str_replace($reservadas, $pesos2, $otraFormula2[0]);
                         if ($evaluar->evaluate('y(x) = ' . $totalA2))
                             $pesoA2 = $evaluar->e("y(0)");
 
-                        $totalAl2 = str_replace($reservadas, $pesos2, $otraFormula[1]);
+                        $totalAl2 = str_replace($reservadas, $pesos2, $otraFormula2[1]);
                         if ($evaluar->evaluate('y(x) = ' . $totalAl2))
                             $pesoAl2 = $evaluar->e("y(0)");
                     }
                 
-                    if($GPC['mov'] == 'rec'){
+                    /*if($GPC['mov'] == 'rec'){
                         $GPC['Recepcion']['humedad'] = ($GPC['Recepcion']['estatus_rec'] != '14') ? $promHum : 0;
                         $GPC['Recepcion']['impureza'] = ($GPC['Recepcion']['estatus_rec'] != '14') ? $promImp : 0;
-                        $GPC['Recepcion']['humedad_des'] = ($GPC['Recepcion']['estatus_rec'] != '14') ? round($pesoH) : 0;
-                        $GPC['Recepcion']['impureza_des'] = ($GPC['Recepcion']['estatus_rec'] != '14') ?  round($pesoI) : 0;
-                        $GPC['Recepcion']['peso_acon'] = ($GPC['Recepcion']['estatus_rec'] != '14') ? round($pesoA) : $pesoN;
-                        $GPC['Recepcion']['peso_acon_liq'] = ($GPC['Recepcion']['estatus_rec'] != '14') ? round($pesoAl) : $pesoN;
-                    }else{
+                        $GPC['Recepcion']['humedad_des'] = ($GPC['Recepcion']['estatus_rec'] != '14') ? $pesoH : 0;
+                        $GPC['Recepcion']['impureza_des'] = ($GPC['Recepcion']['estatus_rec'] != '14') ?  $pesoI : 0;
+                        $GPC['Recepcion']['peso_acon'] = ($GPC['Recepcion']['estatus_rec'] != '14') ? $pesoA : $pesoN;
+                        $GPC['Recepcion']['peso_acon_liq'] = ($GPC['Recepcion']['estatus_rec'] != '14') ? $pesoAl : $pesoN;
+                    }else{*/
                         $GPC['Recepcion']['humedad'] = $sumHum;
                         $GPC['Recepcion']['impureza'] = $sumImp;
-                        $GPC['Recepcion']['humedad_des'] = round($pesoH);
-                        $GPC['Recepcion']['impureza_des'] = round($pesoI);
-                        $GPC['Recepcion']['peso_acon'] = round($pesoA);
-                        $GPC['Recepcion']['peso_acon_liq'] = round($pesoAl);
+                        $GPC['Recepcion']['humedad_des'] = $pesoH;
+                        $GPC['Recepcion']['impureza_des'] = $pesoI;
+                        $GPC['Recepcion']['peso_acon'] = $pesoA;
+                        $GPC['Recepcion']['peso_acon_liq'] = $pesoAl;
                         
                         $GPC['Recepcion']['humedad2'] = $sumHum2;
                         $GPC['Recepcion']['impureza2'] = $sumImp2;
-                        $GPC['Recepcion']['humedad_des2'] = round($pesoH2);
-                        $GPC['Recepcion']['impureza_des2'] = round($pesoI2);
-                        $GPC['Recepcion']['peso_acon2'] = round($pesoA2);
-                        $GPC['Recepcion']['peso_acon_liq2'] = round($pesoAl2);
-                    }
-                    
+                        $GPC['Recepcion']['humedad_des2'] = $pesoH2;
+                        $GPC['Recepcion']['impureza_des2'] = $pesoI2;
+                        $GPC['Recepcion']['peso_acon2'] = $pesoA2;
+                        $GPC['Recepcion']['peso_acon_liq2'] = $pesoAl2;
+                    //}
+
                     if($GPC['mov'] == 'rec'){
                         unset($GPC['Recepcion']['pesoLleno1']);
                         unset($GPC['Recepcion']['pesoLleno2']);
@@ -593,8 +625,13 @@
             <td><? echo $html->input("Recepcion.pesoLleno1", $infoMovimiento[0]['peso_01l'], array('type' => 'text', 'class' => 'estilo_campos2 positive', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
-            <td>Peso Vac&iacute;o <?=$pesar?> Kgrs</td>
-            <td><? echo $html->input('Recepcion.peso_01v', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 positive verifPeso')); ?></td>
+            <td><span class="msj_rojo">* </span>Peso Vac&iacute;o <?=$pesar?> Kgrs</td>
+            <td id="capturarPeso1">
+                <?
+                    echo $html->input('Recepcion.peso_01v', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos2 positive verifPeso'));
+                    echo $html->input('pesar'.$i, 'PESAR', array('type' => 'button', 'class' => 'capturar'));
+                ?>
+            </td>
         </tr>
         <?
                             }else{

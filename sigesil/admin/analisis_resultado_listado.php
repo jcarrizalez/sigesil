@@ -288,9 +288,9 @@ require('../lib/common/init_calendar.php');
     echo "&nbsp;";
     if ($GPC['mov']=='rec')
         if ($dataMov['estatus_rec']!=1) {
-            ?>            
+            /*?>            
             <img src="../images/imprimir.png" width="16" height="16" title="Detalle" border="0" style="cursor:pointer" onclick="openWindow('<?=DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_recepcion&id_rec=".$dataMov['id']."&ca=".$dataMov['id_centro_acopio']."&re=true"?>','','1200','500','visible');return false;">
-            <?
+            <?*/
         }
     else
         if ($dataMov['estatus_rec']!=1) {

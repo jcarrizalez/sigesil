@@ -132,16 +132,11 @@ else
             <div id="global">
                 <div id="global_sep">
                     <div id="datos_usuario">
-                        <table border="0" cellpadding="0" cellspacing="0" align="right">
-                            <tr>
-                                <th>Centro Acopio:</th>
-                                <td><?="&nbsp;($codigoCA)"?></td>
-                                <th style="padding-left: 5px;">Usuario:</th>
-                                <td><?="&nbsp;$usuario"?></td>
-                                <th style="padding-left: 5px;">Perfil:</th>
-                                <td><?="&nbsp;$perfil"?></td>
-                            </tr>
-                        </table>
+                        <span>
+                            <span style="font-weight: bold;">Centro Acopio:</span><?="&nbsp;($codigoCA)"?>
+                            <span style="font-weight: bold; padding-left: 5px;">Usuario:</span><?="&nbsp;$usuario"?>
+                            <span style="font-weight: bold; padding-left: 5px;">Perfil:</span><?="&nbsp;$perfil"?>
+                        </span>
                     </div>
                 </div>
                 <div id="menu">

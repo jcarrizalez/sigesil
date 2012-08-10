@@ -47,7 +47,7 @@ class Orden extends Model {
     
     function cantDespachada($id = null){
         //SUMA LOS KGRS DE LA TABLA ORDENES
-        $query = "SELECT SUM(peso_acon) AS total 
+        $query = "SELECT SUM(peso_acon_liq) AS total 
                     FROM si_despacho 
                     WHERE '1' AND id_orden = '$id'
                     GROUP BY id_orden";
