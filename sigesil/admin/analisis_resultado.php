@@ -106,14 +106,19 @@ switch ($GPC['ac']) {
             if ($GPC['es_rechazado'] != '0_0:') {                
                 $Muestra1=(strpos($GPC['es_rechazado'],'_1:') > 0) ? 1: 0; //Se cambia el rechazado por el aceptado en Muestra1
                 $Muestra2=(strpos($GPC['es_rechazado'],'_2:') > 0) ? 2: 0; //Se cambia el rechazado por el aceptado en Muestra2
+                
                 if (($Muestra1==0) && ($Muestra2==0)) 
-                   $Muestra=0;
+                   $Muestra=0; //0.- Todas las muestras estan aceptadas
                 elseif ($Muestra1==0) 
-                   $Muestra=2; 
+                   $Muestra=2; //2.- Solo la muestra (2) Remolque esta rechazada
                 elseif ($Muestra2==0) 
-                    $Muestra=1;
+                    $Muestra=1; //1.- Solo la muestra (1) Motriz esta rechazada
                 else 
-                    $Muestra=3;
+                    $Muestra=3; //3.- Todas las muestras estan rechazada
+                
+                if ($_SESSION['s_lab']=='P' && $GPC['es_liquidacion']==1 && $Muestra=3);
+                        $Muestra=0;
+                
                 if ($_SESSION['s_mov']=='rec') {
                     if ($_SESSION['s_lab']=='C') {
                         if ($Muestra==3)
@@ -228,7 +233,7 @@ switch ($GPC['ac']) {
                     header("location: ".DOMAIN_ROOT."reportes/imprimir_boleta_rechazo.php?id=".$GPC['id']."&es_rechazado=".$GPC['es_rechazado']."&ca=".$_SESSION['s_ca_id']);
                     die();
                 } elseif ($estipo) {
-                    header("location: ".DOMAIN_ROOT."reportes/imprimir_boleta_tipificacion.php?id_rec=".$GPC['id']."&ca=".$_SESSION['s_ca_id']);
+                    header("location: ".DOMAIN_ROOT."reportes/imprimir_reporte=boleta_tipificacion.php?id_rec=".$GPC['id']."&ca=".$_SESSION['s_ca_id']);
                     die();
                 }
                 header("location: analisis_resultado_listado.php?msg=exitoso");
@@ -257,7 +262,6 @@ switch ($GPC['ac']) {
         }
         break;
     }
-
     require('../lib/common/header.php');
     ?>
     <script type="text/javascript">
@@ -378,11 +382,14 @@ switch ($GPC['ac']) {
                         esRechazada=confirm('<?= $html->unhtmlize($etiqueta['M_Rechazo']); ?>');
                         if (esRechazada) {
                             isFormValid = true;
-                            //return false;
+                            lab=<?=$_SESSION['s_lab']; ?>;
+                            esLiquidado=confirm(lab);
+                            esLiquidado=confirm('¿Desea liquidar el Vehiculo?');
+                            if (esLiquidado && lab=='P')
+                                $('#es_liquidacion').val('1');
                         }
                         else {
                             isFormValid = false;
-                            //return false;
                         }
                     }
                     //alert('Pregunta si es Cuarentena! ');
@@ -398,6 +405,9 @@ switch ($GPC['ac']) {
                         }
                     }
                 }
+                Guardar=confirm("¿Desea Guardar?");
+                if (!Guardar)
+                    isFormValid=false;
                 return isFormValid;
             });
         });
@@ -519,7 +529,7 @@ switch ($GPC['ac']) {
 //                                echo '<td align="center" width="100">' . $dataAnalisis['min_des'] . " / " . $dataAnalisis['max_des'] . '</td>';
 //                        } else {
                             ?>
-                        <td align="center">&nbsp;</td>
+<!--                        <td align="center">C&nbsp;</td>-->
                     </tr>
                     <?
 //                }
@@ -545,6 +555,7 @@ switch ($GPC['ac']) {
     echo $html->input('es_cuarentena', '0_0:', array('type' => 'hidden'));
     echo $html->input('es_rechazado', '0_0:', array('type' => 'hidden'));
     echo $html->input('cantA',  $cantidad, array('type' => 'hidden'));
+    echo $html->input('es_liquidacion', '0', array('type' => 'hidden'));
     ?>
 </form>    
 <?

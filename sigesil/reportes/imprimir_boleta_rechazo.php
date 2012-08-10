@@ -55,18 +55,40 @@ window.onload=function() {
         <td id="titulo_reporte" colspan="3">BOLETA DE RECHAZO</td>
     </tr>
     <tr>
-        <td width="200">PROPIEDAD DE: </td>        
-        <td width="120"><?echo $Rechazo[0]['ced_productor']; ?></td>
-        <td><?echo $Rechazo[0]['productor_nombre']; ?></td>
+        <td width="200">ENTRADA Nro:</td>
+        <td colspan="2">
+        <?
+            echo "R".$Rechazo[0]['numero']."-".$general->date_sql_screen($Rechazo[0]['fecha_recepcion'], '', 'es', '');
+        ?>
+        </td>
     </tr>
+    <tr>
+        <td width="200">PROPIEDAD DE:</td>        
+        <td colspan="2" width="120"><?echo $Rechazo[0]['ced_productor']." ".$Rechazo[0]['productor_nombre']; ?></td>
+    </tr>
+    <? if(!empty($Rechazo[0]['ced_asociacion'])){ ?>
+    <tr>
+        <td width="200">ASOCIACI&Oacute;N:</td>        
+        <td width="120"><?echo $Rechazo[0]['ced_asociacion']." ".$Rechazo[0]['asociacion_nombre']; ?></td>
+    </tr>
+    <?    
+        }
+        if(!empty($dataMovimiento[0]['ced_asociado'])){
+    ?>
+    <tr>
+        <td width="200">ASOCIACIADO:</td>
+        <td width="120"><?echo $Rechazo[0]['ced_asociado']." ".$Rechazo[0]['asociado_nombre']; ?></td>
+    </tr>
+    <?    
+        }
+    ?>
     <tr>
         <td>PRODUCTO: </td>
         <td colspan="2"><?echo $Rechazo[0]['cultivo_nombre']; ?></td>
     </tr>
     <tr>
         <td>CHOFER: </td>
-        <td><?echo $Rechazo[0]['ced_chofer']; ?></td>
-        <td><?echo $Rechazo[0]['chofer_nombre']; ?></td>
+        <td colspan="2" ><?echo $Rechazo[0]['ced_chofer']." ".$Rechazo[0]['chofer_nombre']; ?></td>
     </tr>
     <tr>
         <td>VEHICULO PLACA: </td>
@@ -104,13 +126,11 @@ foreach($rechazados as $dataRechazado) {
 </table>
 <table border="0" width="800" style="padding-top: 35px;" class="centrar">
     <tr align="center">
-        <td><?=str_repeat('_',30)?></td>
-        <td><?=str_repeat('_',30)?></td>
+        <td colspan="2"><?=str_repeat('_',30)?></td>
         <td><?=str_repeat('_',30)?></td>
     </tr>
     <tr align="center">
-        <td>Fiscal</td>
-        <td>Analista</td>
+        <td colspan="2">Fiscal</td>
         <td>Productor/Conductor</td>
     </tr>
 </table>
