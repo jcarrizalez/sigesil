@@ -4,7 +4,7 @@ class Formulas extends Model {
 
     var $table = 'si_formulas';
 
-    function listaFormulas($idCa = '', $codigo = '', $generales = 1, $porPagina=null, $inicio=null){
+    function listaFormulas($idCa = '', $codigo = '', $generales = 1, $porPagina=null, $inicio=null, $movimiento){
         $query = "SELECT f.*, ca.nombre AS nombre_ca, c.codigo AS codigo_cultivo, c.nombre AS nombre_cultivo
                     FROM si_formulas f
                     INNER JOIN si_centro_acopio ca ON ca.id = f.id_centro_acopio
@@ -13,6 +13,7 @@ class Formulas extends Model {
         $query .= (!empty($idCa)) ? " AND f.id_centro_acopio = '$idCa'" : '';
         $query .= (!empty($codigo)) ? " AND f.codigo = '$codigo'" : '';
         $query .= (!empty($generales)) ? " AND f.id_cultivo IS NULL" : '';
+        $query .= (!empty($movimiento)) ? " AND f.id_mov = '$movimiento'" : '';
         $query .= " ORDER BY ca.codigo, c.codigo, f.id";
         $query .= (!empty($porPagina)) ? " LIMIT $porPagina OFFSET $inicio" : "";
         $this->listaF = $this->_SQL_tool($this->SELECT, __METHOD__, $query);

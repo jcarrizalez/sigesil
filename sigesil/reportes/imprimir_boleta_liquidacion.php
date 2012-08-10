@@ -65,7 +65,7 @@
     </tr>
     <tr>
         <td>COSECHA:</td>
-        <td colspan="5"><?=$dataMovimiento[0]['cosecha_codigo']. " - " .$dataMovimiento[0]['cultivo_nombre']?></td>
+        <td colspan="5"><?=$dataMovimiento[0]['cosecha']. " - (" .$dataMovimiento[0]['cultivo_codigo'].") ".$dataMovimiento[0]['cultivo_nombre']?></td>
     </tr>
     <tr>
         <td>PROPIEDAD DE:</td>

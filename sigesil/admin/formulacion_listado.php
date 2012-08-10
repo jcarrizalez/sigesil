@@ -10,12 +10,16 @@
         $id_CA = (!empty($GPC['id_ca'])) ? $GPC['id_ca'] : null;
         
     $codigo = (!empty($GPC['codigo'])) ? $GPC['codigo'] : null;
+    $listaMov = array(1 => 'Recepci&oacute;n', 2 => 'Despacho');
+    
+    $mov = (!empty($GPC['id_mov'])) ? $GPC['id_mov'] : '';
     
     $porPagina = MAX_RESULTS_PAG;
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
     
     $listaCA = $centro_acopio->find('', '', array('id', 'nombre'), 'list', 'id');
-    $formulas->listaFormulas($id_CA, $codigo, '', $porPagina, $inicio);
+    unset($listaCA[1]);
+    $formulas->listaFormulas($id_CA, $codigo, '', $porPagina, $inicio, $mov);
     
     $total_registros = $formulas->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);
@@ -74,11 +78,19 @@
                     </td>
                 </tr>
                 <? } ?>
+                <tr>
+                    <td width="110">Tipo de Movimiento</td>
+                    <td colspan="2">
+                        <?
+                            echo $html->select('id_mov',array('options'=>$listaMov, 'selected' => $GPC['id_mov'], 'default' => 'Todos'));
+                        ?>
+                    </td>
+                </tr>
                 <tr id="botones">
                     <td colspan="3">
                         <?
-                            $general->crearAcciones($acciones, '', 1);
                             echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
+                            $general->crearAcciones($acciones, '', 1);
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
                         ?>
                     </td>
@@ -102,12 +114,24 @@
             <th width="1">C&oacute;digo</th>
             <th>Formula</th>
             <th>Condici&oacute;n</th>
+            <th>Tipo</th>
             <th width="1">Acci&oacute;n</th>
         </tr>
         <?
             $i=0;
             foreach($formulas->listaF as $dataFormula){
                 $clase = $general->obtenerClaseFila($i);
+                switch($dataFormula['id_mov']){
+                    case 1:
+                        $tipo = 'Recepci&oacute;n';
+                    break;
+                    case 2:
+                        $tipo = 'Despacho';
+                    break;
+                    case 3:
+                        $tipo = 'Basica';
+                    break;
+                }
         ?>
         <tr class="<?=$clase?>">
             <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
@@ -117,6 +141,7 @@
             <td align="center"><?=$dataFormula['codigo']?></td>
             <td><?=$dataFormula['formula']?></td>
             <td align="center"><?=$dataFormula['condicion']?></td>
+            <td align="center"><?=$tipo?></td>
             <td align="center">
                 <?
                     $urls = array(1 => 'formulacion.php?ac=editar&id='.$dataFormula['id'], 'formulacion_listado.php?ac=eliminar&id='.$dataFormula['id'].'&estatus=f');
