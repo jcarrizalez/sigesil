@@ -68,10 +68,14 @@ $validator->printScript();
     }
     
     $(document).ready(function(){
-        $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
+        //$(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
+        $('#Productor\\[ced_rif\\]').live('keypress', function (e){
+            if( e.which!=8 && e.which!=0 && (e.which<48 || e.which>57))
+                return false;
+        });
     
         $('#Productor\\[ced_rif\\]').live('change', function(){
-            if($(this).val() != ''){
+            if($(this).val() != '' && $.isNumeric($(this).val())){
                 var ced = $('#nacionalidad').val() + $(this).val();
                 $('#cedula').load('../ajax/detalle_validacion.php?ac=productor&ced=' + ced);
             }
@@ -186,5 +190,5 @@ $validator->printScript();
     </table>
 </form>
 <?
-require('../lib/common/footer.php');
+    require('../lib/common/footer.php');
 ?>

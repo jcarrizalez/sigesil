@@ -109,8 +109,3 @@
         break;
     }
 ?>
-<script type="text/javascript">    
-    $(document).ready(function(){
-        $(".positive").numeric({ negative: false }, function() { alert("No negative values"); this.value = ""; this.focus(); });
-    });
-</script>
