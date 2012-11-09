@@ -1,5 +1,5 @@
 <?php
-    error_reporting(E_ALL & ~E_NOTICE);
+    error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
     
     //CONFIGURACION DE LA ZONA HORARIA PARA VENEZUELA
     setlocale(LC_TIME, 'es_VE', 'es_VE.utf-8', 'es_VE.utf8'); # Asi es mucho mas seguro que funciones, ya que no todos los sistemas llaman igual al locale ;)
