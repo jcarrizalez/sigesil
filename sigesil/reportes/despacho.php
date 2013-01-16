@@ -18,7 +18,7 @@
     $porPagina = MAX_RESULTS_PAG;
     $inicio = ($GPC['pg']) ? (($GPC['pg'] * $porPagina) - $porPagina) : 0;
     
-    $listadoDespachos = $despacho->despachosReporteGeneral($fdesde, $fhasta, $idCA);
+    $listadoDespachos = $despacho->despachosReporteGeneral($fdesde, $fhasta, $idCA, $porPagina, $inicio);
     
     $total_registros = $despacho->total_verdadero;
     $paginador = new paginator($total_registros, $porPagina);

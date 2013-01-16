@@ -72,7 +72,7 @@ class Despacho extends Model {
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
-    function despachosReporteGeneral($fdesde=null, $fhasta=null, $idCA=null){
+    function despachosReporteGeneral($fdesde=null, $fhasta=null, $idCA=null, $porPagina=null, $inicio=null){
         $query = "SELECT o.numero_orden, o.fecha_emision, '('||c.codigo||') '||c.nombre AS cultivo, cl.ced_rif, cl.nombre AS nombre_cliente
                     FROM si_despacho d
                     INNER JOIN si_cliente cl ON cl.id = d.id_cliente
@@ -87,6 +87,7 @@ class Despacho extends Model {
         $query .= (!empty($idCA)) ? " AND d.id_centro_acopio = '$idCA'" : '';
         $query .= " GROUP BY o.numero_orden, c.codigo, c.nombre, cl.ced_rif, cl.nombre, o.fecha_emision 
                     ORDER BY o.numero_orden";
+        $query .= (!empty($porPagina)) ? " LIMIT $porPagina OFFSET $inicio" : "";
         return $this->_SQL_tool($this->SELECT, __METHOD__, $query);
     }
     
