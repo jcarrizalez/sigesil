@@ -23,7 +23,7 @@
 		</ul>
 		<div id="tabs-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
 			<div id="div1" style="position: relative; width: 14%; height: 50px; left: 825px;">
-				<? echo $CORE_html->input('button', 'cmdatras', $CORE_lang['txtBack'], array('onclick'=>"window.location = 'sales_files.php'"))?>
+				<?php echo $CORE_html->input('button', 'cmdatras', $CORE_lang['txtBack'], array('onclick'=>"window.location = 'sales_files.php'"))?>
 			</div>
 			<div id="table" style="overflow: auto; width: 100%; height: 550px;">
 				<table align="center" cellspacing="2" width="100%">
@@ -37,7 +37,7 @@
 					$dataRow=$arrData[$i];
 					$classname = ($i%2==0)? "firstalt2" : "secondalt2";
 					?>
-					<tr class="<?php echo $classname?>" onMouseOver="this.className='highlight2'" onMouseOut="this.className='<?=$classname?>'" style="font-size:10px;">
+					<tr class="<?php echo $classname?>" onMouseOver="this.className='highlight2'" onMouseOut="this.className='<?php echo $classname?>'" style="font-size:10px;">
 					<?php foreach($arrRows as $key=>$val){?>
 					  <td><?php echo $CORE_html->htmlize($dataRow[$val['db']]) ?></td>
 					  <?php }?>
@@ -48,6 +48,6 @@
 			</div>
 		</div>
 	</div>
-<?
+<?php
 	require_once('../lib/common/bottom.php');
 ?>

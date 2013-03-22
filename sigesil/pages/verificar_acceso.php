@@ -1,4 +1,4 @@
-<?
+<?php
     require('../lib/core.lib.php');
     if($GPC['ac']=="access"){
 	if (!empty($_SESSION['captcha_val']) && !empty($GPC['tmptxt'])){

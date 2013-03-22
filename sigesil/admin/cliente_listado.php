@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
     
     $cliente = new Cliente();
@@ -47,7 +47,7 @@
         CLIENTES<br/><hr/>
     </div>
     <div id="mensajes">
-        <?
+        <?php
             switch($GPC['msg']){
                 case 'exitoso':
                     echo "<span class='msj_verde'>Registro Guardado !</span>";
@@ -64,7 +64,7 @@
                 <tr>
                     <td width="60">C&eacute;dula</td>
                     <td>
-                        <?
+                        <?php
                             echo $html->select('nacionalidad',array('options'=>$listaNacion, 'selected' => $GPC['nacionalidad']));
                             echo $html->input('cedula', $GPC['cedula'], array('type' => 'text', 'class' => 'positive estilo_campos'));
                         ?>
@@ -73,12 +73,12 @@
                 <tr>
                     <td>Nombre</td>
                     <td>
-                        <? echo $html->input('nombre', $GPC['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?>
+                        <?php echo $html->input('nombre', $GPC['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?>
                     </td>
                 </tr>
                 <tr id="botones">
                     <td colspan="2">
-                        <?
+                        <?php
                             echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
                             $general->crearAcciones($acciones, '', 1);
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button'));
@@ -89,7 +89,7 @@
         </form>
     </div><hr/>
     <div id="paginador">
-        <?
+        <?php
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
             $paginador->print_paginator('pulldown');
@@ -104,25 +104,25 @@
             <th>Municipio</th>           
             <th>Acci&oacute;n</th>
         </tr>
-        <?
+        <?php
             $i=0;
             foreach($listadoClientes as $dataCliente){
                 $clase = $general->obtenerClaseFila($i);
         ?>
-        <tr class="<?=$clase?>">
-            <td align="center"><?=$dataCliente['ced_rif']?></td>
-            <td><?=$dataCliente['nombre']?></td>
-            <td><?=$dataCliente['pais']?></td>            
-            <td><?=$dataCliente['estado']?></td>            
-            <td><?=$dataCliente['municipio']?></td>
+        <tr class="<?php echo $clase?>">
+            <td align="center"><?php echo $dataCliente['ced_rif']?></td>
+            <td><?php echo $dataCliente['nombre']?></td>
+            <td><?php echo $dataCliente['pais']?></td>            
+            <td><?php echo $dataCliente['estado']?></td>            
+            <td><?php echo $dataCliente['municipio']?></td>
             <td align="center">
-                <?
+                <?php
                     $urls = array(1 => 'cliente.php?ac=editar&id='.$dataCliente['id'], 'cliente_listado.php?ac=eliminar&id='.$dataCliente['id']."&estatus=f");
                     $general->crearAcciones($acciones, $urls);
                 ?>
             </td>
         </tr>
-        <?
+        <?php
                 $i++; 
             }
         ?>
@@ -131,12 +131,12 @@
         </tr>
     </table>
     <div id="paginador">
-        <?
+        <?php
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
             $paginador->print_paginator('pulldown');
         ?>
     </div>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

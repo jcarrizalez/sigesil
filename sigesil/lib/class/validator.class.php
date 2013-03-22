@@ -1,4 +1,4 @@
-<?
+<?php
 
 /*
  * @name			Javascript Validator Class

@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('../lib/core.lib.php');
 
 $programa = new Programa();
@@ -196,7 +196,7 @@ $validator->printScript();
                 var codigo_cosecha = parseInt($('#codigo1').val())+parseInt($('#numeroCosecha').val());
                 $('#numeroCosecha').val(parseInt($('#numeroCosecha').val())+1);
                 var nro = parseInt($('#numeroCosecha').val());
-                if(nro <= <?= COSECHAS_PROGRAMA ?>){
+                if(nro <= <?php echo COSECHAS_PROGRAMA ?>){
                     var nombre = "multiple"+nro;
                     var otraCosecha = "<fieldset id='"+nombre+"'></fieldset>";
                     nombre = '#'+nombre;
@@ -204,17 +204,17 @@ $validator->printScript();
                     $(nombre).load('../ajax/detalle_programa.php?ac=agregar&nro='+nro+'&codigo='+codigo_cosecha);
                 }else{
                     $('#numeroCosecha').val(parseInt($('#numeroCosecha').val())-1);
-                    alert('Solo se admiten ('+<?= COSECHAS_PROGRAMA ?>+') Cosechas por Programa');
+                    alert('Solo se admiten ('+<?php echo COSECHAS_PROGRAMA ?>+') Cosechas por Programa');
                 }
             }
         });
         
         $('#AgregarC').click(function(){
-            window.location = 'cosecha.php?idP=<?= $infoPrograma[0]['id'] ?>';
+            window.location = 'cosecha.php?idP=<?php echo $infoPrograma[0]['id'] ?>';
         });
 
         $('#Guardar').click(function(){
-            fechaActual = "<? echo date("d-m-Y"); ?>";
+            fechaActual = "<?php echo date("d-m-Y"); ?>";
             for(j=1;j<=$('#numeroCosecha').val();j++){
                 if(j > 1 && ($('#Cosecha'+j+'\\[codigo\\]').val() == '') && ($('#Cosecha'+j+'\\[id_cultivo\\]').val() == '')){
                     alert('Complete la Informacion de la Cosecha #'+j+' o Eliminela');
@@ -235,8 +235,8 @@ $validator->printScript();
     });
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
-    <? echo $html->input('Programa.id', $infoPrograma[0]['id'], array('type' => 'hidden')); ?>
-    <? echo $html->input('numeroCosecha', 1, array('type' => 'hidden')); ?>
+    <?php echo $html->input('Programa.id', $infoPrograma[0]['id'], array('type' => 'hidden')); ?>
+    <?php echo $html->input('numeroCosecha', 1, array('type' => 'hidden')); ?>
     <div id="titulo_modulo">
         PROGRAMA<br/><hr/>
     </div>
@@ -246,35 +246,35 @@ $validator->printScript();
             <tr>
                 <td><span class="msj_rojo">* </span>C&oacute;digo</td>
                 <td rowspan="7">&nbsp;&nbsp;</td>
-                <td id="validar_codigo"><? echo $html->input('Programa.codigo', $infoPrograma[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td id="validar_codigo"><?php echo $html->input('Programa.codigo', $infoPrograma[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <?
+            <?php
                 if($GPC['ac'] == 'editar'){
                     echo $html->input('Programa.id_cultivo', $infoPrograma[0]['id_cultivo'], array('type' => 'hidden'));
                 }else{
             ?>
             <tr>
                 <td><span class="msj_rojo">* </span>Cultivo</td>
-                <td><? echo $html->select('Programa.id_cultivo', array('options' => $listaCultivos, 'selected' => $infoPrograma[0]['id_cultivo'], 'default' => ' Seleccione ', 'class' => 'inputGrilla')) ?></td>
+                <td><?php echo $html->select('Programa.id_cultivo', array('options' => $listaCultivos, 'selected' => $infoPrograma[0]['id_cultivo'], 'default' => ' Seleccione ', 'class' => 'inputGrilla')) ?></td>
             </tr>
-            <? } ?>
+            <?php } ?>
             <tr>
                 <td><span class="msj_rojo">* </span>Nombre</td>
-                <td><? echo $html->input('Programa.nombre', $infoPrograma[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><?php echo $html->input('Programa.nombre', $infoPrograma[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>Estatus</td>
-                <td><? echo $html->select('Programa.estatus', array('options' => $estatus, 'selected' => $infoPrograma[0]['estatus'], 'default' => 'Seleccione', 'class' => 'inputGrilla')) ?></td>
+                <td><?php echo $html->select('Programa.estatus', array('options' => $estatus, 'selected' => $infoPrograma[0]['estatus'], 'default' => 'Seleccione', 'class' => 'inputGrilla')) ?></td>
             </tr>
             <tr>
                 <td>Observaci&oacute;n</td>
-                <td><textarea name="Programa[observacion]" cols="25" rows="2" id="Programa[observacion]"><?=$infoPrograma[0]['observacion']?></textarea></td>
+                <td><textarea name="Programa[observacion]" cols="25" rows="2" id="Programa[observacion]"><?php echo $infoPrograma[0]['observacion']?></textarea></td>
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>Fecha Inicio</td>
                 <td>
-                    <?= $html->input('Programa.fecha_inicio', $general->date_sql_screen($infoPrograma[0]['fecha_inicio'], '', 'es', '-'), array('type' => 'text', 'class' => 'inputGrilla fechas', 'readOnly' => 'readOnly')); ?>
-                    <? if($GPC['ac'] != 'editar'){ ?>
+                    <?php echo $html->input('Programa.fecha_inicio', $general->date_sql_screen($infoPrograma[0]['fecha_inicio'], '', 'es', '-'), array('type' => 'text', 'class' => 'inputGrilla fechas', 'readOnly' => 'readOnly')); ?>
+                    <?php if($GPC['ac'] != 'editar'){ ?>
                     <img src="../images/calendario.png" id="finiciop" width="16" height="16" style="cursor:pointer" />
                     <script>
                         Calendar.setup({
@@ -285,20 +285,20 @@ $validator->printScript();
                             onSelect   : function() { calculaAno(); verificaCodigo(); this.hide() }
                         });
                     </script>
-                    <? } ?>
+                    <?php } ?>
                 </td>
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>Fecha Fin</td>
                 <td>
-                    <?= $html->input('Programa.fecha_fin', $general->date_sql_screen($infoPrograma[0]['fecha_fin'], '', 'es', '-'), array('type' => 'text', 'class' => 'inputGrilla fechas', 'readOnly' => 'readOnly')); ?>
+                    <?php echo $html->input('Programa.fecha_fin', $general->date_sql_screen($infoPrograma[0]['fecha_fin'], '', 'es', '-'), array('type' => 'text', 'class' => 'inputGrilla fechas', 'readOnly' => 'readOnly')); ?>
                 </td>
             </tr>
         </table>
     </fieldset>
-    <? if($GPC['ac'] != 'editar'){ ?>
+    <?php if($GPC['ac'] != 'editar'){ ?>
     <div id="botones2">
-        <? echo $html->input('Agregar', 'Agregar Cosecha', array('type' => 'button')); ?>
+        <?php echo $html->input('Agregar', 'Agregar Cosecha', array('type' => 'button')); ?>
     </div>
     <fieldset id="cosecha_unica">
         <legend>Datos de la Cosecha #1</legend>
@@ -309,24 +309,24 @@ $validator->printScript();
                         <tr>
                             <td><span class="msj_rojo">* </span>C&oacute;digo</td>
                             <td rowspan="6">&nbsp;&nbsp;</td>
-                            <td><?= $html->input('codigo1', '', array('type' => 'text', 'class' => 'inputGrilla codigo_cul', 'readOnly' => true)); ?></td>
+                            <td><?php echo $html->input('codigo1', '', array('type' => 'text', 'class' => 'inputGrilla codigo_cul', 'readOnly' => true)); ?></td>
                         </tr>
                         <tr>
                             <td><span class="msj_rojo">* </span>Nombre</td>
-                            <td><?= $html->input('nombre1', '', array('type' => 'text', 'class' => 'inputGrilla')); ?></td>
+                            <td><?php echo $html->input('nombre1', '', array('type' => 'text', 'class' => 'inputGrilla')); ?></td>
                         </tr>
                         <tr>
                             <td>Proyectado (Ton.)</td>
-                            <td><?= $html->input('proyectado1', '', array('type' => 'text', 'class' => 'inputGrilla positive')); ?></td>
+                            <td><?php echo $html->input('proyectado1', '', array('type' => 'text', 'class' => 'inputGrilla positive')); ?></td>
                         </tr>
                         <tr>
                             <td>Area Siembra (Hec.)</td>
-                            <td><?= $html->input('area_siembra1', '', array('type' => 'text', 'class' => 'inputGrilla positive')); ?></td>
+                            <td><?php echo $html->input('area_siembra1', '', array('type' => 'text', 'class' => 'inputGrilla positive')); ?></td>
                         </tr>
                         <tr>
                             <td>Fecha Inicio</td>
                             <td>
-                                <?= $html->input('fecha_inicio1', '', array('type' => 'text', 'class' => 'inputGrilla fechas', 'readOnly' => 'readOnly')); ?>
+                                <?php echo $html->input('fecha_inicio1', '', array('type' => 'text', 'class' => 'inputGrilla fechas', 'readOnly' => 'readOnly')); ?>
                                 <img src="../images/calendario.png" id="finicio1" width="16" height="16" style="cursor:pointer" />
                                 <script>
                                     Calendar.setup({
@@ -342,7 +342,7 @@ $validator->printScript();
                         <tr>
                             <td>Fecha Fin</td>
                             <td>
-                                <?= $html->input('fecha_fin1', '', array('type' => 'text', 'class' => 'inputGrilla fechas', 'readOnly' => 'readOnly')); ?>
+                                <?php echo $html->input('fecha_fin1', '', array('type' => 'text', 'class' => 'inputGrilla fechas', 'readOnly' => 'readOnly')); ?>
                                 <img src="../images/calendario.png" id="ffin1" width="16" height="16" style="cursor:pointer" />
                                 <script>
                                     Calendar.setup({
@@ -361,23 +361,23 @@ $validator->printScript();
         </table>
     </fieldset>
     <div id="nuevaCosecha"></div>
-    <? }elseif($GPC['ac'] == 'editar'){ ?>
+    <?php }elseif($GPC['ac'] == 'editar'){ ?>
     <div id="botones2">
-        <? echo $html->input('AgregarC', 'Agregar Cosecha', array('type' => 'button')); ?>
+        <?php echo $html->input('AgregarC', 'Agregar Cosecha', array('type' => 'button')); ?>
     </div>
-    <? } ?>
+    <?php } ?>
     <table align="center">
         <tr>
             <td>&nbsp;</td>
         </tr>
         <tr>
             <td colspan="2">
-                <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
+                <?php echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
+                <?php echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
             </td>
         </tr>
     </table>
 </form>
-<?
+<?php
 require('../lib/common/footer.php');
 ?>

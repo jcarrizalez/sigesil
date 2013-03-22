@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
     
     $cultivo = new Cultivo();
@@ -138,7 +138,7 @@
         REPORTE DE CULTIVOS<br/><hr/>
     </div>
     <div id="mensajes">
-        <?
+        <?php
             switch($GPC['msg']){
                 case 'error':
                     echo "<span class='msj_rojo'>Ocurri&oacute; un Problema !</span>";
@@ -151,17 +151,17 @@
             <table width="100%" border="0">
                 <tr>
                     <td>Codigo</td>
-                    <td><? echo $html->input('codigo', $codigo, array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><?php echo $html->input('codigo', $codigo, array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                     <td>Nombre</td>
-                    <td><? echo $html->input('nombre', $nombre, array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><?php echo $html->input('nombre', $nombre, array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
                 <tr>
                     <td>Estatus</td>
-                    <td><? echo $html->select('estatus', array('options'=>$listaEstatus, 'selected' => $estatus, 'default' => 'Todos', 'class' => 'estilo_campos')); ?></td>
+                    <td><?php echo $html->select('estatus', array('options'=>$listaEstatus, 'selected' => $estatus, 'default' => 'Todos', 'class' => 'estilo_campos')); ?></td>
                 </tr>
                 <tr id="botones">
                     <td colspan="4" style="padding-top: 20px;">
-                        <?
+                        <?php
                             echo $html->input('ac', 'Buscar', array('type' => 'submit'));
                             echo $html->input('exportar', 'Excel', array('type' => 'submit'));
                             echo $html->input('exportar', 'Calc', array('type' => 'submit'));
@@ -173,7 +173,7 @@
         </form>
     </div><hr/>
     <div id="paginador">
-        <?
+        <?php
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
             $paginador->print_paginator('pulldown');
@@ -184,28 +184,28 @@
             <th>Codigo</th>
             <th>Nombre</th>
         </tr>
-        <?
+        <?php
             $i=0;
             foreach($listadoCultivos as $dataCultivo){
                 $clase = $general->obtenerClaseFila($i);
         ?>
-        <tr class="<?=$clase?>">
-            <td align="center"><?=$dataCultivo['codigo']?></td>
-            <td><?=$dataCultivo['nombre']?></td>
+        <tr class="<?php echo $clase?>">
+            <td align="center"><?php echo $dataCultivo['codigo']?></td>
+            <td><?php echo $dataCultivo['nombre']?></td>
         </tr>
-        <? $i++; } ?>
+        <?php $i++; } ?>
         <tr>
             
             <td colspan="6">&nbsp;</td>
         </tr>
     </table>
     <div id="paginador">
-        <?
+        <?php
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
             $paginador->print_paginator('pulldown');
         ?>
     </div>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

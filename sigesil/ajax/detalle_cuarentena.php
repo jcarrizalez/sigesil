@@ -21,14 +21,14 @@ switch ($GPC['ac']){
                     <th>Muestra</th>
                     <th>Valor</th>
                 </tr>
-                <?
+                <?php
                 $i=0;                
                 foreach($listaCP as $dataCP) {
                     $clase = $general->obtenerClaseFila($i); 
                 ?>
-                <tr class="<?=$clase?>">
+                <tr class="<?php echo $clase?>">
                     <td>
-                    <? 
+                    <?php 
                     if ($soloLectura)
                         echo $html->select('dataCP_id_'.$i, array('options' => $listaPlagas, 'selected' => $dataCP['id_plaga'], 'default' =>'Seleccione', 'readOnly' => true, 'class'=>'plaga')); 
                     else
@@ -36,18 +36,18 @@ switch ($GPC['ac']){
                     ?>
                     </td>                    
                     <td>
-                    <?
+                    <?php
                     echo $html->select('esContable_'.$i, array('options' => array('C'=>'CONTABLE','I'=>'INCONTABLE'), 'selected' => (($dataCP['cantidad'] >= 0) ? 'C': 'I'), 'default' =>'Seleccione', 'readOnly' => $soloLectura,'class' => 'contable'));
                     ?>
                     </td>
                     <td>
-                    <?                
+                    <?php                
                         if ($dataCP['cantidad'] >= 0)
                             echo $html->input('dataCP_cantidad_'.$i, $dataCP['cantidad'], array('type' => 'text', 'readOnly' => $soloLectura, 'class' => 'positive cuadricula cantidad'));
                     ?>
                     </td>
                 </tr>
-                <? 
+                <?php 
                 $i++;
                 }
                 ?>

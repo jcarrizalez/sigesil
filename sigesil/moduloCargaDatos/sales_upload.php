@@ -37,14 +37,14 @@ require_once('../lib/common/top.php');
 		</ul>
 		<div id="tabs-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
 			<div id="div1" style="position: relative; width: 14%; height: 50px; left: 825px;">
-				<? echo $CORE_html->input('button', 'cmdatras', $CORE_lang['txtBack'], array('onclick'=>"window.location = 'sales_files.php'"))?>
+				<?php echo $CORE_html->input('button', 'cmdatras', $CORE_lang['txtBack'], array('onclick'=>"window.location = 'sales_files.php'"))?>
 			</div>
 			<div>
 				<form action="?ac=upload" method="post" enctype="multipart/form-data" name="form1">
 				  <table width="60%" align="center" border="0" cellspacing="0" cellpadding="2">
 					  <tr>
 						<td align="right"></td>
-						<td><strong class="errormsg"><? if($GPC['error']){ echo  htmlentities($GPC['error']); } ?> </strong></td>
+						<td><strong class="errormsg"><?php if($GPC['error']){ echo  htmlentities($GPC['error']); } ?> </strong></td>
 					  </tr>
 					  <tr>
 						<td width="20%" class="rpt_descr_field"><?php echo $CORE_lang['txtUpload_csv_file'] ?></td>
@@ -97,6 +97,6 @@ require_once('../lib/common/top.php');
 		</div>
 	</div>
 	</div>
-<?
+<?php
 	require_once('../lib/common/bottom.php');
 ?>

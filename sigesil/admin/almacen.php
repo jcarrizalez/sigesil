@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('../lib/core.lib.php');
 
 $almacen = new Almacen();
@@ -70,70 +70,70 @@ $validator->printScript();
     });
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
-    <? echo $html->input('Almacen.id', $infoAlmacen[0]['id'], array('type' => 'hidden')); ?>
+    <?php echo $html->input('Almacen.id', $infoAlmacen[0]['id'], array('type' => 'hidden')); ?>
     <div id="titulo_modulo">
         ALMACEN<br/><hr/>
     </div>
     <table align="center">
         <tr>
             <td><span class="msj_rojo">* </span>C&oacute;digo </td>
-            <td><? echo $html->input('Almacen.codigo', $infoAlmacen[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><?php echo $html->input('Almacen.codigo', $infoAlmacen[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Nombre </td>
-            <td><? echo $html->input('Almacen.nombre', $infoAlmacen[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><?php echo $html->input('Almacen.nombre', $infoAlmacen[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td>Direccion </td>
-            <td><? echo $html->input('Almacen.direccion', $infoAlmacen[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><?php echo $html->input('Almacen.direccion', $infoAlmacen[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Pa&iacute;s </td>
-            <td><? echo $html->select('Almacen.id_pais', array('options' => $listaP, 'selected' => $infoAlmacen[0]['id_pais'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
+            <td><?php echo $html->select('Almacen.id_pais', array('options' => $listaP, 'selected' => $infoAlmacen[0]['id_pais'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Estado </td>
-            <td><? echo $html->select('id_estado', array('options' => $listaE, 'selected' => $infoAlmacen[0]['id_estado'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
+            <td><?php echo $html->select('id_estado', array('options' => $listaE, 'selected' => $infoAlmacen[0]['id_estado'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Municipio </td>
             <td>
                 <div id="mcpo">
-                    <? echo $html->select('id_municipio', array('options' => $listaM, 'selected' => $infoAlmacen[0]['id_municipio'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?>
+                    <?php echo $html->select('id_municipio', array('options' => $listaM, 'selected' => $infoAlmacen[0]['id_municipio'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?>
                 </div>
             </td>
         </tr>
         <tr>
             <td>Tel&eacute;fono </td>
-            <td><? echo $html->input('Almacen.telefono', $infoAlmacen[0]['telefono'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><?php echo $html->input('Almacen.telefono', $infoAlmacen[0]['telefono'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td>Fax </td>
-            <td><? echo $html->input('Almacen.fax', $infoAlmacen[0]['fax'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><?php echo $html->input('Almacen.fax', $infoAlmacen[0]['fax'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td>Email </td>
-            <td><? echo $html->input('Almacen.email', $infoAlmacen[0]['email'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><?php echo $html->input('Almacen.email', $infoAlmacen[0]['email'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Estatus </td>
-            <td><? echo $html->select('Almacen.estatus', array('options' => $estatus, 'selected' => $infoAlmacen[0]['estatus'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
+            <td><?php echo $html->select('Almacen.estatus', array('options' => $estatus, 'selected' => $infoAlmacen[0]['estatus'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td>Coordenadas UTM </td>
-            <td><? echo $html->input('Almacen.coordenadas_utm', $infoAlmacen[0]['coordenadas_utm'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><?php echo $html->input('Almacen.coordenadas_utm', $infoAlmacen[0]['coordenadas_utm'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td>&nbsp;</td>
         </tr>
         <tr align="center">
             <td colspan="2">
-                <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
+                <?php echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
+                <?php echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
             </td>
         </tr>
     </table>
 </form>
-<?
+<?php
 require('../lib/common/footer.php');
 ?>

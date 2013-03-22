@@ -43,11 +43,11 @@
                 ?>
                 <script type="text/javascript">
                     $(document).ready(function(){
-                        $('#contrato').load('../ajax/cosecha_programa.php?ac=contrato&co=<? echo $GPC['co']; ?>&cpro=<? echo $infoProductores[0]['id']; ?>');
-                        $('#asociados').load('../ajax/cosecha_programa.php?ac=cos_ado&co=<? echo $GPC['co']; ?>&cpro=<? echo $GPC['cpro']; ?>');
+                        $('#contrato').load('../ajax/cosecha_programa.php?ac=contrato&co=<?php echo $GPC['co']; ?>&cpro=<?php echo $infoProductores[0]['id']; ?>');
+                        $('#asociados').load('../ajax/cosecha_programa.php?ac=cos_ado&co=<?php echo $GPC['co']; ?>&cpro=<?php echo $GPC['cpro']; ?>');
                     });
                 </script>
-                <?
+                <?php
             }else{
                 echo "&nbsp;".$html->select('nacionalidad',array('options'=>$listaNacion));
                 echo "&nbsp;".$html->input('id_productor', '', array('type' => 'text', 'length' => '10', 'class' => 'estilo_campos2 positive'));
@@ -58,7 +58,7 @@
                         $('#asociados').html('');
                     });
                 </script>
-                <?
+                <?php
             }
             /*foreach($infoProductores as $valor){
                 if(!in_array($valor['id_productor'], $productores))
@@ -77,11 +77,11 @@
                 ?>
                 <script type="text/javascript">
                     $(document).ready(function(){
-                        $('#asociados').load('../ajax/cosecha_programa.php?ac=cos_ado&co=<? echo $GPC['co']; ?>&cpro=<? echo $GPC['cpro']; ?>&caon=<? echo $GPC['caon']; ?>');
-                        //$('#asociados').load('../ajax/cosecha_programa.php?ac=cos_ado&co=<? echo $GPC['co']; ?>&cpro=<? echo $GPC['cpro']; ?>');
+                        $('#asociados').load('../ajax/cosecha_programa.php?ac=cos_ado&co=<?php echo $GPC['co']; ?>&cpro=<?php echo $GPC['cpro']; ?>&caon=<?php echo $GPC['caon']; ?>');
+                        //$('#asociados').load('../ajax/cosecha_programa.php?ac=cos_ado&co=<?php echo $GPC['co']; ?>&cpro=<?php echo $GPC['cpro']; ?>');
                     });
                 </script>
-                <?
+                <?php
             }else{
                 echo "&nbsp;".$html->select('nacionalidad2',array('options'=>$listaNacion));
                 echo "&nbsp;".$html->input('id_asociacion', '', array('type' => 'text', 'length' => '10', 'class' => 'estilo_campos2 positive'));
@@ -91,7 +91,7 @@
                         alert('Cedula/Rif No Encontrado');
                     });
                 </script>
-                <?
+                <?php
             }
             /*foreach($infoProductores as $valor){
                 if(!empty($valor['id_asociacion'])){
@@ -136,7 +136,7 @@
                 <tr>
                     <td>C&oacute;digo de Contrato </td>
                     <td>
-                        <?
+                        <?php
                             echo $html->input('Contrato.nro_contrato', $infoContrato[0]['nro_contrato'], array('type' => 'text', 'class' => 'estilo_campos2'));
                             echo $html->input('Contrato.id', $infoContrato[0]['id'], array('type' => 'hidden'));
                         ?>
@@ -144,13 +144,13 @@
                 </tr>
                 <tr>
                     <td>Descripci&oacute;n </td>
-                    <td><? echo $html->input('Contrato.descripcion', $infoContrato[0]['descripcion'], array('type' => 'text', 'class' => 'estilo_campos2')); ?></td>
+                    <td><?php echo $html->input('Contrato.descripcion', $infoContrato[0]['descripcion'], array('type' => 'text', 'class' => 'estilo_campos2')); ?></td>
                 </tr>
                 <tr>
                     <td>Toneladas Contratadas </td>
-                    <td><? echo "&nbsp;".$html->input('Contrato.toneladas_con', $infoContrato[0]['toneladas_con'], array('type' => 'text', 'class' => 'estilo_campos2 positive')); ?></td>
+                    <td><?php echo "&nbsp;".$html->input('Contrato.toneladas_con', $infoContrato[0]['toneladas_con'], array('type' => 'text', 'class' => 'estilo_campos2 positive')); ?></td>
                 </tr>
-            <?
+            <?php
         break;
     }
 ?>

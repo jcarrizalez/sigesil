@@ -163,7 +163,7 @@
     PRUEBA DE STRESS<br/><hr/>
 </div>
 <div id="mensajes">
-    <?
+    <?php
         switch($GPC['msg']){
             case 'exitoso':
                 echo "<span class='msj_verde'>Registro Guardado !</span>";
@@ -184,11 +184,11 @@
     <table border="0" align="center">
         <tr>
             <td width="180">Cantidad de Recepciones</td>
-            <td><? echo $html->input('cant', '', array('type' => 'text', 'class' => 'cuadricula')); ?></td>
+            <td><?php echo $html->input('cant', '', array('type' => 'text', 'class' => 'cuadricula')); ?></td>
         </tr>
         <tr>
             <td>Cantidad de Despachos</td>
-            <td><? echo $html->input('cant2', '', array('type' => 'text', 'class' => 'cuadricula')); ?></td>
+            <td><?php echo $html->input('cant2', '', array('type' => 'text', 'class' => 'cuadricula')); ?></td>
         </tr>
     </table>
     <table align="center" width="100%">
@@ -197,11 +197,11 @@
         </tr>
         <tr align="center">
             <td>
-                <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
+                <?php echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
             </td>
         </tr>
     </table>
 </form>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

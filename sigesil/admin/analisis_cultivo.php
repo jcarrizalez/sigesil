@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
 
     if(empty($GPC['ca'])){
@@ -66,7 +66,7 @@
     });
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
-    <? echo $html->input('Analisis.id', $infoAnalisis[0]['id'], array('type' => 'hidden')); ?>
+    <?php echo $html->input('Analisis.id', $infoAnalisis[0]['id'], array('type' => 'hidden')); ?>
     <div id="titulo_modulo">
         ANALISIS POR CULTIVO<br/><hr/>
     </div>
@@ -87,26 +87,26 @@
                 <th>Min</th>
                 <th>Max</th>
             </tr>
-            <?
+            <?php
                 $i = 0;
                 foreach($listaAnalisis as $dataAnalisis){
                     $classname = $general->obtenerClaseFila($i);
                     //if($dataAnalisis['id_padre'] == 0){
                         $check = (in_array($dataAnalisis['id'], $analisisCultivo)) ? 'checked = "check"' : '';
             ?>
-            <tr class="<?= $classname ?>">
+            <tr class="<?php echo $classname ?>">
                 <td style="font-weight: bold;">
-                    <input name="padre[]" id="padre_<?=$dataAnalisis['id']?>" type="checkbox" <?=$check?> class="marcarHijos" value="<?=$dataAnalisis['id']?>">
-                    <?=$dataAnalisis['nombre']?>
+                    <input name="padre[]" id="padre_<?php echo $dataAnalisis['id']?>" type="checkbox" <?php echo $check?> class="marcarHijos" value="<?php echo $dataAnalisis['id']?>">
+                    <?php echo $dataAnalisis['nombre']?>
                 </td>
-                    <td><? echo $html->select('id1', array('options' => $listaLab, 'selected' => $lab, 'class' => 'cuadricula')) ?></td>
-                    <td><? echo $html->select('id2', array('options' => $listaTipo, 'selected' => $status, 'class' => 'cuadricula')) ?></td>
-                    <td><? echo $html->input('id3', $minRec, array('type' => 'text', 'length' => '6', 'class' => 'cuadricula positive')); ?></td>
-                    <td><? echo $html->input('id4', $maxRec, array('type' => 'text', 'length' => '6', 'class' => 'cuadricula positive')); ?></td>
-                    <td><? echo $html->input('id5', $minDes, array('type' => 'text', 'length' => '6', 'class' => 'cuadricula positive')); ?></td>
-                    <td><? echo $html->input('id6', $maxDes, array('type' => 'text', 'length' => '6', 'class' => 'cuadricula positive')); ?></td>
+                    <td><?php echo $html->select('id1', array('options' => $listaLab, 'selected' => $lab, 'class' => 'cuadricula')) ?></td>
+                    <td><?php echo $html->select('id2', array('options' => $listaTipo, 'selected' => $status, 'class' => 'cuadricula')) ?></td>
+                    <td><?php echo $html->input('id3', $minRec, array('type' => 'text', 'length' => '6', 'class' => 'cuadricula positive')); ?></td>
+                    <td><?php echo $html->input('id4', $maxRec, array('type' => 'text', 'length' => '6', 'class' => 'cuadricula positive')); ?></td>
+                    <td><?php echo $html->input('id5', $minDes, array('type' => 'text', 'length' => '6', 'class' => 'cuadricula positive')); ?></td>
+                    <td><?php echo $html->input('id6', $maxDes, array('type' => 'text', 'length' => '6', 'class' => 'cuadricula positive')); ?></td>
             </tr>
-            <?
+            <?php
                 $i++; }
             ?>
             <tr><td>&nbsp;</td></tr>
@@ -118,10 +118,10 @@
         </tr>
         <tr>
             <td>
-                <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
+                <?php echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
+                <?php echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
             </td>
         </tr>
     </table>
 </form>
-<? require('../lib/common/footer.php'); ?>
+<?php require('../lib/common/footer.php'); ?>

@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
     
     $ordenes = new Orden();
@@ -58,7 +58,7 @@
         ORDENES DE DESPACHO<br/><hr/>
     </div>
     <div id="mensajes">
-        <?
+        <?php
             switch($GPC['msg']){
                 case 'exitoso':
                     echo "<span class='msj_verde'>Registro Guardado !</span>";
@@ -73,18 +73,18 @@
         <form name="form1" id="form1" method="GET" action="#">
             <table width="100%" border="0">
                 <tr>
-                    <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+                    <?php if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
                     <td>Centro de Acopio</td>
-                    <td><? echo $html->select('id_ca',array('options'=>$listaCA, 'selected' => $idCA, 'default' => 'Todos', 'class' => 'estilo_campos2')); ?></td>
-                    <? } ?>
+                    <td><?php echo $html->select('id_ca',array('options'=>$listaCA, 'selected' => $idCA, 'default' => 'Todos', 'class' => 'estilo_campos2')); ?></td>
+                    <?php } ?>
                 </tr>
                 <tr>
                     <td width="130">Cultivo</td>
-                    <td><? echo $html->select('id_cultivo',array('options'=>$listadoC, 'selected' => $idCultivo, 'default' => 'Todos', 'class' => 'estilo_campos2'))?></td>
+                    <td><?php echo $html->select('id_cultivo',array('options'=>$listadoC, 'selected' => $idCultivo, 'default' => 'Todos', 'class' => 'estilo_campos2'))?></td>
                 </tr>
                 <tr id="botones">
                     <td colspan="2">
-                        <?
+                        <?php
                             echo $html->input('ac', 'Buscar', array('type' => 'submit'));
                             $general->crearAcciones($acciones, '', 1);
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
@@ -95,7 +95,7 @@
         </form>
     </div><hr/>
     <div id="paginador">
-        <?
+        <?php
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
             $paginador->print_paginator('pulldown');
@@ -103,9 +103,9 @@
     </div>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
-            <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+            <?php if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
             <th>Centro de Acopio</th>
-            <? } ?>
+            <?php } ?>
             <th>C&eacute;dula/Rif</th>
             <th>Cliente</th>
             <th>Cultivo</th>
@@ -115,43 +115,43 @@
             <th>Toneladas</th>
             <th>Acci&oacute;n</th>
         </tr>
-        <?
+        <?php
             $i=0;
             foreach($listadoOrdenes as $dataOr){
                 $dataOr['id_cultivo'] = ($dataOr['id_cultivo'] < 10) ? '0'.$dataOr['id_cultivo'] : $dataOr['id_cultivo'];
                 $clase = $general->obtenerClaseFila($i);
         ?>
-        <tr class="<?=$clase?>">
-            <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
-            <td align="center"><?="(".$dataOr['codigo'].") ".$dataOr['nombre_ca']?></td>
-            <? } ?>
-            <td align="center"><?=$dataOr['ced_cliente']?></td>
-            <td align="center"><?=$dataOr['nombre_cliente']?></td>
-            <td align="center"><?=$dataOr['id_cultivo']?></td>
-            <td align="center"><?=$dataOr['numero_orden']?></td>
-            <td align="center"><?=$dataOr['cod_verificacion']?></td>
-            <td align="center"><?=$general->date_sql_screen($dataOr['fecha_emision'], '', 'es', '-')?></td>
-            <td align="center"><?=$dataOr['toneladas']?></td>
+        <tr class="<?php echo $clase?>">
+            <?php if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+            <td align="center"><?php echo "(".$dataOr['codigo'].") ".$dataOr['nombre_ca']?></td>
+            <?php } ?>
+            <td align="center"><?php echo $dataOr['ced_cliente']?></td>
+            <td align="center"><?php echo $dataOr['nombre_cliente']?></td>
+            <td align="center"><?php echo $dataOr['id_cultivo']?></td>
+            <td align="center"><?php echo $dataOr['numero_orden']?></td>
+            <td align="center"><?php echo $dataOr['cod_verificacion']?></td>
+            <td align="center"><?php echo $general->date_sql_screen($dataOr['fecha_emision'], '', 'es', '-')?></td>
+            <td align="center"><?php echo $dataOr['toneladas']?></td>
             <td align="center">
-                <?
+                <?php
                     $urls = array(1 => 'ordenes.php?ac=editar&id='.$dataOr['id'], 'ordenes_listado.php?ac=eliminar&id='.$dataOr['id']."&estatus=f");
                     $general->crearAcciones($acciones, $urls);
                 ?>
             </td>
         </tr>
-        <? $i++; } ?>
+        <?php $i++; } ?>
         <tr>
             
             <td colspan="6">&nbsp;</td>
         </tr>
     </table>
     <div id="paginador">
-        <?
+        <?php
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
             $paginador->print_paginator('pulldown');
         ?>
     </div>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

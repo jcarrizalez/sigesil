@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
     
     $centro_acopio = new CentroAcopio();
@@ -36,7 +36,7 @@
         CENTROS DE ACOPIO<br/><hr/>
     </div>
     <div id="mensajes">
-        <?
+        <?php
             switch($GPC['msg']){
                 case 'exitoso':
                     echo "<span class='msj_verde'>Registro Guardado !</span>";
@@ -51,7 +51,7 @@
         <table width="100%">
             <tr id="botones">
                 <td colspan="3">
-                    <?
+                    <?php
                         $general->crearAcciones($acciones, '', 1);
                         echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
                     ?>
@@ -70,29 +70,29 @@
             <th>Estatus</th>
             <th>Acci&oacute;n</th>
         </tr>
-        <?
+        <?php
             $i=0;
             foreach($listadoCA as $dataCA){
             $clase = $general->obtenerClaseFila($i);
         ?>
-        <tr class="<?=$clase?>">
-            <td><?=$dataCA['nombre_org']?></td>
-            <td align="center"><?=$dataCA['codigo']?></td>
-            <td><?=$dataCA['nombre']?></td>
-            <td align="center"><?=$dataCA['telefono']?></td>
-            <td align="center"><?=$dataCA['email']?></td>
-            <?
+        <tr class="<?php echo $clase?>">
+            <td><?php echo $dataCA['nombre_org']?></td>
+            <td align="center"><?php echo $dataCA['codigo']?></td>
+            <td><?php echo $dataCA['nombre']?></td>
+            <td align="center"><?php echo $dataCA['telefono']?></td>
+            <td align="center"><?php echo $dataCA['email']?></td>
+            <?php
                 $cant = $silos->cantidadSilosCA($dataCA['id']);
                 if($cant[0]['totalsilos'] == 0){
             ?>
             <td align="center">0</td>
-            <? }else{ ?>
+            <?php }else{ ?>
             <td align="center">
-                <? echo $html->link($cant[0]['totalsilos'], 'silos_listado.php?id_ca='.$dataCA['id']); ?>
+                <?php echo $html->link($cant[0]['totalsilos'], 'silos_listado.php?id_ca='.$dataCA['id']); ?>
             </td>
-            <? } ?>
+            <?php } ?>
             <td align="center">
-                <?
+                <?php
                     if($dataCA['estatus'] == 't'){
                         echo $html->link('<img src="../images/habilitar.png" width="16" height="16" title=Activo>');
                     }else{
@@ -101,18 +101,18 @@
                 ?>
             </td>
             <td align="center">
-                <?
+                <?php
                     $urls = array(1 => 'centros_acopio.php?ac=editar&id_ca='.$dataCA['id'], 'centros_acopio_listado.php?ac=eliminar&id='.$dataCA['id']."&estatus=f");
                     $general->crearAcciones($acciones, $urls);
                 ?>
             </td>
         </tr>
-        <? $i++; } ?>
+        <?php $i++; } ?>
         <tr>
             
             <td colspan="6">&nbsp;</td>
         </tr>
     </table>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

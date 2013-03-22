@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
     require('../lib/common/header.php');
     
@@ -55,17 +55,17 @@
                     <th width="40%">Valor</th>
                     <th width="5%" align="center">Editar</th>
                 </tr>
-                <?
+                <?php
                     for ($i = 0, $cant = count($parametros->lista); $i < $cant; $i++) {
                         $value_id = $parametros->lista[$i]['parametro_valor'];
                         $classname = $general->obtenerClaseFila($i);
                 ?>
                     <tr>
-                        <td class="<?= $classname ?>"><? echo ucfirst($parametros->lista[$i]['descripcion']) ?></td>
-                        <td class="<?= $classname ?>"><? echo $value_id ?> <div id="opc_<?= $i ?>"></div></td>
-                        <td align="center" class="<?= $classname ?>"><a href="#" onclick="javascript:edit_maintenance('<?= $parametros->lista[$i]['id'] ?>','<?= $i ?>');"><img src="../images/editar.png" width="16" height="16"></a></td>
+                        <td class="<?php echo $classname ?>"><?php echo ucfirst($parametros->lista[$i]['descripcion']) ?></td>
+                        <td class="<?php echo $classname ?>"><?php echo $value_id ?> <div id="opc_<?php echo $i ?>"></div></td>
+                        <td align="center" class="<?php echo $classname ?>"><a href="#" onclick="javascript:edit_maintenance('<?php echo $parametros->lista[$i]['id'] ?>','<?php echo $i ?>');"><img src="../images/editar.png" width="16" height="16"></a></td>
                     </tr>
-                <? } ?>
+                <?php } ?>
             </table>
         </td>
     </tr>
@@ -73,4 +73,4 @@
         <td>&nbsp;</td>
     </tr>
 </table>
-<? require('../lib/common/footer.php'); ?>
+<?php require('../lib/common/footer.php'); ?>

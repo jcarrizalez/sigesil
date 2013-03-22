@@ -42,7 +42,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
         <title><?php echo SYSTEM_NAME ?></title>
-        <link href="<?=DOMAIN_ROOT?>css/frontend.css" rel="stylesheet" type="text/css" />
+        <link href="<?php echo DOMAIN_ROOT?>css/frontend.css" rel="stylesheet" type="text/css" />
         <script language="javascript">
             function closeMessage(){
                 ventana = window.self;
@@ -55,7 +55,7 @@
                 var alto;
                 ancho = (screen.width/2)-(850/2);
                 alto = (screen.height/2)-(500/2);
-                url = 'analisis_popup.php?id_rec=<?=$detalleRecepcion[0]['id']?>&ca=<?=$detalleRecepcion[0]['ca_id']?>';
+                url = 'analisis_popup.php?id_rec=<?php echo $detalleRecepcion[0]['id']?>&ca=<?php echo $detalleRecepcion[0]['ca_id']?>';
                 titulo = "Resultados de An&aacute;lisis";
                 ventana = window.open(url,titulo,"status=no,toolbar=0,menubar=no,resizable=0,scrollbars=1,width=850,left="+ancho+",height=500,top="+alto);
             }
@@ -63,7 +63,7 @@
     </head>
     <body>
         <div id="titulo_modulo">
-            Detalle de la Recepci&oacute;n<br/><input id="cerrar" name="cerrar" type="button" onclick="closeMessage()" value="<?="Cerrar"?>" /><hr/>
+            Detalle de la Recepci&oacute;n<br/><input id="cerrar" name="cerrar" type="button" onclick="closeMessage()" value="<?php echo "Cerrar"?>" /><hr/>
         </div>
         <table align="center" border="0" cellspacing="0">
             <tr align="center" class="titulos_tabla borde_th_reporte">
@@ -130,7 +130,7 @@
                 <td><?php echo $general->formato_numero($detalleRecepcion[0]['peso_acon_liq'], 3) ?></td>
                 <td><?php echo $general->date_sql_screen($detalleRecepcion[0]['fecha_v'], '', 'es', '-') ?></td>
             </tr>
-            <? if($detalleRecepcion[0]['estatus_rec'] > 1){ ?>
+            <?php if($detalleRecepcion[0]['estatus_rec'] > 1){ ?>
             <tr>
                 <td id="titulo_modulo" colspan="20" align="center" style="padding-top: 50px;">REIMPRIMIR</td>
             </tr>
@@ -145,32 +145,32 @@
                             </tr>
                             <tr align="center">
                                 <td>
-                                <?
+                                <?php
                                     if($detalleRecepcion[0]['estatus_rec'] >= 1){
                                         //echo $html->input('Ver', 'Ver Resultados', array('type' => 'button', 'onClick' => 'javascript:abrirPopup()'));
                                         echo $html->input('ac', 'Vacio', array('type' => 'submit'));
                                     }
                                 ?></td>
                                 <td>
-                                <?
+                                <?php
                                     echo $html->input('id', $detalleRecepcion[0]['id'], array('type' => 'hidden'));
                                     if($detalleRecepcion[0]['estatus_rec'] >= 4)
                                         echo $html->input('ap', 'Vacio', array('type' => 'submit'));
                                 ?></td>
                                 <td>
-                                <?
+                                <?php
                                     if($detalleRecepcion[0]['estatus_rec'] == 9)
                                         echo $html->input('ac', 'Liquidacion', array('type' => 'submit'));
                                 ?></td>
                             </tr>
                             <tr align="center">
                                 <td>
-                                <?
+                                <?php
                                     if($detalleRecepcion[0]['estatus_rec'] >=1) //>= 3
                                         echo $html->input('ac', 'Analizado', array('type' => 'submit'));
                                 ?></td>
                                 <td>
-                                <?
+                                <?php
                                     if($detalleRecepcion[0]['estatus_rec'] >= 5)
                                         echo $html->input('ap', 'Analizado', array('type' => 'submit'));
                                 ?>
@@ -179,12 +179,12 @@
                             </tr>
                             <tr align="center">
                                 <td>
-                                <?
+                                <?php
                                     if($detalleRecepcion[0]['estatus_rec'] == 7)
                                         echo $html->input('ac', 'Rechazo', array('type' => 'submit'));
                                 ?></td>
                                 <td>
-                                <?
+                                <?php
                                     if($detalleRecepcion[0]['estatus_rec'] == 8)
                                         echo $html->input('ap', 'Rechazo', array('type' => 'submit'));
                                 ?></td>
@@ -194,7 +194,7 @@
                     </form>
                 </td>
             </tr>
-            <? } ?>
+            <?php } ?>
         </table>
     </body>
 </html>

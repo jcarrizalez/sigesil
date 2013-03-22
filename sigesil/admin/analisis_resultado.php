@@ -280,7 +280,7 @@ switch ($GPC['ac']) {
             if (valor != ''){            
                 if (estatus=='R') {
                     if ((valor< min) || (valor > max) || (valor=='SI') || (valor=='D')) {
-                        esRechazada=alert('<?= $html->unhtmlize($etiqueta['E_FueraNorma']); ?>');
+                        esRechazada=alert('<?php echo $html->unhtmlize($etiqueta['E_FueraNorma']); ?>');
                         if (rechazo.value.indexOf(campo)==-1) {
                             rechazo.value+=campo+':';
                         }
@@ -294,12 +294,12 @@ switch ($GPC['ac']) {
                 if (estatus=='C') {                
                     if (valor=='SI') {
                         if (rechazo.value=='0_0:') {
-                            esCuarentena=confirm('<?= $html->unhtmlize($etiqueta['E_40TNA']); ?>');
+                            esCuarentena=confirm('<?php echo $html->unhtmlize($etiqueta['E_40TNA']); ?>');
                             cuarentena.value+=campo+':';
                         }
                         else {
                             Tupla.value='NO';
-                            esRechazada=confirm('<?= $html->unhtmlize($etiqueta['E_NO40TNA']); ?>');
+                            esRechazada=confirm('<?php echo $html->unhtmlize($etiqueta['E_NO40TNA']); ?>');
                         }                                                
                     }
                     else {                    
@@ -379,10 +379,10 @@ switch ($GPC['ac']) {
                 });
                 if (isFormValid) {
                     if (($('#es_rechazado').val()!='0_0:') && ($.trim($(this).val()).length == 0))  {
-                        esRechazada=confirm('<?= $html->unhtmlize($etiqueta['M_Rechazo']); ?>');
+                        esRechazada=confirm('<?php echo $html->unhtmlize($etiqueta['M_Rechazo']); ?>');
                         if (esRechazada) {
                             isFormValid = true;
-                            lab=<?=$_SESSION['s_lab']; ?>;
+                            lab=<?php echo $_SESSION['s_lab']; ?>;
                             esLiquidado=confirm(lab);
                             esLiquidado=confirm('¿Desea liquidar el Vehiculo?');
                             if (esLiquidado && lab=='P')
@@ -394,7 +394,7 @@ switch ($GPC['ac']) {
                     }
                     //alert('Pregunta si es Cuarentena! ');
                     if (($('#es_cuarentena').val()!='0_0:') && ($.trim($(this).val()).length == 0)) {                        
-                        esCuarentena=confirm('<?= $html->unhtmlize($etiqueta['E_40TNA']); ?>');
+                        esCuarentena=confirm('<?php echo $html->unhtmlize($etiqueta['E_40TNA']); ?>');
                         if (esCuarentena) {
                             isFormValid = true;
                             //return false;                            
@@ -413,10 +413,10 @@ switch ($GPC['ac']) {
         });
     </script>
 <div id="titulo_modulo">
-    ANALISIS DE RESULTADOS - <? echo $listaMov[$GPC['mov']]; ?><hr/>
+    ANALISIS DE RESULTADOS - <?php echo $listaMov[$GPC['mov']]; ?><hr/>
 </div>
 <div id="mensajes" style="display:none">
-    <?
+    <?php
     switch ($GPC['msg']) {
         case 'exitoso':
             echo "<span class='msj_verde'>Registro Guardado !</span>";
@@ -436,20 +436,20 @@ switch ($GPC['ac']) {
         <table align="center" width="100%" border="0">
             <tr>
                 <td>Nro. Entrada</td>                
-                <td><? echo $html->input('', $infoMov[0]['numero'], array('type' => 'text', 'class' => 'estilo_campos cuadricula', 'readOnly' => true)); ?></td>
+                <td><?php echo $html->input('', $infoMov[0]['numero'], array('type' => 'text', 'class' => 'estilo_campos cuadricula', 'readOnly' => true)); ?></td>
                 <td>Fecha</td>
-                <td><? echo $html->input('', $general->date_sql_screen($infoMov[0]['fecha_recepcion']), array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
+                <td><?php echo $html->input('', $general->date_sql_screen($infoMov[0]['fecha_recepcion']), array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Carril</td>
-                <td><? echo $html->input('', ((empty($infoMov[0]['carril'])==true) ? 0: $infoMov[0]['carril']), array('type' => 'text', 'class' => 'estilo_campos cuadricula', 'readOnly' => true)); ?></td>
+                <td><?php echo $html->input('', ((empty($infoMov[0]['carril'])==true) ? 0: $infoMov[0]['carril']), array('type' => 'text', 'class' => 'estilo_campos cuadricula', 'readOnly' => true)); ?></td>
                 <td>Hora</td>
-                <td><? echo $html->input('', $general->hora_sql_normal($infoMov[0]['fecha_recepcion']), array('type' => 'text', 'class' => 'estilo_campos crproductor', 'readOnly' => true));
+                <td><?php echo $html->input('', $general->hora_sql_normal($infoMov[0]['fecha_recepcion']), array('type' => 'text', 'class' => 'estilo_campos crproductor', 'readOnly' => true));
                 ?></td>
             </tr>
             <tr>
                 <td>Cultivo</td>
-                <td colspan="3"><? 
+                <td colspan="3"><?php 
                 echo $html->input('', trim($infoCultivo[0]['codigo']) . ' - ' . $infoCultivo[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos2', 'readOnly' => true)); ?></td>                
             </tr>
         </table>
@@ -460,30 +460,30 @@ switch ($GPC['ac']) {
             <tr align="center" class="titulos_tabla">            
                 <th width="1">C&oacute;digo</th>
                 <th>Descripci&oacute;n</th>
-                <? for ($j = 1; $j <= $cant_muestras; $j++) { ?>
-                    <th width="70"><?= 'Muestra ' . $j; ?></th>
-                <? } ?>
+                <?php for ($j = 1; $j <= $cant_muestras; $j++) { ?>
+                    <th width="70"><?php echo 'Muestra ' . $j; ?></th>
+                <?php } ?>
 <!--                <th>Min / Max</th>-->
             </tr>
-            <?
+            <?php
             $i = 0;
             foreach ($listadoAnalisis as $dataAnalisis) {
                 $clase = $general->obtenerClaseFila($i);
                 ?>
 
-                <tr class="<?= $clase ?>">
+                <tr class="<?php echo $clase ?>">
                     <td align="center" >
-                        <? echo $html->input('id_analisis[]', $dataAnalisis['id'], array('type' => 'hidden')); ?>
-                        <?= $dataAnalisis['codigo'] ?>
+                        <?php echo $html->input('id_analisis[]', $dataAnalisis['id'], array('type' => 'hidden')); ?>
+                        <?php echo $dataAnalisis['codigo'] ?>
                     </td>
-                    <td><?= $dataAnalisis['nombre'] ?></td>
-                    <?
+                    <td><?php echo $dataAnalisis['nombre'] ?></td>
+                    <?php
                     for ($j = 1; $j <= $cant_muestras; $j++) {
                         switch ($dataAnalisis['tipo_analisis']) {
                             case '1':
                                 ?>
                                 <td align="center">
-                                <?
+                                <?php
                                 $clase = "cuadricula positive ";
                                 $clase .= ($j==1) ? 'muestra1': 'muestra2';
                                 if ($GPC['mov']=='rec')
@@ -492,20 +492,20 @@ switch ($GPC['ac']) {
                                     echo $html->input('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', '', array('type' => 'text', 'length' => '6', 'class' => $clase, 'onChange' => "valoresMinMax(this.value," . $dataAnalisis['min_des'] . "," . $dataAnalisis['max_des'] . "," . $dataAnalisis['codigo'] . "," . $j . ",'" . $dataAnalisis['estatus'] . "', this)"));
                                 ?>
                                 </td>
-                                <?
+                                <?php
                                 break;
                             case '2':
                                 ?>
                                 <td align="center">
-                                <?
+                                <?php
                                     $clase = 'cuadricula cualitativo';
                                     echo $html->select('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', array('options' => $calidad, 'class' => 'cuadricula cualitativo',  'onChange' => "valoresMinMax(this.value," . $dataAnalisis['min_des'] . "," . $dataAnalisis['max_des'] . "," . $dataAnalisis['codigo'] . "," . $j . ",'" . $dataAnalisis['estatus'] . "', this)")); ?></td>
-                                <?
+                                <?php
                                 break;
                             case '3':
                                 ?>
                                 <td align="center">
-                                <?
+                                <?php
                                 if ($dataAnalisis['estatus'] == 'C')
                                     if ($GPC['mov']=='rec')
                                         echo $html->select('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', array('options' => $booleano, 'class' => 'cuadricula booleano 40tna', 'onChange' => "valoresMinMax(this.value," . $dataAnalisis['min_rec'] . "," . $dataAnalisis['max_rec'] . "," . $dataAnalisis['codigo'] . "," . $j . ",'" . $dataAnalisis['estatus'] . "', this)"));
@@ -518,7 +518,7 @@ switch ($GPC['ac']) {
                                         echo $html->select('muestra' . $i . "_" . $dataAnalisis['codigo'] . '[]', array('options' => $booleano, 'class' => 'cuadricula booleano', 'onChange' => "valoresMinMax(this.value," . $dataAnalisis['min_des'] . "," . $dataAnalisis['max_des'] . "," . $dataAnalisis['codigo'] . "," . $j . ",'" . $dataAnalisis['estatus'] . "', this)"));
                                 ?>
                                 </td>
-                                <?
+                                <?php
                                 break;
                             }
                         }
@@ -531,7 +531,7 @@ switch ($GPC['ac']) {
                             ?>
 <!--                        <td align="center">C&nbsp;</td>-->
                     </tr>
-                    <?
+                    <?php
 //                }
                 $i++;
             }
@@ -542,12 +542,12 @@ switch ($GPC['ac']) {
         <tr><td>&nbsp;</td></tr>
         <tr align="center">
             <td colspan="1">
-                <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
+                <?php echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
+                <?php echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
             </td>
         </tr>
     </table>
-    <?
+    <?php
     echo $html->input('id', $id, array('type' => 'hidden'));
     if (!empty($IdCosecha))
         echo $html->input('cosecha', $IdCosecha, array('type' => 'hidden'));
@@ -558,6 +558,6 @@ switch ($GPC['ac']) {
     echo $html->input('es_liquidacion', '0', array('type' => 'hidden'));
     ?>
 </form>    
-<?
+<?php
 require('../lib/common/footer.php');
 ?>

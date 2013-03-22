@@ -48,7 +48,7 @@
        CARGA DE PRODUCTORES<br/><hr/>
     </div>
     <div id="mensajes">
-        <?
+        <?php
             switch($GPC['msg']){
                 case 'exitoso':
                     echo "<span class='msj_verde'>Registro Guardado !</span>";
@@ -62,11 +62,11 @@
     <table align="center">
         <tr>
             <td><span class="msj_rojo">* </span>Archivo</td>
-            <td><? echo $html->input('archivo', '', array('type' => 'file', 'class' => 'estilo_campos')) ?></td>
+            <td><?php echo $html->input('archivo', '', array('type' => 'file', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Primera L&iacute;nea de Datos</td>
-            <td><? echo $html->input('primera_linea', '2', array('type' => 'text', 'class' => 'estilo_campos positive')) ?></td>
+            <td><?php echo $html->input('primera_linea', '2', array('type' => 'text', 'class' => 'estilo_campos positive')) ?></td>
         </tr>
         <tr>
             <td>&nbsp;</td>
@@ -104,10 +104,10 @@
         </tr>
         <tr align="center">
             <td colspan="5">
-                <? echo $html->input('Guardar', 'Cargar', array('type' => 'submit')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
+                <?php echo $html->input('Guardar', 'Cargar', array('type' => 'submit')); ?>
+                <?php echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
             </td>
         </tr>
     </table>
 </form>
-<? require('../lib/common/footer.php'); ?>
+<?php require('../lib/common/footer.php'); ?>

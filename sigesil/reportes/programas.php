@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
     
     $programa = new Programa();
@@ -161,7 +161,7 @@
         REPORTE DE PROGRAMAS<br/><hr/>
     </div>
     <div id="mensajes">
-        <?
+        <?php
             switch($GPC['msg']){
                 case 'error':
                     echo "<span class='msj_rojo'>Ocurri&oacute; un Problema !</span>";
@@ -172,29 +172,29 @@
     <div id="filtro">
         <form name="form1" id="form1" method="GET" action="#">
             <table width="100%" border="0">
-                <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+                <?php if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
                 <tr>
                     <td width="110">Centro de Acopio:</td>
                     <td colspan="2">
-                        <?
+                        <?php
                             echo $html->select('id_ca',array('options'=>$listaCA, 'selected' => $GPC['id_ca'], 'default' => 'Todos', 'class' => 'estilo_campos'));
                         ?>
                     </td>
                 </tr>
-                <? } ?>
+                <?php } ?>
                 <tr>
                     <td>Codigo</td>
-                    <td><? echo $html->input('codigo', $codigo, array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><?php echo $html->input('codigo', $codigo, array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                     <td>Nombre</td>
-                    <td><? echo $html->input('nombre', $nombre, array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><?php echo $html->input('nombre', $nombre, array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
                 <tr>
                     <td>Estatus</td>
-                    <td><? echo $html->select('estatus', array('options'=>$listaEstatus, 'selected' => $estatus, 'default' => 'Todos', 'class' => 'estilo_campos')); ?></td>
+                    <td><?php echo $html->select('estatus', array('options'=>$listaEstatus, 'selected' => $estatus, 'default' => 'Todos', 'class' => 'estilo_campos')); ?></td>
                 </tr>
                 <tr id="botones">
                     <td colspan="4" style="padding-top: 20px;">
-                        <?
+                        <?php
                             echo $html->input('ac', 'Buscar', array('type' => 'submit'));
                             echo $html->input('exportar', 'Excel', array('type' => 'submit'));
                             echo $html->input('exportar', 'Calc', array('type' => 'submit'));
@@ -206,7 +206,7 @@
         </form>
     </div><hr/>
     <div id="paginador">
-        <?
+        <?php
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
             $paginador->print_paginator('pulldown');
@@ -214,30 +214,30 @@
     </div>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
-            <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+            <?php if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
             <th>Centro de Acopio</th>
-            <? } ?>
+            <?php } ?>
             <th>Codigo</th>
             <th>Nombre</th>
             <th>Fecha Inicio</th>
             <th>Fecha Fin</th>
             <th>Estatus</th>
         </tr>
-        <?
+        <?php
             $i=0;
             foreach($listadoProgramas as $dataPrograma){
                 $clase = $general->obtenerClaseFila($i);
         ?>
-        <tr class="<?=$clase?>">
-            <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
-            <td><?="(".$dataPrograma['ca_codigo'].") ".$dataPrograma['ca_nombre']?></td>
-            <? } ?>
-            <td align="center"><?=$dataPrograma['codigo']?></td>
-            <td><?=$dataPrograma['nombre']?></td>
-            <td align="center"><?=$general->date_sql_screen($dataPrograma['fecha_inicio'], '', 'es', '-')?></td>
-            <td align="center"><?=$general->date_sql_screen($dataPrograma['fecha_fin'], '', 'es', '-')?></td>
+        <tr class="<?php echo $clase?>">
+            <?php if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+            <td><?php echo "(".$dataPrograma['ca_codigo'].") ".$dataPrograma['ca_nombre']?></td>
+            <?php } ?>
+            <td align="center"><?php echo $dataPrograma['codigo']?></td>
+            <td><?php echo $dataPrograma['nombre']?></td>
+            <td align="center"><?php echo $general->date_sql_screen($dataPrograma['fecha_inicio'], '', 'es', '-')?></td>
+            <td align="center"><?php echo $general->date_sql_screen($dataPrograma['fecha_fin'], '', 'es', '-')?></td>
             <td align="center">
-                <?
+                <?php
                     if($dataPrograma['estatus'] == 't')
                         echo $html->link('<img src="../images/habilitar.png" width="16" height="16" title=Activo>');
                     else
@@ -245,19 +245,19 @@
                 ?>
             </td>
         </tr>
-        <? $i++; } ?>
+        <?php $i++; } ?>
         <tr>
             
             <td colspan="6">&nbsp;</td>
         </tr>
     </table>
     <div id="paginador">
-        <?
+        <?php
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
             $paginador->print_paginator('pulldown');
         ?>
     </div>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

@@ -21,10 +21,10 @@
 		function func_action(Op, ID){
 			switch(Op){
 				case 'A':
-					if(confirm('<?=html_entity_decode($CORE_lang['txtchangeStatus'])?>')) window.location = "?ac=active&resource_id="+ID;
+					if(confirm('<?php echo html_entity_decode($CORE_lang['txtchangeStatus'])?>')) window.location = "?ac=active&resource_id="+ID;
 				break;
 				case 'D':
-					if(confirm('<?=html_entity_decode($CORE_lang['txtDeletethis'])?>')) window.location = "?ac=delete&resource_id="+ID;
+					if(confirm('<?php echo html_entity_decode($CORE_lang['txtDeletethis'])?>')) window.location = "?ac=delete&resource_id="+ID;
 				break;
 			}
 		}
@@ -67,28 +67,28 @@
 				  <td class="cell_center" align="center"><?php echo $row['valids'] ?></td>
 				  <td class="cell_center" align="center"><?php echo $row['invalids'] ?></td>
 				  <td align="center" class="cell_center"><a class="linkhover green_text" title="Download" href="sales_file_view.php?file=<?php echo $row['sales_archivo_id'] ?>"><?php echo $CORE_lang['txtView'] ?></a></td>
-				  <?
+				  <?php
 				  	switch($row['sales_archivo_status']){
 				  		case 1:
 				  ?>
 				  	<td class="cell_center" align="center"><?php echo $CORE_lang['txtactive']?></td>
-				  	<?
+				  	<?php
 				  		break;
 				  		case 2:
 				  	?>
 				  		<td class="cell_center" align="center">
-						  	<select id="status" name="status" onchange="func_action(this.value, <?=$row['sales_archivo_id'];?>);">
+						  	<select id="status" name="status" onchange="func_action(this.value, <?php echo $row['sales_archivo_id'];?>);">
 					          <option value="A"><?php echo $CORE_lang['txtActivate']?></option>
-					          <option value="I" <?=($row['sales_archivo_status'] == 2)?'selected':'';?>><?php echo $CORE_lang['txtinactive']?></option>
+					          <option value="I" <?php echo ($row['sales_archivo_status'] == 2)?'selected':'';?>><?php echo $CORE_lang['txtinactive']?></option>
 					          <option value="D"><?php echo $CORE_lang['txtDelete']?></option>
 					        </select>
 				        </td>
-			        <?
+			        <?php
 			        	break;
 			        	case 3:
 			        ?>
 			        	<td class="cell_center" align="center"><?php echo $CORE_lang['txtDeleted']?></td>
-			        <?
+			        <?php
 			        	break;
 			        	}
 		            ?>
@@ -98,6 +98,6 @@
 			</div><br/><br/><br/>
 		</div>
 	</div>
-<?
+<?php
 	require_once('../lib/common/bottom.php');
 ?>

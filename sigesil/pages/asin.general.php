@@ -1,4 +1,4 @@
-<?
+<?php
     require("../lib/core.lib.php"); 
     
     $var_puerta = $GPC ['txt_puerta'];

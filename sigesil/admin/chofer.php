@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('../lib/core.lib.php');
 
 $chofer = new Chofer();
@@ -76,7 +76,7 @@ $validator->printScript();
     });
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
-    <? echo $html->input('Chofer.id', $infoChofer[0]['id'], array('type' => 'hidden')); ?>
+    <?php echo $html->input('Chofer.id', $infoChofer[0]['id'], array('type' => 'hidden')); ?>
     <div id="titulo_modulo">
         CHOFER<br/><hr/>
     </div>
@@ -84,7 +84,7 @@ $validator->printScript();
         <tr>
             <td><span class="msj_rojo">* </span>Cedula/Rif </td>
             <td id="cedula">
-                <?
+                <?php
                     echo $html->select('nacionalidad',array('options'=>$listaNacion, 'selected' => substr(trim($infoChofer[0]['ced_rif']), 0, 1)));
                     echo "&nbsp;".$html->input('Chofer.ced_rif', substr(trim($infoChofer[0]['ced_rif']), 1), array('type' => 'text', 'length' => '10', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
                     //echo $html->input('Org.rif', $infoChofer[0]['rif'], array('type' => 'text', 'class' => 'estilo_campos'));
@@ -93,47 +93,47 @@ $validator->printScript();
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Nombre </td>
-            <td><? echo $html->input('Chofer.nombre', $infoChofer[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><?php echo $html->input('Chofer.nombre', $infoChofer[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td>Organizaci&oacute;n </td>
-            <td><? echo $html->select('Chofer.id_org', array('options' => $listaOrg, 'selected' => $infoChofer[0]['id_org'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
+            <td><?php echo $html->select('Chofer.id_org', array('options' => $listaOrg, 'selected' => $infoChofer[0]['id_org'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td>Direcci&oacute;n </td>
-            <td><? echo $html->input('Chofer.direccion', $infoChofer[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><?php echo $html->input('Chofer.direccion', $infoChofer[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td>Pa&iacute;s </td>
-            <td><? echo $html->select('Chofer.id_pais', array('options' => $listaP, 'selected' => $infoChofer[0]['id_pais'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
+            <td><?php echo $html->select('Chofer.id_pais', array('options' => $listaP, 'selected' => $infoChofer[0]['id_pais'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td>Estado </td>
-            <td><? echo $html->select('id_estado', array('options' => $listaE, 'selected' => $infoChofer[0]['id_estado'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
+            <td><?php echo $html->select('id_estado', array('options' => $listaE, 'selected' => $infoChofer[0]['id_estado'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td>Municipio </td>
             <td>
                 <div id="mcpo">
-                    <? echo $html->select('id_municipio', array('options' => $listaM, 'selected' => $infoChofer[0]['id_municipio'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?>
+                    <?php echo $html->select('id_municipio', array('options' => $listaM, 'selected' => $infoChofer[0]['id_municipio'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?>
                 </div>
             </td>
         </tr>
         <tr>
             <td>Estatus </td>
-            <td><? echo $html->select('Chofer.estatus', array('options' => $estatus, 'selected' => $infoChofer[0]['estatus'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
+            <td><?php echo $html->select('Chofer.estatus', array('options' => $estatus, 'selected' => $infoChofer[0]['estatus'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td>&nbsp;</td>
         </tr>
         <tr align="center">
             <td colspan="2">
-                <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
+                <?php echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
+                <?php echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
             </td>
         </tr>
     </table>
 </form>
-<?
+<?php
 require('../lib/common/footer.php');
 ?>

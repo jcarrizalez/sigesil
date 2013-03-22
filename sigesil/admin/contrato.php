@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('../lib/core.lib.php');
 
 $contrato = new Contrato();
@@ -72,19 +72,19 @@ $validator->printScript();
     });
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
-    <? echo $html->input('Contrato.id', $infoContrato[0]['id'], array('type' => 'hidden')); ?>
+    <?php echo $html->input('Contrato.id', $infoContrato[0]['id'], array('type' => 'hidden')); ?>
     <div id="titulo_modulo">
         CONTRATO<br/><hr/>
     </div>
     <table align="center">
         <tr>
             <td><span class="msj_rojo">* </span>Cosecha </td>
-            <td><? echo $html->select('Contrato.id_cosecha', array('options' => $listadoC, 'selected' => $infoContrato[0]['id_cosecha'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
+            <td><?php echo $html->select('Contrato.id_cosecha', array('options' => $listadoC, 'selected' => $infoContrato[0]['id_cosecha'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Cedula/Rif </td>
             <td id="tdPro">
-                <?
+                <?php
                     echo $html->select('nacionalidad',array('options'=>$listaNacion, 'selected' => substr(trim($infoContrato[0]['ced_rif']), 0, 1)));
                     echo "&nbsp;".$html->input('productor', substr(trim($infoContrato[0]['ced_rif']), 1), array('type' => 'text', 'length' => '10', 'class' => 'positive', 'style' => 'width:152px'));
                     
@@ -93,44 +93,44 @@ $validator->printScript();
                         <tr>
                             <td><span class="msj_rojo">* </span>Nombre </td>
                             <td>
-                                <?
+                                <?php
                                     echo $html->input('nombre_pro', $infoContrato[0]['nombre'], array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos', 'style' => 'width:152'));
                                     echo $html->input('Contrato.id_productor', $infoContrato[0]['id'], array('type' => 'hidden'));
                                 ?>
                             </td>
                         </tr>
-                        <?
+                        <?php
                     }
                 ?>
             </td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Nro Contrato </td>
-            <td id="tdNro"><? echo $html->input('Contrato.nro_contrato', $infoContrato[0]['nro_contrato'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td id="tdNro"><?php echo $html->input('Contrato.nro_contrato', $infoContrato[0]['nro_contrato'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td>Descripci&oacute;n </td>
-            <td><? echo $html->input('Contrato.descripcion', $infoContrato[0]['descripcion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><?php echo $html->input('Contrato.descripcion', $infoContrato[0]['descripcion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td>Ton. Recibidas </td>
-            <td><? echo $html->input('Contrato.toneladas_rec', $infoContrato[0]['toneladas_rec'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
+            <td><?php echo $html->input('Contrato.toneladas_rec', $infoContrato[0]['toneladas_rec'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
         </tr>
         <tr>
             <td>Ton. Contratadas </td>
-            <td><? echo $html->input('Contrato.toneladas_con', $infoContrato[0]['toneladas_con'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
+            <td><?php echo $html->input('Contrato.toneladas_con', $infoContrato[0]['toneladas_con'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
         </tr>
         <tr>
             <td>&nbsp;</td>
         </tr>
         <tr align="center">
             <td colspan="2">
-                <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
+                <?php echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
+                <?php echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
             </td>
         </tr>
     </table>
 </form>
-<?
+<?php
 require('../lib/common/footer.php');
 ?>

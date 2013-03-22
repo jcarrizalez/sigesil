@@ -22,7 +22,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
         <title><?php echo SYSTEM_NAME ?></title>
-        <link href="<?=DOMAIN_ROOT?>css/frontend.css" rel="stylesheet" type="text/css" />
+        <link href="<?php echo DOMAIN_ROOT?>css/frontend.css" rel="stylesheet" type="text/css" />
         <script language="javascript">
             function closeMessage(){
                 ventana = window.self;
@@ -33,7 +33,7 @@
     </head>
     <body>
         <div id="titulo_modulo">
-            Detalle del Despacho<br/><input id="cerrar" name="cerrar" type="button" onclick="closeMessage()" value="<?="Cerrar"?>" /><hr/>
+            Detalle del Despacho<br/><input id="cerrar" name="cerrar" type="button" onclick="closeMessage()" value="<?php echo "Cerrar"?>" /><hr/>
         </div>
         <table align="center" border="0" cellspacing="0">
             <tr align="center" class="titulos_tabla borde_th_reporte">
@@ -108,7 +108,7 @@
             <tr>
                 <td colspan="20" align="center">
                     <form name="form1" id="form1" method="POST" action="#" enctype="multipart/form-data">
-                    <?
+                    <?php
                         echo $html->input('id', $detalleDespacho[0]['id'], array('type' => 'hidden'));
                         if($detalleDespacho[0]['estatus'] == 5)
                             echo $html->input('ac', 'Liquidacion', array('type' => 'submit'));

@@ -1,4 +1,4 @@
-<? require_once('../lib/core.lib.php'); 
+<?php require_once('../lib/core.lib.php'); 
 if(DEBUG==1){
     $dbTool = new cls_dbtools();
     $i = $_POST['toExecute'];
@@ -11,27 +11,27 @@ if(DEBUG==1){
 
         <table width="100%" border="1">
             <tr>
-                <? foreach($result[0] as $column=>$value) {
+                <?php foreach($result[0] as $column=>$value) {
                     if($i%2) { ?>
-                    <th><? echo $column ?></th>
-                <?  }
+                    <th><?php echo $column ?></th>
+                <?php  }
                     $i++;
                    }?>
             </tr>
-            <? foreach($result as $row) {?>
+            <?php foreach($result as $row) {?>
                 <tr>
-            <?  $i=0;
+            <?php  $i=0;
                 foreach($row as $column=>$value) {
                     if($i%2) { ?>
-                    <td><? echo $value ?></td>
-                <?  }
+                    <td><?php echo $value ?></td>
+                <?php  }
                     $i++;
                    }?>
             </tr>
-            <? } ?>    
+            <?php } ?>    
         </table>
         Query:
-<?    } else{
+<?php    } else{
         echo "NO RESULTS FOR THIS QUERY.<br/>";
     }
     echo $query; 

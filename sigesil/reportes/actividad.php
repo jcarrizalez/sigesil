@@ -43,7 +43,7 @@
             <tr>
                 <td width="1">Desde </td>
                 <td width="200">
-                    <? echo $html->input('fecha_inicio', $fdesde, array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?>
+                    <?php echo $html->input('fecha_inicio', $fdesde, array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?>
                     <img src="../images/calendario.png" id="fdesde" width="16" height="16" style="cursor:pointer" />
                     <script>
                         Calendar.setup({
@@ -71,7 +71,7 @@
             <tr>                    
                 <td>Hasta </td>
                 <td>
-                    <? echo $html->input('fecha_fin', $fhasta, array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?>
+                    <?php echo $html->input('fecha_fin', $fhasta, array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?>
                     <img src="../images/calendario.png" id="fhasta" width="16" height="16" style="cursor:pointer" />
                     <script>
                         Calendar.setup({
@@ -113,7 +113,7 @@
             </tr>
             <tr id="botones">
                 <td colspan="4" style="padding-top: 20px;">
-                    <?
+                    <?php
                         echo $html->input('ac', 'Buscar', array('type' => 'submit'));
                         echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
                     ?>
@@ -123,7 +123,7 @@
     </form>
 </div><hr/>
     <div id="paginador">
-        <?
+        <?php
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
             $paginador->print_paginator('pulldown');
@@ -151,7 +151,7 @@
                     for ($i = 0, $cant = count($objlogs->lista); $i < $cant; $i++) {
                         $classname = $general->obtenerClaseFila($i);
                 ?>
-                    <tr class="<?= $classname ?>" onMouseOver="this.className='highlight2'" onMouseOut="this.className='<?= $classname ?>'">
+                    <tr class="<?php echo $classname ?>" onMouseOver="this.className='highlight2'" onMouseOut="this.className='<?php echo $classname ?>'">
                         <td><?php echo $objlogs->lista[$i]['usuario_info'] ?></td>
                         <!--td><?php echo $objlogs->lista[$i]['usuario_email'] ?></td-->
                         <td align="center" ><?php echo $objlogs->lista[$i]['centro_acopio'] ?></td>
@@ -168,7 +168,7 @@
     </tr>  
 </table>
 <div id="paginador">
-    <?
+    <?php
         $paginador->print_page_counter('Pag', 'de');
         echo "&nbsp;&nbsp;";
         $paginador->print_paginator('pulldown');

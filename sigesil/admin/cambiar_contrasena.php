@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('../lib/core.lib.php');
 
 if(empty($_SESSION['s_id'])){
@@ -41,7 +41,7 @@ $validator->printScript();
     }
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar">
-    <?
+    <?php
     echo $html->input('Usuario.id', $infoUsuario[0]['id'], array('type' => 'hidden'));
     echo $html->input('Perfil.id', $infoUsuario[0]['id_u_p'], array('type' => 'hidden'));
     ?>
@@ -49,7 +49,7 @@ $validator->printScript();
         CAMBIAR CONTRASEÑA<br/><hr/>
     </div>
     <div id="mensajes">
-        <?
+        <?php
             switch($GPC['msg']){
                 case 'error':
                     echo "<span class='msj_rojo'>Ocurri&oacute; un Problema !</span>";
@@ -68,23 +68,23 @@ $validator->printScript();
             </tr>
             <tr>
                 <td>Nombres </td>
-                <td><? echo $html->input('Usuario.nombre', $infoUsuario[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><?php echo $html->input('Usuario.nombre', $infoUsuario[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Apellidos </td>
-                <td><? echo $html->input('Usuario.apellido', $infoUsuario[0]['apellido'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><?php echo $html->input('Usuario.apellido', $infoUsuario[0]['apellido'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>C&eacute;dula </td>
-                <td><? echo $html->input('Usuario.cedula', $infoUsuario[0]['cedula'], array('type' => 'text', 'class' => 'estilo_campos positive', 'readOnly' => true)); ?></td>
+                <td><?php echo $html->input('Usuario.cedula', $infoUsuario[0]['cedula'], array('type' => 'text', 'class' => 'estilo_campos positive', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>Contrase&ntilde;a </td>
-                <td><? echo $html->input('verif_con', '', array('type' => 'password', 'class' => 'estilo_campos')); ?></td>
+                <td><?php echo $html->input('verif_con', '', array('type' => 'password', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>Confirmar Contrase&ntilde;a </td>
-                <td><? echo $html->input('Usuario.contrasena', '', array('type' => 'password', 'class' => 'estilo_campos')); ?></td>
+                <td><?php echo $html->input('Usuario.contrasena', '', array('type' => 'password', 'class' => 'estilo_campos')); ?></td>
             </tr>
         </table>
     </fieldset>
@@ -94,11 +94,11 @@ $validator->printScript();
         </tr>
         <tr align="center">
             <td colspan="2">
-                <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
+                <?php echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
             </td>
         </tr>
     </table>
 </form>
-<?
+<?php
 require('../lib/common/footer.php');
 ?>

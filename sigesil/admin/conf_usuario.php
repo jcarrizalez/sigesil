@@ -42,61 +42,61 @@
     <form action="?ac=save" method="post" id="formUsuario">
         <br>
         <table width="100%" cellspacing="0" cellpadding="0" border="0" >
-            <? if($mensaje != null){ ?>
+            <?php if($mensaje != null){ ?>
             <tr>
-                <td colspan="3" align="center" height="30" valign="top"><strong><span class="etiquetas"><?=$mensaje?></span></strong></td>
+                <td colspan="3" align="center" height="30" valign="top"><strong><span class="etiquetas"><?php echo $mensaje?></span></strong></td>
             </tr>
-            <?
+            <?php
                     unset($mensaje);
                 }
             ?>
             <tr>
                 <td width="35%" align="right"><strong><span class="etiquetas">Nombres</span></strong></td>
                 <td width="3%" align="center" class="requerido">*</td>
-                <td width="62%"><? echo $html->input('Usuario.nombre', $usuarioInfo[0]['nombre'], array('class' => 'camposTexto')) ?></td>
+                <td width="62%"><?php echo $html->input('Usuario.nombre', $usuarioInfo[0]['nombre'], array('class' => 'camposTexto')) ?></td>
             </tr>
             <tr>
                 <td width="35%" align="right"><strong><span class="etiquetas">Apellidos</span></strong></td>
                 <td width="3%" align="center" class="requerido">*</td>
-                <td width="62"><? echo $html->input('Usuario.apellido', $usuarioInfo[0]['apellido'], array('class' => 'camposTexto')) ?></td>
+                <td width="62"><?php echo $html->input('Usuario.apellido', $usuarioInfo[0]['apellido'], array('class' => 'camposTexto')) ?></td>
             </tr>
             <tr>
                 <td width="35%" align="right"><strong><span class="etiquetas">C&eacute;dula</span></strong></td>
                 <td width="3%" align="center" class="requerido"></td>
-                <td width="62%"><span style="color: #000000; font-family: arial,helvetica,sans-serif; font-size: 12px;"><? echo $usuarioInfo[0]['cedula']; ?></span></td>
+                <td width="62%"><span style="color: #000000; font-family: arial,helvetica,sans-serif; font-size: 12px;"><?php echo $usuarioInfo[0]['cedula']; ?></span></td>
             </tr>
             <tr>
                 <td width="35%" align="right"><strong><span class="etiquetas">Edad</span></strong></td>
                 <td width="3%" align="center" class="requerido">*</td>
-                <td width="62%"><? echo $html->input('Usuario.edad', $usuarioInfo[0]['edad'], array('class' => 'camposTexto')) ?></td>
+                <td width="62%"><?php echo $html->input('Usuario.edad', $usuarioInfo[0]['edad'], array('class' => 'camposTexto')) ?></td>
             </tr>
-            <?
+            <?php
                 $sexoList = array(''=>'Seleccione', 'F'=>'Femenino', 'M'=>'Masculino');
             ?>
             <tr>
                 <td width="35%" align="right"><strong><span class="etiquetas">Sexo</span></strong></td>
                 <td width="3%" align="center" class="requerido">*</td>
-                <td width="62%"><? echo $html->select('Usuario.sexo',array('options'=>$sexoList,'selected' => $usuarioInfo[0]['sexo'])); ?></td>
+                <td width="62%"><?php echo $html->select('Usuario.sexo',array('options'=>$sexoList,'selected' => $usuarioInfo[0]['sexo'])); ?></td>
             </tr>
             <tr>
                 <td width="35%" align="right"><strong><span class="etiquetas">Contrasena</span></strong></td>
                 <td width="3%" align="center" class="requerido">*</td>
-                <td width="62%"><? echo $html->input('contrasenaant', '', array('type' => 'password', 'class' => 'camposTexto')) ?></td>
+                <td width="62%"><?php echo $html->input('contrasenaant', '', array('type' => 'password', 'class' => 'camposTexto')) ?></td>
             </tr>
             <tr>
                 <td width="35%" align="right"><strong><span class="etiquetas">Confirmar Contrasena</span></strong></td>
                 <td width="3%" align="center" class="requerido">*</td>
-                <td width="62%"><? echo $html->input('Usuario.contrasena', '', array('type' => 'password', 'class' => 'camposTexto')) ?></td>
+                <td width="62%"><?php echo $html->input('Usuario.contrasena', '', array('type' => 'password', 'class' => 'camposTexto')) ?></td>
             </tr>
             <!--<tr>
                 <td width="35%" align="right"><strong><span class="etiquetas"><?php echo $lang['txtSecurityQuestion'] ?></span></strong></td>
                 <td width="3%" align="center" class="requerido">*</td>
-                <td width="62%"><? echo $html->input('Usuario.question', $usuarioInfo[0]['question'], array('class' => 'camposTexto')) ?></td>
+                <td width="62%"><?php echo $html->input('Usuario.question', $usuarioInfo[0]['question'], array('class' => 'camposTexto')) ?></td>
             </tr>
             <tr>
                 <td width="35%" align="right"><strong><span class="etiquetas"><?php echo $lang['txtAnswer'] ?></span></strong></td>
                 <td width="3%" align="center" class="requerido">*</td>
-                <td width="62%"><? echo $html->input('Usuario.answer', $usuarioInfo[0]['answer'], array('class' => 'camposTexto')) ?></td>
+                <td width="62%"><?php echo $html->input('Usuario.answer', $usuarioInfo[0]['answer'], array('class' => 'camposTexto')) ?></td>
             </tr>-->
         </table>
         <div id="titulo">
@@ -107,8 +107,8 @@
                     <td height="40" align="center"><input type="submit" value="Guardar" id="btnSave" /></td>
                 </tr>
             </table>
-            <?
+            <?php
                 echo $html->input('Usuario.id', $usuarioInfo[0]['id'], array('type' => 'hidden'));
             ?>
     </form>
-<? require('../lib/common/footer.php'); ?>
+<?php require('../lib/common/footer.php'); ?>

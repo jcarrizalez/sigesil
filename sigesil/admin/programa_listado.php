@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
     
     $programa = new Programa();
@@ -57,7 +57,7 @@
         PROGRAMAS<br/><hr/>
     </div>
     <div id="mensajes">
-        <?
+        <?php
             switch($GPC['msg']){
                 case 'exitoso':
                     echo "<span class='msj_verde'>Registro Guardado !</span>";
@@ -72,7 +72,7 @@
             <table width="100%">
                 <tr id="botones">
                     <td colspan="3">
-                        <?
+                        <?php
                             $general->crearAcciones($acciones, '', 1);
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
                         ?>
@@ -83,9 +83,9 @@
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
             <th>&nbsp;</th>
-            <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+            <?php if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
                 <th>Centro de Acopio</th>
-            <? } ?>
+            <?php } ?>
             <th>C&oacute;digo</th>
             <th>Nombre</th>
             <th>Proyectado</th>
@@ -95,27 +95,27 @@
             <th>Estatus</th>
             <th>Acci&oacute;n</th>
         </tr>
-        <?
+        <?php
             $i=0;
             foreach($listadoProgramas as $dataPrograma){
                 $clase = $general->obtenerClaseFila($i);
                 $listadoCosechas = $cosecha->buscarCosechaP('', $dataPrograma['id']);
         ?>
-        <tr class="<?=$clase?>">
+        <tr class="<?php echo $clase?>">
             <td align="right" width="1">
                 <a href="javascript:muestraPR('<?php echo $i?>')"><img src="../images/mas.png" width="16" height="16" id="imgmes_<?php echo $i?>" /></a>
             </td>
-            <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
-                <td><?=$dataPrograma['ca_nombre']?></td>
-            <? } ?>
-            <td align="center"><?=$dataPrograma['codigo']?></td>
-            <td><?=$dataPrograma['nombre']?></td>
+            <?php if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+                <td><?php echo $dataPrograma['ca_nombre']?></td>
+            <?php } ?>
+            <td align="center"><?php echo $dataPrograma['codigo']?></td>
+            <td><?php echo $dataPrograma['nombre']?></td>
             <td align="center">-</td>
             <td align="center">-</td>
-            <td align="center"><?=$general->date_sql_screen($dataPrograma['fecha_inicio'], '', 'es', '-')?></td>
-            <td align="center"><?=$general->date_sql_screen($dataPrograma['fecha_fin'], '', 'es', '-')?></td>
+            <td align="center"><?php echo $general->date_sql_screen($dataPrograma['fecha_inicio'], '', 'es', '-')?></td>
+            <td align="center"><?php echo $general->date_sql_screen($dataPrograma['fecha_fin'], '', 'es', '-')?></td>
             <td align="center">
-                <?
+                <?php
                     if($dataPrograma['estatus'] == 't')
                         echo $html->link('<img src="../images/habilitar.png" width="16" height="16" title=Activo>');
                     else
@@ -123,31 +123,31 @@
                 ?>
             </td>
             <td align="center">
-                <?
+                <?php
                     $urls = array(1 => 'programa.php?ac=editar&id='.$dataPrograma['id'], 'programa_listado.php?ac=eliminar&id='.$dataPrograma['id']."&estatus=f");
                     $general->crearAcciones($acciones, $urls);
                 ?>
             </td>
         </tr>
         <tbody id="tbodyPN_<?php echo $i?>" style="display:none">
-            <?
+            <?php
                 $j=0;
                 foreach($listadoCosechas as $dataCosecha){
             ?>
             <tr class="terceraclase">
-                <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+                <?php if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
                 <td colspan="2">&nbsp;</td>
-                <? }else{ ?>
+                <?php }else{ ?>
                 <td>&nbsp;</td>
-                <? } ?>
-                <td align="center"><?=$dataCosecha['codigo']?></td>
-                <td><?=$dataCosecha['nombre_cosecha']?></td>
-                <td align="center"><?=$dataCosecha['proyectado']?></td>
-                <td align="center"><?=$dataCosecha['area_siembra']?></td>
-                <td align="center"><?=$general->date_sql_screen($dataCosecha['fecha_inicio'], '', 'es', '-')?></td>
-                <td align="center"><?=$general->date_sql_screen($dataCosecha['fecha_fin'], '', 'es', '-')?></td>
+                <?php } ?>
+                <td align="center"><?php echo $dataCosecha['codigo']?></td>
+                <td><?php echo $dataCosecha['nombre_cosecha']?></td>
+                <td align="center"><?php echo $dataCosecha['proyectado']?></td>
+                <td align="center"><?php echo $dataCosecha['area_siembra']?></td>
+                <td align="center"><?php echo $general->date_sql_screen($dataCosecha['fecha_inicio'], '', 'es', '-')?></td>
+                <td align="center"><?php echo $general->date_sql_screen($dataCosecha['fecha_fin'], '', 'es', '-')?></td>
                 <td align="center">
-                    <?
+                    <?php
                         if($dataCosecha['estatus'] == 't')
                             echo $html->link('<img src="../images/habilitar.png" width="16" height="16" title=Activo>');
                         else
@@ -155,7 +155,7 @@
                     ?>
                 </td>
                 <td align="center">
-                    <?
+                    <?php
                         $urls = array(1 => 'cosecha.php?ac=editar&idP='.$dataPrograma['id'].'&id='.$dataCosecha['id']);
                         $acciones[0]['eliminar'] = 0;
                         $general->crearAcciones($acciones, $urls);
@@ -163,12 +163,12 @@
                     ?>
                 </td>
             </tr>
-            <?
+            <?php
                 $j++;
                 }
             ?>
         </tbody>
-        <?
+        <?php
             $i++;
             }
         ?>
@@ -177,6 +177,6 @@
             <td colspan="4">&nbsp;</td>
         </tr>
     </table>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

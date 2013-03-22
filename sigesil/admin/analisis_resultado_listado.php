@@ -100,10 +100,10 @@ require('../lib/common/init_calendar.php');
     });
 </script>
 <div id="titulo_modulo">    
-    RESULTADOS DE ANALISIS - <? echo $listaMov[$GPC['mov']]; ?><hr/>    
+    RESULTADOS DE ANALISIS - <?php echo $listaMov[$GPC['mov']]; ?><hr/>    
 </div> 
 <div id="mensajes">
-    <?    
+    <?php    
         switch($GPC['msg']){
             case 'exitoso':
                 echo "<span class='msj_verde'>Registro Guardado !</span>";
@@ -120,7 +120,7 @@ require('../lib/common/init_calendar.php');
 <!--            <tr>
                 <td width="1">Fecha</td>
                 <td width="200">
-                    <? 
+                    <?php 
                     //$GPC['fecha']
                     echo $html->input('fecha', $GPC['fecha'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?>
                     <img src="../images/calendario.png" id="fdesde" width="16" height="16" style="cursor:pointer" />
@@ -135,13 +135,13 @@ require('../lib/common/init_calendar.php');
                     </script>
                 </td>
                 <td>Numero</td>
-                <td><?=$html->input('numEntrada', $GPC['numEntrada'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'class' => 'crproductor positive'));?> </td>
+                <td><?php echo $html->input('numEntrada', $GPC['numEntrada'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'class' => 'crproductor positive'));?> </td>
             </tr>
             <tr>
             </tr>-->
             <tr id="botones" aligment="right">
                 <td colspan="4">
-                    <?
+                    <?php
                         echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));    
                         $general->crearAcciones($acciones, '', 1);
                         echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
@@ -152,7 +152,7 @@ require('../lib/common/init_calendar.php');
     </form>
 </div><hr/>
 <div id="paginador">
-    <?
+    <?php
         $paginador->print_page_counter('Pag', 'de');
         echo "&nbsp;&nbsp;";
         $paginador->print_paginator('pulldown');
@@ -160,40 +160,40 @@ require('../lib/common/init_calendar.php');
 </div>
 <table align="center" width="100%" border="0">
     <tr align="center" class="titulos_tabla"> 
-    <? if ($_SESSION['s_perfil_id']==GERENTEG) { ?>
+    <?php if ($_SESSION['s_perfil_id']==GERENTEG) { ?>
         <th>Centro de Acopio</th>
-    <?
+    <?php
         }
         if ($_SESSION['s_mov']=='rec') {
     ?>
         <th width="85px">Nro Entrada</th>
-    <? }else{ ?>
+    <?php }else{ ?>
         <th width="85px">Nro Salida</th>
-    <? } ?>
+    <?php } ?>
         <th>Cultivo</th>
-    <? if ($_SESSION['s_mov']=='rec') { ?>
+    <?php if ($_SESSION['s_mov']=='rec') { ?>
         <th>Guia</th>
-    <? }else{ ?>
+    <?php }else{ ?>
         <th>Orden</th>
-    <? } ?>
+    <?php } ?>
         <th>Fecha</th>
         <th>Estatus</th>
         <th>Acci&oacute;n</th>
     </tr>    
-    <?    
+    <?php    
     $i=0;
     foreach($listadoM as $dataMov) {
         $clase = $general->obtenerClaseFila($i); 
     ?>
-    <tr class="<?=$clase?>">
-    <?
+    <tr class="<?php echo $clase?>">
+    <?php
         if ($_SESSION['s_perfil_id']==GERENTEG) {
             
             echo '<td>'.$dataMov['ca_codigo'].' - '.$dataMov['centro_acopio'].'</td>';
         }
     ?>
         <td>
-    <?
+    <?php
         if ($GPC['mov']=='rec') {
             $numero = ($dataMov['numero'] < 10) ? '0'.$dataMov['numero'] : $dataMov['numero'];
             $numEntrada = "R".$numero."-".$general->date_sql_screen($dataMov['fecha_recepcion'], '', 'es', null);
@@ -205,10 +205,10 @@ require('../lib/common/init_calendar.php');
         }
     ?>
         </td>
-        <td><?= $dataMov['cultivo_codigo'].' - '.$dataMov['cultivo_nombre']; ?></td>
-        <td><?=$dataMov['numero_guia']; ?></td>
+        <td><?php echo $dataMov['cultivo_codigo'].' - '.$dataMov['cultivo_nombre']; ?></td>
+        <td><?php echo $dataMov['numero_guia']; ?></td>
         <td>
-        <? 
+        <?php 
         if ($GPC['mov']=='rec')
             echo $general->date_sql_screen($dataMov['fecha_recepcion'],'','es','-');
         if ($GPC['mov']=='des')
@@ -216,7 +216,7 @@ require('../lib/common/init_calendar.php');
         ?>
         </td>
         <td align="center">
-        <?
+        <?php
         switch ($GPC['mov']) {
             case 'rec':
                 switch ($dataMov['estatus_rec']) {
@@ -264,7 +264,7 @@ require('../lib/common/init_calendar.php');
         ?>
         </td>
         <td align="center">
-        <? 
+        <?php 
         switch ($GPC['mov']) {            
             case 'rec':
                 switch ($dataMov['estatus_rec']) {
@@ -289,7 +289,7 @@ require('../lib/common/init_calendar.php');
     if ($GPC['mov']=='rec')
         if ($dataMov['estatus_rec']!=1) {
             /*?>            
-            <img src="../images/imprimir.png" width="16" height="16" title="Detalle" border="0" style="cursor:pointer" onclick="openWindow('<?=DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_recepcion&id_rec=".$dataMov['id']."&ca=".$dataMov['id_centro_acopio']."&re=true"?>','','1200','500','visible');return false;">
+            <img src="../images/imprimir.png" width="16" height="16" title="Detalle" border="0" style="cursor:pointer" onclick="openWindow('<?php echo DOMAIN_ROOT."reportes/imprimir.php?reporte=boleta_recepcion&id_rec=".$dataMov['id']."&ca=".$dataMov['id_centro_acopio']."&re=true"?>','','1200','500','visible');return false;">
             <?*/
         }
     else
@@ -299,7 +299,7 @@ require('../lib/common/init_calendar.php');
     ?>
         </td>
     </tr>
-    <?    
+    <?php    
     $i++;
     }
     ?>
@@ -308,11 +308,11 @@ require('../lib/common/init_calendar.php');
     </tr>
 </table>
 <div id="paginador">
-    <?
+    <?php
         $paginador->print_page_counter('Pag', 'de');
         echo "&nbsp;&nbsp;";
         $paginador->print_paginator('pulldown');
     ?>
 </div>
-<?    require('../lib/common/footer.php');
+<?php    require('../lib/common/footer.php');
 ?>

@@ -230,91 +230,91 @@ function sfWebDebugShowOnlyLogLines(type)
 <!--script-->
 <div id="sfWebDebug">
         <div id="sfWebDebugBar">
-          <a onclick="sfWebDebugToggleMenu(); return false;" href="#"><img alt="Debug toolbar" src="<?=DOMAIN_ROOT?>images/icons/debug.gif" height="20px" width="20px"></a>
+          <a onclick="sfWebDebugToggleMenu(); return false;" href="#"><img alt="Debug toolbar" src="<?php echo DOMAIN_ROOT?>images/icons/debug.gif" height="20px" width="20px"></a>
 
           <ul class="sfWebDebugMenu" id="sfWebDebugDetails" style="">
               <li><span id="sfWebDebugSymfonyVersion">1.0.0</span></li>
-              <li class="sfWebDebugInfo"><a onclick="sfWebDebugShowDetailsFor('sfWebDebugQueries'); return false;" href="#" title="Configuration"><img alt="Config" src="<?=DOMAIN_ROOT?>images/icons/internet-web-browser.png"> QUERY</a></li>
-              <li class="sfWebDebugError"><a onclick="sfWebDebugShowDetailsFor('sfWebDebugHTTP_GET'); return false;" href="#" title="Logs"><img alt="Log" src="<?=DOMAIN_ROOT?>images/icons/internet-web-browser.png">HTTP GET</a></li>
-              <li class="sfWebDebugInfo"><a onclick="sfWebDebugShowDetailsFor('sfWebDebugHTTP_POST'); return false;" href="#" title="Logs"><img alt="Log" src="<?=DOMAIN_ROOT?>images/icons/internet-web-browser.png">HTTP POST</a></li>
-              <li class="sfWebDebugError"><a onclick="sfWebDebugShowDetailsFor('sfWebDebugSESSION'); return false;" href="#" title="Logs"><img alt="Log" src="<?=DOMAIN_ROOT?>images/icons/internet-web-browser.png">SESSION</a></li>
-              <li class="sfWebDebugInfo"><a onclick="sfWebDebugShowDetailsFor('sfWebDebugConstants'); return false;" href="#" title="Logs"><img alt="Log" src="<?=DOMAIN_ROOT?>images/icons/internet-web-browser.png">Constants</a></li>
-              <li class="sfWebDebugInfo"><a onclick="sfWebDebugShowDetailsFor('sfWebDebugLabels'); return false;" href="#" title="Logs"><img alt="Log" src="<?=DOMAIN_ROOT?>images/icons/MultiLanguage.png" height="20px" width="20px">Labels</a></li>
-              <!--li class="sfWebDebugError"><a onclick="sfWebDebugShowDetailsFor('sfWebDebugTest'); return false;" href="#" title="Logs"><img alt="Log" src="<?=DOMAIN_ROOT?>images/icons/internet-web-browser.png" height="20px" width="20px">Track</a></li-->
-              <li class="sfWebDebugInfo"><img alt="Log" src="<?=DOMAIN_ROOT?>images/icons/internet-web-browser.png"><?= number_format(($time_request = $end_request - $ini_request),4).' seg' ?></li>
+              <li class="sfWebDebugInfo"><a onclick="sfWebDebugShowDetailsFor('sfWebDebugQueries'); return false;" href="#" title="Configuration"><img alt="Config" src="<?php echo DOMAIN_ROOT?>images/icons/internet-web-browser.png"> QUERY</a></li>
+              <li class="sfWebDebugError"><a onclick="sfWebDebugShowDetailsFor('sfWebDebugHTTP_GET'); return false;" href="#" title="Logs"><img alt="Log" src="<?php echo DOMAIN_ROOT?>images/icons/internet-web-browser.png">HTTP GET</a></li>
+              <li class="sfWebDebugInfo"><a onclick="sfWebDebugShowDetailsFor('sfWebDebugHTTP_POST'); return false;" href="#" title="Logs"><img alt="Log" src="<?php echo DOMAIN_ROOT?>images/icons/internet-web-browser.png">HTTP POST</a></li>
+              <li class="sfWebDebugError"><a onclick="sfWebDebugShowDetailsFor('sfWebDebugSESSION'); return false;" href="#" title="Logs"><img alt="Log" src="<?php echo DOMAIN_ROOT?>images/icons/internet-web-browser.png">SESSION</a></li>
+              <li class="sfWebDebugInfo"><a onclick="sfWebDebugShowDetailsFor('sfWebDebugConstants'); return false;" href="#" title="Logs"><img alt="Log" src="<?php echo DOMAIN_ROOT?>images/icons/internet-web-browser.png">Constants</a></li>
+              <li class="sfWebDebugInfo"><a onclick="sfWebDebugShowDetailsFor('sfWebDebugLabels'); return false;" href="#" title="Logs"><img alt="Log" src="<?php echo DOMAIN_ROOT?>images/icons/MultiLanguage.png" height="20px" width="20px">Labels</a></li>
+              <!--li class="sfWebDebugError"><a onclick="sfWebDebugShowDetailsFor('sfWebDebugTest'); return false;" href="#" title="Logs"><img alt="Log" src="<?php echo DOMAIN_ROOT?>images/icons/internet-web-browser.png" height="20px" width="20px">Track</a></li-->
+              <li class="sfWebDebugInfo"><img alt="Log" src="<?php echo DOMAIN_ROOT?>images/icons/internet-web-browser.png"><?php echo number_format(($time_request = $end_request - $ini_request),4).' seg' ?></li>
               <li class="last">
-                  <a onclick="document.getElementById('sfWebDebug').style.display='none'; return false;" href="#"><img alt="Close" src="<?=DOMAIN_ROOT?>images/icons/emblem-unreadable.png"></a>
+                  <a onclick="document.getElementById('sfWebDebug').style.display='none'; return false;" href="#"><img alt="Close" src="<?php echo DOMAIN_ROOT?>images/icons/emblem-unreadable.png"></a>
               </li>
           </ul>
         </div>
     <div style="display: none;" class="sfWebDebugTop" id="sfWebDebugQueries">
         <h1>&nbsp;</h1>
-        <? Debug::printDatabaseQueries();?>
+        <?php Debug::printDatabaseQueries();?>
     </div>
     <div style="display: none;" class="sfWebDebugTop" id="sfWebDebugHTTP_GET">
         <h1>&nbsp;</h1>
-        <? Debug::printSuperGlobal('HTTP GET:',$_GET);?>
+        <?php Debug::printSuperGlobal('HTTP GET:',$_GET);?>
     </div>
     <div style="display: none;" class="sfWebDebugTop" id="sfWebDebugHTTP_POST">
         <h1>&nbsp;</h1>
-        <? Debug::printSuperGlobal('HTTP POST:',$_POST);?>
+        <?php Debug::printSuperGlobal('HTTP POST:',$_POST);?>
     </div>
     <div style="display: none;" class="sfWebDebugTop" id="sfWebDebugSESSION">
         <h1>&nbsp;</h1>
-        <? Debug::printSuperGlobal('SESSION:',$_SESSION);?>
+        <?php Debug::printSuperGlobal('SESSION:',$_SESSION);?>
     </div>
     <div style="display: none;" class="sfWebDebugTop" id="sfWebDebugConstants">
         <h1>&nbsp;</h1>
-        <? 
+        <?php 
         Debug::printConstants();
         ?>
     </div>
     <div style="display: none;" class="sfWebDebugTop" id="sfWebDebugTest">
         <?php if (Debug::$config['watches']){?>
-        <h1>Watches(<?= Debug::$watches_count?>)<a title="Toggle details" onclick="sfWebDebugToggle('sfWebDebugWatch'); return false;" href="#"><img alt="Toggle details" src="<?=DOMAIN_ROOT?>images/icons/toggle.gif"></a></h1>
+        <h1>Watches(<?php echo Debug::$watches_count?>)<a title="Toggle details" onclick="sfWebDebugToggle('sfWebDebugWatch'); return false;" href="#"><img alt="Toggle details" src="<?php echo DOMAIN_ROOT?>images/icons/toggle.gif"></a></h1>
         <div style="display: none;" id="sfWebDebugWatch">
-        <?= Debug::$watches_info?>
+        <?php echo Debug::$watches_info?>
             </div>
         <?php } ?>
         <?php if (Debug::$config['dumps']){?>
-        <h1>&nbsp;DUMP on File(<?=  Debug::$dump_count?>)<a title="Toggle details" onclick="sfWebDebugToggle('sfWebDebugDump'); return false;" href="#"><img alt="Toggle details" src="<?=DOMAIN_ROOT?>images/icons/toggle.gif"></a></h1>
+        <h1>&nbsp;DUMP on File(<?php echo  Debug::$dump_count?>)<a title="Toggle details" onclick="sfWebDebugToggle('sfWebDebugDump'); return false;" href="#"><img alt="Toggle details" src="<?php echo DOMAIN_ROOT?>images/icons/toggle.gif"></a></h1>
         <div style="display: none;" id="sfWebDebugDump">
         <?php echo Debug::$dump_info;?>
         </div>
         <?php }?>
         <?php if (Debug::$config['Handler']){?>
-         <h1>&nbsp;HandlerCallback<a title="Toggle details" onclick="sfWebDebugToggle('sfWebDebugHandler'); return false;" href="#"><img alt="Toggle details" src="<?=DOMAIN_ROOT?>images/icons/toggle.gif"></a></h1>
+         <h1>&nbsp;HandlerCallback<a title="Toggle details" onclick="sfWebDebugToggle('sfWebDebugHandler'); return false;" href="#"><img alt="Toggle details" src="<?php echo DOMAIN_ROOT?>images/icons/toggle.gif"></a></h1>
          <div style="display: none;" id="sfWebDebugHandler">
              <table width="800">
                  <tr>
                      <td width="1%">&nbsp;</td>
                      <td width="99%">
         <?php if (Debug::$config['php_errors']){?>
-         <h2>Errors on File(<?= Debug::$error_count['error']?>)<a title="Toggle details" onclick="sfWebDebugToggle('sfWebDebugErrors'); return false;" href="#"><img alt="Toggle details" src="<?=DOMAIN_ROOT?>images/icons/toggle.gif"></a></h2>
+         <h2>Errors on File(<?php echo Debug::$error_count['error']?>)<a title="Toggle details" onclick="sfWebDebugToggle('sfWebDebugErrors'); return false;" href="#"><img alt="Toggle details" src="<?php echo DOMAIN_ROOT?>images/icons/toggle.gif"></a></h2>
          <div style="display: none;" id="sfWebDebugErrors">
         <?php echo Debug::$error['error'];?>
          </div>
          <?php }?>
          <?php if (Debug::$config['php_warnings']){?>
-         <h2>Warnings on File(<?= Debug::$error_count['warning']?>)<a title="Toggle details" onclick="sfWebDebugToggle('sfWebDebugwarning'); return false;" href="#"><img alt="Toggle details" src="<?=DOMAIN_ROOT?>images/icons/toggle.gif"></a></h2>
+         <h2>Warnings on File(<?php echo Debug::$error_count['warning']?>)<a title="Toggle details" onclick="sfWebDebugToggle('sfWebDebugwarning'); return false;" href="#"><img alt="Toggle details" src="<?php echo DOMAIN_ROOT?>images/icons/toggle.gif"></a></h2>
          <div style="display: none;" id="sfWebDebugwarning">
         <?php echo Debug::$error['warning'];?>
          </div>
          <?php }?>
          <?php if (Debug::$config['php_notices']){?>
-          <h2>Notice on File (<?= Debug::$error_count['notice']?>)<a title="Toggle details" onclick="sfWebDebugToggle('sfWebDebugnotice'); return false;" href="#"><img alt="Toggle details" src="<?=DOMAIN_ROOT?>images/icons/toggle.gif"></a></h2>
+          <h2>Notice on File (<?php echo Debug::$error_count['notice']?>)<a title="Toggle details" onclick="sfWebDebugToggle('sfWebDebugnotice'); return false;" href="#"><img alt="Toggle details" src="<?php echo DOMAIN_ROOT?>images/icons/toggle.gif"></a></h2>
          <div style="display: none;" id="sfWebDebugnotice">
         <?php echo Debug::$error['notice'];?>
          </div>
           <?php }?>
           <?php if (Debug::$config['php_suggestions']){?>
-           <h2>Suggestion on File(<?= Debug::$error_count['suggestion']?>)<a title="Toggle details" onclick="sfWebDebugToggle('sfWebDebugsuggestion'); return false;" href="#"><img alt="Toggle details" src="<?=DOMAIN_ROOT?>images/icons/toggle.gif"></a></h2>
+           <h2>Suggestion on File(<?php echo Debug::$error_count['suggestion']?>)<a title="Toggle details" onclick="sfWebDebugToggle('sfWebDebugsuggestion'); return false;" href="#"><img alt="Toggle details" src="<?php echo DOMAIN_ROOT?>images/icons/toggle.gif"></a></h2>
          <div style="display: none;" id="sfWebDebugsuggestion">
         <?php echo Debug::$error['suggestion'];?>
          </div>
            <?php }?>
            <?php if (Debug::$config['php_deprecated']){?>
-            <h2>Deprecated on File(<?= Debug::$error_count['deprecated']?>)<a title="Toggle details" onclick="sfWebDebugToggle('sfWebDebugdeprecated'); return false;" href="#"><img alt="Toggle details" src="<?=DOMAIN_ROOT?>images/icons/toggle.gif"></a></h2>
+            <h2>Deprecated on File(<?php echo Debug::$error_count['deprecated']?>)<a title="Toggle details" onclick="sfWebDebugToggle('sfWebDebugdeprecated'); return false;" href="#"><img alt="Toggle details" src="<?php echo DOMAIN_ROOT?>images/icons/toggle.gif"></a></h2>
          <div style="display: none;" id="sfWebDebugdeprecated">
         <?php echo Debug::$error['deprecated'];?>
          </div>
@@ -325,13 +325,13 @@ function sfWebDebugShowOnlyLogLines(type)
     </div>
          <?php }?>
          <?php if (Debug::$config['checkpoints']){?>
-         <h1>&nbsp;Checkpoints on File(<?= Debug::$checkpoint_count?>)<a title="Toggle details" onclick="sfWebDebugToggle('sfWebDebugCheckpoints'); return false;" href="#"><img alt="Toggle details" src="<?=DOMAIN_ROOT?>images/icons/toggle.gif"></a></h1>
+         <h1>&nbsp;Checkpoints on File(<?php echo Debug::$checkpoint_count?>)<a title="Toggle details" onclick="sfWebDebugToggle('sfWebDebugCheckpoints'); return false;" href="#"><img alt="Toggle details" src="<?php echo DOMAIN_ROOT?>images/icons/toggle.gif"></a></h1>
          <div style="display: none;" id="sfWebDebugCheckpoints">
         <?php echo Debug::$checkpoint_info;?>
          </div>
          <?php }?>
          <?php if (Debug::$config['timers']){?>
-         <h1>&nbsp;Timers on File(<?= Debug::$timer_count?>)<a title="Toggle details" onclick="sfWebDebugToggle('sfWebDebugtimers'); return false;" href="#"><img alt="Toggle details" src="<?=DOMAIN_ROOT?>images/icons/toggle.gif"></a></h1>
+         <h1>&nbsp;Timers on File(<?php echo Debug::$timer_count?>)<a title="Toggle details" onclick="sfWebDebugToggle('sfWebDebugtimers'); return false;" href="#"><img alt="Toggle details" src="<?php echo DOMAIN_ROOT?>images/icons/toggle.gif"></a></h1>
          <div style="display: none;" id="sfWebDebugtimers">
         <?php echo Debug::$timer_info;?>
          </div>
@@ -339,7 +339,7 @@ function sfWebDebugShowOnlyLogLines(type)
     </div>
     <div style="display: none;" class="sfWebDebugTop" id="sfWebDebugLabels">
         <h1>&nbsp;</h1>
-        <?
+        <?php
         Debug::printLables();
         ?>
     </div>

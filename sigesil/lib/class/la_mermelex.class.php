@@ -1,4 +1,4 @@
-<?
+<?php
 
 /*
 ================================================================================
@@ -12,7 +12,7 @@ NAME
     EvalMath - safely evaluate math expressions
     
 SYNOPSIS
-    <?
+    <?php
       include('evalmath.class.php');
       $m = new EvalMath;
       // basic evaluation:

@@ -1,4 +1,4 @@
-<? 
+<?php 
 class Html{
     var $daysArray = array();
     var $monthArray = array("txtJanuary","txtFebruary","txtMarch","txtApril","txtMay","txtJune","txtJuly","txtAugust","txtSeptember","txtOctober","txtNovember","txtDecember");

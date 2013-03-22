@@ -190,7 +190,7 @@
 ?>
 <script type="text/javascript">
     function cancelar(){
-        window.location = '<?=DOMAIN_ROOT?>admin/utilitario_despacho_listado.php';
+        window.location = '<?php echo DOMAIN_ROOT?>admin/utilitario_despacho_listado.php';
     }
     
     $(document).ready(function(){
@@ -306,19 +306,19 @@
         <table align="center" border="0">
             <tr>
                 <td>Fecha Despacho</td>
-                <td><? echo $html->input('Despacho.fecha_des', $general->date_sql_screen($infoMov[0]['fecha_des'], '', 'es', '-'), array('type' => 'text', 'readOnly'=>'true')); ?></td>
+                <td><?php echo $html->input('Despacho.fecha_des', $general->date_sql_screen($infoMov[0]['fecha_des'], '', 'es', '-'), array('type' => 'text', 'readOnly'=>'true')); ?></td>
             </tr> 
             <tr>
                 <td>Numero Salida</td>
-                <td><? echo $html->input('Despacho.numero', $infoMov[0]['numero'], array('type' => 'text', 'readOnly'=>'true')); ?></td>
+                <td><?php echo $html->input('Despacho.numero', $infoMov[0]['numero'], array('type' => 'text', 'readOnly'=>'true')); ?></td>
             </tr> 
             <tr>
                 <td>Cultivo</td>
-                <td><?=$html->select('Recepcion.id_cultivo', array('options' => $listaCu, 'selected' => $infoMov[0]['id_cultivo'],  'default'=>'Seleccione', 'class' => 'estilo_campos'));?></td>
+                <td><?php echo $html->select('Recepcion.id_cultivo', array('options' => $listaCu, 'selected' => $infoMov[0]['id_cultivo'],  'default'=>'Seleccione', 'class' => 'estilo_campos'));?></td>
             </tr>            
             <tr>
                 <td>Orden</td>
-                <td><? echo $html->input('Despacho.numero_guia', $infoMov[0]['numero_guia'], array('type' => 'text')); ?></td>
+                <td><?php echo $html->input('Despacho.numero_guia', $infoMov[0]['numero_guia'], array('type' => 'text')); ?></td>
             </tr>
             <tr>
                 <td>
@@ -329,7 +329,7 @@
             <tr>
                 <td width="130px">Cliente</td>
                 <td width="230px">
-                <?
+                <?php
                     echo $html->select('Despacho.ced_cliente_pre',array('options'=>$listaCR, 'selected' => $infoMov[0]['ced_cliente'][0]));
                     echo $html->input('Despacho.ced_cliente', str_replace($listaCR, "", $infoMov[0]['ced_cliente']), array('type' => 'text', 'class' => 'crproductor')); 
                 ?>
@@ -344,7 +344,7 @@
             <tr>
                 <td width="130px">Chofer</td>
                 <td width="230px">
-                <?
+                <?php
                     echo $html->select('Despacho.ced_chofer_pre',array('options'=>$listaCR, 'selected' => $infoMov[0]['ced_chofer'][0]));
                     echo $html->input('Despacho.ced_chofer', str_replace($listaCR, "", $infoMov[0]['ced_chofer']), array('type' => 'text', 'class' => 'crproductor')); 
                 ?>
@@ -357,7 +357,7 @@
             </tr>            
             <tr>
                 <td>Placa del Vehiculo</td>
-                <td><? echo $html->input('Despacho.placa', $infoMov[0]['placa'], array('type' => 'text')); ?></td>
+                <td><?php echo $html->input('Despacho.placa', $infoMov[0]['placa'], array('type' => 'text')); ?></td>
             </tr>
             <tr>
                 <td></td>
@@ -366,67 +366,67 @@
             <tr>
             <tr>
                 <td>Transporte</td>
-                <td><?=$html->select('Despacho.id_transporte', array('options' => $listaT, 'selected' => $infoMov[0]['id_transporte'],  'default'=>'Seleccione', 'class' => 'estilo_campos'));?></td>
+                <td><?php echo $html->select('Despacho.id_transporte', array('options' => $listaT, 'selected' => $infoMov[0]['id_transporte'],  'default'=>'Seleccione', 'class' => 'estilo_campos'));?></td>
             </tr>
             <tr>
                 <td>Punto de Entrega</td>
-                <td><?=$html->select('Despacho.id_punto_entrega', array('options' => $listaP, 'selected' => $infoMov[0]['id_punto_entrega'],  'default'=>'Seleccione', 'class' => 'estilo_campos'));?></td>
+                <td><?php echo $html->select('Despacho.id_punto_entrega', array('options' => $listaP, 'selected' => $infoMov[0]['id_punto_entrega'],  'default'=>'Seleccione', 'class' => 'estilo_campos'));?></td>
             </tr>
             <tr>
                 <td>Peso lleno 1</td>
-                <td><? echo $html->input('Despacho.peso_01l', number_format($infoMov[0]['peso_01l'],2,'.',''), array('type' => 'text', 'readOnly'=>'true')); ?></td>
+                <td><?php echo $html->input('Despacho.peso_01l', number_format($infoMov[0]['peso_01l'],2,'.',''), array('type' => 'text', 'readOnly'=>'true')); ?></td>
             </tr> 
             <tr>
                 <td>Peso Vacio 1</td>
-                <td><? echo $html->input('Despacho.peso_01v', number_format($infoMov[0]['peso_01v'],2,'.',''), array('type' => 'text', 'readOnly'=>'true')); ?></td>
+                <td><?php echo $html->input('Despacho.peso_01v', number_format($infoMov[0]['peso_01v'],2,'.',''), array('type' => 'text', 'readOnly'=>'true')); ?></td>
             </tr>
             <tr>
                 <td>Peso lleno 2</td>
-                <td><? echo $html->input('Despacho.peso_02l', number_format($infoMov[0]['peso_02l'],2,'.',''), array('type' => 'text', 'readOnly'=>'true')); ?></td>
+                <td><?php echo $html->input('Despacho.peso_02l', number_format($infoMov[0]['peso_02l'],2,'.',''), array('type' => 'text', 'readOnly'=>'true')); ?></td>
             </tr>
             <tr>
                 <td>Peso Vacio 2</td>
-                <td><? echo $html->input('Despacho.peso_02v', number_format($infoMov[0]['peso_02v'],2,'.',''), array('type' => 'text', 'readOnly'=>'true')); ?></td>
+                <td><?php echo $html->input('Despacho.peso_02v', number_format($infoMov[0]['peso_02v'],2,'.',''), array('type' => 'text', 'readOnly'=>'true')); ?></td>
             </tr>
             <tr>
                 <td>Desc Humedad</td>
-                <td><? echo $html->input('Despacho.humedad_des', number_format($infoMov[0]['humedad_des'],2,'.',''), array('type' => 'text', 'readOnly'=>'true')); ?></td>
+                <td><?php echo $html->input('Despacho.humedad_des', number_format($infoMov[0]['humedad_des'],2,'.',''), array('type' => 'text', 'readOnly'=>'true')); ?></td>
             </tr>
             <tr>
                 <td>Desc Impureza</td>
-                <td><? echo $html->input('Despacho.impureza_des', number_format($infoMov[0]['impureza_des'],2,'.',''), array('type' => 'text', 'readOnly'=>'true')); ?></td>
+                <td><?php echo $html->input('Despacho.impureza_des', number_format($infoMov[0]['impureza_des'],2,'.',''), array('type' => 'text', 'readOnly'=>'true')); ?></td>
             </tr>
             <tr>
                 <td>Nro Carril</td>
-                <td><? echo $html->select('Despacho.carril', array('options' => $listaC, 'selected' => $infoMov[0]['carril'],  'default'=>'Seleccione', 'class'=>'estilo_campos')); ?></td>
+                <td><?php echo $html->select('Despacho.carril', array('options' => $listaC, 'selected' => $infoMov[0]['carril'],  'default'=>'Seleccione', 'class'=>'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td>Peso Acondicionado</td>
-                <td><? echo $html->input('Despacho.peso_acon', number_format($infoMov[0]['peso_acon'],2,'.',''), array('type' => 'text', 'readOnly'=>'true')); ?></td>
+                <td><?php echo $html->input('Despacho.peso_acon', number_format($infoMov[0]['peso_acon'],2,'.',''), array('type' => 'text', 'readOnly'=>'true')); ?></td>
             </tr>
             <tr>
                 <td>Peso Acondicionado (liquidar)</td>
-                <td><? echo $html->input('Despacho.peso_acon_liq', number_format($infoMov[0]['peso_acon_liq'],2,'.',''), array('type' => 'text', 'readOnly'=>'true')); ?></td>
+                <td><?php echo $html->input('Despacho.peso_acon_liq', number_format($infoMov[0]['peso_acon_liq'],2,'.',''), array('type' => 'text', 'readOnly'=>'true')); ?></td>
             </tr>
             <tr>
                 <td>Estatus</td>
-                <td><? echo $html->select('Despacho.estatus',array('options'=>$listadoEstatus, 'selected' => $infoMov[0]['estatus_rec'],  'default'=>'Seleccione', 'default' => 'Seleccione'));?></td>
+                <td><?php echo $html->select('Despacho.estatus',array('options'=>$listadoEstatus, 'selected' => $infoMov[0]['estatus_rec'],  'default'=>'Seleccione', 'default' => 'Seleccione'));?></td>
             </tr>
         </table>
     </fieldset>
-    <? echo $html->input('Despacho.id',$infoMov[0]['id'], array('type' => 'hidden')); ?>
+    <?php echo $html->input('Despacho.id',$infoMov[0]['id'], array('type' => 'hidden')); ?>
     <table align="center" border="0">
         <tr>
             <td></td>
         </tr>
         <tr align="center">
             <td colspan="3">
-                <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
+                <?php echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
+                <?php echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
             </td>
         </tr>        
     </table>
 </form>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
     
     $transporte = new Transporte();
@@ -164,7 +164,7 @@ $validator->printScript();
         DESPACHO<br/><hr/>
     </div>
     <div id="mensajes">
-        <?
+        <?php
             switch($GPC['msg']){
                 case 'exitoso':
                     echo "<span class='msj_verde'>Registro Guardado !</span>";
@@ -187,7 +187,7 @@ $validator->printScript();
                 <tr>
                     <td><span class="msj_rojo">* </span>N&uacute;mero de Orden</td>
                     <td>
-                        <? echo $html->input('Orden.numero_orden', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive')); ?>
+                        <?php echo $html->input('Orden.numero_orden', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive')); ?>
                     </td>
                 </tr>
             </tbody>
@@ -200,7 +200,7 @@ $validator->printScript();
                 <tr>
                     <td><span class="msj_rojo">* </span>C&eacute;dula/Rif Chofer</td>
                     <td>
-                        <?
+                        <?php
                             echo $html->select('nacion2', array('options'=>$listaCR));
                             echo "&nbsp;".$html->input('Chofer.ced_rif', '', array('type' => 'text', 'length' => '10', 'class' => 'positive', 'style' => 'width: 150px'));
                         ?>
@@ -208,50 +208,50 @@ $validator->printScript();
                 </tr>
                 <tr>
                     <td><span class="msj_rojo">* </span>Nombre del Chofer</td>
-                    <td><? echo $html->input('Chofer.nombre', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><?php echo $html->input('Chofer.nombre', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
             </tbody>
             <tbody id="placas">
                 <tr>
                     <td><span class="msj_rojo">* </span>Placa Motriz/Chuto</td>
-                    <td><? echo $html->input('Vehiculo.placa', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><?php echo $html->input('Vehiculo.placa', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
             </tbody>
             <tr>
                 <td>Placas Remolque/Batea</td>
-                <td><? echo $html->input('Vehiculo.placa_remolques', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><?php echo $html->input('Vehiculo.placa_remolques', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>C&oacute;digo del Transporte</td>
-                <td><? echo $html->select('Transporte.id',array('options'=>$listadoT, 'default' => 'Seleccione', 'class' => 'estilo_campos otro'))?></td>
+                <td><?php echo $html->select('Transporte.id',array('options'=>$listadoT, 'default' => 'Seleccione', 'class' => 'estilo_campos otro'))?></td>
             </tr>
             <tbody id="otroTransporte"></tbody>
             <tr>
                 <td>Orden de Carga 1</td>
-                <td><? echo $html->input('subOrden1', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive')); ?></td>
+                <td><?php echo $html->input('subOrden1', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive')); ?></td>
             </tr>
             <tr>
                 <td>Kilogramos</td>
-                <td><? echo $html->input('subOrdenkg1', '', array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
+                <td><?php echo $html->input('subOrdenkg1', '', array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
             </tr>
             <tr>
                 <td>Orden de Carga 2</td>
-                <td><? echo $html->input('subOrden2', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive')); ?></td>
+                <td><?php echo $html->input('subOrden2', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive')); ?></td>
             </tr>
             <tr>
                 <td>Kilogramos</td>
-                <td><? echo $html->input('subOrdenkg2', '', array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
+                <td><?php echo $html->input('subOrdenkg2', '', array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
             </tr>
             <tbody id="ptosEntrega">
                 <tr>
                     <td><span class="msj_rojo">* </span>Punto de Entrega</td>
-                    <td><? echo $html->select('PtoEntrega.id',array('default' => 'Seleccione', 'class' => 'estilo_campos otro')); ?></td>
+                    <td><?php echo $html->select('PtoEntrega.id',array('default' => 'Seleccione', 'class' => 'estilo_campos otro')); ?></td>
                 </tr>
             </tbody>
             <tbody id="otroPtoEntrega"></tbody>
             <tr>
                 <td><span class="msj_rojo">* </span>¿C&oacute;mo desea pesar?</td>
-                <td><? echo $html->select('Despacho.cant_muestras', array('options'=>$pesoPartes, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
+                <td><?php echo $html->select('Despacho.cant_muestras', array('options'=>$pesoPartes, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
             </tr>
         </table>
     </fieldset>
@@ -261,12 +261,12 @@ $validator->printScript();
         </tr>
         <tr>
             <td>
-                <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick'=>'cancelar()')); ?>
+                <?php echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
+                <?php echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick'=>'cancelar()')); ?>
             </td>
         </tr>
     </table>
 </form>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

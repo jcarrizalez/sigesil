@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
     
     $cargo = new Cargo();
@@ -35,7 +35,7 @@
         CARGOS<br/><hr/>
     </div>
     <div id="mensajes">
-        <?
+        <?php
             switch($GPC['msg']){
                 case 'exitoso':
                     echo "<span class='msj_verde'>Registro Guardado !</span>";
@@ -51,7 +51,7 @@
             <table width="100%">
                 <tr id="botones">
                     <td colspan="3">
-                        <?
+                        <?php
                             if($_SESSION['s_perfil_id'] == GERENTEG){
                                 echo $html->input('Nuevo', 'Nuevo', array('type' => 'button'));
                             }
@@ -66,33 +66,33 @@
         <tr align="center" class="titulos_tabla">
             <th>Nombre</th>
             <th>Nivel</th>
-            <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+            <?php if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
             <th>Acci&oacute;n</th>
-            <? } ?>
+            <?php } ?>
         </tr>
-        <?
+        <?php
             $i=0;
             foreach($listaCargos as $dataCargo){
                 $clase = $general->obtenerClaseFila($i);
         ?>
-        <tr class="<?=$clase?>">
-            <td><?=$dataCargo['nombre']?></td>
-            <td><?=$dataCargo['nivel']?></td>
-            <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+        <tr class="<?php echo $clase?>">
+            <td><?php echo $dataCargo['nombre']?></td>
+            <td><?php echo $dataCargo['nivel']?></td>
+            <?php if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
             <td align="center">
-                <?
+                <?php
                     echo $html->link('<img src="../images/editar.png" width="16" height="16" title=Editar>', 'silos.php?ac=editar&id='.$dataCargo['id']);
                     echo $html->link('<img src="../images/eliminar2.png" width="16" height="16" title=Eliminar>', 'silos_listado.php?ac=eliminar&id='.$dataCargo['id'], array('onclick' => 'return eliminar();'));
                 ?>
             </td>
-            <? } ?>
+            <?php } ?>
         </tr>
-        <? $i++; } ?>
+        <?php $i++; } ?>
         <tr>
             
             <td colspan="3">&nbsp;</td>
         </tr>
     </table>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

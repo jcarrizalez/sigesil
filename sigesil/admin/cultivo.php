@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('../lib/core.lib.php');
 
 $cultivo = new Cultivo();
@@ -53,42 +53,42 @@ $validator->printScript();
     });
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
-    <? echo $html->input('Cultivo.id', $infoCultivo[0]['id'], array('type' => 'hidden')); ?>
+    <?php echo $html->input('Cultivo.id', $infoCultivo[0]['id'], array('type' => 'hidden')); ?>
     <div id="titulo_modulo">
         CULTIVO<br/><hr/>
     </div>
     <table align="center">
         <tr>
             <td><span class="msj_rojo">* </span>Organizaci&oacute;n </td>
-            <td><? echo $html->select('Cultivo.id_org', array('options' => $listaOrg, 'selected' => $infoCultivo[0]['id_org'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
+            <td><?php echo $html->select('Cultivo.id_org', array('options' => $listaOrg, 'selected' => $infoCultivo[0]['id_org'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>C&oacute;digo </td>
-            <td id="codigo"><? echo $html->input('Cultivo.codigo', $infoCultivo[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
+            <td id="codigo"><?php echo $html->input('Cultivo.codigo', $infoCultivo[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Nombre </td>
-            <td><? echo $html->input('Cultivo.nombre', $infoCultivo[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><?php echo $html->input('Cultivo.nombre', $infoCultivo[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td>¿Cultivo Tipificado? </td>
-            <td><? echo $html->select('Cultivo.tipificado', array('options' => $cultivoTip, 'selected' => $infoCultivo[0]['tipificado'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
+            <td><?php echo $html->select('Cultivo.tipificado', array('options' => $cultivoTip, 'selected' => $infoCultivo[0]['tipificado'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td>Ciclo </td>
-            <td><? echo $html->select('Cultivo.ciclo', array('options' => $listadoCiclos, 'selected' => $infoCultivo[0]['ciclo'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
+            <td><?php echo $html->select('Cultivo.ciclo', array('options' => $listadoCiclos, 'selected' => $infoCultivo[0]['ciclo'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td>&nbsp;</td>
         </tr>
         <tr align="center">
             <td colspan="2">
-                <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
+                <?php echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
+                <?php echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
             </td>
         </tr>
     </table>
 </form>
-<?
+<?php
 require('../lib/common/footer.php');
 ?>

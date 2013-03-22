@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('../lib/core.lib.php');
 
 $vehiculo = new Vehiculo();
@@ -11,10 +11,10 @@ switch ($GPC['ac']) {
             if (!empty($vehiculo->id)) {
                 ?>
                     <script type="text/javascript">
-                        window.opener.$('#placas').load('../ajax/detalle_despacho.php?ac=otraPlaca&placa=<?=$GPC['Vehiculo']['placa']?>');
+                        window.opener.$('#placas').load('../ajax/detalle_despacho.php?ac=otraPlaca&placa=<?php echo $GPC['Vehiculo']['placa']?>');
                         window.close();
                     </script>
-                <?
+                <?php
             }
         }
         break;
@@ -48,31 +48,31 @@ $validator->printScript();
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Marca </td>
-            <td><? echo $html->input('Vehiculo.marca', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><?php echo $html->input('Vehiculo.marca', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td>Color </td>
-            <td><? echo $html->input('Vehiculo.color', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><?php echo $html->input('Vehiculo.color', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td>Capacidad </td>
-            <td><? echo $html->input('Vehiculo.capacidad', '', array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
+            <td><?php echo $html->input('Vehiculo.capacidad', '', array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
         </tr>
         <tr>
             <td>Tara Aproximado </td>
-            <td><? echo $html->input('Vehiculo.tara_aprox', '', array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
+            <td><?php echo $html->input('Vehiculo.tara_aprox', '', array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
         </tr>
         <tr>
             <td>&nbsp;</td>
         </tr>
         <tr align="center">
             <td colspan="2">
-                <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
+                <?php echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
+                <?php echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
             </td>
         </tr>
     </table>
 </form>
-<?
+<?php
 require('../lib/common/footer_popup.php');
 ?>

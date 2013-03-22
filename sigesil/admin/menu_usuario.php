@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
     
     $usuario = new Usuario();
@@ -74,7 +74,7 @@
         ASIGNAR MENU<br/><hr/>
     </div>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
-    <?
+    <?php
         echo $html->input('usuario_id', $infoUsuario[0]['id'], array('type' => 'hidden'));
         echo $html->input('perfil_id', $GPC['perfil'], array('type' => 'hidden'));
     ?>
@@ -83,39 +83,39 @@
         <table align="center" border="0">
             <tr>
                 <td>Cedula</td>
-                <td><? echo $html->input('ced_rif', $infoUsuario[0]['cedula'], array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
+                <td><?php echo $html->input('ced_rif', $infoUsuario[0]['cedula'], array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td>Nombre</td>
-                <td><? echo $html->input('nombre', $infoUsuario[0]['nombre']." ".$infoUsuario[0]['apellido'], array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
+                <td><?php echo $html->input('nombre', $infoUsuario[0]['nombre']." ".$infoUsuario[0]['apellido'], array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td>Centro de Acopio</td>
-                <td><? echo $html->input('ced_rif', $infoUsuario[0]['codigo_ca']." ".$infoUsuario[0]['nombre_ca'], array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
+                <td><?php echo $html->input('ced_rif', $infoUsuario[0]['codigo_ca']." ".$infoUsuario[0]['nombre_ca'], array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td>Perfil</td>
-                <td><? echo $html->input('ced_rif', $infoUsuario[0]['nombre_perfil'], array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
+                <td><?php echo $html->input('ced_rif', $infoUsuario[0]['nombre_perfil'], array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
             </tr>
         </table>
     </fieldset>
     <fieldset>
         <legend>Datos del Menu</legend>
         <table align="center" border="0" cellpadding="0" cellspacing="0">
-            <?
+            <?php
                 foreach($opcionesMenu as $padre){
                     if($padre['id_padre'] == 0){
                         $asignarP = (in_array($padre['id'], $menuUsuario)) ? 'checked = "check"' : '';
             ?>
             <tr>
-                <td><input name="padre[]" id="padre_<?=$padre['id']?>" type="checkbox" <?=$asignarP?> class="marcarHijos" value="<?=$padre['id']?>"></td>
-                <td style="font-weight: bold;"><?=$etiqueta[$padre['nombre']]?></td>
+                <td><input name="padre[]" id="padre_<?php echo $padre['id']?>" type="checkbox" <?php echo $asignarP?> class="marcarHijos" value="<?php echo $padre['id']?>"></td>
+                <td style="font-weight: bold;"><?php echo $etiqueta[$padre['nombre']]?></td>
                 <td align="center"><img src="../images/agregar.png" alt="Agregar" title="Agregar" width="16" height="16" /></td>
                 <td align="center"><img src="../images/editar.png" alt="Editar" title="Editar" width="16" height="16" /></td>
                 <td align="center"><img src="../images/eliminar2.png" alt="Eliminar" title="Eliminar" width="16" height="16" /></td>
                 <td align="center"><img src="../images/imprimir.png" alt="Imprimir" title="Imprimir" width="16" height="16" /></td>
             </tr>
-            <?
+            <?php
                         foreach($opcionesMenu as $hijo){
                             if($hijo['id_padre'] == $padre['id']){
                                 $asignarH = (in_array($hijo['id'], $menuUsuario)) ? 'checked = "check"' : '';
@@ -125,33 +125,33 @@
                                 $verifi = ($acciones[$hijo['id']]['imprimir'] == 1) ? 'checked = "check"' : '';
             ?>
             <tr>
-                <td align="right" width="40"><input name="hijo_<?=$padre['id']?>[]" id="hijo_<?=$padre['id']?>" type="checkbox" <?=$asignarH?> class="marcar_<?=$padre['id']?> desmarPadre" value="<?=$hijo['id']?>"></td>
-                <td><?=$etiqueta[$hijo['nombre']]?></td>
+                <td align="right" width="40"><input name="hijo_<?php echo $padre['id']?>[]" id="hijo_<?php echo $padre['id']?>" type="checkbox" <?php echo $asignarH?> class="marcar_<?php echo $padre['id']?> desmarPadre" value="<?php echo $hijo['id']?>"></td>
+                <td><?php echo $etiqueta[$hijo['nombre']]?></td>
                 <td align="center">
-                <? if(in_array($padre['id'], array(1,4))){ ?>
-                <input name="accion_<?=$hijo['id']?>[nuevo]" id ="accion_<?=$hijo['id']?>" type="checkbox" <?=$verifn?> class="" value="1" />
-                <? } ?>
+                <?php if(in_array($padre['id'], array(1,4))){ ?>
+                <input name="accion_<?php echo $hijo['id']?>[nuevo]" id ="accion_<?php echo $hijo['id']?>" type="checkbox" <?php echo $verifn?> class="" value="1" />
+                <?php } ?>
                 </td>
                 <td align="center">
-                <? if(in_array($padre['id'], array(1,2,4))){ ?>
-                <input name="accion_<?=$hijo['id']?>[modificar]" id ="accion_<?=$hijo['id']?>" type="checkbox" <?=$verifm?> class="" value="1" />
-                <? } ?>
+                <?php if(in_array($padre['id'], array(1,2,4))){ ?>
+                <input name="accion_<?php echo $hijo['id']?>[modificar]" id ="accion_<?php echo $hijo['id']?>" type="checkbox" <?php echo $verifm?> class="" value="1" />
+                <?php } ?>
                 </td>
                 <td align="center">
-                <? if(in_array($padre['id'], array(1,4))){ ?>
-                <input name="accion_<?=$hijo['id']?>[eliminar]" id ="accion_<?=$hijo['id']?>" type="checkbox" <?=$verife?> class="" value="1" />
-                <? } ?>
+                <?php if(in_array($padre['id'], array(1,4))){ ?>
+                <input name="accion_<?php echo $hijo['id']?>[eliminar]" id ="accion_<?php echo $hijo['id']?>" type="checkbox" <?php echo $verife?> class="" value="1" />
+                <?php } ?>
                 </td>
                 <td align="center">
-                <? if(in_array($padre['id'], array(3))){ ?>
-                <input name="accion_<?=$hijo['id']?>[imprimir]" id ="accion_<?=$hijo['id']?>" type="checkbox" <?=$verifi?> class="" value="1" />
-                <? } ?>
+                <?php if(in_array($padre['id'], array(3))){ ?>
+                <input name="accion_<?php echo $hijo['id']?>[imprimir]" id ="accion_<?php echo $hijo['id']?>" type="checkbox" <?php echo $verifi?> class="" value="1" />
+                <?php } ?>
                 </td>
             </tr>
-            <?
+            <?php
                             }
                         }
-                        ?><tr><td>&nbsp;</td></tr><?
+                        ?><tr><td>&nbsp;</td></tr><?php
                     }
                 }
             ?>
@@ -163,12 +163,12 @@
         </tr>
         <tr>
             <td>
-                <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'button')); ?>
+                <?php echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
+                <?php echo $html->input('Cancelar', 'Cancelar', array('type' => 'button')); ?>
             </td>
         </tr>
     </table>
 </form>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

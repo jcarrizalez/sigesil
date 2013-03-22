@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
     
     $analisis = new Analisis();
@@ -32,7 +32,7 @@
         ANALISIS<br/><hr/>
     </div>
     <div id="mensajes">
-        <?
+        <?php
             switch($GPC['msg']){
                 case 'exitoso':
                     echo "<span class='msj_verde'>Registro Guardado !</span>";
@@ -49,18 +49,18 @@
                 <tr>
                     <td width="60">Nombre</td>
                     <td>
-                        <? echo $html->input('nombre', $GPC['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?>
+                        <?php echo $html->input('nombre', $GPC['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?>
                     </td>
                 </tr>
                 <tr>
                     <td>Tipo</td>
                     <td>
-                        <? echo $html->select('tipo', array('options'=>$listaTipo, 'default' => 'TODOS', 'selected' => $GPC['tipo'], 'class' => 'estilo_campos')); ?>
+                        <?php echo $html->select('tipo', array('options'=>$listaTipo, 'default' => 'TODOS', 'selected' => $GPC['tipo'], 'class' => 'estilo_campos')); ?>
                     </td>
                 </tr>
                 <tr id="botones">
                     <td colspan="2">
-                        <?
+                        <?php
                             echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
                             $general->crearAcciones($acciones, '', 1);
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button'));
@@ -71,7 +71,7 @@
         </form>
     </div><hr/>
     <div id="paginador">
-        <?
+        <?php
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
             $paginador->print_paginator('pulldown');
@@ -84,7 +84,7 @@
             <th>Tipo</th>
             <th>Acci&oacute;n</th>
         </tr>
-        <?
+        <?php
             $i=0;
             foreach($listadoAnalisis as $dataAnalisis){
                 $clase = $general->obtenerClaseFila($i);
@@ -100,30 +100,30 @@
                     break;
                 }
         ?>
-        <tr class="<?=$clase?>">
-            <td align="center"><?=$dataAnalisis['codigo']?></td>
-            <td><?=$dataAnalisis['nombre']?></td>
-            <td align="center"><?=$tipo?></td>
+        <tr class="<?php echo $clase?>">
+            <td align="center"><?php echo $dataAnalisis['codigo']?></td>
+            <td><?php echo $dataAnalisis['nombre']?></td>
+            <td align="center"><?php echo $tipo?></td>
             <td align="center">
-                <?
+                <?php
                     $urls = array(1 => 'analisis.php?ac=editar&id='.$dataAnalisis['id']);
                     $general->crearAcciones($acciones, $urls);
                 ?>
             </td>
         </tr>
-        <? $i++; } ?>
+        <?php $i++; } ?>
         <tr>
             
             <td colspan="3">&nbsp;</td>
         </tr>
     </table>
     <div id="paginador">
-        <?
+        <?php
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
             $paginador->print_paginator('pulldown');
         ?>
     </div>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

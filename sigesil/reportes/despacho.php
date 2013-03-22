@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
     
     $despacho = new Despacho();
@@ -49,7 +49,7 @@
         REPORTE DE DESPACHOS<br/><hr/>
     </div>
     <div id="mensajes">
-        <?
+        <?php
             switch($GPC['msg']){
                 case 'error':
                     echo "<span class='msj_rojo'>Ocurri&oacute; un Problema !</span>";
@@ -63,7 +63,7 @@
                 <tr>
                     <td width="1">Desde </td>
                     <td width="200">
-                        <? echo $html->input('fecha_inicio', $general->date_sql_screen($fdesde, '', 'es', '-'), array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?>
+                        <?php echo $html->input('fecha_inicio', $general->date_sql_screen($fdesde, '', 'es', '-'), array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?>
                         <img src="../images/calendario.png" id="fdesde" width="16" height="16" style="cursor:pointer" />
                         <script>
                             Calendar.setup({
@@ -77,7 +77,7 @@
                     </td>
                     <td width="1">Hasta </td>
                     <td>
-                        <? echo $html->input('fecha_fin', $general->date_sql_screen($fhasta, '', 'es', '-'), array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?>
+                        <?php echo $html->input('fecha_fin', $general->date_sql_screen($fhasta, '', 'es', '-'), array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?>
                         <img src="../images/calendario.png" id="fhasta" width="16" height="16" style="cursor:pointer" />
                         <script>
                             Calendar.setup({
@@ -90,19 +90,19 @@
                         </script>
                     </td>
                 </tr>
-                <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+                <?php if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
                 <tr>
                     <td width="110">Centro de Acopio:</td>
                     <td colspan="2">
-                        <?
+                        <?php
                             echo $html->select('id_ca',array('options'=>$listaCA, 'selected' => $GPC['id_ca'], 'default' => 'Seleccione'));
                         ?>
                     </td>
                 </tr>
-                <? } ?>
+                <?php } ?>
                 <tr id="botones">
                     <td colspan="4" style="padding-top: 20px;">
-                        <?
+                        <?php
                             echo $html->input('ac', 'Buscar', array('type' => 'submit'));
                             //echo $html->input('ac', 'Excel', array('type' => 'submit'));
                             echo $html->input('ac', 'Pdf', array('type' => 'submit'));
@@ -114,7 +114,7 @@
         </form>
     </div><hr/>
     <div id="paginador">
-        <?
+        <?php
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
             $paginador->print_paginator('pulldown');
@@ -128,7 +128,7 @@
             <th>Cliente</th>
             <th>Accion</th>
         </tr>
-        <?
+        <?php
             $i=0;
             $totalPesoBruto = 0;
             $totalPesoTara = 0;
@@ -147,31 +147,31 @@
                 $totalPesoAcon += $pesoAcon;
                 $idCA = (!empty($idCA)) ? "_$idCA" : '';
         ?>
-        <tr class="<?=$clase?>">
-            <td align="center"><?=$dataDespacho['numero_orden']?></td>
-            <td align="center"><?=$dataDespacho['cultivo']?></td>
-            <td align="center"><?=$dataDespacho['ced_rif']?></td>
-            <td align="center"><?=$dataDespacho['nombre_cliente']?></td>
+        <tr class="<?php echo $clase?>">
+            <td align="center"><?php echo $dataDespacho['numero_orden']?></td>
+            <td align="center"><?php echo $dataDespacho['cultivo']?></td>
+            <td align="center"><?php echo $dataDespacho['ced_rif']?></td>
+            <td align="center"><?php echo $dataDespacho['nombre_cliente']?></td>
             <td align="center">
-                <?
+                <?php
                     $urls = array(3 => '../reportes/pdf_listado_despachos_individual.php?id='.$dataDespacho['numero_orden'].'_'.$fdesde.'_'.$fhasta.$idCA);
                     $general->crearAcciones($acciones, $urls);
                 ?>
             </td>
         </tr>
-        <? $i++; } ?>
+        <?php $i++; } ?>
         <tr>
             
             <td colspan="6">&nbsp;</td>
         </tr>
     </table>
     <div id="paginador">
-        <?
+        <?php
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
             $paginador->print_paginator('pulldown');
         ?>
     </div>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

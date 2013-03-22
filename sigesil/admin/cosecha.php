@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('../lib/core.lib.php');
 
 $programa = new Programa();
@@ -94,25 +94,25 @@ $validator->printScript();
     });
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
-    <? echo $html->input('idP', $GPC['idP'], array('type' => 'hidden')); ?>
-    <? echo $html->input('Cosecha.id', $GPC['id'], array('type' => 'hidden')); ?>
-    <? echo $html->input('Cosecha.id_programa', $dataPrograma[0]['id'], array('type' => 'hidden')); ?>
-    <? echo $html->input('Cosecha.id_cultivo', $dataPrograma[0]['id_cultivo'], array('type' => 'hidden')); ?>
+    <?php echo $html->input('idP', $GPC['idP'], array('type' => 'hidden')); ?>
+    <?php echo $html->input('Cosecha.id', $GPC['id'], array('type' => 'hidden')); ?>
+    <?php echo $html->input('Cosecha.id_programa', $dataPrograma[0]['id'], array('type' => 'hidden')); ?>
+    <?php echo $html->input('Cosecha.id_cultivo', $dataPrograma[0]['id_cultivo'], array('type' => 'hidden')); ?>
     <div id="titulo_modulo">
         COSECHA<br/><hr/>
     </div>
     <table align="center">
         <tr>
             <td>Fecha de Inicio del Programa</td>
-            <td><?= $html->input('Programa.fecha_inicio', $general->date_sql_screen($dataPrograma[0]['fecha_inicio'], '', 'es', '-'), array('type' => 'text', 'class' => 'inputGrilla fechas', 'readOnly' => true)); ?></td>
+            <td><?php echo $html->input('Programa.fecha_inicio', $general->date_sql_screen($dataPrograma[0]['fecha_inicio'], '', 'es', '-'), array('type' => 'text', 'class' => 'inputGrilla fechas', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
             <td>Fecha de Fin del Programa</td>
-            <td><?= $html->input('Programa.fecha_fin', $general->date_sql_screen($dataPrograma[0]['fecha_fin'], '', 'es', '-'), array('type' => 'text', 'class' => 'inputGrilla fechas', 'readOnly' => true)); ?></td>
+            <td><?php echo $html->input('Programa.fecha_fin', $general->date_sql_screen($dataPrograma[0]['fecha_fin'], '', 'es', '-'), array('type' => 'text', 'class' => 'inputGrilla fechas', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
             <td>Cultivo </td>
-            <td><?= $html->input('Programa.Cultivo', "(".trim($dataCultivo[0]['codigo']).") ".$dataCultivo[0]['nombre'], array('type' => 'text', 'class' => 'inputGrilla fechas', 'readOnly' => true)); ?></td>
+            <td><?php echo $html->input('Programa.Cultivo', "(".trim($dataCultivo[0]['codigo']).") ".$dataCultivo[0]['nombre'], array('type' => 'text', 'class' => 'inputGrilla fechas', 'readOnly' => true)); ?></td>
         </tr>
     </table>
     <fieldset id="cosecha_unica">
@@ -124,28 +124,28 @@ $validator->printScript();
                         <tr>
                             <td><span class="msj_rojo">* </span>C&oacute;digo</td>
                             <td rowspan="7">&nbsp;&nbsp;</td>
-                            <td><?= $html->input('codigo1', $dataCosecha[0]['codigo'], array('type' => 'text', 'class' => 'inputGrilla codigo_cul', 'readOnly' => true)); ?></td>
+                            <td><?php echo $html->input('codigo1', $dataCosecha[0]['codigo'], array('type' => 'text', 'class' => 'inputGrilla codigo_cul', 'readOnly' => true)); ?></td>
                         </tr>
                         <tr>
                             <td><span class="msj_rojo">* </span>Nombre</td>
-                            <td><?= $html->input('nombre1', $infoCosecha[0]['nombre'], array('type' => 'text', 'class' => 'inputGrilla')); ?></td>
+                            <td><?php echo $html->input('nombre1', $infoCosecha[0]['nombre'], array('type' => 'text', 'class' => 'inputGrilla')); ?></td>
                         </tr>
                         <tr>
                             <td>Proyectado (Ton.)</td>
-                            <td><?= $html->input('proyectado1', $infoCosecha[0]['proyectado'], array('type' => 'text', 'class' => 'inputGrilla positive')); ?></td>
+                            <td><?php echo $html->input('proyectado1', $infoCosecha[0]['proyectado'], array('type' => 'text', 'class' => 'inputGrilla positive')); ?></td>
                         </tr>
                         <tr>
                             <td>Area Siembra (Hec.)</td>
-                            <td><?= $html->input('area_siembra1', $infoCosecha[0]['area_siembra'], array('type' => 'text', 'class' => 'inputGrilla positive')); ?></td>
+                            <td><?php echo $html->input('area_siembra1', $infoCosecha[0]['area_siembra'], array('type' => 'text', 'class' => 'inputGrilla positive')); ?></td>
                         </tr>
                         <tr>
                             <td>Estatus</td>
-                            <td><? echo $html->select('estatus', array('options' => $estatus, 'selected' => $infoCosecha[0]['estatus'], 'default' => 'Seleccione', 'class' => 'inputGrilla')) ?></td>
+                            <td><?php echo $html->select('estatus', array('options' => $estatus, 'selected' => $infoCosecha[0]['estatus'], 'default' => 'Seleccione', 'class' => 'inputGrilla')) ?></td>
                         </tr>
                         <tr>
                             <td>Fecha Inicio</td>
                             <td>
-                                <?= $html->input('fecha_inicio1', $general->date_sql_screen($infoCosecha[0]['fecha_inicio'], '', 'es', '-'), array('type' => 'text', 'class' => 'inputGrilla fechas', 'readOnly' => 'readOnly')); ?>
+                                <?php echo $html->input('fecha_inicio1', $general->date_sql_screen($infoCosecha[0]['fecha_inicio'], '', 'es', '-'), array('type' => 'text', 'class' => 'inputGrilla fechas', 'readOnly' => 'readOnly')); ?>
                                 <img src="../images/calendario.png" id="finicio1" width="16" height="16" style="cursor:pointer" />
                                 <script>
                                     Calendar.setup({
@@ -161,7 +161,7 @@ $validator->printScript();
                         <tr>
                             <td>Fecha Fin</td>
                             <td>
-                                <?= $html->input('fecha_fin1', $general->date_sql_screen($infoCosecha[0]['fecha_fin'], '', 'es', '-'), array('type' => 'text', 'class' => 'inputGrilla fechas', 'readOnly' => 'readOnly')); ?>
+                                <?php echo $html->input('fecha_fin1', $general->date_sql_screen($infoCosecha[0]['fecha_fin'], '', 'es', '-'), array('type' => 'text', 'class' => 'inputGrilla fechas', 'readOnly' => 'readOnly')); ?>
                                 <img src="../images/calendario.png" id="ffin1" width="16" height="16" style="cursor:pointer" />
                                 <script>
                                     Calendar.setup({
@@ -185,12 +185,12 @@ $validator->printScript();
         </tr>
         <tr>
             <td colspan="2">
-                <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
+                <?php echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
+                <?php echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
             </td>
         </tr>
     </table>
 </form>
-<?
+<?php
 require('../lib/common/footer.php');
 ?>

@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
     
     $productor = new Productor();
@@ -158,7 +158,7 @@
         REPORTE DE PRODUCTORES<br/><hr/>
     </div>
     <div id="mensajes">
-        <?
+        <?php
             switch($GPC['msg']){
                 case 'error':
                     echo "<span class='msj_rojo'>Ocurri&oacute; un Problema !</span>";
@@ -171,23 +171,23 @@
             <table width="100%" border="0">
                 <tr>
                     <td>C&eacute;dula/Rif</td>
-                    <td><? echo $html->input('ced', $cedrif, array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><?php echo $html->input('ced', $cedrif, array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                     <td>Nombre</td>
-                    <td><? echo $html->input('nombre', $nombre, array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><?php echo $html->input('nombre', $nombre, array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
                 <tr>
                     <td>Estado</td>
-                    <td><? echo $html->select('id_estado', array('options' => $listaE, 'selected' => $estado, 'default' => 'Todos', 'class' => 'estilo_campos')) ?></td>
+                    <td><?php echo $html->select('id_estado', array('options' => $listaE, 'selected' => $estado, 'default' => 'Todos', 'class' => 'estilo_campos')) ?></td>
                     <td>Municipio</td>
                     <td>
                         <div id="mcpo">
-                            <? echo $html->select('id_municipio', array('options' => $listaM, 'selected' => $municipio, 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?>
+                            <?php echo $html->select('id_municipio', array('options' => $listaM, 'selected' => $municipio, 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?>
                         </div>
                     </td>
                 </tr>
                 <tr id="botones">
                     <td colspan="4" style="padding-top: 20px;">
-                        <?
+                        <?php
                             echo $html->input('ac', 'Buscar', array('type' => 'submit'));
                             echo $html->input('exportar', 'Excel', array('type' => 'submit'));
                             echo $html->input('exportar', 'Calc', array('type' => 'submit'));
@@ -199,7 +199,7 @@
         </form>
     </div><hr/>
     <div id="paginador">
-        <?
+        <?php
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
             $paginador->print_paginator('pulldown');
@@ -212,30 +212,30 @@
             <th>Estado</th>
             <th>Municipio</th>
         </tr>
-        <?
+        <?php
             $i=0;
             foreach($listadoProductor as $dataProductor){
                 $clase = $general->obtenerClaseFila($i);
         ?>
-        <tr class="<?=$clase?>">
-            <td align="center"><?=$dataProductor['ced_rif']?></td>
-            <td><?=$dataProductor['nombre']?></td>
-            <td><?=$dataProductor['estado']?></td>
-            <td><?=$dataProductor['municipio']?></td>
+        <tr class="<?php echo $clase?>">
+            <td align="center"><?php echo $dataProductor['ced_rif']?></td>
+            <td><?php echo $dataProductor['nombre']?></td>
+            <td><?php echo $dataProductor['estado']?></td>
+            <td><?php echo $dataProductor['municipio']?></td>
         </tr>
-        <? $i++; } ?>
+        <?php $i++; } ?>
         <tr>
             
             <td colspan="6">&nbsp;</td>
         </tr>
     </table>
     <div id="paginador">
-        <?
+        <?php
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
             $paginador->print_paginator('pulldown');
         ?>
     </div>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

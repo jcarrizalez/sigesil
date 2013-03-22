@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
     
     $centro_acopio = new CentroAcopio();
@@ -58,7 +58,7 @@
         ALMACENES<br/><hr/>
     </div>
     <div id="mensajes">
-        <?
+        <?php
             switch($GPC['msg']){
                 case 'exitoso':
                     echo "<span class='msj_verde'>Registro Guardado !</span>";
@@ -72,19 +72,19 @@
     <div id="filtro">
         <form name="form1" id="form1" method="GET" action="" enctype="multipart/form-data">
             <table width="100%">
-                <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+                <?php if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
                 <tr>
                     <td width="110">Centro de Acopio </td>
                     <td colspan="2">
-                        <?
+                        <?php
                             echo $html->select('id_ca',array('options'=>$listaCA, 'selected' => $GPC['id_ca'], 'default' => 'Todos'));
                         ?>
                     </td>
                 </tr>
-                <? } ?>
+                <?php } ?>
                 <tr id="botones">
                     <td colspan="3">
-                        <?
+                        <?php
                             echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
                             $general->crearAcciones($acciones, '', 1);
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
@@ -97,9 +97,9 @@
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
             <th>&nbsp;</th>
-            <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+            <?php if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
             <th>Centro de Acopio</th>
-            <? } ?>
+            <?php } ?>
             <th>C&oacute;digo</th>
             <th>Nombre</th>
             <th>Pa&iacute;s</th>
@@ -107,19 +107,19 @@
             <th>Municipio</th>
             <th>Acci&oacute;n</th>
         </tr>
-        <?
+        <?php
             $i=0;
             foreach($centrosA as $ca){
                 $clase = $general->obtenerClaseFila($i);
                 $listadoAlmacenes = $almacen->buscarAL('', '', $ca['id']);
         ?>
-        <tr class="<?=$clase?>">
+        <tr class="<?php echo $clase?>">
             <td align="right" width="1">
                 <a href="javascript:muestraAL('<?php echo $i?>')"><img src="../images/mas.png" width="16" height="16" id="imgmes_<?php echo $i?>" /></a>
             </td>
-            <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
-            <td><?=$ca['nombre']?></td>
-            <? } ?>
+            <?php if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+            <td><?php echo $ca['nombre']?></td>
+            <?php } ?>
             <td align="center">-</td>
             <td align="center">-</td>
             <td align="center">-</td>
@@ -128,28 +128,28 @@
             <td align="center">-</td>
         </tr>
         <tbody id="tbodyPN_<?php echo $i?>" style="display:none">
-            <? foreach($listadoAlmacenes as $dataAlmacen) { ?>
+            <?php foreach($listadoAlmacenes as $dataAlmacen) { ?>
             <tr class="terceraclase">
-                <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+                <?php if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
                 <td colspan="2">&nbsp;</td>
-                <? }else{ ?>
+                <?php }else{ ?>
                 <td>&nbsp;</td>
-                <? } ?>
-                <td align="center"><?=$dataAlmacen['codigo']?></td>
-                <td><?=$dataAlmacen['nombre']?></td>
-                <td align="center"><?=$dataAlmacen['pais']?></td>
-                <td align="center"><?=$dataAlmacen['estado']?></td>
-                <td align="center"><?=$dataAlmacen['municipio']?></td>
+                <?php } ?>
+                <td align="center"><?php echo $dataAlmacen['codigo']?></td>
+                <td><?php echo $dataAlmacen['nombre']?></td>
+                <td align="center"><?php echo $dataAlmacen['pais']?></td>
+                <td align="center"><?php echo $dataAlmacen['estado']?></td>
+                <td align="center"><?php echo $dataAlmacen['municipio']?></td>
                 <td align="center">
-                    <?
+                    <?php
                         $urls = array(1 => 'almacen.php?ac=editar&id='.$dataAlmacen['id'], 'almacen_listado.php?ac=eliminar&id='.$dataAlmacen['id']."&estatus=f");
                         $general->crearAcciones($acciones, $urls);
                     ?>
                 </td>
             </tr>
-            <? } ?>
+            <?php } ?>
         </tbody>
-        <?
+        <?php
             $i++;
             }
         ?>
@@ -158,6 +158,6 @@
             <td colspan="5">&nbsp;</td>
         </tr>
     </table>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

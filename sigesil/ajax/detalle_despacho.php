@@ -19,19 +19,19 @@
                 ?>
                     <tr>
                         <td><span class="msj_rojo">* </span>Nro Orden </td>
-                        <td><? echo $html->input('Orden.numero_orden', $GPC['num'], array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive')); ?></td>
+                        <td><?php echo $html->input('Orden.numero_orden', $GPC['num'], array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive')); ?></td>
                     </tr>
-                <?
+                <?php
             }else{
                 ?>
                     <tr>
                         <td><span class="msj_rojo">* </span>Nro Orden </td>
-                        <td><? echo $html->input('Orden.numero_orden', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive')); ?></td>
+                        <td><?php echo $html->input('Orden.numero_orden', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive')); ?></td>
                     </tr>
                     <tr>
                         <th colspan="2" align="center">El Nro de Orden ya Existe !</th>
                     </tr>
-                <?
+                <?php
             }
         break;
         case 'orden':
@@ -49,33 +49,33 @@
                 <tr>
                     <td><span class="msj_rojo">* </span>N&uacute;mero de Orden</td>
                     <td>
-                        <? echo $html->input('Orden.numero_orden', $GPC['numero'], array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive')); ?>
-                        <? echo $html->input('Cliente.nombre', '', array('type' => 'hidden')); ?>
+                        <?php echo $html->input('Orden.numero_orden', $GPC['numero'], array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive')); ?>
+                        <?php echo $html->input('Cliente.nombre', '', array('type' => 'hidden')); ?>
                     </td>
                 </tr>
                 <tr>
                     <th colspan="2" align="center">El Nro de Orden no Existe !</th>
                 </tr>
-            <?
+            <?php
             }elseif(!empty($infoOrden) && $infoOrden[0]['estatus'] == 'P'){
             ?>
                 <tr>
                     <td><span class="msj_rojo">* </span>N&uacute;mero de Orden</td>
                     <td>
-                        <? echo $html->input('Orden.numero_orden', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive')); ?>
+                        <?php echo $html->input('Orden.numero_orden', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive')); ?>
                     </td>
                 </tr>
                 <tr>
                     <th colspan="2" align="center">Orden Procesada</th>
-                    <? echo $html->input('Cliente.nombre', '', array('type' => 'hidden')); ?>
+                    <?php echo $html->input('Cliente.nombre', '', array('type' => 'hidden')); ?>
                 </tr>
-            <?
+            <?php
             }elseif(!empty($infoOrden) && $infoOrden[0]['estatus'] == 'N' && $disponible > 0){
             ?>
                 <tr>
                     <td><span class="msj_rojo">* </span>N&uacute;mero de Orden</td>
                     <td>
-                        <?
+                        <?php
                             echo $html->input('Orden.numero_orden', $GPC['numero'], array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive'));
                             echo $html->input('Despacho.id_orden', $infoOrden[0]['id'], array('type' => 'hidden'));
                             echo $html->input('Despacho.id_cultivo', $infoOrden[0]['id_cultivo'], array('type' => 'hidden'));
@@ -85,7 +85,7 @@
                 <tr>
                     <td><span class="msj_rojo">* </span>C&eacute;dula/Rif Cliente</td>
                     <td>
-                        <?
+                        <?php
                             echo $html->input('Cliente.ced_rif', $infoOrden[0]['ced_rif'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true));
                             echo $html->input('Despacho.id_cliente', $infoOrden[0]['id_cliente'], array('type' => 'hidden'));
                         ?>
@@ -93,23 +93,23 @@
                 </tr>
                 <tr>
                     <td><span class="msj_rojo">* </span>Nombres y Apellidos</td>
-                    <td><? echo $html->input('Cliente.nombre', $infoOrden[0]['cliente_nombre'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                    <td><?php echo $html->input('Cliente.nombre', $infoOrden[0]['cliente_nombre'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
                 </tr>
                 <tr>
                     <td>Tel&eacute;fono</td>
-                    <td><? echo $html->input('Cliente.telefono', $infoOrden[0]['cliente_telefono'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                    <td><?php echo $html->input('Cliente.telefono', $infoOrden[0]['cliente_telefono'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
                 </tr>
                 <tr>
                     <td>Toneladas de la Orden</td>
-                    <td><? echo $html->input('toneladas', $infoOrden[0]['toneladas'], array('type' => 'text', 'class' => 'estilo_campos positive', 'readOnly' => true)); ?></td>
+                    <td><?php echo $html->input('toneladas', $infoOrden[0]['toneladas'], array('type' => 'text', 'class' => 'estilo_campos positive', 'readOnly' => true)); ?></td>
                 </tr>
                 <tr>
                     <td>Toneladas Despachadas</td>
-                    <td><? echo $html->input('despachado', $general->formato_numero($infoSubOrden[0]['total'], 2), array('type' => 'text', 'class' => 'estilo_campos positive', 'readOnly' => true)); ?></td>
+                    <td><?php echo $html->input('despachado', $general->formato_numero($infoSubOrden[0]['total'], 2), array('type' => 'text', 'class' => 'estilo_campos positive', 'readOnly' => true)); ?></td>
                 </tr>
                 <tr>
                     <td>Toneladas Disponibles</td>
-                    <td><? echo $html->input('disponible', $general->formato_numero($disponible, 2), array('type' => 'text', 'class' => 'estilo_campos positive', 'readOnly' => true)); ?></td>
+                    <td><?php echo $html->input('disponible', $general->formato_numero($disponible, 2), array('type' => 'text', 'class' => 'estilo_campos positive', 'readOnly' => true)); ?></td>
                 </tr>
                 <script type="text/javascript">
                     $(document).ready(function(){
@@ -117,37 +117,37 @@
                         $('#ptosEntrega').load('../ajax/detalle_despacho.php?ac=pto&cp='+ced);
                     });
                 </script>
-            <?
+            <?php
             }elseif(!empty($infoOrden) && $infoOrden[0]['estatus'] == 'N' && $disponible <= 0){
             ?>
                 <tr>
                     <td><span class="msj_rojo">* </span>N&uacute;mero de Orden</td>
                     <td>
-                        <? echo $html->input('Orden.numero_orden', $GPC['numero'], array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive')); ?>
-                        <? echo $html->input('Cliente.nombre', '', array('type' => 'hidden')); ?>
+                        <?php echo $html->input('Orden.numero_orden', $GPC['numero'], array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive')); ?>
+                        <?php echo $html->input('Cliente.nombre', '', array('type' => 'hidden')); ?>
                     </td>
                 </tr>
                 <tr>
                     <th colspan="2" align="center">Esta Orden ya fue despachada Completamente !</th>
                 </tr>
-            <?
+            <?php
             }
         break;
         case 'otroTransporte':
             ?>
                 <tr>
                     <td><span class="msj_rojo">* </span>Nombre Transporte</td>
-                    <td><? echo $html->input('Transporte.nombre', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><?php echo $html->input('Transporte.nombre', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
-            <?
+            <?php
         break;
         case 'otroPto':
             ?>
                 <tr>
                     <td><span class="msj_rojo">* </span>Nombre Punto de Entrega</td>
-                    <td><? echo $html->input('PtoEntrega.nombre', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><?php echo $html->input('PtoEntrega.nombre', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
-            <?
+            <?php
         break;
         case 'otraPlaca':
             $vehiculo = new Vehiculo();
@@ -157,7 +157,7 @@
                 <tr>
                     <td><span class="msj_rojo">* </span>Placa Veh&iacute;culo</td>
                     <td>
-                        <?
+                        <?php
                             echo $html->input('Vehiculo.placa', $infoVehiculo[0]['placa'], array('type' => 'text', 'class' => 'estilo_campos'));
                             echo $html->input('Vehiculo.id', $infoVehiculo[0]['id'], array('type' => 'hidden'));
                         ?>
@@ -165,15 +165,15 @@
                 </tr>
                 <tr>
                     <td><span class="msj_rojo">* </span>Marca Veh&iacute;culo</td>
-                    <td><? echo $html->input('Vehiculo.marca', $infoVehiculo[0]['marca'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                    <td><?php echo $html->input('Vehiculo.marca', $infoVehiculo[0]['marca'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
                 </tr>
-            <?
+            <?php
             }else{
             ?>
                 <tr>
                     <td><span class="msj_rojo">* </span>Placa Veh&iacute;culo</td>
                     <td>
-                        <?
+                        <?php
                             echo $html->input('Vehiculo.placa', $GPC['placa'], array('type' => 'text', 'class' => 'estilo_campos'));
                             echo $html->link('<img src="../images/agregar.png" width="16" height="16" title=Agregar>', "javascript:abrirPopup('nuevoV')");
                             echo $html->input('Vehiculo.id', '', array('type' => 'hidden'));
@@ -183,7 +183,7 @@
                 <tr>
                     <th colspan="2" align="center">Veh&iacute;culo Nuevo !</th>
                 </tr>
-            <?
+            <?php
             }
         break;
         case 'chofer':
@@ -195,7 +195,7 @@
                 <tr>
                     <td><span class="msj_rojo">* </span>C&eacute;dula/Rif Chofer</td>
                     <td>
-                        <?
+                        <?php
                             echo $html->select('nacion2', array('options'=>$listaCR, 'selected' => substr($GPC['cp'], 0, 1)));
                             echo "&nbsp;".$html->input('Chofer.ced_rif', substr($GPC['cp'], 1), array('type' => 'text', 'length' => '10', 'class' => 'positive', 'style' => 'width: 150px'));
                             echo $html->input('Despacho.id_chofer', $infoChofer[0]['id'], array('type' => 'hidden'));
@@ -204,15 +204,15 @@
                 </tr>
                 <tr>
                     <td><span class="msj_rojo">* </span>Nombre del Chofer</td>
-                    <td><? echo $html->input('Chofer.nombre', $infoChofer[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                    <td><?php echo $html->input('Chofer.nombre', $infoChofer[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
                 </tr>
-            <?
+            <?php
             }else{
             ?>
                 <tr>
                     <td><span class="msj_rojo">* </span>C&eacute;dula/Rif Chofer</td>
                     <td>
-                        <?
+                        <?php
                             echo $html->select('nacion2', array('options'=>$listaCR, 'selected' => substr($GPC['cp'], 0, 1)));
                             echo "&nbsp;".$html->input('Chofer.ced_rif', substr($GPC['cp'], 1), array('type' => 'text', 'length' => '10', 'class' => 'positive', 'style' => 'width: 150px'));
                             echo $html->link('<img src="../images/agregar.png" width="16" height="16" title=Agregar>', "javascript:abrirPopup('nuevoC')");
@@ -223,7 +223,7 @@
                 <tr>
                     <th colspan="2" align="center">Chofer No Registrado</th>
                 </tr>
-            <?
+            <?php
             }
         break;
         case 'pto':
@@ -239,10 +239,10 @@
                 <tr>
                     <td><span class="msj_rojo">* </span>Punto de Entrega</td>
                     <td>
-                        <? echo $html->select('PtoEntrega.id',array('options' => $listaPtos, 'default' => 'Seleccione', 'class' => 'estilo_campos otro')); ?>
+                        <?php echo $html->select('PtoEntrega.id',array('options' => $listaPtos, 'default' => 'Seleccione', 'class' => 'estilo_campos otro')); ?>
                     </td>
                 </tr>
-            <?
+            <?php
         break;
         case 'clienteOrden':
             $cliente = new Cliente();
@@ -253,7 +253,7 @@
                 <tr>
                     <td><span class="msj_rojo">* </span>C&eacute;dula/Rif Cliente</td>
                     <td>
-                        <?
+                        <?php
                             echo $html->select('nacion', array('options'=>$listaCR, 'selected' => substr($infoCliente[0]['ced_rif'], 0,1)));
                             echo "&nbsp;".$html->input('Cliente.ced_rif', substr(trim($infoCliente[0]['ced_rif']), 1), array('type' => 'text', 'length' => '10', 'class' => 'positive', 'style' => 'width: 151px'));
                             echo $html->link('<img src="../images/agregar.png" width="16" height="16" title=Agregar>', "javascript:abrirPopup()");
@@ -264,13 +264,13 @@
                 <tr>
                     <th colspan="2" align="center">Cliente No Registrado</th>
                 </tr>
-            <?
+            <?php
             }else{
             ?>
                 <tr>
                     <td><span class="msj_rojo">* </span>C&eacute;dula/Rif Cliente</td>
                     <td>
-                        <?
+                        <?php
                             echo $html->select('nacion', array('options'=>$listaCR, 'selected' => substr($infoCliente[0]['ced_rif'], 0,1)));
                             echo "&nbsp;".$html->input('Cliente.ced_rif', substr(trim($infoCliente[0]['ced_rif']), 1), array('type' => 'text', 'length' => '9', 'class' => 'positive', 'style' => 'width: 151px'));
                             echo $html->input('Orden.id_cliente', trim($infoCliente[0]['id']), array('type' => 'hidden'));
@@ -279,9 +279,9 @@
                 </tr>
                 <tr>
                     <td><span class="msj_rojo">* </span>Nombre </td>
-                    <td><? echo $html->input('Cliente.nombre', trim($infoCliente[0]['nombre']), array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
+                    <td><?php echo $html->input('Cliente.nombre', trim($infoCliente[0]['nombre']), array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
                 </tr>
-            <?
+            <?php
             }
         break;
         case 'numeroOrden':
@@ -296,14 +296,14 @@
                     <script type="text/javascript">
                         $('#Guardar').attr('disabled', true);
                     </script>
-                    <?
+                    <?php
                 }else{
                     echo "<tr><td align='center' colspan='2' class='msj_verde'>C&oacute;digo de Verificaci&oacute;n Correcto</td></tr>";
                     ?>
                     <script type="text/javascript">
                         $('#Guardar').removeAttr('disabled');
                     </script>
-                    <?
+                    <?php
                 }
             }
         break;

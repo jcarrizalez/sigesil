@@ -4,10 +4,10 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $('#Recepcion').click(function(){
-            window.location='<?=DOMAIN_ROOT?>admin/utilitario_recepcion_listado.php';
+            window.location='<?php echo DOMAIN_ROOT?>admin/utilitario_recepcion_listado.php';
         });
         $('#Despacho').click(function(){            
-            window.location='<?=DOMAIN_ROOT?>admin/utilitario_despacho_listado.php';
+            window.location='<?php echo DOMAIN_ROOT?>admin/utilitario_despacho_listado.php';
         });
     });
 </script>
@@ -18,14 +18,14 @@
     <table align="center" width="50%"  height="100">
         <tr align="center">
             <td>            
-                <? echo $html->input('Recepcion', 'Recepcion', array('type' => 'button')); ?>
+                <?php echo $html->input('Recepcion', 'Recepcion', array('type' => 'button')); ?>
             </td>
             <td>            
-                <? echo $html->input('Despacho', 'Despacho', array('type' => 'button')); ?>
+                <?php echo $html->input('Despacho', 'Despacho', array('type' => 'button')); ?>
             </td>
         </tr>
     </table>
-    <? echo $html->input('ac', '', array('type' => 'hidden')); ?>
+    <?php echo $html->input('ac', '', array('type' => 'hidden')); ?>
 </form>
 <?php
     require('../lib/common/footer.php');

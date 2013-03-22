@@ -1,4 +1,4 @@
-<?
+<?php
 require_once(APPROOT.'lib/core.lib.php');
 
 ?>
@@ -81,20 +81,20 @@ require_once(APPROOT.'lib/core.lib.php');
         <br /><br />
         <?php echo "AppError"//$lang['txtAppError'] ?>
         <br /><br />
-        <? 
+        <?php 
     	if($_SESSION['s_pgen'] || (defined(DEBUG) && DEBUG!=0) ){
 			echo "<br /><a href=\"#\" onClick=\"document.getElementById('error_detail').style.display='block';\"  >show error</a>"	;
 		}
 		?>
     	<div class="error_detail" id="error_detail">
         	<div >
-            <? 
+            <?php 
             if($_SESSION['s_pgen'] || (defined(DEBUG) && DEBUG!=0)){
             	$cant_div_chid=0;
             	for($i=0,$max=count($arr_tree);$i<$max;$i++){
             	?>
 				<div class="err_child">
-				<?
+				<?php
 					echo "File: ".$arr_tree[$i]['file']." <strong>in line ".$arr_tree[$i]['line']."</strong><br />"; 
 				   	echo "Class: ".$arr_tree[$i]['class']."<br />";
 				   	echo "Function:". $arr_tree[$i]['function'];
@@ -102,7 +102,7 @@ require_once(APPROOT.'lib/core.lib.php');
 				for($i=0,$max=count($arr_tree);$i<$max;$i++){ 
 				?>
 				</div>	
-				<? 
+				<?php 
 				}
 				echo "<strong>Query:</strong><br>". $arr_tree[0]['query']."<br />";
 				echo "<strong>Error #: </strong>". $arr_tree[0]['mysql_errno']."<br />";

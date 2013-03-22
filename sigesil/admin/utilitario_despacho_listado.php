@@ -34,7 +34,7 @@
     UTILITARIO - DESPACHO<hr/>
 </div> 
 <div id="mensajes">
-    <?
+    <?php
         switch($GPC['msg']){
             case 'exitoso':
                 echo "<span class='msj_verde'>Registro Guardado !</span>";
@@ -51,7 +51,7 @@
                 <tr>
                     <td width="1">Desde </td>
                     <td width="200">
-                        <? echo $html->input('fecha_inicio', $general->date_sql_screen($fdesde, '', 'es', '-'), array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?>
+                        <?php echo $html->input('fecha_inicio', $general->date_sql_screen($fdesde, '', 'es', '-'), array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?>
                         <img src="../images/calendario.png" id="fdesde" width="16" height="16" style="cursor:pointer" />
                         <script>
                             Calendar.setup({
@@ -65,7 +65,7 @@
                     </td>
                     <td width="1">Hasta </td>
                     <td>
-                        <? echo $html->input('fecha_fin', $general->date_sql_screen($fhasta, '', 'es', '-'), array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?>
+                        <?php echo $html->input('fecha_fin', $general->date_sql_screen($fhasta, '', 'es', '-'), array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?>
                         <img src="../images/calendario.png" id="fhasta" width="16" height="16" style="cursor:pointer" />
                         <script>
                             Calendar.setup({
@@ -81,29 +81,29 @@
                 <tr>
                     <td width="60">Cultivo</td>
                     <td>
-                        <? echo $html->select('cultivo',array('options'=>$listaCu, 'selected' => $GPC['cultivo'], 'default' => 'Todas'));?>
+                        <?php echo $html->select('cultivo',array('options'=>$listaCu, 'selected' => $GPC['cultivo'], 'default' => 'Todas'));?>
                     </td>
                     <td>Numero</td>
-                    <td><?=$html->input('numSalida', $numSalida, array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'class' => 'crproductor positive'));?> </td>
+                    <td><?php echo $html->input('numSalida', $numSalida, array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'class' => 'crproductor positive'));?> </td>
                 </tr>
                 <tr>
                     <td width="60">Estatus</td>
                     <td colspan="2">
-                        <?
+                        <?php
                             echo $html->select('estatus',array('options'=>$listadoEstatus, 'selected' => $GPC['estatus'], 'default' => 'Todos'));
                         ?>
                     </td>
                 </tr>
                 <tr id="botones">
                     <td colspan="4">
-                        <? 
+                        <?php 
                         echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
                         echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();')); 
                         ?>
                     </td>
                 </tr>
             </table>
-            <? echo $html->input('mov', $GPC['mov'], array('type' => 'hidden')); ?>
+            <?php echo $html->input('mov', $GPC['mov'], array('type' => 'hidden')); ?>
         </form>
     </div><hr/>
     <table align="center" width="100%">
@@ -115,31 +115,31 @@
             <th>Fecha Recepci&oacute;n</th>
             <th width="1">Acci&oacute;n</th>        
         </tr>
-    <?
+    <?php
         $i=0;
         foreach($listadoMov as $dataMov) {
             $clase = $general->obtenerClaseFila($i);
             $numero = "R".$dataMov['numero']."-".$general->date_sql_screen($dataMov['fecha_recepcion'], '', 'es', '');
     ?>
-        <tr class="<?=$clase?>">
-            <td align="center"><?=$dataMov['ca_codigo']." - ".$dataMov['centro_acopio']?></td>
-            <td align="center"><?=$numero?></td>
-            <td align="center"><?="(".trim($dataMov['cultivo_codigo']).") ".$dataMov['cultivo_nombre']?></td>
-            <td align="center"><?=$dataMov['numero_guia']?></td>
-            <td align="center"><?=$general->date_sql_screen($dataMov['fecha_recepcion'], '', 'es', '-')?></td>
+        <tr class="<?php echo $clase?>">
+            <td align="center"><?php echo $dataMov['ca_codigo']." - ".$dataMov['centro_acopio']?></td>
+            <td align="center"><?php echo $numero?></td>
+            <td align="center"><?php echo "(".trim($dataMov['cultivo_codigo']).") ".$dataMov['cultivo_nombre']?></td>
+            <td align="center"><?php echo $dataMov['numero_guia']?></td>
+            <td align="center"><?php echo $general->date_sql_screen($dataMov['fecha_recepcion'], '', 'es', '-')?></td>
             <td align="center">
-                <?
+                <?php
                     $urls = array(1 => 'utilitario_despacho.php?ac=editar&id='.$dataMov['id']);
                     $general->crearAcciones($acciones, $urls);
                 ?>
             </td>
         </tr>
-        <? $i++; } ?>
+        <?php $i++; } ?>
         <tr>
             <td colspan="6">&nbsp;</td>
         </tr>
     </table>
 
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

@@ -12,9 +12,9 @@
                 ?>
                 <tr>
                     <td width="110">An&aacute;lisis </td>
-                    <td><? echo $html->select('Formula.id_analisis', array('options' => $listaAnalisis, 'default' => 'Seleccione', 'class' => 'inputGrilla botonera')) ?></td>
+                    <td><?php echo $html->select('Formula.id_analisis', array('options' => $listaAnalisis, 'default' => 'Seleccione', 'class' => 'inputGrilla botonera')) ?></td>
                 </tr>
-                <?
+                <?php
             }
         break;
         case 'campos':
@@ -38,11 +38,11 @@
             $formulas->listaFormulas(1, '');
             $nro = $GPC['nro'];
             ?>
-            <legend>F&oacute;rmula <?=$nro?></legend>
+            <legend>F&oacute;rmula <?php echo $nro?></legend>
             <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0">
                 <tr>
                     <td align="center" style="padding: 10px 0;">
-                        <?
+                        <?php
                         foreach($parametros->lista as $parametro){
                             echo $html->input("btn_".$parametro['parametro_llave']."_$nro", $parametro['parametro_llave'], array('type' => 'button', 'class' => 'formula_campos constante'));
                         }
@@ -54,7 +54,7 @@
                 </tr>
                 <tr>
                     <td align="left">
-                        <?
+                        <?php
                             if(!empty($GPC['tipo']) && $GPC['tipo'] == 2){
                                 echo "Condici&oacute;n ".$html->input('otra_condicion_'.$nro, '', array('type' => 'text', 'readOnly' => 'readOnly', 'class' => 'otra_con', 'style' => 'width: 100px')).":&nbsp;";
                                 echo $html->input("desde_$nro", '', array('type' => 'text', 'class' => 'positive rango', 'style' => 'width: 40px'));
@@ -75,8 +75,8 @@
                     <th>Comprobar F&oacute;rmula<br/><br/></th>
                 </tr>
                 <tr>
-                    <td align="center" id="td_<?=$nro?>" style="padding: 10px 0;">
-                        <?
+                    <td align="center" id="td_<?php echo $nro?>" style="padding: 10px 0;">
+                        <?php
                         foreach($parametros->lista as $parametro){
                             echo $parametro['parametro_llave']."&nbsp;&nbsp;";
                             echo $html->input($parametro['parametro_llave']."_$nro", '', array('type' => 'text', 'length' => '7', 'class' => 'cuadricula valores positive'));
@@ -86,21 +86,21 @@
                 </tr>
                 <tr>
                     <td align="center">
-                        <? echo $html->input('formula_eval_'.$nro, '', array('type' => 'text', 'readOnly' => true, 'class' => 'campo_formula')); ?>
+                        <?php echo $html->input('formula_eval_'.$nro, '', array('type' => 'text', 'readOnly' => true, 'class' => 'campo_formula')); ?>
                     </td>
                 </tr>
-                <tbody id="resultado_<?=$nro?>" class="verif_resul"></tbody>
+                <tbody id="resultado_<?php echo $nro?>" class="verif_resul"></tbody>
                 <tr align="center">
                     <td style="padding-top: 20px;">
-                        <? echo $html->input('Comprobar_'.$nro, 'Comprobar', array('type' => 'button', 'class' => 'comprobar')); ?>
-                    <? echo $html->input('Recuperar_'.$nro, 'Corregir Valores', array('type' => 'button', 'class' => 'recuperar')); ?>
+                        <?php echo $html->input('Comprobar_'.$nro, 'Comprobar', array('type' => 'button', 'class' => 'comprobar')); ?>
+                    <?php echo $html->input('Recuperar_'.$nro, 'Corregir Valores', array('type' => 'button', 'class' => 'recuperar')); ?>
                     </td>
                 </tr>
             </table>
             <script type="text/javascript">
                 $('.otra_con').val($('#otra_condicion_1').val());
             </script>
-            <?
+            <?php
         break;
         case 'formu':
             if(!empty($GPC['formula_eval'])){
@@ -123,9 +123,9 @@
             ?>
             <tr>
                 <td>Peso Recomendado</td>
-                <td id=""><? echo $html->input('pesoAprox', $aprox[0]['capacidad'], array('type' => 'text', 'class' => 'estilo_campos2', 'readOnly' => true)); ?></td>
+                <td id=""><?php echo $html->input('pesoAprox', $aprox[0]['capacidad'], array('type' => 'text', 'class' => 'estilo_campos2', 'readOnly' => true)); ?></td>
             </tr>
-            <?
+            <?php
         break;
         case 'pesar':
             $romana = new Tolcarom();
@@ -148,7 +148,7 @@
                                     $("#resultado").load('../ajax/detalle_formula.php?ac=pesoromana&formula='+form);
                                 });
                             </script>
-                        <?
+                        <?php
                     }
                 break;
                 case 'des':
@@ -163,7 +163,7 @@
                                     $("#resultado").load('../ajax/detalle_formula.php?ac=pesoromana&formula='+form);
                                 });
                             </script>
-                        <?
+                        <?php
                     }
                 break;
             }
@@ -384,53 +384,53 @@
                 $pesoAl = ($GPC['estatus'] != 8) ? $pesoAl : $pesoN;
             ?>
             <tr>
-                <td>Peso Neto <?=$movimiento?> Kgrs</td>
-                <td><? echo $html->input('pesoRecibido1', $general->formato_numero($pesoN, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td>Peso Neto <?php echo $movimiento?> Kgrs</td>
+                <td><?php echo $html->input('pesoRecibido1', $general->formato_numero($pesoN, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <?
+            <?php
                 if(in_array($infoCultivo[0]['id'], array(10,12))){
                     $suma = $sumHum + $sumImp;
                     $desc1 = ($suma >= 14) ? ($pesoN - $pesoA) : 0;
             ?>
             <tr>
-                <td>Desc. Hum | Imp <?=$label?> Kgrs</td>
-                <td><? echo $html->input('descuento1', $general->formato_numero($desc1, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td>Desc. Hum | Imp <?php echo $label?> Kgrs</td>
+                <td><?php echo $html->input('descuento1', $general->formato_numero($desc1, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <?
+            <?php
                     if($GPC['mov'] == 'rec'){
             ?>
             <tr>
-                <td>Peso Neto Acondicionado <?=$label?> Kgrs</td>
-                <td><? echo $html->input('netoAcondicionado1', $general->formato_numero($pesoA, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td>Peso Neto Acondicionado <?php echo $label?> Kgrs</td>
+                <td><?php echo $html->input('netoAcondicionado1', $general->formato_numero($pesoA, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <?
+            <?php
                     }else{
             ?>
             <tr>
-                <td>Peso Neto Acondicionado <?=$label?> Kgrs</td>
-                <td><? echo $html->input('netoAcondicionado1', $general->formato_numero($pesoAl, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td>Peso Neto Acondicionado <?php echo $label?> Kgrs</td>
+                <td><?php echo $html->input('netoAcondicionado1', $general->formato_numero($pesoAl, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <?
+            <?php
                     }
                 }else{
             ?>
             <tr>
-                <td>Desc. por Humedad <?=$label?> Kgrs</td>
-                <td><? echo $html->input('descHumedad1', $general->formato_numero($pesoH, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td>Desc. por Humedad <?php echo $label?> Kgrs</td>
+                <td><?php echo $html->input('descHumedad1', $general->formato_numero($pesoH, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
-                <td>Desc. por Impureza <?=$label?> Kgrs</td>
-                <td><? echo $html->input('descImpurezas1', $general->formato_numero($pesoI, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td>Desc. por Impureza <?php echo $label?> Kgrs</td>
+                <td><?php echo $html->input('descImpurezas1', $general->formato_numero($pesoI, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <?
+            <?php
                 }
                 //if($GPC['mov'] == 'rec'){
             ?>
             <tr>
-                <td>Peso Neto a Liquidar <?=$label?> Kgrs</td>
-                <td><? echo $html->input('netoAcondicionadoL1', $general->formato_numero($pesoAl, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td>Peso Neto a Liquidar <?php echo $label?> Kgrs</td>
+                <td><?php echo $html->input('netoAcondicionadoL1', $general->formato_numero($pesoAl, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <?
+            <?php
                 //}
                 if(($sumHum2 != '' || $sumImp2 != '' || $GPC['Recepcion']['pesoLleno2'] != '' || $GPC['Recepcion']['peso_02v'] != '')){
                     //CALCULO DE LA HUMEDAD Y LA IMPUREZA
@@ -486,53 +486,53 @@
                         $pesoAl2 = $evaluar->e("y(0)");
             ?>
             <tr>
-                <td>Peso Neto <?=$movimiento?> Remolque Kgrs</td>
-                <td><? echo $html->input('pesoRecibido2', $general->formato_numero($pesoN2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td>Peso Neto <?php echo $movimiento?> Remolque Kgrs</td>
+                <td><?php echo $html->input('pesoRecibido2', $general->formato_numero($pesoN2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <?
+            <?php
                 if(in_array($infoCultivo[0]['id'], array(10,12))){
                     $suma2 = $sumHum2 + $sumImp2;
                     $desc2 = ($suma2 >= 14) ? ($pesoN2 - $pesoA2) : 0;
             ?>
             <tr>
                 <td>Desc. Hum | Imp Remolque Kgrs</td>
-                <td><? echo $html->input('descuento2', $general->formato_numero($desc2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><?php echo $html->input('descuento2', $general->formato_numero($desc2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <?
+            <?php
                     if($GPC['mov'] == 'rec'){
             ?>
             <tr>
                 <td>Peso Neto Acondicionado Remolque Kgrs</td>
-                <td><? echo $html->input('netoAcondicionado2', $general->formato_numero($pesoA2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><?php echo $html->input('netoAcondicionado2', $general->formato_numero($pesoA2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <?
+            <?php
                     }else{
             ?>
             <tr>
                 <td>Peso Neto Acondicionado Remolque Kgrs</td>
-                <td><? echo $html->input('netoAcondicionado2', $general->formato_numero($pesoAl2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><?php echo $html->input('netoAcondicionado2', $general->formato_numero($pesoAl2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <?
+            <?php
                     }
                 }else{
             ?>
             <tr>
                 <td>Desc. por Humedad Remolque Kgrs</td>
-                <td><? echo $html->input('descHumedad2', $general->formato_numero($pesoH2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><?php echo $html->input('descHumedad2', $general->formato_numero($pesoH2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Desc. por Impureza Remolque Kgrs</td>
-                <td><? echo $html->input('descImpurezas2', $general->formato_numero($pesoI2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><?php echo $html->input('descImpurezas2', $general->formato_numero($pesoI2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <?
+            <?php
                 }
                    // if($GPC['mov'] == 'rec'){
             ?>
             <tr>
                 <td>Peso Neto a Liquidar Remolque Kgrs</td>
-                <td><? echo $html->input('netoAcondicionadoL2', $general->formato_numero($pesoAl2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><?php echo $html->input('netoAcondicionadoL2', $general->formato_numero($pesoAl2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <?
+            <?php
                     //}
                 }   
                 //EN CASO DE SER NEGATIVOS LOS RESULTADOS
@@ -544,13 +544,13 @@
             <script type="text/javascript">
                 $('#Guardar').attr('disabled', true);
             </script>
-            <?
+            <?php
                 }else{
             ?>
             <script type="text/javascript">
                 $('#Guardar').removeAttr('disabled');
             </script>
-            <?
+            <?php
                 }
             }
         break;
@@ -685,53 +685,53 @@
             $label = ($id == 1) ? '' : 'Motriz';
             ?>
             <tr>
-                <td>Peso Neto <?=$movimiento?> Kgrs</td>
-                <td><? echo $html->input('pesoRecibido1', $general->formato_numero($pesoN, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td>Peso Neto <?php echo $movimiento?> Kgrs</td>
+                <td><?php echo $html->input('pesoRecibido1', $general->formato_numero($pesoN, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <?
+            <?php
                 if(in_array($GPC['id_cultivo'], array(10,12))){
                     $suma = $GPC['humedad1'] + $GPC['impureza1'];
                     $desc1 = ($suma >= 14) ? ($pesoN - $pesoA) : 0;
             ?>
             <tr>
-                <td>Desc. Hum | Imp <?=$label?> Kgrs</td>
-                <td><? echo $html->input('descuento1', $general->formato_numero($desc1, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td>Desc. Hum | Imp <?php echo $label?> Kgrs</td>
+                <td><?php echo $html->input('descuento1', $general->formato_numero($desc1, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <?
+            <?php
                     if($id == 1){
             ?>
             <tr>
-                <td>Peso Neto Acondicionado <?=$label?> Kgrs</td>
-                <td><? echo $html->input('netoAcondicionado1', $general->formato_numero($pesoA, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td>Peso Neto Acondicionado <?php echo $label?> Kgrs</td>
+                <td><?php echo $html->input('netoAcondicionado1', $general->formato_numero($pesoA, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <?
+            <?php
                     }else{
             ?>
             <tr>
-                <td>Peso Neto Acondicionado <?=$label?> Kgrs</td>
-                <td><? echo $html->input('netoAcondicionado1', $general->formato_numero($pesoAl, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td>Peso Neto Acondicionado <?php echo $label?> Kgrs</td>
+                <td><?php echo $html->input('netoAcondicionado1', $general->formato_numero($pesoAl, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <?
+            <?php
                     }
                 }else{
             ?>
             <tr>
-                <td>Desc. por Humedad <?=$label?> Kgrs</td>
-                <td><? echo $html->input('descHumedad1', $general->formato_numero($pesoH, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td>Desc. por Humedad <?php echo $label?> Kgrs</td>
+                <td><?php echo $html->input('descHumedad1', $general->formato_numero($pesoH, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
-                <td>Desc. por Impureza <?=$label?> Kgrs</td>
-                <td><? echo $html->input('descImpurezas1', $general->formato_numero($pesoI, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td>Desc. por Impureza <?php echo $label?> Kgrs</td>
+                <td><?php echo $html->input('descImpurezas1', $general->formato_numero($pesoI, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <?
+            <?php
                 }
                 //if($id == 1){
             ?>
             <tr>
-                <td>Peso Neto a Liquidar <?=$label?> Kgrs</td>
-                <td><? echo $html->input('netoAcondicionadoL1', $general->formato_numero($pesoAl, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td>Peso Neto a Liquidar <?php echo $label?> Kgrs</td>
+                <td><?php echo $html->input('netoAcondicionadoL1', $general->formato_numero($pesoAl, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <?
+            <?php
                 //}
             if(($GPC['humedad2'] != '' || $GPC['impureza2'] != '' || $GPC['peso_02l'] != '' || $GPC['peso_02v'] != '')){
                 //CALCULO DE LA HUMEDAD Y LA IMPUREZA
@@ -783,52 +783,52 @@
             ?>
             <tr>
                 <td>Peso Neto Despachado Remolque Kgrs</td>
-                <td><? echo $html->input('pesoRecibido2', $general->formato_numero($pesoN2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><?php echo $html->input('pesoRecibido2', $general->formato_numero($pesoN2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <?
+            <?php
                 if(in_array($GPC['id_cultivo'], array(10,12))){
                     $suma2 = $GPC['humedad2'] + $GPC['impureza2'];
                     $desc2 = ($suma2 >= 14) ? ($pesoN2 - $pesoA2) : 0;
             ?>
             <tr>
                 <td>Desc. Hum | Imp Remolque Kgrs</td>
-                <td><? echo $html->input('descuento2', $general->formato_numero($desc2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><?php echo $html->input('descuento2', $general->formato_numero($desc2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <?
+            <?php
                     if($id == 1){
             ?>
             <tr>
                 <td>Peso Neto Acondicionado Remolque Kgrs</td>
-                <td><? echo $html->input('netoAcondicionado2', $general->formato_numero($pesoA2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><?php echo $html->input('netoAcondicionado2', $general->formato_numero($pesoA2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <?
+            <?php
                     }else{
             ?>
             <tr>
                 <td>Peso Neto Acondicionado Remolque Kgrs</td>
-                <td><? echo $html->input('netoAcondicionado2', $general->formato_numero($pesoAl2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><?php echo $html->input('netoAcondicionado2', $general->formato_numero($pesoAl2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <?
+            <?php
                     }
                 }else{
             ?>
             <tr>
                 <td>Desc. por Humedad Remolque Kgrs</td>
-                <td><? echo $html->input('descHumedad2', $general->formato_numero($pesoH2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><?php echo $html->input('descHumedad2', $general->formato_numero($pesoH2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Desc. por Impureza Remolque Kgrs</td>
-                <td><? echo $html->input('descImpurezas2', $general->formato_numero($pesoI2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><?php echo $html->input('descImpurezas2', $general->formato_numero($pesoI2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <?
+            <?php
                 }
                 //if($id == 1){
             ?>
             <tr>
                 <td>Peso Neto a Liquidar Remolque Kgrs</td>
-                <td><? echo $html->input('netoAcondicionadoL2', $general->formato_numero($pesoAl2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><?php echo $html->input('netoAcondicionadoL2', $general->formato_numero($pesoAl2, 3), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
-            <?
+            <?php
                 //}
             }
             //EN CASO DE SER NEGATIVOS LOS RESULTADOS
@@ -837,7 +837,7 @@
             <tr class="error" align="center">
                 <td colspan="2" style="padding-top: 20px;">Favor, verifique los pesos, el calculo no puede ser negativo</td>
             </tr>
-            <?
+            <?php
                 }
         break;
     }

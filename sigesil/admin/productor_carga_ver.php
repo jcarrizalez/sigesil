@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
     $productor = new Productor();
     
@@ -35,13 +35,13 @@
     });
 
     function cancelar(){
-        window.location = 'productor_carga_ver.php?ac=cancelar&archivo=<?=$archivo?>';
+        window.location = 'productor_carga_ver.php?ac=cancelar&archivo=<?php echo $archivo?>';
     }
 
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=cargar" enctype="multipart/form-data">
-    <input name="archivo" type="hidden" value="<? echo $archivo ?>" />
-    <input name="linea" type="hidden" value="<? echo $linea ?>" />
+    <input name="archivo" type="hidden" value="<?php echo $archivo ?>" />
+    <input name="linea" type="hidden" value="<?php echo $linea ?>" />
     <div id="titulo_modulo">
        PRODUCTORES DEL EXCEL<br/><hr/>
     </div>
@@ -50,17 +50,17 @@
             <table width="100%">
                 <tr>
                     <th width="1">Archivo:</th>
-                    <td><?=$nombreArch?></td>
+                    <td><?php echo $nombreArch?></td>
                 </tr>
                 <tr id="botones">
                     <td colspan="2">
-                        <? //echo $html->input('Guardar', 'Guardar', array('type' => 'submit', 'onClick' => 'show_div_loader();')); ?>
-                        <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
-                        <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
+                        <?php //echo $html->input('Guardar', 'Guardar', array('type' => 'submit', 'onClick' => 'show_div_loader();')); ?>
+                        <?php echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
+                        <?php echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
                     </td>
                 </tr>
             </table>
-            <? echo $html->input('mov', $GPC['mov'], array('type' => 'hidden')); ?>
+            <?php echo $html->input('mov', $GPC['mov'], array('type' => 'hidden')); ?>
         </form>
     </div><hr/>
     <div style="height:375px; overflow:auto; margin-top:10px;">
@@ -73,7 +73,7 @@
                 <th>Direcci&oacute;n</th>
                 <th>Error</th>
             </tr>
-            <?
+            <?php
                 $i=0;
                 foreach ($infoArchivo as $indice => $linea) {
                     $clase = $general->obtenerClaseFila($i);
@@ -95,27 +95,27 @@
                     else
                         $var_error = '<img src="'.DOMAIN_ROOT.'images/habilitar.png" width="16" height="16" title=Activo>'.$var_error;
             ?>
-                <tr class="<?=$clase?>">
+                <tr class="<?php echo $clase?>">
                     <!--td align="center" class="cell_left">
-                        <?
+                        <?php
                         if (in_array($linea['scvlines'], $productor->lineas_cargadas)) {
                         ?>
                             <img src="../images/icons/gtk-apply.png" width="16" height="16" />
-                        <?
+                        <?php
                         } else {
                             echo '&nbsp;';
                         }
                         ?>
                     </td-->
-                    <td align="center"><? echo $linea['scvlines'] ?></td>
-                    <td><? echo strtoupper($linea['ced_rif']) ?></td>
-                    <td><? echo strtoupper($linea['nombre']) ?></td>
-                    <td><? echo strtoupper($linea['telefono']) ?></td>
-                    <td><? echo strtoupper($linea['direccion']) ?></td>
-                    <td align="left"><? echo $var_error ?></td>
+                    <td align="center"><?php echo $linea['scvlines'] ?></td>
+                    <td><?php echo strtoupper($linea['ced_rif']) ?></td>
+                    <td><?php echo strtoupper($linea['nombre']) ?></td>
+                    <td><?php echo strtoupper($linea['telefono']) ?></td>
+                    <td><?php echo strtoupper($linea['direccion']) ?></td>
+                    <td align="left"><?php echo $var_error ?></td>
                 </tr>
-        <? $i++; } ?>
+        <?php $i++; } ?>
         </table>
     </div>
 
-<? require('../lib/common/footer.php'); ?>
+<?php require('../lib/common/footer.php'); ?>

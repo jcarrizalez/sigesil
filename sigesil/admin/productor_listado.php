@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
     
     $productor = new Productor();
@@ -47,7 +47,7 @@
         PRODUCTORES<br/><hr/>
     </div>
     <div id="mensajes">
-        <?
+        <?php
             switch($GPC['msg']){
                 case 'exitoso':
                     echo "<span class='msj_verde'>Registro Guardado !</span>";
@@ -64,7 +64,7 @@
                 <tr>
                     <td width="60">C&eacute;dula</td>
                     <td>
-                        <?
+                        <?php
                             echo $html->select('nacionalidad',array('options'=>$listaNacion, 'selected' => $GPC['nacionalidad']));
                             echo $html->input('cedula', $GPC['cedula'], array('type' => 'text', 'class' => 'positive estilo_campos'));
                         ?>
@@ -73,12 +73,12 @@
                 <tr>
                     <td>Nombre</td>
                     <td>
-                        <? echo $html->input('nombre', $GPC['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?>
+                        <?php echo $html->input('nombre', $GPC['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?>
                     </td>
                 </tr>
                 <tr id="botones">
                     <td colspan="2">
-                        <?
+                        <?php
                             echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
                             $general->crearAcciones($acciones, '', 1);
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button'));
@@ -89,7 +89,7 @@
         </form>
     </div><hr/>
     <div id="paginador">
-        <?
+        <?php
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
             $paginador->print_paginator('pulldown');
@@ -104,25 +104,25 @@
             <th>Municipio</th>           
             <th>Acci&oacute;n</th>
         </tr>
-        <?
+        <?php
             $i=0;
             foreach($listadoProductores as $dataProductor){
                 $clase = $general->obtenerClaseFila($i);
         ?>
-        <tr class="<?=$clase?>">
-            <td align="center"><?=$dataProductor['ced_rif']?></td>
-            <td><?=$dataProductor['nombre']?></td>
-            <td><?=$dataProductor['pais']?></td>            
-            <td><?=$dataProductor['estado']?></td>            
-            <td><?=$dataProductor['municipio']?></td>
+        <tr class="<?php echo $clase?>">
+            <td align="center"><?php echo $dataProductor['ced_rif']?></td>
+            <td><?php echo $dataProductor['nombre']?></td>
+            <td><?php echo $dataProductor['pais']?></td>            
+            <td><?php echo $dataProductor['estado']?></td>            
+            <td><?php echo $dataProductor['municipio']?></td>
             <td align="center">
-                <?
+                <?php
                     $urls = array(1 => 'productor.php?ac=editar&id='.$dataProductor['id'], 'productor_listado.php?ac=eliminar&id='.$dataProductor['id']."&estatus=f");
                     $general->crearAcciones($acciones, $urls);
                 ?>
             </td>
         </tr>
-        <?
+        <?php
                 $i++; 
             }
         ?>
@@ -131,12 +131,12 @@
         </tr>
     </table>
     <div id="paginador">
-        <?
+        <?php
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
             $paginador->print_paginator('pulldown');
         ?>
     </div>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

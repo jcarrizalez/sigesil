@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Clase para realizar descargas de la aplicacion; inicialmente pensada para descargar reportes en
  * formato excel

@@ -1,10 +1,10 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
 ?>
-<link href="<?=DOMAIN_ROOT?>css/frontend.css" rel="stylesheet" type="text/css" />
-<link href="<?=DOMAIN_ROOT?>css/jquery-ui-1.8.17.custom.css" rel="stylesheet" type="text/css" />
-<link href="<?=DOMAIN_ROOT?>css/fancybox.css" rel="stylesheet" type="text/css" />
-<?
+<link href="<?php echo DOMAIN_ROOT?>css/frontend.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo DOMAIN_ROOT?>css/jquery-ui-1.8.17.custom.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo DOMAIN_ROOT?>css/fancybox.css" rel="stylesheet" type="text/css" />
+<?php
     $javascript->includeFile('jquery/jquery-1.7.1.min.js');
     $javascript->includeFile('jquery/jquery-ui-1.8.17.custom.min.js');
     $javascript->includeFile('jquery/jquery.fancybox.js');
@@ -58,18 +58,18 @@
     <table id="table_login" align="center" border="0">
         <tr>
             <td class="labelText" width="1">Usuario:</td>
-            <td align="right"><? echo $html->input('usuario', '', array('type' => 'text', 'class' => 'inputLogin')); ?></td>
+            <td align="right"><?php echo $html->input('usuario', '', array('type' => 'text', 'class' => 'inputLogin')); ?></td>
         </tr>
         <tr>
             <td class="labelText">Contrase&ntilde;a:&nbsp;</td>
-            <td align="right"><? echo $html->input('pass', '', array('type' => 'password', 'class' => 'inputLogin')); ?></td>
+            <td align="right"><?php echo $html->input('pass', '', array('type' => 'password', 'class' => 'inputLogin')); ?></td>
         </tr>
         <tr>
             <td colspan="2"><br/></td>
         </tr>
         <tr>
             <td class="labelText" colspan="2">
-                <?
+                <?php
                     require('../lib/common/recaptchalib.php');
                     $publickey = LLAVE_PUBLICA;
                     echo recaptcha_get_html($publickey);
@@ -83,8 +83,8 @@
         </tr>
         <tr align="center">
             <td colspan="2">
-                <? echo $html->input('Entrar', 'Entrar', array('type' => 'submit', 'class' => 'btnLogin')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'class' => 'btnLogin')); ?>
+                <?php echo $html->input('Entrar', 'Entrar', array('type' => 'submit', 'class' => 'btnLogin')); ?>
+                <?php echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'class' => 'btnLogin')); ?>
             </td>
         </tr>
     </table>

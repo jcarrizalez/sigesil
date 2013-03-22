@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
     
     $silos = new Silos();
@@ -51,7 +51,7 @@
         SILOS<br/><hr/>
     </div>
     <div id="mensajes">
-        <?
+        <?php
             switch($GPC['msg']){
                 case 'exitoso':
                     echo "<span class='msj_verde'>Registro Guardado !</span>";
@@ -65,19 +65,19 @@
     <div id="filtro">
         <form name="form1" id="form1" method="GET" action="" enctype="multipart/form-data">
             <table width="100%">
-                <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+                <?php if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
                 <tr>
                     <td width="110">Centro de Acopio:</td>
                     <td colspan="2">
-                        <?
+                        <?php
                             echo $html->select('id_ca',array('options'=>$listaCA, 'selected' => $GPC['id_ca'], 'default' => 'Todos'));
                         ?>
                     </td>
                 </tr>
-                <? } ?>
+                <?php } ?>
                 <tr id="botones">
                     <td colspan="3">
-                        <?
+                        <?php
                             echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
                             $general->crearAcciones($acciones, '', 1);    
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
@@ -88,7 +88,7 @@
         </form>
     </div><hr/>
     <div id="paginador">
-        <?
+        <?php
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
             $paginador->print_paginator('pulldown');
@@ -96,48 +96,48 @@
     </div>
     <table align="center" width="100%">
         <tr align="center" class="titulos_tabla">
-            <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+            <?php if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
             <th>Centro de Acopio</th>
-            <? } ?>
+            <?php } ?>
             <th>C&oacute;digo</th>
             <th>Nombre</th>
             <th>Coordenadas</th>
             <th>Capacidad (Kg)</th>
             <th>Acci&oacute;n</th>
         </tr>
-        <?
+        <?php
             $i=0;
             foreach($listadoSilos as $dataSilo){
                 $clase = $general->obtenerClaseFila($i);
         ?>
-        <tr class="<?=$clase?>">
-            <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
-            <td><?=$dataSilo['nombre_ca']?></td>
-            <? } ?>
-            <td align="center"><?=$dataSilo['codigo']?></td>
-            <td><?=$dataSilo['nombre']?></td>
-            <td><?=$dataSilo['coordenada']?></td>
-            <td align="center"><?=$dataSilo['capacidad']?></td>
+        <tr class="<?php echo $clase?>">
+            <?php if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+            <td><?php echo $dataSilo['nombre_ca']?></td>
+            <?php } ?>
+            <td align="center"><?php echo $dataSilo['codigo']?></td>
+            <td><?php echo $dataSilo['nombre']?></td>
+            <td><?php echo $dataSilo['coordenada']?></td>
+            <td align="center"><?php echo $dataSilo['capacidad']?></td>
             <td align="center">
-                <?
+                <?php
                     $urls = array(1 => 'silos.php?ac=editar&id='.$dataSilo['id'], 'silos_listado.php?ac=eliminar&id='.$dataSilo['id']."&estatus=f");
                     $general->crearAcciones($acciones, $urls);
                 ?>
             </td>
         </tr>
-        <? $i++; } ?>
+        <?php $i++; } ?>
         <tr>
             
             <td colspan="3">&nbsp;</td>
         </tr>
     </table>
     <div id="paginador">
-        <?
+        <?php
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
             $paginador->print_paginator('pulldown');
         ?>
     </div>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

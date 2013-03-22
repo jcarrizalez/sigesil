@@ -418,7 +418,7 @@
 ?>
 <script type="text/javascript">
     function cancelar(){
-        window.location = '<?=DOMAIN_ROOT?>admin/utilitario_recepcion_listado.php';
+        window.location = '<?php echo DOMAIN_ROOT?>admin/utilitario_recepcion_listado.php';
     }
     
     $(document).ready(function(){
@@ -478,7 +478,7 @@
                 alert('Se debe elegir un Numero!!!');
             } else
                 $('#Guardar').removeAttr('disabled');
-            $('#numero_msg').load('../ajax/detalle_utilitario.php?ac=recepcion&numero='+$('#Recepcion\\[numero\\]').val()+"&fecha="+$('#Recepcion\\[fecha_recepcion\\]').val()+"&tipo=n&co="+$('#Recepcion\\[id_cosecha\\]').val()+"&ca=<?=$idCA?>"+"&id=<?=$GPC['id']?>");
+            $('#numero_msg').load('../ajax/detalle_utilitario.php?ac=recepcion&numero='+$('#Recepcion\\[numero\\]').val()+"&fecha="+$('#Recepcion\\[fecha_recepcion\\]').val()+"&tipo=n&co="+$('#Recepcion\\[id_cosecha\\]').val()+"&ca=<?php echo $idCA?>"+"&id=<?php echo $GPC['id']?>");
         });
         
         $('#Recepcion\\[fecha_recepcion\\]').live('change', function() {
@@ -487,7 +487,7 @@
                 alert('Se debe elegir una Fecha!!!');
             } else
                 $('#Guardar').removeAttr('disabled');  
-            $('#numero_msg').load('../ajax/detalle_utilitario.php?ac=recepcion&numero='+$('#Recepcion\\[numero\\]').val()+"&fecha="+$('#Recepcion\\[fecha_recepcion\\]').val()+"&tipo=f&co="+$('#Recepcion\\[id_cosecha\\]').val()+"&ca=<?=$idCA?>"+"&id=<?=$GPC['id']?>");
+            $('#numero_msg').load('../ajax/detalle_utilitario.php?ac=recepcion&numero='+$('#Recepcion\\[numero\\]').val()+"&fecha="+$('#Recepcion\\[fecha_recepcion\\]').val()+"&tipo=f&co="+$('#Recepcion\\[id_cosecha\\]').val()+"&ca=<?php echo $idCA?>"+"&id=<?php echo $GPC['id']?>");
         });
         
         $('#Recepcion\\[placa\\]').live('change', function() {
@@ -586,29 +586,29 @@
         <table align="center" border="0">
             <tr>
                 <td width="130px">Numero de Gu&iacute;a</td>
-                <td width="230px"><?=$html->input('Recepcion.numero_guia',$infoMov[0]['numero_guia'], array('type' => 'text', 'class' => 'crproductor guia', 'length'=>'9'));?></td>
+                <td width="230px"><?php echo $html->input('Recepcion.numero_guia',$infoMov[0]['numero_guia'], array('type' => 'text', 'class' => 'crproductor guia', 'length'=>'9'));?></td>
         </table>
         <table id="subguia" align="center" border="0">
-        <?
+        <?php
             $listaSubGuia = $guia->buscarSubGuias($infoMov[0]['id_guia']);
             $i=0;
             foreach($listaSubGuia as $subguia) {
                 $i++;
          ?>
             <tr>
-                <td width="130px">SubGu&iacute;a Nro. <?=$i?></td>
+                <td width="130px">SubGu&iacute;a Nro. <?php echo $i?></td>
                 <td width="230px">
-                    <?=$html->input('Recepcion.numero_guia_'.$i, $subguia['subguia'], array('type' => 'text', 'class' => 'crproductor subguia')); ?>
+                    <?php echo $html->input('Recepcion.numero_guia_'.$i, $subguia['subguia'], array('type' => 'text', 'class' => 'crproductor subguia')); ?>
                 </td>
             </tr>
-            <?
+            <?php
                 }
             ?>
             </table>
         <table align="center" border="0">
                 <tr>
                     <td width="130px">Fecha de emisi&oacute;n</td>
-                    <td width="230px"><?=$html->input('Recepcion.fecha_emision', $general->date_sql_screen($infoGuia[0]['fecha_emision'],'','es','-'), array('type' => 'text', 'class' => 'crproductor','readOnly'=>true)); ?>
+                    <td width="230px"><?php echo $html->input('Recepcion.fecha_emision', $general->date_sql_screen($infoGuia[0]['fecha_emision'],'','es','-'), array('type' => 'text', 'class' => 'crproductor','readOnly'=>true)); ?>
                         <img src="../images/calendario.png" id="femision" width="16" height="16" style="cursor:pointer;" />
                         <script>
                             Calendar.setup({
@@ -628,7 +628,7 @@
                 </tr>
                 <tr>
                     <td width="130px">Placa del Vehiculo</td>
-                    <td width="230px"><?=$html->input('Recepcion.placa', $infoMov[0]['placa'], array('type' => 'text', 'class' => 'crproductor')); ?></td>
+                    <td width="230px"><?php echo $html->input('Recepcion.placa', $infoMov[0]['placa'], array('type' => 'text', 'class' => 'crproductor')); ?></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -636,12 +636,12 @@
                 </tr>
                 <tr>
                     <td width="130px">Placa del Remolque</td>
-                    <td width="230px"><?=$html->input('Recepcion.placa_remolques', $infoGuia[0]['placa_remolque'], array('type' => 'text', 'class' => 'crproductor')); ?></td>
+                    <td width="230px"><?php echo $html->input('Recepcion.placa_remolques', $infoGuia[0]['placa_remolque'], array('type' => 'text', 'class' => 'crproductor')); ?></td>
                 </tr>
                 <tr>
                     <td>Contrato</td>
                     <td>
-                        <?=$html->input('Guia.contrato', $infoMov[0]['contrato'], array('type' => 'text', 'class' => 'crproductor')); ?>
+                        <?php echo $html->input('Guia.contrato', $infoMov[0]['contrato'], array('type' => 'text', 'class' => 'crproductor')); ?>
                     </td>
                 </tr>
         </table>
@@ -652,7 +652,7 @@
         <tr>
             <td>Cosecha</td>
             <td colspan="2" id='cultivo_nombre' width="230px">                
-            <? //echo $html->select('Recepcion.id_cosecha', array('options' => $listaCo, 'selected' => $infoMov[0]['id_cosecha'],  'default'=>'Seleccione', 'class' => 'estilo_campos', 'disabled'=>'true')); 
+            <?php //echo $html->select('Recepcion.id_cosecha', array('options' => $listaCo, 'selected' => $infoMov[0]['id_cosecha'],  'default'=>'Seleccione', 'class' => 'estilo_campos', 'disabled'=>'true')); 
             echo $html->input('Recepcion.id_cosecha', $infoMov[0]['id_cosecha'], array('type' => 'hidden'));
             echo $html->input('', $infoMov[0]['cosecha'], array('type' => 'text', 'disabled'=>'true'));
             ?>
@@ -661,7 +661,7 @@
         <tr>
             <td>Productor</td>
             <td>
-            <? 
+            <?php 
             echo $html->select('Recepcion.ced_productor_pre',array('options'=>$juridico, 'selected' => $infoMov[0]['ced_productor'][0]));
             echo $html->input('Recepcion.ced_productor', str_replace($juridico, "", $infoMov[0]['ced_productor']), array('type' => 'text', 'class' => 'crproductor'));
             ?>
@@ -674,7 +674,7 @@
         <tr>
             <td>Asociaci&oacute;n</td>
             <td>
-                <?
+                <?php
                 echo $html->select('Recepcion.ced_asociacion_pre',array('options'=>$juridico, 'selected' => $infoMov[0]['ced_asociacion'][0]));
                 echo $html->input('Recepcion.ced_asociacion', str_replace($juridico, "", $infoMov[0]['ced_asociacion']), array('type' => 'text', 'class' => 'crproductor'));
                 ?>
@@ -686,7 +686,7 @@
         <tr>
             <td>Asociado</td>
             <td>
-            <? 
+            <?php 
             echo $html->select('Recepcion.ced_asociado_pre',array('options'=>$juridico, 'selected' => $infoMov[0]['ced_asociado'][0]));
             echo $html->input('Recepcion.ced_asociado', str_replace($juridico, "", $infoMov[0]['ced_asociado']), array('type' => 'text', 'class' => 'crproductor'));
             ?>
@@ -697,17 +697,17 @@
         </tr>
         <tr>
             <td>Nro Entrada</td>
-            <td><? echo $html->input('Recepcion.numero', $infoMov[0]['numero'], array('type' => 'text', 'readOnly' => 'true', 'class' => 'crproductor positive')); ?></td>
-            <td id='numero_msg'><? echo $html->input('msg1',0, array('type' => 'text', 'style'=>'display: none'));?></td>
+            <td><?php echo $html->input('Recepcion.numero', $infoMov[0]['numero'], array('type' => 'text', 'readOnly' => 'true', 'class' => 'crproductor positive')); ?></td>
+            <td id='numero_msg'><?php echo $html->input('msg1',0, array('type' => 'text', 'style'=>'display: none'));?></td>
         </tr>
         <tr>
             <td>Fecha de Recepci&oacute;n</td>
-            <td><? echo $html->input('Recepcion.fecha_recepcion', $general->date_sql_screen($infoMov[0]['fecha_recepcion'], '', 'es', '-'), array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?>
+            <td><?php echo $html->input('Recepcion.fecha_recepcion', $general->date_sql_screen($infoMov[0]['fecha_recepcion'], '', 'es', '-'), array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?>
         </tr>
         <tr>
             <td width="130px">Chofer</td>
             <td width="230px">
-            <?
+            <?php
                 echo $html->select('Recepcion.ced_chofer_pre',array('options'=>$juridico, 'selected' => $infoMov[0]['ced_chofer'][0]));
                 echo $html->input('Recepcion.ced_chofer', str_replace($juridico, "", $infoMov[0]['ced_chofer']), array('type' => 'text', 'class' => 'crproductor')); 
             ?>
@@ -719,46 +719,46 @@
         </tr>
         <tr>
             <td>Peso lleno 1</td>
-            <td><? echo $html->input('Recepcion.peso_01l', $infoMov[0]['peso_01l'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
+            <td><?php echo $html->input('Recepcion.peso_01l', $infoMov[0]['peso_01l'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
             <td>Peso Vacio 1</td>
-            <td><? echo $html->input('Recepcion.peso_01v', $infoMov[0]['peso_01v'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
+            <td><?php echo $html->input('Recepcion.peso_01v', $infoMov[0]['peso_01v'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
             <td>Peso lleno 2</td>
-            <td><? echo $html->input('Recepcion.peso_02l', $infoMov[0]['peso_02l'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
+            <td><?php echo $html->input('Recepcion.peso_02l', $infoMov[0]['peso_02l'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
             <td>Peso Vacio 2</td>
-            <td><? echo $html->input('Recepcion.peso_02v', $infoMov[0]['peso_02v'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
+            <td><?php echo $html->input('Recepcion.peso_02v', $infoMov[0]['peso_02v'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
             <td>Desc H&uacute;medad</td>
-            <td><? echo $html->input('Recepcion.humedad_des', $infoMov[0]['humedad_des'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
+            <td><?php echo $html->input('Recepcion.humedad_des', $infoMov[0]['humedad_des'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
             <td>Desc Impureza</td>
-            <td><? echo $html->input('Recepcion.impureza_des', $infoMov[0]['impureza_des'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
+            <td><?php echo $html->input('Recepcion.impureza_des', $infoMov[0]['impureza_des'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
             <td>Nro Carril</td>
-            <td><? echo $html->select('Recepcion.carril', array('options' => $listaC, 'selected' => $infoMov[0]['carril'],  'default'=>'Seleccione', 'class'=>'estilo_campos')); ?></td>
+            <td><?php echo $html->select('Recepcion.carril', array('options' => $listaC, 'selected' => $infoMov[0]['carril'],  'default'=>'Seleccione', 'class'=>'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td>Peso Acondicionado</td>
-            <td><? echo $html->input('Recepcion.peso_acon', $infoMov[0]['peso_acon'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
+            <td><?php echo $html->input('Recepcion.peso_acon', $infoMov[0]['peso_acon'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
             <td align="left">Peso Acondicionado (liquidar)</td>
-            <td><? echo $html->input('Recepcion.peso_acon_liq', $infoMov[0]['peso_acon_liq'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
+            <td><?php echo $html->input('Recepcion.peso_acon_liq', $infoMov[0]['peso_acon_liq'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
         </tr>
         <tr>
             <td>Estatus</td>
-            <td><? echo $html->select('Recepcion.estatus_rec',array('options'=>$listadoEstatus, 'selected' => $infoMov[0]['estatus_rec'],  'default'=>'Seleccione', 'default' => 'Seleccione'));?></td>
+            <td><?php echo $html->select('Recepcion.estatus_rec',array('options'=>$listadoEstatus, 'selected' => $infoMov[0]['estatus_rec'],  'default'=>'Seleccione', 'default' => 'Seleccione'));?></td>
         </tr>
     </table>
-    <? echo $html->input('Recepcion.id', $GPC['id'], array('type' => 'hidden')); ?>
+    <?php echo $html->input('Recepcion.id', $GPC['id'], array('type' => 'hidden')); ?>
     </fieldset>
     <table align="center" border="0">
         <tr>
@@ -766,12 +766,12 @@
         </tr>
         <tr align="center">            
             <td colspan="3">
-                <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
+                <?php echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
+                <?php echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
             </td>
         </tr>        
     </table>
 </form>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

@@ -15,7 +15,7 @@
                         alert('Cedula/Rif ya Existe');
                     });
                 </script>
-                <?
+                <?php
             }else{
                 echo $html->select('nacionalidad',array('options'=>$listaNacion, 'selected' => substr(trim($GPC['ced']), 0, 1)));
                 echo "&nbsp;".$html->input('Productor.ced_rif', substr(trim($GPC['ced']), 1), array('type' => 'text', 'length' => '10', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
@@ -33,7 +33,7 @@
                         alert('Cedula/Rif ya Existe');
                     });
                 </script>
-                <?
+                <?php
             }else{
                 echo $html->select('nacionalidad',array('options'=>$listaNacion, 'selected' => substr(trim($GPC['ced']), 0, 1)));
                 echo "&nbsp;".$html->input('Cliente.ced_rif', substr(trim($GPC['ced']), 1), array('type' => 'text', 'length' => '10', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
@@ -51,7 +51,7 @@
                         alert('Cedula/Rif ya Existe');
                     });
                 </script>
-                <?
+                <?php
             }else{
                 echo $html->select('nacionalidad',array('options'=>$listaNacion, 'selected' => substr(trim($GPC['ced']), 0, 1)));
                 echo "&nbsp;".$html->input('Chofer.ced_rif', substr(trim($GPC['ced']), 1), array('type' => 'text', 'length' => '10', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
@@ -68,7 +68,7 @@
                         alert('Cedula/Rif ya Existe');
                     });
                 </script>
-                <?
+                <?php
             }else{
                 echo $html->input('Usuario.cedula', $GPC['ced'], array('type' => 'text', 'class' => 'estilo_campos positive'));;
             }
@@ -85,7 +85,7 @@
                         alert('Codigo ya Existe');
                     });
                 </script>
-                <?
+                <?php
             }else{
                 echo $html->input('Analisis.codigo', $GPC['cod'], array('type' => 'text', 'class' => 'estilo_campos positive'));
             }
@@ -102,7 +102,7 @@
                         alert('Codigo ya Existe');
                     });
                 </script>
-                <?
+                <?php
             }else{
                 echo $html->input('Cultivo.codigo', $GPC['cod'], array('type' => 'text', 'class' => 'estilo_campos positive'));
             }

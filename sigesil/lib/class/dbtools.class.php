@@ -1,4 +1,4 @@
-<?
+<?php
 
 class cls_dbtools extends cls_logs {
 

@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
     
     $cosecha = new Cosecha();
@@ -260,7 +260,7 @@ $validator->printScript();
         RECEPCI&Oacute;N<br/><hr/>
     </div>
     <div id="mensajes">
-        <?
+        <?php
             switch($GPC['msg']){
                 case 'exitoso':
                     echo "<span class='msj_verde'>Registro Guardado !</span>";
@@ -277,7 +277,7 @@ $validator->printScript();
         </tr>
         <tr>
             <td width="80"><span class="msj_rojo">* </span>Cosecha </td>
-            <td><? echo $html->select('Recepcion.id_cosecha',array('options'=>$listadoC, 'default' => 'Seleccione'))?></td>
+            <td><?php echo $html->select('Recepcion.id_cosecha',array('options'=>$listadoC, 'default' => 'Seleccione'))?></td>
         </tr>
     </table>
     <fieldset>
@@ -286,20 +286,20 @@ $validator->printScript();
             <tr>
                 <td><span class="msj_rojo">* </span>N&uacute;mero de Gu&iacute;a </td>
                 <td>
-                    <?
+                    <?php
                         echo $html->input('Guia.numero_guia', '', array('type' => 'text', 'length' => '9', 'class' => 'estilo_campos positive'));
                     ?>
                 </td>
             </tr>
             <!--tr>
                 <td><span class="msj_rojo">* </span>Agencia Origen </td>
-                <td><? echo $html->select('Guia.id_agencia', array('options' => $listadoAgencias, 'selected' => '', 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
+                <td><?php echo $html->select('Guia.id_agencia', array('options' => $listadoAgencias, 'selected' => '', 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
             </tr-->
             <tbody id="guia">
                 <tr>
                     <td><span class="msj_rojo">* </span>Fecha de Emisi&oacute;n </td>
                     <td>
-                        <? echo $html->input('Guia.fecha_emision', $general->date_sql_screen($infoGuia[0]['fecha_emision'], '', 'es', '-'), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?>
+                        <?php echo $html->input('Guia.fecha_emision', $general->date_sql_screen($infoGuia[0]['fecha_emision'], '', 'es', '-'), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?>
                         <img src="../images/calendario.png" id="femision" width="16" height="16" style="cursor:pointer" />
                         <script>
                             Calendar.setup({
@@ -314,16 +314,16 @@ $validator->printScript();
                 </tr>
                 <!--tr>
                     <td>Disponible a Recibir </td>
-                    <td><? echo $html->input('Guia.disponible_rec', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><?php echo $html->input('Guia.disponible_rec', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
                 <tr-->
                 <tr>
                     <td><span class="msj_rojo">* </span>Kilogramos Gu&iacute;a </td>
-                    <td><? echo $html->input('Guia.kilogramos', '', array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
+                    <td><?php echo $html->input('Guia.kilogramos', '', array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
                 </tr>
                 <tr>
                     <td>Otras Gu&iacute;as </td>
-                    <td><? echo $html->select('cantguia',array('options'=>$listaCantM, 'default' => 'Seleccione', 'class' => 'estilo_campos'))?></td>
+                    <td><?php echo $html->select('cantguia',array('options'=>$listaCantM, 'default' => 'Seleccione', 'class' => 'estilo_campos'))?></td>
                 </tr>
             </tbody>
         </table>
@@ -336,7 +336,7 @@ $validator->printScript();
                 <tr>
                     <td><span class="msj_rojo">* </span>C&eacute;dula/Rif Productor</td>
                     <td>
-                        <?
+                        <?php
                             echo $html->select('nacion', array('options'=>$listaCR));
                             echo "&nbsp;".$html->input('ced_rif_productor', '', array('type' => 'text', 'length' => '10', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
                         ?>
@@ -344,14 +344,14 @@ $validator->printScript();
                 </tr>
                 <tr>
                     <td><span class="msj_rojo">* </span>Nombres y Apellidos Productor</td>
-                    <td><? echo $html->input('nombre_productor', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
+                    <td><?php echo $html->input('nombre_productor', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
                 </tr>
             </tbody>
             <tbody id="asociacion">
                 <tr>
                     <td>C&eacute;dula/Rif Asociaci&oacute;n</td>
                     <td>
-                        <?
+                        <?php
                             echo $html->select('nacion2', array('options'=>$listaCR));
                             echo "&nbsp;".$html->input('ced_rif_asociacion', '', array('type' => 'text', 'length' => '10', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
                         ?>
@@ -359,14 +359,14 @@ $validator->printScript();
                 </tr>
                 <tr>
                     <td>Nombres y Apellidos Asociaci&oacute;n</td>
-                    <td><? echo $html->input('nombre_asociacion', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
+                    <td><?php echo $html->input('nombre_asociacion', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
                 </tr>
             </tbody>
             <tbody id="asociado">
                 <tr>
                     <td>C&eacute;dula/Rif Asociado</td>
                     <td>
-                        <?
+                        <?php
                             echo $html->select('nacion3', array('options'=>$listaCR));
                             echo "&nbsp;".$html->input('ced_rif_asociado', '', array('type' => 'text', 'length' => '10', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
                         ?>
@@ -374,12 +374,12 @@ $validator->printScript();
                 </tr>
                 <tr>
                     <td>Nombres y Apellidos Asociado</td>
-                    <td><? echo $html->input('nombre_asociado', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
+                    <td><?php echo $html->input('nombre_asociado', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
                 </tr>
             </tbody>
             <tr>
                 <td>N&uacute;mero de Contrato </td>
-                <td id="contrato"><? echo $html->input('Guia.contrato', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
+                <td id="contrato"><?php echo $html->input('Guia.contrato', '', array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos')); ?></td>
             </tr>
         </table>
     </fieldset>
@@ -389,7 +389,7 @@ $validator->printScript();
             <tr>
                 <td>C&eacute;dula/Rif </td>
                 <td>
-                    <?
+                    <?php
                         //echo $html->select('nacion2', array('options'=>$listaCR));
                         //echo "&nbsp;".$html->input('Asociado.ced_rif', '', array('type' => 'text', 'length' => '8', 'class' => 'crproductor positive'));
                     ?>
@@ -398,7 +398,7 @@ $validator->printScript();
             <tbody id="asociado">
                 <tr>
                     <td>Nombres y Apellidos </td>
-                    <td><? //echo $html->input('Asociado.nombre', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><?php //echo $html->input('Asociado.nombre', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
             </tbody>
         </table>
@@ -409,7 +409,7 @@ $validator->printScript();
             <tr>
                 <td><span class="msj_rojo">* </span>C&eacute;dula Chofer </td>
                 <td>
-                    <?
+                    <?php
                         echo $html->select('nacion3', array('options'=>$listaCR));
                         echo "&nbsp;".$html->input('Chofer.ced_rif', '', array('type' => 'text', 'length' => '8', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
                     ?>
@@ -418,26 +418,26 @@ $validator->printScript();
             <tbody id="chofer">
                 <tr>
                     <td><span class="msj_rojo">* </span>Nombres y Apellidos </td>
-                    <td><? echo $html->input('Chofer.nombre', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><?php echo $html->input('Chofer.nombre', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
             </tbody>
             <tbody id="placas">
                 <tr>
                     <td><span class="msj_rojo">* </span>Placa Motriz/Chuto</td>
-                    <td><? echo $html->input('Vehiculo.placa', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                    <td><?php echo $html->input('Vehiculo.placa', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
                 </tr>
             </tbody>
             <!--tr>
                 <td><span class="msj_rojo">* </span>Placa Motriz/Chuto </td>
-                <td><? echo $html->input('Vehiculo.placa', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><?php echo $html->input('Vehiculo.placa', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td>Marca </td>
-                <td><? echo $html->input('Vehiculo.marca', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><?php echo $html->input('Vehiculo.marca', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr-->
             <tr>
                 <td>Placa Remolque/Batea </td>
-                <td><? echo $html->input('Vehiculo.placa_remolques', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><?php echo $html->input('Vehiculo.placa_remolques', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
         </table>
     </fieldset>
@@ -446,15 +446,15 @@ $validator->printScript();
         <table align="center">
             <tr>
                 <td>Fecha de Recepci&oacute;n </td>
-                <td><? echo $html->input('Recepcion.fecha_recepcion', date('d-m-Y'), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
+                <td><?php echo $html->input('Recepcion.fecha_recepcion', date('d-m-Y'), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>Carril de Muestreo </td>
-                <td><? echo $html->select('Recepcion.carril', array('options'=>$listaCarriles, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
+                <td><?php echo $html->select('Recepcion.carril', array('options'=>$listaCarriles, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>¿Cant. de Muestras a An&aacute;lizar?</td>
-                <td><? echo $html->select('Recepcion.cant_muestras', array('options'=>$pesoPartes, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
+                <td><?php echo $html->select('Recepcion.cant_muestras', array('options'=>$pesoPartes, 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
             </tr>
         </table>
     </fieldset>
@@ -464,12 +464,12 @@ $validator->printScript();
         </tr>
         <tr>
             <td>
-                <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick'=>'cancelar()')); ?>
+                <?php echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
+                <?php echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick'=>'cancelar()')); ?>
             </td>
         </tr>
     </table>
 </form>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

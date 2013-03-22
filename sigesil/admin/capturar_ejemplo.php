@@ -15,14 +15,14 @@ require('../lib/common/header.php');
     </div>
     <table align="center">
         <tr>
-            <!--td><? echo $html->input('peso', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td-->
+            <!--td><?php echo $html->input('peso', '', array('type' => 'text', 'class' => 'estilo_campos')); ?></td-->
             <div id="capturarPeso"></div>
             <td>
-                <? echo $html->input('capturar1', 'capturar1', array('type' => 'button')); ?>
+                <?php echo $html->input('capturar1', 'capturar1', array('type' => 'button')); ?>
             </td>
         </tr>
     </table>   
 <form>
-<?
+<?php
 require('../lib/common/footer.php');
 ?>

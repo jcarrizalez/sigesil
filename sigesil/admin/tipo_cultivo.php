@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('../lib/core.lib.php');
 
 $cultivoTipo = new TipoCultivo();
@@ -34,26 +34,26 @@ $validator->printScript();
     }
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
-    <? echo $html->input('CultivoTipo.id', $infoCultivoTipo[0]['id'], array('type' => 'hidden')); ?>
+    <?php echo $html->input('CultivoTipo.id', $infoCultivoTipo[0]['id'], array('type' => 'hidden')); ?>
     <div id="titulo_modulo">
         NUEVO TIPO DE CULTIVO<br/><hr/>
     </div>
     <table align="center">
         <tr>
             <td><span class="msj_rojo">* </span>Nombre </td>
-            <td><? echo $html->input('CultivoTipo.nombre', $infoCultivoTipo[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><?php echo $html->input('CultivoTipo.nombre', $infoCultivoTipo[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td>&nbsp;</td>
         </tr>
         <tr align="center">
             <td colspan="2">
-                <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
+                <?php echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
+                <?php echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
             </td>
         </tr>
     </table>
 </form>
-<?
+<?php
 require('../lib/common/footer.php');
 ?>

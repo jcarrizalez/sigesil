@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('../lib/core.lib.php');
 
 $orden = new Orden();
@@ -47,7 +47,7 @@ switch ($GPC['ac']) {
         /*?>
             <script type="text/javascript">
                 $(document).ready(function(){
-                    var ced = "<?=trim($infoOr[0]['ced_cliente'])?>";
+                    var ced = "<?php echo trim($infoOr[0]['ced_cliente'])?>";
                     $('#orden').load('../ajax/detalle_despacho.php?ac=clienteOrden&cp='+ced);
                 });
             </script>
@@ -103,7 +103,7 @@ require('../lib/common/init_calendar.php');
     }
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
-    <? echo $html->input('Orden.id', $infoOr[0]['id'], array('type' => 'hidden')); ?>
+    <?php echo $html->input('Orden.id', $infoOr[0]['id'], array('type' => 'hidden')); ?>
     <div id="titulo_modulo">
         ORDEN DE DESPACHO<br/><hr/>
     </div>
@@ -112,7 +112,7 @@ require('../lib/common/init_calendar.php');
             <tr>
                 <td><span class="msj_rojo">* </span>Nro Orden </td>
                 <td>
-                    <?
+                    <?php
                         if($GPC['ac'] == 'editar')
                             echo $html->input('Orden.numero_orden', $infoOr[0]['numero_orden'], array('type' => 'text', 'length' => '8', 'class' => 'estilo_campos positive', 'readOnly' => true));
                         else
@@ -124,7 +124,7 @@ require('../lib/common/init_calendar.php');
         <!--tr>
             <td><span class="msj_rojo">* </span>Centro de Acopio</td>
             <td>
-                <?
+                <?php
                     if($_SESSION['s_perfil_id'] != ADMINS){
                         if($GPC['ac'] == 'editar')
                             echo $html->select('Orden.id_centro_acopio',array('options'=>$listadoCA, 'selected' => $infoOr[0]['id_centro_acopio'], 'default' => 'Seleccione', 'class' => 'estilo_campos gen_cod', 'readOnly' => true));
@@ -140,7 +140,7 @@ require('../lib/common/init_calendar.php');
         <tr>
             <td><span class="msj_rojo">* </span>Cultivo</td>
             <td>
-                <?
+                <?php
                     if($GPC['ac'] == 'editar')
                         echo $html->select('Orden.id_cultivo',array('options'=>$listadoC, 'selected' => $infoOr[0]['id_cultivo'], 'default' => 'Seleccione', 'class' => 'estilo_campos gen_cod', 'readOnly' => true));
                     else
@@ -152,7 +152,7 @@ require('../lib/common/init_calendar.php');
             <tr>
                 <td><span class="msj_rojo">* </span>C&eacute;dula/Rif Cliente</td>
                 <td>
-                    <?
+                    <?php
                         echo $html->select('nacion', array('options'=>$listaCR, 'selected' => substr(trim($infoOr[0]['ced_cliente']), 0, 1)));
                         echo "&nbsp;".$html->input('Cliente.ced_rif', substr(trim($infoOr[0]['ced_cliente']), 1), array('type' => 'text', 'length' => '10', 'style' => 'width: 150px', 'class' => 'positive'));
                         
@@ -161,13 +161,13 @@ require('../lib/common/init_calendar.php');
                             <tr>
                                 <td><span class="msj_rojo">* </span>Nombre </td>
                                 <td>
-                                    <?
+                                    <?php
                                         echo $html->input('Cliente.nombre', trim($infoOr[0]['nombre_cliente']), array('type' => 'text', 'readOnly' => true, 'class' => 'estilo_campos'));
                                         echo $html->input('Orden.id_cliente', trim($infoOr[0]['id_cliente']), array('type' => 'hidden'));
                                     ?>
                                 </td>
                             </tr>
-                            <?
+                            <?php
                         }
                     ?>
                 </td>
@@ -176,7 +176,7 @@ require('../lib/common/init_calendar.php');
         <tr>
             <td><span class="msj_rojo">* </span>Fecha de Emisi&oacute;n: </td>
             <td>
-                <?
+                <?php
                     echo $html->input('Orden.fecha_emision', $general->date_sql_screen($infoOr[0]['fecha_emision'], '', 'es', '-'), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true));
                     if(empty($infoOr)){
                 ?>
@@ -190,21 +190,21 @@ require('../lib/common/init_calendar.php');
                         onSelect   : function() { this.hide() }
                     });
                 </script>
-                <? } ?>
+                <?php } ?>
             </td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Toneladas </td>
-            <td><? echo $html->input('Orden.toneladas', $infoOr[0]['toneladas'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
+            <td><?php echo $html->input('Orden.toneladas', $infoOr[0]['toneladas'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Descuento </td>
-            <td><? echo $html->select('Orden.descuento', array('options'=>$listaD, 'selected' => $infoOr[0]['descuento'], 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
+            <td><?php echo $html->select('Orden.descuento', array('options'=>$listaD, 'selected' => $infoOr[0]['descuento'], 'default' => 'Seleccione', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>C&oacute;digo de Verificaci&oacute;n </td>
             <td>
-                <?
+                <?php
                     if($GPC['ac'] == 'editar')
                         echo $html->input('Orden.cod_verificacion', $infoOr[0]['cod_verificacion'], array('type' => 'text', 'class' => 'estilo_campos positive', 'readOnly' => true));
                     else
@@ -218,13 +218,13 @@ require('../lib/common/init_calendar.php');
         </tr>
         <tr align="center">
             <td colspan="2">
-                <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
+                <?php echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
+                <?php echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
             </td>
         </tr>
     </table>
 </form>
-<?
+<?php
 $validator = new Validator('form1');
 $validator->printIncludes();
 $validator->setRules('Orden.id_centro_acopio', array('required' => array('value' => true, 'message' => 'Requerido')));

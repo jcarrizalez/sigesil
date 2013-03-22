@@ -1,4 +1,4 @@
-<?
+<?php
 /* VALIDADOR  V.1.0
 	EN ESTE EJEMPLO asumimos QUE EL FORM SE LLAMA form1 <form name="form1">
 	asumimos tambien que hay un input text box que  se llama txttitle <input type="text" name="txttitle">

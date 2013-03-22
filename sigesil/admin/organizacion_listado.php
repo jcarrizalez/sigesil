@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
     
     $org = new Organizacion();
@@ -35,7 +35,7 @@
         ORGANIZACIONES<br/><hr/>
     </div>
     <div id="mensajes">
-        <?
+        <?php
             switch($GPC['msg']){
                 case 'exitoso':
                     echo "<span class='msj_verde'>Registro Guardado !</span>";
@@ -50,7 +50,7 @@
         <table width="100%">
             <tr id="botones">
                 <td colspan="3">
-                    <?
+                    <?php
                         $general->crearAcciones($acciones, '', 1);
                         echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
                     ?>
@@ -70,33 +70,33 @@
             <th>Municipio</th>
             <th>Acci&oacute;n</th>
         </tr>
-        <?
+        <?php
             $i=0;
             foreach($listadoOrg as $dataOrg){
             $clase = $general->obtenerClaseFila($i);
         ?>
-        <tr class="<?=$clase?>">
-            <td align="center"><?=$dataOrg['codigo']?></td>
-            <td align="center"><?=$dataOrg['nombre']?></td>
-            <td><?=$dataOrg['rif']?></td>
-            <td><?=$dataOrg['telefono']?></td>
-            <td align="center"><?=$dataOrg['email']?></td>
-            <td align="center"><?=$dataOrg['pais']?></td>
-            <td align="center"><?=$dataOrg['estado']?></td>
-            <td align="center"><?=$dataOrg['municipio']?></td>
+        <tr class="<?php echo $clase?>">
+            <td align="center"><?php echo $dataOrg['codigo']?></td>
+            <td align="center"><?php echo $dataOrg['nombre']?></td>
+            <td><?php echo $dataOrg['rif']?></td>
+            <td><?php echo $dataOrg['telefono']?></td>
+            <td align="center"><?php echo $dataOrg['email']?></td>
+            <td align="center"><?php echo $dataOrg['pais']?></td>
+            <td align="center"><?php echo $dataOrg['estado']?></td>
+            <td align="center"><?php echo $dataOrg['municipio']?></td>
             <td align="center">
-                <?
+                <?php
                     $urls = array(1 => "organizacion.php?ac=editar&id=".$dataOrg['id'], "organizacion_listado.php?ac=eliminar&id=".$dataOrg['id']."&estatus=f");
                     $general->crearAcciones($acciones, $urls);
                 ?>
             </td>
         </tr>
-        <? $i++; } ?>
+        <?php $i++; } ?>
         <tr>
             
             <td colspan="6">&nbsp;</td>
         </tr>
     </table>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

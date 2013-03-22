@@ -45,7 +45,7 @@
     CUARENTENAS PENDIENTES<hr/>    
 </div> 
 <div id="mensajes">
-    <?
+    <?php
         switch($GPC['msg']){
             case 'exitoso':
                 echo "<span class='msj_verde'>Registro Guardado !</span>";
@@ -58,12 +58,12 @@
 </div>
 <div id="filtro">
     <form name="form1" id="form1" method="POST" action="" enctype="multipart/form-data">
-        <? echo $html->input('ac', 'Buscar', array('type' => 'hidden'));?>
+        <?php echo $html->input('ac', 'Buscar', array('type' => 'hidden'));?>
         <table width="100%" border="0">            
             <tr>
                 <td width="110">Cultivo</td>                
                 <td colspan="2">
-                    <?
+                    <?php
                         echo $html->select('idCosecha',array('options'=>$listaCo, 'selected' => $GPC['idCosecha'], 'default' => 'Seleccione'));
                     ?>
                 </td>
@@ -71,12 +71,12 @@
             <tr>
                 <td width="110">Numero</td>
                 <td>
-                <?= $html->input('numEntrada', $numEntrada, array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'class' => 'cuadricula positive')); 
+                <?php echo $html->input('numEntrada', $numEntrada, array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'class' => 'cuadricula positive')); 
                 ?></td>
             </tr>
             <tr id="botones">
                 <td colspan="3">
-                    <?
+                    <?php
                         echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
                         $general->crearAcciones($acciones, '', 1);    
                         echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
@@ -87,7 +87,7 @@
     </form>
 </div><hr/>
 <div id="paginador">
-        <?
+        <?php
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
             $paginador->print_paginator('pulldown');
@@ -95,21 +95,21 @@
     </div>
     <table align="center" width="100%" border="0">
         <tr align="center" class="titulos_tabla"> 
-        <?
+        <?php
             if ($_SESSION['s_perfil_id']==GERENTEG) {
         ?>
             <th>Centro de Acopio</th>
-        <?
+        <?php
             }
             if ($_SESSION['s_mov']=='rec') {
         ?>        
             <th width="85px">Nro Entrada</th>
-        <?
+        <?php
             }
             else {
         ?>        
             <th width="85px">Nro Salida</th>
-        <?
+        <?php
             }
         ?>
             <th>Cultivo</th>
@@ -119,7 +119,7 @@
             <th>Estatus</th>
             <th>Acci&oacute;n</th>
         </tr> 
-        <?
+        <?php
             $i=0;
             foreach($listadoRecepcion as $dataRecepcion){
                 foreach($listadoCtna as $dataCtna) {
@@ -134,16 +134,16 @@
                 
             $clase = $general->obtenerClaseFila($i);
         ?>
-        <tr class="<?=$clase?>">
+        <tr class="<?php echo $clase?>">
             
-        <?
+        <?php
             if ($_SESSION['s_perfil_id']==GERENTEG) {
 
                 echo '<td>'.$dataRecepcion['ca_codigo'].' - '.$dataRecepcion['centro_acopio'].'</td>';
             }
         ?>
             <td align="center">
-        <?
+        <?php
             if ($_SESSION['mov']=='rec') {
                 $numero = ($dataRecepcion['numero'] < 10) ? '0'.$dataRecepcion['numero'] : $dataRecepcion['numero'];
                 $numEntrada = "R".$numero."-".$general->date_sql_screen($dataRecepcion['fecha_recepcion'], '', 'es', null);
@@ -157,34 +157,34 @@
             }
         ?>
             </td>
-            <td align="left"><?=$dataRecepcion['cultivo_codigo'].' - '.$dataRecepcion['cultivo_nombre']?></td>
-            <td align="center"><?=$dataRecepcion['numero_guia'] ?></td>
-            <td align="center"><?=$general->date_sql_screen($dataRecepcion['creado'], '', $lang="es", $sep="-")?></td>
-            <td align="center"><?=$general->date_sql_screen($dataRecepcion['fecha_lib'], '', $lang="es", $sep="-")?></td>
-            <td align="center"><?
+            <td align="left"><?php echo $dataRecepcion['cultivo_codigo'].' - '.$dataRecepcion['cultivo_nombre']?></td>
+            <td align="center"><?php echo $dataRecepcion['numero_guia'] ?></td>
+            <td align="center"><?php echo $general->date_sql_screen($dataRecepcion['creado'], '', $lang="es", $sep="-")?></td>
+            <td align="center"><?php echo $general->date_sql_screen($dataRecepcion['fecha_lib'], '', $lang="es", $sep="-")?></td>
+            <td align="center"><?php
             //=$dataRecepcion['estatus_rec']
             echo '<img src="../images/cuarentena.png" width="16" height="16" title=Cuarentena>';            
             ?></td>
             <td align="center">
-                <?
+                <?php
                     $urls = array(1 => 'cuarentena_pendiente.php?ac=editar&id='.$dataRecepcion['id']);
                     $general->crearAcciones($acciones, $urls);
                 ?>
             </td>
         </tr>
-        <? $i++; } ?>
+        <?php $i++; } ?>
         <tr>
             
             <td colspan="6">&nbsp;</td>
         </tr>
     </table>
     <div id="paginador">
-        <?
+        <?php
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
             $paginador->print_paginator('pulldown');
         ?>
     </div>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

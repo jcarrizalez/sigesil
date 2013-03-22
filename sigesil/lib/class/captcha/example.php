@@ -53,7 +53,7 @@ function checkSubmit(){
 	  
       <td><iframe src="../captcha/php_captcha.php" id="iframe1" frameborder="0"  height="50px" width="110px" style="border: 0px;" scrolling="no" marginheight="5px" marginwidth="0px"></iframe>
         <img src="../captcha/reload_icon.png"  marginheight="0px" marginwidth="0px"  onclick="Reload();refreshCaptcha();" vspace="19"/>
-        <input id="cap_code" type="hidden" name="cap_code" value="<?=$_SESSION['captcha_val']?>" />
+        <input id="cap_code" type="hidden" name="cap_code" value="<?php echo $_SESSION['captcha_val']?>" />
 		
       </td>
 	  

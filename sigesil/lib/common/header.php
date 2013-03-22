@@ -1,4 +1,4 @@
-<?
+<?php
 if(file_exists(APPROOT.'lib/core.lib.php'))
     require_once(APPROOT.'lib/core.lib.php');
 else 
@@ -40,12 +40,12 @@ else
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
-        <title><?=SYSTEM_NAME?></title>
+        <title><?php echo SYSTEM_NAME?></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link href="<?=DOMAIN_ROOT?>images/favicon.ico" rel="shortcut icon" />
-        <link href="<?=DOMAIN_ROOT?>css/frontend.css" rel="stylesheet" type="text/css" />
-        <link href="<?=DOMAIN_ROOT?>css/jquery-ui-1.8.17.custom.css" rel="stylesheet" type="text/css" />
-        <?
+        <link href="<?php echo DOMAIN_ROOT?>images/favicon.ico" rel="shortcut icon" />
+        <link href="<?php echo DOMAIN_ROOT?>css/frontend.css" rel="stylesheet" type="text/css" />
+        <link href="<?php echo DOMAIN_ROOT?>css/jquery-ui-1.8.17.custom.css" rel="stylesheet" type="text/css" />
+        <?php
             $javascript->includeFile('jquery/jquery-1.7.1.min.js');
             $javascript->includeFile('jquery/jquery-ui-1.8.17.custom.min.js');
             $javascript->includeFile('jquery/jquery.validate.js');
@@ -133,16 +133,16 @@ else
                 <div id="global_sep">
                     <div id="datos_usuario">
                         <span>
-                            <span style="font-weight: bold;">Centro Acopio:</span><?="&nbsp;($codigoCA)"?>
-                            <span style="font-weight: bold; padding-left: 5px;">Usuario:</span><?="&nbsp;$usuario"?>
-                            <span style="font-weight: bold; padding-left: 5px;">Perfil:</span><?="&nbsp;$perfil"?>
+                            <span style="font-weight: bold;">Centro Acopio:</span><?php echo "&nbsp;($codigoCA)"?>
+                            <span style="font-weight: bold; padding-left: 5px;">Usuario:</span><?php echo "&nbsp;$usuario"?>
+                            <span style="font-weight: bold; padding-left: 5px;">Perfil:</span><?php echo "&nbsp;$perfil"?>
                         </span>
                     </div>
                 </div>
                 <div id="menu">
                     <div id="boton_inicio">
-                        <a href="<?=DOMAIN_ROOT?>pages/principal.php"><img alt="Inicio" title="Inicio" src="../images/inicio.png" /></a>
-                        <a href="<?=DOMAIN_ROOT?>pages/cerrar_sesion.php"><img alt="Salir" title="Salir" src="../images/salir.png" /></a>
+                        <a href="<?php echo DOMAIN_ROOT?>pages/principal.php"><img alt="Inicio" title="Inicio" src="../images/inicio.png" /></a>
+                        <a href="<?php echo DOMAIN_ROOT?>pages/cerrar_sesion.php"><img alt="Salir" title="Salir" src="../images/salir.png" /></a>
                     </div>
                     <?php require(APPROOT.'/lib/common/menu.php'); ?>
                     <!--div id="logo_menu"><img alt="Agropatria" title="Agropatria" src="../images/logo_agropatria.png"/></div-->

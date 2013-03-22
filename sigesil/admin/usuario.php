@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('../lib/core.lib.php');
 
 $usuario = new Usuario();
@@ -93,7 +93,7 @@ $validator->printScript();
     });
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
-    <?
+    <?php
     echo $html->input('Usuario.id', $infoUsuario[0]['id'], array('type' => 'hidden'));
     echo $html->input('Perfil.id', $infoUsuario[0]['id_u_p'], array('type' => 'hidden'));
     ?>
@@ -105,20 +105,20 @@ $validator->printScript();
         <table align="center">
             <tr>
                 <td><span class="msj_rojo">* </span>Nombres </td>
-                <td><? echo $html->input('Usuario.nombre', $infoUsuario[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><?php echo $html->input('Usuario.nombre', $infoUsuario[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>Apellidos </td>
-                <td><? echo $html->input('Usuario.apellido', $infoUsuario[0]['apellido'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><?php echo $html->input('Usuario.apellido', $infoUsuario[0]['apellido'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>C&eacute;dula </td>
-                <td id="cedula"><? echo $html->input('Usuario.cedula', $infoUsuario[0]['cedula'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
+                <td id="cedula"><?php echo $html->input('Usuario.cedula', $infoUsuario[0]['cedula'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
             </tr>
             <tr>
                 <td>Fecha Nacimiento </td>
                 <td>
-                    <? echo $html->input('Usuario.fecha_nacimiento', $general->date_sql_screen($infoUsuario[0]['fecha_nacimiento'], '', 'es', '-'), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?>
+                    <?php echo $html->input('Usuario.fecha_nacimiento', $general->date_sql_screen($infoUsuario[0]['fecha_nacimiento'], '', 'es', '-'), array('type' => 'text', 'class' => 'estilo_campos', 'readOnly' => true)); ?>
                     <img src="../images/calendario.png" id="fnac" width="16" height="16" style="cursor:pointer" />
                     <script>
                         Calendar.setup({
@@ -130,39 +130,39 @@ $validator->printScript();
                         });
                     </script>
                 </td>
-                <!--td><? echo $html->input('Usuario.fecha_nacimiento', $infoUsuario[0]['fecha_nacimiento'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td-->
+                <!--td><?php echo $html->input('Usuario.fecha_nacimiento', $infoUsuario[0]['fecha_nacimiento'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td-->
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>Sexo </td>
-                <td><? echo $html->select('Usuario.sexo', array('options' => $listaSexo, 'selected' => $infoUsuario[0]['sexo'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
+                <td><?php echo $html->select('Usuario.sexo', array('options' => $listaSexo, 'selected' => $infoUsuario[0]['sexo'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
             </tr>
             <tr>
                 <td>Direccion </td>
-                <td><? echo $html->input('Usuario.direccion', $infoUsuario[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><?php echo $html->input('Usuario.direccion', $infoUsuario[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td>Tel&eacute;fono </td>
-                <td><? echo $html->input('Usuario.telefono', $infoUsuario[0]['telefono'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><?php echo $html->input('Usuario.telefono', $infoUsuario[0]['telefono'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td>Email </td>
-                <td><? echo $html->input('Usuario.email', $infoUsuario[0]['email'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td><?php echo $html->input('Usuario.email', $infoUsuario[0]['email'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>Estatus </td>
-                <td><? echo $html->select('Usuario.estatus', array('options' => $listaEstatus, 'selected' => $infoUsuario[0]['estatus'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
+                <td><?php echo $html->select('Usuario.estatus', array('options' => $listaEstatus, 'selected' => $infoUsuario[0]['estatus'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>Usuario </td>
-                <td id="valid_usu"><? echo $html->input('Usuario.usuario', $infoUsuario[0]['usuario'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+                <td id="valid_usu"><?php echo $html->input('Usuario.usuario', $infoUsuario[0]['usuario'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>Contrase&ntilde;a </td>
-                <td><? echo $html->input('verif_con', '', array('type' => 'password', 'class' => 'estilo_campos')); ?></td>
+                <td><?php echo $html->input('verif_con', '', array('type' => 'password', 'class' => 'estilo_campos')); ?></td>
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>Confirmar Contrase&ntilde;a </td>
-                <td><? echo $html->input('Usuario.contrasena', '', array('type' => 'password', 'class' => 'estilo_campos')); ?></td>
+                <td><?php echo $html->input('Usuario.contrasena', '', array('type' => 'password', 'class' => 'estilo_campos')); ?></td>
             </tr>
         </table>
     </fieldset>
@@ -171,13 +171,13 @@ $validator->printScript();
         <table align="center">
             <tr>
                 <td><span class="msj_rojo">* </span>Centro de Acopio </td>
-                <td><? echo $html->select('centro_acopio', array('options' => $listaCA, 'selected' => $infoUsuario[0]['id_ca'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
+                <td><?php echo $html->select('centro_acopio', array('options' => $listaCA, 'selected' => $infoUsuario[0]['id_ca'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>Almacen </td>
                 <td>
                     <div id="almacenes">
-                        <? echo $html->select('almacen', array('options' => $listaAlmacenes, 'selected' => $infoUsuario[0]['id_al'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?>
+                        <?php echo $html->select('almacen', array('options' => $listaAlmacenes, 'selected' => $infoUsuario[0]['id_al'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?>
                     </div>
                 </td>
             </tr>
@@ -185,7 +185,7 @@ $validator->printScript();
                 <td><span class="msj_rojo">* </span>Perfil </td>
                 <td>
                     <div id="perfiles">
-                        <? echo $html->select('perfil', array('options' => $listaPerfiles, 'selected' => $infoUsuario[0]['id_perfil'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?>
+                        <?php echo $html->select('perfil', array('options' => $listaPerfiles, 'selected' => $infoUsuario[0]['id_perfil'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?>
                     </div>
                 </td>
             </tr>
@@ -197,12 +197,12 @@ $validator->printScript();
         </tr>
         <tr align="center">
             <td colspan="2">
-                <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
+                <?php echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
+                <?php echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
             </td>
         </tr>
     </table>
 </form>
-<?
+<?php
 require('../lib/common/footer.php');
 ?>

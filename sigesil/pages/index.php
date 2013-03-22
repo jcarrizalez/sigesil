@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
     require('../lib/common/header_externo.php');
 ?>
@@ -64,9 +64,9 @@
         <img src="../images/bienvenido.png" width="700" height="180" />
     </div>
     <div id="mostrar_error">
-        <span><?=$etiqueta['loginerror']?></span>
+        <span><?php echo $etiqueta['loginerror']?></span>
     </div>
-    <? echo $html->input('verifOp', '', array('type' => 'hidden')); ?>
+    <?php echo $html->input('verifOp', '', array('type' => 'hidden')); ?>
     <table id="table_login" align="center" border="0">
         <tr>
             <td id="mostrar_error2" colspan="2">
@@ -95,12 +95,12 @@
         </td>
         </tr>
         <tr>
-            <td class="labelText" width="1"><?=$etiqueta['txtUsuario']?></td>
-            <td align="right"><? echo $html->input('usuario', '', array('type' => 'text', 'class' => 'inputLogin')); ?></td>
+            <td class="labelText" width="1"><?php echo $etiqueta['txtUsuario']?></td>
+            <td align="right"><?php echo $html->input('usuario', '', array('type' => 'text', 'class' => 'inputLogin')); ?></td>
         </tr>
         <tr>
-            <td class="labelText"><?=$etiqueta['txtContrasena']?></td>
-            <td align="right"><? echo $html->input('pass', '', array('type' => 'password', 'class' => 'inputLogin')); ?></td>
+            <td class="labelText"><?php echo $etiqueta['txtContrasena']?></td>
+            <td align="right"><?php echo $html->input('pass', '', array('type' => 'password', 'class' => 'inputLogin')); ?></td>
         </tr>
         <tr align="center">
             <td colspan="2">
@@ -109,7 +109,7 @@
         </tr>
         <tr align="center">
             <td colspan="2">
-                <? echo $html->input('tmptxt', '', array('type' => 'text', 'class' => 'inputLogin')); ?>
+                <?php echo $html->input('tmptxt', '', array('type' => 'text', 'class' => 'inputLogin')); ?>
             </td>
         </tr>
         <tr align="center">
@@ -122,12 +122,12 @@
         </tr>
         <tr align="center">
             <td colspan="2">
-                <? echo $html->input('Entrar', $etiqueta['txtEntrar'], array('type' => 'button', 'class' => 'btnLogin', 'onClick' => 'javascript:changeop(1);')); ?>
-                <? echo $html->input('Cancelar', $etiqueta['txtCancelar'], array('type' => 'reset', 'class' => 'btnLogin', 'onClick'=>'cancelar()')); ?>
+                <?php echo $html->input('Entrar', $etiqueta['txtEntrar'], array('type' => 'button', 'class' => 'btnLogin', 'onClick' => 'javascript:changeop(1);')); ?>
+                <?php echo $html->input('Cancelar', $etiqueta['txtCancelar'], array('type' => 'reset', 'class' => 'btnLogin', 'onClick'=>'cancelar()')); ?>
             </td>
         </tr>
     </table>
 </form>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

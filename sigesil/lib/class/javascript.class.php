@@ -1,4 +1,4 @@
-<? 
+<?php 
 class Javascript 
 {
 	//Control Variables

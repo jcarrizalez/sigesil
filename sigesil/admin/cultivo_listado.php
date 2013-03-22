@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
     
     $cultivo = new Cultivo();
@@ -50,7 +50,7 @@
         CULTIVOS<br/><hr/>
     </div>
     <div id="mensajes">
-        <?
+        <?php
             switch($GPC['msg']){
                 case 'exitoso':
                     echo "<span class='msj_verde'>Registro Guardado !</span>";
@@ -64,19 +64,19 @@
     <div id="filtro">
         <form name="form1" id="form1" method="GET" action="" enctype="multipart/form-data">
             <table width="100%">
-                <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+                <?php if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
                 <tr>
                     <td width="110">Centro de Acopio:</td>
                     <td colspan="2">
-                        <?
+                        <?php
                             echo $html->select('id_ca',array('options'=>$listaCA, 'selected' => $GPC['id_ca'], 'class' => 'estilo_campos'));
                         ?>
                     </td>
                 </tr>
-                <? } ?>
+                <?php } ?>
                 <tr id="botones">
                     <td colspan="3">
-                        <?
+                        <?php
                             echo $html->input('Buscar', 'Buscar', array('type' => 'submit'));
                             $general->crearAcciones($acciones, '', 1);
                             echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
@@ -87,7 +87,7 @@
         </form>
     </div><hr/>
     <div id="paginador">
-        <?
+        <?php
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
             $paginador->print_paginator('pulldown');
@@ -100,17 +100,17 @@
             <th>Ciclo</th>
             <th>Acci&oacute;n</th>
         </tr>
-        <?
+        <?php
             $i=0;
             foreach($listadoCultivos as $dataCultivo){
                 $clase = $general->obtenerClaseFila($i);
         ?>
-        <tr class="<?=$clase?>">
-            <td align="center"><?=$dataCultivo['codigo']?></td>
-            <td><?=$dataCultivo['nombre']?></td>
-            <td align="center"><?=$dataCultivo['ciclo']?></td>
+        <tr class="<?php echo $clase?>">
+            <td align="center"><?php echo $dataCultivo['codigo']?></td>
+            <td><?php echo $dataCultivo['nombre']?></td>
+            <td align="center"><?php echo $dataCultivo['ciclo']?></td>
             <td align="center">
-                <?
+                <?php
                     $urls = array(1 => 'cultivo.php?ac=editar&id='.$dataCultivo['id'], 'cultivo_listado.php?ac=eliminar&id='.$dataCultivo['id']."&estatus=f");
                     $general->crearAcciones($acciones, $urls);
                     //if(in_array($_SESSION['s_perfil_id'], array(CALIDADG, CALIDADS))){
@@ -119,19 +119,19 @@
                 ?>
             </td>
         </tr>
-        <? $i++; } ?>
+        <?php $i++; } ?>
         <tr>
             
             <td colspan="3">&nbsp;</td>
         </tr>
     </table>
     <div id="paginador">
-        <?
+        <?php
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
             $paginador->print_paginator('pulldown');
         ?>
     </div>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

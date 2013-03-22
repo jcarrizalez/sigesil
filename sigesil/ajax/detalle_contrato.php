@@ -18,7 +18,7 @@
                             alert('Este Productor ya posee un contrato para esta Cosecha');
                         });
                     </script>
-                    <?
+                    <?php
                 }else{
                     echo "&nbsp;".$html->select('nacionalidad',array('options'=>$listaNacion, 'selected' => substr(trim($infoProductor[0]['ced_rif']), 0, 1)));
                     echo "&nbsp;".$html->input('productor', substr(trim($infoProductor[0]['ced_rif']), 1), array('type' => 'text', 'length' => '10', 'class' => 'positive', 'style' => 'width:152px'));
@@ -34,7 +34,7 @@
                         alert('Cedula/Rif No Encontrado');
                     });
                 </script>
-                <?
+                <?php
             }
         break;
         case 'buscar':
@@ -46,7 +46,7 @@
                         alert('El Nro de Contrato ya existe');
                     });
                 </script>
-                <?
+                <?php
             }else{
                 echo $html->input('Contrato.nro_contrato', $GPC['nro'], array('type' => 'text', 'class' => 'estilo_campos'));
             }

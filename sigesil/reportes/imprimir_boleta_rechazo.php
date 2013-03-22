@@ -47,7 +47,7 @@
 <script type="text/javascript">
 window.onload=function() {
     window.print();
-    window.location = '<?=DOMAIN_ROOT?>admin/analisis_resultado_listado.php?msg=exitoso';
+    window.location = '<?php echo DOMAIN_ROOT?>admin/analisis_resultado_listado.php?msg=exitoso';
 }
 </script>
 <table id="tabla_reporte" border="0" width="800">
@@ -57,7 +57,7 @@ window.onload=function() {
     <tr>
         <td width="200">ENTRADA Nro:</td>
         <td colspan="2">
-        <?
+        <?php
             echo "R".$Rechazo[0]['numero']."-".$general->date_sql_screen($Rechazo[0]['fecha_recepcion'], '', 'es', '');
         ?>
         </td>
@@ -66,12 +66,12 @@ window.onload=function() {
         <td width="200">PROPIEDAD DE:</td>        
         <td colspan="2" width="120"><?echo $Rechazo[0]['ced_productor']." ".$Rechazo[0]['productor_nombre']; ?></td>
     </tr>
-    <? if(!empty($Rechazo[0]['ced_asociacion'])){ ?>
+    <?php if(!empty($Rechazo[0]['ced_asociacion'])){ ?>
     <tr>
         <td width="200">ASOCIACI&Oacute;N:</td>        
         <td width="120"><?echo $Rechazo[0]['ced_asociacion']." ".$Rechazo[0]['asociacion_nombre']; ?></td>
     </tr>
-    <?    
+    <?php    
         }
         if(!empty($dataMovimiento[0]['ced_asociado'])){
     ?>
@@ -79,7 +79,7 @@ window.onload=function() {
         <td width="200">ASOCIACIADO:</td>
         <td width="120"><?echo $Rechazo[0]['ced_asociado']." ".$Rechazo[0]['asociado_nombre']; ?></td>
     </tr>
-    <?    
+    <?php    
         }
     ?>
     <tr>
@@ -113,27 +113,27 @@ window.onload=function() {
     <tr>
         <td colspan="3">&nbsp;</td>
     </tr>
-<? 
+<?php 
 foreach($rechazados as $dataRechazado) {     
     ?>    
     <tr>    
-        <td colspan="2"><?=$dataRechazado['codigo'].' - '.$dataRechazado['nombre']; ?></td>
-        <td><?=$dataRechazado['muestra']; ?></td>
+        <td colspan="2"><?php echo $dataRechazado['codigo'].' - '.$dataRechazado['nombre']; ?></td>
+        <td><?php echo $dataRechazado['muestra']; ?></td>
     </tr>
-    <?
+    <?php
     }
 ?>    
 </table>
 <table border="0" width="800" style="padding-top: 35px;" class="centrar">
     <tr align="center">
-        <td colspan="2"><?=str_repeat('_',30)?></td>
-        <td><?=str_repeat('_',30)?></td>
+        <td colspan="2"><?php echo str_repeat('_',30)?></td>
+        <td><?php echo str_repeat('_',30)?></td>
     </tr>
     <tr align="center">
         <td colspan="2">Fiscal</td>
         <td>Productor/Conductor</td>
     </tr>
 </table>
-<?
+<?php
     require_once("../lib/common/footer_reportes.php");    
 ?>

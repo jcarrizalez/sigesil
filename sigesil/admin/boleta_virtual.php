@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');   
     require('../lib/common/header.php');
     
@@ -31,43 +31,43 @@
     <table align="center">
         <tr>
             <td>Tipo de Movimiento</td>
-            <td><? echo $html->select('id_mov', array('options' => $listaMov, 'default' => 'Seleccione', 'class' => 'estilo_campos verifPeso')) ?></td>
+            <td><?php echo $html->select('id_mov', array('options' => $listaMov, 'default' => 'Seleccione', 'class' => 'estilo_campos verifPeso')) ?></td>
         </tr>
         <tr>
             <td>Cultivo</td>
-            <td><? echo $html->select('id_cultivo', array('options' => $listaCultivos, 'default' => 'Seleccione', 'class' => 'estilo_campos verifPeso')) ?></td>
+            <td><?php echo $html->select('id_cultivo', array('options' => $listaCultivos, 'default' => 'Seleccione', 'class' => 'estilo_campos verifPeso')) ?></td>
         </tr>
         <tr>
             <td>%Humedad Motriz</td>
-            <td><? echo $html->input('humedad1', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
+            <td><?php echo $html->input('humedad1', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
         </tr>
         <tr>
             <td>%Impureza Motriz</td>
-            <td><? echo $html->input('impureza1', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
+            <td><?php echo $html->input('impureza1', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
         </tr>
         <tr>
             <td>Peso Lleno Motriz Kgrs</td>
-            <td><? echo $html->input('peso_01l', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
+            <td><?php echo $html->input('peso_01l', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
         </tr>
         <tr>
             <td>Peso Vac&iacute;o Motriz Kgrs</td>
-            <td><? echo $html->input('peso_01v', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
+            <td><?php echo $html->input('peso_01v', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
         </tr>
         <tr>
             <td>%Humedad Remolque/Batea</td>
-            <td><? echo $html->input('humedad2', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
+            <td><?php echo $html->input('humedad2', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
         </tr>
         <tr>
             <td>%Impureza Remolque/Batea</td>
-            <td><? echo $html->input('impureza2', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
+            <td><?php echo $html->input('impureza2', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
         </tr>
         <tr>
             <td>Peso Lleno Remolque/Batea Kgrs</td>
-            <td><? echo $html->input('peso_02l', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
+            <td><?php echo $html->input('peso_02l', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
         </tr>
         <tr>
             <td>Peso Vac&iacute;o Remolque/Batea Kgrs</td>
-            <td><? echo $html->input('peso_02v', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
+            <td><?php echo $html->input('peso_02v', '', array('type' => 'text', 'class' => 'estilo_campos positive verifPeso')); ?></td>
         </tr>
         <tbody id="resultado"></tbody>
         <tr>
@@ -75,13 +75,13 @@
         </tr>
         <tr align="center">
             <td colspan="2">
-                <?
+                <?php
                     echo $html->input('Regresar', 'Regresar', array('type' => 'button', 'onClick' => 'regresar();'));
                 ?>
             </td>
         </tr>
     </table>
 </form>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

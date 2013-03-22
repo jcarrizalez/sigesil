@@ -27,7 +27,7 @@ if ($GPC['tipo_mov']=='D') {
         <th>Acci&oacute;n</th>
         <th>Estatus</th>
     </tr>    
-    <?    
+    <?php    
     $i=0;
     foreach($listadoM as $mov) {
         $infoCA=$centroAcopio->buscarCA($mov['id_centro_acopio']);
@@ -36,12 +36,12 @@ if ($GPC['tipo_mov']=='D') {
         $infoCultivo=$cultivo->find(array('id' => $id_cultivo));
         $clase = $general->obtenerClaseFila($i); 
     ?>
-    <tr class="<?=$clase?>">
-        <td><?= $infoCA[0]['codigo'].' - '.$infoCA[0]['nombre']; ?></td>
-        <td><?= $mov['numero']; ?></td>
-        <td><?= $infoCultivo[0]['codigo'].' - '.$infoCultivo[0]['nombre']; ?></td>
+    <tr class="<?php echo $clase?>">
+        <td><?php echo $infoCA[0]['codigo'].' - '.$infoCA[0]['nombre']; ?></td>
+        <td><?php echo $mov['numero']; ?></td>
+        <td><?php echo $infoCultivo[0]['codigo'].' - '.$infoCultivo[0]['nombre']; ?></td>
         <td>
-        <? 
+        <?php 
         if ($GPC['tipo_mov']=='R')
             echo $general->date_sql_screen($mov['fecha_recepcion']);
         if ($GPC['tipo_mov']=='D')
@@ -49,7 +49,7 @@ if ($GPC['tipo_mov']=='D') {
         ?>
         </td>
     </tr>
-    <?    
+    <?php    
     $i++;
     }
     ?>

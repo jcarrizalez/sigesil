@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
 
     $analisis = new Analisis();
@@ -56,46 +56,46 @@
     });
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
-    <? echo $html->input('Analisis.id', $infoAnalisis[0]['id'], array('type' => 'hidden')); ?>
+    <?php echo $html->input('Analisis.id', $infoAnalisis[0]['id'], array('type' => 'hidden')); ?>
     <div id="titulo_modulo">
         ANALISIS<br/><hr/>
     </div>
     <table align="center">
         <tr>
             <td><span class="msj_rojo">* </span>Organizaci&oacute;n</td>
-            <td><? echo $html->select('Analisis.id_org', array('options' => $listaOrg, 'selected' => $infoAnalisis[0]['id_org'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
+            <td><?php echo $html->select('Analisis.id_org', array('options' => $listaOrg, 'selected' => $infoAnalisis[0]['id_org'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Codigo</td>
-            <td id="codigo"><? echo $html->input('Analisis.codigo', $infoAnalisis[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
+            <td id="codigo"><?php echo $html->input('Analisis.codigo', $infoAnalisis[0]['codigo'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Nombre</td>
-            <td><? echo $html->input('Analisis.nombre', $infoAnalisis[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><?php echo $html->input('Analisis.nombre', $infoAnalisis[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Tipo</td>
-            <td><? echo $html->select('Analisis.tipo_analisis', array('options' => $listaTipo, 'selected' => $infoAnalisis[0]['tipo_analisis'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
+            <td><?php echo $html->select('Analisis.tipo_analisis', array('options' => $listaTipo, 'selected' => $infoAnalisis[0]['tipo_analisis'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Estatus</td>
-            <td><? echo $html->select('Analisis.estatus', array('options' => $estatus, 'selected' => $infoAnalisis[0]['estatus'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
+            <td><?php echo $html->select('Analisis.estatus', array('options' => $estatus, 'selected' => $infoAnalisis[0]['estatus'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td>Formula</td>
-            <td><? echo $html->select('Analisis.formula', array('options' => $listaFormula, 'selected' => $infoAnalisis[0]['formula'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
+            <td><?php echo $html->select('Analisis.formula', array('options' => $listaFormula, 'selected' => $infoAnalisis[0]['formula'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td>&nbsp;</td>
         </tr>
         <tr align="center">
             <td colspan="2">
-                <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
+                <?php echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
+                <?php echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
             </td>
         </tr>
     </table>
 </form>
-<?
+<?php
 require('../lib/common/footer.php');
 ?>

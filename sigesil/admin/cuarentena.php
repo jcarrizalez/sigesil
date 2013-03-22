@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('../lib/core.lib.php');
 
 $Ctna = new Cuarentena();
@@ -207,7 +207,7 @@ $validator->printScript();
 ?>
 <script type="text/javascript">
     function cancelar(){
-        window.location = '<?=DOMAIN_ROOT?>/admin/analisis_resultado_listado.php?mov=<?=$_SESSION["s_mov"]?>&lab=<?=$_SESSION["s_lab"]?>';
+        window.location = '<?php echo DOMAIN_ROOT?>/admin/analisis_resultado_listado.php?mov=<?php echo $_SESSION["s_mov"]?>&lab=<?php echo $_SESSION["s_lab"]?>';
     }
     
     function sumarFecha(fecha1, fecha2) {        
@@ -369,13 +369,13 @@ $validator->printScript();
         });
         
         $('#Rechazar').click(function() {
-            if (confirm("<?= $html->unhtmlize($etiqueta['M_Rechazo']); ?>"))
-                window.location = '?ac=rechazar&id=<?=$GPC["id"] ?>';
+            if (confirm("<?php echo $html->unhtmlize($etiqueta['M_Rechazo']); ?>"))
+                window.location = '?ac=rechazar&id=<?php echo $GPC["id"] ?>';
         });
         
         $('#Liberar').click(function() {
             if (confirm('EL MOVIMIENTO SERA LIBERADA ESTA SEGURO QUE DESEA LIBERAR!!!'))
-                window.location = '?ac=liberar&id=<?=$GPC["id"] ?>';            
+                window.location = '?ac=liberar&id=<?php echo $GPC["id"] ?>';            
         });
         
         $('.contable').live('change', function(){
@@ -392,8 +392,8 @@ $validator->printScript();
         });
         
         $('#tipoInsecto').change(function() {             
-            $('#insectos').load('../ajax/detalle_cuarentena.php?ac=nuevo&idCA='+<?=$_SESSION['s_ca_id']; ?>+'&idCtna='+<?=$id_cuarentena; ?>+'&cantidad='+$(this).val());
-            //alert('../ajax/detalle_cuarentena.php?ac=nuevo&idCA='+<?=$_SESSION['s_ca_id']; ?>+'&idCtna='+<?=$id_cuarentena; ?>+'&cantidad='+$(this).val());
+            $('#insectos').load('../ajax/detalle_cuarentena.php?ac=nuevo&idCA='+<?php echo $_SESSION['s_ca_id']; ?>+'&idCtna='+<?php echo $id_cuarentena; ?>+'&cantidad='+$(this).val());
+            //alert('../ajax/detalle_cuarentena.php?ac=nuevo&idCA='+<?php echo $_SESSION['s_ca_id']; ?>+'&idCtna='+<?php echo $id_cuarentena; ?>+'&cantidad='+$(this).val());
         });
         
         $("#form1").submit(function(){
@@ -469,7 +469,7 @@ $validator->printScript();
     }
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
-    <? 
+    <?php 
     echo $html->input('id', $GPC['id'], array('type' => 'hidden')); ?>
     <div id="titulo_modulo">
         CUARENTENA<br/><hr/>
@@ -479,32 +479,32 @@ $validator->printScript();
         <table align="center" border="0">
             <tr>
                 <td align="left">Nro. Entrada</td>
-                <td><? echo $html->input('Recepcion.numero', $infoRecepcion[0]['numero'], array('type' => 'text', 'class' => 'estilo_campos cuadricula', 'readOnly' => true)); ?></td>
+                <td><?php echo $html->input('Recepcion.numero', $infoRecepcion[0]['numero'], array('type' => 'text', 'class' => 'estilo_campos cuadricula', 'readOnly' => true)); ?></td>
                 <td width="50"></td>
                 <td align="left">Fecha</td>
-                <td><? echo $html->input('Cuarentena.fecha_mov', $general->date_sql_screen($infoCtna[0]['fecha_mov'], '', 'es', '-'), array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
+                <td><?php echo $html->input('Cuarentena.fecha_mov', $general->date_sql_screen($infoCtna[0]['fecha_mov'], '', 'es', '-'), array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Cultivo</td>
-                <td colspan="4"><? echo $html->select('Cuarentena.id_cultivo', array('options' => $listaCultivos, 'selected' => $infoCtna[0]['id_cultivo'], 'readOnly' => true)); ?></td>
+                <td colspan="4"><?php echo $html->select('Cuarentena.id_cultivo', array('options' => $listaCultivos, 'selected' => $infoCtna[0]['id_cultivo'], 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Kilogramos Aprox.</td>
-                <td colspan="4"><? echo $html->input('', $infoGuia[0]['kilogramos'], array('type' => 'text', 'readOnly' => true, 'class' => 'crproductor')); ?></td>
+                <td colspan="4"><?php echo $html->input('', $infoGuia[0]['kilogramos'], array('type' => 'text', 'readOnly' => true, 'class' => 'crproductor')); ?></td>
             </tr>
             <tr>
                 <td>Vehiculo Placa</td>
-                <td><? echo $html->input('', $infoVehiculo[0]['placa'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
+                <td><?php echo $html->input('', $infoVehiculo[0]['placa'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
                 <td width="50"></td>
                 <td>Placa Rem:</td>            
-                <td><? echo $html->input('', $infoGuia[0]['placa_remolques'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
+                <td><?php echo $html->input('', $infoGuia[0]['placa_remolques'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
             </tr>
             <tr>
                 <td>Chofer Cedula</td>
-                <td><? echo $html->input('', $infoGuia[0]['cedula_chofer'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
+                <td><?php echo $html->input('', $infoGuia[0]['cedula_chofer'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
                 <td width="50"></td>
                 <td>Chofer Nombre</td>
-                <td><? echo $html->input('', $infoGuia[0]['nombre_chofer'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
+                <td><?php echo $html->input('', $infoGuia[0]['nombre_chofer'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => true)); ?></td>
             </tr>
         </table>        
     </fieldset> 
@@ -514,7 +514,7 @@ $validator->printScript();
             <tr>
                 <td align="left">Observacion</td>
                 <td align="center">
-                    <textarea name="Cuarentena[observa_admon]" cols="50" rows="2" id="Cuarentena[observa_admon]" readonly="true"><?=$infoCtna[0]['observa_admon']?></textarea></td>
+                    <textarea name="Cuarentena[observa_admon]" cols="50" rows="2" id="Cuarentena[observa_admon]" readonly="true"><?php echo $infoCtna[0]['observa_admon']?></textarea></td>
             </tr>
         </table>
     </fieldset>
@@ -523,20 +523,20 @@ $validator->printScript();
             <table align="center" border="0">
                 <tr>
                     <td align="center colspan="2">Tipos de Insectos</td>
-                    <?
+                    <?php
                     if ($soloLectura) {
                     ?>
-                        <td align="left"><? echo $html->select('tipoInsecto', array('options' => range(0,count($listaPlagas)), 'selected'=>count($listaCP), 'readOnly' => $soloLectura)); ?></td>                
-                    <?
+                        <td align="left"><?php echo $html->select('tipoInsecto', array('options' => range(0,count($listaPlagas)), 'selected'=>count($listaCP), 'readOnly' => $soloLectura)); ?></td>                
+                    <?php
                     } else {
                     ?>                     
                     <td align="left">                    
-                    <? 
+                    <?php 
                     $opciones=range(0,count($listaPlagas));
                     $opciones[0]='SELECCIONE';
                     echo $html->select('tipoInsecto', array('options' => $opciones, 'selected'=>count($listaCP))); ?>
                     </td>
-                    <? 
+                    <?php 
                     }
                     ?>
                 </tr>
@@ -544,19 +544,19 @@ $validator->printScript();
         <div id="insectos">
             <table align="center" border="0">
                 <tr align="center" class="titulos_tabla">
-                <? if (!empty($listaCP)) { ?>
+                <?php if (!empty($listaCP)) { ?>
                     <th>Insecto</th>
                     <th>Muestra</th>
                     <th>Valor</th>
                 </tr>
-                <? }
+                <?php }
                 $i=0;
                 foreach($listaCP as $dataCP) {
                     $clase = $general->obtenerClaseFila($i); 
                 ?>
-                <tr class="<?=$clase?>">
+                <tr class="<?php echo $clase?>">
                     <td>
-                    <? 
+                    <?php 
                     if ($soloLectura)
                         echo $html->select('dataCP_id_'.$i, array('options' => $listaPlagas, 'selected' => $dataCP['id_plaga'], 'default' =>'Seleccione', 'readOnly' => true, 'class'=>'plaga')); 
                     else
@@ -564,7 +564,7 @@ $validator->printScript();
                     ?>
                     </td>                    
                     <td>
-                    <?
+                    <?php
                     if ($soloLectura)
                         echo $html->select('esContable_'.$i, array('options' => array('C'=>'CONTABLE','I'=>'INCONTABLE'), 'selected' => (($dataCP['cantidad'] >= 0) ? 'C': 'I'), 'default' =>'Seleccione', 'readOnly' => $soloLectura,'class' => 'contable'));
                     else
@@ -572,7 +572,7 @@ $validator->printScript();
                     ?>
                     </td>
                     <td>
-                    <?                
+                    <?php                
                         if ($dataCP['cantidad'] >= 0)                        
                             echo $html->input('dataCP_cantidad_'.$i, $dataCP['cantidad'], array('type' => 'text', 'class' => 'crproductor', 'readOnly' => $soloLectura, 'class' => 'estilo_campos cuadricula positive'));
                         else
@@ -580,7 +580,7 @@ $validator->printScript();
                     ?>      
                     </td>
                 </tr>
-                <? 
+                <?php 
                 $i++;
                 }
                 ?>
@@ -594,7 +594,7 @@ $validator->printScript();
             <tr>
                 <td>Producto</td>
                 <td colspan="4">
-                <?
+                <?php
                 if ($soloLectura)
                     echo $html->select('Cuarentena.id_producto', array('options' => $listaProductos, 'selected' => $infoCtna[0]['id_producto'], 'default' =>'Seleccione', 'class'=>'calcular_dosis', 'readOnly' => true)); 
                 else
@@ -604,15 +604,15 @@ $validator->printScript();
             </tr>
             <tr>
                 <td>Toneladas Aprox.</td>
-                <td><? echo $html->input('Cuarentena.toneladas', $infoCtna[0]['toneladas'], array('type' => 'text', 'readOnly' => $soloLectura, 'class' => 'crproductor calcular_dosis positive')); ?></td>
+                <td><?php echo $html->input('Cuarentena.toneladas', $infoCtna[0]['toneladas'], array('type' => 'text', 'readOnly' => $soloLectura, 'class' => 'crproductor calcular_dosis positive')); ?></td>
                 <td width="50"></td>
                 <td>Dosis Estimada</td>
-                <td id="calculo"><? echo $html->input('Cuarentena.cant_producto', $infoCtna[0]['cant_producto'], array('type' => 'text', 'readOnly' => true, 'class' => 'crproductor positive')); ?></td>
+                <td id="calculo"><?php echo $html->input('Cuarentena.cant_producto', $infoCtna[0]['cant_producto'], array('type' => 'text', 'readOnly' => true, 'class' => 'crproductor positive')); ?></td>
             </tr>
             <tr>
                 <td>Fecha Fumigaci&oacute;n</td>
                 <td>
-                <? 
+                <?php 
                 echo $html->input('Cuarentena.fecha_cultivo', $general->date_sql_screen($infoCtna[0]['fecha_cultivo'], '', 'es', '-'), array('type' => 'text', 'readOnly' => true, 'class' => 'crproductor')); 
                 if (!$soloLectura) {
                 ?>
@@ -626,18 +626,18 @@ $validator->printScript();
                     onSelect   : function() { verificar_fecha(); this.hide() }
                 });
             </script>
-                <? } ?>
+                <?php } ?>
             </td>
             <td width="50"></td>
             <td>Hora Fumigaci&oacute;n</td>
-            <td><? echo $html->input('Cuarentena.hora_trab', $infoCtna[0]['hora_trab'], array('type' => 'text', 'readOnly' => true, 'disabled' => $soloLectura,'class' => 'crproductor')); ?></td>
+            <td><?php echo $html->input('Cuarentena.hora_trab', $infoCtna[0]['hora_trab'], array('type' => 'text', 'readOnly' => true, 'disabled' => $soloLectura,'class' => 'crproductor')); ?></td>
             </tr>
             <tr>
                 <td>Fecha Liberaci&oacute;n</td>
-                <td><? echo $html->input('Cuarentena.fecha_lib', $general->date_sql_screen($infoCtna[0]['fecha_lib'],'','es','-'), array('type' => 'text', 'readOnly' => true, 'class' => 'crproductor')); ?></td>
+                <td><?php echo $html->input('Cuarentena.fecha_lib', $general->date_sql_screen($infoCtna[0]['fecha_lib'],'','es','-'), array('type' => 'text', 'readOnly' => true, 'class' => 'crproductor')); ?></td>
                 <td width="50"></td>
                 <td>Hora Liberaci&oacute;n</td>
-                <td><? echo $html->input('Cuarentena.hora_lib', $infoCtna[0]['hora_lib'], array('type' => 'text', 'readOnly' => true, 'class' => 'crproductor')); ?></td>                
+                <td><?php echo $html->input('Cuarentena.hora_lib', $infoCtna[0]['hora_lib'], array('type' => 'text', 'readOnly' => true, 'class' => 'crproductor')); ?></td>                
             </tr>               
         </table>
     </fieldset>        
@@ -648,15 +648,15 @@ $validator->printScript();
             <tr>
                 <td align="left">Observacion</td>
                 <td align="center">
-                <?
+                <?php
                     if ($soloLectura) {
                 ?>
-                    <textarea name="Cuarentena[observa_lab]" cols="50" rows="2" id="Cuarentena[observa_lab]" readonly=<?=!$soloLectura;?>><?=$infoCtna[0]['observa_lab']?></textarea></td>
-                <?
+                    <textarea name="Cuarentena[observa_lab]" cols="50" rows="2" id="Cuarentena[observa_lab]" readonly=<?php echo !$soloLectura;?>><?php echo $infoCtna[0]['observa_lab']?></textarea></td>
+                <?php
                     } else {
                 ?>
-                        <textarea name="Cuarentena[observa_lab]" cols="50" rows="2" id="Cuarentena[observa_lab]"><?=$infoCtna[0]['observa_lab']?></textarea></td>
-                <? } ?>
+                        <textarea name="Cuarentena[observa_lab]" cols="50" rows="2" id="Cuarentena[observa_lab]"><?php echo $infoCtna[0]['observa_lab']?></textarea></td>
+                <?php } ?>
                 </td>
             </tr>
         </table>
@@ -667,7 +667,7 @@ $validator->printScript();
         </tr>
         <tr>
             <td>                
-                <?
+                <?php
                 $fecha=date('d-m-Y',strtotime(''.$infoCtna[0]['fecha_lib'])).' '.$infoCtna[0]['hora_lib'];
                 if (empty($infoCtna[0]['estatus'])) {
                     echo $html->input('Guardar', 'Guardar', array('type' => 'submit'));                
@@ -682,6 +682,6 @@ $validator->printScript();
         </tr>        
     </table>
 </form>
-<?
+<?php
 require('../lib/common/footer.php');
 ?>

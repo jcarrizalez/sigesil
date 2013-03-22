@@ -1,4 +1,4 @@
-<?
+<?php
 class Debug {
 	public static $executeQueryPage = null;
 	public static $dump_info = null;

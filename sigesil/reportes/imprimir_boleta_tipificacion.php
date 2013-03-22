@@ -19,7 +19,7 @@ $tipificacion = new Recultipo();
 <script type="text/javascript">
 window.onload=function() {
     window.print();
-    window.location = '<?=DOMAIN_ROOT?>admin/analisis_resultado_listado.php?msg=exitoso';
+    window.location = '<?php echo DOMAIN_ROOT?>admin/analisis_resultado_listado.php?msg=exitoso';
 }
 </script>
 <div id="titulo_reporte">
@@ -30,34 +30,34 @@ window.onload=function() {
     <tr>
         <td width="200px">N&Uacute;MERO</td>
         <td width="150px">
-            <?= $listaR[0]['numero']; ?>
+            <?php echo $listaR[0]['numero']; ?>
         </td>
     </tr>
     <tr>
         <td >FECHA</td>
-        <td><?= $general->date_sql_screen($listaR[0]['fecha_recepcion'], '', 'es', '-'); ?></td>
+        <td><?php echo $general->date_sql_screen($listaR[0]['fecha_recepcion'], '', 'es', '-'); ?></td>
     </tr>
     <tr>
         <td >CHOFER</td>
-        <td><?= $listaR[0]['ced_chofer']; ?></td>
-        <td><?= $listaR[0]['chofer_nombre']; ?></td>
+        <td><?php echo $listaR[0]['ced_chofer']; ?></td>
+        <td><?php echo $listaR[0]['chofer_nombre']; ?></td>
     </tr>
     <tr>
         <td >VEHICULOS PLACAS</td>
-        <td><?= $listaR[0]['placa']; ?></td>
-        <td><?= $listaR[0]['placa_remolque']; ?></td>
+        <td><?php echo $listaR[0]['placa']; ?></td>
+        <td><?php echo $listaR[0]['placa_remolque']; ?></td>
     </tr>
     <tr>
         <td>TOLVA DE DESCARGA</td>
-        <td><?= $listaR[0]['tolva']; ?></td>
-        <td><?= $listaT[0]['tipo']; ?></td>
+        <td><?php echo $listaR[0]['tolva']; ?></td>
+        <td><?php echo $listaT[0]['tipo']; ?></td>
     </tr>
 </table>
 <table border="0" width="800" style="padding-top: 35px;" class="centrar">
     <tr align="center">
-        <td><?=str_repeat('_',30)?></td>
-        <td><?=str_repeat('_',30)?></td>
-        <td><?=str_repeat('_',30)?></td>
+        <td><?php echo str_repeat('_',30)?></td>
+        <td><?php echo str_repeat('_',30)?></td>
+        <td><?php echo str_repeat('_',30)?></td>
     </tr>
     <tr align="center">
         <td>Fiscal</td>
@@ -65,6 +65,6 @@ window.onload=function() {
         <td>Productor/Conductor</td>
     </tr>
 </table>
-<?    
+<?php    
     require_once("../lib/common/footer_reportes.php");
 ?>

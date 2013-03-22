@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('../lib/core.lib.php');
 
 $productor = new Productor();
@@ -87,19 +87,19 @@ $validator->printScript();
     });
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
-    <? echo $html->input('Productor.id', $infoProductor[0]['id'], array('type' => 'hidden')); ?>
+    <?php echo $html->input('Productor.id', $infoProductor[0]['id'], array('type' => 'hidden')); ?>
     <div id="titulo_modulo">
        PRODUCTOR<br/><hr/>
     </div>
     <table align="center">
         <tr>
             <td><span class="msj_rojo">* </span>Organizaci&oacute;n</td>
-            <td><? echo $html->select('Productor.id_org', array('options' => $listaOrg, 'selected' => $infoProductor[0]['id_org'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
+            <td><?php echo $html->select('Productor.id_org', array('options' => $listaOrg, 'selected' => $infoProductor[0]['id_org'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Cedula/Rif </td>
             <td id="cedula">
-                <?
+                <?php
                     echo $html->select('nacionalidad',array('options'=>$listaNacion, 'selected' => substr(trim($infoProductor[0]['ced_rif']), 0, 1)));
                     echo "&nbsp;".$html->input('Productor.ced_rif', substr(trim($infoProductor[0]['ced_rif']), 1), array('type' => 'text', 'length' => '10', 'style' => 'width: 151px', 'class' => 'crproductor positive'));
                 ?>
@@ -107,75 +107,75 @@ $validator->printScript();
         </tr>
         <tr>
             <td>Codigo </td>
-            <td><? echo $html->input('Productor.cod_ref', $infoProductor[0]['cod_ref'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><?php echo $html->input('Productor.cod_ref', $infoProductor[0]['cod_ref'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Nombre</td>
-            <td><? echo $html->input('Productor.nombre', $infoProductor[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><?php echo $html->input('Productor.nombre', $infoProductor[0]['nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td>Telefono</td>
-            <td><? echo $html->input('Productor.telefono', $infoProductor[0]['telefono'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
+            <td><?php echo $html->input('Productor.telefono', $infoProductor[0]['telefono'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
         </tr>
         <tr>
             <td>Fax</td>
-            <td><? echo $html->input('Productor.fax', $infoProductor[0]['fax'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
+            <td><?php echo $html->input('Productor.fax', $infoProductor[0]['fax'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
         </tr>
         <tr>
             <td>Email</td>
-            <td><? echo $html->input('Productor.email', $infoProductor[0]['email'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><?php echo $html->input('Productor.email', $infoProductor[0]['email'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td>Direcci&oacute;n</td>
-            <td><? echo $html->input('Productor.direccion', $infoProductor[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><?php echo $html->input('Productor.direccion', $infoProductor[0]['direccion'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td>C&oacute;digo SAP</td>
-            <td><? echo $html->input('Productor.id_sap', $infoProductor[0]['id_sap'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
+            <td><?php echo $html->input('Productor.id_sap', $infoProductor[0]['id_sap'], array('type' => 'text', 'class' => 'estilo_campos positive')); ?></td>
         </tr>        
         <tr>
             <td><span class="msj_rojo">* </span>Pa&iacute;s </td>
-            <td><? echo $html->select('Productor.id_pais', array('options' => $listaP, 'selected' => $infoProductor[0]['id_pais'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
+            <td><?php echo $html->select('Productor.id_pais', array('options' => $listaP, 'selected' => $infoProductor[0]['id_pais'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Estado </td>
-            <td><? echo $html->select('id_estado', array('options' => $listaE, 'selected' => $infoProductor[0]['id_estado'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
+            <td><?php echo $html->select('id_estado', array('options' => $listaE, 'selected' => $infoProductor[0]['id_estado'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Municipio </td>
             <td>
                 <div id="mcpo">
-                    <? echo $html->select('id_municipio', array('options' => $listaM, 'selected' => $infoProductor[0]['id_municipio'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?>
+                    <?php echo $html->select('id_municipio', array('options' => $listaM, 'selected' => $infoProductor[0]['id_municipio'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?>
                 </div>
             </td>
         </tr>
         <tr>
             <td>Coordenadas UTM</td>
-            <td><? echo $html->input('Productor.coordenadas_utm', $infoProductor[0]['coordenadas_utm'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><?php echo $html->input('Productor.coordenadas_utm', $infoProductor[0]['coordenadas_utm'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td><span class="msj_rojo">* </span>Estatus </td>
-            <td><? echo $html->select('Productor.estatus', array('options' => $estatus, 'selected' => $infoProductor[0]['estatus'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
+            <td><?php echo $html->select('Productor.estatus', array('options' => $estatus, 'selected' => $infoProductor[0]['estatus'], 'default' => 'Seleccione', 'class' => 'estilo_campos')) ?></td>
         </tr>
-        <?
+        <?php
             for($i=1; $i<=3; $i++){
         ?>
         <tr align="center">
-            <td colspan="2" class="titulos_tabla" style="font-weight: bold;">Contacto <?=$i?></td>
+            <td colspan="2" class="titulos_tabla" style="font-weight: bold;">Contacto <?php echo $i?></td>
         </tr>
         <tr>
             <td>Nombre </td>
-            <td><? echo $html->input('Productor.contacto'.$i.'_nombre', $infoProductor[0]['contacto'.$i.'_nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><?php echo $html->input('Productor.contacto'.$i.'_nombre', $infoProductor[0]['contacto'.$i.'_nombre'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
         <tr>
             <td>Tel&eacute;fono </td>
-            <td><? echo $html->input('Productor.contacto'.$i.'_telefono', $infoProductor[0]['contacto'.$i.'_telefono'], array('type' => 'text', 'length' => '11', 'class' => 'estilo_campos positive')); ?></td>
+            <td><?php echo $html->input('Productor.contacto'.$i.'_telefono', $infoProductor[0]['contacto'.$i.'_telefono'], array('type' => 'text', 'length' => '11', 'class' => 'estilo_campos positive')); ?></td>
         </tr>
         <tr>
             <td>Email </td>
-            <td><? echo $html->input('Productor.contacto'.$i.'_email', $infoProductor[0]['contacto'.$i.'_email'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
+            <td><?php echo $html->input('Productor.contacto'.$i.'_email', $infoProductor[0]['contacto'.$i.'_email'], array('type' => 'text', 'class' => 'estilo_campos')); ?></td>
         </tr>
-        <?
+        <?php
             }
         ?>
         <tr>
@@ -183,12 +183,12 @@ $validator->printScript();
         </tr>
         <tr align="center">
             <td colspan="2">
-                <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
+                <?php echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
+                <?php echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
             </td>
         </tr>
     </table>
 </form>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

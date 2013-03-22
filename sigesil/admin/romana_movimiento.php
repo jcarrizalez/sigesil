@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
     require('../lib/common/header.php');
 ?>
@@ -18,10 +18,10 @@
     </div>
     <table align="center" width="50%" height="100">
         <tr align="center">
-            <td><? echo $html->input('Recepcion', 'Recepci&oacute;n', array('type' => 'button')); ?></td>
-            <td><? echo $html->input('Despacho', 'Despacho', array('type' => 'button')); ?></td>
+            <td><?php echo $html->input('Recepcion', 'Recepci&oacute;n', array('type' => 'button')); ?></td>
+            <td><?php echo $html->input('Despacho', 'Despacho', array('type' => 'button')); ?></td>
         </tr>
     </table>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

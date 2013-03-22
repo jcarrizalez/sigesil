@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
 
     $cosecha = new Cosecha();
@@ -107,7 +107,7 @@ $validator->printScript();
         ASIGNAR PRODUCTORES POR COSECHA<br/><hr/>
     </div>
     <div id="mensajes">
-        <?
+        <?php
             switch($GPC['msg']){
                 case 'exitoso':
                     echo "<span class='msj_verde'>Registro Guardado !</span>";
@@ -123,12 +123,12 @@ $validator->printScript();
         <table align="center" border="0" cellpadding="0" cellspacing="0">
             <tr>
                 <td><span class="msj_rojo">* </span>Cosecha </td>
-                <td><? echo "&nbsp;".$html->select('id_cosecha', array('options' => $cosechas, 'default' => 'Seleccione', 'class' => 'estilo_campos2')) ?></td>
+                <td><?php echo "&nbsp;".$html->select('id_cosecha', array('options' => $cosechas, 'default' => 'Seleccione', 'class' => 'estilo_campos2')) ?></td>
             </tr>
             <tr>
                 <td><span class="msj_rojo">* </span>Productor </td>
                 <td id="tdPro">
-                    <?
+                    <?php
                         echo "&nbsp;".$html->select('nacionalidad',array('options'=>$listaNacion));
                         echo "&nbsp;".$html->input('id_productor', '', array('type' => 'text', 'length' => '10', 'class' => 'estilo_campos2 positive'));
                         //echo $html->input('id_productor', '', array('class' => 'estilo_campos2'))
@@ -138,7 +138,7 @@ $validator->printScript();
             <tr>
                 <td>Asociaci&oacute;n </td>
                 <td id="tdAon">
-                    <?
+                    <?php
                         echo "&nbsp;".$html->select('nacionalidad2',array('options'=>$listaNacion));
                         echo "&nbsp;".$html->input('id_asociacion', '', array('type' => 'text', 'length' => '10', 'class' => 'estilo_campos2 positive'));
                         //echo $html->input('id_asociacion', '', array('class' => 'estilo_campos2'))
@@ -159,12 +159,12 @@ $validator->printScript();
         </tr>
         <tr>
             <td colspan="2">
-                <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
+                <?php echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
+                <?php echo $html->input('Cancelar', 'Cancelar', array('type' => 'reset', 'onClick' => 'cancelar()')); ?>
             </td>
         </tr>
     </table>
 </form>
-<?
+<?php
 require('../lib/common/footer.php');
 ?>

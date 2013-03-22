@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('../lib/core.lib.php');
 
 $error_code = $GPC['code'];
@@ -9,7 +9,7 @@ $arr_tree = unserialize($obj_dbtools->SQL_error['apperror_text']);
 
 require('../lib/common/header_externo.php');
 ?>
-<? if($_SESSION['s_perfil_id'] != GERENTEG && $_SESSION['s_perfil_id'] != GERENTES){ ?>
+<?php if($_SESSION['s_perfil_id'] != GERENTEG && $_SESSION['s_perfil_id'] != GERENTES){ ?>
 <div id="div_error">
     <p id="text_error">
         Una condicion inesperada a ocurrido. Nuestro equipo de soporte t&eacute;cnico ha sido notificado. Por favor regrese luego e intente nuevamente.
@@ -17,11 +17,11 @@ require('../lib/common/header_externo.php');
         <a href="cerrar_sesion.php" title="Inicio"><strong>INICIO</strong></a>
     </p>
 </div>
-<? }else{ ?>
+<?php }else{ ?>
 <div id="div_error2">
     <p id="text_error2">
         Una condicion inesperada a ocurrido. Nuestro equipo de soporte t&eacute;cnico ha sido notificado. Por favor regrese luego e intente nuevamente.
-        <?
+        <?php
         if (($_SESSION['s_perfil_id'] == GERENTEG || $_SESSION['s_perfil_id'] == GERENTES) && (DEBUG && DEBUG != 0)) {
             echo "<br /><br /><a href=\"#\" onClick=\"document.getElementById('detalle_error').style.display='block';\"  ><strong>Mostrar Error</strong></a>";
         }
@@ -29,12 +29,12 @@ require('../lib/common/header_externo.php');
     </p>
     <div class="detalle_error" id="detalle_error">
         <div id="info_query">
-            <?
+            <?php
             if (($_SESSION['s_perfil_id'] == GERENTEG || $_SESSION['s_perfil_id'] == GERENTES) && (DEBUG && DEBUG != 0)) {
                 for ($i = 0, $max = count($arr_tree); $i < $max; $i++) {
                     ?>
                     <div class="err_child">
-                        <?
+                        <?php
                         echo "Archivo: " . $arr_tree[$i]['file'] . " <strong>in line " . $arr_tree[$i]['line'] . "</strong><br />";
                         echo "Clase: " . $arr_tree[$i]['class'] . "<br />";
                         echo "Funci&oacute;n:" . $arr_tree[$i]['function'];
@@ -42,7 +42,7 @@ require('../lib/common/header_externo.php');
                     for ($i = 0, $max = count($arr_tree); $i < $max; $i++) {
                         ?>
                     </div>	
-                    <?
+                    <?php
                 }
                 echo "<br/><strong>Query:</strong><br>" . $arr_tree[0]['query'] . "<br />";
                 //echo "<strong>Error #: </strong>" . $arr_tree[0]['mysql_errno'] . "<br />";
@@ -53,7 +53,7 @@ require('../lib/common/header_externo.php');
     </div>
 </div>
 
-<?
+<?php
     }
 require('../lib/common/footer.php');
 ?>

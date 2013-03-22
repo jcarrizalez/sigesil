@@ -10,7 +10,7 @@ $objlogs->get_log_id($id_log);
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
         <title><?php echo SYSTEM_NAME ?></title>
-        <link href="<?=DOMAIN_ROOT?>css/frontend.css" rel="stylesheet" type="text/css" />
+        <link href="<?php echo DOMAIN_ROOT?>css/frontend.css" rel="stylesheet" type="text/css" />
         <script language="javascript">
             function closeMessage(){
                 ventana = window.self;
@@ -21,7 +21,7 @@ $objlogs->get_log_id($id_log);
     </head>
     <body>
         <div id="titulo_modulo">
-            REPORTE DE USO<br/><input name="submit" type="submit" onclick="closeMessage()" value="<?="Cerrar"?>" /><hr/>
+            REPORTE DE USO<br/><input name="submit" type="submit" onclick="closeMessage()" value="<?php echo "Cerrar"?>" /><hr/>
         </div>
         <table align="center" width="95%">
             <tr>

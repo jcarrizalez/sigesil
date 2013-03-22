@@ -1,4 +1,4 @@
-<?
+<?php
     require_once('../lib/core.lib.php');
     
     $despacho = new Despacho();
@@ -422,7 +422,7 @@
         CONSULTA DEL GERENTE - DESPACHO<br/><hr/>
     </div>
     <div id="mensajes">
-        <?
+        <?php
             switch($GPC['msg']){
                 case 'error':
                     echo "<span class='msj_rojo'>Ocurri&oacute; un Problema !</span>";
@@ -438,38 +438,38 @@
             </tr>
             <tr>
                 <th style="vertical-align: middle !important">
-                    <? echo $html->link('<img src="../images/peso1.png" width="16" height="16">'); ?>
+                    <?php echo $html->link('<img src="../images/peso1.png" width="16" height="16">'); ?>
                     Romana Vac&iacute;o
                 </th>
-                <td align="center"><?=$tRomanaV?></td>
+                <td align="center"><?php echo $tRomanaV?></td>
             </tr>
             <tr>
                 <th style="vertical-align: middle !important">
-                    <? echo $html->link('<img src="../images/reloj.png" width="16" height="16">'); ?>
+                    <?php echo $html->link('<img src="../images/reloj.png" width="16" height="16">'); ?>
                     Lab. Central
                 </th>
-                <td align="center"><?=$tLabC?></td>
+                <td align="center"><?php echo $tLabC?></td>
             </tr>
             <tr>
                 <th style="vertical-align: middle !important">
-                    <? echo $html->link('<img src="../images/peso1.png" width="26" height="20">'); ?>
+                    <?php echo $html->link('<img src="../images/peso1.png" width="26" height="20">'); ?>
                     Romana Lleno
                 </th>
-                <td align="center"><?=$tRomanaL?></td>
+                <td align="center"><?php echo $tRomanaL?></td>
             </tr>
             <tr>
                 <th style="vertical-align: middle !important">
-                    <? echo $html->link('<img src="../images/deshabilitar.png" width="16" height="16">'); ?>
+                    <?php echo $html->link('<img src="../images/deshabilitar.png" width="16" height="16">'); ?>
                     Rechazado
                 </th>
-                <td align="center"><?=$tRechazo?></td>
+                <td align="center"><?php echo $tRechazo?></td>
             </tr>
             <tr>
                 <th style="vertical-align: middle !important">
-                    <? echo $html->link('<img src="../images/habilitar.png" width="16" height="16">'); ?>
+                    <?php echo $html->link('<img src="../images/habilitar.png" width="16" height="16">'); ?>
                     Despachado
                 </th>
-                <td align="center"><?=$tLiquidado?></td>
+                <td align="center"><?php echo $tLiquidado?></td>
             </tr>
         </table>
     </div>
@@ -477,33 +477,33 @@
         <form name="form1" id="form1" method="GET" action="#">
             <table width="100%" border="0">
                 <tr>
-                    <? if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
+                    <?php if($_SESSION['s_perfil_id'] == GERENTEG){ ?>
                     <td>Centro de Acopio</td>
-                    <td><? echo $html->select('id_ca',array('options'=>$listaCA, 'selected' => $idCA, 'default' => 'Todos', 'class' => 'inputLogin')); ?></td>
-                    <? } ?>
+                    <td><?php echo $html->select('id_ca',array('options'=>$listaCA, 'selected' => $idCA, 'default' => 'Todos', 'class' => 'inputLogin')); ?></td>
+                    <?php } ?>
                 </tr>
                 <tr>
                     <td>Orden</td>
-                    <td><? echo $html->input('orden', $orden, array('type' => 'text', 'class' => 'inputLogin')); ?></td>
+                    <td><?php echo $html->input('orden', $orden, array('type' => 'text', 'class' => 'inputLogin')); ?></td>
                     <td width="150">Salida</td>
-                    <td><? echo $html->input('salida', $salida, array('type' => 'text', 'class' => 'inputLogin')); ?></td>
+                    <td><?php echo $html->input('salida', $salida, array('type' => 'text', 'class' => 'inputLogin')); ?></td>
                 </tr>
                 <tr>
                     <td width="150">Cliente</td>
-                    <td><? echo $html->input('cliente', $cliente, array('type' => 'text', 'class' => 'inputLogin')); ?></td>
+                    <td><?php echo $html->input('cliente', $cliente, array('type' => 'text', 'class' => 'inputLogin')); ?></td>
                     <td>Cultivo</td>
-                    <td><? echo $html->select('id_cultivo',array('options'=>$listadoC, 'selected' => $cultivo, 'default' => 'Todos', 'class' => 'inputLogin'))?></td>
+                    <td><?php echo $html->select('id_cultivo',array('options'=>$listadoC, 'selected' => $cultivo, 'default' => 'Todos', 'class' => 'inputLogin'))?></td>
                 </tr>
                 <tr>
                     <td>Placa</td>
-                    <td><? echo $html->input('placa', $placa, array('type' => 'text', 'class' => 'inputLogin')); ?></td>
+                    <td><?php echo $html->input('placa', $placa, array('type' => 'text', 'class' => 'inputLogin')); ?></td>
                     <td>Estatus</td>
-                    <td><? echo $html->select('estatus',array('options'=>$listadoE, 'selected' => $estatus, 'default' => 'Todos', 'class' => 'inputLogin'))?></td>
+                    <td><?php echo $html->select('estatus',array('options'=>$listadoE, 'selected' => $estatus, 'default' => 'Todos', 'class' => 'inputLogin'))?></td>
                 </tr>
                 <tr>
                     <td width="1">Fecha Despacho Desde</td>
                     <td>
-                        <? echo $html->input('fecha_desD', $fdesD, array('type' => 'text', 'class' => 'inputLogin', 'readOnly' => true)); ?>
+                        <?php echo $html->input('fecha_desD', $fdesD, array('type' => 'text', 'class' => 'inputLogin', 'readOnly' => true)); ?>
                         <img src="../images/calendario.png" id="fdesD" width="16" height="16" style="cursor:pointer" />
                         <script>
                             Calendar.setup({
@@ -517,7 +517,7 @@
                     </td>
                     <td width="1">Fecha Despacho Hasta</td>
                     <td width="240">
-                        <? echo $html->input('fecha_desH', $fdesH, array('type' => 'text', 'class' => 'inputLogin', 'readOnly' => true)); ?>
+                        <?php echo $html->input('fecha_desH', $fdesH, array('type' => 'text', 'class' => 'inputLogin', 'readOnly' => true)); ?>
                         <img src="../images/calendario.png" id="fdesH" width="16" height="16" style="cursor:pointer" />
                         <script>
                             Calendar.setup({
@@ -533,7 +533,7 @@
                 <tr>
                     <td>Fecha Liquidaci&oacute;n Desde</td>
                     <td>
-                        <? echo $html->input('fecha_liqD', $general->date_sql_screen($fliqD, '', 'es', '-'), array('type' => 'text', 'class' => 'inputLogin', 'readOnly' => true)); ?>
+                        <?php echo $html->input('fecha_liqD', $general->date_sql_screen($fliqD, '', 'es', '-'), array('type' => 'text', 'class' => 'inputLogin', 'readOnly' => true)); ?>
                         <img src="../images/calendario.png" id="fliqD" width="16" height="16" style="cursor:pointer" />
                         <script>
                             Calendar.setup({
@@ -547,7 +547,7 @@
                     </td>
                     <td>Fecha Liquidaci&oacute;n Hasta</td>
                     <td width="240">
-                        <? echo $html->input('fecha_liqH', $general->date_sql_screen($fliqH, '', 'es', '-'), array('type' => 'text', 'class' => 'inputLogin', 'readOnly' => true)); ?>
+                        <?php echo $html->input('fecha_liqH', $general->date_sql_screen($fliqH, '', 'es', '-'), array('type' => 'text', 'class' => 'inputLogin', 'readOnly' => true)); ?>
                         <img src="../images/calendario.png" id="fliqH" width="16" height="16" style="cursor:pointer" />
                         <script>
                             Calendar.setup({
@@ -562,7 +562,7 @@
                 </tr>
                 <tr id="botones">
                     <td colspan="4" style="padding-top: 20px;">
-                        <?
+                        <?php
                             echo $html->input('leyenda', 'Estatus', array('type' => 'button'));
                             echo $html->input('ac', 'Buscar', array('type' => 'submit'));
                             echo $html->input('exportar', 'Excel', array('type' => 'submit'));
@@ -572,11 +572,11 @@
                     </td>
                 </tr>
             </table>
-            <? echo $html->input('campos', '6', array('type' => 'hidden')); ?>
+            <?php echo $html->input('campos', '6', array('type' => 'hidden')); ?>
         </form>
     </div><hr/>
     <div id="paginador">
-        <?
+        <?php
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
             $paginador->print_paginator('pulldown');
@@ -586,8 +586,8 @@
         <tr>
             <th colspan="5"></th>
             <th align="center" colspan="2">
-                <? echo $html->input('anterior', '<', array('type' => 'button')); ?>
-                <? echo $html->input('siguiente', '>', array('type' => 'button')); ?>
+                <?php echo $html->input('anterior', '<', array('type' => 'button')); ?>
+                <?php echo $html->input('siguiente', '>', array('type' => 'button')); ?>
             </th>
         </tr>
         <tr align="center" class="titulos_tabla">
@@ -617,7 +617,7 @@
             <th style="display: none;">Peso Acon. Liq. R</th>
             <th width="1">Accion</th>
         </tr>
-        <?
+        <?php
             $i=0;
             $idCA = (!empty($idCA)) ? "_$idCA" : '';
             
@@ -659,14 +659,14 @@
                 $totalPesoAconL += $dataDespacho['peso_acon_liq'];
                 $totalPesoAconL2 += $dataDespacho['peso_acon_liq2'];
         ?>
-        <tr class="<?=$clase?>">
-            <td align="center"><?=$numSalida?></td>
-            <!--td align="center"><?=$dataDespacho['ced_cliente']?></td-->
-            <td align="center"><?=$dataDespacho['cliente_nombre']?></td>
-            <td align="center"><?=$dataDespacho['numero_guia']?></td>
-            <td align="center"><?="(".$dataDespacho['cultivo_codigo'].") ".$dataDespacho['cultivo_nombre']?></td>
+        <tr class="<?php echo $clase?>">
+            <td align="center"><?php echo $numSalida?></td>
+            <!--td align="center"><?php echo $dataDespacho['ced_cliente']?></td-->
+            <td align="center"><?php echo $dataDespacho['cliente_nombre']?></td>
+            <td align="center"><?php echo $dataDespacho['numero_guia']?></td>
+            <td align="center"><?php echo "(".$dataDespacho['cultivo_codigo'].") ".$dataDespacho['cultivo_nombre']?></td>
             <td align="center">
-                <?
+                <?php
                     switch($dataDespacho['estatus_rec']){
                         case 1:
                             echo $html->link('<img src="../images/peso1.png" width="16" height="16">').' Vac&iacute;o';
@@ -692,29 +692,29 @@
                 ?>
             </td>
             
-            <td align="right"><?=$general->formato_numero($dataDespacho['peso_01v'], 3)?></td>
-            <td align="right"><?=$general->formato_numero($dataDespacho['peso_02v'], 3)?></td>
-            <td align="right" style="display: none"><?=$general->formato_numero($dataDespacho['peso_01l'], 3)?></td>
-            <td align="right" style="display: none"><?=$general->formato_numero($dataDespacho['peso_02l'], 3)?></td>
-            <td align="right" style="display: none"><?=$general->formato_numero($pesoBruto, 3)?></td>
-            <td align="right" style="display: none"><?=$general->formato_numero($pesoTara, 3)?></td>
-            <td align="right" style="display: none"><?=$humedad?></td>
-            <td align="right" style="display: none"><?=$humedad2?></td>
-            <td align="right" style="display: none"><?=$general->formato_numero($dataDespacho['humedad_des'], 3)?></td>
-            <td align="right" style="display: none"><?=$general->formato_numero($dataDespacho['humedad_des2'], 3)?></td>
-            <td align="right" style="display: none"><?=$impureza?></td>
-            <td align="right" style="display: none"><?=$impureza2?></td>
-            <td align="right" style="display: none"><?=$general->formato_numero($dataDespacho['impureza_des'], 3)?></td>
-            <td align="right" style="display: none"><?=$general->formato_numero($dataDespacho['impureza_des2'], 3)?></td>
-            <td align="right" style="display: none"><?=$general->formato_numero($dataDespacho['peso_acon'], 3)?></td>
-            <td align="right" style="display: none"><?=$general->formato_numero($dataDespacho['peso_acon2'], 3)?></td>
-            <td align="right" style="display: none"><?=$general->formato_numero($dataDespacho['peso_acon_liq'], 3)?></td>
-            <td align="right" style="display: none"><?=$general->formato_numero($dataDespacho['peso_acon_liq2'], 3)?></td>
+            <td align="right"><?php echo $general->formato_numero($dataDespacho['peso_01v'], 3)?></td>
+            <td align="right"><?php echo $general->formato_numero($dataDespacho['peso_02v'], 3)?></td>
+            <td align="right" style="display: none"><?php echo $general->formato_numero($dataDespacho['peso_01l'], 3)?></td>
+            <td align="right" style="display: none"><?php echo $general->formato_numero($dataDespacho['peso_02l'], 3)?></td>
+            <td align="right" style="display: none"><?php echo $general->formato_numero($pesoBruto, 3)?></td>
+            <td align="right" style="display: none"><?php echo $general->formato_numero($pesoTara, 3)?></td>
+            <td align="right" style="display: none"><?php echo $humedad?></td>
+            <td align="right" style="display: none"><?php echo $humedad2?></td>
+            <td align="right" style="display: none"><?php echo $general->formato_numero($dataDespacho['humedad_des'], 3)?></td>
+            <td align="right" style="display: none"><?php echo $general->formato_numero($dataDespacho['humedad_des2'], 3)?></td>
+            <td align="right" style="display: none"><?php echo $impureza?></td>
+            <td align="right" style="display: none"><?php echo $impureza2?></td>
+            <td align="right" style="display: none"><?php echo $general->formato_numero($dataDespacho['impureza_des'], 3)?></td>
+            <td align="right" style="display: none"><?php echo $general->formato_numero($dataDespacho['impureza_des2'], 3)?></td>
+            <td align="right" style="display: none"><?php echo $general->formato_numero($dataDespacho['peso_acon'], 3)?></td>
+            <td align="right" style="display: none"><?php echo $general->formato_numero($dataDespacho['peso_acon2'], 3)?></td>
+            <td align="right" style="display: none"><?php echo $general->formato_numero($dataDespacho['peso_acon_liq'], 3)?></td>
+            <td align="right" style="display: none"><?php echo $general->formato_numero($dataDespacho['peso_acon_liq2'], 3)?></td>
             <td align="center">
                 <img src="../images/buscar.png" width="16" height="16" title="Detalle" border="0" style="cursor:pointer" onclick="openWindow('gerente_despacho_detalle.php?id=<?php echo $dataDespacho['id'] ?>&ca=<?php echo $dataDespacho['ca_id']?>','','1200','500','visible');return false;">
             </td>
         </tr>
-        <? $i++; } ?>
+        <?php $i++; } ?>
         <tr align="right">
             <th></th>
             <!--th></th-->
@@ -722,36 +722,36 @@
             <th></th>
             <th></th>
             <th>Total:</th>
-            <th><?=$general->formato_numero($totalPesoVM, 3)?></th>
-            <th><?=$general->formato_numero($totalPesoVR, 3)?></th>
-            <th style="display: none"><?=$general->formato_numero($totalPesoLM, 3)?></th>
-            <th style="display: none"><?=$general->formato_numero($totalPesoLR, 3)?></th>
-            <th style="display: none"><?=$general->formato_numero($totalPesoBruto, 3)?></th>
-            <th style="display: none"><?=$general->formato_numero($totalPesoTara, 3)?></th>
-            <th style="display: none"><?=$general->formato_numero($totalH, 3)?></th>
-            <th style="display: none"><?=$general->formato_numero($totalH2, 3)?></th>
-            <th style="display: none"><?=$general->formato_numero($totalHD, 3)?></th>
-            <th style="display: none"><?=$general->formato_numero($totalHD2, 3)?></th>
-            <th style="display: none"><?=$general->formato_numero($totalI, 3)?></th>
-            <th style="display: none"><?=$general->formato_numero($totalI2, 3)?></th>
-            <th style="display: none"><?=$general->formato_numero($totalID, 3)?></th>
-            <th style="display: none"><?=$general->formato_numero($totalID2, 3)?></th>
-            <th style="display: none"><?=$general->formato_numero($totalPesoAcon, 3)?></th>
-            <th style="display: none"><?=$general->formato_numero($totalPesoAcon2, 3)?></th>
-            <th style="display: none"><?=$general->formato_numero($totalPesoAconL, 3)?></th>
-            <th style="display: none"><?=$general->formato_numero($totalPesoAconL2, 3)?></th>
+            <th><?php echo $general->formato_numero($totalPesoVM, 3)?></th>
+            <th><?php echo $general->formato_numero($totalPesoVR, 3)?></th>
+            <th style="display: none"><?php echo $general->formato_numero($totalPesoLM, 3)?></th>
+            <th style="display: none"><?php echo $general->formato_numero($totalPesoLR, 3)?></th>
+            <th style="display: none"><?php echo $general->formato_numero($totalPesoBruto, 3)?></th>
+            <th style="display: none"><?php echo $general->formato_numero($totalPesoTara, 3)?></th>
+            <th style="display: none"><?php echo $general->formato_numero($totalH, 3)?></th>
+            <th style="display: none"><?php echo $general->formato_numero($totalH2, 3)?></th>
+            <th style="display: none"><?php echo $general->formato_numero($totalHD, 3)?></th>
+            <th style="display: none"><?php echo $general->formato_numero($totalHD2, 3)?></th>
+            <th style="display: none"><?php echo $general->formato_numero($totalI, 3)?></th>
+            <th style="display: none"><?php echo $general->formato_numero($totalI2, 3)?></th>
+            <th style="display: none"><?php echo $general->formato_numero($totalID, 3)?></th>
+            <th style="display: none"><?php echo $general->formato_numero($totalID2, 3)?></th>
+            <th style="display: none"><?php echo $general->formato_numero($totalPesoAcon, 3)?></th>
+            <th style="display: none"><?php echo $general->formato_numero($totalPesoAcon2, 3)?></th>
+            <th style="display: none"><?php echo $general->formato_numero($totalPesoAconL, 3)?></th>
+            <th style="display: none"><?php echo $general->formato_numero($totalPesoAconL2, 3)?></th>
         </tr>
         <tr>
             <td colspan="6">&nbsp;</td>
         </tr>
     </table>
     <div id="paginador">
-        <?
+        <?php
             $paginador->print_page_counter('Pag', 'de');
             echo "&nbsp;&nbsp;";
             $paginador->print_paginator('pulldown');
         ?>
     </div>
-<?
+<?php
     require('../lib/common/footer.php');
 ?>

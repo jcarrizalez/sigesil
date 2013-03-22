@@ -2,14 +2,14 @@
             <!--/div>
             <div id="pie_pagina"><hr/>
                     <span>
-                        <?=$etiqueta['txtPiePagina']?>
+                        <?php echo $etiqueta['txtPiePagina']?>
                     </span>
             </div>
         </div>
         </div-->
     </body>
 </html>
-<?
+<?php
     /*if(DEBUG) {
         Debug::$executeQueryPage = DOMAIN_ROOT.'admin/debug_execute_query.php';
         //Debug::showReport(array('hidden'=>true));

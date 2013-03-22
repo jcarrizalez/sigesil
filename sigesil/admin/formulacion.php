@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('../lib/core.lib.php');
 
 $formulas = new Formulas();
@@ -283,9 +283,9 @@ $validator->printScript();
     });
 </script>
 <form name="form1" id="form1" method="POST" action="?ac=guardar" enctype="multipart/form-data">
-    <? echo $html->input('Formula.id', $infoFormula[0]['id'], array('type' => 'hidden')); ?>
-    <? echo $html->input('Cultivo.id', $infoFormula[0]['id'], array('type' => 'hidden')); ?>
-    <? echo $html->input('nroCondicion', 1, array('type' => 'hidden')); ?>
+    <?php echo $html->input('Formula.id', $infoFormula[0]['id'], array('type' => 'hidden')); ?>
+    <?php echo $html->input('Cultivo.id', $infoFormula[0]['id'], array('type' => 'hidden')); ?>
+    <?php echo $html->input('nroCondicion', 1, array('type' => 'hidden')); ?>
     <div id="titulo_modulo">
         F&Oacute;RMULA<br/><hr/>
     </div>
@@ -294,29 +294,29 @@ $validator->printScript();
         <table align="center" width="100%" cellpadding="0" cellspacing="0" border="0">
             <tr>
                 <td width="130">Tipo de Movimiento</td>
-                <td><? echo $html->select('Formula.id_mov', array('options' => $listaMov, 'readOnly' => $disabled, 'selected' => $infoFormula[0]['id_mov'], 'default' => 'Seleccione', 'class' => 'inputGrilla botonera')) ?></td>
+                <td><?php echo $html->select('Formula.id_mov', array('options' => $listaMov, 'readOnly' => $disabled, 'selected' => $infoFormula[0]['id_mov'], 'default' => 'Seleccione', 'class' => 'inputGrilla botonera')) ?></td>
             </tr>
             <tr>
                 <td width="130">Cultivo</td>
-                <td><? echo $html->select('Formula.id_cultivo', array('options' => $listaCultivos, 'readOnly' => $disabled, 'selected' => $infoFormula[0]['id_cultivo'], 'default' => 'Seleccione', 'class' => 'inputGrilla botonera')) ?></td>
+                <td><?php echo $html->select('Formula.id_cultivo', array('options' => $listaCultivos, 'readOnly' => $disabled, 'selected' => $infoFormula[0]['id_cultivo'], 'default' => 'Seleccione', 'class' => 'inputGrilla botonera')) ?></td>
             </tr>
             <tr>
                 <td>Tipo de Formulaci&oacute;n</td>
-                <td><? echo $html->select('Formula.tipo_for', array('options' => $listaTipo, 'readOnly' => $disabled, 'selected' => $infoFormula[0]['tipo_for'], 'default' => 'Seleccione', 'class' => 'inputGrilla botonera')) ?></td>
+                <td><?php echo $html->select('Formula.tipo_for', array('options' => $listaTipo, 'readOnly' => $disabled, 'selected' => $infoFormula[0]['tipo_for'], 'default' => 'Seleccione', 'class' => 'inputGrilla botonera')) ?></td>
             </tr>
             </tr>
             <tbody id="opciones"></tbody>
             <tr>
                 <td>Condici&oacute;n &Uacute;nica</td>
                 <td>
-                    <? echo $html->select('Formula.multiple_cond', array('options' => $listaCondicion, 'readOnly' => $disabled, 'default' => 'Seleccione', 'class' => 'inputGrilla botonera')) ?>
+                    <?php echo $html->select('Formula.multiple_cond', array('options' => $listaCondicion, 'readOnly' => $disabled, 'default' => 'Seleccione', 'class' => 'inputGrilla botonera')) ?>
                 </td>
             </tr>
             <tbody id="btnCondicion" style="visibility: hidden">
                 <tr>
                     <td>&nbsp;</td>
                 <td>
-                <? echo $html->input('agregarcon', 'Agregar Condici&oacute;n', array('type' => 'button')); ?>
+                <?php echo $html->input('agregarcon', 'Agregar Condici&oacute;n', array('type' => 'button')); ?>
                 </td>
                 </tr>
             </tbody>
@@ -325,19 +325,19 @@ $validator->printScript();
             </tr>
         </table>
     </fieldset>
-    <? if($GPC['ac'] != 'editar'){ ?>
+    <?php if($GPC['ac'] != 'editar'){ ?>
     <fieldset id="unica_formula" style="display: none;" class="field_formu">
         <legend>F&oacute;rmula 1</legend>
         <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0">
             <tr>
                 <td>
                     <span class="msj_rojo">* </span>C&oacute;digo de la Formula 
-                    <? echo $html->input('codigo_1', '', array('type' => 'text', 'length' => '10')); ?>
+                    <?php echo $html->input('codigo_1', '', array('type' => 'text', 'length' => '10')); ?>
                 </td>
             </tr>
             <tr>
                 <td align="center" style="padding: 10px 0;">
-                    <?
+                    <?php
                     foreach($parametros->lista as $parametro){
                         echo $html->input("btn_".$parametro['parametro_llave']."_1", $parametro['parametro_llave'], array('type' => 'button', 'class' => 'formula_campos constante'));
                     }
@@ -350,7 +350,7 @@ $validator->printScript();
             <tr>
                 <td align="left">
                     <span id="eval_cond"></span>
-                    <? echo $html->input('formula_exp_1', '', array('type' => 'text', 'class' => 'campo_formula form_exp')); ?>
+                    <?php echo $html->input('formula_exp_1', '', array('type' => 'text', 'class' => 'campo_formula form_exp')); ?>
                 </td>
             </tr>
             <tr>
@@ -361,7 +361,7 @@ $validator->printScript();
             </tr>
             <tr>
                 <td align="center" id="td_1" style="padding: 10px 0;">
-                    <?
+                    <?php
                     foreach($parametros->lista as $parametro){
                         echo $parametro['parametro_llave']."&nbsp;&nbsp;";
                         echo $html->input($parametro['parametro_llave']."_1", '', array('type' => 'text', 'length' => '7', 'class' => 'cuadricula valores positive'));
@@ -371,31 +371,31 @@ $validator->printScript();
             </tr>
             <tr>
                 <td align="center">
-                    <? echo $html->input('formula_eval_1', '', array('type' => 'text', 'readOnly' => true, 'class' => 'campo_formula')); ?>
+                    <?php echo $html->input('formula_eval_1', '', array('type' => 'text', 'readOnly' => true, 'class' => 'campo_formula')); ?>
                 </td>
             </tr>
             <tbody id="resultado_1" class="verif_resul"></tbody>
             <tr align="center">
                 <td style="padding-top: 20px;">
-                    <? echo $html->input('Comprobar_1', 'Comprobar', array('type' => 'button', 'class' => 'comprobar')); ?>
-                    <? echo $html->input('Recuperar_1', 'Corregir Valores', array('type' => 'button', 'class' => 'recuperar')); ?>
+                    <?php echo $html->input('Comprobar_1', 'Comprobar', array('type' => 'button', 'class' => 'comprobar')); ?>
+                    <?php echo $html->input('Recuperar_1', 'Corregir Valores', array('type' => 'button', 'class' => 'recuperar')); ?>
                 </td>
             </tr>
         </table>
     </fieldset>
-    <? }else{ ?>
+    <?php }else{ ?>
     <fieldset id="unica_formula" class="field_formu">
         <legend>F&oacute;rmula 1</legend>
         <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0">
             <tr>
                 <td>
                     <span class="msj_rojo">* </span>C&oacute;digo de la Formula: 
-                    <? echo $html->input('codigo_1', $infoFormula[0]['codigo'], array('type' => 'text', 'length' => '10')); ?>
+                    <?php echo $html->input('codigo_1', $infoFormula[0]['codigo'], array('type' => 'text', 'length' => '10')); ?>
                 </td>
             </tr>
             <tr>
                 <td align="center" style="padding: 10px 0;">
-                    <?
+                    <?php
                     foreach($parametros->lista as $parametro){
                         echo $html->input("btn_".$parametro['parametro_llave']."_1", $parametro['parametro_llave'], array('type' => 'button', 'class' => 'formula_campos constante'));
                     }
@@ -408,7 +408,7 @@ $validator->printScript();
             <tr>
                 <td align="left">
                     <span id="eval_cond">
-                    <?
+                    <?php
                         if($infoFormula[0]['tipo_for'] == 1 && !empty($infoFormula[0]['condicion'])){
                             $condicion = split('=', $infoFormula[0]['condicion']);
                             $rango = split('<', $condicion[1]);
@@ -424,7 +424,7 @@ $validator->printScript();
                         }
                     ?>
                     </span>
-                    <? echo $html->input('formula_exp_1', $infoFormula[0]['formula'], array('type' => 'text', 'class' => 'campo_formula form_exp')); ?>
+                    <?php echo $html->input('formula_exp_1', $infoFormula[0]['formula'], array('type' => 'text', 'class' => 'campo_formula form_exp')); ?>
                 </td>
             </tr>
             <tr>
@@ -435,7 +435,7 @@ $validator->printScript();
             </tr>
             <tr>
                 <td align="center" id="td_1" style="padding: 10px 0;">
-                    <?
+                    <?php
                     foreach($parametros->lista as $parametro){
                         echo $parametro['parametro_llave']."&nbsp;&nbsp;";
                         echo $html->input($parametro['parametro_llave']."_1", '', array('type' => 'text', 'length' => '7', 'class' => 'cuadricula valores positive'));
@@ -445,19 +445,19 @@ $validator->printScript();
             </tr>
             <tr>
                 <td align="center">
-                    <? echo $html->input('formula_eval_1', $infoFormula[0]['formula'], array('type' => 'text', 'readOnly' => true, 'class' => 'campo_formula')); ?>
+                    <?php echo $html->input('formula_eval_1', $infoFormula[0]['formula'], array('type' => 'text', 'readOnly' => true, 'class' => 'campo_formula')); ?>
                 </td>
             </tr>
             <tbody id="resultado_1" class="verif_resul"></tbody>
             <tr align="center">
                 <td style="padding-top: 20px;">
-                    <? echo $html->input('Comprobar_1', 'Comprobar', array('type' => 'button', 'class' => 'comprobar')); ?>
-                    <? echo $html->input('Recuperar_1', 'Corregir Valores', array('type' => 'button', 'class' => 'recuperar')); ?>
+                    <?php echo $html->input('Comprobar_1', 'Comprobar', array('type' => 'button', 'class' => 'comprobar')); ?>
+                    <?php echo $html->input('Recuperar_1', 'Corregir Valores', array('type' => 'button', 'class' => 'recuperar')); ?>
                 </td>
             </tr>
         </table>
     </fieldset>
-    <? } ?>
+    <?php } ?>
     <div id="otraformula" class="field_formu"></div>
     <table align="center" width="100%">
         <tr>
@@ -465,12 +465,12 @@ $validator->printScript();
         </tr>
         <tr align="center">
             <td>
-                <? echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
-                <? echo $html->input('Cancelar', 'Cancelar', array('type' => 'button')); ?>
+                <?php echo $html->input('Guardar', 'Guardar', array('type' => 'submit')); ?>
+                <?php echo $html->input('Cancelar', 'Cancelar', array('type' => 'button')); ?>
             </td>
         </tr>
     </table>
 </form>
-<?
+<?php
 require('../lib/common/footer.php');
 ?>

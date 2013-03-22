@@ -145,12 +145,12 @@
                         $i++;
                     ?>
                     <tr>
-                        <td width="130px">SubGu&iacute;a Nro. <?=$i?></td>
+                        <td width="130px">SubGu&iacute;a Nro. <?php echo $i?></td>
                         <td width="230px">
-                            <?=$html->input('Recepcion.numero_guia_'.$i, $subguia['subguia'], array('type' => 'text', 'class' => 'crproductor subguia')); ?>
+                            <?php echo $html->input('Recepcion.numero_guia_'.$i, $subguia['subguia'], array('type' => 'text', 'class' => 'crproductor subguia')); ?>
                         </td>
                     </tr>            
-                    <?                
+                    <?php                
                     }
                 }
             }
